@@ -1,215 +1,664 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- To translators: you can leave your here -->
-    <!-- Home - Status -->
-    <!-- Home - Adb -->
-    <!-- Home - Wireless Adb -->
-    <string name="home_wireless_adb_title"><![CDATA[Запуск через отладку по Wi-Fi]]></string>
-    <!-- Adb -->
-    <string name="dialog_adb_port">Порт</string>
-    <string name="dialog_adb_invalid_port">Порт – это целое число в диапазоне от 1 до 65535.</string>
-    <string name="adb_pairing">Сопряжение</string>
-    <string name="dialog_adb_pairing_title">Сопряжение с устройством</string>
-    <string name="dialog_adb_pairing_discovery">Поиск службы соединения</string>
-    <string name="dialog_adb_pairing_paring_code">Код сопряжения</string>
-    <string name="paring_code_is_wrong">Неверный код сопряжения.</string>
-    <string name="cannot_connect_port">Не могу подключиться к беспроводной отладке.\n\nПожалуйста,
-        убедитесь, что Shizuku внесен в белый список во всех фаерволах, блокировке рекламы, VPN или
-        подобных приложениях, которые могут ограничивать доступ к сети.</string>
-    <string name="dialog_adb_pairing_message">Пожалуйста, начните спаривать с выполнения следующих
-        шагов:\n- Перейти к разделу «Опции разработчика»\n- Включить «USB отладку» и «беспроводную
-        отладку»\n- Нажать на левую сторону раздела «Беспроводная отладка»\n- Нажмите «Сопарить
-        устройство с кодом сопряжения»\n- Введите код сопряжения в уведомление</string>
-    <string name="dialog_adb_pairing_accessibility_permission">На Android 14 установка/обновление
-        Shizuku с помощью Package Installer отменяет разрешение ^1, необходимое для включения службы
-        специальных возможностей при сопряжении.\n\nЧтобы предоставить его, выполните следующую
-        команду ADB:\n\n^2\n\nПосле выполнения команды вы можете продолжить процесс
-        сопряжения.\n\nПримечание: вы можете обойти это, установив/обновив Shizuku с помощью ADB.</string>
-    <string name="dialog_adb_pairing_accessibility_enable">Включите службу специальных возможностей,
-        чтобы начать процесс сопряжения. Это позволит Shizuku обнаружить код сопряжения.\n\nСлужба
-        специальных возможностей будет отключена после обнаружения кода или через 1 минуту для
-        экономии энергии.</string>
-    <string name="dialog_adb_pairing_accessibility_navigate">Пожалуйста, начните спаривать с
-        выполнения следующих шагов:\n- Перейти к разделу «Опции разработчика»\n- Включить «USB
-        отладку» и «беспроводную отладку»\n- Нажать на левую сторону раздела «Беспроводная
-        отладка»\n- Нажмите «Сопарить устройство с кодом сопряжения». Сидзуку автоматически
-        обнаружит код пары.</string>
-    <string name="adb_pairing_requires_multi_window">Пожалуйста, сначала активируйте режим
-        разделения экрана (многооконный режим).</string>
-    <string name="adb_pairing_requires_multi_window_reason">Система требует, чтобы диалог с
-        сопряжением всегда был видим. Использование режима разделённого экрана единственный способ
-        одновременно видеть это приложение и системный диалог.</string>
-    <string name="adb_error_key_store">Не удаётся сгенерировать ключ для беспроводной
-        отладки.\nВозможно, это связано с поломанным механизмом KeyStore этого устройства.</string>
-    <string name="adb_error_stop_tcp">Не удалось остановить ADB через TCP</string>
-    <string name="adb_pair_required">Пожалуйста, сперва пройдите процедуру сопряжения.</string>
-    <string name="enable">Давать возможность</string>
-    <string name="development_settings">Параметры разработчика</string>
-    <string name="notification_settings">Настройки уведомлений</string>
-    <string name="adb_pairing_tutorial_content_notification">Уведомление от Shizuku поможет
-        завершить процедуру сопряжения.</string>
-    <string name="adb_pairing_tutorial_content_steps">Перейдите в «Настройки разработчика», затем
-        включите «USB debugging» и «Wireless debugging».</string>
-    <string name="adb_pairing_tutorial_content_enter_pairing_code">Нажмите на левую сторону раздела
-        «Беспроводная отладка», затем выберите «Сопряжь устройство с кодом сопряжения». Введите код
-        в уведомлении, чтобы завершить сопряжение.</string>
-    <string name="adb_pairing_tutorial_content_notification_blocked">Процедура сопряжения
-        подразумевает взаимодействие с уведомлением от Shizuku. Для продолжения выдайте Shizuku
-        разрешение на показ уведомлений.</string>
-    <string name="adb_pairing_tutorial_content_miui">На оболочке MIUI может потребоваться сменить
-        параметр в пункте системных настроек «Уведомления» – «Стиль уведомлений» на «Android».</string>
-    <string name="adb_pairing_tutorial_content_miui_2">В противном случае вы можете не суспензовать
-        ввести код пары из уведомления.</string>
-    <string name="adb_pairing_tutorial_content_finish">Вернись к Сидзуку и начни Сидзуку.</string>
-    <string name="adb_pairing_tutorial_content_network">Сидзуку нужно получить доступ к локальной
-        сети. Он управляется сетевым разрешением.</string>
-    <string name="adb_pairing_tutorial_content_network_limation_not_foreground">Некоторые системы
-        (например, MIUI) запрещают приложениям получать доступ к сети, если они невидимы, даже если
-        приложение использует сервис переднего плана. Пожалуйста, отключите функции оптимизации
-        батареи для Shizuku на таких системах.</string>
-    <!-- Home - Root -->
-    <string name="home_root_title"><![CDATA[Запуск (для устройств с root правами)]]></string>
-    <string name="home_root_description"><![CDATA[Если вы используете Magisk, попробуйте %1$s. Для пользователей root он в конечном итоге заменит Shizuku. Обратите внимание, что существующие приложения необходимо немного изменить для использования %2$s.]]></string>
-    <string name="home_root_button_start">Запустить</string>
-    <!-- Home - Application management -->
-    <plurals name="home_app_management_authorized_apps_count">
-        <item quantity="one"><![CDATA[Доступно для %d приложения]]></item>
-        <item quantity="few"><![CDATA[Доступно для %d приложений]]></item>
-        <item quantity="many"><![CDATA[Доступно для %d приложений]]></item>
-        <item quantity="other"><![CDATA[Доступно для %d приложений]]></item>
-    </plurals>
-    <!-- Home - Automation -->
-    <string name="home_automation_dialog_label_action">Действие</string>
-    <string name="home_automation_dialog_label_package">Упаковка</string>
-    <string name="home_automation_dialog_label_class">Сорт</string>
-    <string name="home_automation_dialog_label_target">Цель</string>
-    <!-- Home - Learn more -->
-    <!-- Home - Adb permissions limited -->
-    <!-- Application management -->
-    <string name="app_management_dialog_adb_is_limited_title">Доступ к adb ограничен</string>
-    <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Возможно, что производитель вашего устройства ограничивает доступ к adb.<p>Решение для вашей системы может быть описано <b><a href="%1$s">здесь</a></b>.]]></string>
-    <string name="app_management_toggle_all">Переключить все</string>
-    <!-- Terminal -->
-    <string name="terminal_tutorial_miui">Пользователи сообщают, что MIUI нарушает работу Storage
-        Access Framework, который используется функцией экспорта.</string>
-    <string name="terminal_tutorial_miui_2">Если вы используете MIUI, вам, возможно, придется
-        извлечь файл из папки assets в APK-файле Shizuku.</string>
-    <string name="terminal_tutorial_1">Экспортируйте файлы в новую папку.</string>
-    <string name="terminal_tutorial_1_description">Будут экспортированы два файла: %1$s и %2$s. Если
-        файлы уже существуют в выбранной папке, они будут удалены.</string>
-    <string name="terminal_tutorial_2">Используйте приложение терминала для копирования файлов в его
-        личный каталог.</string>
-    <string name="terminal_tutorial_2_description">Совет: если домашний каталог вашего терминального
-        приложения (~) находится в каталоге личных файлов, размещение файлов там позволит вам
-        запускать %1$s без указания пути.\n\nВ противном случае вы можете создать псевдоним для %2$s
-        в файле конфигурации %3$s вашего терминального приложения.</string>
-    <string name="terminal_tutorial_3">Откройте оболочку с помощью следующей команды:</string>
-    <!-- Settings -->
-    <string name="settings_start_on_boot">Запуск при загрузке</string>
-    <string name="settings_use_system_color">Палитра цветов из системы</string>
-    <string name="settings_watchdog">Сторожевой пес</string>
-    <string name="settings_watchdog_summary">Автоматически перезапускать Shizuku в случае сбоя</string>
-    <string name="settings_tcp_mode">TCP-режим</string>
-    <string name="settings_tcp_mode_summary">"Позволяет Shizuku перезапуститься без Wi-Fi. (Shizuku
-        должен был запуститься один раз после перезагрузки)"</string>
-    <string name="settings_tcp_mode_dialog_close_port">"TCP-порт будет немедленно закрыт. Для
-        повторного включения TCP-режима потребуется Wi-Fi. Продолжить?"</string>
-    <string name="settings_restart_dialog_title">Требуется перезагрузка</string>
-    <string name="settings_restart_dialog_message">Сидзуку нужно начать заново, чтобы применить этот
-        сеттинг.</string>
-    <string name="settings_restart_dialog_message_wifi_required"><![CDATA[<br><br><b>Требуется Wi-Fi. Шизуку продолжит работу и ждёт Wi-Fi подключения, прежде чем перезагрузить в фоновом режиме.</b>]]></string>
-    <string name="settings_tcp_port">TCP-порт</string>
-    <string name="settings_tcp_learn_more">Узнайте больше об использовании приложений автоматизации
-        для управления Сидзуку</string>
-    <string name="settings_language">Язык</string>
-    <string name="settings_black_night_theme">Черная тема</string>
-    <string name="settings_black_night_theme_summary">Глубокий черный цвет фона при работе темной
-        темы</string>
-    <string name="settings_help">Помощь</string>
-    <string name="settings_report_bug">Сообщить об ошибке</string>
-    <string name="settings_legacy_pairing">Устаревшее сопряжение</string>
-    <string name="settings_legacy_pairing_summary">Введите код сопряжения в диалоговом окне вместо
-        уведомления.</string>
-    <!-- Bug Report Dialog -->
-    <string name="bug_report_dialog_before_reporting">Для начала выполните следующие действия:</string>
-    <string name="bug_report_dialog_update">Убедитесь, что вы используете символ ^1.</string>
-    <string name="bug_report_dialog_link_update">последняя версия</string>
-    <string name="bug_report_dialog_wiki">Прочитайте инструкцию ^1 и выполните все соответствующие
-        шаги по устранению неполадок.</string>
-    <string name="bug_report_dialog_link_wiki">вики</string>
-    <string name="bug_report_dialog_issues">Просмотрите все сообщения об ошибке (^1), чтобы узнать,
-        не было ли уже сообщено о вашей ошибке.</string>
-    <string name="bug_report_dialog_link_issues">существующие проблемы</string>
-    <string name="bug_report_dialog_method">Пожалуйста, отправьте сообщение об ошибке на странице
-        ^1, если у вас есть учетная запись.</string>
-    <string name="bug_report_dialog_method_2">В противном случае вы можете отправить электронное
-        письмо.</string>
-    <string name="bug_report_dialog_button_email">Электронная почта</string>
-    <!-- Snackbar -->
-    <string name="snackbar_battery_optimization_settings">Чтобы использовать эту функцию, отключите
-        оптимизацию расхода заряда батареи.</string>
-    <string name="snackbar_action_fix">Исправить</string>
-    <!-- Toast -->
-    <string name="toast_no_email_app">Приложение электронной почты не найдено</string>
-    <string name="toast_pairing_timeout">Сервис пары Сидзуку истёк.</string>
-    <!-- Dark Mode Setting Override -->
-    <string name="dark_theme">Тема</string>
-    <string name="dark_theme_off">Всегда светло</string>
-    <string name="dark_theme_on">Всегда темно</string>
-    <!-- About -->
-    <!-- Start -->
-    <string name="action_start">Запустить Шизуку</string>
-    <!-- Stop -->
-    <string name="action_stop">Остановить Shizuku</string>
-    <!-- Notification -->
-    <string name="notification_channel_adb_pairing">Сопряжение с отладкой по Wi-Fi</string>
-    <string name="notification_adb_pairing_input_paring_code">Введите код подключения</string>
-    <string name="notification_adb_pairing_searching_for_service_title">Ожидание службы сопряжения</string>
-    <string name="notification_adb_pairing_service_found_title">Служба найдена</string>
-    <string name="notification_adb_pairing_stop_searching">Прекратить поиск</string>
-    <string name="notification_adb_pairing_working_title">Выполняется сопряжение</string>
-    <string name="notification_adb_pairing_succeed_title">Сопряжение выполнено</string>
-    <string name="notification_adb_pairing_succeed_text">Теперь можете запустить службу Shizuku.</string>
-    <string name="notification_adb_pairing_failed_title">Не удалось выполнить сопряжение</string>
-    <string name="notification_adb_pairing_retry">Повторить попытку</string>
-    <!-- Permission related, appears in system permission UI -->
-    <string name="permission_label">доступ Shizuku</string>
-    <string name="permission_description">Разрешить приложению использовать Shizuku.</string>
-    <string name="permission_warning_template"><![CDATA[Разрешить <b>%1$s</b> следующее: %2$s\?]]></string>
-    <string name="grant_dialog_button_allow_always">Разрешить всегда</string>
-    <string name="grant_dialog_button_deny">"Запретить"</string>
-    <!-- Starter -->
-    <string name="starter">Запуск</string>
-    <string name="start_with_root_failed">Не удалось запустить службу. Root права не выданы или они
-        недоступны на устройстве.</string>
-    <!-- WADB Starter -->
-    <string name="wadb_notification_title">Начиная с Сидзуку…</string>
-    <string name="wadb_notification_wifi_required">Ожидание подключения Wi-Fi перед продолжением</string>
-    <string name="wadb_notification_retry">Ожидание повторной попытки</string>
-    <string name="wadb_error_title">Ошибка при запуске загрузки</string>
-    <string name="wadb_error_notify_dev">Нажмите, чтобы уведомить разработчика.</string>
-    <string name="wadb_permission_error_notification_title">Ошибка разрешения</string>
-    <string name="wadb_permission_error_notification_content">Для запуска Shizuku при загрузке
-        требуется разрешение WRITE_SECURE_SETTINGS. Нажмите, чтобы узнать, как его предоставить.</string>
-    <!-- Watchdog -->
-    <string name="watchdog_running">Watchdog работает</string>
-    <string name="watchdog_turn_off">Отключить</string>
-    <string name="watchdog_shizuku_crashed_title">Сидзуку недавно разбилась</string>
-    <string name="watchdog_shizuku_crashed_text">Watchdog перезапустил сервис. Нажмите на них, чтобы
-        узнать о возможных решениях для предотвращения будущих сбоев.</string>
-    <string name="watchdog_shizuku_crashed_action_turn_off_alerts">Отключить оповещения</string>
-    <!-- Misc -->
-    <string name="dialog_cannot_open_browser_title">Не удается запустить браузер</string>
-    <string name="toast_copied_to_clipboard">Скопировано в буфер обмена</string>
-    <string name="accessibility_service_description">Обеспечивает поддержку сопряжения для устройств
-        (например, телевизоров на Android 14+), на которых невозможно использовать уведомления или
-        разделение экрана.\n\nПозволяет Shizuku извлекать код сопряжения из экрана сопряжения
-        беспроводной отладки. Устройство отключится после обнаружения кода сопряжения.</string>
-    <!-- Messages for legacy -->
-    <string name="dialog_legacy_not_support_title">%1$s не поддерживает актуальную версию Shizuku</string>
-    <string name="dialog_legacy_not_support_message"><![CDATA[Изначальная версия Shizuku устарела с марта 2019 года. Кроме того, она не работает на новых системах Android.<p>Пожалуйста, попросите разработчика <b>%1$s</b> внести поправки.]]></string>
-    <string name="dialog_requesting_legacy_title">%1$s запрашивает устаревшую версию Shizuku</string>
-    <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> имеет поддержку актуального Shizuku, но запрашивает его устаревшую версию. Возможно это происходит оттого, что Shizuku не запущен, пожалуйста, перепроверьте в приложении Shizuku.<p>Изначальная версия Shizuku признана устаревшей ещё в марте 2019 года.]]></string>
-    <string name="dialog_requesting_legacy_button_open_shizuku">Открыть Shizuku</string>
-    <string name="wadb_notification_attempt_now">Попробуй сейчас</string>
+    <string name="string_7f100001">Перейти вверх</string>
+    <string name="string_7f100003">Готово</string>
+    <string name="string_7f100006">ВЫКЛ</string>
+    <string name="string_7f100007">ВКЛ</string>
+    <string name="string_7f100008">Alt+</string>
+    <string name="string_7f100009">Ctrl+</string>
+    <string name="string_7f10000a">Удалить</string>
+    <string name="string_7f10000b">Enter</string>
+    <string name="string_7f10000c">Function+</string>
+    <string name="string_7f10000d">Meta+</string>
+    <string name="string_7f10000e">Shift+</string>
+    <string name="string_7f10000f">Пробел</string>
+    <string name="string_7f100010">Sym+</string>
+    <string name="string_7f100011">Menu+</string>
+    <string name="string_7f100012">Поиск…</string>
+    <string name="string_7f100013">Очистить запрос</string>
+    <string name="string_7f100015">Поиск</string>
+    <string name="string_7f100016">Отправить запрос</string>
+    <string name="string_7f100017">Голосовой поиск</string>
+    <string name="string_7f10001a">Свернуть</string>
+    <string name="string_7f10001b">Пакет</string>
+    <string name="string_7f10001c">"Выполняет связывание по беспроводной отладке без ручного ввода кода.
+
+Shizuku считывает код связывания и порт с системного экрана «Связать с помощью кода», выполняет связывание и запускается. На ТВ (например, Android 14+) контролирует весь процесс и отключается после обнаружения кода."</string>
+    <string name="string_7f10001d">Подключить</string>
+    <string name="string_7f10001e">Закрыть</string>
+    <string name="string_7f10001f">Открыть порт ADB</string>
+    <string name="string_7f100020">Wi-Fi</string>
+    <string name="string_7f100021">Связать</string>
+    <string name="string_7f100022">Перезапуск</string>
+    <string name="string_7f100023">Запустить</string>
+    <string name="string_7f100024">Остановить</string>
+    <string name="string_7f100025">Включить параметры разработчика</string>
+    <string name="string_7f100026">Отменить</string>
+    <string name="string_7f100027">"Не удалось сгенерировать ключ для беспроводной отладки.
+Возможно, механизм KeyStore на этом устройстве поврежден."</string>
+    <string name="string_7f100028">Не удалось остановить ADB через TCP</string>
+    <string name="string_7f100029">Сначала выполните связывание устройства.</string>
+    <string name="string_7f10002a">Связывание</string>
+    <string name="string_7f10002b">Сначала откройте режим разделения экрана.</string>
+    <string name="string_7f10002c">Система требует, чтобы диалоговое окно связывания всегда оставалось видимым. Использование режима разделения экрана — единственный способ одновременно отобразить приложение и системный диалог.</string>
+    <string name="string_7f10002d">Нажмите на левую часть пункта «Беспроводная отладка», затем нажмите «Подключить устройство с помощью кода». Введите код из уведомления для завершения связывания.</string>
+    <string name="string_7f10002e">Вернитесь в Shizuku и запустите приложение.</string>
+    <string name="string_7f10002f">Пользователям MIUI может потребоваться изменить стиль уведомлений на «Android» в системных настройках: «Уведомления» -> «Шторка уведомлений».</string>
+    <string name="string_7f100030">В противном случае вы не сможете ввести код связывания из уведомления.</string>
+    <string name="string_7f100031">Shizuku нужен доступ к локальной сети. Это регулируется разрешением на доступ к сети.</string>
+    <string name="string_7f100032">Некоторые системы (например, MIUI) запрещают приложениям доступ к сети, когда они не отображаются на экране, даже если используется фоновая служба. Пожалуйста, отключите оптимизацию батареи для Shizuku в таких системах.</string>
+    <string name="string_7f100033">Уведомление от Shizuku поможет вам завершить связывание.</string>
+    <string name="string_7f100034">Для процесса связывания требуется взаимодействие с уведомлением Shizuku. Пожалуйста, разрешите Shizuku отправку уведомлений.</string>
+    <string name="string_7f100035">Перейдите в «Параметры разработчика», затем включите «Отладка по USB» и «Беспроводная отладка».</string>
+    <string name="string_7f100036">Автозаполнение</string>
+    <string name="string_7f100037">Автозаполнение</string>
+    <string name="string_7f100038">androidx.startup</string>
+    <string name="string_7f100039">Очистить данные</string>
+    <string name="string_7f10003a">Удаляет его файлы, настройки и аккаунты.</string>
+    <string name="string_7f10003b">Отключить</string>
+    <string name="string_7f10003c">Отключает приложение до тех пор, пока вы не включите его снова.</string>
+    <string name="string_7f10003d">Включить</string>
+    <string name="string_7f10003e">Android отклонил запрос. Изменений нет.</string>
+    <string name="string_7f10003f">Остановить принудительно</string>
+    <string name="string_7f100040">Останавливает приложение. Оно может перезапуститься позже.</string>
+    <string name="string_7f100041">Восстановить системное приложение</string>
+    <string name="string_7f100042">Восстанавливает удаленное системное приложение для этого пользователя.</string>
+    <string name="string_7f100043">Приостановить</string>
+    <string name="string_7f100044">Отключает приложение, но сохраняет его данные.</string>
+    <string name="string_7f100045">Удалить для этого пользователя</string>
+    <string name="string_7f100046">Удаляет приложение, но сохраняет его данные.</string>
+    <string name="string_7f100047">Возобновить</string>
+    <string name="string_7f100048">Категория режима ожидания</string>
+    <string name="string_7f100049">Запустите Shizuku, чтобы изменить настройки батареи.</string>
+    <string name="string_7f10004a">Категория режима ожидания</string>
+    <string name="string_7f10004b">Игнорировать оптимизацию батареи</string>
+    <string name="string_7f10004c">Позволяет сохранять активность в режиме Doze, но расходует больше заряда.</string>
+    <string name="string_7f10004d">Без ограничений</string>
+    <string name="string_7f10004e">Может свободно работать в фоновом режиме.</string>
+    <string name="string_7f10004f">По умолчанию</string>
+    <string name="string_7f100050">Android сам решает, насколько активно приложение может работать.</string>
+    <string name="string_7f100051">Исключено</string>
+    <string name="string_7f100052">Система исключила это приложение из режима ожидания, поэтому категория ниже не применяется.</string>
+    <string name="string_7f100053">Частое использование</string>
+    <string name="string_7f100054">Может запускаться часто, но не без ограничений.</string>
+    <string name="string_7f100055">Никогда</string>
+    <string name="string_7f100056">Не может работать в фоновом режиме.</string>
+    <string name="string_7f100057">Редкое использование</string>
+    <string name="string_7f100058">Получает минимум времени на работу в фоне.</string>
+    <string name="string_7f100059">Ограничено</string>
+    <string name="string_7f10005a">Крайне редко разрешается фоновая работа.</string>
+    <string name="string_7f10005b">Удалить все данные для %1$s? Это действие нельзя отменить.</string>
+    <string name="string_7f10005c">Отключить %1$s? Приложение перестанет работать, пока вы не включите его снова.</string>
+    <string name="string_7f10005d">Вы уверены?</string>
+    <string name="string_7f10005e">Удалить %1$s для этого пользователя? Данные будут сохранены.</string>
+    <string name="string_7f10005f">Это приложение больше не установлено.</string>
+    <string name="string_7f100060">Предоставляет приложению полномочия уровня ADB. Предоставляйте только надежным приложениям.</string>
+    <string name="string_7f100061">Предоставить</string>
+    <string name="string_7f100062">Предоставить %1$s для %2$s?</string>
+    <string name="string_7f100063">ABI</string>
+    <string name="string_7f100064">Резервное копирование разрешено</string>
+    <string name="string_7f100065">Каталог данных</string>
+    <string name="string_7f100066">Отладка разрешена</string>
+    <string name="string_7f100067">Установлено</string>
+    <string name="string_7f100068">Источник установки</string>
+    <string name="string_7f100069">Ярлык в меню приложений</string>
+    <string name="string_7f10006a">Минимальный SDK</string>
+    <string name="string_7f10006b">Нет</string>
+    <string name="string_7f10006c">Подпись</string>
+    <string name="string_7f10006d">Целевой SDK</string>
+    <string name="string_7f10006e">UID</string>
+    <string name="string_7f10006f">Обновлено</string>
+    <string name="string_7f100070">Версия</string>
+    <string name="string_7f100071">Да</string>
+    <string name="string_7f100072">Предоставить</string>
+    <string name="string_7f100073">Отозвать</string>
+    <string name="string_7f100074">Выбрать все</string>
+    <string name="string_7f100075">Предоставить разрешение</string>
+    <string name="string_7f100076">Доступ предоставлен %1$d прил.</string>
+    <string name="string_7f100077">Применить к %1$d выбр. прил.?</string>
+    <string name="string_7f100078">Отозвать разрешение</string>
+    <string name="string_7f100079">Доступ отозван у %1$d прил.</string>
+    <string name="string_7f10007a">Высока вероятность того, что производитель вашего устройства ограничивает разрешения adb.&lt;p>Возможное решение для вашей системы находится в &lt;b>&lt;a href=\"%1$s\">этом документе&lt;/a>&lt;/b>.</string>
+    <string name="string_7f10007b">Разрешения ADB ограничены</string>
+    <string name="string_7f10007c">Поиск приложений</string>
+    <string name="string_7f10007d">Сортировка</string>
+    <string name="string_7f10007e">А-Я</string>
+    <string name="string_7f10007f">Недавно добавленные</string>
+    <string name="string_7f100080">Обновленные</string>
+    <string name="string_7f100081">Переключить все</string>
+    <string name="string_7f100082">Применить ко всем %1$d прил. в списке?</string>
+    <string name="string_7f100083">Shizuku Next</string>
+    <string name="string_7f100084">Работа в фоновом режиме</string>
+    <string name="string_7f100085">Запрет блокирует работу приложения в фоновом режиме.</string>
+    <string name="string_7f100086">Чтение буфера обмена</string>
+    <string name="string_7f100087">Запрет блокирует чтение вашего буфера обмена.</string>
+    <string name="string_7f100088">Службы переднего плана</string>
+    <string name="string_7f100089">Запрет останавливает работу служб переднего плана.</string>
+    <string name="string_7f10008b">Установка других приложений</string>
+    <string name="string_7f10008c">Разрешить</string>
+    <string name="string_7f10008d">По умолчанию</string>
+    <string name="string_7f10008e">Запретить</string>
+    <string name="string_7f10008f">Игнорировать</string>
+    <string name="string_7f100090">Показ уведомлений</string>
+    <string name="string_7f100091">Запрет скрывает уведомления приложения.</string>
+    <string name="string_7f100092">Отображение поверх других окон</string>
+    <string name="string_7f100093">Запрет блокирует показ окон поверх других приложений. Некоторым приложениям это необходимо для работы.</string>
+    <string name="string_7f100094">Операция приложения изменена</string>
+    <string name="string_7f100095">Режим бодрствования</string>
+    <string name="string_7f100096">Запрет препятствует засыпанию устройства из-за приложения.</string>
+    <string name="string_7f100097">О приложении</string>
+    <string name="string_7f100098">Запустите Shizuku для чтения и изменения операций приложений (App Ops).</string>
+    <string name="string_7f100099">Операции приложений (App Ops) — это параметры, к которым обращается сама платформа, а ADB может изменять приведенные ниже. Некоторые функции относятся к специальному доступу в системных настройках, а не к App Ops (доступ ко всем файлам, доступ к истории использования, точные будильники, изменение системных настроек), и ни одно приложение не может их изменить.</string>
+    <string name="string_7f10009a">Разрешение предоставлено</string>
+    <string name="string_7f10009b">%1$s, нельзя изменить через ADB</string>
+    <string name="string_7f10009c">Разрешение отозвано</string>
+    <string name="string_7f10009d">У этого приложения нет системных разрешений.</string>
+    <string name="string_7f10009e">Через ADB можно изменять только разрешения, защита которых включает параметры разработки, или опасные разрешения. Платформа отклоняет остальные, насколько бы доверенным ни был Shizuku, поэтому переключатели для них остаются выключенными.</string>
+    <string name="string_7f10009f">Действия</string>
+    <string name="string_7f1000a0">Батарея</string>
+    <string name="string_7f1000a1">Инфо</string>
+    <string name="string_7f1000a2">App ops</string>
+    <string name="string_7f1000a3">Системные разрешения</string>
+    <string name="string_7f1000a4">Разрешения во время выполнения</string>
+    <string name="string_7f1000a5">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="string_7f1000a6">Нет приложений для отображения</string>
+    <string name="string_7f1000a7">Все</string>
+    <string name="string_7f1000a8">Нет приложений в этом фильтре</string>
+    <string name="string_7f1000a9">Предоставленные</string>
+    <string name="string_7f1000aa">Скрытые</string>
+    <string name="string_7f1000ab">Отозванные</string>
+    <string name="string_7f1000ac">Запустите Shizuku, чтобы увидеть приложения</string>
+    <string name="string_7f1000ad">Приложения не найдены</string>
+    <string name="string_7f1000ae">"Связывание без ввода кода:
+
+1. Параметры разработчика → Беспроводная отладка
+2. Подключить устройство с помощью кода
+
+Shizuku считывает код и порт прямо из этого диалогового окна и запускается. Держите окно открытым до завершения связывания."</string>
+    <string name="string_7f1000af">Вручную</string>
+    <string name="string_7f1000b0">https://github.com/thedjchi/Shizuku/wiki#using-automation-apps-to-startstop-shizuku</string>
+    <string name="string_7f1000b1">Выбрано: %1$d</string>
+    <string name="string_7f1000b2">com.google.android.material.bottomsheet.BottomSheetBehavior</string>
+    <string name="string_7f1000b3">Свернуть</string>
+    <string name="string_7f1000b4">Свернуть нижнюю панель</string>
+    <string name="string_7f1000b5">Развернуть</string>
+    <string name="string_7f1000b6">Развернуть нижнюю панель</string>
+    <string name="string_7f1000b7">Развернуть наполовину</string>
+    <string name="string_7f1000b8">Развернуть нижнюю панель наполовину</string>
+    <string name="string_7f1000b9">Маркер перетаскивания</string>
+    <string name="string_7f1000ba">Свернуто</string>
+    <string name="string_7f1000bb">Развернуто</string>
+    <string name="string_7f1000bc">Развернуто наполовину</string>
+    <string name="string_7f1000bd">Сначала выполните следующее:</string>
+    <string name="string_7f1000be">Эл. почта</string>
+    <string name="string_7f1000bf">Выполните поиск по всем ^1, чтобы проверить, не отправлялся ли отчет об этой ошибке ранее.</string>
+    <string name="string_7f1000c0">существующим проблемам</string>
+    <string name="string_7f1000c1">последней версии</string>
+    <string name="string_7f1000c2">wiki</string>
+    <string name="string_7f1000c3">Пожалуйста, отправьте отчет на ^1, если у вас есть аккаунт.</string>
+    <string name="string_7f1000c4">В противном случае вы можете отправить письмо по электронной почте.</string>
+    <string name="string_7f1000c5">Убедитесь, что вы используете ^1.</string>
+    <string name="string_7f1000c6">Прочтите ^1 и выполните все соответствующие шаги по устранению неполадок.</string>
+    <string name="string_7f1000ce">"Не удалось подключиться к службе беспроводной отладки.
+
+Убедитесь, что Shizuku добавлен в белый список брандмауэров, блокировщиков рекламы, VPN и аналогичных приложений, ограничивающих доступ к сети."</string>
+    <string name="string_7f1000cf">Введено символов: %1$d из %2$d</string>
+    <string name="string_7f1000d0">Превышен лимит символов: %1$d из %2$d</string>
+    <string name="string_7f1000d1">%1$d/%2$d</string>
+    <string name="string_7f1000d2">Проверить обновления</string>
+    <string name="string_7f1000d3">Проверить сейчас</string>
+    <string name="string_7f1000d4">Очистить текст</string>
+    <string name="string_7f1000d5">Закрыть меню навигации</string>
+    <string name="string_7f1000d6">Закрыть панель</string>
+    <string name="string_7f1000d7">Копировать</string>
+    <string name="string_7f1000d8">Ссылка скопирована в буфер обмена</string>
+    <string name="string_7f1000dd">Всегда светлая</string>
+    <string name="string_7f1000de">Всегда темная</string>
+    <string name="string_7f1000df">Недопустимый ввод</string>
+    <string name="string_7f1000e0">Всплывающее окно</string>
+    <string name="string_7f1000e1">Автоматически</string>
+    <string name="string_7f1000e2">Введите номер порта от 1 до 65535.</string>
+    <string name="string_7f1000e3">"Автоматическое связывание считывает код из системного диалога через службу специальных возможностей Shizuku, поэтому её необходимо включить. Обычно Shizuku включает её самостоятельно, но для этого требуется разрешение WRITE_SECURE_SETTINGS, которое ещё не предоставлено при свежей установке.
+
+Включите его на следующем экране, введите код вручную во вкладке «Вручную» или предоставьте разрешение один раз через ADB:
+
+adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS
+
+Служба отключается сама после обнаружения кода или через минуту для экономии энергии."</string>
+    <string name="string_7f1000e4">"Пожалуйста, начните связывание, выполнив следующие действия:
+- Перейдите в «Параметры разработчика»
+- Включите «Отладка по USB» и «Беспроводная отладка»
+- Нажмите на левую часть пункта «Беспроводная отладка»
+- Нажмите «Подключить устройство с помощью кода». Shizuku автоматически определит код связывания."</string>
+    <string name="string_7f1000e5">"В Android 14 установка или обновление Shizuku через стандартный установщик пакетов отзывает разрешение ^1, необходимое для включения службы специальных возможностей при связывании.
+
+Чтобы предоставить его, выполните следующую команду ADB:
+
+^2
+
+После выполнения команды вы сможете продолжить процесс связывания.
+
+Примечание: вы можете обойти это ограничение, установив или обновив Shizuku с помощью ADB."</string>
+    <string name="string_7f1000e6">Поиск службы связывания</string>
+    <string name="string_7f1000e7">"Пожалуйста, начните связывание, выполнив следующие действия:
+- Перейдите в «Параметры разработчика»
+- Включите «Отладка по USB» и «Беспроводная отладка»
+- Нажмите на левую часть пункта «Беспроводная отладка»
+- Нажмите «Подключить устройство с помощью кода»
+- Введите код связывания в уведомлении"</string>
+    <string name="string_7f1000e8">Код связывания</string>
+    <string name="string_7f1000e9">Связать с устройством</string>
+    <string name="string_7f1000ea">Порт</string>
+    <string name="string_7f1000eb">Не удалось открыть браузер</string>
+    <string name="string_7f1000ec">Устаревшая версия Shizuku не поддерживается с марта 2019 года. Кроме того, она не работает на новых версиях Android.&lt;p>Пожалуйста, попросите разработчика &lt;b>%1$s&lt;/b> обновить приложение.</string>
+    <string name="string_7f1000ed">%1$s не поддерживает современную версию Shizuku</string>
+    <string name="string_7f1000ee">Открыть Shizuku</string>
+    <string name="string_7f1000ef">&lt;b>%1$s&lt;/b> поддерживает современную версию Shizuku, но запрашивает устаревшую. Это может происходить из-за того, что Shizuku не запущен. Пожалуйста, проверьте статус в приложении Shizuku.&lt;p>Устаревшая версия Shizuku не поддерживается с марта 2019 года.</string>
+    <string name="string_7f1000f0">%1$s запрашивает устаревшую версию Shizuku</string>
+    <string name="string_7f1000f2">Включить</string>
+    <string name="string_7f1000f3">Ошибка</string>
+    <string name="string_7f1000f4">Ошибка: недопустимое значение</string>
+    <string name="string_7f1000f5">Ошибка</string>
+    <string name="string_7f1000f7">Показать выпадающее меню</string>
+    <string name="string_7f1000fd">Как в системе</string>
+    <string name="string_7f1000fe">Разрешать всегда</string>
+    <string name="string_7f1000ff">Запретить</string>
+    <string name="string_7f100100">https://github.com/thedjchi/Shizuku/wiki</string>
+    <string name="string_7f100102">Запустите Shizuku с компьютера через ADB. Нажмите, чтобы скопировать команду</string>
+    <string name="string_7f100107">Shizuku может быть остановлен в фоновом режиме. Разрешите ему игнорировать оптимизацию батареи.</string>
+    <string name="string_7f100108">Отпечаток сборки</string>
+    <string name="string_7f100109">Версия ядра</string>
+    <string name="string_7f10010a">Версия менеджера</string>
+    <string name="string_7f10010b">Модель устройства</string>
+    <string name="string_7f10010c">Статус Seccomp</string>
+    <string name="string_7f10010d">Статус SELinux</string>
+    <string name="string_7f10010e">Выход</string>
+    <string name="string_7f10010f">На вашем устройстве установлена другая версия этого приложения. Для продолжения удалите все дублирующие версии и перезагрузите устройство.</string>
+    <string name="string_7f100110">Обнаружен дубликат приложения</string>
+    <string name="string_7f100111">Для корректной работы Shizuku требуется перезагрузка устройства. Пожалуйста, перезагрузите устройство для продолжения.</string>
+    <string name="string_7f100112">Требуется перезагрузка</string>
+    <string name="string_7f100113">Запустить</string>
+    <string name="string_7f100114">Если вы используете Magisk, вы можете попробовать %1$s. Для пользователей с root-правами это со временем заменит Shizuku. Обратите внимание, что существующим приложениям потребуются небольшие изменения для использования %2$s.</string>
+    <string name="string_7f100115">Запустить (для устройств с Root)</string>
+    <string name="string_7f100116">adb</string>
+    <string name="string_7f100117">adb</string>
+    <string name="string_7f100118">По умолчанию</string>
+    <string name="string_7f100119">Текущий</string>
+    <string name="string_7f10011a">Транспорт</string>
+    <string name="string_7f10011b">Запуск Shizuku от имени системного пользователя (UID 1000) вместо adb работает только на устройствах со встроенным эксплойтом</string>
+    <string name="string_7f10011c">Запустить через System UID</string>
+    <string name="string_7f10011d">Запускается с использованием отладки по USB.</string>
+    <string name="string_7f10011e">Запустить через отладку по USB</string>
+    <string name="string_7f10011f">Запускается с использованием беспроводной отладки.</string>
+    <string name="string_7f100120">Запустить через беспроводную отладку</string>
+    <string name="string_7f100121">Иконка диалога</string>
+    <string name="string_7f100122">Выполняется</string>
+    <string name="string_7f100123">Выбрано частично</string>
+    <string name="string_7f100124">Запустить через ПК</string>
+    <string name="string_7f100125">Копировать</string>
+    <string name="string_7f100126">Приложения автоматизации могут управлять Shizuku с помощью этих трансляций (broadcasts). Токен авторизации должен передаваться в extra-параметре \"auth\".</string>
+    <string name="string_7f100127">Сгенерировать заново</string>
+    <string name="string_7f100128">Запустить</string>
+    <string name="string_7f100129">Остановить</string>
+    <string name="string_7f10012a">Интенты</string>
+    <string name="string_7f10012b">Токен авторизации</string>
+    <string name="string_7f10012c">Сторожевой таймер выкл</string>
+    <string name="string_7f10012d">Сторожевой таймер вкл</string>
+    <string name="string_7f10012e">Переключить сторожевой таймер</string>
+    <string name="string_7f10012f">Вкладка</string>
+    <string name="string_7f100131">Загрузка</string>
+    <string name="string_7f100134">sans-serif-medium</string>
+    <string name="string_7f100135">sans-serif</string>
+    <string name="string_7f100136">sans-serif-medium</string>
+    <string name="string_7f100137">sans-serif</string>
+    <string name="string_7f100138">path(M 0,0 C 0.05, 0, 0.133333, 0.06, 0.166666, 0.4 C 0.208333, 0.82, 0.25, 1, 1, 1)</string>
+    <string name="string_7f10013b">M 0,0 C 0.05, 0, 0.133333, 0.06, 0.166666, 0.4 C 0.208333, 0.82, 0.25, 1, 1, 1</string>
+    <string name="string_7f10013d">cubic-bezier(0.4, 0, 1, 1)</string>
+    <string name="string_7f10013e">cubic-bezier(0, 0, 0.2, 1)</string>
+    <string name="string_7f10013f">cubic-bezier(0, 0, 1, 1)</string>
+    <string name="string_7f100140">cubic-bezier(0.2, 0, 0, 1)</string>
+    <string name="string_7f100143">Свернуть нижнюю панель</string>
+    <string name="string_7f100144">Закрыть нижнюю панель</string>
+    <string name="string_7f100145">Маркер перетаскивания</string>
+    <string name="string_7f100146">Развернуть нижнюю панель</string>
+    <string name="string_7f100147">Нижняя панель</string>
+    <string name="string_7f100168">Диалоговое окно</string>
+    <string name="string_7f10016c">Свернуть панель инструментов</string>
+    <string name="string_7f10016d">Развернуть панель инструментов</string>
+    <string name="string_7f100170">Закрыть</string>
+    <string name="string_7f100171">Предупреждение</string>
+    <string name="string_7f10018b">Приложения не найдены.</string>
+    <string name="string_7f10018c">Все</string>
+    <string name="string_7f10018d">Отключено</string>
+    <string name="string_7f10018e">Ничего не найдено в этом фильтре.</string>
+    <string name="string_7f10018f">Скрытые</string>
+    <string name="string_7f100190">Системные</string>
+    <string name="string_7f100191">Пользовательские</string>
+    <string name="string_7f100192">Поиск приложений</string>
+    <string name="string_7f100193">Отключено</string>
+    <string name="string_7f100194">Нет значка в меню приложений</string>
+    <string name="string_7f100195">Удалено, данные сохранены</string>
+    <string name="string_7f100196">Приостановлено</string>
+    <string name="string_7f100197">Системное</string>
+    <string name="string_7f100198">:</string>
+    <string name="string_7f100199">Выберите ДП или ПП</string>
+    <string name="string_7f10019f">cubic-bezier(0.4, 0.0, 1.0, 1.0)</string>
+    <string name="string_7f1001a0">cubic-bezier(0.0, 0.0, 0.2, 1.0)</string>
+    <string name="string_7f1001a1">path(M 0,0 C 0.05, 0, 0.133333, 0.06, 0.166666, 0.4 C 0.208333, 0.82, 0.25, 1, 1, 1)</string>
+    <string name="string_7f1001a2">cubic-bezier(0.0, 0.0, 1.0, 1.0)</string>
+    <string name="string_7f1001a3">cubic-bezier(0.4, 0.0, 0.2, 1.0)</string>
+    <string name="string_7f1001a7">AM</string>
+    <string name="string_7f1001af">PM</string>
+    <string name="string_7f1001b7">Закрыть</string>
+    <string name="string_7f1001b8">M14,18.2 11.4,15.6 10,17 14,21 22,13 20.6,11.6z</string>
+    <string name="string_7f1001b9">значок</string>
+    <string name="string_7f1001ba">M13.4,15 11,15 11,17 13.4,17 21,17 21,15z</string>
+    <string name="string_7f1001bb">путь значка</string>
+    <string name="string_7f1001bc">M23,7H9C7.9,7,7,7.9,7,9v14c0,1.1,0.9,2,2,2h14c1.1,0,2-0.9,2-2V9C25,7.9,24.1,7,23,7z</string>
+    <string name="string_7f1001bd">кнопка</string>
+    <string name="string_7f1001be">путь кнопки</string>
+    <string name="string_7f1001bf">M23,7H9C7.9,7,7,7.9,7,9v14c0,1.1,0.9,2,2,2h14c1.1,0,2-0.9,2-2V9C25,7.9,24.1,7,23,7z M23,23H9V9h14V23z</string>
+    <string name="string_7f1001c0">Выбрано</string>
+    <string name="string_7f1001c1">Выбрано частично</string>
+    <string name="string_7f1001c2">Не выбрано</string>
+    <string name="string_7f1001c3">Удалить %1$s</string>
+    <string name="string_7f1001c6">Перейти к следующему месяцу</string>
+    <string name="string_7f1001c7">Перейти к предыдущему месяцу</string>
+    <string name="string_7f1001cb">Отмена</string>
+    <string name="string_7f1001cc">ОК</string>
+    <string name="string_7f1001d0">%1$s</string>
+    <string name="string_7f1001d6">Перейти к текущему %1$d году</string>
+    <string name="string_7f1001d7">Перейти к %1$d году</string>
+    <string name="string_7f1001d9">Вид календаря</string>
+    <string name="string_7f1001da">Вид года</string>
+    <string name="string_7f1001e0">Сохранить</string>
+    <string name="string_7f1001e9">Переключиться на режим ввода календаря</string>
+    <string name="string_7f1001ea">Переключиться на вид календаря</string>
+    <string name="string_7f1001eb">Переключиться на режим текстового ввода</string>
+    <string name="string_7f1001ec">Переключиться на вид года</string>
+    <string name="string_7f1001ed">circle_group</string>
+    <string name="string_7f1001ee">M4,16 A12,12 0 0,1 16,4 H16 A12,12 0 0,1 16,28 H16 A12,12 0 0,1 4,16</string>
+    <string name="string_7f1001ef">M0,16 A11,11 0 0,1 11,5 H21 A11,11 0 0,1 21,27 H11 A11,11 0 0,1 0,16</string>
+    <string name="string_7f1001f0">circle</string>
+    <string name="string_7f1001f1">M2,16 A14,14 0 0,1 16,2 H16 A14,14 0 0,1 16,30 H16 A14,14 0 0,1 2,16</string>
+    <string name="string_7f1001f2">M8,16 A8,8 0 0,1 16,8 H16 A8,8 0 0,1 16,24 H16 A8,8 0 0,1 8,16</string>
+    <string name="string_7f1001f3">M1,16 A15,15 0 0,1 16,1 H36 A15,15 0 0,1 36,31 H16 A15,15 0 0,1 1,16</string>
+    <string name="string_7f1001f4">M0,16 A16,16 0 0,1 16,0 H36 A16,16 0 0,1 36,32 H16 A16,16 0 0,1 0,16</string>
+    <string name="string_7f1001fa">Не выбрано</string>
+    <string name="string_7f1001fb">Не задано</string>
+    <string name="string_7f1001fc">Связывание не удалось</string>
+    <string name="string_7f1001fd">Введите код связывания</string>
+    <string name="string_7f1001fe">Повторить</string>
+    <string name="string_7f1001ff">Поиск службы связывания</string>
+    <string name="string_7f100200">Служба связывания найдена</string>
+    <string name="string_7f100201">Остановить поиск</string>
+    <string name="string_7f100202">Теперь вы можете запустить Shizuku.</string>
+    <string name="string_7f100203">Связывание прошло успешно</string>
+    <string name="string_7f100204">Выполняется связывание</string>
+    <string name="string_7f100205">Убедитесь, что токен в вашем интенте совпадает с токеном, отображаемым в разделе «Просмотр интентов» в приложении.</string>
+    <string name="string_7f100206">Недействительный токен авторизации</string>
+    <string name="string_7f100207">Добавьте extra-параметр «auth» в ваш интент. Вы можете найти свой токен, нажав «Просмотр интентов» в приложении.</string>
+    <string name="string_7f100208">Требуется токен авторизации</string>
+    <string name="string_7f100209">Связывание по беспроводной отладке</string>
+    <string name="string_7f10020a">Настройки уведомлений</string>
+    <string name="string_7f10020b">Выкл</string>
+    <string name="string_7f10020c">Неверный код связывания.</string>
+    <string name="string_7f10020d">Показать пароль</string>
+    <string name="string_7f10020e">M12,4.5C7,4.5 2.73,7.61 1,12c1.73,4.39 6,7.5 11,7.5s9.27,-3.11 11,-7.5c-1.73,-4.39 -6,-7.5 -11,-7.5zM12,17c-2.76,0 -5,-2.24 -5,-5s2.24,-5 5,-5 5,2.24 5,5 -2.24,5 -5,5zM12,9c-1.66,0 -3,1.34 -3,3s1.34,3 3,3 3,-1.34 3,-3 -1.34,-3 -3,-3z</string>
+    <string name="string_7f10020f">M2,4.27 L19.73,22 L22.27,19.46 L4.54,1.73 L4.54,1 L23,1 L23,23 L1,23 L1,4.27 Z</string>
+    <string name="string_7f100210">M2,4.27 L2,4.27 L4.54,1.73 L4.54,1.73 L4.54,1 L23,1 L23,23 L1,23 L1,4.27 Z</string>
+    <string name="string_7f100211">M3.27,4.27 L19.74,20.74</string>
+    <string name="string_7f100212">Разрешить приложению использовать Shizuku.</string>
+    <string name="string_7f100213">@string/string_7f100215</string>
+    <string name="string_7f100214">Shizuku</string>
+    <string name="string_7f100215">доступ к Shizuku</string>
+    <string name="string_7f100216">Разрешить &lt;b>%1$s&lt;/b> %2$s?</string>
+    <string name="string_7f100217">Служба специальных возможностей</string>
+    <string name="string_7f100218">Автоматически считывает код связывания.</string>
+    <string name="string_7f100219">Разрешить</string>
+    <string name="string_7f10021a">Настройки</string>
+    <string name="string_7f10021b">Разрешено</string>
+    <string name="string_7f10021c">Предотвращает остановку Shizuku системой Android в фоновом режиме.</string>
+    <string name="string_7f10021d">Устройства поблизости</string>
+    <string name="string_7f10021e">Находит порт беспроводной отладки в вашей сети.</string>
+    <string name="string_7f10021f">Уведомления</string>
+    <string name="string_7f100220">Показывает код связывания, прогресс запуска и ошибки.</string>
+    <string name="string_7f100221">Android больше не будет запрашивать разрешение. Включите его в меню: О приложении → Разрешения.</string>
+    <string name="string_7f100222">Запись защищенных настроек</string>
+    <string name="string_7f100223">Позволяет Shizuku включать беспроводную отладку. Только ADB может предоставить это разрешение.</string>
+    <string name="string_7f100224">«%1$s» скопировано в буфер обмена.</string>
+    <string name="string_7f100225">Конец диапазона</string>
+    <string name="string_7f100226">Начало диапазона</string>
+    <string name="string_7f10022b">Отключено</string>
+    <string name="string_7f10022c">Фильтр</string>
+    <string name="string_7f10022d">Строгий</string>
+    <string name="string_7f10022e">Выбрано</string>
+    <string name="string_7f10022f">Отключено</string>
+    <string name="string_7f100230">Принудительный (Enforcing)</string>
+    <string name="string_7f100231">Разрешающий (Permissive)</string>
+    <string name="string_7f100232">Использовать ADB без параметров разработчика</string>
+    <string name="string_7f100233">Выключить</string>
+    <string name="string_7f100234">Shizuku продолжит работать и восстановит настройки ADB после перезагрузки. Вы не сможете открыть параметры разработчика, чтобы изменить настройки USB или беспроводной отладки, либо связать новое устройство. Выключить параметры разработчика?</string>
+    <string name="string_7f100235">Выключить параметры разработчика?</string>
+    <string name="string_7f100236">Shizuku не удалось изменить настройки. Сначала предоставьте разрешение WRITE_SECURE_SETTINGS на странице разрешений.</string>
+    <string name="string_7f100237">Отключает параметры разработчика, но сохраняет настройки ADB, необходимые Shizuku. Shizuku продолжит работать, а эти настройки будут восстанавливаться после каждой перезагрузки.</string>
+    <string name="string_7f100238">Автоотключение отладки по USB</string>
+    <string name="string_7f100239">Отключать отладку по USB при остановке Shizuku</string>
+    <string name="string_7f10023a">Автоотключение беспроводной отладки</string>
+    <string name="string_7f10023b">Отключать беспроводную отладку при остановке Shizuku.</string>
+    <string name="string_7f10023c">Amoled Black</string>
+    <string name="string_7f10023d">Использовать глубокий черный цвет в темной теме</string>
+    <string name="string_7f10023e">Запуск без Wi-Fi (экспериментально)</string>
+    <string name="string_7f10023f">Пытается запустить Shizuku без сети и с отключенной отладкой по USB. Использует беспроводную отладку и локальную точку доступа для поиска порта ADB. Функция основана на ошибке в Android, поэтому может перестать работать после обновления системы. Также она может оставить беспроводную отладку включенной, когда Android обычно отключает её.</string>
+    <string name="string_7f100240">Справка</string>
+    <string name="string_7f100241">Язык</string>
+    <string name="string_7f100242">Устаревшее связывание</string>
+    <string name="string_7f100243">Вводить код связывания в диалоговом окне вместо уведомления</string>
+    <string name="string_7f100244">Разрешения</string>
+    <string name="string_7f100245">Необходимые разрешения для Shizuku и статус их доступа</string>
+    <string name="string_7f100246">Сообщить об ошибке</string>
+    <string name="string_7f100247">Для применения этой настройки требуется перезапуск Shizuku.</string>
+    <string name="string_7f100248">&lt;br>&lt;br>&lt;b>Требуется Wi-Fi. Shizuku продолжит работу и будет ожидать подключения к Wi-Fi перед перезапуском в фоновом режиме.&lt;/b></string>
+    <string name="string_7f100249">Требуется перезапуск</string>
+    <string name="string_7f10024a">О приложении</string>
+    <string name="string_7f10024b">Внешний вид</string>
+    <string name="string_7f10024c">Автозапуск</string>
+    <string name="string_7f10024d">Инструменты</string>
+    <string name="string_7f10024e">Wi-Fi</string>
+    <string name="string_7f10024f">Способ запуска по умолчанию</string>
+    <string name="string_7f100250">На этом устройстве нет Root-прав, поэтому запуск переключается на беспроводную отладку.</string>
+    <string name="string_7f100251">Запуск при загрузке</string>
+    <string name="string_7f100252">Системный способ запуска</string>
+    <string name="string_7f100253">Пользовательская команда</string>
+    <string name="string_7f100254">Эксплойт устройства</string>
+    <string name="string_7f100256">Режим TCP</string>
+    <string name="string_7f100257">Порт TCP будет немедленно закрыт. Вам понадобится Wi-Fi для повторного включения режима TCP. Продолжить?</string>
+    <string name="string_7f100258">Позволяет перезапускать Shizuku без Wi-Fi. (Shizuku должен быть запущен хотя бы один раз после перезагрузки)</string>
+    <string name="string_7f100259">Порт TCP</string>
+    <string name="string_7f10025a">Тема оформления</string>
+    <string name="string_7f10025b">Темная</string>
+    <string name="string_7f10025c">Светлая</string>
+    <string name="string_7f10025d">Как в системе</string>
+    <string name="string_7f10025e">Dev</string>
+    <string name="string_7f10025f">Стабильная</string>
+    <string name="string_7f100260">Использовать системные цвета</string>
+    <string name="string_7f100261">Ожидать Wi-Fi</string>
+    <string name="string_7f100262">Автоматический перезапуск Shizuku ожидает подключения к сети Wi-Fi без ограничений трафика.</string>
+    <string name="string_7f100263">Сторожевой таймер</string>
+    <string name="string_7f100264">Перезапускать Shizuku автоматически в случае сбоя</string>
+    <string name="string_7f100265">Выполнено на устройстве: префикс adb аналогичен тому, что вводится на ПК.</string>
+    <string name="string_7f100266">Нет активного обработчика команд</string>
+    <string name="string_7f100267">Root</string>
+    <string name="string_7f100268">Root, uid 0</string>
+    <string name="string_7f100269">Shizuku</string>
+    <string name="string_7f10026a">Shizuku, uid %1$d</string>
+    <string name="string_7f10026b">Удалить</string>
+    <string name="string_7f10026c">Удалено %1$s</string>
+    <string name="string_7f10026d">Пока ничего не сохранено. Введите команду и нажмите кнопку закладки, чтобы сохранить её.</string>
+    <string name="string_7f10026e">Имя</string>
+    <string name="string_7f10026f">Переименовать</string>
+    <string name="string_7f100270">Выполнить</string>
+    <string name="string_7f100271">Сохранить эту команду</string>
+    <string name="string_7f100272">Сохранено</string>
+    <string name="string_7f100273">Имя</string>
+    <string name="string_7f100274">Сначала новые</string>
+    <string name="string_7f100275">Сохраненные</string>
+    <string name="string_7f100276">Очистить</string>
+    <string name="string_7f100277">Свернуть</string>
+    <string name="string_7f100278">Копировать</string>
+    <string name="string_7f100279">Оболочка для выхода отсутствует, так как каждая команда выполняется отдельно. Текущая папка и переменные окружения сохраняются.</string>
+    <string name="string_7f10027a">Развернуть</string>
+    <string name="string_7f10027b">Следующая команда</string>
+    <string name="string_7f10027c">Предыдущая команда</string>
+    <string name="string_7f10027d">Команда</string>
+    <string name="string_7f10027e">Запускается от имени UID, с которым работает Shizuku (2000 через ADB, 0 с Root-правами), поэтому имеет доступ ко всему, что доступно этому UID: /sdcard, /system и данным приложений при наличии Root. Открывается в /sdcard, по одной команде за раз; без TTY программы, требующие терминал (nano, запрос SSH), работать здесь не будут.</string>
+    <string name="string_7f10027f">Библиотека</string>
+    <string name="string_7f100280">Нет совпадающих команд.</string>
+    <string name="string_7f100281">Поиск команд</string>
+    <string name="string_7f100282">Еще</string>
+    <string name="string_7f100283">Запустите Shizuku или выберите Root на рутированном устройстве: один из вариантов выполняет команды. Root работает и при остановленном Shizuku.</string>
+    <string name="string_7f100284">Не удалось сохранить</string>
+    <string name="string_7f100285">Сохранено</string>
+    <string name="string_7f100286">App op</string>
+    <string name="string_7f100287">Мои приложения</string>
+    <string name="string_7f100288">Батарея</string>
+    <string name="string_7f100289">Устройство</string>
+    <string name="string_7f10028a">Остановить принудительно</string>
+    <string name="string_7f10028b">Предоставить разрешение</string>
+    <string name="string_7f10028c">Отозвать разрешение</string>
+    <string name="string_7f10028d">Хранилище</string>
+    <string name="string_7f10028e">Root доступен: команды выполняются от имени uid 0.</string>
+    <string name="string_7f10028f">В Root-доступе отказано, поэтому команды будут использовать Shizuku. Предоставьте приложению Root-доступ для использования режима Root.</string>
+    <string name="string_7f100290">Выполнить</string>
+    <string name="string_7f100291">Сохранить</string>
+    <string name="string_7f100292">Поиск</string>
+    <string name="string_7f100293">Закрыть поиск</string>
+    <string name="string_7f100294">Найти</string>
+    <string name="string_7f100295">Следующее совпадение</string>
+    <string name="string_7f100296">%1$d из %2$d</string>
+    <string name="string_7f100297">Предыдущее совпадение</string>
+    <string name="string_7f100298">Остановить</string>
+    <string name="string_7f100299">Запуск su в одиночку ожидает Root-разрешений, но в этом терминале нет окна запроса. Используйте Root-бэкенд или команду su -c с последующей командой.</string>
+    <string name="string_7f10029a">Оболочка</string>
+    <string name="string_7f10029b">Выберите приложение</string>
+    <string name="string_7f10029c">Заполните поля</string>
+    <string name="string_7f10029d">Боковая панель</string>
+    <string name="string_7f10029f">Исправить</string>
+    <string name="string_7f1002a0">Обновить</string>
+    <string name="string_7f1002a1">Отключите оптимизацию батареи для использования этой функции.</string>
+    <string name="string_7f1002a2">Предупреждение</string>
+    <string name="string_7f1002a3">Доступно новое обновление</string>
+    <string name="string_7f1002a4">Запустить</string>
+    <string name="string_7f1002a5">Не удалось запустить Shizuku</string>
+    <string name="string_7f1002a6">Соединение ADB закрылось во время запуска. Попробуйте снова.</string>
+    <string name="string_7f1002a7">Параметры разработчика выключены, так как включен режим ADB без параметров разработчика</string>
+    <string name="string_7f1002a8">Беспроводная отладка запрещена в этой сети. Выполните связывание устройства заново.</string>
+    <string name="string_7f1002a9">Порт беспроводной отладки не найден. Убедитесь, что беспроводная отладка включена и есть подключение к Wi-Fi.</string>
+    <string name="string_7f1002aa">Порт беспроводной отладки не найден, и Shizuku не может включить беспроводную отладку без WRITE_SECURE_SETTINGS: <b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Или запустите Shizuku один раз через отладку по USB, чтобы он предоставил себе это разрешение самостоятельно.</string>
+    <string name="string_7f1002ab">Это устройство не связано для беспроводной отладки. Выполните связывание снова.</string>
+    <string name="string_7f1002ac">Root недоступен на этом устройстве, поэтому Shizuku не может запуститься через root. Выберите другой способ запуска.</string>
+    <string name="string_7f1002ad">Системный способ запуска должен запускаться из приложения.</string>
+    <string name="string_7f1002ae">Это устройство не может запустить службу в фоновом режиме</string>
+    <string name="string_7f1002af">Локальный порт ADB не открыт. Android сбрасывает его при каждой перезагрузке, а для повторного открытия требуется подключение. Подключитесь к Wi-Fi, и Shizuku повторно откроет его через беспроводную отладку, либо выполните команду <b>adb tcpip 5555</b> с компьютера.</string>
+    <string name="string_7f1002b0">Подключитесь к сети Wi-Fi — система отключает беспроводную отладку без неё. Или запустите приложение с компьютера с помощью команды ADB ниже.</string>
+    <string name="string_7f1002b1">Shizuku не может включить беспроводную отладку без разрешения WRITE_SECURE_SETTINGS. Включите её вручную в меню Параметры разработчика > Беспроводная отладка или предоставите разрешение с помощью команды <b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. После запуска Shizuku сам сохраняет это разрешение, поэтому процедура однократная.</string>
+    <string name="string_7f1002b2">Root</string>
+    <string name="string_7f1002b3">Система</string>
+    <string name="string_7f1002b4">USB</string>
+    <string name="string_7f1002b5">Wi-Fi</string>
+    <string name="string_7f1002b6">Не удалось запустить, так как Root-доступ недоступен.</string>
+    <string name="string_7f1002b7">Запуск</string>
+    <string name="string_7f1002b8">Пусто</string>
+    <string name="string_7f1002b9">Выкл</string>
+    <string name="string_7f1002ba">Вкл</string>
+    <string name="string_7f1002bb">999+</string>
+    <string name="string_7f1002bc">Работает</string>
+    <string name="string_7f1002bd">Остановлено</string>
+    <string name="string_7f1002be">-</string>
+    <string name="string_7f1002bf">Скрыть Shizuku от приложений, которые отказываются работать при его наличии. Для установки будет экспортирован клон с другим именем пакета.</string>
+    <string name="string_7f1002c0">Имя пакета не может заканчиваться точкой.</string>
+    <string name="string_7f1002c1">Разрешены только буквы, цифры и точки.</string>
+    <string name="string_7f1002c2">Имя пакета должно состоять как минимум из двух сегментов.</string>
+    <string name="string_7f1002c3">Сегменты не могут начинаться с цифры.</string>
+    <string name="string_7f1002c4">Скрыть</string>
+    <string name="string_7f1002c5">Пользователям интентов: обновите ваши интенты с использованием нового имени пакета.</string>
+    <string name="string_7f1002c6">Вам потребуется заново выполнить связывание и настройку Shizuku после установки скрытой версии.</string>
+    <string name="string_7f1002c7">Пользователям rish: повторно экспортируйте файлы после установки скрытой версии.</string>
+    <string name="string_7f1002c8">При использовании скрытой версии обновлять Shizuku необходимо только через само приложение, так как у нее другая подпись.</string>
+    <string name="string_7f1002c9">Имя пакета (необязательно)</string>
+    <string name="string_7f1002cb">Показать</string>
+    <string name="string_7f1002cc">Удалить</string>
+    <string name="string_7f1002cd">Система предложит удалить Shizuku. После этого установите клон.</string>
+    <string name="string_7f1002ce">Требуется удаление</string>
+    <string name="string_7f1002cf">Некоторые приложения, использующие Shizuku, могут не работать, когда Shizuku скрыт, так как они пытаются определить факт его установки.</string>
+    <string name="string_7f1002d0">В качестве обходного решения вы можете временно отобразить Shizuku, что установит заглушку с оригинальным именем пакета. Завершив работу, вы сможете снова скрыть Shizuku.</string>
+    <string name="string_7f1002d1">Нажмите на эту карточку, чтобы скопировать фрагмент кода, который можно отправить разработчику, чтобы их проверка «Shizuku установлен» работала, даже когда Shizuku скрыт.</string>
+    <string name="string_7f1002d2">Некоторые приложения все еще могут определять наличие Shizuku, даже когда он скрыт.</string>
+    <string name="string_7f1002d3">%1$s, %2$s</string>
+    <string name="string_7f1002d4">rushiranpise17@gmail.com</string>
+    <string name="string_7f1002d5">Переключатель</string>
+    <string name="string_7f1002d6">Вкладка</string>
+    <string name="string_7f1002d7">Приложения</string>
+    <string name="string_7f1002d8">Главная</string>
+    <string name="string_7f1002d9">Управление App Ops</string>
+    <string name="string_7f1002da">Настройки</string>
+    <string name="string_7f1002db">%1$d процентов.</string>
+    <string name="string_7f1002dc">Нажмите, чтобы экспортировать файлы в новую папку.</string>
+    <string name="string_7f1002dd">Будут экспортированы два файла: %1$s и %2$s. Если файлы уже существуют в выбранной папке, они будут удалены.</string>
+    <string name="string_7f1002de">Используйте ваше приложение терминала, чтобы скопировать файлы в его приватный каталог файлов.</string>
+    <string name="string_7f1002df">"Совет: Если домашний каталог (~) вашего терминала находится в приватном каталоге файлов, размещение файлов там позволит запускать %1$s без указания пути.
+
+В противном случае вы можете создать псевдоним (alias) для %2$s в конфигурационном файле %3$s вашего терминала."</string>
+    <string name="string_7f1002e0">Откройте оболочку со следующей командой:</string>
+    <string name="string_7f1002e1">Пользователи сообщают, что MIUI нарушает работу Framework доступа к хранилищу (Storage Access Framework), который используется функцией экспорта.</string>
+    <string name="string_7f1002e2">Если вы используете MIUI, вам может потребоваться извлечь файл из папки assets в APK-файле Shizuku.</string>
+    <string name="string_7f1002e3">Скопировано в буфер обмена</string>
+    <string name="string_7f1002e4">Выключить ADB без параметров разработчика</string>
+    <string name="string_7f1002e5">Почтовое приложение не найдено</string>
+    <string name="string_7f1002e6">Истекло время ожидания службы связывания Shizuku</string>
+    <string name="string_7f1002e7">Оптимизация батареи</string>
+    <string name="string_7f1002e8">Скрытый режим</string>
+    <string name="string_7f1002e9">Приложения терминала</string>
+    <string name="string_7f1002ea">Запускайте команды оболочки в любом терминале с помощью rish</string>
+    <string name="string_7f1002eb">подсказка</string>
+    <string name="string_7f1002ec">показать подсказку</string>
+    <string name="string_7f1002ed">https://crowdin.com/project/shizuku</string>
+    <string name="string_7f1002ee">adb</string>
+    <string name="string_7f1002ef">UID</string>
+    <string name="string_7f1002f0">(%1$s)</string>
+    <string name="string_7f1002f1">root</string>
+    <string name="string_7f1002f2">shell</string>
+    <string name="string_7f1002f3">system</string>
+    <string name="string_7f1002f4">Не удалось проверить наличие обновлений</string>
+    <string name="string_7f1002f5">Не удалось проверить наличие обновлений (HTTP %1$d)</string>
+    <string name="string_7f1002f6">Пока нет опубликованных релизов для сравнения</string>
+    <string name="string_7f1002f7">Не удалось связаться с GitHub. Проверьте подключение и попробуйте снова.</string>
+    <string name="string_7f1002f8">GitHub ограничивает частоту проверок обновлений. Попробуйте позже.</string>
+    <string name="string_7f1002f9">GitHub ограничивает частоту проверок обновлений. Попробуйте примерно через %1$d мин.</string>
+    <string name="string_7f1002fa">Не удалось скачать обновление</string>
+    <string name="string_7f1002fb">Скачивание обновления...</string>
+    <string name="string_7f1002fc">Сбой обновления</string>
+    <string name="string_7f1002fd">У вас уже установлена последняя версия</string>
+    <string name="string_7f1002fe">Обновление завершено</string>
+    <string name="string_7f1002ff">ВЫКЛ</string>
+    <string name="string_7f100300">ВКЛ</string>
+    <string name="string_7f100301">Нажмите, чтобы сообщить об этом разработчику.</string>
+    <string name="string_7f100302">Не удалось запустить после перезагрузки</string>
+    <string name="string_7f100303">Повторить</string>
+    <string name="string_7f100304">Запуск Shizuku через беспроводной ADB</string>
+    <string name="string_7f100305">Сохранение беспроводной отладки включенной</string>
+    <string name="string_7f100306">Ожидание повторной попытки</string>
+    <string name="string_7f100307">Запуск Shizuku…</string>
+    <string name="string_7f100308">Разблокируйте устройство для продолжения</string>
+    <string name="string_7f100309">Ожидание подключения к Wi-Fi</string>
+    <string name="string_7f10030a">Shizuku требуется WRITE_SECURE_SETTINGS для включения беспроводной отладки. Нажмите, чтобы узнать, как предоставить это разрешение.</string>
+    <string name="string_7f10030b">Ошибка разрешения</string>
+    <string name="string_7f10030c">Сторожевой таймер активен</string>
+    <string name="string_7f10030d">Отключить оповещения</string>
+    <string name="string_7f10030e">Сторожевой таймер перезапустил Shizuku. Нажмите, чтобы узнать, как предотвратить сбои.</string>
+    <string name="string_7f10030f">Недавно произошел сбой Shizuku</string>
+    <string name="string_7f100310">Выключить</string>
 </resources>
+
+  
+   
