@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--
+      The source strings. Translations are written in Crowdin and arrive as a pull request; see
+      docs/translations.md. Uploading this file is also what applies its settings over there, so
+      a change here reaches translators on the next push and not before.
+    -->
     <!-- To translators: you can leave your here -->
-    <!-- Home - Status -->
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[透過無線偵錯啟動]]></string>
@@ -55,16 +59,16 @@
         <item quantity="other"><![CDATA[已授權 %d 個應用程式]]></item>
     </plurals>
     <!-- Home - Automation -->
-    <string name="home_automation_dialog_label_action">動作</string>
-    <string name="home_automation_dialog_label_package">套件名</string>
-    <string name="home_automation_dialog_label_class">類別名</string>
-    <string name="home_automation_dialog_label_target">目標</string>
+    <!-- Home - Stealth mode -->
     <!-- Home - Learn more -->
     <!-- Home - Adb permissions limited -->
+    <!-- Home - Dialogs -->
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">ADB 權限受限</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[這極有可能是你的裝置製造商限制了 ADB 的權限。<p><b><a href=\"%1$s\">此文件</a></b>中可能有針對你的系統的解決方案。]]></string>
     <string name="app_management_toggle_all">切換全部</string>
+    <string name="action_start">開始 Shizuku</string>
+    <string name="intents_start">啟動</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">使用者反映 MIUI 破壞了匯出功能所使用的儲存存取框架。</string>
     <string name="terminal_tutorial_miui_2">如果您使用的是 MIUI 系統，則可能需要從 Shizuku 的 APK 的 assets 資料夾中提取該檔案。</string>
@@ -74,6 +78,7 @@
     <string name="terminal_tutorial_2_description">提示：如果你的終端應用程式的主目錄（~）位於私有檔案目錄中，將檔案放在那裡就可以直接運行 %1$s
         而無需輸入路徑。\n\n否則，你可以在終端應用程式的 %3$s 設定檔中為 %2$s 建立一個別名。</string>
     <string name="terminal_tutorial_3">使用以下命令開啟 shell：</string>
+    <!-- Stealth -->
     <!-- Settings -->
     <string name="settings_start_on_boot">開機時啟動</string>
     <string name="settings_use_system_color">使用系統主題色彩</string>
@@ -86,7 +91,6 @@
     <string name="settings_restart_dialog_message">Shizuku 需要重啟才能套用此設定。</string>
     <string name="settings_restart_dialog_message_wifi_required"><![CDATA[<br><br><b>需要 Wi-Fi。Shizuku 會在後台繼續運作並等待 Wi-Fi 連接，連線成功後才會重新啟動。</b>]]></string>
     <string name="settings_tcp_port">TCP 埠</string>
-    <string name="settings_tcp_learn_more">了解更多關於使用自動化應用程式控制 Shizuku 的方法</string>
     <string name="settings_language">語言</string>
     <string name="settings_black_night_theme">黑色夜間主題</string>
     <string name="settings_black_night_theme_summary">夜間模式啟用時使用純黑色主題</string>
@@ -108,6 +112,7 @@
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">請關閉電池最佳化以使用此功能。</string>
     <string name="snackbar_action_fix">修正</string>
+    <!-- Updates -->
     <!-- Toast -->
     <string name="toast_no_email_app">找不到電子郵件應用程式</string>
     <!-- Dark Mode Setting Override -->
@@ -116,9 +121,8 @@
     <string name="dark_theme_on">始終使用深色主題</string>
     <string name="follow_system">跟隨系統</string>
     <!-- About -->
-    <!-- Start -->
-    <string name="action_start">開始 Shizuku</string>
-    <!-- Stop -->
+    <!-- Start/Stop -->
+    <string name="start">啟動</string>
     <string name="action_stop">停止 Shizuku</string>
     <!-- Notification -->
     <string name="notification_channel_adb_pairing">無線偵錯配對</string>
@@ -149,6 +153,7 @@
     <string name="wadb_permission_error_notification_title">權限錯誤</string>
     <string name="wadb_permission_error_notification_content">Shizuku
         需要WRITE_SECURE_SETTINGS才能於開機時啟動。點擊了解如何授予此權限。</string>
+    <!-- Shell -->
     <!-- Watchdog -->
     <string name="watchdog_running">看門狗正在執行</string>
     <string name="watchdog_turn_off">關閉</string>
@@ -167,4 +172,8 @@
     <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> 支援現代 Shizuku，但它正在要求舊版 Shizuku。這可能是因為 Shizuku 未在執行，請在 Shizuku 應用程式內檢查。<p>舊版 Shizuku 已於 2019 年 3 月被棄用。]]></string>
     <string name="dialog_requesting_legacy_button_open_shizuku">開啟 Shizuku</string>
     <string name="wadb_notification_attempt_now">現在嘗試</string>
+    <!-- Manage tab -->
+    <!-- One app, and what it may do on the device -->
+    <string name="app_op_mode_deny">拒絕</string>
+    <string name="app_action_enable">啟用</string>
 </resources>
