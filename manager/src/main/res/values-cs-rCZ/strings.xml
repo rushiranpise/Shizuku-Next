@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- To translators: you can leave your here -->
+    <!-- Home - Adb -->
+    <!-- Home - Wireless Adb -->
+    <string name="home_wireless_adb_title"><![CDATA[Spustit pomocí WiFi debuging]]></string>
+    <!-- Adb -->
+    <string name="dialog_adb_port">Přístav</string>
+    <string name="dialog_adb_invalid_port">Port je číslo od 1 do 65535.</string>
+    <string name="adb_pairing">Párování</string>
+    <string name="dialog_adb_pairing_title">Párovat se zařízením</string>
+    <string name="dialog_adb_pairing_discovery">Hledání zařízení pro párování</string>
+    <string name="dialog_adb_pairing_paring_code">Kód pro párování</string>
+    <string name="paring_code_is_wrong">Chybný kód pro párování.</string>
+    <string name="cannot_connect_port">Nelze se připojit k bezdrátové ladicí službě.\n\nUjistěte se prosím, že je Shizuku na bílé listině ve všech firewallech, blokovačích reklam, VPN nebo podobných aplikacích, které mohou omezovat přístup k síti.</string>
+    <string name="dialog_adb_pairing_message">Párování zahajte provedením následujících kroků:\n- Přejděte do sekce „Možnosti pro vývojáře“\n- Povolte „Ladění USB“ a „Bezdrátové ladění“\n- Klepněte na levou stranu sekce „Bezdrátové ladění“\n- Klepněte na „Spárovat zařízení s párovacím kódem“\n- Zadejte párovací kód z oznámení</string>
+    <string name="dialog_adb_pairing_accessibility_permission">V systému Android 14 instalace/aktualizace Shizuku pomocí instalačního programu balíčků ruší oprávnění ^1, které je vyžadováno k povolení služby přístupnosti pro párování.\n\nChcete-li jej udělit, spusťte následující příkaz ADB:\n\n^2\n\nPo spuštění příkazu můžete pokračovat v procesu párování.\n\nPoznámka: Tomuto se můžete vyhnout instalací/aktualizací Shizuku pomocí ADB.</string>
+    <string name="dialog_adb_pairing_accessibility_enable">Prosím, povolte službu přístupnosti pro zahájení procesu párování. To umožňuje Shizuku detekovat párovací kód.\n\nSlužba přístupnosti bude vypnuta po nalezení kódu nebo po 1 minutě, aby se šetřila energie.</string>
+    <string name="dialog_adb_pairing_accessibility_navigate">Párování spusťte provedením následujících kroků:\n- Přejděte do sekce „Možnosti pro vývojáře“\n- Povolte „Ladění USB“ a „Bezdrátové ladění“\n- Klepněte na levou stranu sekce „Bezdrátové ladění“\n- Klepněte na „Spárovat zařízení s párovacím kódem“. Shizuku automaticky detekuje párovací kód.</string>
+    <string name="adb_pairing_requires_multi_window">Nejprve prosím přejděte do režimu rozdělené obrazovky (více oken).</string>
+    <string name="adb_pairing_requires_multi_window_reason">Systém vyžaduje, aby byl dialog pro párování vždy viditelný. Použití režimu rozdělené obrazovky je jediný způsob, jak zajistit, aby tato aplikace a dialogové okno systému byly viditelné současně.</string>
+    <string name="adb_error_key_store">Nelze vygenerovat klíč pro bezdrátové ladění.\nMůže to být způsobeno chybou mechanismu úložiště klíčů v tomto zařízení.</string>
+    <string name="adb_error_stop_tcp">Nepodařilo se zastavit ADB přes TCP</string>
+    <string name="adb_pair_required">Nejprve projděte krok párování.</string>
+    <string name="enable">Zapnout</string>
+    <string name="development_settings">Možnosti vývojářů</string>
+    <string name="notification_settings">Nastavení oznámení</string>
+    <string name="adb_pairing_tutorial_content_notification">Notifikace od Shizuku vám pomůže dokončit párování.</string>
+    <string name="adb_pairing_tutorial_content_steps">Přejděte do části „Možnosti pro vývojáře“ a poté povolte „Ladění USB“ a „Bezdrátové ladění“.</string>
+    <string name="adb_pairing_tutorial_content_enter_pairing_code">Klepněte na levou stranu „Bezdrátové ladění“ a poté klepněte na „Spárovat zařízení s párovacím kódem“. Zadejte kód z oznámení pro dokončení párování.</string>
+    <string name="adb_pairing_tutorial_content_notification_blocked">Proces párování vyžaduje interakci s oznámením od Shizuku. Prosím povolte Shizuku posílat oznámení.</string>
+    <string name="adb_pairing_tutorial_content_miui">Uživatelé MIUI možná budou muset přepnout styl oznámení na \"Android\" z \"Oznámení\" - \"Lišta Oznámení\" v nastavení systému.</string>
+    <string name="adb_pairing_tutorial_content_miui_2">Jinak se vám nemusí podařit zadat párovací kód z oznámení.</string>
+    <string name="adb_pairing_tutorial_content_finish">Vraťte se do Shizuku a začněte Shizuku.</string>
+    <string name="adb_pairing_tutorial_content_network">Shizuku potřebuje přístup k místní síti. Je řízen síťovými oprávněními.</string>
+    <string name="adb_pairing_tutorial_content_network_limation_not_foreground">Některé systémy (například MIUI) neumožňují aplikacím přístup k síti, když nejsou viditelné, a to i v případě, že aplikace používá službu v popředí. V takových systémech prosím vypněte funkce optimalizace baterie pro aplikaci Shizuku.</string>
+    <!-- Home - Root -->
+    <string name="home_root_title"><![CDATA[Start (pro rootovaná zařízení)]]></string>
+    <string name="home_root_description"><![CDATA[Pokud používáte Magisk, můžete zkusit %1$s. Pro uživatele root nakonec nahradí Shizuku. Upozorňujeme, že stávající aplikace se musí trochu změnit, aby mohly používat %2$s.]]></string>
+    <string name="home_root_button_start">Spustit</string>
+    <!-- Home - Application management -->
+    <plurals name="home_app_management_authorized_apps_count">
+        <item quantity="one"><![CDATA[Autorizovaná %d aplikace]]></item>
+        <item quantity="few"><![CDATA[Autorizováno %d aplikací]]></item>
+        <item quantity="many"><![CDATA[Autorizovány %d aplikace]]></item>
+        <item quantity="other"><![CDATA[Autorizovány %d aplikace]]></item>
+    </plurals>
+    <!-- Home - Automation -->
+    <!-- Home - Stealth mode -->
+    <!-- Home - Learn more -->
+    <!-- Home - Adb permissions limited -->
+    <!-- Home - Dialogs -->
+    <!-- Application management -->
+    <string name="app_management_dialog_adb_is_limited_title">Oprávnění adb je omezené</string>
+    <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Je vysoce možné, že výrobce vašeho zařízení omezuje oprávnění adb. <p> V <b> <a href="%1$s"> tomto dokumentu </a> </b> může být pro váš systém řešení.]]></string>
+    <string name="app_management_toggle_all">Přepínat vše</string>
+    <string name="action_start">Spustit</string>
+    <string name="intents_start">Spustit</string>
+    <!-- Terminal -->
+    <string name="terminal_tutorial_miui">Uživatelé hlásili, že MIUI narušuje rámec pro přístup k úložišti (Storage Access Framework), který používá funkce exportu.</string>
+    <string name="terminal_tutorial_miui_2">Pokud používáte MIUI, budete možná muset soubor extrahovat ze složky assets v APK souboru Shizuku.</string>
+    <string name="terminal_tutorial_1">Exportujte soubory do nové složky.</string>
+    <string name="terminal_tutorial_1_description">Budou exportovány dva soubory: %1$s a %2$s. Pokud soubory již ve vybrané složce existují, budou smazány.</string>
+    <string name="terminal_tutorial_2">Pomocí terminálové aplikace zkopírujte soubory do jejího soukromého adresáře souborů.</string>
+    <string name="terminal_tutorial_2_description">Tip: Pokud se domovský adresář (~) vaší terminálové aplikace nachází v adresáři soukromých souborů, umístění souborů tam vám umožní spustit %1$s bez zápisu cesty.\n\nV opačném případě můžete vytvořit alias pro %2$s v konfiguračním souboru %3$s vaší terminálové aplikace.</string>
+    <string name="terminal_tutorial_3">Otevřete shell pomocí následujícího příkazu:</string>
+    <!-- Stealth -->
+    <!-- Settings -->
+    <string name="settings_start_on_boot">Začněte na botě</string>
+    <string name="settings_watchdog">Hlídací pes</string>
+    <string name="settings_watchdog_summary">Automaticky restartovat Shizuku v případě pádu</string>
+    <string name="settings_tcp_mode">TCP režim</string>
+    <string name="settings_tcp_mode_summary">"Umožňuje Shizuku restartovat bez Wi-Fi. (Shizuku musela od restartu začít jednou)"</string>
+    <string name="settings_tcp_mode_dialog_close_port">"Port TCP bude okamžitě uzavřen. Pro opětovné zapnutí režimu TCP budete potřebovat Wi-Fi. Pokračovat?"</string>
+    <string name="settings_restart_dialog_title">Vyžadován restart</string>
+    <string name="settings_restart_dialog_message">Aby se toto nastavení projevilo, je nutné restartovat Shizuku.</string>
+    <string name="settings_restart_dialog_message_wifi_required"><![CDATA[<br><br><b>Je vyžadováno připojení k Wi-Fi. Shizuku bude pokračovat v běhu a počká na připojení k Wi-Fi, než se restartuje na pozadí.</b>]]></string>
+    <string name="settings_language">Jazyk</string>
+    <string name="settings_black_night_theme">Motiv černé noci</string>
+    <string name="settings_black_night_theme_summary">Pokud je povolen noční režim, použijte motiv čistě černé barvy</string>
+    <string name="settings_help">Pomoc</string>
+    <string name="settings_report_bug">Nahlásit chybu</string>
+    <string name="settings_legacy_pairing">Legacy párování</string>
+    <string name="settings_legacy_pairing_summary">Zadejte párovací kód do dialogu místo oznámení</string>
+    <!-- Bug Report Dialog -->
+    <string name="bug_report_dialog_before_reporting">Nejprve prosím proveďte následující:</string>
+    <string name="bug_report_dialog_update">Zkontrolujte, zda používáte ^1.</string>
+    <string name="bug_report_dialog_link_update">nejnovější verze</string>
+    <string name="bug_report_dialog_wiki">Přečtěte si ^1 a postupujte podle všech příslušných kroků pro řešení problémů.</string>
+    <string name="bug_report_dialog_issues">Prohledejte všechny ^1 a zjistěte, zda vaše chyba již byla nahlášena.</string>
+    <string name="bug_report_dialog_link_issues">existující problémy</string>
+    <string name="bug_report_dialog_method">Pokud máte účet, odešlete prosím problém na ^1.</string>
+    <string name="bug_report_dialog_method_2">Jinak můžete poslat e-mail.</string>
+    <string name="bug_report_dialog_button_email">E-mail</string>
+    <!-- Snackbar -->
+    <string name="snackbar_battery_optimization_settings">Pro použití této funkce prosím vypněte optimalizaci baterie.</string>
+    <string name="snackbar_action_fix">Opravit</string>
+    <!-- Updates -->
+    <!-- Toast -->
+    <string name="toast_no_email_app">Žádná e-mailová aplikace nenalezena</string>
+    <string name="toast_pairing_timeout">Časový limit párovací služby Shizuku vypršel.</string>
+    <!-- Dark Mode Setting Override -->
+    <string name="dark_theme_off">Vždy světlé</string>
+    <string name="dark_theme_on">Vždycky tma</string>
+    <!-- About -->
+    <!-- Start/Stop -->
+    <string name="start">Spustit</string>
+    <!-- Notification -->
+    <string name="notification_channel_adb_pairing">Párování bezdrátového ladění</string>
+    <string name="notification_adb_pairing_input_paring_code">Vložte párovací kód</string>
+    <string name="notification_adb_pairing_searching_for_service_title">Hledání zařízení pro párování</string>
+    <string name="notification_adb_pairing_service_found_title">Párovací služba nalezena</string>
+    <string name="notification_adb_pairing_stop_searching">Přestaňte hledat</string>
+    <string name="notification_adb_pairing_working_title">Párování probíhá</string>
+    <string name="notification_adb_pairing_succeed_title">Párování bylo úspěšné</string>
+    <string name="notification_adb_pairing_succeed_text">Nyní můžete spustit službu Shizuku.</string>
+    <string name="notification_adb_pairing_failed_title">Párování selhalo</string>
+    <string name="notification_adb_pairing_retry">Zkusit znovu</string>
+    <!-- Permission related, appears in system permission UI -->
+    <string name="permission_label">přístup k Shizuku</string>
+    <string name="permission_description">povolí aplikaci používat systémová rozhraní API s vyššími oprávněními (Shizuku).</string>
+    <string name="permission_warning_template"><![CDATA[Povolit aplikaci </b>%1$s</b> %2$s\?]]></string>
+    <string name="grant_dialog_button_allow_always">Povolit vždy</string>
+    <string name="grant_dialog_button_deny">"Zakázat"</string>
+    <!-- Starter -->
+    <string name="starter">Spouštěč</string>
+    <string name="start_with_root_failed">Službu nelze spustit, protože není uděleno oprávnění k rootu nebo toto zařízení není rootováno.</string>
+    <!-- WADB Starter -->
+    <string name="wadb_notification_title">Startování Shizuku…</string>
+    <string name="wadb_notification_wifi_required">Čekání na připojení k Wi-Fi před pokračováním</string>
+    <string name="wadb_notification_retry">Čekání na opakování</string>
+    <string name="wadb_error_title">Chyba při startu při startu</string>
+    <string name="wadb_error_notify_dev">Klepněte pro upozornění vývojáře.</string>
+    <string name="wadb_permission_error_notification_title">Chyba oprávnění</string>
+    <string name="wadb_permission_error_notification_content">Shizuku potřebuje WRITE_SECURE_SETTINGS začít na startu. Klepněte a zjistěte, jak ji udělit.</string>
+    <!-- Shell -->
+    <!-- Watchdog -->
+    <string name="watchdog_running">Watchdog běží</string>
+    <string name="watchdog_turn_off">Vypnout</string>
+    <string name="watchdog_shizuku_crashed_title">Shizuku nedávno havarovala</string>
+    <string name="watchdog_shizuku_crashed_text">Watchdog službu znovu spustil. Klepněte a zjistěte o možných řešeních, jak předejít budoucím pádům.</string>
+    <string name="watchdog_shizuku_crashed_action_turn_off_alerts">Vypnout upozornění</string>
+    <!-- Misc -->
+    <string name="dialog_cannot_open_browser_title">Prohlížeč nelze spustit</string>
+    <string name="toast_copied_to_clipboard">Zkopírováno do schránky</string>
+    <string name="accessibility_service_description">Podporuje párování zařízení (např. televizorů s Androidem 14+), kde nelze používat oznámení nebo rozdělenou obrazovku.\n\nUmožňuje Shizuku extrahovat párovací kód z obrazovky pro ladění bezdrátového ladění. Jakmile najdete párovací kód, deaktivuje se.</string>
+    <!-- Messages for legacy -->
+    <string name="dialog_legacy_not_support_title">%1$s nepodporuje moderní Shizuku</string>
+    <string name="dialog_legacy_not_support_message"><![CDATA[Podpora starší verze Shizuku je od března 2019. Starší verze Shizuku také nefunguje na novějších systémech Android. <p> O aktualizaci požádejte vývojáře <b>%1$s </b>.]]></string>
+    <string name="dialog_requesting_legacy_title">%1$s vyžaduje starší Shizuku</string>
+    <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s </b> má podporu pro moderní Shizuku, ale vyžaduje starší Shizuku. Mohlo by to být proto, že Shizuku není spuštěno, zkontrolujte aplikaci Shizuku. <p> Podpora staršího Shizuku je od března 2019 ukončena.]]></string>
+    <string name="dialog_requesting_legacy_button_open_shizuku">Otevřít Shizuku</string>
+    <string name="wadb_notification_attempt_now">Zkusit znovu</string>
+    <!-- Manage tab -->
+    <!-- One app, and what it may do on the device -->
+    <string name="app_op_mode_deny">Zakázat</string>
+    <string name="app_action_enable">Zapnout</string>
+</resources>

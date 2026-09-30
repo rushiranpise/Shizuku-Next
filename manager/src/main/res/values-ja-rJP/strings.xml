@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- To translators: you can leave your here -->
+    <string name="home_status_adb_wireless">adb</string>
+    <string name="home_status_adb_usb">adb</string>
+    <!-- Home - Adb -->
+    <!-- Home - Wireless Adb -->
+    <string name="home_wireless_adb_title"><![CDATA[ワイヤレスデバッグで開始]]></string>
+    <!-- Adb -->
+    <string name="dialog_adb_port">ポート</string>
+    <string name="dialog_adb_invalid_port">ポートは1から65535までの整数です。</string>
+    <string name="adb_pairing">ペアリング</string>
+    <string name="dialog_adb_pairing_title">デバイスとのペアリング</string>
+    <string name="dialog_adb_pairing_discovery">ペアリングサービスの検索</string>
+    <string name="dialog_adb_pairing_paring_code">ペアリングコード</string>
+    <string name="paring_code_is_wrong">ペアリングコードが間違っています。</string>
+    <string name="cannot_connect_port">ワイヤレスデバッグサービスに接続できません。\n\nShizukuがすべてのファイアウォール、広告ブロック、VPNなどネットワークアクセスを制限できるアプリでホワイトリストに登録されていることを必ず確認してください。</string>
+    <string name="dialog_adb_pairing_message">以下の手順でペアリングを開始してください。\n・「開発者向けオプション」に移動します。\n・「USBデバッグ」と「ワイヤレスデバッグ」を有効にします。\n・「ワイヤレスデバッグ」の左側をタップします。\n・「ペアリングコードでデバイスをペアリング」をタップします。\n・通知にペアリングコードを入力します</string>
+    <string name="dialog_adb_pairing_accessibility_permission">Android 14 では、パッケージ インストーラーを使用して Shizuku をインストール/更新すると、ペアリング用のアクセシビリティ サービスを有効にするために必要な ^1 権限が取り消されます。\n\nこれを許可するには、次の ADB コマンドを実行します：\n\n^2\n\nコマンドを実行したら、ペアリング プロセスを続行できます。\n\n注：ADB を使用して Shizuku をインストール/更新すると、これを回避できます。</string>
+    <string name="dialog_adb_pairing_accessibility_enable">自動ペアリング機能は、Shizuku のユーザー補助サービス（アクセシビリティサービス）を利用してシステムダイアログからコードを読み取るため、このサービスを有効にする必要があります。通常、Shizukuは自動的にこのサービスを有効化しますが、そのためには WRITE_SECURE_SETTINGS 権限が必要です。しかし、新規インストール直後の状態では、この権限はまだ付与されていません。\n\n次の画面でサービスを有効にするか、「手動（Manual）」の項目でコードを直接入力するか、あるいは以下のコマンドを実行して権限を付与してください：\n\nadb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS\n\nコードが検出された場合、または1分が経過した場合には、省電力のためサービスは自動的に停止します。</string>
+    <string name="dialog_adb_pairing_accessibility_navigate">以下の手順に従ってペアリングを開始してください。\n・「開発者向けオプション」に移動します。\n・「USBデバッグ」と「ワイヤレスデバッグ」を有効にします。\n・「ワイヤレスデバッグ」の左側をタップします。\n・「ペアリングコードでデバイスをペアリング」をタップします。Shizukuはペアリングコードを自動的に検出します。</string>
+    <string name="adb_pairing_requires_multi_window">最初に分割画面モードに入ってください。</string>
+    <string name="adb_pairing_requires_multi_window_reason">このシステムはペアリングダイアログが常に見えることを求めています。分割画面モードを使うことが、このアプリとシステムのダイアログを同時に表示する唯一の方法です。</string>
+    <string name="adb_error_key_store">ワイヤレスデバッグ用のキーを生成できません。\nこれはこのデバイスのKeyStore機構が故障しているためかもしれません。</string>
+    <string name="adb_error_stop_tcp">TCP経由のADBを停止できませんでした</string>
+    <string name="adb_pair_required">まずはペアリングの手順を行ってください。</string>
+    <string name="enable">有効にする</string>
+    <string name="development_settings">開発者向けオプション</string>
+    <string name="notification_settings">通知オプション</string>
+    <string name="adb_pairing_tutorial_content_notification">Shizukuからの通知でペアリングが完了します。</string>
+    <string name="adb_pairing_tutorial_content_steps">「開発者向けオプション」に移動し、「USB デバッグ」と「ワイヤレス
+        デバッグ」を有効にします。</string>
+    <string name="adb_pairing_tutorial_content_enter_pairing_code">「ワイヤレスデバッグ」の左側をタップし、「ペアリングコードでデバイスをペアリング」をタップします。通知に記載されているコードを入力してペアリングを完了します。</string>
+    <string name="adb_pairing_tutorial_content_notification_blocked">ペアリング手順はShizukuからの通知を操作する必要があります。Shizukuからの通知を許可してください。</string>
+    <string name="adb_pairing_tutorial_content_miui">MIUIユーザーはシステムの設定から「通知」→「通知のシェード」から通知スタイルを「Android」に変更する必要がある場合があります。</string>
+    <string name="adb_pairing_tutorial_content_miui_2">そうでなければ、通知からペアリングコードを入力できない可能性があります。</string>
+    <string name="adb_pairing_tutorial_content_finish">Shizuku アプリに戻って Shizuku を開始します。</string>
+    <string name="adb_pairing_tutorial_content_network">Shizuku はローカルネットワークにアクセスする必要があります。ネットワークの権限によって制御されます。</string>
+    <string name="adb_pairing_tutorial_content_network_limation_not_foreground">
+        一部のシステム(MIUIなど)は、アプリがフォアグラウンドサービスを使っていても、見えないアプリがネットワークにアクセスすることを許可しません。そのようなシステムでは、しずくのバッテリー最適化機能を無効にしてください。</string>
+    <!-- Home - Root -->
+    <string name="home_root_title"><![CDATA[開始(Root化された端末の場合のみ)]]></string>
+    <string name="home_root_description"><![CDATA[Magiskをお使いの場合は、 %1$sをお試しください。rootユーザーの場合、最終的にはShizukuに取って代わる予定です。ただし、既存のアプリケーションで %2$sを使用するには、少し変更が必要です。]]></string>
+    <string name="home_root_button_start">開始</string>
+    <!-- Home - Application management -->
+    <plurals name="home_app_management_authorized_apps_count">
+        <item quantity="other"><![CDATA[承認された %d 個のアプリケーション]]></item>
+    </plurals>
+    <!-- Home - Automation -->
+    <!-- Home - Stealth mode -->
+    <!-- Home - Learn more -->
+    <!-- Home - Adb permissions limited -->
+    <!-- Home - Dialogs -->
+    <!-- Application management -->
+    <string name="app_management_dialog_adb_is_limited_title">adbの権限が制限されています</string>
+    <string name="app_management_dialog_adb_is_limited_message"><![CDATA[端末の製造元がadbの権限を制限している可能性が高いです。<p> <b><a href="%1$s">このドキュメント</a></b>の中に、あなたのシステムに合った解決策があるかもしれません。]]></string>
+    <string name="app_management_toggle_all">すべて切り替え</string>
+    <string name="app_management_search_hint">アプリを検索</string>
+    <string name="app_management_sort">並べ換え</string>
+    <string name="apps_filter_empty">このフィルターにはアプリがありません</string>
+    <string name="apps_filter_all">すべて</string>
+    <string name="apps_filter_granted">付与済み</string>
+    <string name="apps_filter_revoked">未付与</string>
+    <string name="apps_filter_hidden">非表示</string>
+    <string name="apps_no_match">検索に一致するアプリはありません</string>
+    <string name="app_management_sort_last_added">最近追加した項目</string>
+    <string name="app_management_sort_updated">更新日時</string>
+    <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="tab_home">ホーム</string>
+    <string name="tab_apps">アプリ</string>
+    <string name="tab_shell">シェル</string>
+    <string name="tab_settings">設定</string>
+    <string name="home_device_manager_version">マネージャーバージョン</string>
+    <string name="home_device_kernel_version">カーネルバージョン</string>
+    <string name="home_device_model">デバイスのモデル</string>
+    <string name="home_device_fingerprint">フィンガープリント</string>
+    <string name="home_device_selinux">SELinux ステータス</string>
+    <string name="home_device_seccomp">Seccomp ステータス</string>
+    <string name="selinux_enforcing">Enforcing</string>
+    <string name="selinux_permissive">Permissive</string>
+    <string name="selinux_disabled">無効</string>
+    <string name="seccomp_disabled">無効</string>
+    <string name="seccomp_strict">Strict</string>
+    <string name="seccomp_filter">フィルター</string>
+    <string name="status_value_none">-</string>
+    <string name="status_running_short">動作中</string>
+    <string name="status_stopped_short">停止中</string>
+    <string name="action_start">開始</string>
+    <string name="tools_stealth">ステルスモード</string>
+    <string name="tools_terminal">ターミナルアプリ</string>
+    <string name="tools_terminal_summary">任意のターミナルアプリでシェルコマンドを実行します。使用：rish</string>
+    <string name="tools_battery">電池の最適化</string>
+    <string name="intents_title">インテント</string>
+    <string name="about_package">パッケージ ID</string>
+    <string name="check_for_updates_now">今すぐ確認</string>
+    <string name="start_failed">Shizukuを開始できませんでした</string>
+    <string name="start_failed_no_binder">サービスは1分以内には表示されませんでした。両方の半分はログを保持します: shizukuServiceStarter のスターターとBinderSenderの下での引き渡しです。これらの2つにフィルタリングされた logcat リーダーは、スターターがサーバーをフォークするまで進んだかどうか、そしてサーバーがバインダーを要求したかどうかを示します。</string>
+    <string name="start_system_custom_intro">独自のエクスプロイト、自動化、またはルート シェルを可能な限りエスカレートし、次のコマンドを実行します。これにより、サービスがシステム uid として起動されます。アプリは表示されるのを待っています。</string>
+    <string name="start_system_custom_copied">コマンドをクリップボードにコピーしました。</string>
+    <string name="settings_section_startup">起動</string>
+    <string name="settings_section_tools">ツール</string>
+    <string name="settings_section_appearance">外観</string>
+    <string name="settings_section_about">このアプリについて</string>
+    <string name="settings_theme">テーマ</string>
+    <string name="settings_theme_system">システム設定に従う</string>
+    <string name="settings_theme_light">ライトモード</string>
+    <string name="settings_theme_dark">ダークモード</string>
+    <string name="intents_description">自動化アプリを使って、これらのブロードキャストでShizukuを制御することができます。認証トークンは、\"auth\"追加で渡されなければなりません。</string>
+    <string name="intents_token">認証トークン</string>
+    <string name="intents_copy">コピー</string>
+    <string name="intents_regenerate">再生成</string>
+    <string name="intents_start">開始</string>
+    <string name="intents_stop">停止</string>
+    <string name="intents_watchdog_on">Watchdog オン</string>
+    <string name="intents_watchdog_off">Watchdog オフ</string>
+    <string name="intents_watchdog_toggle">Watchdog 切り替え</string>
+    <string name="intents_adb_command">コンピュータ経由で開始</string>
+    <string name="home_battery_warning">バックグラウンドでShizukuが強制停止される可能性があります。バッテリーの最適化を無視をしてください。</string>
+    <string name="batch_selected_count">%1$d件選択済み</string>
+    <string name="app_management_action_select_all">すべて選択</string>
+    <string name="app_management_action_grant">付与</string>
+    <string name="app_management_action_revoke">取り消す</string>
+    <string name="app_management_batch_grant_title">権限を付与</string>
+    <string name="app_management_batch_revoke_title">権限を取り消す</string>
+    <string name="app_management_batch_message">選択した%1$d件のアプリに適用しますか？</string>
+    <string name="app_management_toggle_all_message">リストされた%1$d件のすべてのアプリに適用しますか？</string>
+    <string name="app_management_batch_granted">%1$d件のアプリに権限を付与しました</string>
+    <string name="app_management_batch_revoked">%1$d件のアプリから権限を取り消しました</string>
+    <string name="action_undo">元に戻す</string>
+    <!-- Terminal -->
+    <string name="terminal_tutorial_miui">ユーザーからは、MIUI がエクスポート機能で使用されるストレージ アクセス フレームワークを壊すという報告があります。</string>
+    <string name="terminal_tutorial_miui_2">MIUI を使用している場合は、Shizuku の APK のアセットフォルダーからファイルを抽出する必要がある場合があります。</string>
+    <string name="terminal_tutorial_1">ファイルを新しいフォルダにエクスポートします。</string>
+    <string name="terminal_tutorial_1_description">2つのファイルがエクスポートされます: %1$s と %2$s。選択したフォルダに既にファイルが存在する場合は削除されます。</string>
+    <string name="terminal_tutorial_2">ターミナル アプリを使用して、ファイルをプライベート ファイル ディレクトリにコピーします。</string>
+    <string name="terminal_tutorial_2_description">ヒント: ターミナル アプリのホーム ディレクトリ (~) がプライベート ファイルディレクトリにある場合は、そこにファイルを配置すると、パスを書き込まなくても %1$s を実行できます。\n\nそれ以外の場合は、ターミナル アプリの %3$s 構成ファイルで %2$s のエイリアスを作成できます。</string>
+    <string name="terminal_tutorial_3">次のコマンドでシェルを開きます。</string>
+    <!-- Stealth -->
+    <string name="stealth_description">インストール時に動作を拒否するアプリから Shizuku を非表示にします。別のパッケージ名のクローンがエクスポートされ、インストールすることができます。</string>
+    <string name="stealth_warning_compatibility">一部のアプリは、Shizuku がインストールされているかどうかを検出しようとするため、Shizuku が非表示になっても動作しない場合があります。</string>
+    <string name="stealth_warning_compatibility_2">回避策として、一時的に元のパッケージ名でスタブをインストールする Shizuku を表示することができます。終了すると、Shizuku を再び隠すことができます。</string>
+    <string name="stealth_warning_compatibility_3">このカードをタップすると、開発者に送信できるコードスニペットがコピーされます。これにより、Shizuku が非表示になったときに「Shizuku がインストールされている」チェックが機能します。</string>
+    <string name="stealth_warning_detection">非表示の場合でも、Shizuku を検出できるアプリもあるかもしれません。</string>
+    <string name="stealth_info_reconfigure">非表示バージョンをインストールした後、再ペアリングと再設定が必要になります。</string>
+    <string name="stealth_info_rish">Rishユーザー：非表示バージョンをインストールした後、ファイルを再エクスポートします。</string>
+    <string name="stealth_info_intents">インテントユーザー：新しいパッケージ名でインテントを更新してください。</string>
+    <string name="stealth_info_update">非表示バージョンを使用する場合は、署名が異なるため、アプリ経由で Shizuku を更新する必要があります。</string>
+    <string name="stealth_package_name">パッケージ名 (任意)</string>
+    <string name="stealth_package_name_helper_text">空白のままの場合、パッケージ名にランダムな接尾辞が追加されます。</string>
+    <string name="stealth_error_ends_with_period">パッケージ名はピリオドで終わることはできません。</string>
+    <string name="stealth_error_invalid_characters">アルファベット、数字、およびピリオドのみが使えます。</string>
+    <string name="stealth_error_needs_two_segments">パッケージ名には少なくとも2つのセグメントが必要です。</string>
+    <string name="stealth_error_segment_starts_with_number">セグメントは数字で開始できません。</string>
+    <string name="stealth_uninstall_required">アンインストールが必要です</string>
+    <string name="stealth_uninstall_message">これで、Shizuku のアンインストールを求められます。その後、クローンをインストールします。</string>
+    <string name="stealth_uninstall">アンインストール</string>
+    <string name="stealth_hide">非表示</string>
+    <string name="stealth_unhide">再表示</string>
+    <!-- Settings -->
+    <string name="settings_start_on_boot">起動時にスタート</string>
+    <string name="settings_watchdog">Watchdog</string>
+    <string name="settings_watchdog_summary">Shizukuがクラッシュした場合に自動的に再起動する</string>
+    <string name="settings_auto_disable_wireless_debugging_summary">Shizuku が停止したらワイヤレスデバッグをオフにします。</string>
+    <string name="settings_start_method">デフォルトの開始方法</string>
+    <string name="settings_start_method_root_unavailable">このデバイスにはルートがないため、ワイヤレスデバッグに戻ります。</string>
+    <string name="start_method_wireless">ワイヤレス</string>
+    <string name="start_method_usb">USB</string>
+    <string name="start_method_system">システム</string>
+    <string name="start_method_root">Root</string>
+    <string name="transport_adb">adb</string>
+    <string name="settings_adb_without_developer_options_summary">開発者向けオプションをオフにしますが、ADB の設定を保持します。 Shizuku は機能し続け、これらの設定は再起動するたびに復元されます。</string>
+    <string name="settings_adb_without_developer_options_confirm_title">開発者向けオプションをオフにしますか？</string>
+    <string name="settings_adb_without_developer_options_confirm_message">再起動後も、Shizuku は ADB の設定を復元します。USBまたはワイヤレスデバッグ設定を変更したり、新しいデバイスをペアリングするための開発者オプションを開くことができません。開発者オプションをオフにしますか？</string>
+    <string name="settings_adb_without_developer_options_confirm">オフにする</string>
+    <string name="settings_wait_for_wifi">Wi-Fiを待つ</string>
+    <string name="settings_wait_for_wifi_summary">自動的に Shizuku が再起動し、未満のWi-Fi接続を待ちます。</string>
+    <string name="settings_unavailable_while_forcing_wireless">「Wi-Fiなしで開始」がオンのときは利用できません。</string>
+    <string name="settings_force_wireless_debugging">Wi-Fiなしで開始 (実験的)</string>
+    <string name="settings_force_wireless_debugging_summary">Wi-FiまたはUSBデバッグなしでShizukuを起動しようとします。また、「Wi-Fiを待つ」と「自動でワイヤレスデバッグをオフにする」はオフになります。</string>
+    <string name="state_off">オフ</string>
+    <string name="settings_system_start_method">システムの開始方法</string>
+    <string name="settings_system_start_method_exploit">Samsung (FOTA agent)</string>
+    <string name="settings_system_start_method_custom">カスタムコマンド</string>
+    <string name="home_system_title">システムUID経由で開始</string>
+    <string name="home_system_summary">adbの代わりにシステムユーザー (UID 1000) として Shizuku を実行します。Samsungのみ、FOTAエージェントを通じて、それらは船を構築します</string>
+    <string name="home_adb_command_summary">ADB経由でコンピューターから Shizuku を起動します。タップしてコマンドをコピーします</string>
+    <string name="settings_tcp_mode">TCPモード</string>
+    <string name="settings_tcp_mode_summary">"
+        \"Wi-FiなしでShizukuを再起動できるようにします。（再起動後、Shizukuが一度起動している必要があります）\""</string>
+    <string name="settings_tcp_mode_dialog_close_port">"
+        \"TCPポートは直ちに閉じられます。TCPモードを再度オンにするにはWi-Fiが必要です。続行しますか？\""</string>
+    <string name="settings_restart_dialog_title">再起動が必要です</string>
+    <string name="settings_restart_dialog_message">Shizukuはこの設定を適用するために再起動が必要です。</string>
+    <string name="settings_restart_dialog_message_wifi_required"><![CDATA[<br><br><b>Wi-Fiは必須です。雫は走り続け、Wi-Fi接続を待ってからバックグラウンドで再起動する。</b>]]></string>
+    <string name="settings_tcp_port">TCPポート</string>
+    <string name="settings_auto_disable_usb_debugging_summary">Shizuku を停止したときにUSBデバッグを無効にします</string>
+    <string name="settings_language">言語</string>
+    <string name="settings_black_night_theme">AMOLEDダークモード</string>
+    <string name="settings_black_night_theme_summary">ダークテーマが有効な場合、黒色のテーマを使用します</string>
+    <string name="settings_update_stable">安定版</string>
+    <string name="settings_update_beta">開発版</string>
+    <string name="settings_permissions">権限</string>
+    <string name="settings_permissions_summary">必要なものと許可できるもの</string>
+    <string name="permissions_allowed">許可済み</string>
+    <string name="permissions_action_allow">許可する</string>
+    <string name="permissions_action_settings">設定</string>
+    <string name="permissions_open_settings_hint">Android は再び表示されません。アプリ情報→権限で有効にしてください。</string>
+    <string name="permissions_notifications">通知</string>
+    <string name="permissions_notifications_summary">ペアリングコードの入力、進行状況とエラーを報告します。</string>
+    <string name="permissions_nearby">付近のデバイス</string>
+    <string name="permissions_nearby_summary">ネットワーク上のワイヤレスデバッグポートを検索します。</string>
+    <string name="permissions_write_secure_settings">セキュア設定の変更</string>
+    <string name="permissions_write_secure_settings_summary">ワイヤレスデバッグを有効にします。ADBのみがこの権限を許可できます。</string>
+    <string name="permissions_accessibility">ユーザー補助サービス</string>
+    <string name="permissions_accessibility_summary">ペアリングコードを自動的に読み込みます。</string>
+    <string name="permissions_battery_summary">バックグラウンドで Android が Shizuku を停止するのを阻止します。</string>
+    <string name="settings_help">ヘルプ</string>
+    <string name="settings_report_bug">バグを報告する</string>
+    <string name="settings_legacy_pairing">レガシーペアリング</string>
+    <string name="settings_legacy_pairing_summary">通知ではなくダイアログでペアリングコードを入力します</string>
+    <!-- Bug Report Dialog -->
+    <string name="bug_report_dialog_before_reporting">まず、次のことを行ってください。</string>
+    <string name="bug_report_dialog_update">^1 を使用していることを確認してください。</string>
+    <string name="bug_report_dialog_link_update">最新バージョン</string>
+    <string name="bug_report_dialog_wiki">^1 を読んで、関連するトラブルシューティング手順をすべて実行してください。</string>
+    <string name="bug_report_dialog_link_wiki">ウィキ</string>
+    <string name="bug_report_dialog_issues">バグがすでに報告されているかどうかを確認するには、^1 全体を検索してください。</string>
+    <string name="bug_report_dialog_link_issues">既存の問題</string>
+    <string name="bug_report_dialog_method">アカウントをお持ちの場合は、^1 に問題を送信してください。</string>
+    <string name="bug_report_dialog_method_2">それ以外の場合は、電子メールを送信できます。</string>
+    <string name="bug_report_dialog_button_email">メール</string>
+    <!-- Snackbar -->
+    <string name="snackbar_battery_optimization_settings">この機能を使用するには、バッテリーの最適化を無効にしてください。</string>
+    <string name="snackbar_action_fix">修理</string>
+    <!-- Updates -->
+    <string name="check_for_updates">アップデートを確認</string>
+    <string name="update_latest_installed">すでに最新バージョンを使用しています</string>
+    <!-- Toast -->
+    <string name="toast_no_email_app">メールアプリが見つかりません</string>
+    <string name="toast_pairing_timeout">Shizuku のペアリングサービスがタイムアウトしました</string>
+    <!-- Dark Mode Setting Override -->
+    <string name="dark_theme">テーマ</string>
+    <string name="dark_theme_off">ホワイトテーマ</string>
+    <string name="dark_theme_on">ダークテーマ</string>
+    <string name="follow_system">システム設定に従う</string>
+    <!-- About -->
+    <!-- Start/Stop -->
+    <string name="start">開始</string>
+    <string name="action_stop">停止</string>
+    <string name="action_restart">再起動</string>
+    <!-- Notification -->
+    <string name="notification_channel_adb_pairing">ワイヤレスデバックペアリング</string>
+    <string name="notification_adb_pairing_input_paring_code">ペアリングコードを入力</string>
+    <string name="notification_adb_pairing_searching_for_service_title">ペアリングサービスの検索</string>
+    <string name="notification_adb_pairing_service_found_title">ペアリングサービスを見つけました</string>
+    <string name="notification_adb_pairing_stop_searching">探すことを停止させます</string>
+    <string name="notification_adb_pairing_working_title">ペアリング中</string>
+    <string name="notification_adb_pairing_succeed_title">ペアリングしました</string>
+    <string name="notification_adb_pairing_succeed_text">Shizukuサービスをスタートさせられます。</string>
+    <string name="notification_adb_pairing_failed_title">ペアリングに失敗しました</string>
+    <string name="notification_adb_pairing_retry">再試行</string>
+    <string name="notification_auth_invalid_title">無効な認証トークン</string>
+    <string name="notification_auth_invalid_message">インテント内のトークンがアプリ内の「インテントの表示」に表示されているトークンと一致していることを確認してください。</string>
+    <!-- Permission related, appears in system permission UI -->
+    <string name="permission_label">Shizukuにアクセスする</string>
+    <string name="permission_description">アプリでShizukuの使用を許可します。</string>
+    <string name="permission_warning_template"><![CDATA[<b>%1$s</b> に「%2$s」を許可しますか？]]></string>
+    <string name="grant_dialog_button_allow_always">常に許可</string>
+    <string name="grant_dialog_button_deny">"許可しない"</string>
+    <!-- Starter -->
+    <string name="starter">起動</string>
+    <string name="start_with_root_failed">root権限が付与されていないか、端末がroot化されていないため、サービスを開始できません。</string>
+    <!-- WADB Starter -->
+    <string name="wadb_notification_title">Shizukuを起動します…</string>
+    <string name="wadb_notification_wifi_required">続行する前にWi-Fi接続を待機しています</string>
+    <string name="wadb_notification_retry">再試行を待機中</string>
+    <string name="wadb_error_title">起動時にエラーが発生しました</string>
+    <string name="wadb_error_notify_dev">タップして開発者に通知します。</string>
+    <string name="wadb_permission_error_notification_title">権限エラー</string>
+    <string name="wadb_permission_error_notification_content">
+        Shizukuを起動するにはWRITE_SECURE_SETTINGSが必要です。タップして許可方法をご確認ください。</string>
+    <!-- Shell -->
+    <string name="shell_title">シェル</string>
+    <string name="shell_backend_root">Root</string>
+    <string name="shell_backend_shizuku_status">Shizuku, uid %1$d</string>
+    <string name="shell_backend_root_status">Root, uid 0</string>
+    <string name="shell_backend_offline">アクティブなコマンドランナーがありません</string>
+    <string name="shell_intro">Shizuku が実行されるuid（adbでは2000、rootでは0）で実行されるため、そのuidがアクセスできるものすべて（/sdcard、/system、root権限でアプリデータ）にアクセスできます。/sdcardで開き、一度に1つのコマンドを実行します。背後にttyがないため、ターミナルを必要とするプログラム（nano、sshプロンプトなど）はここでは実行されません。</string>
+    <string name="shell_root_refused">Rootアクセスが拒否されました。コマンドは Shizuku を使用します。このアプリのRootアクセスを許可してRootを使用します。</string>
+    <string name="shell_search">検索</string>
+    <string name="shell_search_hint">検索</string>
+    <string name="shell_search_position">%2$d 中 %1$d </string>
+    <string name="shell_search_previous">前の検索結果</string>
+    <string name="shell_search_next">次の検索結果</string>
+    <string name="shell_search_close">検索を閉じる</string>
+    <string name="shell_more">その他</string>
+    <string name="shell_save_output">保存</string>
+    <string name="shell_output_saved">保存しました</string>
+    <string name="shell_output_save_failed">保存できませんでした</string>
+    <string name="shell_expand">展開</string>
+    <string name="shell_collapse">折りたたむ</string>
+    <string name="shell_library">ライブラリ</string>
+    <string name="shell_library_hint">コマンドを検索</string>
+    <string name="shell_library_empty">一致するコマンドはありません。</string>
+    <string name="shell_history_clear">クリア</string>
+    <string name="shell_bookmarks">保存しました</string>
+    <string name="shell_bookmark_save">このコマンドを保存する</string>
+    <string name="shell_bookmark_saved">保存しました</string>
+    <string name="shell_bookmark_deleted_name">%1$s を削除しました</string>
+    <string name="shell_bookmark_run">実行</string>
+    <string name="shell_bookmark_rename">名前を変更</string>
+    <string name="shell_bookmark_delete">削除</string>
+    <string name="shell_bookmark_name_hint">名前</string>
+    <string name="shell_bookmark_sort_newest">新しい順</string>
+    <string name="shell_bookmark_sort_name">名前</string>
+    <string name="shell_bookmark_empty">まだ保存されていません。コマンドを入力し、ブックマークボタンを押して保存します。</string>
+    <string name="shell_quick_battery">バッテリー</string>
+    <string name="shell_quick_storage">ストレージ</string>
+    <string name="shell_quick_device">デバイス</string>
+    <string name="shell_quick_apps">マイアプリ</string>
+    <string name="shell_quick_grant">権限を付与</string>
+    <string name="shell_quick_revoke">権限を取り消す</string>
+    <string name="shell_quick_app_ops">アプリ管理</string>
+    <string name="shell_quick_force_stop">強制停止</string>
+    <string name="shell_input_hint">コマンド</string>
+    <string name="shell_run">実行</string>
+    <string name="shell_stop">停止</string>
+    <string name="shell_clear">クリア</string>
+    <string name="shell_copy">コピー</string>
+    <string name="shell_history_previous">前のコマンド</string>
+    <string name="shell_history_next">次のコマンド</string>
+    <!-- Watchdog -->
+    <string name="watchdog_running">Watchdogが稼働中</string>
+    <string name="watchdog_turn_off">無効にする</string>
+    <string name="watchdog_shizuku_crashed_title">雫は最近墜落した</string>
+    <string name="watchdog_shizuku_crashed_text">Watchdog
+        がサービスを再起動しました。タップすると、今後のクラッシュを防ぐための潜在的な修正内容を確認できます。</string>
+    <string name="watchdog_shizuku_crashed_action_turn_off_alerts">アラートをオフにする</string>
+    <string name="watchdog_shizuku_recovered_title">Shizuku が再び動作しています</string>
+    <!-- Misc -->
+    <string name="error">エラー</string>
+    <string name="off">オフ</string>
+    <string name="dialog_cannot_open_browser_title">ブラウザが起動することができません</string>
+    <string name="toast_copied_to_clipboard">クリップボードにコピーされました</string>
+    <string name="accessibility_service_description">通知や分割画面が使用できないデバイス（例：Android 14以降を搭載したテレビ）のペアリングサポートを提供します。\n\nShizukuがワイヤレスデバッグペアリング画面からペアリングコードを抽出できるようにします。ペアリングコードが見つかると、Shizukuは自動的に無効になります。</string>
+    <!-- Messages for legacy -->
+    <string name="dialog_legacy_not_support_title">%1$s は最新の Shizuku をサポートしていません</string>
+    <string name="dialog_legacy_not_support_message"><![CDATA[古いバージョンのShizukuは2019年3月より非推奨となりました。また、古いバージョンのShizukuは新しいAndroidシステムでは動作しません。<p><b>%1$s</b>の開発者にアップデートを依頼してください。]]></string>
+    <string name="dialog_requesting_legacy_title">%1$s は古いバージョンのShizukuを要求しています</string>
+    <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b>は最新のShizukuをサポートしていますが、古いバージョンのShizukuを要求しています。これは、Shizukuが実行されていない可能性があります。Shizukuアプリで確認してください。<p>古いバージョンのShizukuは2019年3月から非推奨となっています。]]></string>
+    <string name="dialog_requesting_legacy_button_open_shizuku">Shizukuを開く</string>
+    <string name="wadb_notification_attempt_now">再試行</string>
+    <!-- Manage tab -->
+    <string name="tab_manage">App Opsの管理</string>
+    <string name="manage_search_hint">アプリを検索</string>
+    <string name="manage_filter_all">すべて</string>
+    <string name="manage_filter_user">ユーザー</string>
+    <string name="manage_filter_system">システム</string>
+    <string name="manage_filter_disabled">無効</string>
+    <string name="manage_filter_hidden">非表示</string>
+    <string name="manage_filter_empty">このフィルターにはアプリがありません。</string>
+    <string name="manage_empty">アプリが見つかりません。</string>
+    <string name="manage_status_system">システム</string>
+    <string name="manage_status_removed">削除済み、データは保持</string>
+    <string name="manage_status_disabled">無効</string>
+    <string name="manage_status_suspended">サスペンド</string>
+    <string name="manage_status_hidden">ランチャーアイコンなし</string>
+    <!-- One app, and what it may do on the device -->
+    <string name="app_open_info">アプリ情報</string>
+    <string name="app_section_permissions">システム権限</string>
+    <string name="app_section_runtime">ランタイム権限</string>
+    <string name="app_section_ops">App Ops</string>
+    <string name="app_section_actions">アクション</string>
+    <string name="app_section_battery">バッテリー</string>
+    <string name="app_section_info">情報</string>
+    <string name="app_permissions_note">adb経由で変更できるのは、保護レベルに「development（開発）」が含まれる権限か、あるいは「dangerous（危険）」に分類される権限のみです。それ以外の権限については、たとえ Shizuku がどれほど信頼されているアプリであってもプラットフォーム側によって変更が拒否されるため、スイッチはオフのままとなります。</string>
+    <string name="app_permission_granted">権限を付与しました</string>
+    <string name="app_permission_revoked">権限を取り消しました</string>
+    <string name="app_grant_confirm_ok">付与</string>
+    <string name="app_ops_note">App Opsとは、プラットフォーム自体が参照するものであり、adb は以下のものを変更できます。一部の機能には、アプリ操作ではなくシステム設定での特別なアクセス、すべてのファイルへのアクセス、使用状況へのアクセス、正確なアラーム、システム設定の変更などがあり、アプリはこれらを変更できません。</string>
+    <string name="app_ops_needs_shizuku">App Opsで読み書きするには、Shizuku を起動します。</string>
+    <string name="app_op_background">バックグラウンドで実行</string>
+    <string name="app_op_background_note">拒否すると、バックグラウンドでの実行を停止します。</string>
+    <string name="app_op_foreground">フォアグラウンドサービス</string>
+    <string name="app_op_foreground_note">拒否すると、フォアグラウンドサービスが停止します。</string>
+    <string name="app_op_wake_lock">画面オンを維持</string>
+    <string name="app_op_wake_lock_note">拒否すると、デバイスの常時点灯を停止します。</string>
+    <string name="app_op_notifications">通知を表示</string>
+    <string name="app_op_notifications_note">拒否すると、通知が非表示になります。</string>
+    <string name="app_op_clipboard">クリップボードの読み取り</string>
+    <string name="app_op_clipboard_note">拒否すると、クリップボードの読み取りを停止します。</string>
+    <string name="app_op_overlay">他のアプリの上に重ねて表示する</string>
+    <string name="app_op_overlay_note">拒否すると、他のアプリ上での表示ができなくなります。一部のアプリでは動作するためにこれが必要です。</string>
+    <string name="app_op_install">他のアプリをインストール</string>
+    <string name="app_op_install_note">拒否すると、APKをインストールできなくなります。</string>
+    <string name="app_op_set">アプリのopが変更されました</string>
+    <string name="app_op_mode_allow">許可する</string>
+    <string name="app_op_mode_ignore">無視</string>
+    <string name="app_op_mode_deny">許可しない</string>
+    <string name="app_action_force_stop">強制停止</string>
+    <string name="app_action_force_stop_note">今すぐ停止します。後で再起動する可能性があります。</string>
+    <string name="app_action_suspend">サスペンド</string>
+    <string name="app_action_unsuspend">サスペンド解除</string>
+    <string name="app_action_suspend_note">無効にしますが、データは保持されます。</string>
+    <string name="app_action_disable">無効化</string>
+    <string name="app_action_enable">有効にする</string>
+    <string name="app_action_disable_note">再び有効にするまで無効にします。</string>
+    <string name="app_action_clear_data">データの削除</string>
+    <string name="app_action_clear_data_note">ファイル、設定、アカウントを削除します。</string>
+    <string name="app_action_uninstall">このユーザーからアンインストール</string>
+    <string name="app_action_uninstall_note">アプリを削除しますが、そのデータは保持されます。</string>
+    <string name="app_battery_bucket">スタンバイバケツ</string>
+    <string name="app_battery_pick_title">スタンバイバケツ</string>
+    <string name="app_info_version">バージョン</string>
+    <string name="app_info_target_sdk">ターゲット SDK</string>
+    <string name="app_info_min_sdk">最小 SDK</string>
+    <string name="app_info_abi">ABI</string>
+    <string name="app_info_data_dir">データの保存先</string>
+    <string name="app_info_signature">署名</string>
+    <string name="app_info_installer">インストール元</string>
+    <string name="app_info_installed">インストール日</string>
+    <string name="app_info_updated">更新日時</string>
+    <string name="app_info_debuggable">デバッグ可能</string>
+    <string name="app_info_backup">バックアップ可能</string>
+    <string name="app_info_launcher">ランチャーエントリ</string>
+</resources>

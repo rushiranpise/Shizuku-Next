@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- To translators: you can leave your here -->
+    <!-- Home - Adb -->
+    <!-- Home - Wireless Adb -->
+    <string name="home_wireless_adb_title"><![CDATA[무선 디버깅으로 시작]]></string>
+    <!-- Adb -->
+    <string name="dialog_adb_port">포트 번호</string>
+    <string name="dialog_adb_invalid_port">포트 번호는 1에서 65535 사이의 정수입니다.</string>
+    <string name="adb_pairing">페어링</string>
+    <string name="dialog_adb_pairing_title">기기와 페어링</string>
+    <string name="dialog_adb_pairing_discovery">페어링 서비스 검색 중</string>
+    <string name="dialog_adb_pairing_paring_code">페어링 코드</string>
+    <string name="paring_code_is_wrong">페어링 코드가 올바르지 않습니다.</string>
+    <string name="cannot_connect_port">무선 디버깅 서비스에 연결할 수 없습니다.\n\nShizuku가 모든 방화벽, 광고 차단, VPN 또는
+        네트워크 접근 제한 관련 앱에서 화이트리스트에 등록되어 있는지 꼭 확인해 주세요.</string>
+    <string name="dialog_adb_pairing_message">다음 단계를 수행하여 페어링을 시작하세요.\n- \"개발자 옵션\"으로 이동합니다.\n-
+        \"USB 디버깅\" 및 \"무선 디버깅\"을 활성화합니다.\n- \"무선 디버깅\"의 왼쪽을 탭합니다.\n- \"페어링 코드로 장치 페어링\"을 탭합니다.\n-
+        알림에 페어링 코드를 입력합니다.</string>
+    <string name="dialog_adb_pairing_accessibility_permission">Android 14에서 패키지 설치 관리자를 사용하여
+        Shizuku를 설치/업데이트하면 페어링을 위한 접근성 서비스를 활성화하는 데 필요한 ^1 권한이 취소됩니다.\n\n이 권한을 부여하려면 다음 ADB 명령을
+        실행하세요.\n\n^2\n\n명령을 실행한 후 페어링 프로세스를 계속 진행할 수 있습니다.\n\n참고: ADB를 사용하여 Shizuku를 설치/업데이트하면 이 문제를
+        해결할 수 있습니다.</string>
+    <string name="dialog_adb_pairing_accessibility_enable">페어링 과정을 시작하려면 접근성 서비스를 활성화하세요. 이렇게 하면
+        Shizuku가 페어링 코드를 감지할 수 있습니다.\n\n코드를 찾거나 1분 후에 에너지 절약을 위해 접근성 서비스가 꺼집니다.</string>
+    <string name="dialog_adb_pairing_accessibility_navigate">다음 단계를 수행하여 페어링을 시작하세요.\n- \"개발자 옵션\"으로
+        이동합니다.\n- \"USB 디버깅\" 및 \"무선 디버깅\"을 활성화합니다.\n- \"무선 디버깅\"의 왼쪽을 탭합니다.\n- \"페어링 코드로 기기 페어링\"을
+        탭합니다. Shizuku가 자동으로 페어링 코드를 감지합니다.</string>
+    <string name="adb_pairing_requires_multi_window">먼저 화면 분할 (멀티 윈도우) 모드로 진입하세요.</string>
+    <string name="adb_pairing_requires_multi_window_reason">이 시스템은 페어링 대화 대화가 항상 보이도록 요구합니다. 분할 화면
+        모드를 사용하는 것만이 이 앱과 시스템 대화 대화를 동시에 볼 수 있는 방법입니다.</string>
+    <string name="adb_error_key_store">무선 디버깅용 키를 생성할 수 없습니다.\n이는 이 장치의 KeyStore 메커니즘이 고장 났기 때문일 수
+        있습니다.</string>
+    <string name="adb_error_stop_tcp">TCP를 통한 ADB를 중지하지 못했습니다.</string>
+    <string name="adb_pair_required">페어링 단계를 먼저 진행하세요.</string>
+    <string name="enable">할 수 있게 하다</string>
+    <string name="development_settings">개발자 옵션</string>
+    <string name="notification_settings">알림 옵션</string>
+    <string name="adb_pairing_tutorial_content_notification">Shizuku의 알림이 페어링을 완료하는 데 도움이 될 수도 있습니다.</string>
+    <string name="adb_pairing_tutorial_content_steps">\"개발자 옵션\"으로 이동한 다음 \"USB 디버깅\"과 \"무선 디버깅\"을
+        활성화합니다.</string>
+    <string name="adb_pairing_tutorial_content_enter_pairing_code">\"무선 디버깅\"의 왼쪽을 탭한 다음 \"페어링 코드로
+        기기 페어링\"을 탭합니다. 알림에 있는 코드를 입력하여 페어링을 완료합니다.</string>
+    <string name="adb_pairing_tutorial_content_notification_blocked">페어링 프로세스에서는 Shizuku의 알림과 상호
+        작용해야 합니다. Shizuku가 알림을 게시하도록 허용하십시오.</string>
+    <string name="adb_pairing_tutorial_content_miui">MIUI 사용자는 시스템 설정의 \"알림\" - \"알림 창\"에서 알림 스타일을
+        \"Android\"로 전환해야 합니다.</string>
+    <string name="adb_pairing_tutorial_content_miui_2">그렇지 않으면 알림에서 페어링 코드를 입력하지 못할 수도 있습니다.</string>
+    <string name="adb_pairing_tutorial_content_finish">시즈쿠에게 돌아가서 시즈쿠를 시작해.</string>
+    <string name="adb_pairing_tutorial_content_network">시즈쿠는 로컬 네트워크에 접속해야 해. 네트워크 권한으로 제어됩니다.</string>
+    <string name="adb_pairing_tutorial_content_network_limation_not_foreground">일부 시스템(예: MIUI)은 앱이
+        포그라운드 서비스를 사용하더라도 보이지 않으면 네트워크에 접속하지 못하게 합니다. 해당 시스템에서는 시즈쿠의 배터리 최적화 기능을 비활성화해 주세요.</string>
+    <!-- Home - Root -->
+    <string name="home_root_title"><![CDATA[시작 (루팅된 기기용)]]></string>
+    <string name="home_root_description"><![CDATA[Magisk를 사용 중이라면 %1$s를 사용해 보세요. 루트 사용자의 경우, 이 명령은 Shizuku를 대체하게 됩니다. 참고: %2$s를 사용하려면 기존 애플리케이션을 약간 변경해야 합니다.]]></string>
+    <string name="home_root_button_start">시작</string>
+    <!-- Home - Application management -->
+    <plurals name="home_app_management_authorized_apps_count">
+        <item quantity="other"><![CDATA[%d개 앱 인증됨]]></item>
+    </plurals>
+    <!-- Home - Automation -->
+    <!-- Home - Stealth mode -->
+    <!-- Home - Learn more -->
+    <!-- Home - Adb permissions limited -->
+    <!-- Home - Dialogs -->
+    <!-- Application management -->
+    <string name="app_management_dialog_adb_is_limited_title">ADB의 권한이 제한됨</string>
+    <string name="app_management_dialog_adb_is_limited_message"><![CDATA[기기 제조사에서 ADB의 권한을 제한하고 있을 가능성이 높습니다.<p><b><a href="%1$s">이 문서</a></b>에 시스템에 대한 해결 방안이 있을 수 있습니다.]]></string>
+    <string name="app_management_toggle_all">모두 전환</string>
+    <string name="action_start">시작</string>
+    <string name="intents_start">시작</string>
+    <!-- Terminal -->
+    <string name="terminal_tutorial_miui">사용자들은 MIUI가 내보내기 기능에서 사용되는 Storage Access Framework를
+        손상시킨다고 보고했습니다.</string>
+    <string name="terminal_tutorial_miui_2">MIUI를 사용하는 경우 Shizuku APK의 assets 폴더에서 파일을 추출해야 할 수도
+        있습니다.</string>
+    <string name="terminal_tutorial_1">파일을 새 폴더로 내보냅니다.</string>
+    <string name="terminal_tutorial_1_description">%1$s 및 %2$s두 개의 파일이 내보내집니다. 선택한 폴더에 해당 파일이 이미 있는
+        경우 삭제됩니다.</string>
+    <string name="terminal_tutorial_2">터미널 앱을 사용하여 파일을 개인 파일 디렉토리에 복사합니다.</string>
+    <string name="terminal_tutorial_2_description">팁: 터미널 앱의 홈 디렉토리(~)가 개인 파일 디렉토리에 있는 경우, 해당 디렉토리에
+        파일을 두면 경로를 쓰지 않고도 %1$s 을 실행할 수 있습니다.\n\n그렇지 않은 경우, 터미널 앱의 %3$s 구성 파일에서 %2$s 에 대한 별칭을 만들 수
+        있습니다.</string>
+    <string name="terminal_tutorial_3">다음 명령으로 셸을 엽니다.</string>
+    <!-- Stealth -->
+    <!-- Settings -->
+    <string name="settings_start_on_boot">부팅 시 시작</string>
+    <string name="settings_watchdog">지키는 개</string>
+    <string name="settings_watchdog_summary">Shizuku가 충돌하면 자동으로 다시 시작합니다.</string>
+    <string name="settings_tcp_mode">TCP 모드</string>
+    <string name="settings_tcp_mode_summary">"Shizuku가 Wi-Fi 없이 재시작할 수 있도록 합니다. (Shizuku는 재부팅 후 한 번
+        시작되어야 합니다.)"</string>
+    <string name="settings_tcp_mode_dialog_close_port">"TCP 포트가 즉시 닫힙니다. TCP 모드를 다시 켜려면 Wi-Fi에 연결해야
+        합니다. 계속하시겠습니까?"</string>
+    <string name="settings_restart_dialog_title">재시작 필요</string>
+    <string name="settings_restart_dialog_message">시즈쿠는 이 설정을 적용하려면 다시 시작해야 합니다.</string>
+    <string name="settings_restart_dialog_message_wifi_required"><![CDATA[<br><br><b>와이파이가 필수입니다. 시즈쿠는 계속 달리면서 와이파이 연결이 될 때까지 기다렸다가 백그라운드에서 다시 시작할 것이다.</b>]]></string>
+    <string name="settings_tcp_port">TCP 포트</string>
+    <string name="settings_language">언어</string>
+    <string name="settings_black_night_theme">검은 테마</string>
+    <string name="settings_black_night_theme_summary">어두운 테마가 사용될 때 검은 테마를 사용</string>
+    <string name="settings_help">돕다</string>
+    <string name="settings_report_bug">버그 신고</string>
+    <string name="settings_legacy_pairing">레거시 페어링</string>
+    <string name="settings_legacy_pairing_summary">알림 대신 대화 상자에 페어링 코드를 입력하세요.</string>
+    <!-- Bug Report Dialog -->
+    <string name="bug_report_dialog_before_reporting">먼저 다음 사항을 수행해 주십시오.</string>
+    <string name="bug_report_dialog_update">^1을 사용하고 있는지 확인하세요.</string>
+    <string name="bug_report_dialog_link_update">최신 버전</string>
+    <string name="bug_report_dialog_wiki">^1을 읽고 관련된 모든 문제 해결 단계를 따르십시오.</string>
+    <string name="bug_report_dialog_link_wiki">위키</string>
+    <string name="bug_report_dialog_issues">버그가 이미 보고되었는지 확인하려면 ^1을 모두 검색해 보세요.</string>
+    <string name="bug_report_dialog_link_issues">기존 문제</string>
+    <string name="bug_report_dialog_method">계정이 있으시면 ^1에 이슈를 제출해 주세요.</string>
+    <string name="bug_report_dialog_method_2">아니면 이메일을 보내셔도 됩니다.</string>
+    <string name="bug_report_dialog_button_email">이메일</string>
+    <!-- Snackbar -->
+    <string name="snackbar_battery_optimization_settings">이 기능을 사용하려면 배터리 최적화를 비활성화하세요.</string>
+    <string name="snackbar_action_fix">고치다</string>
+    <!-- Updates -->
+    <!-- Toast -->
+    <string name="toast_no_email_app">이메일 앱을 찾을 수 없습니다</string>
+    <string name="toast_pairing_timeout">시즈쿠 페어링 서비스가 시간 초과되었다.</string>
+    <!-- Dark Mode Setting Override -->
+    <string name="dark_theme_off">항상 가볍다</string>
+    <string name="dark_theme_on">항상 어둡다</string>
+    <!-- About -->
+    <!-- Start/Stop -->
+    <string name="start">시작</string>
+    <!-- Notification -->
+    <string name="notification_channel_adb_pairing">무선 디버깅 페어링</string>
+    <string name="notification_adb_pairing_input_paring_code">페어링 코드 입력</string>
+    <string name="notification_adb_pairing_searching_for_service_title">페어링 서비스 검색 중</string>
+    <string name="notification_adb_pairing_service_found_title">페어링 서비스를 찾았습니다</string>
+    <string name="notification_adb_pairing_stop_searching">검색 중지</string>
+    <string name="notification_adb_pairing_working_title">페어링 진행 중</string>
+    <string name="notification_adb_pairing_succeed_title">페어링 성공</string>
+    <string name="notification_adb_pairing_succeed_text">지금 Shizuku 서비스를 시작할 수 있습니다.</string>
+    <string name="notification_adb_pairing_failed_title">페어링 실패</string>
+    <string name="notification_adb_pairing_retry">재시도</string>
+    <!-- Permission related, appears in system permission UI -->
+    <string name="permission_label">Shizuku에 접근</string>
+    <string name="permission_description">앱이 Shizuku를 사용하도록 허용합니다.</string>
+    <string name="permission_warning_template"><![CDATA[<b>%1$s</b>을(를) %2$s에 허용하시겠습니까\?]]></string>
+    <string name="grant_dialog_button_allow_always">항상 허용</string>
+    <string name="grant_dialog_button_deny">"거부"</string>
+    <!-- Starter -->
+    <string name="starter">실행기</string>
+    <string name="start_with_root_failed">루트 권한이 부여되지 않았거나 이 기기가 루팅되지 않아서 서비스를 시작할 수 없습니다.</string>
+    <!-- WADB Starter -->
+    <string name="wadb_notification_title">시즈쿠 시작…</string>
+    <string name="wadb_notification_wifi_required">진행하기 전에 Wi-Fi 연결을 기다리는 중</string>
+    <string name="wadb_notification_retry">재시도 대기 중</string>
+    <string name="wadb_error_title">부팅 시 시작 중 오류 발생</string>
+    <string name="wadb_error_notify_dev">개발자에게 알리려면 탭하세요.</string>
+    <string name="wadb_permission_error_notification_title">권한 오류</string>
+    <string name="wadb_permission_error_notification_content">Shizuku를 부팅 시 시작하려면
+        WRITE_SECURE_SETTINGS 권한이 필요합니다. 탭하여 권한을 부여하는 방법을 알아보세요.</string>
+    <!-- Shell -->
+    <!-- Watchdog -->
+    <string name="watchdog_running">워치독이 실행 중입니다</string>
+    <string name="watchdog_turn_off">끄세요</string>
+    <string name="watchdog_shizuku_crashed_title">시즈쿠는 최근에 추락했습니다</string>
+    <string name="watchdog_shizuku_crashed_text">Watchdog이 서비스를 다시 시작했습니다. 향후 충돌을 방지하기 위한 잠재적인 수정
+        사항을 알아보려면 탭하세요.</string>
+    <string name="watchdog_shizuku_crashed_action_turn_off_alerts">알림 끄기</string>
+    <!-- Misc -->
+    <string name="dialog_cannot_open_browser_title">브라우저를 실행할 수 없음</string>
+    <string name="toast_copied_to_clipboard">클립보드에 복사됨</string>
+    <string name="accessibility_service_description">알림이나 분할 화면을 사용할 수 없는 기기(예: Android 14 이상을 실행하는
+        TV)에 대한 페어링 지원을 제공합니다.\n\nShizuku가 무선 디버깅 페어링 화면에서 페어링 코드를 추출할 수 있도록 합니다. 페어링 코드를 찾으면
+        Shizuku가 자동으로 비활성화됩니다.</string>
+    <!-- Messages for legacy -->
+    <string name="dialog_legacy_not_support_title">%1$s는 최신 Shizuku를 지원하지 않음</string>
+    <string name="dialog_legacy_not_support_message"><![CDATA[구형 Shizuku는 2019년 3월에 지원이 중단되었습니다. 또한, 구형 Shizuku는 새로운 안드로이드 시스템에서 동작하지 않습니다.<p><b>%1$s</b> 개발자에게 업데이트를 문의하세요.]]></string>
+    <string name="dialog_requesting_legacy_title">%1$s가 구형 Shizuku를 요청하고 있음</string>
+    <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b>가 최신 Shizuku를 지원하지만, 구형 Shizuku를 요청하고 있습니다. Shizuku가 실행 중이지 않아서 발생할 수 있으니 Shizuku 앱에서 확인하세요.<p>구형 Shizuku는 2019년 3월 부터 지원이 중단되었습니다.]]></string>
+    <string name="dialog_requesting_legacy_button_open_shizuku">Shizuku 열기</string>
+    <string name="wadb_notification_attempt_now">재시도</string>
+    <!-- Manage tab -->
+    <!-- One app, and what it may do on the device -->
+    <string name="app_op_mode_deny">거부</string>
+    <string name="app_action_enable">할 수 있게 하다</string>
+</resources>
