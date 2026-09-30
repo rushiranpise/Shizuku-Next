@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- To translators: you can leave your here -->
-    <string name="home_status_adb_wireless">adb</string>
-    <string name="home_status_adb_usb">adb</string>
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Запуск через беспроводную отладку]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Запуск без сети: устройство снова и снова запрашивает включение беспроводной отладки, пока она не останется включённой. Запуск может занять до двух минут, после чего будет выполнен запуск или попытка завершится неудачей.</string>
-    <string name="home_usb_adb_needs_network">При запуске через USB используется стандартный порт ADB, а для его повторного открытия требуется сеть. Один раз подключитесь к Wi-Fi или воспользуйтесь запуском через беспроводную отладку выше.</string>
-    <string name="home_usb_adb_falls_back_to_wireless">При запуске через USB используется порт ADB, для повторного открытия которого требуется подключение к сети. Поскольку включён запуск без Wi-Fi, Shizuku вместо этого использует беспроводную отладку.</string>
     <string name="home_wireless_adb_summary">Запускает через беспроводную отладку.</string>
     <string name="home_usb_adb_title"><![CDATA[Запуск через отладку по USB]]></string>
     <string name="home_usb_adb_summary">Запускает через отладку по USB.</string>
@@ -84,15 +80,11 @@
     <string name="app_management_sort_alphabetical">А–Я</string>
     <string name="tab_home">Главная</string>
     <string name="tab_apps">Приложения</string>
+    <string name="tab_shell">Оболочка</string>
     <string name="tab_settings">Настройки</string>
     <string name="home_status_transport_label">Транспорт</string>
     <string name="home_status_started_with">Текущий</string>
     <string name="home_status_started_default">По умолчанию</string>
-    <string name="uid_label">UID</string>
-    <string name="uid_name_format">(%1$s)</string>
-    <string name="uid_name_root">root</string>
-    <string name="uid_name_system">system</string>
-    <string name="uid_name_shell">shell</string>
     <string name="home_device_manager_version">Версия менеджера</string>
     <string name="home_device_kernel_version">Версия ядра</string>
     <string name="home_device_model">Модель устройства</string>
@@ -105,7 +97,6 @@
     <string name="seccomp_disabled">Отключён</string>
     <string name="seccomp_strict">Строгий</string>
     <string name="seccomp_filter">Фильтр</string>
-    <string name="status_value_none">-</string>
     <string name="status_running_short">Запущено</string>
     <string name="status_stopped_short">Остановлено</string>
     <string name="action_start">Запустить</string>
@@ -129,7 +120,6 @@
     <string name="action_pair">Сопрячь</string>
     <string name="start_failed_pairing_required">Это устройство не сопряжено для беспроводной отладки. Выполните сопряжение заново.</string>
     <string name="start_failed_connection_lost">Соединение ADB было закрыто во время запуска. Попробуйте ещё раз.</string>
-    <string name="start_failed_usb_no_port">Локальный порт ADB не открыт. Android закрывает его после каждой перезагрузки, а для повторного открытия требуется соединение, которое можно использовать для его восстановления. Подключитесь к Wi-Fi, и Shizuku снова откроет его через беспроводную отладку; выполните на компьютере <b>adb tcpip 5555</b> или включите <b>Запуск без Wi-Fi</b>, чтобы вместо этого запускаться через беспроводную отладку.</string>
     <string name="start_failed_root_unavailable">На этом устройстве больше недоступен root, поэтому Shizuku не может запуститься через root. Выберите другой способ запуска.</string>
     <string name="start_failed_system_needs_app">Системный способ запуска необходимо запускать из приложения.</string>
     <string name="start_failed_system_no_exploit">На этом устройстве отсутствует компонент, используемый системным способом запуска (com.sdet.fotaagent), поэтому здесь нечего использовать для повышения привилегий. Переключите системный способ запуска на «Пользовательская команда»: приложение покажет команду, которую можно выполнить с доступным на устройстве способом повышения привилегий.</string>
@@ -146,7 +136,7 @@
     <string name="settings_theme_system">Как в системе</string>
     <string name="settings_theme_light">Светлая</string>
     <string name="settings_theme_dark">Тёмная</string>
-    <string name="intents_description">Приложения автоматизации могут управлять Shizuku с помощью этих broadcast-сообщений. Токен авторизации необходимо передать в extra с именем "auth".</string>
+    <string name="intents_description">Приложения автоматизации могут управлять Shizuku с помощью этих broadcast-сообщений. Токен авторизации необходимо передать в extra с именем \"auth\".</string>
     <string name="intents_token">Токен авторизации</string>
     <string name="intents_copy">Копировать</string>
     <string name="intents_regenerate">Создать заново</string>
@@ -199,19 +189,13 @@
     <string name="stealth_unhide">Показать</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">Запускать при загрузке</string>
-    <string name="settings_use_system_color">Использовать цвет темы системы</string>
     <string name="settings_watchdog">Сторожевой таймер</string>
     <string name="settings_watchdog_summary">Автоматически перезапускать Shizuku при сбое</string>
-    <string name="settings_auto_disable_wireless_debugging">Автоматически отключать беспроводную отладку</string>
     <string name="settings_auto_disable_wireless_debugging_summary">Отключать беспроводную отладку при остановке Shizuku.</string>
     <string name="settings_start_method">Способ запуска по умолчанию</string>
     <string name="settings_start_method_root_unavailable">На этом устройстве нет root, поэтому запуск выполняется через беспроводную отладку.</string>
     <string name="start_method_wireless">Беспроводная отладка</string>
-    <string name="start_method_usb">USB</string>
     <string name="start_method_system">Система</string>
-    <string name="start_method_root">Root</string>
-    <string name="transport_adb">adb</string>
-    <string name="settings_adb_without_developer_options">Использовать ADB без параметров разработчика</string>
     <string name="settings_adb_without_developer_options_summary">Отключает параметры разработчика, но сохраняет необходимые Shizuku настройки ADB. Shizuku продолжит работать, а эти настройки будут восстанавливаться после каждой перезагрузки.</string>
     <string name="start_failed_developer_options_off">Параметры разработчика отключены, поскольку включён ADB без параметров разработчика</string>
     <string name="action_turn_on_developer_options">Включить параметры разработчика</string>
@@ -225,6 +209,7 @@
     <string name="settings_unavailable_while_forcing_wireless">Недоступно, пока включён запуск без Wi-Fi.</string>
     <string name="settings_force_wireless_debugging">Запуск без Wi-Fi (экспериментальная функция)</string>
     <string name="settings_force_wireless_debugging_summary">Пытается запустить Shizuku без Wi-Fi или отладки по USB. При этом также отключаются ожидание Wi-Fi и автоматическая беспроводная отладка.</string>
+    <string name="state_off">Выключено</string>
     <string name="settings_persist_adb_port">Сохранять порт ADB после перезагрузки</string>
     <string name="settings_persist_adb_port_summary">Оставляет порт ADB открытым после каждой перезагрузки, чтобы Shizuku мог запускаться без Wi-Fi или точки доступа.</string>
     <string name="settings_persist_adb_port_ok">Порт ADB останется открытым после перезагрузки</string>
@@ -237,19 +222,17 @@
     <string name="home_system_summary">Запускает Shizuku от имени системного пользователя (UID 1000) вместо adb. Работает только на устройствах со встроенным эксплойтом.</string>
     <string name="home_adb_command_summary">Запустите Shizuku с компьютера через ADB. Нажмите, чтобы скопировать команду</string>
     <string name="settings_tcp_mode">Режим TCP</string>
-    <string name="settings_tcp_mode_summary">Разрешает Shizuku перезапускаться без Wi-Fi. (После перезагрузки Shizuku должен хотя бы один раз запуститься)</string>
-    <string name="settings_tcp_mode_dialog_close_port">Порт TCP будет немедленно закрыт. Для повторного включения режима TCP потребуется Wi-Fi. Продолжить?</string>
+    <string name="settings_tcp_mode_summary">"Разрешает Shizuku перезапускаться без Wi-Fi. (После перезагрузки Shizuku должен хотя бы один раз запуститься)"</string>
+    <string name="settings_tcp_mode_dialog_close_port">"Порт TCP будет немедленно закрыт. Для повторного включения режима TCP потребуется Wi-Fi. Продолжить?"</string>
     <string name="settings_restart_dialog_title">Требуется перезапуск</string>
     <string name="settings_restart_dialog_message">Для применения этого параметра Shizuku необходимо перезапустить.</string>
     <string name="settings_restart_dialog_message_wifi_required"><![CDATA[<br><br><b>Требуется Wi-Fi. Shizuku продолжит работать и дождётся подключения к Wi-Fi перед перезапуском в фоновом режиме.</b>]]></string>
     <string name="settings_tcp_port">Порт TCP</string>
-    <string name="settings_auto_disable_usb_debugging">Автоматически отключать отладку по USB</string>
     <string name="settings_auto_disable_usb_debugging_summary">Отключать отладку по USB при остановке Shizuku</string>
     <string name="settings_language">Язык</string>
     <string name="settings_black_night_theme">Чёрная тема AMOLED</string>
     <string name="settings_black_night_theme_summary">Использовать полностью чёрную тему в тёмном режиме</string>
     <string name="settings_update_stable">Стабильная</string>
-    <string name="settings_update_beta">Dev</string>
     <string name="settings_permissions">Разрешения</string>
     <string name="settings_permissions_summary">Что требуется Shizuku и что ему разрешено</string>
     <string name="permissions_allowed">Разрешено</string>
@@ -349,10 +332,6 @@
     <string name="wadb_permission_error_notification_content">Shizuku требуется WRITE_SECURE_SETTINGS, чтобы включать беспроводную отладку. Нажмите, чтобы узнать, как выдать это разрешение.</string>
     <!-- Shell -->
     <string name="shell_title">Оболочка</string>
-    <string name="shell_backend_shizuku">Shizuku</string>
-    <string name="shell_backend_root">Root</string>
-    <string name="shell_backend_shizuku_status">Shizuku, uid %1$d</string>
-    <string name="shell_backend_root_status">Root, uid 0</string>
     <string name="shell_backend_offline">Активный исполнитель команд отсутствует</string>
     <string name="shell_needs_a_backend">Запустите Shizuku или выберите Root на устройстве с root: один из этих режимов выполняет команды. Root работает даже при остановленном Shizuku.</string>
     <string name="shell_intro">Запускается от того же uid, что и Shizuku (2000 через adb, 0 с root), поэтому получает доступ ко всему, что разрешено этому uid: /sdcard, /system и данным приложений при root. Открывается в /sdcard и выполняет по одной команде; поскольку терминал tty отсутствует, программы, которым нужен настоящий терминал (nano, запрос SSH), здесь работать не будут.</string>
@@ -375,7 +354,8 @@
     <string name="shell_library_empty">Подходящих команд нет.</string>
     <string name="shell_variables_title">Заполните</string>
     <string name="shell_variables_pick_app">Выберите приложение</string>
-    <string name="shell_bookmarks">Сохранённые</string>
+    <string name="shell_history_clear">Очистить</string>
+    <string name="shell_bookmarks">Сохранено</string>
     <string name="shell_bookmark_save">Сохранить эту команду</string>
     <string name="shell_bookmark_saved">Сохранено</string>
     <string name="shell_bookmark_deleted_name">Удалено: %1$s</string>
@@ -384,7 +364,7 @@
     <string name="shell_bookmark_delete">Удалить</string>
     <string name="shell_bookmark_name_hint">Название</string>
     <string name="shell_bookmark_sort_newest">Сначала новые</string>
-    <string name="shell_bookmark_sort_name">По названию</string>
+    <string name="shell_bookmark_sort_name">Название</string>
     <string name="shell_bookmark_empty">Пока ничего не сохранено. Введите команду и нажмите кнопку закладки, чтобы сохранить её.</string>
     <string name="shell_quick_battery">Батарея</string>
     <string name="shell_quick_storage">Хранилище</string>
@@ -394,7 +374,6 @@
     <string name="shell_quick_revoke">Отозвать разрешение</string>
     <string name="shell_quick_app_ops">Операция приложения</string>
     <string name="shell_quick_force_stop">Принудительно остановить</string>
-    <string name="shell_adb_prefix_dropped">Выполнено на устройстве: префикс adb — это то, что вы вводили бы на компьютере.</string>
     <string name="shell_su_needs_root">Самостоятельный запуск su ожидает выдачи root-доступа, но в этом терминале нет запроса на его предоставление. Используйте режим Root или выполните su -c с последующей командой.</string>
     <string name="shell_exit_note">Здесь нет оболочки, из которой нужно выходить, поскольку каждая команда выполняется отдельно. Текущая папка и переменные окружения сохраняются.</string>
     <string name="shell_input_hint">Команда</string>
@@ -428,14 +407,14 @@
     <string name="manage_search_hint">Поиск приложений</string>
     <string name="manage_filter_all">Все</string>
     <string name="manage_filter_user">Пользовательские</string>
-    <string name="manage_filter_system">Системные</string>
-    <string name="manage_filter_disabled">Отключённые</string>
+    <string name="manage_filter_system">Система</string>
+    <string name="manage_filter_disabled">Отключён</string>
     <string name="manage_filter_hidden">Скрытые</string>
     <string name="manage_filter_empty">В этом фильтре ничего нет.</string>
     <string name="manage_empty">Приложения не найдены.</string>
-    <string name="manage_status_system">Системное</string>
+    <string name="manage_status_system">Система</string>
     <string name="manage_status_removed">Удалено, данные сохранены</string>
-    <string name="manage_status_disabled">Отключено</string>
+    <string name="manage_status_disabled">Отключён</string>
     <string name="manage_status_suspended">Приостановлено</string>
     <string name="manage_status_hidden">Нет значка в лаунчере</string>
     <!-- One app, and what it may do on the device -->
@@ -515,15 +494,13 @@
     <string name="app_battery_unrestricted">Игнорировать оптимизацию батареи</string>
     <string name="app_battery_unrestricted_note">Позволяет приложению оставаться активным во время Doze, но увеличивает расход батареи.</string>
     <string name="app_info_version">Версия</string>
-    <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">Целевой SDK</string>
     <string name="app_info_min_sdk">Минимальный SDK</string>
-    <string name="app_info_abi">ABI</string>
     <string name="app_info_data_dir">Каталог данных</string>
     <string name="app_info_signature">Подпись</string>
     <string name="app_info_installer">Источник установки</string>
     <string name="app_info_installed">Установлено</string>
-    <string name="app_info_updated">Обновлено</string>
+    <string name="app_info_updated">Обновлённые</string>
     <string name="app_info_debuggable">Отладочное</string>
     <string name="app_info_backup">Резервное копирование разрешено</string>
     <string name="app_info_launcher">Запись в лаунчере</string>
