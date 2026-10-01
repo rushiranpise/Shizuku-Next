@@ -90,6 +90,9 @@
     <string name="app_management_dialog_adb_is_limited_title">adb icazəsi məhduddur</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Çox güman ki, cihazınızın istehsalçısı adb icazəsini məhdudlaşdırır.<p>Sisteminiz üçün <b><a href="%1$s">bu sənəddə</a></b> həll yolu ola bilər.]]></string>
     <string name="app_management_toggle_all">Hamısını dəyiş</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Başlat</string>
+    <string name="device_watchdog">Nəzarətçi</string>
     <string name="action_start">Başlat</string>
     <string name="intents_start">Başlat</string>
     <!-- Terminal -->

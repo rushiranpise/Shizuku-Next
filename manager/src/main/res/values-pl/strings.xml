@@ -87,6 +87,9 @@
     <string name="app_management_dialog_adb_is_limited_title">Uprawnienia ADB są ograniczone</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Jest wysoce prawdopodobne, że producent urządzenia ogranicza uprawnienia ADB.<p>Rozwiązanie dla Twojego systemu może znajdować się w <b><a href=\"%1$s\">tym dokumencie</a></b>.]]></string>
     <string name="app_management_toggle_all">Przełącz wszystkie</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Uruchom</string>
+    <string name="device_watchdog">Nadzorowanie</string>
     <string name="action_start">Uruchom</string>
     <string name="intents_start">Uruchom</string>
     <!-- Terminal -->

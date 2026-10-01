@@ -66,6 +66,8 @@
     <string name="app_management_dialog_adb_is_limited_title">adb 权限受限</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[这极有可能是你的设备制造商限制了 adb 的权限。<p><b><a href="%1$s">此文档</a></b>中可能有针对你的系统的解决方案。]]></string>
     <string name="app_management_toggle_all">切换全部</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">启动</string>
     <string name="action_start">启动 Shizuku</string>
     <string name="intents_start">启动</string>
     <!-- Terminal -->

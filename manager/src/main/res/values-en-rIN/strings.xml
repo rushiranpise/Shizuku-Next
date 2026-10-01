@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      The source strings. Translations are written in Crowdin and arrive as a pull request; see
+      docs/translations.md. Uploading this file is also what applies its settings over there, so
+      a change here reaches translators on the next push and not before.
+    -->
+    <!-- To translators: you can leave your here -->
+    <!-- Home - Adb -->
+    <!-- Home - Wireless Adb -->
+    <!-- Adb -->
+    <!-- Home - Root -->
+    <!-- Home - Application management -->
+    <!-- Home - Automation -->
+    <!-- Home - Stealth mode -->
+    <!-- Home - Learn more -->
+    <!-- Home - Adb permissions limited -->
+    <!-- Home - Dialogs -->
+    <!-- Application management -->
+    <!-- Hiding: what apps can read about this device -->
+    <!-- Terminal -->
+    <!-- Stealth -->
+    <!-- Settings -->
+    <!-- Bug Report Dialog -->
+    <!-- Snackbar -->
+    <!-- Updates -->
+    <!-- Toast -->
+    <!-- Dark Mode Setting Override -->
+    <!-- About -->
+    <!-- Start/Stop -->
+    <!-- Notification -->
+    <!-- Permission related, appears in system permission UI -->
+    <!-- Starter -->
+    <!-- WADB Starter -->
+    <!-- Shell -->
+    <!-- Watchdog -->
+    <!-- Misc -->
+    <!-- Messages for legacy -->
+    <!-- Manage tab -->
+    <!-- One app, and what it may do on the device -->
+</resources>

@@ -86,6 +86,9 @@
     <string name="app_management_dialog_adb_is_limited_title">مجوز adb محدود است</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[این احتمال وجود دارد که سازنده دستگاه شما مجوز adb را محدود کند.<p>ممکن است راه حلی برای دستگاه شما در <b><a href=\"%1$s\">این سند</a></b> وجود داشته باشد.]]></string>
     <string name="app_management_toggle_all">همه را تغییر دهید</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">راه‌اندازی</string>
+    <string name="device_watchdog">دیده‌بان</string>
     <string name="action_start">راه‌اندازی</string>
     <string name="intents_start">راه‌اندازی</string>
     <!-- Terminal -->

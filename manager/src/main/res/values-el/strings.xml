@@ -96,6 +96,9 @@
     <string name="app_management_dialog_adb_is_limited_title">Η άδεια του adb είναι περιορισμένη</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Είναι πολύ πιθανό ο κατασκευαστής της συσκευής σας να περιορίζει την άδεια του adb.<p>Μπορεί να υπάρχει μια λύση για το σύστημά σας σε <b><a href=\"%1$s\">αυτό το έγγραφο</a></b>.]]></string>
     <string name="app_management_toggle_all">Εναλλαγή όλων</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Αρχή</string>
+    <string name="device_watchdog">Άγρυπνος φρουρός</string>
     <string name="action_start">Αρχή</string>
     <string name="intents_start">Αρχή</string>
     <!-- Terminal -->

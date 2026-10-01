@@ -85,6 +85,9 @@
     <string name="app_management_dialog_adb_is_limited_title">Quyền của adb bị hạn chế</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Rất có thể nhà sản xuất thiết bị của bạn giới hạn quyền của adb.<p>Có thể có giải pháp cho hệ thống của bạn trong <b><a href="%1$s">tài liệu này</a></b>.]]></string>
     <string name="app_management_toggle_all">Chuyển đổi tất cả</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Bắt đầu</string>
+    <string name="device_watchdog">Chó canh gác</string>
     <string name="action_start">Bắt đầu</string>
     <string name="intents_start">Bắt đầu</string>
     <!-- Terminal -->

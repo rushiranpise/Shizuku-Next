@@ -91,6 +91,9 @@
     <string name="app_management_dialog_adb_is_limited_title">ADB-ის ნებართვა შეზღუდულია</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[ძალიან შესაძლებელია, რომ თქვენი მოწყობილობის მწარმოებელმა შეზღუდოს adb-ის ნებართვა.<p>შეიძლება არსებობდეს გამოსავალი თქვენი სისტემისთვის <b><a href=\"%1$s\">ეს დოკუმენტი</a></b>.]]></string>
     <string name="app_management_toggle_all">ყველაფრის გადართვა</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">დაწყება</string>
+    <string name="device_watchdog">მაკონტროლებელი</string>
     <string name="action_start">დაწყება</string>
     <string name="intents_start">დაწყება</string>
     <!-- Terminal -->

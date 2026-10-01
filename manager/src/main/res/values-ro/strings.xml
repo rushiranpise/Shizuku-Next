@@ -89,6 +89,9 @@
     <string name="app_management_dialog_adb_is_limited_title">Permisiunea adb este limitată</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Este foarte posibil ca producătorul dispozitivului să limiteze permisiunea adb.<p>Este posibil să existe o soluție pentru acest sistem în <b><a href="%1$s">acest document</a></b>.]]></string>
     <string name="app_management_toggle_all">Comutare toate</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Pornire</string>
+    <string name="device_watchdog">Câine de pază</string>
     <string name="action_start">Pornire</string>
     <string name="intents_start">Pornire</string>
     <!-- Terminal -->

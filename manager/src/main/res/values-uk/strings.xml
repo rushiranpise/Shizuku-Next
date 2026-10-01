@@ -93,6 +93,9 @@
     <string name="app_management_dialog_adb_is_limited_title">Дозвіл на adb обмежений</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Можливо, ваш виробник пристрою лімітує дозвіл adb.<p>Можливо, є рішення для вашої системи у <b><a href="%1$s">цьому документі</a></b>.]]></string>
     <string name="app_management_toggle_all">Перемкнути все</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Запуск</string>
+    <string name="device_watchdog">Сторожовий пес</string>
     <string name="action_start">Запуск</string>
     <string name="intents_start">Запуск</string>
     <!-- Terminal -->

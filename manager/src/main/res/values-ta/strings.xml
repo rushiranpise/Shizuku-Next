@@ -92,6 +92,9 @@
     <string name="app_management_dialog_adb_is_limited_title">adb இன் அனுமதி குறைவாக உள்ளது.</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[உங்கள் சாதன உற்பத்தியாளர் adb இன் அனுமதியை வரம்பிடுவது மிகவும் சாத்தியம்.<p> <b><a href=\"%1$s\">இந்த ஆவணத்தில்</a></b>உங்கள் கணினிக்கு ஒரு தீர்வு இருக்கலாம்.]]></string>
     <string name="app_management_toggle_all">அனைத்தையும் மாற்று</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">தொடங்கு</string>
+    <string name="device_watchdog">கண்காணிப்பு நாய்</string>
     <string name="action_start">தொடங்கு</string>
     <string name="intents_start">தொடங்கு</string>
     <!-- Terminal -->

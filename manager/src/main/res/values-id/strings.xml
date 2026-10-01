@@ -89,6 +89,9 @@
     <string name="app_management_dialog_adb_is_limited_title">Izin adb terbatas</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Kemungkinan besar merk perangkat Anda membatasi perizinan adb.<p>Solusi untuk perangkat Anda mungkin ada pada <b><a href="%1$s">dokumentasi ini</a></b>.]]></string>
     <string name="app_management_toggle_all">Beralih semua</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Mulai</string>
+    <string name="device_watchdog">Penjaga</string>
     <string name="action_start">Mulai</string>
     <string name="intents_start">Mulai</string>
     <!-- Terminal -->

@@ -90,6 +90,9 @@
     <string name="app_management_dialog_adb_is_limited_title">De toestemming voor adb is beperkt</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Het is zeer goed mogelijk dat de fabrikant van je apparaat de toestemming van adb beperkt.<p>Er kan een oplossing voor jouw systeem zijn in <b><a href=\"%1$s\">dit document</a></b>.]]></string>
     <string name="app_management_toggle_all">Alles (de)selecteren</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Starten</string>
+    <string name="device_watchdog">Bewaker</string>
     <string name="action_start">Starten</string>
     <string name="intents_start">Starten</string>
     <!-- Terminal -->

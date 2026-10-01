@@ -94,6 +94,9 @@
     <string name="app_management_dialog_adb_is_limited_title">ADB-Berechtigungen sind begrenzt</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Es ist sehr wahrscheinlich, dass Ihr Gerätehersteller die Berechtigung von adb einschränkt. <p>Vielleicht finden Sie in <b><a href="%1$s">diesem Dokument</a></b> eine Lösung für Ihr System.]]></string>
     <string name="app_management_toggle_all">Alle umschalten</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Anfangen</string>
+    <string name="device_watchdog">Wachhund</string>
     <string name="action_start">Anfangen</string>
     <string name="intents_start">Anfangen</string>
     <!-- Terminal -->

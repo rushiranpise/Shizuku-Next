@@ -72,6 +72,9 @@
     <string name="app_management_dialog_adb_is_limited_title">ADB의 권한이 제한됨</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[기기 제조사에서 ADB의 권한을 제한하고 있을 가능성이 높습니다.<p><b><a href="%1$s">이 문서</a></b>에 시스템에 대한 해결 방안이 있을 수 있습니다.]]></string>
     <string name="app_management_toggle_all">모두 전환</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">시작</string>
+    <string name="device_watchdog">지키는 개</string>
     <string name="action_start">시작</string>
     <string name="intents_start">시작</string>
     <!-- Terminal -->

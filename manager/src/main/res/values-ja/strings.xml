@@ -74,6 +74,22 @@
     <string name="tab_home">ホーム</string>
     <string name="tab_apps">アプリ</string>
     <string name="tab_shell">シェル</string>
+    <string name="labs_filter_allowed">許可済み</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="hiding_gate_disabled">無効</string>
+    <string name="hiding_filter_hidden">非表示</string>
+    <string name="activities_detail_package">パッケージ ID</string>
+    <string name="activities_copy">コピー</string>
+    <string name="intent_package">パッケージ ID</string>
+    <string name="intent_start">開始</string>
+    <string name="device_battery">バッテリー</string>
+    <string name="device_system">システム</string>
+    <string name="device_storage">ストレージ</string>
+    <string name="device_watchdog">Watchdog</string>
+    <string name="log_filter_all">すべて</string>
+    <string name="log_filter_problems">エラー</string>
+    <string name="log_save">保存</string>
+    <string name="log_clear">クリア</string>
     <string name="tab_settings">設定</string>
     <string name="home_device_manager_version">マネージャーバージョン</string>
     <string name="home_device_kernel_version">カーネルバージョン</string>
@@ -356,7 +372,7 @@
     <string name="dialog_requesting_legacy_button_open_shizuku">Shizukuを開く</string>
     <string name="wadb_notification_attempt_now">再試行</string>
     <!-- Manage tab -->
-    <string name="tab_manage">App Opsの管理</string>
+    <string name="tab_manage">App Ops</string>
     <string name="manage_search_hint">アプリを検索</string>
     <string name="manage_filter_all">すべて</string>
     <string name="manage_filter_user">ユーザー</string>
@@ -366,10 +382,11 @@
     <string name="manage_filter_empty">このフィルターにはアプリがありません。</string>
     <string name="manage_empty">アプリが見つかりません。</string>
     <string name="manage_status_system">システム</string>
+    <string name="manage_status_user">ユーザー</string>
     <string name="manage_status_removed">削除済み、データは保持</string>
     <string name="manage_status_disabled">無効</string>
     <string name="manage_status_suspended">サスペンド</string>
-    <string name="manage_status_hidden">ランチャーアイコンなし</string>
+    <string name="manage_status_hidden">非表示</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_open_info">アプリ情報</string>
     <string name="app_section_permissions">システム権限</string>

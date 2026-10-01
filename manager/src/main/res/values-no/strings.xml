@@ -86,6 +86,7 @@
     <string name="app_management_dialog_adb_is_limited_title">Tillatelsen til adb er begrenset</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Det er høyst mulig at enhetsprodusenten begrenser tillatelsene til adb.<p>Det kan finnes en løsning for systemet ditt i <b><a href=\"%1$s\">dette dokumentet</a></b>.]]></string>
     <string name="app_management_toggle_all">Slå alle fra og til</string>
+    <!-- Hiding: what apps can read about this device -->
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Brukere har rapportert at MIUI bryter Storage Access
         Framework, som brukes av eksportfunksjonen.</string>

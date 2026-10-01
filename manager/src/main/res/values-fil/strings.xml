@@ -91,6 +91,9 @@
     <string name="app_management_dialog_adb_is_limited_title">Limitado ang pahintulot ng adb</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Posibleng nilimitahan ng gumawa ng device mo ang kakayahan ng adb.<p>Maaaring may solusyon para sa sistema mo sa <b><a href="%1$s">dokumentong ito</a></b>.]]></string>
     <string name="app_management_toggle_all">I-toggle ang lahat</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Simulan</string>
+    <string name="device_watchdog">Tagapagbantay</string>
     <string name="action_start">Simulan</string>
     <string name="intents_start">Simulan</string>
     <!-- Terminal -->

@@ -92,6 +92,9 @@
     <string name="app_management_dialog_adb_is_limited_title">El permiso de ADB es limitado</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Es muy posible que el fabricante de su dispositivo haya limitado el permiso de ADB.<p>Puede que encuentre una solución para su sistema en <b><a href="%1$s">este documento</a></b>.]]></string>
     <string name="app_management_toggle_all">Activar/desactivar todo</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Iniciar</string>
+    <string name="device_watchdog">Perro guardián</string>
     <string name="action_start">Iniciar</string>
     <string name="intents_start">Iniciar</string>
     <!-- Terminal -->

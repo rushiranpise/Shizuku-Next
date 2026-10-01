@@ -84,6 +84,9 @@
     <string name="app_management_dialog_adb_is_limited_title">การอนุญาตของ adb นั้นจำกัด</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[เป็นไปได้สูงที่ผู้ผลิตอุปกรณ์ของคุณจะจำกัดการอนุญาตของ adb <p>อาจมีวิธีแก้ไขสำหรับอุปกรณ์ของคุณใน<b><a href="%1$s">เอกสารนี้</a></b>]]></string>
     <string name="app_management_toggle_all">สลับทั้งหมด</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">เริ่ม</string>
+    <string name="device_watchdog">สุนัขเฝ้าบ้าน</string>
     <string name="action_start">เริ่ม</string>
     <string name="intents_start">เริ่ม</string>
     <!-- Terminal -->

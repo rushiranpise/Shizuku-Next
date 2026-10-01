@@ -86,6 +86,25 @@
     <string name="tab_home">Главная</string>
     <string name="tab_apps">Приложения</string>
     <string name="tab_shell">Оболочка</string>
+    <string name="labs_filter_allowed">Разрешено</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="hiding_gate_disabled">Отключён</string>
+    <string name="hiding_filter_hidden">Скрытые</string>
+    <string name="hiding_signal_wireless_debugging">Беспроводная отладка</string>
+    <string name="activities_detail_package">Пакет</string>
+    <string name="activities_copy">Копировать</string>
+    <string name="intent_package">Пакет</string>
+    <string name="intent_start">Запустить</string>
+    <string name="device_battery">Батарея</string>
+    <string name="device_current">Текущий</string>
+    <string name="device_system">Система</string>
+    <string name="device_storage">Хранилище</string>
+    <string name="device_transport">Транспорт</string>
+    <string name="device_watchdog">Сторожевой таймер</string>
+    <string name="log_filter_all">Все</string>
+    <string name="log_filter_problems">Ошибка</string>
+    <string name="log_save">Сохранить</string>
+    <string name="log_clear">Очистить</string>
     <string name="tab_settings">Настройки</string>
     <string name="home_status_transport_label">Транспорт</string>
     <string name="home_status_started_with">Текущий</string>
@@ -408,7 +427,7 @@
     <string name="dialog_requesting_legacy_button_open_shizuku">Открыть Shizuku</string>
     <string name="wadb_notification_attempt_now">Повторить</string>
     <!-- Manage tab -->
-    <string name="tab_manage">Управление App Ops</string>
+    <string name="tab_manage">Операции приложения</string>
     <string name="manage_search_hint">Поиск приложений</string>
     <string name="manage_filter_all">Все</string>
     <string name="manage_filter_user">Пользовательские</string>
@@ -418,10 +437,11 @@
     <string name="manage_filter_empty">В этом фильтре ничего нет.</string>
     <string name="manage_empty">Приложения не найдены.</string>
     <string name="manage_status_system">Система</string>
+    <string name="manage_status_user">Пользовательские</string>
     <string name="manage_status_removed">Удалено, данные сохранены</string>
     <string name="manage_status_disabled">Отключён</string>
     <string name="manage_status_suspended">Приостановлено</string>
-    <string name="manage_status_hidden">Нет значка в лаунчере</string>
+    <string name="manage_status_hidden">Скрытые</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_detail_missing">Это приложение больше не установлено.</string>
     <string name="app_open_info">Информация о приложении</string>

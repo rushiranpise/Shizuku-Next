@@ -89,6 +89,9 @@
     <string name="app_management_dialog_adb_is_limited_title">adb:n lupa on rajoitettu</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[On hyvin mahdollista, että laitevalmistajasi rajoittaa adb:n käyttöoikeuksia.<p>Järjestelmällesi saattaa olla ratkaisu <b><a href=\"%1$s\">Tämä asiakirja</a></b>.]]></string>
     <string name="app_management_toggle_all">Kytke kaikki päälle</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Aloittaa</string>
+    <string name="device_watchdog">Vahtikoira</string>
     <string name="action_start">Aloittaa</string>
     <string name="intents_start">Aloittaa</string>
     <!-- Terminal -->

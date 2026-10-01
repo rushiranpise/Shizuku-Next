@@ -91,6 +91,9 @@
     <string name="app_management_dialog_adb_is_limited_title">Dovoljenje adb je omejeno</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Zelo možno je, da proizvajalec vaše naprave omejuje dovoljenja adb.<p>Rešitev za vaš sistem je morda v <b><a href=\"%1$s\">tem dokumentu</a></b>.]]></string>
     <string name="app_management_toggle_all">Preklopi vse</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Začni</string>
+    <string name="device_watchdog">Nadzorni pes</string>
     <string name="action_start">Začni</string>
     <string name="intents_start">Začni</string>
     <!-- Terminal -->

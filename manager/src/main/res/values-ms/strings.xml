@@ -91,6 +91,9 @@
     <string name="app_management_dialog_adb_is_limited_title">Kebenaran adb adalah terhad</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Kemungkinan besar pengeluar peranti anda mengehadkan kebenaran adb.<p>Mungkin terdapat penyelesaian untuk sistem anda dalam <b><a href=\"%1$s\">dokumen ini</a></b>.]]></string>
     <string name="app_management_toggle_all">Togol semua</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Mulakan</string>
+    <string name="device_watchdog">Pengawas</string>
     <string name="action_start">Mulakan</string>
     <string name="intents_start">Mulakan</string>
     <!-- Terminal -->

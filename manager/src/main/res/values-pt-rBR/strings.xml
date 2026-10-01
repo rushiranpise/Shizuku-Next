@@ -93,6 +93,9 @@
     <string name="app_management_dialog_adb_is_limited_title">A permissão do adb é limitada</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[É altamente possível que o fabricante do seu dispositivo limite a permissão do adb.<p>Pode haver uma solução para o seu sistema <b><a href="%1$s">neste documento</a></b>.]]></string>
     <string name="app_management_toggle_all">Alternar tudo</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Iniciar</string>
+    <string name="device_watchdog">Cão de guarda</string>
     <string name="action_start">Iniciar</string>
     <string name="intents_start">Iniciar</string>
     <!-- Terminal -->

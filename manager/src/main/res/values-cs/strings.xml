@@ -59,6 +59,9 @@
     <string name="app_management_dialog_adb_is_limited_title">Oprávnění adb je omezené</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Je vysoce možné, že výrobce vašeho zařízení omezuje oprávnění adb. <p> V <b> <a href="%1$s"> tomto dokumentu </a> </b> může být pro váš systém řešení.]]></string>
     <string name="app_management_toggle_all">Přepínat vše</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Spustit</string>
+    <string name="device_watchdog">Hlídací pes</string>
     <string name="action_start">Spustit</string>
     <string name="intents_start">Spustit</string>
     <!-- Terminal -->
