@@ -34,7 +34,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           # Build whatever the run was started on. It used to switch to a "beta" branch
           # for prereleases, which this repository doesn't have, so a prerelease run
@@ -168,7 +168,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           # The tag has to land on the commit that was actually built.
           ref: ${{ github.ref_name }}
