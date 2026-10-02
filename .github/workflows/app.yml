@@ -156,7 +156,7 @@ jobs:
 
       - name: Attest Build Provenance
         if: ${{ success() }}
-        uses: actions/attest-build-provenance@v3
+        uses: actions/attest-build-provenance@v4
         with:
           subject-path: manager/build/outputs/apk/**/*.apk
 
