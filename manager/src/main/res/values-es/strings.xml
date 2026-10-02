@@ -9,6 +9,9 @@
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Iniciar vía Depuración inalámbrica]]></string>
+    <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
+         and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
+         "unrestricted" says what the app did and what it is: left alone. -->
     <!-- Adb -->
     <string name="dialog_adb_port">Puerto</string>
     <string name="dialog_adb_invalid_port">Puerto es un número del 1 al 65535.</string>
@@ -92,6 +95,10 @@
     <string name="app_management_dialog_adb_is_limited_title">El permiso de ADB es limitado</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Es muy posible que el fabricante de su dispositivo haya limitado el permiso de ADB.<p>Puede que encuentre una solución para su sistema en <b><a href="%1$s">este documento</a></b>.]]></string>
     <string name="app_management_toggle_all">Activar/desactivar todo</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Iniciar</string>
+    <string name="device_watchdog">Perro guardián</string>
+    <string name="log_capture_start">Iniciar</string>
     <string name="action_start">Iniciar</string>
     <string name="intents_start">Iniciar</string>
     <!-- Terminal -->

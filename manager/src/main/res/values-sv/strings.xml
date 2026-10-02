@@ -9,6 +9,9 @@
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Starta via trådlös felsökning]]></string>
+    <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
+         and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
+         "unrestricted" says what the app did and what it is: left alone. -->
     <!-- Adb -->
     <string name="dialog_adb_port">Hamn</string>
     <string name="dialog_adb_invalid_port">Port är ett heltal mellan 1 och 65535.</string>
@@ -89,6 +92,8 @@
     <string name="app_management_dialog_adb_is_limited_title">ADB:s behörighet är begränsad</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Det är mycket möjligt att din enhetstillverkare begränsar behörigheten för adb.<p>Det kan finnas en lösning för ditt system i <b><a href=\"%1$s\">det här dokumentet</a></b>.]]></string>
     <string name="app_management_toggle_all">Visa/visa alla</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="device_watchdog">Vakthund</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Användare har rapporterat att MIUI bryter mot Storage
         Access Framework, som används av exportfunktionen.</string>

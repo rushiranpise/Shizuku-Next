@@ -9,6 +9,9 @@
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[البدء باستخدام التصحيح اللاسلكي]]></string>
+    <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
+         and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
+         "unrestricted" says what the app did and what it is: left alone. -->
     <!-- Adb -->
     <string name="dialog_adb_port">المنفذ</string>
     <string name="dialog_adb_invalid_port">المنفذ هو عدد صحيح يتراوح من 1 إلى 65535.</string>
@@ -88,6 +91,10 @@
     <string name="app_management_dialog_adb_is_limited_title">إذن الADB محدود</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[من المحتمل جدًا أن تحدد الشركة المصنعة للجهاز إذن adb. <p> قد يكون هناك حل لنظامك في <b><a href="%1$s">هذا المستند</a></b>.]]></string>
     <string name="app_management_toggle_all">تبديل الكل</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">البدء بالتشغيل</string>
+    <string name="device_watchdog">مراقب</string>
+    <string name="log_capture_start">البدء بالتشغيل</string>
     <string name="action_start">البدء بالتشغيل</string>
     <string name="intents_start">البدء بالتشغيل</string>
     <!-- Terminal -->

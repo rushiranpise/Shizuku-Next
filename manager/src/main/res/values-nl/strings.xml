@@ -9,6 +9,9 @@
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Starten via draadloze foutopsporing]]></string>
+    <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
+         and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
+         "unrestricted" says what the app did and what it is: left alone. -->
     <!-- Adb -->
     <string name="dialog_adb_port">Poort</string>
     <string name="dialog_adb_invalid_port">Poort is een geheel getal dat varieert van 1 tot 65535.</string>
@@ -90,6 +93,10 @@
     <string name="app_management_dialog_adb_is_limited_title">De toestemming voor adb is beperkt</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Het is zeer goed mogelijk dat de fabrikant van je apparaat de toestemming van adb beperkt.<p>Er kan een oplossing voor jouw systeem zijn in <b><a href=\"%1$s\">dit document</a></b>.]]></string>
     <string name="app_management_toggle_all">Alles (de)selecteren</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Starten</string>
+    <string name="device_watchdog">Bewaker</string>
+    <string name="log_capture_start">Starten</string>
     <string name="action_start">Starten</string>
     <string name="intents_start">Starten</string>
     <!-- Terminal -->

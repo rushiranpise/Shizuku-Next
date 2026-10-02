@@ -9,6 +9,9 @@
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Avvia tramite Debug Wireless]]></string>
+    <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
+         and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
+         "unrestricted" says what the app did and what it is: left alone. -->
     <!-- Adb -->
     <string name="dialog_adb_port">Porta</string>
     <string name="dialog_adb_invalid_port">La porta è un numero intero compreso tra 1 e 65535.</string>
@@ -90,6 +93,10 @@
     <string name="app_management_dialog_adb_is_limited_title">Il permesso di adb è limitato</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[È molto probabile che il fabbricante del tuo dispositivo limiti i permessi di adb.<p>Ci potrebbe essere una soluzione per il vostro dispositivo in <b><a href="%1$s">questo documento</a></b>.]]></string>
     <string name="app_management_toggle_all">Attiva/disattiva tutto</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Avvia</string>
+    <string name="device_watchdog">Cane da guardia</string>
+    <string name="log_capture_start">Avvia</string>
     <string name="action_start">Avvia</string>
     <string name="intents_start">Avvia</string>
     <!-- Terminal -->

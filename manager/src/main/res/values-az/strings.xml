@@ -9,6 +9,9 @@
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Simsiz debaq ilə başladın]]></string>
+    <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
+         and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
+         "unrestricted" says what the app did and what it is: left alone. -->
     <!-- Adb -->
     <string name="dialog_adb_port">Liman</string>
     <string name="dialog_adb_invalid_port">Port 1 ilə 65535 arasında dəyişən tam ədəddir.</string>
@@ -90,6 +93,10 @@
     <string name="app_management_dialog_adb_is_limited_title">adb icazəsi məhduddur</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Çox güman ki, cihazınızın istehsalçısı adb icazəsini məhdudlaşdırır.<p>Sisteminiz üçün <b><a href="%1$s">bu sənəddə</a></b> həll yolu ola bilər.]]></string>
     <string name="app_management_toggle_all">Hamısını dəyiş</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Başlat</string>
+    <string name="device_watchdog">Nəzarətçi</string>
+    <string name="log_capture_start">Başlat</string>
     <string name="action_start">Başlat</string>
     <string name="intents_start">Başlat</string>
     <!-- Terminal -->

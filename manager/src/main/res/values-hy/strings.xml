@@ -9,6 +9,9 @@
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Միացնել Անլար կարգաբերման օգնությամբ]]></string>
+    <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
+         and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
+         "unrestricted" says what the app did and what it is: left alone. -->
     <!-- Adb -->
     <string name="dialog_adb_port">Պոռտ</string>
     <string name="dialog_adb_invalid_port">Պոռտը թիվ է 1-ի և 65535-ի միջև։</string>
@@ -90,6 +93,10 @@
     <string name="app_management_dialog_adb_is_limited_title">Adb-ի թույլտվությունները սահմանափակված
         են</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Շատ հնարավոր է, որ Ձեր սարքի արտադրողը սահմանափակել է adb-ի թույլտվությունները։ <p>Հնարավոր լուծումները գտեք <b><a href="%1$s">այստեղ</a></b>։]]></string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Միացնել</string>
+    <string name="device_watchdog">Հսկիչ</string>
+    <string name="log_capture_start">Միացնել</string>
     <string name="action_start">Միացնել</string>
     <string name="intents_start">Միացնել</string>
     <!-- Terminal -->

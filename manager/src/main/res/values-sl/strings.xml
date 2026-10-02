@@ -9,6 +9,9 @@
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Začni preko Brezžičnega razhroščevanja]]></string>
+    <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
+         and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
+         "unrestricted" says what the app did and what it is: left alone. -->
     <!-- Adb -->
     <string name="dialog_adb_port">Vrata</string>
     <string name="dialog_adb_invalid_port">Vrata so število v obsegu od 1 do 65535.</string>
@@ -91,6 +94,10 @@
     <string name="app_management_dialog_adb_is_limited_title">Dovoljenje adb je omejeno</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Zelo možno je, da proizvajalec vaše naprave omejuje dovoljenja adb.<p>Rešitev za vaš sistem je morda v <b><a href=\"%1$s\">tem dokumentu</a></b>.]]></string>
     <string name="app_management_toggle_all">Preklopi vse</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Začni</string>
+    <string name="device_watchdog">Nadzorni pes</string>
+    <string name="log_capture_start">Začni</string>
     <string name="action_start">Začni</string>
     <string name="intents_start">Začni</string>
     <!-- Terminal -->

@@ -9,6 +9,9 @@
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Pokreni preko Bežičnog otklanjanja grešaka]]></string>
+    <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
+         and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
+         "unrestricted" says what the app did and what it is: left alone. -->
     <!-- Adb -->
     <string name="dialog_adb_port">Лука</string>
     <string name="dialog_adb_invalid_port">Порт је цео број у распону од 1 до 65535.</string>
@@ -88,6 +91,10 @@
     <string name="app_management_dialog_adb_is_limited_title">Дозвола adb-а је ограничена</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Врло је могуће да произвођач вашег уређаја ограничава дозволе adb-а.<p>Можда постоји решење за ваш систем у <b><a href=\"%1$s\">овом документу</a></b>.]]></string>
     <string name="app_management_toggle_all">Укључи/искључи све</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Почетак</string>
+    <string name="device_watchdog">Чувар</string>
+    <string name="log_capture_start">Почетак</string>
     <string name="action_start">Почетак</string>
     <string name="intents_start">Почетак</string>
     <!-- Terminal -->

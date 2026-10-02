@@ -9,6 +9,9 @@
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[透過無線偵錯啟動]]></string>
+    <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
+         and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
+         "unrestricted" says what the app did and what it is: left alone. -->
     <!-- Adb -->
     <string name="dialog_adb_port">通訊埠</string>
     <string name="dialog_adb_invalid_port">通訊埠是一個 1 至 65535 的整數。</string>
@@ -67,6 +70,10 @@
     <string name="app_management_dialog_adb_is_limited_title">ADB 權限受限</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[這極有可能是你的裝置製造商限制了 ADB 的權限。<p><b><a href=\"%1$s\">此文件</a></b>中可能有針對你的系統的解決方案。]]></string>
     <string name="app_management_toggle_all">切換全部</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">啟動</string>
+    <string name="device_watchdog">看門狗</string>
+    <string name="log_capture_start">啟動</string>
     <string name="action_start">開始 Shizuku</string>
     <string name="intents_start">啟動</string>
     <!-- Terminal -->

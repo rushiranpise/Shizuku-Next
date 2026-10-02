@@ -9,6 +9,9 @@
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Mulai melalui Debug Nirkabel]]></string>
+    <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
+         and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
+         "unrestricted" says what the app did and what it is: left alone. -->
     <!-- Adb -->
     <string name="dialog_adb_port">Pelabuhan</string>
     <string name="dialog_adb_invalid_port">Port adalah integer antara 1 sampai 65535.</string>
@@ -89,6 +92,10 @@
     <string name="app_management_dialog_adb_is_limited_title">Izin adb terbatas</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Kemungkinan besar merk perangkat Anda membatasi perizinan adb.<p>Solusi untuk perangkat Anda mungkin ada pada <b><a href="%1$s">dokumentasi ini</a></b>.]]></string>
     <string name="app_management_toggle_all">Beralih semua</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Mulai</string>
+    <string name="device_watchdog">Penjaga</string>
+    <string name="log_capture_start">Mulai</string>
     <string name="action_start">Mulai</string>
     <string name="intents_start">Mulai</string>
     <!-- Terminal -->

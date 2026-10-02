@@ -9,6 +9,9 @@
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Kezdje a vezeték nélküli hibakereséssel]]></string>
+    <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
+         and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
+         "unrestricted" says what the app did and what it is: left alone. -->
     <!-- Adb -->
     <string name="dialog_adb_port">Kikötő</string>
     <string name="dialog_adb_invalid_port">A port egy 1 és 65535 közötti egész szám.</string>
@@ -96,6 +99,10 @@
     <string name="app_management_dialog_adb_is_limited_title">Az adb engedélye korlátozott</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Nagyon valószínű, hogy az eszköz gyártója korlátozza az adb engedélyét.<p>Lehet, hogy van megoldás a rendszeréhez ebben a <b><a href=\"%1$s\">dokumentumban</a></b>.]]></string>
     <string name="app_management_toggle_all">Összes ki-/bekapcsolása</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Indítás</string>
+    <string name="device_watchdog">Őrzőkutya</string>
+    <string name="log_capture_start">Indítás</string>
     <string name="action_start">Indítás</string>
     <string name="intents_start">Indítás</string>
     <!-- Terminal -->

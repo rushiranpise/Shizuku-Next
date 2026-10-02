@@ -9,6 +9,9 @@
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Bắt đầu thông qua Gỡ lỗi không dây]]></string>
+    <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
+         and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
+         "unrestricted" says what the app did and what it is: left alone. -->
     <!-- Adb -->
     <string name="dialog_adb_port">Cổng</string>
     <string name="dialog_adb_invalid_port">Cổng là một số nguyên nằm trong khoảng từ 1 đến 65535.</string>
@@ -85,6 +88,10 @@
     <string name="app_management_dialog_adb_is_limited_title">Quyền của adb bị hạn chế</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Rất có thể nhà sản xuất thiết bị của bạn giới hạn quyền của adb.<p>Có thể có giải pháp cho hệ thống của bạn trong <b><a href="%1$s">tài liệu này</a></b>.]]></string>
     <string name="app_management_toggle_all">Chuyển đổi tất cả</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Bắt đầu</string>
+    <string name="device_watchdog">Chó canh gác</string>
+    <string name="log_capture_start">Bắt đầu</string>
     <string name="action_start">Bắt đầu</string>
     <string name="intents_start">Bắt đầu</string>
     <!-- Terminal -->

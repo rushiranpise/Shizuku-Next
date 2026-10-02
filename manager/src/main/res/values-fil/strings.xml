@@ -9,6 +9,9 @@
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Simulan gamit ang Wireless na pag-debug]]></string>
+    <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
+         and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
+         "unrestricted" says what the app did and what it is: left alone. -->
     <!-- Adb -->
     <string name="dialog_adb_invalid_port">Ang port ay isang integer mula 1 hanggang 65535.</string>
     <string name="adb_pairing">Pagpapares</string>
@@ -91,6 +94,10 @@
     <string name="app_management_dialog_adb_is_limited_title">Limitado ang pahintulot ng adb</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Posibleng nilimitahan ng gumawa ng device mo ang kakayahan ng adb.<p>Maaaring may solusyon para sa sistema mo sa <b><a href="%1$s">dokumentong ito</a></b>.]]></string>
     <string name="app_management_toggle_all">I-toggle ang lahat</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Simulan</string>
+    <string name="device_watchdog">Tagapagbantay</string>
+    <string name="log_capture_start">Simulan</string>
     <string name="action_start">Simulan</string>
     <string name="intents_start">Simulan</string>
     <!-- Terminal -->

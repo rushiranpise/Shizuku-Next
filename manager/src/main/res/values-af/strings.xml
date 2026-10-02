@@ -9,6 +9,9 @@
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Begin via draadlose ontfouting]]></string>
+    <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
+         and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
+         "unrestricted" says what the app did and what it is: left alone. -->
     <!-- Adb -->
     <string name="dialog_adb_port">Hawe</string>
     <string name="dialog_adb_invalid_port">Poort is \'n heelgetal wat wissel van 1 tot 65535.</string>
@@ -91,6 +94,10 @@
     <string name="app_management_dialog_adb_is_limited_title">Die toestemming van adb is beperk</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Dit is hoogs moontlik dat jou toestelvervaardiger die toestemming van adb beperk.<p>Daar mag dalk \'n oplossing vir jou stelsel wees in <b><a href=\"%1$s\">hierdie dokument</a></b>.]]></string>
     <string name="app_management_toggle_all">Wissel alles</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Begin</string>
+    <string name="device_watchdog">Waghond</string>
+    <string name="log_capture_start">Begin</string>
     <string name="action_start">Begin</string>
     <string name="intents_start">Begin</string>
     <!-- Terminal -->
