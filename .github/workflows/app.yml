@@ -143,13 +143,13 @@ jobs:
           echo "versionName=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Upload Debug Artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ steps.buildWithGradle.outputs.debugArtifact }}
           path: ${{ steps.buildWithGradle.outputs.debugFilePath }}
 
       - name: Upload Release Artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ steps.buildWithGradle.outputs.releaseArtifact }}
           path: ${{ steps.buildWithGradle.outputs.releaseFilePath }}
