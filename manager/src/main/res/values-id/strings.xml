@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      The source strings. Translations are written in Crowdin and arrive as a pull request; see
+      docs/translations.md. Uploading this file is also what applies its settings over there, so
+      a change here reaches translators on the next push and not before.
+    -->
+    <!-- To translators: you can leave your here -->
+    <!-- Home - Adb -->
+    <!-- Home - Wireless Adb -->
+    <string name="home_wireless_adb_title"><![CDATA[Mulai melalui Debug Nirkabel]]></string>
+    <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
+         and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
+         "unrestricted" says what the app did and what it is: left alone. -->
+    <!-- Adb -->
+    <string name="dialog_adb_port">Pelabuhan</string>
+    <string name="dialog_adb_invalid_port">Port adalah integer antara 1 sampai 65535.</string>
+    <string name="adb_pairing">Sambungkan</string>
+    <string name="dialog_adb_pairing_title">Sambungkan dengan perangkat</string>
+    <string name="dialog_adb_pairing_discovery">Mencari layanan penyambung</string>
+    <string name="dialog_adb_pairing_paring_code">Kode penghubung</string>
+    <string name="paring_code_is_wrong">Kode penghubung tidak sesuai.</string>
+    <string name="cannot_connect_port">Tidak dapat terhubung ke layanan debugging
+        nirkabel.\n\nPastikan Shizuku masuk daftar putih di semua firewall, pemblokir iklan, VPN,
+        atau aplikasi serupa yang dapat membatasi akses jaringan.</string>
+    <string name="dialog_adb_pairing_message">Silakan mulai memasangkan dengan melakukan
+        langkah-langkah berikut:\n- Arahkan ke \"Opsi Pengembang\"\n- Aktifkan \"Debugging USB\" dan
+        \"Debugging Nirkabel\"\n- Ketuk sisi kiri \"Debugging Nirkabel\"\n- Ketuk \"Pasangkan
+        perangkat dengan kode pemasangan\"\n- Masukkan kode pemasangan di notifikasi</string>
+    <string name="dialog_adb_pairing_accessibility_permission">Pada Android 14,
+        menginstal/memperbarui Shizuku dengan Package Installer akan mencabut izin ^1, yang
+        diperlukan untuk mengaktifkan layanan aksesibilitas untuk pemasangan.\n\nUntuk
+        memberikannya, jalankan perintah ADB berikut:\n\n^2\n\nSetelah menjalankan perintah, Anda
+        dapat melanjutkan proses pemasangan.\n\nCatatan: Anda dapat melewati ini dengan
+        menginstal/memperbarui Shizuku dengan ADB.</string>
+    <string name="dialog_adb_pairing_accessibility_enable">Harap aktifkan layanan aksesibilitas
+        untuk memulai proses pemasangan. Ini memungkinkan Shizuku mendeteksi kode
+        pemasangan.\n\nLayanan aksesibilitas akan dinonaktifkan ketika kode ditemukan atau setelah 1
+        menit untuk menghemat energi.</string>
+    <string name="dialog_adb_pairing_accessibility_navigate">Silakan mulai pemasangan dengan
+        melakukan langkah-langkah berikut:\n- Buka \"Opsi Pengembang\"\n- Aktifkan \"Debugging USB\"
+        dan \"Debugging Nirkabel\"\n- Ketuk sisi kiri \"Debugging Nirkabel\"\n- Ketuk \"Pasangkan
+        perangkat dengan kode pemasangan.\" Shizuku akan secara otomatis mendeteksi kode pemasangan.</string>
+    <string name="adb_pairing_requires_multi_window">Harap pindah ke mode layar pisah (split-screen)
+        terlebih dahulu.</string>
+    <string name="adb_pairing_requires_multi_window_reason">Sistem mengharuskan dialog pemasangan
+        selalu terlihat. Menggunakan mode layar terpisah adalah satu-satunya cara agar aplikasi ini
+        dan dialog sistem terlihat secara bersamaan.</string>
+    <string name="adb_error_key_store">Tidak dapat membuat kunci untuk debugging nirkabel.\nIni
+        mungkin karena mekanisme KeyStore perangkat ini rusak.</string>
+    <string name="adb_error_stop_tcp">Gagal menghentikan ADB melalui TCP</string>
+    <string name="adb_pair_required">Harap lakukan penyambungan terlebih dahulu.</string>
+    <string name="enable">Memungkinkan</string>
+    <string name="development_settings">Pilihan pengembang</string>
+    <string name="notification_settings">Pengaturan notifikasi</string>
+    <string name="adb_pairing_tutorial_content_notification">Notifikasi dari Shizuku akan membantu
+        Anda untuk menyelesaikan pemasangan.</string>
+    <string name="adb_pairing_tutorial_content_steps">Arahkan ke \"Opsi Pengembang\", lalu aktifkan
+        \"Debugging USB\" dan \"Debugging Nirkabel\".</string>
+    <string name="adb_pairing_tutorial_content_enter_pairing_code">Ketuk sisi kiri \"Debugging
+        Nirkabel\", lalu ketuk \"Pasangkan perangkat dengan kode pemasangan\". Masukkan kode
+        tersebut ke notifikasi untuk menyelesaikan pemasangan.</string>
+    <string name="adb_pairing_tutorial_content_notification_blocked">Proses penyambungan membutuhkan
+        Anda untuk berinteraksi dengan notifikasi dari Shizuku. Mohon izinkan Shizuku untuk mengirim
+        pemberitahuan.</string>
+    <string name="adb_pairing_tutorial_content_miui">Pengguna MIUI mungkin perlu mengubah gaya
+        pemberitahuan ke \"Android\" dari \"Pemberitahuan\" - \"Bayangan pemberitahuan\" di
+        pengaturan sistem.</string>
+    <string name="adb_pairing_tutorial_content_miui_2">Jika tidak, Anda mungkin tidak dapat
+        memasukkan kode pemasangan dari notifikasi.</string>
+    <string name="adb_pairing_tutorial_content_finish">Kembali ke Shizuku dan mulai Shizuku.</string>
+    <string name="adb_pairing_tutorial_content_network">Shizuku perlu mengakses jaringan lokal.
+        Jaringan ini dikontrol oleh izin jaringan.</string>
+    <string name="adb_pairing_tutorial_content_network_limation_not_foreground">Beberapa sistem
+        (seperti MIUI) melarang aplikasi mengakses jaringan saat tidak terlihat, meskipun aplikasi
+        tersebut menggunakan layanan latar depan. Harap nonaktifkan fitur pengoptimalan baterai
+        untuk Shizuku pada sistem tersebut.</string>
+    <!-- Home - Root -->
+    <string name="home_root_title"><![CDATA[Mulai (untuk perangkat dengan root)]]></string>
+    <string name="home_root_description"><![CDATA[Jika Anda menggunakan Magisk, Anda bisa mencoba %1$s. Bagi pengguna root, Magisk nantinya akan menggantikan Shizuku. Perlu diketahui, aplikasi yang sudah ada perlu sedikit diubah agar dapat menggunakan %2$s.]]></string>
+    <string name="home_root_button_start">Mulai</string>
+    <!-- Home - Application management -->
+    <plurals name="home_app_management_authorized_apps_count">
+        <item quantity="other"><![CDATA[%d aplikasi terdaftar]]></item>
+    </plurals>
+    <!-- Home - Automation -->
+    <!-- Home - Stealth mode -->
+    <!-- Home - Learn more -->
+    <!-- Home - Adb permissions limited -->
+    <!-- Home - Dialogs -->
+    <!-- Application management -->
+    <string name="app_management_dialog_adb_is_limited_title">Izin adb terbatas</string>
+    <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Kemungkinan besar merk perangkat Anda membatasi perizinan adb.<p>Solusi untuk perangkat Anda mungkin ada pada <b><a href="%1$s">dokumentasi ini</a></b>.]]></string>
+    <string name="app_management_toggle_all">Beralih semua</string>
+    <!-- Hiding: what apps can read about this device -->
+    <string name="intent_start">Mulai</string>
+    <string name="device_watchdog">Penjaga</string>
+    <string name="log_capture_start">Mulai</string>
+    <string name="action_start">Mulai</string>
+    <string name="intents_start">Mulai</string>
+    <!-- Terminal -->
+    <string name="terminal_tutorial_miui">Pengguna telah melaporkan bahwa MIUI merusak Storage
+        Access Framework yang digunakan oleh fungsi ekspor.</string>
+    <string name="terminal_tutorial_miui_2">Jika Anda menggunakan MIUI, Anda mungkin harus
+        mengekstrak file dari folder aset di APK Shizuku.</string>
+    <string name="terminal_tutorial_1">Ekspor file ke folder baru.</string>
+    <string name="terminal_tutorial_1_description">Dua berkas akan diekspor: %1$s dan %2$s. Jika
+        berkas tersebut sudah ada di folder yang dipilih, berkas tersebut akan dihapus.</string>
+    <string name="terminal_tutorial_2">Gunakan aplikasi terminal Anda untuk menyalin file ke
+        direktori file privatnya.</string>
+    <string name="terminal_tutorial_2_description">Kiat: Jika direktori beranda (~) aplikasi
+        terminal Anda berada di direktori file pribadi, meletakkan file di sana akan memungkinkan
+        Anda menjalankan %1$s tanpa menuliskan jalurnya.\n\nJika tidak, Anda dapat membuat alias
+        untuk %2$s dalam file konfigurasi %3$s aplikasi terminal Anda.</string>
+    <string name="terminal_tutorial_3">Buka shell dengan perintah berikut:</string>
+    <!-- Stealth -->
+    <!-- Settings -->
+    <string name="settings_start_on_boot">Mulai saat boot</string>
+    <string name="settings_watchdog">Penjaga</string>
+    <string name="settings_watchdog_summary">Mulai ulang Shizuku secara otomatis jika macet</string>
+    <string name="settings_tcp_mode">modus TCP</string>
+    <string name="settings_tcp_mode_summary">"Memungkinkan Shizuku untuk memulai ulang tanpa Wi-Fi.
+        (Shizuku harus sudah memulai sekali sejak di-reboot)"</string>
+    <string name="settings_tcp_mode_dialog_close_port">"Port TCP akan segera ditutup. Anda
+        memerlukan Wi-Fi untuk mengaktifkan kembali mode TCP. Lanjutkan?"</string>
+    <string name="settings_restart_dialog_title">Diperlukan Restart</string>
+    <string name="settings_restart_dialog_message">Shizuku perlu memulai ulang untuk menerapkan
+        pengaturan ini.</string>
+    <string name="settings_restart_dialog_message_wifi_required"><![CDATA[<br><br><b>Wi-Fi diperlukan. Shizuku akan terus berjalan dan menunggu koneksi Wi-Fi sebelum memulai ulang di latar belakang.</b>]]></string>
+    <string name="settings_tcp_port">Pelabuhan TCP</string>
+    <string name="settings_language">Bahasa</string>
+    <string name="settings_black_night_theme">Tema hitam gelap</string>
+    <string name="settings_black_night_theme_summary">Gunakan tema hitam gelap jika mode malam
+        diaktifkan</string>
+    <string name="settings_help">Membantu</string>
+    <string name="settings_report_bug">Laporkan bug</string>
+    <string name="settings_legacy_pairing">Pasangan warisan</string>
+    <string name="settings_legacy_pairing_summary">Masukkan kode pemasangan dalam dialog, bukan
+        notifikasi</string>
+    <!-- Bug Report Dialog -->
+    <string name="bug_report_dialog_before_reporting">Pertama, mohon lakukan hal berikut:</string>
+    <string name="bug_report_dialog_update">Pastikan Anda menggunakan ^1.</string>
+    <string name="bug_report_dialog_link_update">versi terbaru</string>
+    <string name="bug_report_dialog_wiki">Bacalah poin ^1 dan ikuti semua langkah pemecahan masalah
+        yang relevan.</string>
+    <string name="bug_report_dialog_issues">Telusuri semua ^1 untuk melihat apakah bug Anda sudah
+        dilaporkan.</string>
+    <string name="bug_report_dialog_link_issues">masalah yang ada</string>
+    <string name="bug_report_dialog_method">Silakan laporkan masalah di ^1 jika Anda memiliki akun.</string>
+    <string name="bug_report_dialog_method_2">Atau, Anda bisa mengirim email.</string>
+    <string name="bug_report_dialog_button_email">E-mail</string>
+    <!-- Snackbar -->
+    <string name="snackbar_battery_optimization_settings">Nonaktifkan pengoptimalan baterai untuk
+        menggunakan fitur ini.</string>
+    <string name="snackbar_action_fix">Memperbaiki</string>
+    <!-- Updates -->
+    <!-- Toast -->
+    <string name="toast_no_email_app">Tidak ada aplikasi email yang ditemukan</string>
+    <string name="toast_pairing_timeout">Layanan pemasangan Shizuku telah habis waktunya.</string>
+    <!-- Dark Mode Setting Override -->
+    <string name="dark_theme_off">Selalu terang</string>
+    <string name="dark_theme_on">Selalu gelap</string>
+    <!-- About -->
+    <!-- Start/Stop -->
+    <string name="start">Mulai</string>
+    <!-- Notification -->
+    <string name="notification_channel_adb_pairing">Pemasangan debug nirkabel</string>
+    <string name="notification_adb_pairing_input_paring_code">Masukkan kode penyambungan</string>
+    <string name="notification_adb_pairing_searching_for_service_title">Mencari layanan penyambung</string>
+    <string name="notification_adb_pairing_service_found_title">Layanan penyambungan ditemukan</string>
+    <string name="notification_adb_pairing_stop_searching">Berhenti mencari</string>
+    <string name="notification_adb_pairing_working_title">Penyambungan dalam proses</string>
+    <string name="notification_adb_pairing_succeed_title">Penyambungan berhasil</string>
+    <string name="notification_adb_pairing_succeed_text">Anda dapat memulai layanan Shizuku
+        sekarang.</string>
+    <string name="notification_adb_pairing_failed_title">Penyambungan gagal</string>
+    <string name="notification_adb_pairing_retry">Ulangi</string>
+    <!-- Permission related, appears in system permission UI -->
+    <string name="permission_label">mengakses Shizuku</string>
+    <string name="permission_description">Izinkan aplikasi menggunakan Shizuku.</string>
+    <string name="permission_warning_template"><![CDATA[Izinkan <b>%1$s</b> untuk %2$s\?]]></string>
+    <string name="grant_dialog_button_allow_always">Selalu izinkan</string>
+    <string name="grant_dialog_button_deny">"Tolak"</string>
+    <!-- Starter -->
+    <string name="starter">Pemulaian</string>
+    <string name="start_with_root_failed">Layanan tidak bisa dimulai karena aplikasi tidak mendapat
+        izin root atau perangkat tidak memiliki akses root.</string>
+    <!-- WADB Starter -->
+    <string name="wadb_notification_title">Memulai Shizuku…</string>
+    <string name="wadb_notification_wifi_required">Menunggu koneksi Wi-Fi sebelum melanjutkan</string>
+    <string name="wadb_notification_retry">Menunggu untuk mencoba lagi</string>
+    <string name="wadb_error_title">Kesalahan saat memulai saat boot</string>
+    <string name="wadb_error_notify_dev">Ketuk untuk memberi tahu pengembang.</string>
+    <string name="wadb_permission_error_notification_title">Kesalahan Izin</string>
+    <string name="wadb_permission_error_notification_content">Shizuku membutuhkan
+        WRITE_SECURE_SETTINGS untuk memulai saat boot. Ketuk untuk mempelajari cara memberikannya.</string>
+    <!-- Shell -->
+    <!-- Watchdog -->
+    <string name="watchdog_running">Watchdog sedang berjalan</string>
+    <string name="watchdog_turn_off">Mematikan</string>
+    <string name="watchdog_shizuku_crashed_title">Shizuku baru saja jatuh</string>
+    <string name="watchdog_shizuku_crashed_text">Watchdog telah memulai kembali layanan. Ketuk untuk
+        mempelajari kemungkinan perbaikan guna mencegah kerusakan di masa mendatang.</string>
+    <string name="watchdog_shizuku_crashed_action_turn_off_alerts">Matikan Peringatan</string>
+    <!-- Misc -->
+    <string name="dialog_cannot_open_browser_title">Tidak bisa membuka browser</string>
+    <string name="toast_copied_to_clipboard">Disalin ke papan klip</string>
+    <string name="accessibility_service_description">Menyediakan dukungan pemasangan untuk perangkat
+        (misalnya, TV yang menjalankan Android 14+) yang tidak dapat menggunakan notifikasi atau
+        layar terpisah.\n\nMemungkinkan Shizuku untuk mengekstrak kode pemasangan dari layar
+        pemasangan debugging nirkabel. Perangkat akan menonaktifkan dirinya sendiri setelah kode
+        pemasangan ditemukan.</string>
+    <!-- Messages for legacy -->
+    <string name="dialog_legacy_not_support_title">%1$s tidak mendukung Shizuku modern</string>
+    <string name="dialog_legacy_not_support_message"><![CDATA[Shizuku Kuno sudah dihentikan sejak Maret 2019. Selain itu, Shizuku kuno tidak bisa bekerja pada sistem Android yang lebih baru.<p>Coba minta kepada pengembang dari <b>%1$s</b> untuk memperbarui aplikasinya.]]></string>
+    <string name="dialog_requesting_legacy_title">%1$s meminta akses Shizuku kuno</string>
+    <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> memiliki dukungan Shizuku modern, namun meminta akses Shizuku kuno. Hal ini bisa terjadi karena Shizuku tidak aktif, harap periksa di aplikasi Shizuku. <p>Shizuku Kuno sudah dihentikan sejak Maret 2019.]]></string>
+    <string name="dialog_requesting_legacy_button_open_shizuku">Buka Shizuku</string>
+    <string name="wadb_notification_attempt_now">Ulangi</string>
+    <!-- Manage tab -->
+    <!-- One app, and what it may do on the device -->
+    <string name="app_op_mode_deny">Tolak</string>
+    <string name="app_action_enable">Memungkinkan</string>
+</resources>

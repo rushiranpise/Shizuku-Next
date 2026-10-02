@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.Light" />
+
+    <style name="Card">
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Card.Small" parent="Card">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="Card.Large" parent="Card">
+        <item name="android:orientation">vertical</item>
+        <item name="android:showDividers">middle</item>
+        <item name="android:divider">@drawable/spacing_list_item_vertical</item>
+    </style>
+
+    <style name="CardButton" parent="Widget.Material3.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@color/button_background_color</item>
+        <item name="android:textColor">@color/button_text_color</item>
+        <item name="iconTint">@color/button_text_color</item>
+        <item name="iconPadding">12dp</item>
+    </style>
+
+    <style name="CardTitle">
+        <item name="android:textAppearance">?textAppearanceBodyLarge</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="CardSummary">
+        <item name="android:textAppearance">?textAppearanceBodyMedium</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="CardSummary.Brief" parent="CardSummary">
+        <item name="android:layout_marginTop">4dp</item>
+    </style>
+
+    <style name="CardIcon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/shape_circle_icon_background</item>
+        <item name="android:tint">?colorOnPrimaryContainer</item>
+        <item name="android:tintMode">src_in</item>
+        <item name="android:backgroundTint">?colorPrimaryContainer</item>
+        <item name="android:backgroundTintMode">src_in</item>
+    </style>
+
+    <style name="GrantPermissions" parent="@style/AppTheme">
+        <item name="android:colorBackground">?colorBackgroundFloating</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+    </style>
+
+    <style name="TerminalTutorialText">
+        <item name="android:textAppearance">?textAppearanceBodyMedium</item>
+        <item name="android:minHeight">32dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="DialogCard" parent="@style/Widget.Material3.CardView.Filled">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:checkable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clipChildren">false</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="cardCornerRadius">28dp</item>
+        <item name="contentPadding">24dp</item>
+        <item name="cardBackgroundColor">?colorSecondaryContainer</item>
+    </style>
+
+    <style name="StaticCopyTextInput" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="android:textColorHint">?colorOnSurfaceVariant</item>
+        <item name="boxStrokeColor">@color/text_input_static_box_stroke_color</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="endIconMode">custom</item>
+        <item name="endIconDrawable">@drawable/ic_copy</item>
+        <item name="hintTextColor">?colorOnSurfaceVariant</item>
+        <item name="prefixTextColor">?colorOnSurfaceVariant</item>
+    </style>
+
+    <style name="GrantPermissionsButtons">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">24dp</item>
+        <item name="android:layout_marginEnd">24dp</item>
+        <item name="android:minHeight">56dp</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?textColorOnPrimaryContainer</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="GrantPermissionsButtons.Top">
+        <item name="android:background">@drawable/grant_permissions_buttons_top</item>
+        <item name="android:layout_marginBottom">2dp</item>
+    </style>
+
+    <style name="GrantPermissionsButtons.Bottom">
+        <item name="android:background">@drawable/grant_permissions_buttons_bottom</item>
+        <item name="android:layout_marginTop">2dp</item>
+    </style>
+
+    <style name="Theme.App.DialogHost" parent="Theme.Material3Expressive.DayNight.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="Preference.Rikka.Material3.Empty" parent="@style/Preference.Rikka.Material3">
+        <item name="layout">@layout/preference_empty</item>
+    </style>
+
+</resources>

@@ -1,0 +1,337 @@
+name: Build App
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release, e.g. 14.0.3. Leave blank to bump the patch of the current one.'
+        type: string
+        required: false
+
+      prerelease:
+        description: 'Prerelease'
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      # Write, because the version bump below is committed and pushed before the build.
+      contents: write
+      id-token: write
+      attestations: write
+      artifact-metadata: write
+
+    env:
+      KEYSTORE: ${{ secrets.KEYSTORE }}
+
+    outputs:
+      versionName: ${{ steps.buildWithGradle.outputs.versionName }}
+      debugArtifact: ${{ steps.buildWithGradle.outputs.debugArtifact }}
+      releaseArtifact: ${{ steps.buildWithGradle.outputs.releaseArtifact }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          # Build whatever the run was started on. It used to switch to a "beta" branch
+          # for prereleases, which this repository doesn't have, so a prerelease run
+          # failed at checkout; the flag only changes the version name now.
+          ref: ${{ github.ref_name }}
+          submodules: 'recursive'
+          fetch-depth: 0
+
+      # build.gradle's version is what names the APK, the tag and the release title, so it
+      # is bumped here before the build and not after the release, where the built APK
+      # would already carry the old number and disagree with everything else.
+      - name: Bump Version
+        id: bumpVersion
+        run: |
+          CURRENT=$(grep -oP 'baseVersionName = "\K[0-9]+\.[0-9]+\.[0-9]+' build.gradle)
+          WANTED="${{ inputs.version }}"
+          [ -z "$WANTED" ] && WANTED=$(echo "$CURRENT" | awk -F. '{printf "%d.%d.%d", $1, $2, $3 + 1}')
+          echo "current $CURRENT, releasing $WANTED"
+
+          if ! echo "$WANTED" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "::error::'$WANTED' is not a version in the form x.y.z"
+            exit 1
+          fi
+          echo "version=$WANTED" >> $GITHUB_OUTPUT
+
+          if [ "$WANTED" = "$CURRENT" ]; then
+            echo "build.gradle already says $WANTED, nothing to bump."
+            exit 0
+          fi
+
+          sed -i "s/baseVersionName = \"$CURRENT\"/baseVersionName = \"$WANTED\"/" build.gradle
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # [skip ci] is belt and braces: a push made with GITHUB_TOKEN does not start
+          # workflows anyway, but this keeps it quiet if that ever changes.
+          git commit -am "chore: bump version to $WANTED [skip ci]"
+          git push origin "HEAD:${{ github.ref_name }}"
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      # Both variants are built and released every run, so the release APK always needs
+      # its signing secrets. Missing ones are a configuration error, not a debug build.
+      - name: Validate Signing Config
+        run: |
+          if [ "$KEYSTORE" = "" ]; then
+            echo "::error::Signing secrets not configured. The release APK has to be signed."
+            exit 1
+          fi
+
+      - name: Create signing.properties
+        run: |
+          echo KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }} > signing.properties
+          echo KEYSTORE_ALIAS=${{ secrets.KEYSTORE_ALIAS }} >> signing.properties
+          echo KEYSTORE_ALIAS_PASSWORD='${{ secrets.KEYSTORE_ALIAS_PASSWORD }}' >> signing.properties
+          echo KEYSTORE_FILE=../key.jks >> signing.properties
+          echo ${{ secrets.KEYSTORE }} | base64 --decode > key.jks
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+        with:
+          build-scan-publish: true
+          build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
+          build-scan-terms-of-use-agree: "yes"
+
+      - name: Build with Gradle
+        id: buildWithGradle
+        run: |
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null || true
+          echo 'org.gradle.caching=true' >> gradle.properties
+          echo 'org.gradle.parallel=true' >> gradle.properties
+
+          # lintDebug is the API-level gate: it fails on a call to an API newer than minSdk,
+          # which is a crash the compiler does not catch and no unit test can reach without an
+          # old device. It is listed first so that failure is read before the APKs are built.
+          CMD="./gradlew :manager:lintDebug :manager:assembleDebug :manager:assembleRelease"
+          [ "${{ inputs.prerelease }}" = "true" ] && CMD="$CMD -Pbeta"
+
+          eval $CMD
+
+          # The release APK drops the variant suffix, the debug one keeps it, so a
+          # download says which build it is.
+          VERSION=""
+          for KIND in debug release; do
+            FILE=$(ls manager/build/outputs/apk/$KIND/*.apk)
+            BUILD=$(echo "$(basename "$FILE")" | sed -E 's/^shizuku-(.*)-(debug|release)\.apk/\1/')
+            [ -z "$VERSION" ] && VERSION="$BUILD"
+
+            NAME="shizuku-$VERSION"
+            [ "$KIND" = "debug" ] && NAME="$NAME-debug"
+            NAME="$NAME.apk"
+
+            RENAMED="$FILE"
+            if [ "$(basename "$FILE")" != "$NAME" ]; then
+              RENAMED="$(dirname "$FILE")/$NAME"
+              mv "$FILE" "$RENAMED"
+            fi
+
+            echo "${KIND}Artifact=$NAME" >> $GITHUB_OUTPUT
+            echo "${KIND}FilePath=$RENAMED" >> $GITHUB_OUTPUT
+          done
+
+          echo "versionName=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Upload Debug Artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: ${{ steps.buildWithGradle.outputs.debugArtifact }}
+          path: ${{ steps.buildWithGradle.outputs.debugFilePath }}
+
+      - name: Upload Release Artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: ${{ steps.buildWithGradle.outputs.releaseArtifact }}
+          path: ${{ steps.buildWithGradle.outputs.releaseFilePath }}
+
+      - name: Attest Build Provenance
+        if: ${{ success() }}
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: manager/build/outputs/apk/**/*.apk
+
+  release:
+    needs: [build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          # The tag has to land on the commit that was actually built.
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      # The notes are written from the commits themselves, which are already Conventional
+      # Commits, so the draft says what changed without anyone remembering to write it up
+      # and without a service to call. Runs before the tag exists, or the tag would look
+      # like the previous release.
+      - name: Build Changelog
+        run: |
+          VERSION="${{ needs.build.outputs.versionName }}"
+          # From the commit before HEAD: on a re-run this version's tag already points at
+          # HEAD, and describing HEAD would return the release we are writing notes for,
+          # leaving the range empty.
+          PREV=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || true)
+          echo "previous tag: ${PREV:-none}"
+          PREV="$PREV" VERSION="$VERSION" python3 - <<'PY'
+          import collections, os, re, subprocess
+
+          prev = os.environ.get("PREV", "")
+          rng = f"{prev}..HEAD" if prev else "HEAD"
+
+          # Subjects alone do not say whether a change breaks something: the `!` is in the
+          # subject, the BREAKING CHANGE footer is in the body. One NUL ends each commit, so
+          # a body that mentions the word "commit" cannot be mistaken for the next entry.
+          # Decoded as UTF-8 whatever the machine's locale is: git writes UTF-8, and a
+          # subject with an em dash in it is otherwise mangled into mojibake.
+          log = subprocess.run(
+              ["git", "log", "--no-merges", "--pretty=format:%s%x1f%b%x00", rng],
+              capture_output=True, encoding="utf-8", check=True).stdout
+          records = [record for record in log.split("\x00") if record.strip()]
+
+          SUBJECT = re.compile(r"^(\w+)(?:\(([^)]+)\))?(!)?:\s*(.+)$")
+          BREAKING_FOOTER = re.compile(r"^BREAKING[ -]CHANGE:\s*(.+)$", re.MULTILINE)
+
+          titles = {
+              "feat": "Features", "fix": "Fixes", "perf": "Performance",
+              "refactor": "Refactoring", "docs": "Documentation", "build": "Build",
+              "ci": "CI", "test": "Tests", "style": "Style", "chore": "Chores",
+          }
+          # The order sections appear in: what a user upgrading cares about, first. Docs, CI
+          # and chores are not in here at all, they are folded away at the bottom.
+          ORDER = ["feat", "fix", "perf", "refactor", "build", "test", "style"]
+          FOLDED = ["docs", "ci", "chore"]
+          # What the collapsed block says it holds, in the words a reader would use.
+          FOLDED_LABELS = {"docs": "docs", "ci": "CI", "chore": "chores"}
+
+          buckets, breaking, other = collections.defaultdict(list), [], []
+          for record in records:
+              subject, _, body = record.partition("\x1f")
+              subject = subject.strip()
+              # Version bumps are not news for the release notes: neither the one this run
+              # pushes nor the one that set the version being released.
+              if subject.lower().startswith("chore: bump version"):
+                  continue
+
+              match = SUBJECT.match(subject)
+              if not match or match.group(1) not in titles:
+                  other.append(f"- {subject}")
+                  continue
+
+              type_, scope, bang, text = match.groups()
+              line = f"- **{scope}:** {text}" if scope else f"- {text}"
+              buckets[type_].append(line)
+
+              footer = BREAKING_FOOTER.search(body)
+              if bang or footer:
+                  # Listed here as well as under its own type: the top section is what has
+                  # to be read before upgrading, the type section is where the change is
+                  # described in full.
+                  breaking.append(line)
+                  if footer:
+                      detail = " ".join(
+                          footer.group(1).split("\n")[0].split()
+                      )
+                      if detail and detail not in text:
+                          breaking.append(f"  - {detail}")
+
+          sections = []
+          if breaking:
+              sections.append("### ⚠️ Breaking changes\n\n" + "\n".join(breaking))
+          for type_ in ORDER:
+              if buckets[type_]:
+                  sections.append(f"### {titles[type_]}\n\n" + "\n".join(buckets[type_]))
+          if other:
+              sections.append("### Other\n\n" + "\n".join(other))
+
+          folded_types = [type_ for type_ in FOLDED if buckets[type_]]
+          if folded_types:
+              # Collapsed, and the summary carries the count: a reader can see how much is
+              # being skipped without expanding it.
+              names = [FOLDED_LABELS[type_] for type_ in folded_types]
+              summary = names[0] if len(names) == 1 else \
+                  ", ".join(names[:-1]) + f" and {names[-1]}"
+              groups = [(titles[type_], buckets[type_]) for type_ in folded_types]
+              count = sum(len(items) for _, items in groups)
+              folded = "\n\n".join(f"### {title}\n\n" + "\n".join(items)
+                                    for title, items in groups)
+              sections.append(
+                  "<details>\n"
+                  f"<summary>{summary} "
+                  f"({count} {'change' if count == 1 else 'changes'})</summary>\n\n"
+                  f"{folded}\n\n"
+                  "</details>")
+
+          if prev:
+              sections.append(
+                  "**Full Changelog**: https://github.com/"
+                  f"{os.environ['GITHUB_REPOSITORY']}/compare/{prev}...{os.environ['VERSION']}")
+
+          body = "\n\n".join(sections).strip()
+          if not records or not body:
+              body = ""
+          # Explicitly UTF-8: the notes carry a warning sign, and a machine without a UTF-8
+          # locale would otherwise fail to write them.
+          with open("release-notes.md", "w", encoding="utf-8") as notes:
+              notes.write(body)
+          print(body or "(no commits since the previous tag)")
+          PY
+
+      - name: Create Release Tag
+        run: |
+          VERSION="${{ needs.build.outputs.versionName }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git rev-parse "$VERSION" > /dev/null 2>&1; then
+            echo "Tag $VERSION already exists, reusing it."
+          else
+            git tag "$VERSION" -m "Release version $VERSION"
+            git push origin "$VERSION"
+          fi
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v7
+        with:
+          pattern: 'shizuku-*'
+          path: files
+          merge-multiple: true
+
+      - name: Create Draft Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_VERSION: ${{ needs.build.outputs.versionName }}
+        run: |
+          FLAGS="--draft"
+          [ "${{ inputs.prerelease }}" = "true" ] && FLAGS="$FLAGS --prerelease"
+
+          # Fall back to GitHub's own notes when there is nothing to describe, so a draft
+          # is never published with an empty body.
+          if [ -s release-notes.md ]; then
+            NOTES="--notes-file release-notes.md"
+          else
+            echo "no changelog from commits, asking GitHub for notes"
+            NOTES="--generate-notes"
+          fi
+
+          # The version is the name too: a release left unnamed shows as "Draft" in the
+          # list, which reads as a missing title rather than an intentional one.
+          if gh release view "$RELEASE_VERSION" --json id > /dev/null 2>&1; then
+            # A re-run for the same version: refresh the name, notes and APKs.
+            gh release edit "$RELEASE_VERSION" --title "$RELEASE_VERSION" $NOTES $FLAGS
+            gh release upload "$RELEASE_VERSION" files/*.apk --clobber
+          else
+            gh release create "$RELEASE_VERSION" files/*.apk --title "$RELEASE_VERSION" $NOTES $FLAGS
+          fi

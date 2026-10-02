@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string-array name="night_mode">
+        <item>@string/dark_theme_off</item>
+        <item>@string/dark_theme_on</item>
+        <item>@string/follow_system</item>
+    </string-array>
+
+    <integer-array name="night_mode_value">
+        <item>1</item>
+        <item>2</item>
+        <item>-1</item>
+    </integer-array>
+
+    <string-array name="update_mode">
+        <item>@string/off</item>
+        <item>@string/settings_update_stable</item>
+        <item>@string/settings_update_beta</item>
+    </string-array>
+
+    <integer-array name="update_mode_value">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </integer-array>
+
+    <string-array name="system_start_method">
+        <item>@string/settings_system_start_method_exploit</item>
+        <item>@string/settings_system_start_method_custom</item>
+    </string-array>
+
+    <string-array name="system_start_method_value">
+        <item>exploit</item>
+        <item>custom</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,28 @@
+# Labels for github/issue-labeler, run over the body of a new issue.
+#
+# Two properties of the format decide how these are written:
+#
+#   - A label maps to a string or a list of regexes, and a list is an *and*: every regex in it
+#     has to match. Several ways to match at once belong in one regex, as alternatives.
+#   - The regexes are JavaScript's, with no flags set by the action, so no `(?s)`, no `(?m)`,
+#     no `^` meaning a line. Only anchoring that survives that is used here: a field's value is
+#     read as the text between its own header and the header after it, which is how GitHub
+#     writes a form into an issue.
+#
+# The headers come from .github/ISSUE_TEMPLATE/bug_report.yml, and so do the values: "Mode" is
+# a dropdown, and the text under each header is exactly the chosen option.
+
+mode-adb:
+  - '### Mode\s+adb\s+### '
+
+mode-root:
+  - '### Mode\s+root\s+### '
+
+mode-manual:
+  - '### Mode\s+manual\s+### '
+
+# The description is the one field of the form nothing requires, so an issue can arrive with it
+# empty - and then the header is followed straight away by the next one. The end of the body
+# counts as well, for a report that left every optional field alone.
+needs-info:
+  - '### Issue Description\s*(?:### |$)'

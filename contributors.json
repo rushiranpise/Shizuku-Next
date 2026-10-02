@@ -1,0 +1,1684 @@
+{
+  "generated": "2026-10-02",
+  "contributors": [
+    {
+      "name": "Rikka",
+      "login": "RikkaW",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/12999176?v=4",
+      "commits": 779,
+      "areas": [
+        "APP",
+        "BUILD",
+        "I18N"
+      ],
+      "languages": []
+    },
+    {
+      "name": "Rushi Ranpise",
+      "login": "rushiranpise",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/37355997?v=4",
+      "commits": 325,
+      "areas": [
+        "APP",
+        "I18N",
+        "DOCS"
+      ],
+      "languages": []
+    },
+    {
+      "name": "thedjchi",
+      "login": "thedjchi",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/80229487?v=4",
+      "commits": 253,
+      "areas": [
+        "APP",
+        "I18N",
+        "ADB"
+      ],
+      "languages": []
+    },
+    {
+      "name": "ZQY",
+      "login": "ryuunoakaihitomi",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/22442525?v=4",
+      "commits": 24,
+      "areas": [
+        "APP",
+        "SERVER",
+        "BUILD"
+      ],
+      "languages": []
+    },
+    {
+      "name": "Haruue Icymoon",
+      "login": "haruue",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/13131972?v=4",
+      "commits": 19,
+      "areas": [
+        "APP",
+        "BUILD",
+        "I18N"
+      ],
+      "languages": []
+    },
+    {
+      "name": "vvb2060",
+      "login": "vvb2060",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/26996262?v=4",
+      "commits": 19,
+      "areas": [
+        "APP",
+        "ADB",
+        "BUILD"
+      ],
+      "languages": []
+    },
+    {
+      "name": "Ryfter",
+      "login": "Ryfter",
+      "avatarUrl": "https://github.com/Ryfter.png?size=256",
+      "commits": 11,
+      "areas": [
+        "APP",
+        "ADB",
+        "I18N"
+      ],
+      "languages": []
+    },
+    {
+      "name": "T. Clement",
+      "login": "tclement0922",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/50289872?v=4",
+      "commits": 8,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "fr"
+      ]
+    },
+    {
+      "name": "MES-mitutti",
+      "login": "MES-mitutti",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/87251261?v=4",
+      "commits": 7,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ja"
+      ]
+    },
+    {
+      "name": "IverCoder",
+      "login": "IverCoder",
+      "avatarUrl": "https://github.com/IverCoder.png?size=256",
+      "commits": 6,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "fil"
+      ]
+    },
+    {
+      "name": "ThePrimalPea",
+      "login": "ThePrimalPea",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/92656767?v=4",
+      "commits": 6,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "vi"
+      ]
+    },
+    {
+      "name": "david082321",
+      "login": "david082321",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/7046617?v=4",
+      "commits": 6,
+      "areas": [
+        "DOCS"
+      ],
+      "languages": []
+    },
+    {
+      "name": "人工知能",
+      "login": "Kaitul",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/42119227?v=4",
+      "commits": 5,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "zh-TW"
+      ]
+    },
+    {
+      "name": "Dany-coder778",
+      "login": "dcaondyer",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/79911639?v=4",
+      "commits": 4,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "it"
+      ]
+    },
+    {
+      "name": "airis",
+      "login": "altqx",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/48298065?v=4",
+      "commits": 4,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "th"
+      ]
+    },
+    {
+      "name": "Ian P",
+      "login": "ianz56",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/41635087?v=4",
+      "commits": 3,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "id"
+      ]
+    },
+    {
+      "name": "Igor Sorocean",
+      "login": "ygorigor",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/1684359?v=4",
+      "commits": 3,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ro"
+      ]
+    },
+    {
+      "name": "Jelena Lazarević",
+      "login": "jelenal90",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/40529490?v=4",
+      "commits": 3,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "sr"
+      ]
+    },
+    {
+      "name": "Vitaliy Shytyi",
+      "login": null,
+      "avatarUrl": null,
+      "commits": 3,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "uk"
+      ]
+    },
+    {
+      "name": "Vlad Loktionov",
+      "login": "VladWinner",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/13555921?v=4",
+      "commits": 3,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ru"
+      ]
+    },
+    {
+      "name": "gidano",
+      "login": "gidano",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/4068977?v=4",
+      "commits": 3,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "hu"
+      ]
+    },
+    {
+      "name": "AndroPlus",
+      "login": "AndroPlus-org",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/4242402?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ja"
+      ]
+    },
+    {
+      "name": "Arcent",
+      "login": null,
+      "avatarUrl": null,
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "pt"
+      ]
+    },
+    {
+      "name": "Augusto Peres",
+      "login": "augustoperes1",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/46403862?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "pt-BR"
+      ]
+    },
+    {
+      "name": "BroGhaith",
+      "login": "sirghaith",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/129489049?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ars",
+        "ar"
+      ]
+    },
+    {
+      "name": "Dima Rostopira",
+      "login": "rostopira",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/16724952?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "uk",
+        "ru"
+      ]
+    },
+    {
+      "name": "Dimitar157",
+      "login": "Dimitar157",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/104656086?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ru",
+        "mk"
+      ]
+    },
+    {
+      "name": "Elish",
+      "login": "by3lish",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/81194020?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "az"
+      ]
+    },
+    {
+      "name": "GMHR",
+      "login": "GMHR",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/63160619?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "bn"
+      ]
+    },
+    {
+      "name": "Hen Ry",
+      "login": "Henry2o1o",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/6131799?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "de"
+      ]
+    },
+    {
+      "name": "Ilamparithi M",
+      "login": "pseudoforceyt",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/70620481?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ta"
+      ]
+    },
+    {
+      "name": "Kr328",
+      "login": "Kr328",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/39107975?v=4",
+      "commits": 2,
+      "areas": [],
+      "languages": []
+    },
+    {
+      "name": "Laymoth",
+      "login": null,
+      "avatarUrl": null,
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "id"
+      ]
+    },
+    {
+      "name": "LolekLiam",
+      "login": "LolekLiam",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/63475764?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "sl"
+      ]
+    },
+    {
+      "name": "Luca Prezzo",
+      "login": "Luca-Prezzo",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/42065953?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "it"
+      ]
+    },
+    {
+      "name": "MoonWalkerYT",
+      "login": "xX-MoonWalker-Xx",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/72574462?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "fa"
+      ]
+    },
+    {
+      "name": "Nevo",
+      "login": "n3vo",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/30041154?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "he"
+      ]
+    },
+    {
+      "name": "Nápoles",
+      "login": "eNapoles",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/81492014?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "es"
+      ]
+    },
+    {
+      "name": "Priit Uring",
+      "login": "PriitUring",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/74606403?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "et"
+      ]
+    },
+    {
+      "name": "Quentin",
+      "login": "vfishv",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/1607462?v=4",
+      "commits": 2,
+      "areas": [
+        "SERVER",
+        "BUILD"
+      ],
+      "languages": []
+    },
+    {
+      "name": "Sanzium",
+      "login": "Sanzium",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/73362024?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "pt-BR"
+      ]
+    },
+    {
+      "name": "Theodoros Asimakopoulos",
+      "login": "theoasima",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/50397853?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "el"
+      ]
+    },
+    {
+      "name": "Zv3R1",
+      "login": "Zv3R1",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/80147730?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ka"
+      ]
+    },
+    {
+      "name": "akosgulyas",
+      "login": "akosgulyas",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/84219488?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "hu"
+      ]
+    },
+    {
+      "name": "carles76",
+      "login": "carles76",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/87551889?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ca"
+      ]
+    },
+    {
+      "name": "croxz900",
+      "login": "croxz900",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/126230579?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "tr"
+      ]
+    },
+    {
+      "name": "heruoxin",
+      "login": "heruoxin",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/1999794?v=4",
+      "commits": 2,
+      "areas": [
+        "DOCS"
+      ],
+      "languages": []
+    },
+    {
+      "name": "izpintel",
+      "login": "izpintel",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/69025792?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "he"
+      ]
+    },
+    {
+      "name": "konggdev",
+      "login": "fym35",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/57803365?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "cs"
+      ]
+    },
+    {
+      "name": "l22s",
+      "login": "l22s",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/72337842?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ar"
+      ]
+    },
+    {
+      "name": "salehaliii",
+      "login": null,
+      "avatarUrl": null,
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ar",
+        "ars"
+      ]
+    },
+    {
+      "name": "sermart1234",
+      "login": "sermart1234",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/47400075?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N",
+        "APP"
+      ],
+      "languages": [
+        "ru"
+      ]
+    },
+    {
+      "name": "sharunmuqlis",
+      "login": "sharunmuqlis",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/140196550?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ms"
+      ]
+    },
+    {
+      "name": "احمد فردین",
+      "login": "Ahmad-Fardin",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/148309800?v=4",
+      "commits": 2,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "fa"
+      ]
+    },
+    {
+      "name": "馮果",
+      "login": "fython",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/3166782?v=4",
+      "commits": 2,
+      "areas": [
+        "APP"
+      ],
+      "languages": []
+    },
+    {
+      "name": "3-PhaseAC",
+      "login": "HyperBleed",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/113312497?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ro"
+      ]
+    },
+    {
+      "name": "Ammar Fakhri",
+      "login": "amfakh",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/8016957?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "id"
+      ]
+    },
+    {
+      "name": "AnasSdiq",
+      "login": "DaRandomCube",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/93283139?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ar"
+      ]
+    },
+    {
+      "name": "Antonio NP",
+      "login": "AntonioScrypt",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/40003121?v=4",
+      "commits": 1,
+      "areas": [
+        "APP"
+      ],
+      "languages": []
+    },
+    {
+      "name": "Arno",
+      "login": null,
+      "avatarUrl": null,
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "lb"
+      ]
+    },
+    {
+      "name": "AstridC42",
+      "login": "AstridC42",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/164009948?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "he"
+      ]
+    },
+    {
+      "name": "Bib",
+      "login": "Kuroeks",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/17458001?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "it"
+      ]
+    },
+    {
+      "name": "CharlotteFallices",
+      "login": "CharlotteFallices",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/47619464?v=4",
+      "commits": 1,
+      "areas": [
+        "DOCS"
+      ],
+      "languages": []
+    },
+    {
+      "name": "Choiman1559",
+      "login": "choiman1559",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/43315227?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ko"
+      ]
+    },
+    {
+      "name": "ChrisMiller94",
+      "login": "ChrisMiller94",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/63989217?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "hu"
+      ]
+    },
+    {
+      "name": "Claudio De Marzo",
+      "login": "claudiodemarzo",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/48448258?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "it"
+      ]
+    },
+    {
+      "name": "Coin",
+      "login": "coin3x",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/9127594?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "zh-TW"
+      ]
+    },
+    {
+      "name": "Dana Mohammed",
+      "login": "danamoh0mmed",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/35511127?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ckb"
+      ]
+    },
+    {
+      "name": "Danny Lin",
+      "login": "kdrag0n",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/7930239?v=4",
+      "commits": 1,
+      "areas": [],
+      "languages": []
+    },
+    {
+      "name": "DiabloNova",
+      "login": "DiabloNova",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/121438027?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "fa"
+      ]
+    },
+    {
+      "name": "Don9090",
+      "login": "Don9090",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/117688736?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ar"
+      ]
+    },
+    {
+      "name": "Donatello",
+      "login": "xDonatello",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/13498803?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "it"
+      ]
+    },
+    {
+      "name": "Eugen353",
+      "login": "Eugen353",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/63198714?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "da"
+      ]
+    },
+    {
+      "name": "Foxedd",
+      "login": "SneerfulThyme51",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/87336985?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "fi"
+      ]
+    },
+    {
+      "name": "Fristover",
+      "login": "Fristover",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/68985619?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "es-CL"
+      ]
+    },
+    {
+      "name": "Hai Zhang",
+      "login": "zhanghai",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/4469895?v=4",
+      "commits": 1,
+      "areas": [
+        "DOCS"
+      ],
+      "languages": []
+    },
+    {
+      "name": "IeFHC233",
+      "login": "penetratorcwl",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/110041677?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "pl"
+      ]
+    },
+    {
+      "name": "InfnteLights",
+      "login": "InfnteLights",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/90416627?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ml"
+      ]
+    },
+    {
+      "name": "Intıra' Ebdül Soner Jaf Ķaled Ārşil Med Esa Jesizân Ķotamiĵe",
+      "login": "BitteGuy",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/119718891?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ms"
+      ]
+    },
+    {
+      "name": "Ishanxx",
+      "login": "Ishanxx",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/129502165?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "hi"
+      ]
+    },
+    {
+      "name": "ItzLightyHD",
+      "login": null,
+      "avatarUrl": null,
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "it"
+      ]
+    },
+    {
+      "name": "Ivan",
+      "login": "FullyRealist",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/90242919?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ru"
+      ]
+    },
+    {
+      "name": "Jim Spentzos",
+      "login": "asongofghostandfire",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/21106384?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "el"
+      ]
+    },
+    {
+      "name": "Jonatan",
+      "login": "JERD001",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/90393062?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "es"
+      ]
+    },
+    {
+      "name": "Kieron Quinn",
+      "login": "KieronQuinn",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/3430869?v=4",
+      "commits": 1,
+      "areas": [],
+      "languages": []
+    },
+    {
+      "name": "LeapRay",
+      "login": "LeapRay",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/63293483?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "zh-CN"
+      ]
+    },
+    {
+      "name": "Lightspectrum",
+      "login": "JamilMGomez",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/66989696?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "es"
+      ]
+    },
+    {
+      "name": "LoveSy",
+      "login": "yujincheng08",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/5022927?v=4",
+      "commits": 1,
+      "areas": [
+        "BUILD"
+      ],
+      "languages": []
+    },
+    {
+      "name": "Marcio de Andrade",
+      "login": "marciozomb13",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/2564929?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "pt-BR"
+      ]
+    },
+    {
+      "name": "Med",
+      "login": "kitsumed",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/45147847?v=4",
+      "commits": 1,
+      "areas": [
+        "DOCS"
+      ],
+      "languages": []
+    },
+    {
+      "name": "Misael Hernandez",
+      "login": "Misael0017",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/104738906?v=4",
+      "commits": 1,
+      "areas": [
+        "APP"
+      ],
+      "languages": []
+    },
+    {
+      "name": "Mohamed Khaled",
+      "login": "MohaKShin",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/68474795?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ar"
+      ]
+    },
+    {
+      "name": "MrIkso",
+      "login": "Altometer",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/195047615?v=4",
+      "commits": 1,
+      "areas": [
+        "APP",
+        "I18N"
+      ],
+      "languages": []
+    },
+    {
+      "name": "Noel Feijoo Iglesias",
+      "login": "NoelFeijooIglesias",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/60677627?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "es"
+      ]
+    },
+    {
+      "name": "PIDGEON",
+      "login": "BOBANOVIORGANI",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/85069867?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "hr"
+      ]
+    },
+    {
+      "name": "PMTpro",
+      "login": null,
+      "avatarUrl": null,
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "vi"
+      ]
+    },
+    {
+      "name": "Piotr Bosak",
+      "login": null,
+      "avatarUrl": null,
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "pl"
+      ]
+    },
+    {
+      "name": "Ruipeng Zhang",
+      "login": "ppoffice",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/8849362?v=4",
+      "commits": 1,
+      "areas": [
+        "SERVER"
+      ],
+      "languages": []
+    },
+    {
+      "name": "Saad",
+      "login": "saad1430",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/63323454?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ur"
+      ]
+    },
+    {
+      "name": "SameDesu123",
+      "login": null,
+      "avatarUrl": null,
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ko"
+      ]
+    },
+    {
+      "name": "Slamifoe21",
+      "login": "Slamifoe21",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/135305786?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ru"
+      ]
+    },
+    {
+      "name": "SubhamJena",
+      "login": "SubhamJena",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/80407955?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "or"
+      ]
+    },
+    {
+      "name": "Sufyan Zahoor Jutt",
+      "login": "Sufyanpahore",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/54025091?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "tr"
+      ]
+    },
+    {
+      "name": "Syuugo",
+      "login": "s1204IT",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/52069677?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ja"
+      ]
+    },
+    {
+      "name": "TauMan-Ch",
+      "login": "TauMan-Ch",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/121643233?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "id"
+      ]
+    },
+    {
+      "name": "Teja",
+      "login": "thejakarnati",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/72185175?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "te"
+      ]
+    },
+    {
+      "name": "Tim Schneeberger",
+      "login": "timschneeb",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/38386967?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "de"
+      ]
+    },
+    {
+      "name": "Vittt",
+      "login": "Vittttttt",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/84959992?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "km"
+      ]
+    },
+    {
+      "name": "W4nHu",
+      "login": null,
+      "avatarUrl": null,
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "nl"
+      ]
+    },
+    {
+      "name": "Yaroslav",
+      "login": "MrIkso",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/43380144?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "uk"
+      ]
+    },
+    {
+      "name": "Yirade",
+      "login": "Yirade",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/80442832?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "it"
+      ]
+    },
+    {
+      "name": "Yunus Arkan",
+      "login": "yunusarkan",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/74573031?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "tr"
+      ]
+    },
+    {
+      "name": "ZGrbalkaaan",
+      "login": "dynamatikzgr",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/72009004?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "tr"
+      ]
+    },
+    {
+      "name": "aijec",
+      "login": "aijeculate",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/36103227?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "tr"
+      ]
+    },
+    {
+      "name": "cristianbodiu51",
+      "login": "cristianbodiu51",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/111273620?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "it"
+      ]
+    },
+    {
+      "name": "divoram",
+      "login": "divoram",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/7646387?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "it"
+      ]
+    },
+    {
+      "name": "elid",
+      "login": null,
+      "avatarUrl": null,
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "he"
+      ]
+    },
+    {
+      "name": "emmanuelreznik",
+      "login": "emmanuelreznik",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/177554574?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ru"
+      ]
+    },
+    {
+      "name": "garry200708",
+      "login": "garryfieldd",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/71133188?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "pl"
+      ]
+    },
+    {
+      "name": "gitme24590",
+      "login": "gitme24590",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/188769505?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "kn"
+      ]
+    },
+    {
+      "name": "goshakotanov",
+      "login": "goshakotanov",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/127773664?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "kk"
+      ]
+    },
+    {
+      "name": "gururamkali",
+      "login": "gururamkali",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/32768680?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ang"
+      ]
+    },
+    {
+      "name": "heintunzaww",
+      "login": "heintunzaww",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/118311186?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "my"
+      ]
+    },
+    {
+      "name": "hidayatkalip",
+      "login": "hidayatkalip",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/129647937?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ms"
+      ]
+    },
+    {
+      "name": "hxreborn",
+      "login": "hxreborn",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/32096750?v=4",
+      "commits": 1,
+      "areas": [
+        "APP",
+        "BUILD"
+      ],
+      "languages": []
+    },
+    {
+      "name": "iam-best",
+      "login": "iam-best",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/137417368?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "de"
+      ]
+    },
+    {
+      "name": "igor",
+      "login": "igormiguell",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/134963561?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "pt-BR"
+      ]
+    },
+    {
+      "name": "losfer778",
+      "login": "losfer778",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/73474495?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ug"
+      ]
+    },
+    {
+      "name": "matejzm2019",
+      "login": "matejzm2019",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/138498414?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "sk"
+      ]
+    },
+    {
+      "name": "nkh0472",
+      "login": "nkh0472",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/67589323?v=4",
+      "commits": 1,
+      "areas": [
+        "DOCS"
+      ],
+      "languages": []
+    },
+    {
+      "name": "pan93412",
+      "login": "pan93412",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/28441561?v=4",
+      "commits": 1,
+      "areas": [
+        "APP",
+        "I18N"
+      ],
+      "languages": []
+    },
+    {
+      "name": "peter9811",
+      "login": "peter9811",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/22783445?v=4",
+      "commits": 1,
+      "areas": [
+        "APP"
+      ],
+      "languages": []
+    },
+    {
+      "name": "puzzlecrack",
+      "login": "puzzlecrack",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/95174859?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "nl"
+      ]
+    },
+    {
+      "name": "sammyturtle.exe",
+      "login": null,
+      "avatarUrl": null,
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "sv"
+      ]
+    },
+    {
+      "name": "searchlightsoul1995",
+      "login": "searchlightsoul1995",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/147135505?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "enm"
+      ]
+    },
+    {
+      "name": "silvaa007",
+      "login": "akmodzs",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/111314382?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "pt"
+      ]
+    },
+    {
+      "name": "sirmordred",
+      "login": "sirmordred",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/7762629?v=4",
+      "commits": 1,
+      "areas": [
+        "APP"
+      ],
+      "languages": []
+    },
+    {
+      "name": "tadekdudek",
+      "login": "tadekdudek",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/99012892?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "pl"
+      ]
+    },
+    {
+      "name": "taijipp",
+      "login": "taijipp",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/4987449?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ko"
+      ]
+    },
+    {
+      "name": "upamaa",
+      "login": "upamaa",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/86494217?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ang"
+      ]
+    },
+    {
+      "name": "vixpr",
+      "login": null,
+      "avatarUrl": null,
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "tr"
+      ]
+    },
+    {
+      "name": "yuu1135",
+      "login": "yuu1135",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/60221649?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ja"
+      ]
+    },
+    {
+      "name": "ℂ𝕠𝕠𝕠𝕝",
+      "login": "Coool",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/8421903?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "lv"
+      ]
+    }
+  ]
+}

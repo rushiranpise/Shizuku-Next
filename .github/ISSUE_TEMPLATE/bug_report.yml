@@ -1,0 +1,71 @@
+name: Bug Report
+description: Report a bug of Shizuku
+labels: bug
+
+body:
+  - type: checkboxes
+    id: before_you_begin
+    attributes:
+      label: Before You Begin
+      options:
+        - label: I am reporting an issue with Shizuku itself, NOT an issue about compatibility with another app
+          required: true
+        - label: I read the [wiki](https://github.com/thedjchi/Shizuku/wiki#troubleshooting) (the upstream wiki it documents the behaviour this fork inherits) and followed all relevant troubleshooting steps
+          required: true
+        - label: I searched through all [issues](https://github.com/rushiranpise/Shizuku-Next/issues) and confirmed that this is a new bug
+          required: true
+        - label: I am using the latest version of Shizuku
+          required: true
+
+  - type: checkboxes
+    id: requirements
+    attributes:
+      label: Requirements
+      options:
+        - label: Shizuku is not running in a virtual environment or broken ROM (e.g., GrapheneOS)
+          required: true
+        - label: Xposed is not installed/enabled for Shizuku
+          required: true  
+
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Mode
+      options:
+        - adb
+        - root
+        - manual
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Shizuku Version
+    validations:
+      required: true 
+
+  - type: input
+    id: android_version
+    attributes:
+      label: Android Version
+    validations:
+      required: true
+
+  - type: input
+    id: device
+    attributes:
+      label: Device
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Issue Description
+      description: Please upload any relevant logs and/or screenshots
+
+  - type: textarea
+    id: reproducer
+    attributes:
+      label: Steps To Reproduce

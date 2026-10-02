@@ -1,0 +1,49 @@
+name: Merge translations
+
+# For a pull request opened by somebody other than the download step above - a hand-made
+# one from the same branch, say. The step that opens the pull request merges its own in the
+# same run, because GitHub starts no runs for events caused by GITHUB_TOKEN.
+#
+# Merging a translation is not like merging code: nothing but the app reads it. But a locale
+# folder still claims the language is translated, so the claim is checked first - by
+# `ci/check-translations.py`, the same script the other workflow uses, so the two cannot
+# disagree about what is safe.
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [master]
+
+jobs:
+  merge:
+    if: github.head_ref == 'l10n'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          # Both revisions the check compares are read from history, so the clone cannot be
+          # shallow.
+          fetch-depth: 0
+
+      - name: List what it changes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr diff ${{ github.event.pull_request.number }} --name-only | sed '/^$/d' > changed.txt
+          echo "changed:" && cat changed.txt
+
+      - name: Check it before merging it
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: python3 ci/check-translations.py changed.txt HEAD "origin/$BASE_REF"
+
+      - name: Merge it
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr merge ${{ github.event.pull_request.number }} \
+            --squash --delete-branch \
+            --subject 'chore(i18n): new translations from Crowdin' \
+            --body 'Merged automatically: only translated strings.xml files changed.'

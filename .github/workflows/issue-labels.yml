@@ -1,0 +1,39 @@
+name: Issue labels
+
+# Labels an issue from what its own form says. No model, no key, no service: the answers to the
+# bug report form are in the issue body, and .github/issue-labeler.yml is regexes over that text,
+# so a label is applied only when the text it is named after is really there.
+#
+# The form applies "bug" or "enhancement" by itself - that is a template's own `labels:` - and
+# this adds the detail: which mode the report is about, and whether the one field of the form
+# that is not required came in empty.
+#
+# sync-labels stays off deliberately. Turning it on would remove every label no rule matches,
+# starting with the one the template applied on its way in.
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  labels:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+
+    steps:
+      # The rules are read from the tree when they are there and from the API when they are not,
+      # and this makes it the tree - the file as the commit that added it has it.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: github/issue-labeler@ccca1e16fcb66762200e616fc29b57b940c1cb67 # v3.5
+        with:
+          configuration-path: .github/issue-labeler.yml
+          # Both of these have to be passed even when they are off: the action requires
+          # enable-versioned-regex, and a versioned file is a second file per revision of the
+          # rules, which one fork with one form does not need.
+          enable-versioned-regex: 0
+          include-title: 0
+          sync-labels: 0

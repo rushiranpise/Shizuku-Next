@@ -1,0 +1,73 @@
+# The label set, applied by .github/workflows/labels-sync.yml.
+#
+#   name:        the label as the workflows that use it spell it
+#   color:       six hex digits, no leading #
+#   description: what it means to whoever reads it in the list
+#
+# GitHub's own defaults are here with GitHub's own colours, so the labels an issue arrives with
+# look the same as they always did. A label a workflow names has to be in this file: the labeler
+# cannot create what it applies, and neither can the stale run.
+
+- name: bug
+  color: d73a4a
+  description: Something is not working
+
+- name: enhancement
+  color: a2eeef
+  description: A new feature or request
+
+- name: question
+  color: d876e3
+  description: Further information is requested
+
+- name: mode-adb
+  color: 1d76db
+  description: The report is about a start over ADB, wired or wireless
+
+- name: mode-root
+  color: 5319e7
+  description: The report is about a start through root
+
+- name: mode-manual
+  color: c5def5
+  description: The report is about a start by hand, or through the app's own command
+
+- name: needs-info
+  color: fbca04
+  description: The report came in without a description; the rest is in the issue
+
+- name: possible-duplicate
+  color: cfd3d7
+  description: A similar title was found; a guess, not a decision
+
+- name: duplicate
+  color: cfd3d7
+  description: This has been reported before
+
+- name: stale
+  color: ededed
+  description: Nothing has happened here for ninety days
+
+- name: confirmed
+  color: 0e8a16
+  description: Reproduced, and exempt from being marked stale
+
+- name: pinned
+  color: 0052cc
+  description: Kept at the top of the list, and exempt from being marked stale
+
+- name: invalid
+  color: e4e669
+  description: This does not seem right
+
+- name: wontfix
+  color: ffffff
+  description: This will not be worked on
+
+- name: help wanted
+  color: 008672
+  description: Extra attention is needed
+
+- name: good first issue
+  color: 7057ff
+  description: Good for newcomers
