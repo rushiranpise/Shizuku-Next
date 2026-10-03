@@ -59,7 +59,7 @@
     <string name="paring_code_is_wrong">配对码错误。</string>
     <string name="cannot_connect_port">无法连接到无线调试服务。\n\n请确保将 Shizuku 添加到所有防火墙、广告拦截器、VPN
         或类似可能限制网络访问的应用中的白名单。</string>
-    <string name="dialog_adb_pairing_message">请按照以下步骤开始配对：\n- 打开“开发者选项”\n- 启用“USB调试”和“无线调试”\n-
+    <string name="dialog_adb_pairing_message">请按照以下步骤开始配对：\n- 打开“开发者选项”\n- 启用“USB 调试”和“无线调试”\n-
         点击“无线调试”左侧\n- 点击“使用配对码配对设备”\n- 在通知栏中输入配对码</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
@@ -79,7 +79,7 @@
 
 adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">请按照以下步骤开始配对：\n- 进入“开发者选项”\n-
-        启用“USB调试”和“无线调试”\n- 点击“无线调试”左侧\n- 点击“使用配对码配对设备”。Shizuku 将自动检测配对码。</string>
+        启用“USB 调试”和“无线调试”\n- 点击“无线调试”左侧\n- 点击“使用配对码配对设备”。Shizuku 将自动检测配对码。</string>
     <string name="adb_pairing_requires_multi_window">请先进入分屏（多窗口）模式。</string>
     <string name="adb_pairing_requires_multi_window_reason">系统要求配对对话框始终可见。只有使用分屏模式才能让此应用和系统对话框同时可见。</string>
     <string name="adb_error_key_store">无法生成无线调试密钥。\n这可能是因为此设备的密钥库机制已损坏。</string>
@@ -91,7 +91,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="development_settings">开发者选项</string>
     <string name="notification_settings">通知设置</string>
     <string name="adb_pairing_tutorial_content_notification">一条来自 Shizuku 的通知将帮助您完成配对。</string>
-    <string name="adb_pairing_tutorial_content_steps">进入“开发者选项”，然后启用“USB调试”和“无线调试”。</string>
+    <string name="adb_pairing_tutorial_content_steps">进入“开发者选项”，然后启用“USB 调试”和“无线调试”。</string>
     <string name="adb_pairing_tutorial_content_enter_pairing_code">
         点击“无线调试”左侧，然后点击“使用配对码配对设备”。输入通知中的代码以完成配对。</string>
     <string name="adb_pairing_tutorial_content_notification_blocked">配对过程需要您与 Shizuku 的通知交互。请允许
@@ -148,7 +148,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="labs_filter_allowed">已允许</string>
     <string name="labs_filter_blocked">已阻止</string>
     <string name="labs_blocked_count">已阻止 %1$d 个</string>
-    <string name="labs_blocked_empty">没有任何东西被屏蔽。</string>
+    <string name="labs_blocked_empty">没有已阻止的应用。</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hide_developer_options">隐藏开发者选项</string>
     <string name="tab_hide_usb_debugging">隐藏 USB 调试</string>
@@ -383,7 +383,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="action_start">启动 Shizuku</string>
     <string name="tools_stealth">隐形模式</string>
     <string name="tools_terminal">终端应用</string>
-    <string name="tools_terminal_summary">在任何终端应用中运行shell命令</string>
+    <string name="tools_terminal_summary">在任何终端应用中运行 shell 命令</string>
     <string name="tools_battery">电池优化</string>
     <string name="intents_title">Intent</string>
     <string name="about_package">包名</string>
@@ -394,7 +394,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="start_failed_unsupported">此设备不能在后台启动</string>
     <string name="start_failed_wifi_required">请连接 Wi-Fi 网络，否则系统会关闭无线调试。也可以用下面的 ADB 命令从电脑启动。</string>
     <string name="start_failed_binder_went_away">服务启动后随即停止，现在还无法使用。当服务器随着启动所经过的那个应用一起被撤下时会发生这种情况——负载启动它之后就是这么做的。请重试启动。</string>
-    <string name="start_failed_no_port">未找到无线调试端口。请确保启用无线调试并连接Wi-Fi。</string>
+    <string name="start_failed_no_port">未找到无线调试端口。请确保启用无线调试并连接 Wi-Fi。</string>
     <string name="start_failed_no_port_no_permission">未找到无线调试端口，而没有 WRITE_SECURE_SETTINGS 权限 Shizuku 无法打开无线调试：<b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>。或者先通过 USB 调试启动一次 Shizuku，之后它会自行获取权限。</string>
     <string name="start_failed_no_auth">在此网络上不允许进行无线调试。再次配对设备。</string>
     <string name="action_dismiss">关闭</string>
@@ -433,7 +433,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="intents_watchdog_off">看门狗关闭</string>
     <string name="intents_watchdog_toggle">切换看门狗</string>
     <string name="intents_adb_command">通过电脑启动</string>
-    <string name="home_battery_warning">Shizuku可能在后台被杀死。允许它忽略电池优化。</string>
+    <string name="home_battery_warning">Shizuku 可能在后台被杀死。允许它忽略电池优化。</string>
     <string name="batch_selected_count">已选择 %1$d</string>
     <string name="app_management_action_select_all">全选</string>
     <string name="app_management_action_grant">授权</string>
@@ -456,14 +456,14 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="terminal_tutorial_3">使用以下命令打开 shell：</string>
     <!-- Stealth -->
     <string name="stealth_description">对检测到 Shizuku 安装便拒绝运行的应用隐藏 Shizuku。会导出一个使用不同包名的分身供你安装。</string>
-    <string name="stealth_warning_compatibility">一些使用 Shizuku 的应用可能在隐藏时无法工作，因为他们试图检测Shizuku 是否已安装。</string>
+    <string name="stealth_warning_compatibility">一些使用 Shizuku 的应用可能在隐藏时无法工作，因为他们试图检测 Shizuku 是否已安装。</string>
     <string name="stealth_warning_compatibility_2">临时取消隐藏可以绕过检测，恢复时会以原包名安装一个占位应用。用完之后可以重新隐藏。</string>
     <string name="stealth_warning_compatibility_3">点按此卡片可复制一段代码，发给应用开发者，他们的 \"已安装 Shizuku\" 检测在 Shizuku 隐藏后就能正常工作。</string>
-    <string name="stealth_warning_detection">某些应用甚至在隐藏时仍然能够检测Shizuku。</string>
-    <string name="stealth_info_reconfigure">安装隐藏版本后，您需要重新配对并重新配置Shizuku。</string>
+    <string name="stealth_warning_detection">某些应用甚至在隐藏时仍然能够检测 Shizuku。</string>
+    <string name="stealth_info_reconfigure">安装隐藏版本后，您需要重新配对并重新配置 Shizuku。</string>
     <string name="stealth_info_rish">Rish 用户：安装隐藏版本后重新导出文件。</string>
     <string name="stealth_info_intents">Intent 用户：请用新包名更新你的 Intent。</string>
-    <string name="stealth_info_update">您必须在使用隐藏版本时更新Shizuku，因为它有不同的签名。</string>
+    <string name="stealth_info_update">您必须在使用隐藏版本时更新 Shizuku，因为它有不同的签名。</string>
     <string name="stealth_package_name">包名 (可选)</string>
     <string name="stealth_package_name_helper_text">如果留空，随机后缀将添加到包名中。</string>
     <string name="stealth_error_ends_with_period">包名不能以句点结尾。</string>
@@ -481,8 +481,8 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="settings_use_system_color_summary">跟随系统调色板</string>
     <string name="settings_watchdog">看门狗</string>
     <string name="settings_watchdog_summary">如果 Shizuku 崩溃，则自动重启</string>
-    <string name="settings_auto_disable_wireless_debugging">禁用无线调试</string>
-    <string name="settings_auto_disable_wireless_debugging_summary">Shizuku停止时关闭无线调试功能。</string>
+    <string name="settings_auto_disable_wireless_debugging">关闭无线调试</string>
+    <string name="settings_auto_disable_wireless_debugging_summary">Shizuku 停止时关闭无线调试。</string>
     <string name="settings_start_method">默认启动方式</string>
     <string name="settings_start_method_root_unavailable">此设备没有 root，启动会退回无线调试。</string>
     <string name="start_method_wireless_no_network">无 Wi-Fi</string>
@@ -491,36 +491,36 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="start_method_system">系统</string>
     <string name="start_method_root">Root</string>
     <string name="transport_adb">adb</string>
-    <string name="settings_adb_without_developer_options">禁用开发者选项</string>
-    <string name="settings_adb_without_developer_options_summary">关闭开发者选项，但保持ADB设置 Shizuku 的需要。Shizuku 将继续工作，这些设置将在每次重启后恢复。</string>
+    <string name="settings_adb_without_developer_options">关闭开发者选项</string>
+    <string name="settings_adb_without_developer_options_summary">关闭开发者选项，但保留 Shizuku 需要的 ADB 设置。Shizuku 会继续工作，这些设置在每次重启后恢复。</string>
     <string name="start_failed_developer_options_off">开发者选项已关闭，因为启用了无开发者选项的 ADB</string>
     <string name="action_turn_on_developer_options">打开开发者选项</string>
     <string name="toast_developer_options_required">关闭无开发者选项的 ADB</string>
     <string name="settings_adb_without_developer_options_confirm_title">关闭开发者选项？</string>
-    <string name="settings_adb_without_developer_options_confirm_message">重启后，Shizuku将继续工作并恢复其ADB设置。 您将无法打开开发者选项以更改USB或无线调试设置或配对新设备。要关闭开发者选项吗？</string>
+    <string name="settings_adb_without_developer_options_confirm_message">重启后，Shizuku 将继续工作并恢复其 ADB 设置。 您将无法打开开发者选项以更改 USB 或无线调试设置或配对新设备。要关闭开发者选项吗？</string>
     <string name="settings_adb_without_developer_options_confirm">关闭</string>
-    <string name="settings_adb_without_developer_options_failed">Shizuku 无法更改设置。首先在权限页面上授予WRITE_SECURE_SETTINGS</string>
+    <string name="settings_adb_without_developer_options_failed">Shizuku 无法更改设置。首先在权限页面上授予 WRITE_SECURE_SETTINGS</string>
     <string name="settings_wait_for_wifi">等待 Wi-Fi</string>
     <string name="settings_wait_for_wifi_summary">Shizuku 自动重启时会等待不按流量计费的 Wi-Fi 连接。</string>
     <string name="settings_unavailable_while_forcing_wireless">“无 Wi-Fi 启动”开启时不可用。</string>
     <string name="settings_force_wireless_debugging">不使用 Wi-Fi 启动（实验性）</string>
-    <string name="settings_force_wireless_debugging_summary">尝试在没有Wi-Fi或USB调试的情况下启动Shizuku。这也会关闭Wi-Fi等候和自动无线调试功能。</string>
+    <string name="settings_force_wireless_debugging_summary">尝试在没有 Wi-Fi 或 USB 调试的情况下启动 Shizuku。这也会关闭 Wi-Fi 等候和自动无线调试功能。</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
     <string name="settings_needs_write_secure_settings">需要 WRITE_SECURE_SETTINGS 权限。先启动一次 Shizuku，它会自行取得该权限，然后再回来。</string>
     <string name="state_on">开启</string>
     <string name="state_off">关闭</string>
     <string name="settings_persist_adb_port">重启后保留 ADB 端口</string>
-    <string name="settings_persist_adb_port_summary">每次重启后保持ADB端口打开，所以Shizuku可以不使用 Wi-Fi 或热点。</string>
+    <string name="settings_persist_adb_port_summary">每次重启后保持 ADB 端口打开，所以 Shizuku 可以不使用 Wi-Fi 或热点。</string>
     <string name="settings_persist_adb_port_ok">ADB 端口将在重启后保持打开</string>
     <string name="settings_persist_adb_port_refused">Android 拒绝了此操作。Shizuku 必须以 root 或 system 用户运行。</string>
-    <string name="settings_persist_adb_port_unavailable">首先启动Shizuku。此设置只能通过Shizuku更改。</string>
+    <string name="settings_persist_adb_port_unavailable">首先启动 Shizuku。此设置只能通过 Shizuku 更改。</string>
     <string name="settings_system_start_method">系统启动方法</string>
     <string name="settings_system_start_method_exploit">三星（FOTA agent）</string>
     <string name="settings_system_start_method_custom">自定义命令</string>
     <string name="home_system_title">通过系统 UID 启动</string>
     <string name="home_system_summary">以 system 用户（UID 1000）而不是 adb 身份运行 Shizuku：仅限三星，通过那些固件搭载的 FOTA agent</string>
-    <string name="home_adb_command_summary">通过 ADB 从计算机启动Shizuku 。点击以复制命令</string>
+    <string name="home_adb_command_summary">通过 ADB 从计算机启动 Shizuku 。点击以复制命令</string>
     <string name="settings_tcp_mode">TCP 模式</string>
     <string name="settings_tcp_mode_summary">"允许 Shizuku 在没有 Wi-Fi 的情况下重启。（Shizuku 必须在重启后启动过一次）"</string>
     <string name="settings_tcp_mode_dialog_close_port">"TCP 端口将立即关闭。您需要连接 Wi-Fi 才能重新启用 TCP 模式。是否继续？"</string>
@@ -528,8 +528,8 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="settings_restart_dialog_message">Shizuku 需要重启才能应用此设置。</string>
     <string name="settings_restart_dialog_message_wifi_required"><![CDATA[<br><br><b>需要 Wi-Fi。Shizuku 会在后台继续运行并等待 Wi-Fi 连接，连接成功后才会重启。</b>]]></string>
     <string name="settings_tcp_port">TCP 端口</string>
-    <string name="settings_auto_disable_usb_debugging">禁用 USB 调试</string>
-    <string name="settings_auto_disable_usb_debugging_summary">停止Shizuku时禁用USB调试</string>
+    <string name="settings_auto_disable_usb_debugging">关闭 USB 调试</string>
+    <string name="settings_auto_disable_usb_debugging_summary">停止 Shizuku 时关闭 USB 调试</string>
     <string name="settings_language">语言</string>
     <string name="settings_language_system">系统默认</string>
     <string name="settings_black_night_theme">黑色夜间主题</string>
@@ -537,7 +537,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="settings_update_stable">稳定版</string>
     <string name="settings_update_beta">开发版</string>
     <string name="settings_permissions">权限</string>
-    <string name="settings_permissions_summary">Shizuku的需要和允许的内容</string>
+    <string name="settings_permissions_summary">Shizuku 的需要和允许的内容</string>
     <string name="permissions_allowed">已允许</string>
     <string name="permissions_action_allow">允许</string>
     <string name="permissions_action_settings">设置</string>
@@ -547,10 +547,10 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="permissions_nearby">附近设备</string>
     <string name="permissions_nearby_summary">在您的网络上查找无线调试端口。</string>
     <string name="permissions_write_secure_settings">写入安全设置</string>
-    <string name="permissions_write_secure_settings_summary">让Shizuku打开无线调试。只有ADB可以授予此权限。</string>
+    <string name="permissions_write_secure_settings_summary">让 Shizuku 打开无线调试。只有 ADB 可以授予此权限。</string>
     <string name="permissions_accessibility">无障碍服务</string>
     <string name="permissions_accessibility_summary">自动读取配对代码。</string>
-    <string name="permissions_battery_summary">停止安卓在后台杀死Shizuku。</string>
+    <string name="permissions_battery_summary">停止安卓在后台杀死 Shizuku。</string>
     <string name="settings_help">帮助</string>
     <string name="settings_report_bug">报告错误</string>
     <string name="settings_support_coffee">请我喝杯咖啡</string>
@@ -587,13 +587,13 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="settings_legacy_pairing_summary">在对话框中输入配对码，而不是在通知中输入</string>
     <!-- Bug Report Dialog -->
     <string name="bug_report_dialog_before_reporting">首先，请执行以下操作：</string>
-    <string name="bug_report_dialog_update">请检查您是否正在使用^1。</string>
+    <string name="bug_report_dialog_update">请检查您是否正在使用 ^1。</string>
     <string name="bug_report_dialog_link_update">最新版本</string>
-    <string name="bug_report_dialog_wiki">阅读^1并遵循所有相关故障排除步骤。</string>
+    <string name="bug_report_dialog_wiki">阅读 ^1 并遵循所有相关故障排除步骤。</string>
     <string name="bug_report_dialog_link_wiki">维基</string>
-    <string name="bug_report_dialog_issues">在所有 ^1 中进行搜索，以查看您的bug是否已经被报告。</string>
+    <string name="bug_report_dialog_issues">在所有 ^1 中进行搜索，以查看您的 bug 是否已经被报告。</string>
     <string name="bug_report_dialog_link_issues">现有问题</string>
-    <string name="bug_report_dialog_method">如果您有账号，请在^1上提交问题。</string>
+    <string name="bug_report_dialog_method">如果您有账号，请在 ^1 上提交问题。</string>
     <string name="bug_report_dialog_method_2">否则，您可以通过发送电子邮件的方式。</string>
     <string name="bug_report_dialog_button_email">电子邮件</string>
     <string name="bug_report_dialog_diagnostics_note">提交 issue 或发送邮件时，您当前的诊断信息会自动填在顶部。</string>
@@ -618,7 +618,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="update_failed">更新失败</string>
     <!-- Toast -->
     <string name="toast_no_email_app">未找到电子邮件应用</string>
-    <string name="toast_pairing_timeout">Shizuku配对服务超时</string>
+    <string name="toast_pairing_timeout">Shizuku 配对服务超时</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme">主题</string>
     <string name="dark_theme_off">浅色主题</string>
@@ -648,7 +648,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <!-- Permission related, appears in system permission UI -->
     <string name="permission_label">使用 Shizuku</string>
     <string name="permission_description">允许应用使用 Shizuku。</string>
-    <string name="permission_warning_template"><![CDATA[要允许<b>%1$s</b>%2$s吗？]]></string>
+    <string name="permission_warning_template"><![CDATA[要允许<b>%1$s</b>%2$s 吗？]]></string>
     <string name="grant_dialog_button_allow_always">始终允许</string>
     <string name="grant_dialog_button_deny">"拒绝"</string>
     <!-- Starter -->
@@ -658,7 +658,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="wadb_notification_title">正在启动 Shizuku…</string>
     <string name="wadb_notification_wifi_required">正在等待 Wi-Fi 连接，连接成功后才能继续</string>
     <string name="wadb_notification_retry">等待重试</string>
-    <string name="wadb_notification_connecting">使用无线ADB启动Shizuku</string>
+    <string name="wadb_notification_connecting">使用无线 ADB 启动 Shizuku</string>
     <string name="wadb_notification_waiting_for_unlock">解锁设备以继续</string>
     <string name="wadb_notification_forcing_wireless">保持无线调试开启</string>
     <string name="wadb_error_title">在系统启动时启动出现错误</string>
@@ -675,8 +675,8 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="shell_backend_offline">没有可用的命令执行器</string>
     <string name="shell_needs_a_backend">启动 Shizuku，或在已 root 的设备上选择 Root：两者之一负责运行命令。Shizuku 停止时 Root 也能用。</string>
     <string name="shell_intro">以 Shizuku 运行时的 uid 运行（adb 下是 2000，root 下是 0），所以它能触及该 uid 能触及的一切：/sdcard、/system，以及 root 下的应用数据。它打开在 /sdcard，一次执行一条命令；背后没有 tty，需要终端的程序（nano、ssh 交互提示）在这里无法运行。</string>
-    <string name="shell_root_granted">Root可用：以uid 0运行命令。</string>
-    <string name="shell_root_refused">Root 访问被拒绝，所以命令将使用 Shizuku。授予此应用Root权限以使用Root。</string>
+    <string name="shell_root_granted">Root 可用：以 uid 0 运行命令。</string>
+    <string name="shell_root_refused">Root 访问被拒绝，所以命令将使用 Shizuku。授予此应用 Root 权限以使用 Root。</string>
     <string name="shell_search">搜索</string>
     <string name="shell_search_hint">查找</string>
     <string name="shell_search_position">%1$d / %2$d</string>
@@ -850,7 +850,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="app_action_restore_note">为此用户恢复被移除的系统应用。</string>
     <string name="app_confirm_title">您确定吗？</string>
     <string name="app_confirm_disable">停用 %1$s？它会停止运行，直到你重新启用。</string>
-    <string name="app_confirm_clear_data">删除 %1$s的所有数据？此操作无法撤销。</string>
+    <string name="app_confirm_clear_data">删除 %1$s 的所有数据？此操作无法撤销。</string>
     <string name="app_confirm_uninstall">为此用户移除 %1$s？其数据会保留。</string>
     <string name="app_battery_needs_shizuku">启动 Shizuku 后才能更改电池设置。</string>
     <string name="app_battery_bucket">待机分组</string>
@@ -879,7 +879,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="app_info_version">版本</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">目标 SDK</string>
-    <string name="app_info_min_sdk">最小SDK</string>
+    <string name="app_info_min_sdk">最小 SDK</string>
     <string name="app_info_abi">ABI</string>
     <string name="app_info_data_dir">数据目录</string>
     <string name="app_info_signature">签名</string>

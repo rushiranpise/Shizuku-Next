@@ -6,10 +6,25 @@
       a change here reaches translators on the next push and not before.
     -->
     <!-- To translators: you can leave your here -->
+    <string name="home_status_adb_wireless">adb</string>
+    <string name="home_status_adb_usb">adb</string>
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Avvia tramite Debug Wireless]]></string>
+    <string name="home_wireless_adb_starting_without_wifi">Avvio senza rete: il debug wireless viene richiesto al dispositivo più volte finché non resta attivo. Possono passare fino a due minuti prima che si avvii o rinunci.</string>
+    <string name="home_usb_adb_needs_network">Un avvio via USB usa la porta ADB classica e riaprirla richiede una rete. Connettiti una volta al Wi-Fi, oppure scegli <b>Avvio senza Wi-Fi</b> come metodo di avvio e avvia invece tramite il debug wireless.</string>
+    <string name="home_wireless_adb_summary">Si avvia utilizzando il debug wireless.</string>
+    <string name="home_usb_adb_title"><![CDATA[Avvia tramite debug USB]]></string>
+    <string name="home_usb_adb_summary">Si avvia utilizzando il debug USB.</string>
+    <string name="home_support_body">Shizuku Next è gratuito e senza annunci. Un caffè contribuisce al tempo necessario per mantenerlo.</string>
+    <string name="diagnostics_title">Diagnostica</string>
+    <string name="diagnostics_copy">Copia diagnostica</string>
+    <string name="diagnostics_copied">Diagnostica copiata</string>
     <string name="diagnostics_service">Servizio</string>
+    <string name="diagnostics_server_uid">UID del server</string>
+    <string name="diagnostics_server_api">API del server</string>
+    <string name="diagnostics_server_context">Contesto del server</string>
+    <string name="diagnostics_wireless_debugging">Debug wireless</string>
     <string name="diagnostics_adb_port">Porta ADB</string>
     <string name="diagnostics_wifi">Wi-Fi</string>
     <string name="diagnostics_local_network">Rete locale</string>
@@ -19,6 +34,7 @@
     <string name="diagnostics_device">Dispositivo</string>
     <string name="diagnostics_started_with">Avviato con</string>
     <string name="diagnostics_default">Metodo predefinito</string>
+    <string name="diagnostics_hiding">Modalità nascosta</string>
     <string name="diagnostics_root">Root</string>
     <string name="diagnostics_granted">autorizzato</string>
     <string name="diagnostics_missing">mancante</string>
@@ -117,10 +133,21 @@
     <string name="app_management_search_hint">Cerca app</string>
     <string name="app_management_sort">Ordina</string>
     <string name="apps_needs_shizuku">Avvia Shizuku per visualizzare le app</string>
+    <string name="apps_filter_hidden">Nascosto</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="tab_hide_developer_options">Nascondi opzioni sviluppatore</string>
+    <string name="tab_hide_usb_debugging">Nascondi debug USB</string>
+    <string name="tab_hide_wireless_debugging">Nascondi debug wireless</string>
+    <string name="tab_hide_accessibility">Nascondi accessibilità</string>
+    <string name="tab_hide_private_dns">Nascondi DNS privato</string>
+    <string name="tab_hide_vpn">Nascondi VPN</string>
+    <string name="hiding_hidden_count">%1$d nascosti</string>
     <string name="hiding_gate">Abilitato</string>
     <string name="hiding_gate_disabled">Disabilitato</string>
+    <string name="hiding_gate_kept">%1$d mantenuti</string>
+    <string name="hiding_filter_hidden">Nascosto</string>
     <string name="hiding_filter_shown">Visibile</string>
+    <string name="hiding_filter_empty">Nessun elemento nascosto.</string>
     <string name="hiding_restore">Ripristina</string>
     <string name="hiding_signal_developer_options">Opzioni sviluppatore</string>
     <string name="hiding_signal_usb_debugging">Debug USB</string>
@@ -150,8 +177,26 @@
     <string name="activities_copied">Copiato</string>
     <string name="intent_start">Avvia</string>
     <string name="device_watchdog">Cane da guardia</string>
+    <string name="device_hiding_held">Modalità nascosta stabile</string>
     <string name="log_capture_start">Avvia</string>
     <string name="log_capture_choose_hint">Cerca app</string>
+    <string name="permissions_usage_access_summary">Consente agli elenchi della modalità nascosta di rilevare quale app è aperta. Concesso da Shizuku o nelle impostazioni di Accesso ai dati di utilizzo di Android.</string>
+    <string name="permissions_dump_summary">Consente agli elenchi della modalità nascosta di rilevare quando un\'app è chiusa, e non solo in esecuzione in background. Concesso da Shizuku.</string>
+    <string name="home_hiding_active_note">Shizuku potrebbe interrompersi quando è aperta un\'app nascosta, in quanto la modalità nascosta può disattivare la connessione di debug. Shizuku riparte quando l\'app viene chiusa.</string>
+    <string name="hiding_vpn_client_none">Non selezionato: seleziona un\'app VPN</string>
+    <string name="hiding_notification_channel">Modalità nascosta</string>
+    <string name="hiding_notification_title">Le impostazioni sono nascoste</string>
+    <string name="hiding_notification_text">Tocca per ripristinarle.</string>
+    <string name="hiding_notification_idle_title">Modalità nascosta attiva</string>
+    <string name="hiding_notification_watching">Monitoraggio delle app in elenco.</string>
+    <string name="hiding_notification_paused_title">Modalità nascosta in pausa</string>
+    <string name="hiding_notification_paused_text">Le impostazioni sono state ripristinate. Riattiva la modalità nascosta per le app in elenco.</string>
+    <string name="hiding_resume">Riattiva</string>
+    <string name="hiding_start_again">Riavvia</string>
+    <string name="hiding_notification_stopped_title">Modalità nascosta interrotta</string>
+    <string name="hiding_notification_stopped_text">Shizuku non è in esecuzione, quindi la modalità nascosta non può rilevare quale app è aperta. Tutte le impostazioni nascoste sono state ripristinate.</string>
+    <string name="hiding_carries_session_wireless">Non applicato: Shizuku usa il debug wireless, quindi nasconderlo ne causerebbe l\'interruzione.</string>
+    <string name="hiding_carries_session_usb">Non applicato: Shizuku usa il debug USB, quindi nasconderlo ne causerebbe l\'interruzione.</string>
     <string name="action_start">Avvia</string>
     <string name="intents_start">Avvia</string>
     <!-- Terminal -->
@@ -170,10 +215,14 @@
         un alias per %2$s nel file di configurazione %3$s dell\'app terminale.</string>
     <string name="terminal_tutorial_3">Aprire una shell con il seguente comando:</string>
     <!-- Stealth -->
+    <string name="stealth_description">Nascondi Shizuku alle app che si rifiutano di funzionare se è installato. Viene esportato un clone con un nome di pacchetto diverso, da installare al suo posto.</string>
+    <string name="stealth_warning_compatibility">Alcune app che utilizzano Shizuku potrebbero non funzionare quando Shizuku è nascosto, in quanto provano a rilevare se Shizuku è installato.</string>
+    <string name="stealth_warning_compatibility_2">Come soluzione temporanea, puoi mostrare Shizuku che installa uno stub con il nome di pacchetto originale. Al termine, puoi nasconderlo di nuovo.</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">Avvia all\'avvio</string>
     <string name="settings_watchdog">Cane da guardia</string>
     <string name="settings_watchdog_summary">Riavvia automaticamente Shizuku se si blocca</string>
+    <string name="transport_adb">adb</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
     <string name="settings_tcp_mode">Modalità TCP</string>
@@ -290,6 +339,8 @@
     <string name="wadb_notification_attempt_now">Riprova</string>
     <!-- Manage tab -->
     <string name="manage_search_hint">Cerca app</string>
+    <string name="manage_filter_hidden">Nascosto</string>
+    <string name="manage_status_hidden">Nascosto</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_op_mode_deny">Nega</string>
     <string name="app_action_enable">Abilitare</string>
