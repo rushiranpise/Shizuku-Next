@@ -16,15 +16,39 @@
     <string name="home_wireless_adb_summary">ワイヤレスデバッグを使用して開始します。</string>
     <string name="home_usb_adb_title"><![CDATA[USBデバッグ経由で開始]]></string>
     <string name="home_usb_adb_summary">USBデバッグを使用して開始します。</string>
+    <string name="home_support_body">Shizuku Next は無料で、広告はありません。 コーヒーは維持にかかる時間に向かって行きます。</string>
+    <string name="diagnostics_title">診断</string>
+    <string name="diagnostics_copy">診断情報をコピー</string>
+    <string name="diagnostics_copied">診断情報をコピーしました</string>
+    <string name="diagnostics_service">サービス</string>
+    <string name="diagnostics_server_uid">サーバー uid</string>
+    <string name="diagnostics_server_api">サーバー API</string>
+    <string name="diagnostics_server_context">サーバーの内容</string>
     <string name="diagnostics_wireless_debugging">ワイヤレスデバッグ</string>
+    <string name="diagnostics_adb_port">ADBポート</string>
+    <string name="diagnostics_wifi">Wi-Fi</string>
+    <string name="diagnostics_local_network">ローカルネットワーク</string>
     <string name="diagnostics_battery">電池の最適化</string>
+    <string name="diagnostics_app">アプリ</string>
     <string name="diagnostics_android">Android</string>
     <string name="diagnostics_device">デバイス</string>
+    <string name="diagnostics_started_with">開始方法</string>
+    <string name="diagnostics_default">デフォルトの開始方法</string>
     <string name="diagnostics_hiding">非表示中</string>
     <string name="diagnostics_root">Root</string>
+    <string name="diagnostics_granted">付与済み</string>
+    <string name="diagnostics_missing">未付与</string>
+    <string name="diagnostics_not_required">不要</string>
+    <string name="diagnostics_connected">接続済み</string>
+    <string name="diagnostics_not_connected">未接続</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
+    <string name="diagnostics_battery_optimized">最適化</string>
+    <string name="diagnostics_battery_unrestricted">制限なし</string>
+    <string name="diagnostics_available">利用可能</string>
+    <string name="diagnostics_unavailable">利用不可</string>
+    <string name="diagnostics_closed">閉鎖中</string>
     <!-- Adb -->
     <string name="dialog_adb_port">ポート</string>
     <string name="dialog_adb_invalid_port">ポートは1から65535までの整数です。</string>
@@ -506,18 +530,34 @@
     <string name="permissions_battery_summary">バックグラウンドで Android が Shizuku を停止するのを阻止します。</string>
     <string name="settings_help">ヘルプ</string>
     <string name="settings_report_bug">バグを報告する</string>
+    <string name="settings_support_coffee">コーヒーをおごる</string>
+    <string name="settings_support_coffee_note">Shizuku Nextの開発を支援する</string>
+    <string name="settings_contributors">貢献者</string>
+    <string name="settings_contributors_hint">ドラッグして探索・ピンチでズーム · 詳細はタップ</string>
     <!--
       A plural, not a plain string: most of the people on this wall are here for a single commit,
       so the singular is read more often than the plural is.
     -->
+    <plurals name="contributor_commits">
+        <item quantity="other">%1$d コミット</item>
+    </plurals>
+    <string name="contributor_view_github">GitHubで見る</string>
+    <string name="contributor_details_close">閉じる</string>
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
+    <string name="contributor_area_app">アプリ</string>
     <string name="contributor_area_server">サーバー</string>
+    <string name="contributor_area_adb">ADB</string>
+    <string name="contributor_area_build">ビルド</string>
+    <string name="contributor_area_i18n">翻訳</string>
+    <string name="contributor_area_docs">ドキュメント</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
       worked in, and the languages they translated into. There is deliberately no string per
       person: a new contributor is described the moment the generator sees them, and %1$s/%2$s are
       filled with the area names above and with language names the platform already localises.
     -->
+    <string name="contributor_summary_code">%1$s に取り組んでいます。</string>
+    <string name="contributor_summary_code_translations">%1$sに取り組んで、アプリを %2$s に翻訳しました。</string>
     <string name="settings_legacy_pairing">レガシーペアリング</string>
     <string name="settings_legacy_pairing_summary">通知ではなくダイアログでペアリングコードを入力します</string>
     <!-- Bug Report Dialog -->
@@ -819,6 +859,7 @@
     <string name="app_info_launcher">ランチャーエントリ</string>
     <string name="app_info_yes">はい</string>
     <string name="app_info_no">いいえ</string>
+    <string name="tab_wifi_passwords">Wi-Fiパスワード</string>
     <string name="files_root_app_data">データ</string>
     <string name="files_root_system">システム</string>
     <string name="files_root_root">Root</string>
@@ -829,8 +870,50 @@
     <string name="files_action_copy">コピー</string>
     <string name="files_action_delete">削除</string>
     <string name="files_field_name">名前</string>
+    <string name="tab_install">アプリインストーラー</string>
+    <string name="install_no_file">パッケージが選択されていません</string>
+    <string name="install_choose">選択</string>
+    <string name="install_choose_hint">APK, APKS, XAPK ファイル</string>
+    <string name="install_action">インストール</string>
+    <string name="install_running">インストール中\u2026</string>
+    <string name="install_done">インストールしました。</string>
+    <string name="install_options_heading">インストールオプション</string>
+    <string name="install_instant">インスタントアプリとしてインストール</string>
+    <string name="install_instant_desc">完全なアプリをインストールしたり、ランチャーに追加したりせずに実行されます。</string>
+    <string name="install_rollback">ロールバックを維持</string>
+    <string name="install_rollback_desc">後で復元できるように、以前のバージョンを保持します。</string>
+    <string name="install_ignore_dexopt">dexoptプロファイルを無視する</string>
+    <string name="install_ignore_dexopt_desc">アプリのプロファイルを最適化するときは使用しないでください。</string>
+    <string name="install_dexopt">Dexopt</string>
+    <string name="install_dexopt_default">プラットフォームのデフォルト</string>
+    <string name="install_dexopt_verify">認証</string>
+    <string name="install_dexopt_quicken">速く</string>
+    <string name="install_dexopt_speed_profile">高速プロファイル</string>
+    <string name="install_dexopt_speed">速度</string>
+    <string name="install_dexopt_everything">全て</string>
+    <string name="install_referrer">リファラー</string>
+    <string name="install_referrer_desc">インストール元をアプリに伝えるURI。</string>
+    <string name="install_details_reading">パッケージを読み込んでいます\u2026</string>
+    <string name="install_details_unreadable">このファイルは有効なアプリパッケージではありません。</string>
     <string name="install_details_version">バージョン</string>
     <string name="install_details_target">ターゲット SDK</string>
+    <string name="install_details_permissions">権限 (%1$d)</string>
     <string name="install_details_installed">インストール日</string>
+    <string name="install_details_not_installed">インストールされていません</string>
+    <string name="install_details_not_installed_note">置き換えるアプリがインストールされていません。</string>
+    <string name="install_details_update">現在インストールされているバージョンより新しいです。</string>
+    <string name="install_details_downgrade">古いバージョンの %1$s がインストール済み \u2014 ダウングレードを許可します。</string>
+    <string name="install_details_same">現在インストールされているアプリと同じバージョンです。</string>
+    <string name="install_option_unsupported">この Android バージョンではサポートされていません</string>
+    <string name="install_failed">失敗：%1$s</string>
+    <string name="install_could_not_read">ファイルを読み込めませんでした。</string>
+    <string name="install_replace">インストール済みのアプリを置き換える</string>
+    <string name="install_replace_desc">データを保持しつつ更新します。</string>
+    <string name="install_downgrade">ダウングレードを許可</string>
+    <string name="install_downgrade_desc">新しいバージョンよりも古いバージョンをインストールします。</string>
+    <string name="install_grant_all">すべての権限を付与する</string>
+    <string name="install_grant_all_desc">インストール中にアプリがリクエストするすべての権限を許可します。</string>
+    <string name="install_allow_test">テストパッケージを許可</string>
+    <string name="install_allow_test_desc">テストまたはデバッグビルドとしてマークされたアプリを許可します。</string>
     <string name="install_location_auto">開発者向けオプション</string>
 </resources>

@@ -14,13 +14,38 @@
     <string name="home_wireless_adb_summary">Indítás vezeték nélküli hibakeresés használatával.</string>
     <string name="home_usb_adb_title"><![CDATA[Indítás USB hibakereséssel]]></string>
     <string name="home_usb_adb_summary">Indítás USB hibakeresés használatával.</string>
+    <string name="home_support_body">A Shizuku Next ingyenes, és nem tartalmaz hirdetéseket. Egy kávé fedezi a fenntartásához szükséges időt.</string>
+    <string name="diagnostics_title">Diagnosztika</string>
+    <string name="diagnostics_copy">Diagnosztika másolása</string>
+    <string name="diagnostics_copied">Diagnosztika másolva</string>
+    <string name="diagnostics_service">Szolgáltatás</string>
+    <string name="diagnostics_server_uid">Szerver uid</string>
+    <string name="diagnostics_server_api">Szerver API</string>
+    <string name="diagnostics_server_context">Szerver kontextus</string>
     <string name="diagnostics_wireless_debugging">Vezeték nélküli hibakeresés</string>
+    <string name="diagnostics_adb_port">ADB port</string>
+    <string name="diagnostics_wifi">Wi-Fi</string>
+    <string name="diagnostics_local_network">Helyi hálózat</string>
     <string name="diagnostics_battery">Akkumulátor optimalizálás</string>
+    <string name="diagnostics_app">Alkalmazás</string>
+    <string name="diagnostics_android">Android</string>
     <string name="diagnostics_device">Készülék</string>
+    <string name="diagnostics_default">Alapértelmezett mód</string>
+    <string name="diagnostics_hiding">Rejtőzködés</string>
     <string name="diagnostics_root">Root</string>
+    <string name="diagnostics_granted">megadva</string>
+    <string name="diagnostics_missing">hiányzik</string>
+    <string name="diagnostics_not_required">nem elvárás</string>
+    <string name="diagnostics_connected">kapcsolódva</string>
+    <string name="diagnostics_not_connected">nincs kapcsolódva</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
+    <string name="diagnostics_battery_optimized">optimalizálva</string>
+    <string name="diagnostics_battery_unrestricted">korlátozás nélküli</string>
+    <string name="diagnostics_available">elérhető</string>
+    <string name="diagnostics_unavailable">nem elérhető</string>
+    <string name="diagnostics_closed">bezárva</string>
     <!-- Adb -->
     <string name="dialog_adb_port">Kikötő</string>
     <string name="dialog_adb_invalid_port">A port egy 1 és 65535 közötti egész szám.</string>
@@ -42,19 +67,13 @@
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
-    <string name="dialog_adb_pairing_accessibility_navigate">Kérjük, kezdje el a párosítást a
-        következő lépések végrehajtásával:\n- Navigáljon a „Fejlesztői beállítások” menüpontra\n-
-        Engedélyezze az „USB hibakeresést” és a „Vezeték nélküli hibakeresést”\n- Koppintson a
-        „Vezeték nélküli hibakeresés” bal oldalára\n- Koppintson az „Eszköz párosítása párosító
-        kóddal” lehetőségre. A Shizuku automatikusan felismeri a párosító kódot.</string>
-    <string name="adb_pairing_requires_multi_window">Kérjük, először lépjen az osztott képernyős
-        (több ablakos) módba.</string>
-    <string name="adb_pairing_requires_multi_window_reason">A rendszer megköveteli, hogy a
-        párosítási párbeszédpanel mindig látható legyen. Az osztott képernyős mód használata az
-        egyetlen módja annak, hogy ez az alkalmazás és a rendszerpárbeszédpanel egyszerre látható
-        legyen.</string>
-    <string name="adb_error_key_store">Nem sikerült kulcsot generálni a vezeték nélküli
-        hibakereséshez.\nEnnek oka lehet, hogy az eszköz KeyStore mechanizmusa hibás.</string>
+    <string name="dialog_adb_pairing_accessibility_permission">Az Android tiltja ezt a kapcsolót a Play-en kívül telepített alkalmazásoknál. Engedélyezze a(z) ^1 alkalmazás számára a kisegítő lehetőségek szolgáltatás bekapcsolását. A kisegítő lehetőségek listájában ez \"Korlátozott beállításként szabályzott\" módon jelenik meg..\n\nNyissa meg az Alkalmazásinformációkat, és válassza a \"Korlátozott beállítások engedélyezése\" lehetőséget a menüből, vagy futtassa ezt számítógépen:.\n\n^2.\n\nBármelyik opció működik. A kapcsoló ezután elérhető lesz.</string>
+    <string name="dialog_adb_pairing_open_app_info">Alkalmazás infó</string>
+    <string name="dialog_adb_pairing_accessibility_enable">A Shizuku az automatikus párosításhoz a Kisegítő lehetőségek szolgáltatáson keresztül olvassa ki a kódot a rendszer párbeszédablakából, ezért ezt engedélyezni kell, de csak addig, amíg szükséges: a szolgáltatás magától kikapcsol, miután megtalálta a kódot, vagy az energia-megtakarítás érdekében egy perc elteltével. A Shizuku általában önállóan engedélyezi ezt, amihez a WRITE_SECURE_SETTINGS jogosultságra van szükség, amelyet egy frissen telepített rendszer még nem kapott meg.\n\nEngedélyezze a következő képernyőn, írja be a kódot saját maga a \"Manuális\" menüpont alatt, vagy adja meg egyszer a jogosultságot:\n\nadb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</string>
+    <string name="dialog_adb_pairing_accessibility_navigate">Kérjük, kezdje el a párosítást a következő lépések végrehajtásával:\n- Navigáljon a \"Fejlesztői beállítások\" menüpontra\n-Engedélyezze az \"USB hibakeresés\"-t és a \"Vezeték nélküli hibakeresés\"-t\n- Koppintson a \"Vezeték nélküli hibakeresés\" bal oldalára\n- Koppintson az \"Eszköz párosítása párosító kóddal\" lehetőségre. A Shizuku automatikusan felismeri a párosító kódot.</string>
+    <string name="adb_pairing_requires_multi_window">Kérjük, először lépjen osztott képernyős módba.</string>
+    <string name="adb_pairing_requires_multi_window_reason">A rendszer megköveteli, hogy a párosítási párbeszédpanel mindig látható legyen. Az osztott képernyős mód használata az egyetlen módja annak, hogy ez az alkalmazás és a rendszerpárbeszédpanel egyszerre látható legyen.</string>
+    <string name="adb_error_key_store">Nem sikerült kulcsot generálni a vezeték nélküli hibakereséshez.\nEnnek oka az lehet, hogy az eszköz KeyStore mechanizmusa hibás.</string>
     <string name="adb_error_stop_tcp">Nem sikerült leállítani az ADB-t TCP-n keresztül.</string>
     <string name="adb_pair_required">Kérjük először végezze el a párosítási lépést.</string>
     <string name="enable">Engedélyezés</string>
@@ -63,32 +82,18 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="auto_pair_manual">Manuális</string>
     <string name="development_settings">Fejlesztői lehetőségek</string>
     <string name="notification_settings">Értesítési lehetőségek</string>
-    <string name="adb_pairing_tutorial_content_notification">A Shizuku értesítése segít a párosítás
-        befejezésében.</string>
-    <string name="adb_pairing_tutorial_content_steps">Lépjen a „Fejlesztői beállítások” menüpontra,
-        majd engedélyezze az „USB hibakeresés” és a „Vezeték nélküli hibakeresés” opciókat.</string>
-    <string name="adb_pairing_tutorial_content_enter_pairing_code">Koppintson a „Vezeték nélküli
-        hibakeresés” bal oldalára, majd az „Eszköz párosítása párosítási kóddal” lehetőségre. A
-        párosítás befejezéséhez írja be az értesítésben található kódot.</string>
-    <string name="adb_pairing_tutorial_content_notification_blocked">A párosítási folyamat során
-        kapcsolatba kell lépni Shizuku értesítésével. Kérjük, engedélyezze a Shizukunak, hogy
-        értesítéseket tegyen közzé.</string>
-    <string name="adb_pairing_tutorial_content_miui">Előfordulhat, hogy a MIUI-felhasználóknak át
-        kell váltaniuk az értesítési stílust \"Android\"-ra a \"Értesítés\" - \"Értesítési árnyék\"
-        lehetőségről a rendszerbeállításokban.</string>
-    <string name="adb_pairing_tutorial_content_miui_2">Ellenkező esetben előfordulhat, hogy nem
-        tudja megadni az értesítésben szereplő párosítási kódot.</string>
-    <string name="adb_pairing_tutorial_content_finish">Menj vissza Shizukuba és indítsd el a
-        Shizukut.</string>
-    <string name="adb_pairing_tutorial_content_network">A Shizukunak hozzá kell férnie a helyi
-        hálózathoz. Ezt a hálózati engedély szabályozza.</string>
-    <string name="adb_pairing_tutorial_content_network_limation_not_foreground">Néhány rendszer
-        (például az MIUI) nem engedélyezi az alkalmazásoknak a hálózathoz való hozzáférést, amikor
-        azok nem láthatók, még akkor sem, ha az alkalmazás előtérben lévő szolgáltatást használ.
-        Kérjük, tiltsa le a Shizuku akkumulátoroptimalizálási funkcióit az ilyen rendszereken.</string>
+    <string name="adb_pairing_tutorial_content_notification">A Shizuku értesítése segít a párosítás befejezésében.</string>
+    <string name="adb_pairing_tutorial_content_steps">Lépjen a \"Fejlesztői beállítások\" menüpontra, majd engedélyezze az \"USB hibakeresés\" és a \"Vezeték nélküli hibakeresés\" opciókat.</string>
+    <string name="adb_pairing_tutorial_content_enter_pairing_code">Koppintson a \"Vezeték nélküli hibakeresés\" bal oldalára, majd az \"Eszköz párosítása párosítási kóddal\" lehetőségre. A párosítás befejezéséhez írja be az értesítésben található kódot.</string>
+    <string name="adb_pairing_tutorial_content_notification_blocked">A párosítási folyamat során reagálnia kell a Shizuku által küldött értesítésre. Kérjük, engedélyezze a Shizuku számára az értesítések közzétételét.</string>
+    <string name="adb_pairing_tutorial_content_miui">Előfordulhat, hogy a MIUI-felhasználóknak a rendszerbeállításokban át kell váltaniuk az értesítési stílust az \"Értesítés\" - \"Értesítési árnyék\" lehetőségről \"Android\"-ra.</string>
+    <string name="adb_pairing_tutorial_content_miui_2">Ellenkező esetben előfordulhat, hogy nem tudja megadni az értesítésben szereplő párosítási kódot.</string>
+    <string name="adb_pairing_tutorial_content_finish">Menjen vissza Shizukuba és indítsa el azt.</string>
+    <string name="adb_pairing_tutorial_content_network">A Shizukunak hozzá kell férnie a helyi hálózathoz. Ezt a hálózati engedély szabályozza.</string>
+    <string name="adb_pairing_tutorial_content_network_limation_not_foreground">Néhány rendszer (például az MIUI) nem engedélyezi az alkalmazásoknak a hálózathoz való hozzáférést, amikor azok nem láthatók, még akkor sem, ha az alkalmazás előtérben lévő szolgáltatást használ. Kérjük, tiltsa le a Shizuku akkumulátoroptimalizálási funkcióit az ilyen rendszereken.</string>
     <!-- Home - Root -->
     <string name="home_root_title"><![CDATA[Indítás rootolt eszközről]]></string>
-    <string name="home_root_description"><![CDATA[Ha Magisk-et használsz, próbáld ki a %1$s-t. Root felhasználók számára ez végül felváltja a Shizuku-t. Fontos megjegyezni, hogy a meglévő alkalmazásoknak kissé módosítaniuk kell a %2$shasználatához.]]></string>
+    <string name="home_root_description"><![CDATA[Ha Magisk-et használ, próbálja ki a(z) %1$s-t. Root felhasználók számára ez végül felváltja a Shizuku-t. Fontos megjegyezni, hogy a meglévő alkalmazásokat kissé módosítani kell a(z) %2$s használatához.]]></string>
     <string name="home_root_button_start">Indítás</string>
     <!-- Home - Application management -->
     <plurals name="home_app_management_authorized_apps_count">
@@ -108,7 +113,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">Az adb engedélye korlátozott</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Nagyon valószínű, hogy az eszköz gyártója korlátozza az adb engedélyét.<p>Lehet, hogy van megoldás a rendszeréhez ebben a <b><a href=\"%1$s\">dokumentumban</a></b>.]]></string>
-    <string name="app_management_toggle_all">Összes ki-/bekapcsolása</string>
+    <string name="app_management_toggle_all">Összes átapcsolása</string>
     <string name="app_management_search_hint">Alkalmazások keresése</string>
     <string name="app_management_sort">Rendezés</string>
     <string name="apps_needs_shizuku">Az alkalmazások megtekintéséhez indítsa el a Shizukut</string>
@@ -125,26 +130,89 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="tab_home">Kezdőlap</string>
     <string name="tab_apps">Alkalmazások</string>
     <string name="tab_shell">Shell</string>
+    <string name="tab_labs">Kísérleti dolgok</string>
     <string name="lab_more_apps">További alkalmazások</string>
+    <string name="tab_firewall">Tűzfal</string>
+    <string name="tab_autostart">Automatikus indítás</string>
+    <string name="labs_filter_allowed">Engedélyezve</string>
+    <string name="labs_filter_blocked">Blokkolt</string>
+    <string name="labs_blocked_count">%1$d blokkolva</string>
+    <string name="labs_blocked_empty">Semmi sincs blokkolva.</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hide_developer_options">Fejlesztői beállítások elrejtése</string>
+    <string name="tab_hide_usb_debugging">USB hibakeresés elrejtése</string>
+    <string name="tab_hide_wireless_debugging">Vezeték nélküli hibakeresés elrejtése</string>
+    <string name="tab_hide_accessibility">Kisegítő lehetőségek elrejtése</string>
+    <string name="tab_hide_private_dns">Privát DNS elrejtése</string>
+    <string name="tab_hide_vpn">VPN elrejtése</string>
+    <string name="hiding_hidden_count">%1$d elrejtve</string>
+    <string name="hiding_gate">Engedélyezve</string>
+    <string name="hiding_gate_disabled">Letiltva</string>
+    <string name="hiding_gate_kept">%1$d maradt</string>
     <string name="hiding_filter_hidden">Rejtett</string>
+    <string name="hiding_filter_shown">Látható</string>
+    <string name="hiding_filter_empty">Semmi nincs rejtve.</string>
+    <string name="hiding_restore">Visszaállítás</string>
+    <string name="hiding_signal_developer_options">Fejlesztői beállítások</string>
+    <string name="hiding_signal_usb_debugging">USB hibakeresés</string>
     <string name="hiding_signal_wireless_debugging">Vezeték nélküli hibakeresés</string>
+    <string name="hiding_signal_accessibility">Kisegítő lehetőségek szolgáltatás</string>
+    <string name="hiding_signal_private_dns">Privát DNS</string>
+    <string name="hiding_signal_vpn">VPN</string>
+    <string name="hiding_vpn_client">VPN kliens az elrejtéshez</string>
+    <string name="tab_force_dark">Kényszerített sötét mód</string>
+    <string name="force_dark_gate">Kényszerített sötét mód</string>
+    <string name="force_dark_gate_disabled">Kényszerített sötét mód kikapcsolva</string>
+    <string name="force_dark_count">%1$d kényszerített</string>
+    <string name="force_dark_filter_forced">Kényszerített</string>
+    <string name="force_dark_filter_not">Nem készerített</string>
+    <string name="force_dark_empty">Semmi nincs sötét módra kényszerítve.</string>
     <string name="force_dark_system_theme">Inkább a rendszer témára váltson</string>
+    <string name="force_dark_toggled">Az alkalmazás kényszerítve bezárult</string>
+    <string name="force_dark_notification_title">Kényszerített sötét mód bekapcsolva</string>
+    <string name="force_dark_notification_text">A \"Kényszerített sötét mód\" listán szereplő alkalmazás meg van nyitva</string>
+    <string name="force_dark_notification_watching">Várakozás a listán szereplő alkalmazás megnyitására</string>
+    <string name="tab_activities">Tevékenységek indítója</string>
     <string name="activities_apps_count">%1$d alkalmazás</string>
+    <string name="activities_count">%1$d tevékenység</string>
+    <string name="activities_launcher">Indító</string>
+    <string name="activities_exported">Exportálva</string>
+    <string name="activities_not_exported">Nincs exportálva</string>
+    <string name="activities_empty">Ez az alkalmazás nem deklarál tevékenységeket.</string>
+    <string name="activities_needs_shizuku">A Shizuku nem fut, és csak ez indíthat el egy olyan tevékenységet, amelyet az alkalmazás magának tart fenn.</string>
+    <string name="activities_refused">A tevékenység nem indítható el.</string>
+    <string name="activities_long_press">Hosszan érintsen meg egy sort a teljes név megtekintéséhez.</string>
     <string name="activities_detail_package">Csomag</string>
+    <string name="activities_detail_activity">Tevékenység</string>
+    <string name="activities_detail_state">Állapot</string>
+    <string name="activities_open">Megnyitás</string>
+    <string name="activities_copy">Másolás</string>
+    <string name="activities_edit_as_intent">Szerkesztés intent-ként</string>
+    <string name="activities_copied">Másolva</string>
+    <string name="tab_intent_builder">Intent készítő</string>
     <string name="intent_package">Csomag</string>
     <string name="intent_start">Indítás</string>
+    <string name="tab_device_info">Készülék infó</string>
     <string name="device_status">Állapot</string>
     <string name="device_current">Jelenleg</string>
     <string name="device_system">Rendszer</string>
     <string name="device_model">Típus</string>
     <string name="device_transport">Átvitel</string>
     <string name="device_watchdog">Felügyelet</string>
+    <string name="tab_log">Napló</string>
     <string name="log_filter_all">Mind</string>
+    <string name="log_filter_problems">Hiba</string>
+    <string name="log_save">Mentés</string>
+    <string name="log_clear">Kiürítés</string>
+    <string name="log_cleared">A napló kiürítve</string>
     <string name="log_capture_start">Indítás</string>
     <string name="log_capture_stop">Leállítás</string>
     <string name="log_capture_choose_hint">Alkalmazások keresése</string>
+    <string name="log_filter_crashes">Összeomlás</string>
+    <string name="permissions_usage_access">Használati hozzáférés</string>
+    <string name="permissions_usage_access_summary">Tegyük lehetővé a listák elrejtését, hogy lássuk, melyik alkalmazás van megnyitva. Ezt a Shizuku alkalmazáson keresztül vagy az Android Használati hozzáférés beállításaiban lehet engedélyezni.</string>
+    <string name="permissions_dump">Az alkalmazásbezárás okainak megtekintése</string>
+    <string name="permissions_dump_summary">A „Lets hiding lists” funkció jelzi, ha egy alkalmazás bezáródik, ahelyett, hogy a háttérben futna. A Shizuku szolgáltatja.</string>
     <string name="home_other_methods">Egyéb indítási módszerek</string>
     <string name="tab_settings">Beállítások</string>
     <string name="home_status_transport_label">Átvitel</string>
@@ -157,6 +225,10 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="home_device_fingerprint">Ujjlenyomat</string>
     <string name="home_device_selinux">SELinux állapota</string>
     <string name="home_device_seccomp">Seccomp állapota</string>
+    <string name="selinux_enforcing">Kényszerített</string>
+    <string name="selinux_disabled">Letiltva</string>
+    <string name="seccomp_disabled">Letiltva</string>
+    <string name="seccomp_filter">Szűrés</string>
     <string name="status_value_none">-</string>
     <string name="status_running_short">Fut</string>
     <string name="status_stopped_short">Leállítva</string>
@@ -165,10 +237,12 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="tools_terminal">Terminál alkalmazások</string>
     <string name="tools_terminal_summary">Futtasson shell parancsokat bármely terminálalkalmazásban a rish használatával</string>
     <string name="tools_battery">Akkumulátor optimalizálás</string>
+    <string name="intents_title">Intent-ek</string>
     <string name="about_package">Csomag</string>
     <string name="check_for_updates_now">Ellenőrzés most</string>
     <string name="start_failed">Nem sikerült elindítani a Shizukut</string>
     <string name="start_failed_write_secure_settings">A Shizuku nem tudja bekapcsolni a vezeték nélküli hibakeresést a WRITE_SECURE_SETTINGS jogosultság nélkül. Kapcsolja be a Fejlesztői beállítások &gt; Vezeték nélküli hibakeresés menüpont alatt, vagy adja meg a jogosultságot a következő paranccsal: <b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Miután a Shizuku elindult, már megtartja ezt a jogosultságot, így ezt csak egyszer kell megtennie.</string>
+    <string name="start_failed_no_auth">A vezeték nélküli hibakeresés nem engedélyezett ezen a hálózaton. Párosítsa újra a készüléket.</string>
     <string name="action_dismiss">Elvetés</string>
     <string name="settings_section_startup">Indítás</string>
     <string name="settings_section_wireless">Vezeték nélküli hibakeresés</string>
@@ -179,7 +253,17 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="settings_theme_system">Kövesse a rendszert</string>
     <string name="settings_theme_light">Világos</string>
     <string name="settings_theme_dark">Sötét</string>
+    <string name="intents_description">Az automatizálási alkalmazások ezekkel a broadcast-üzenetekkel vezérelhetik a Shizukut. Az azonosító tokent az \"auth\" extra paraméterben kell megadni.</string>
+    <string name="intents_require_token">A hitelesítő token megkövetelése</string>
+    <string name="intents_require_token_summary">Az indítási és leállítási intent-eknek az alábbi tokenre van szükségük. Kapcsolja ki ezt, ha token nélkül szeretné elküldeni őket.</string>
+    <string name="intents_token">Hitelesítő token</string>
+    <string name="intents_copy">Másolás</string>
+    <string name="intents_regenerate">Újragenerálás</string>
     <string name="intents_start">Indítás</string>
+    <string name="intents_stop">Leállítás</string>
+    <string name="intents_watchdog_on">Felügyelet bekapcsolás</string>
+    <string name="intents_watchdog_off">Felügyelet kikapcsolás</string>
+    <string name="intents_watchdog_toggle">Felügyelet átkapcsolás</string>
     <string name="intents_adb_command">Indítás számítógépről</string>
     <string name="home_battery_warning">Előfordulhat, hogy Shizuku a háttérben leáll. Engedélyezze az akkumulátor-optimalizálás figyelmen kívül hagyását.</string>
     <!-- Terminal -->
@@ -198,6 +282,18 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
         számára a terminálalkalmazásod %3$s konfigurációs fájljában.</string>
     <string name="terminal_tutorial_3">Nyisson meg egy shell-t a következő paranccsal:</string>
     <!-- Stealth -->
+    <string name="stealth_warning_compatibility">Előfordulhat, hogy egyes Shizuku-t használó alkalmazások nem működnek, ha a Shizuku el van rejtve, mivel ezek megpróbálják felismerni, hogy a Shizuku telepítve van-e.</string>
+    <string name="stealth_warning_compatibility_2">Megkerülő megoldásként ideiglenesen felfedheti a Shizukut, amely egy kis programrészt telepít az eredeti csomagnévvel. Ha végzett, újra elrejtheti Shizukut.</string>
+    <string name="stealth_warning_compatibility_3">Koppintson erre a kártyára egy kódrészlet másolásához, amelyet elküldhet a fejlesztőnek, így a \"Shizuku telepítve\" ellenőrzés működni fog, amikor Shizuku el van rejtve.</string>
+    <string name="stealth_warning_detection">Egyes alkalmazások még rejtett állapotban is képesek felismerni a Shizukut.</string>
+    <string name="stealth_info_reconfigure">A rejtett verzió telepítése után újra kell párosítania és újra kell konfigurálnia a Shizukut.</string>
+    <string name="stealth_info_rish">Rish-felhasználók: a rejtett verzió telepítése után exportálja újra a fájlokat.</string>
+    <string name="stealth_info_intents">Intent-felhasználók: frissítse az intenteket az új csomagnévvel.</string>
+    <string name="stealth_info_update">A rejtett verzió használatakor frissítenie kell a Shizukut az alkalmazáson keresztül, mert annak más aláírása van.</string>
+    <string name="stealth_package_name">Csomagnév (nem kötelező)</string>
+    <string name="stealth_package_name_helper_text">Ha üresen hagyjuk, egy véletlenszerű utótag kerül hozzáadásra a csomag nevéhez.</string>
+    <string name="stealth_error_invalid_characters">Csak betűk, számok és pontok megengedettek.</string>
+    <string name="stealth_hide">Elrejtés</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">Indítás rendszerindításkor</string>
     <string name="settings_use_system_color">Használja a rendszertéma színét</string>
@@ -216,12 +312,14 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="settings_adb_without_developer_options_summary">Letiltja a fejlesztői beállításokat, de megtartja a Shizuku számára szükséges ADB-beállításokat. A Shizuku továbbra is működni fog, és ezek a beállítások minden újraindítás után visszaállnak.</string>
     <string name="settings_wait_for_wifi">Várakozás a Wi-Fi-re</string>
     <string name="settings_wait_for_wifi_summary">A Shizuku automatikus újraindulása mindaddig vár, míg renelkezésre nem áll korlátozás nélküli Wi-Fi-kapcsolat.</string>
+    <string name="settings_unavailable_while_forcing_wireless">Nem érhető el, ha az \"Indítás Wi-Fi nélkül\" be van kapcsolva.</string>
     <string name="settings_force_wireless_debugging">Indítás Wi-Fi nélkül (kísérleti)</string>
     <string name="settings_force_wireless_debugging_summary">Megpróbálja elindítani a Shizukut Wi-Fi vagy USB hibakeresés nélkül. Ezzel letiltja a Wi-Fi várakozást és az automatikus vezeték nélküli hibakeresést is.</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
     <string name="settings_needs_write_secure_settings">WRITE_SECURE_SETTINGS engedély szükséges. Indítsa el egyszer a Shizukut, hogy biztosítva legyen, aztán térjen vissza.</string>
     <string name="state_off">Ki</string>
+    <string name="settings_persist_adb_port_unavailable">Először indítsa el a Shizukut. Ez a beállítás csak a Shizuku-n keresztül módosítható.</string>
     <string name="settings_system_start_method">Rendszerindítási módszer</string>
     <string name="settings_system_start_method_exploit">Samsung (FOTA ügynök)</string>
     <string name="settings_system_start_method_custom">Egyéni parancs</string>
@@ -245,14 +343,30 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="settings_update_stable">Stabil</string>
     <string name="settings_permissions">Engedélyek</string>
     <string name="settings_permissions_summary">Mire van szüksége Shizukunak és mi engedélyezett neki</string>
+    <string name="permissions_allowed">Engedélyezve</string>
+    <string name="permissions_action_allow">Engedélyezés</string>
     <string name="permissions_action_settings">Beállítások</string>
+    <string name="permissions_notifications">Értesítések</string>
+    <string name="permissions_notifications_summary">Mutatja a párosítási kódot, az indítási folyamatot és a hibákat.</string>
+    <string name="permissions_nearby">Közeli eszközök</string>
+    <string name="permissions_nearby_summary">Megkeresi a vezeték nélküli hibakeresési portot a hálózaton.</string>
+    <string name="permissions_write_secure_settings">Biztonsági beállítások írása</string>
+    <string name="permissions_write_secure_settings_summary">Engedjük meg a Shizukunak, hogy bekapcsolja a vezeték nélküli hibakeresést. Csak az ADB-n keresztöl adható meg ez az engedély.</string>
+    <string name="permissions_accessibility">Kisegítő lehetőségek szolgáltatás</string>
+    <string name="permissions_accessibility_summary">Automatikusan beolvassa a párosítási kódot.</string>
+    <string name="permissions_battery_summary">Megakadályozza, hogy az Android leállítsa a Shizuku háttérbeli futását.</string>
     <string name="settings_help">Segítség</string>
     <string name="settings_report_bug">Hiba jelentése</string>
+    <string name="settings_support_coffee">Vegyen nekem egy kávét</string>
+    <string name="settings_support_coffee_note">Támogassa a Shizuku Next fejlesztését</string>
+    <string name="settings_contributors">Közreműködők</string>
+    <string name="settings_contributors_hint">Húzással fedezheti · Két ujjal nagyíthat · Érintéssel megtekintheti a részleteket</string>
     <!--
       A plural, not a plain string: most of the people on this wall are here for a single commit,
       so the singular is read more often than the plural is.
     -->
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
+    <string name="contributor_area_app">Alkalmazás</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
       worked in, and the languages they translated into. There is deliberately no string per
@@ -291,6 +405,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <!-- About -->
     <!-- Start/Stop -->
     <string name="start">Indítás</string>
+    <string name="action_stop">Leállítás</string>
     <string name="action_restart">Újraindítás</string>
     <!-- Notification -->
     <string name="notification_channel_adb_pairing">Vezeték nélküli hibakeresés párosítás</string>
@@ -303,6 +418,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="notification_adb_pairing_succeed_text">Most elindíthatja a Shizuku szolgáltatást.</string>
     <string name="notification_adb_pairing_failed_title">A párosítás nem sikerült</string>
     <string name="notification_adb_pairing_retry">Újra</string>
+    <string name="notification_auth_missing_title">Hitelesítő token szükséges</string>
     <!-- Permission related, appears in system permission UI -->
     <string name="permission_label">Shizuku hozzáférés</string>
     <string name="permission_description">Engedélyezze az app számára a Shizuku használatát.</string>
@@ -327,6 +443,9 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="shell_backend_root">Root</string>
     <string name="shell_backend_shizuku_status">Shizuku, uid %1$d</string>
     <string name="shell_backend_root_status">Root, uid 0</string>
+    <string name="shell_quick_app_ops">Alkalmazásművelet</string>
+    <string name="shell_stop">Leállítás</string>
+    <string name="shell_copy">Másolás</string>
     <!-- Watchdog -->
     <string name="watchdog_running">A felügyeleti szerv fut</string>
     <string name="watchdog_turn_off">Kikapcsolás</string>
@@ -347,16 +466,19 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
         letiltja magát.</string>
     <!-- Messages for legacy -->
     <string name="dialog_legacy_not_support_title">%1$s nem támogatja a modern Shizukut</string>
-    <string name="dialog_legacy_not_support_message"><![CDATA[Az örökölt Shizuku 2019 márciusa óta elavult. Ezenkívül a régi Shizuku nem működik újabb Android-rendszereken.<p>Kérdezze meg a fejlesztőt <b>%1$s</b> frissítéséről.]]></string>
+    <string name="dialog_legacy_not_support_message"><![CDATA[A hagyományos Shizuku 2019. márciusa óta elavult. Továbbá a régi Shizuku nem működik újabb Android-rendszereken.<p>Kérdezze meg a(z) <b>%1$s</b> fejlesztőjét a frissítésről.]]></string>
     <string name="dialog_requesting_legacy_title">%1$s az örökölt Shizukut kéri</string>
     <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> modern Shizuku támogatással rendelkezik, de az örökölt Shizukut kéri. Ez azért lehet, mert a Shizuku nem fut, ellenőrizze a Shizuku alkalmazást.<p>Az örökölt Shizuku 2019 márciusa óta elavult.]]></string>
     <string name="dialog_requesting_legacy_button_open_shizuku">Nyissa meg a Shizukut</string>
     <string name="wadb_notification_attempt_now">Újra</string>
     <!-- Manage tab -->
+    <string name="tab_manage">Alkalmazásműveletek</string>
     <string name="manage_search_hint">Alkalmazások keresése</string>
     <string name="manage_filter_all">Mind</string>
     <string name="manage_filter_system">Rendszer</string>
+    <string name="manage_filter_disabled">Tiltott</string>
     <string name="manage_filter_hidden">Rejtett</string>
+    <string name="manage_filter_empty">Semmi nincs ezzel a szűréssel.</string>
     <string name="manage_status_system">Rendszer</string>
     <string name="manage_status_user">Felhasználó</string>
     <string name="manage_status_removed">Eltávolítva, adatok megőrizve</string>
@@ -364,15 +486,56 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="manage_status_suspended">Felfüggesztve</string>
     <string name="manage_status_hidden">Rejtve</string>
     <!-- One app, and what it may do on the device -->
+    <string name="app_section_ops">Alkalmazásműveletek</string>
+    <string name="app_op_notifications">Értesítések megjelenítése</string>
+    <string name="app_op_notifications_note">Megakadályozza az értesítéseket.</string>
     <string name="app_op_mode_default">Alapértelmezett</string>
+    <string name="app_op_mode_allow">Engedélyezés</string>
     <string name="app_op_mode_deny">Megtagad</string>
     <string name="app_action_enable">Engedélyezés</string>
     <string name="app_bucket_default">Alapértelmezett</string>
+    <string name="app_bucket_restricted_note">Ritkán engedélyezve a háttérben való futtatás.</string>
     <string name="app_info_version">Verzió</string>
+    <string name="app_info_installer">Telepítve innen</string>
     <string name="app_info_updated">Frissítve</string>
+    <string name="tab_wifi_passwords">Wi-Fi jelszavak</string>
+    <string name="wifi_passwords_show">Jelszó megjelenítése</string>
+    <string name="wifi_passwords_hide">Jelszó elrejtése</string>
+    <string name="wifi_passwords_copy">Jelszó másolása</string>
+    <string name="wifi_passwords_none">Nincs jelszó</string>
+    <string name="tab_files">Fájlok</string>
+    <string name="files_root_internal">Belső</string>
+    <string name="files_root_app_data">Adat</string>
+    <string name="files_root_app_obb">Obb</string>
     <string name="files_root_system">Rendszer</string>
+    <string name="files_root_tmp">Tmp</string>
     <string name="files_root_root">Root</string>
+    <string name="files_empty">Semmi nincs ebben a mappában.</string>
     <string name="files_sort">Rendezés</string>
+    <string name="files_sort_name">Rendezés név szerint</string>
+    <string name="files_sort_size">Rendezés méret szerint</string>
+    <string name="files_sort_modified">Rendezés dátum szerint</string>
+    <string name="files_sort_ascending">Növekvő</string>
+    <string name="files_sort_descending">Csökkenő</string>
+    <string name="files_show_hidden">Rejtett fájlok megjelenítése</string>
+    <string name="files_hide_hidden">Rejtett fájlok elrejtése</string>
+    <string name="files_action_rename">Átnevezés</string>
+    <string name="files_action_copy">Másolás</string>
+    <string name="files_action_cut">Kivágás</string>
+    <string name="files_action_paste_copy">Beillesztès ide</string>
+    <string name="files_action_paste_move">Áthelyezés ide</string>
+    <string name="files_action_delete">Törlés</string>
+    <string name="files_action_compress">Tömörítés és kicsomagolás</string>
+    <string name="files_action_new_folder">Új mappa</string>
+    <string name="files_dialog_compress">Zip-név</string>
+    <string name="files_field_name">Név</string>
+    <string name="files_dialog_delete_title">Törli a(z) %1$d elemet?</string>
+    <string name="files_working_copying">Másolva</string>
+    <string name="files_working_moving">Áthelyezés</string>
+    <string name="files_working_deleting">Törlés</string>
+    <string name="files_working_compressing">Tömörítés</string>
+    <string name="files_working_extracting">Kicsomagolás</string>
+    <string name="tab_install">Alkalmazás telepítő</string>
     <string name="install_details_version">Verzió</string>
     <string name="install_location_auto">Fejlesztői lehetőségek</string>
 </resources>

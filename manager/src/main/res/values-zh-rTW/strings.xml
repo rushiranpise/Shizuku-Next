@@ -381,7 +381,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="status_value_none">-</string>
     <string name="status_running_short">正在執行</string>
     <string name="status_stopped_short">已停止</string>
-    <string name="action_start">開始 Shizuku</string>
+    <string name="action_start">啟動</string>
     <string name="tools_stealth">隱形模式</string>
     <string name="tools_terminal">終端應用程式</string>
     <string name="tools_terminal_summary">在任何終端應用程式中執行 shell 命令</string>
@@ -628,7 +628,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <!-- About -->
     <!-- Start/Stop -->
     <string name="start">啟動</string>
-    <string name="action_stop">停止 Shizuku</string>
+    <string name="action_stop">停止</string>
     <string name="action_restart">重啟</string>
     <string name="action_open_adb_port">開啟 ADB 埠</string>
     <!-- Notification -->
