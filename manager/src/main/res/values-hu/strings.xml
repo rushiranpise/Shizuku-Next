@@ -16,6 +16,7 @@
     <string name="home_usb_adb_summary">Indítás USB hibakeresés használatával.</string>
     <string name="diagnostics_wireless_debugging">Vezeték nélküli hibakeresés</string>
     <string name="diagnostics_battery">Akkumulátor optimalizálás</string>
+    <string name="diagnostics_device">Készülék</string>
     <string name="diagnostics_root">Root</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
@@ -57,6 +58,9 @@
     <string name="adb_error_stop_tcp">Nem sikerült leállítani az ADB-t TCP-n keresztül.</string>
     <string name="adb_pair_required">Kérjük először végezze el a párosítási lépést.</string>
     <string name="enable">Engedélyezés</string>
+    <string name="auto_pair_instructions">Párosítás kód beírása nélkül:\n\n1. Fejlesztői beállítások → Vezeték nélküli hibakeresés\n2. Eszköz párosítása párosítási kóddal\n\n
+A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot, és elindítja magát. Nyitva tartja a párbeszédpanelt, amíg a párosítás be nem fejeződik.</string>
+    <string name="auto_pair_manual">Manuális</string>
     <string name="development_settings">Fejlesztői lehetőségek</string>
     <string name="notification_settings">Értesítési lehetőségek</string>
     <string name="adb_pairing_tutorial_content_notification">A Shizuku értesítése segít a párosítás
@@ -96,11 +100,17 @@
     <!-- Home - Learn more -->
     <!-- Home - Adb permissions limited -->
     <!-- Home - Dialogs -->
+    <string name="home_dialog_reboot_required_title">Újraindítás szükséges</string>
+    <string name="home_dialog_reboot_required_message">A Shizuku megfelelő működéséhez az eszköz újraindítása szükséges. A folytatáshoz indítsa újra az eszközt.</string>
+    <string name="home_dialog_duplicate_app_detected_title">Dupla alkalmazás észlelve</string>
+    <string name="home_dialog_duplicate_app_detected_message">Az alkalmazás egy másik verziója telepítve van az eszközére. A folytatáshoz távolítsa el az összes duplikált verziót, és indítsa újra az eszközt.</string>
+    <string name="home_dialog_button_exit">Kilépés</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">Az adb engedélye korlátozott</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Nagyon valószínű, hogy az eszköz gyártója korlátozza az adb engedélyét.<p>Lehet, hogy van megoldás a rendszeréhez ebben a <b><a href=\"%1$s\">dokumentumban</a></b>.]]></string>
     <string name="app_management_toggle_all">Összes ki-/bekapcsolása</string>
     <string name="app_management_search_hint">Alkalmazások keresése</string>
+    <string name="app_management_sort">Rendezés</string>
     <string name="apps_needs_shizuku">Az alkalmazások megtekintéséhez indítsa el a Shizukut</string>
     <string name="apps_empty">Nincs megjeleníthető alkalmazás</string>
     <string name="apps_filter_empty">Nincsenek alkalmazások ezzel a szűréssel</string>
@@ -109,13 +119,21 @@
     <string name="apps_filter_revoked">Visszavonva</string>
     <string name="apps_filter_hidden">Rejtett</string>
     <string name="apps_no_match">Egyetlen alkalmazás sem felel meg a keresésnek</string>
+    <string name="app_management_sort_last_added">Legutóbb hozzáadva</string>
+    <string name="app_management_sort_updated">Frissítve</string>
+    <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="tab_home">Kezdőlap</string>
     <string name="tab_apps">Alkalmazások</string>
+    <string name="tab_shell">Shell</string>
     <string name="lab_more_apps">További alkalmazások</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hide_developer_options">Fejlesztői beállítások elrejtése</string>
     <string name="hiding_filter_hidden">Rejtett</string>
     <string name="hiding_signal_wireless_debugging">Vezeték nélküli hibakeresés</string>
+    <string name="force_dark_system_theme">Inkább a rendszer témára váltson</string>
     <string name="activities_apps_count">%1$d alkalmazás</string>
+    <string name="activities_detail_package">Csomag</string>
+    <string name="intent_package">Csomag</string>
     <string name="intent_start">Indítás</string>
     <string name="device_status">Állapot</string>
     <string name="device_current">Jelenleg</string>
@@ -147,12 +165,20 @@
     <string name="tools_terminal">Terminál alkalmazások</string>
     <string name="tools_terminal_summary">Futtasson shell parancsokat bármely terminálalkalmazásban a rish használatával</string>
     <string name="tools_battery">Akkumulátor optimalizálás</string>
+    <string name="about_package">Csomag</string>
+    <string name="check_for_updates_now">Ellenőrzés most</string>
     <string name="start_failed">Nem sikerült elindítani a Shizukut</string>
     <string name="start_failed_write_secure_settings">A Shizuku nem tudja bekapcsolni a vezeték nélküli hibakeresést a WRITE_SECURE_SETTINGS jogosultság nélkül. Kapcsolja be a Fejlesztői beállítások &gt; Vezeték nélküli hibakeresés menüpont alatt, vagy adja meg a jogosultságot a következő paranccsal: <b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Miután a Shizuku elindult, már megtartja ezt a jogosultságot, így ezt csak egyszer kell megtennie.</string>
     <string name="action_dismiss">Elvetés</string>
     <string name="settings_section_startup">Indítás</string>
     <string name="settings_section_wireless">Vezeték nélküli hibakeresés</string>
     <string name="settings_section_tools">Eszközök</string>
+    <string name="settings_section_appearance">Megjelenés</string>
+    <string name="settings_section_about">Névjegy</string>
+    <string name="settings_theme">Téma</string>
+    <string name="settings_theme_system">Kövesse a rendszert</string>
+    <string name="settings_theme_light">Világos</string>
+    <string name="settings_theme_dark">Sötét</string>
     <string name="intents_start">Indítás</string>
     <string name="intents_adb_command">Indítás számítógépről</string>
     <string name="home_battery_warning">Előfordulhat, hogy Shizuku a háttérben leáll. Engedélyezze az akkumulátor-optimalizálás figyelmen kívül hagyását.</string>
@@ -174,6 +200,8 @@
     <!-- Stealth -->
     <!-- Settings -->
     <string name="settings_start_on_boot">Indítás rendszerindításkor</string>
+    <string name="settings_use_system_color">Használja a rendszertéma színét</string>
+    <string name="settings_use_system_color_summary">Kövesse a rendszer színkészletét</string>
     <string name="settings_watchdog">Felügyelet</string>
     <string name="settings_watchdog_summary">A Shizuku automatikus újraindítása összeomlás esetén</string>
     <string name="settings_auto_disable_wireless_debugging">A vezeték nélküli hibakeresés letiltása</string>
@@ -192,6 +220,8 @@
     <string name="settings_force_wireless_debugging_summary">Megpróbálja elindítani a Shizukut Wi-Fi vagy USB hibakeresés nélkül. Ezzel letiltja a Wi-Fi várakozást és az automatikus vezeték nélküli hibakeresést is.</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
+    <string name="settings_needs_write_secure_settings">WRITE_SECURE_SETTINGS engedély szükséges. Indítsa el egyszer a Shizukut, hogy biztosítva legyen, aztán térjen vissza.</string>
+    <string name="state_off">Ki</string>
     <string name="settings_system_start_method">Rendszerindítási módszer</string>
     <string name="settings_system_start_method_exploit">Samsung (FOTA ügynök)</string>
     <string name="settings_system_start_method_custom">Egyéni parancs</string>
@@ -209,9 +239,10 @@
     <string name="settings_auto_disable_usb_debugging">Az USB-hibakeresés letiltása</string>
     <string name="settings_auto_disable_usb_debugging_summary">A Shizuku leállításakor tiltsa le az USB-hibakeresést</string>
     <string name="settings_language">Nyelv</string>
-    <string name="settings_black_night_theme">Sötét éj téma</string>
-    <string name="settings_black_night_theme_summary">Használja a tiszta fekete témát, ha az
-        éjszakai mód be van kapcsolva</string>
+    <string name="settings_language_system">Rendszer alapértelmezett</string>
+    <string name="settings_black_night_theme">Amoled fekete</string>
+    <string name="settings_black_night_theme_summary">Használjon tiszta fekete témát sötét módban</string>
+    <string name="settings_update_stable">Stabil</string>
     <string name="settings_permissions">Engedélyek</string>
     <string name="settings_permissions_summary">Mire van szüksége Shizukunak és mi engedélyezett neki</string>
     <string name="permissions_action_settings">Beállítások</string>
@@ -232,27 +263,31 @@
     <string name="settings_legacy_pairing_summary">A párosítási kódot megadása egy párbeszédpanelen, ne pedig egy értesítésben történjen</string>
     <!-- Bug Report Dialog -->
     <string name="bug_report_dialog_before_reporting">Először is, kérjük, tegye a következőket:</string>
-    <string name="bug_report_dialog_update">Ellenőrizd, hogy a ^1-et használod-e.</string>
+    <string name="bug_report_dialog_update">Ellenőrizze, hogy a ^1-t használja-e.</string>
     <string name="bug_report_dialog_link_update">legújabb verzió</string>
-    <string name="bug_report_dialog_wiki">Olvasd el a ^1-et, és kövesd az összes vonatkozó
-        hibaelhárítási lépést.</string>
-    <string name="bug_report_dialog_issues">Keresd át az összes ^1-et, hogy jelentették-e már a
-        hibádat.</string>
+    <string name="bug_report_dialog_wiki">Olvassa el a ^1-t, és kövesse az összes vonatkozó hibaelhárítási lépést.</string>
+    <string name="bug_report_dialog_issues">Nézzen körül az ismert ^1 közt, hogy megtudja, jelentették-e már ezt a hibát.</string>
     <string name="bug_report_dialog_link_issues">meglévő problémák</string>
-    <string name="bug_report_dialog_method">Kérjük, küldjön be egy problémát a ^1 oldalon, ha van
-        fiókja.</string>
-    <string name="bug_report_dialog_method_2">Egyébként küldhetsz egy e-mailt.</string>
+    <string name="bug_report_dialog_method">Kérjük, küldje be a problémáját a ^1 oldalon keresztül, ha van fiókja.</string>
+    <string name="bug_report_dialog_method_2">Továbbá e-mailt is küldhet.</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Kérjük, kapcsolja ki az
         akkumulátoroptimalizálást a funkció használatához.</string>
     <string name="snackbar_action_fix">Javítás</string>
     <!-- Updates -->
+    <string name="check_for_updates">Frissítések keresése</string>
+    <string name="update_check_failed">Nem sikerült ellenőrizni a frissítéseket</string>
+    <string name="update_check_offline">Nem sikerült elérni a GitHubot. Ellenőrizze a kapcsolatot, és próbálja újra.</string>
+    <string name="update_check_rate_limited_minutes">A GitHub korlátozza a frissítések ellenőrzésének gyakoriságát. Próbálja újra kb. %1$d perc múlva.</string>
+    <string name="update_check_http_error">Nem sikerült ellenőrizni a frissítéseket (HTTP %1$d)</string>
     <!-- Toast -->
     <string name="toast_no_email_app">Nem található e-mail alkalmazás</string>
     <string name="toast_pairing_timeout">A Shizuku párosítási szolgáltatás időtúllépést okozott.</string>
     <!-- Dark Mode Setting Override -->
-    <string name="dark_theme_off">Mindig könnyű</string>
+    <string name="dark_theme">Téma</string>
+    <string name="dark_theme_off">Mindig világos</string>
     <string name="dark_theme_on">Mindig sötét</string>
+    <string name="follow_system">Kövesse a rendszert</string>
     <!-- About -->
     <!-- Start/Stop -->
     <string name="start">Indítás</string>
@@ -288,6 +323,7 @@
         WRITE_SECURE_SETTINGS jogosultságra szorul. Koppintson ide, ha szeretné megtudni, hogyan
         engedélyezheti ezt.</string>
     <!-- Shell -->
+    <string name="shell_title">Shell</string>
     <string name="shell_backend_root">Root</string>
     <string name="shell_backend_shizuku_status">Shizuku, uid %1$d</string>
     <string name="shell_backend_root_status">Root, uid 0</string>
@@ -301,6 +337,7 @@
     <string name="watchdog_given_up_title">A Shizuku elindítása nem sikerült</string>
     <string name="watchdog_given_up_action_start">Indítás</string>
     <!-- Misc -->
+    <string name="off">Ki</string>
     <string name="dialog_cannot_open_browser_title">Nem lehet elindítani a böngészőt</string>
     <string name="toast_copied_to_clipboard">Vágólapra másolva</string>
     <string name="accessibility_service_description">Párosítási támogatást nyújt olyan eszközökhöz
@@ -332,8 +369,10 @@
     <string name="app_action_enable">Engedélyezés</string>
     <string name="app_bucket_default">Alapértelmezett</string>
     <string name="app_info_version">Verzió</string>
+    <string name="app_info_updated">Frissítve</string>
     <string name="files_root_system">Rendszer</string>
     <string name="files_root_root">Root</string>
+    <string name="files_sort">Rendezés</string>
     <string name="install_details_version">Verzió</string>
     <string name="install_location_auto">Fejlesztői lehetőségek</string>
 </resources>

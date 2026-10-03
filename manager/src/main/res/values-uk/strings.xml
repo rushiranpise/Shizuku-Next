@@ -12,18 +12,43 @@
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Запуск за допомогою налагоджування через Wi-Fi]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Починаючи без мережі: пристрій потребує бездротової налагодження і знову, доки він не зупиниться. Це може зайняти до двох хвилин, перш ніж почати або відступити.</string>
+    <string name="home_usb_adb_needs_network">Для запуску з USB використовується класичний порт ADB, а для його повторного відкриття потрібне з’єднання з мережею. Під’єднайтеся до Wi-Fi один раз або виберіть <b>Запустити без Wi-Fi</b> як спосіб запуску й натомість запустіть бездротове налагодження.</string>
     <string name="home_wireless_adb_summary">Починається за допомогою бездротового налагодження.</string>
     <string name="home_usb_adb_title"><![CDATA[Почати через USB налагодження]]></string>
     <string name="home_usb_adb_summary">Починається використання USB-налагодження.</string>
+    <string name="home_support_body">Shizuku Next безплатний і не містить реклами. Кава — це внесок у час, потрібний для його підтримки.</string>
+    <string name="diagnostics_title">Діагностика</string>
+    <string name="diagnostics_copy">Копіювати діагностику</string>
+    <string name="diagnostics_copied">Діагностику скопійовано</string>
+    <string name="diagnostics_service">Сервіс</string>
+    <string name="diagnostics_server_uid">uid сервера</string>
+    <string name="diagnostics_server_api">API сервера</string>
+    <string name="diagnostics_server_context">Контекст сервера</string>
     <string name="diagnostics_wireless_debugging">Бездротові налагодження</string>
+    <string name="diagnostics_adb_port">ADB-порт</string>
+    <string name="diagnostics_wifi">Wi-Fi</string>
+    <string name="diagnostics_local_network">Локальна мережа</string>
     <string name="diagnostics_battery">Оптимізація акумулятора</string>
+    <string name="diagnostics_app">Застосунок</string>
     <string name="diagnostics_android">Android</string>
     <string name="diagnostics_device">Пристрій</string>
+    <string name="diagnostics_started_with">Розпочато за допомогою</string>
+    <string name="diagnostics_default">Типовий метод</string>
     <string name="diagnostics_hiding">Гайдінг</string>
     <string name="diagnostics_root">Корінь</string>
+    <string name="diagnostics_granted">надано</string>
+    <string name="diagnostics_missing">відсутній</string>
+    <string name="diagnostics_not_required">не потрібно</string>
+    <string name="diagnostics_connected">під’єднано</string>
+    <string name="diagnostics_not_connected">не під’єднано</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
+    <string name="diagnostics_battery_optimized">оптимізовано</string>
+    <string name="diagnostics_battery_unrestricted">необмежено</string>
+    <string name="diagnostics_available">доступно</string>
+    <string name="diagnostics_unavailable">недоступно</string>
+    <string name="diagnostics_closed">закрито</string>
     <!-- Adb -->
     <string name="dialog_adb_port">Порт</string>
     <string name="dialog_adb_invalid_port">Порт – це ціле число від 1 до 65535.</string>
@@ -32,70 +57,45 @@
     <string name="dialog_adb_pairing_discovery">Пошук сервісу парування</string>
     <string name="dialog_adb_pairing_paring_code">Код парування</string>
     <string name="paring_code_is_wrong">Код парування неправильний.</string>
-    <string name="cannot_connect_port">Не можу підключитися до бездротової служби
-        налагодження.\n\nБудь ласка, переконайтеся, що Shizuku внесений до білого списку у всіх
-        фаєрволах, блокуванні реклами, VPN чи подібних додатках, які можуть обмежувати доступ до
-        мережі.</string>
-    <string name="dialog_adb_pairing_message">Будь ласка, розпочніть сполучення, виконавши такі
-        кроки:\n- Перейдіть до розділу \"Параметри розробника\"\n- Увімкніть \"Налагодження USB\" та
-        \"Налагодження бездротового зв\'язку\"\n- Натисніть ліву частину розділу \"Налагодження
-        бездротового зв\'язку\"\n- Натисніть \"Спів\'язати пристрій за допомогою коду
-        сполучення\"\n- Введіть код сполучення зі сповіщення</string>
+    <string name="cannot_connect_port">Не вдається під’єднатися до служби бездротового налагодження.\n\nПереконайтеся, що Shizuku додано до списку дозволених у всіх брандмауерах, блокувальниках реклами, VPN-застосунках та інших подібних застосунках, які можуть обмежувати доступ до мережі.</string>
+    <string name="dialog_adb_pairing_message">Щоб розпочати сполучення, виконайте такі дії:\n- Перейдіть до розділу «Параметри розробника»\n- Увімкніть «Налагодження через USB» та «Бездротове налагодження»\n- Торкніться лівої частини пункту «Бездротове налагодження»\n- Торкніться «З’єднати пристрій за допомогою коду сполучення»\n- Введіть код сполучення з сповіщення</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
-    <string name="dialog_adb_pairing_open_app_info">Про програму</string>
-    <string name="dialog_adb_pairing_accessibility_navigate">Будь ласка, розпочніть сполучення,
-        виконавши такі кроки:\n- Перейдіть до розділу \"Параметри розробника\"\n- Увімкніть
-        \"Налагодження USB\" та \"Налагодження бездротового зв\'язку\"\n- Натисніть ліву частину
-        \"Налагодження бездротового зв\'язку\"\n- Натисніть \"Спів\'язати пристрій за допомогою коду
-        сполучення\". Shizuku автоматично визначить код сполучення.</string>
-    <string name="adb_pairing_requires_multi_window">Спершу увійдіть в режим розділеного екрана
-        (багатьох вікон).</string>
-    <string name="adb_pairing_requires_multi_window_reason">Система вимагає, щоб діалог поєднання
-        завжди був видимим. Використання режиму розділеного екрану єдиний спосіб зробити цей
-        додаток і системний діалог видимими одночасно.</string>
-    <string name="adb_error_key_store">Не вдається згенерувати ключ для бездротового
-        налагодження.\nМожливо, це пов\'язано з тим, що механізм KeyStore цього пристрою зламаний.</string>
+    <string name="dialog_adb_pairing_accessibility_permission">Android блокує цей перемикач для застосунків, установлених не з магазину застосунків. Дозвольте операції із застосунком ^1 увімкнути службу спеціальних можливостей. У списку спеціальних можливостей для неї буде вказано «Керується обмеженим налаштуванням».\n\nВідкрийте інформацію про застосунок і виберіть у меню «Дозволити обмежені налаштування» або виконайте цю команду на комп’ютері:\n\n^2\n\nПідійде будь-який із варіантів. Після цього перемикач запрацює.</string>
+    <string name="dialog_adb_pairing_open_app_info">Про застосунок</string>
+    <string name="dialog_adb_pairing_accessibility_enable">Автоматичне сполучення зчитує код із системного діалогового вікна через службу спеціальних можливостей Shizuku, тому її потрібно ввімкнути — і лише на час, необхідний для цього: служба вимикається сама, щойно знаходить код, або через хвилину, щоби заощадити заряд. Зазвичай Shizuku вмикає її самостійно, але для цього потрібен дозвіл WRITE_SECURE_SETTINGS, якого ще немає після свіжого встановлення застосунку.\n\nУвімкніть її на наступному екрані, введіть код самостійно в розділі «Вручну» або один раз надайте дозвіл:\n\nadb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</string>
+    <string name="dialog_adb_pairing_accessibility_navigate">Щоб почати сполучення, виконайте такі дії:\n- Перейдіть до розділу «Параметри розробника»\n- Увімкніть «Налагодження USB» і «Бездротове налагодження»\n- Торкніться лівої частини пункту «Бездротове налагодження»\n- Торкніться «З’єднати пристрій за допомогою коду сполучення». Shizuku автоматично виявить код сполучення.</string>
+    <string name="adb_pairing_requires_multi_window">Спершу ввійдіть в режим розділеного екрана.</string>
+    <string name="adb_pairing_requires_multi_window_reason">Система вимагає, щоб діалогове вікно сполучення завжди було видимим. Використання режиму розділеного екрана — єдиний спосіб одночасно бачити цей застосунок і системне діалогове вікно.</string>
+    <string name="adb_error_key_store">Не вдалося створити ключ для бездротового налагодження.\nМожливо, механізм KeyStore на цьому пристрої несправний.</string>
     <string name="adb_error_stop_tcp">Не вдалося зупинити ADB через TCP</string>
-    <string name="adb_pair_required">Будь ласка, спочатку пройдіть етап парування.</string>
+    <string name="adb_pair_required">Спочатку пройдіть етап парування.</string>
     <string name="enable">Увімкнути</string>
+    <string name="auto_pair_instructions">Під’єднайте пристрій без введення коду:\n\n1. Параметри розробника → Бездротове налагодження\n2. З’єднати пристрій за допомогою коду сполучення\n\nShizuku зчитує код і порт безпосередньо з цього діалогового вікна та запускається. Не закривайте вікно, доки сполучення не завершиться.</string>
     <string name="auto_pair_manual">Вручну</string>
     <string name="development_settings">Параметри розробника</string>
-    <string name="notification_settings">Налаштування повідомлень</string>
-    <string name="adb_pairing_tutorial_content_notification">Повідомлення від Shizuku допоможе вам
-        закінчити парування.</string>
-    <string name="adb_pairing_tutorial_content_steps">Перейдіть до розділу «Параметри розробника»,
-        потім увімкніть «Налагодження по USB» та «Налагодження по бездротовому зв’язку».</string>
-    <string name="adb_pairing_tutorial_content_enter_pairing_code">Торкніться ліворуч опції
-        «Бездротове налагодження», потім натисніть «Підключити пристрій за допомогою коду
-        сполучення». Введіть код зі сповіщення, щоб завершити сполучення.</string>
-    <string name="adb_pairing_tutorial_content_notification_blocked">Процес парування потребує, щоб
-        ви взаємодіяли із сповіщенням від Shizuku. Будь ласка, дозвольте Shizuku публікувати
-        сповіщення.</string>
-    <string name="adb_pairing_tutorial_content_miui">Користувачам MIUI, иожливо, доведеться змінити
-        стіль сповіщень на \"Android\" із \"Сповіщення\" - \"Панель сповіщень\" в системних
-        налаштуваннях.</string>
-    <string name="adb_pairing_tutorial_content_miui_2">Інакше ви можете не мати змоги ввести код
-        пари з повідомлення.</string>
-    <string name="adb_pairing_tutorial_content_finish">Повернись до Шізуку і почни Шізуку.</string>
-    <string name="adb_pairing_tutorial_content_network">Шідзуку потрібно отримати доступ до місцевої
-        мережі. Він контролюється мережевим дозволом.</string>
-    <string name="adb_pairing_tutorial_content_network_limation_not_foreground">Деякі системи
-        (наприклад, MIUI) забороняють додаткам доступ до мережі, якщо вони не видимі, навіть якщо
-        додаток використовує передній план. Будь ласка, вимкніть функції оптимізації батареї для
-        Shizuku на таких системах.</string>
+    <string name="notification_settings">Налаштування сповіщень</string>
+    <string name="adb_pairing_tutorial_content_notification">Сповіщення від Shizuku допоможе завершити сполучення.</string>
+    <string name="adb_pairing_tutorial_content_steps">Перейдіть до розділу «Параметри розробника», а потім увімкніть «Налагодження через USB» і «Бездротове налагодження».</string>
+    <string name="adb_pairing_tutorial_content_enter_pairing_code">Торкніться лівої частини пункту «Бездротове налагодження», а потім торкніться «З’єднати пристрій за допомогою коду». Введіть код із сповіщення, щоби завершити парування.</string>
+    <string name="adb_pairing_tutorial_content_notification_blocked">Для процесу парування потрібно взаємодіяти зі сповіщенням від Shizuku. Дозвольте Shizuku надсилати сповіщення.</string>
+    <string name="adb_pairing_tutorial_content_miui">Користувачам MIUI може знадобитися змінити стиль сповіщень на «Android» у розділі «Сповіщення» — «Панель сповіщень» у системних налаштуваннях.</string>
+    <string name="adb_pairing_tutorial_content_miui_2">Інакше ви можете не мати змоги ввести код парування зі сповіщення.</string>
+    <string name="adb_pairing_tutorial_content_finish">Поверніться до Shizuku та запустіть Shizuku.</string>
+    <string name="adb_pairing_tutorial_content_network">Shizuku потрібен доступ до локальної мережі. Він контролюється дозволом на доступ до мережі.</string>
+    <string name="adb_pairing_tutorial_content_network_limation_not_foreground">Деякі системи (наприклад, MIUI) забороняють застосункам доступ до мережі, коли вони не показуються на екрані, навіть якщо застосунок використовує службу переднього плану. У таких системах вимкніть для Shizuku функції оптимізації акумулятора.</string>
     <!-- Home - Root -->
     <string name="home_root_title"><![CDATA[Запустіть службу з root доступом]]></string>
-    <string name="home_root_description"><![CDATA[Якщо ви користуєтеся Magisk, можете спробувати %1$s. Для користувачів root він зрештою замінить Shizuku. Зверніть увагу, що існуючі програми потребують дещо змін, щоб використовувати %2$s.]]></string>
-    <string name="home_root_button_start">Запуск</string>
+    <string name="home_root_description"><![CDATA[Якщо ви використовуєте Magisk, можете спробувати %1$s. Для користувачів із root-доступом він зрештою замінить Shizuku. Зверніть увагу: наявним застосункам потрібно буде трохи змінитися, щоб використовувати %2$s.]]></string>
+    <string name="home_root_button_start">Запустити</string>
     <!-- Home - Application management -->
     <plurals name="home_app_management_authorized_apps_count">
-        <item quantity="one"><![CDATA[Авторизовано %d програму]]></item>
-        <item quantity="few"><![CDATA[Авторизовано %d програми]]></item>
-        <item quantity="many"><![CDATA[Авторизовано %d програм]]></item>
-        <item quantity="other"><![CDATA[Авторизовано %d програм]]></item>
+        <item quantity="one"><![CDATA[Авторизовано %d застосунок]]></item>
+        <item quantity="few"><![CDATA[Авторизовано %d застосунки]]></item>
+        <item quantity="many"><![CDATA[Авторизовано %d застосунків]]></item>
+        <item quantity="other"><![CDATA[Авторизовано %d застосунків]]></item>
     </plurals>
     <!-- Home - Automation -->
     <!-- Home - Stealth mode -->
@@ -104,20 +104,20 @@
     <!-- Home - Dialogs -->
     <string name="home_dialog_reboot_required_title">Потрібне перезавантаження</string>
     <string name="home_dialog_reboot_required_message">Для коректної роботи пристрою необхідно перезавантажити Shizuku. Щоб продовжити, перезавантажте пристрій.</string>
-    <string name="home_dialog_duplicate_app_detected_title">Виявлено копію програми</string>
-    <string name="home_dialog_duplicate_app_detected_message">На Вашому пристрої встановлена інша версія цього додатка. Для продовження видаліть всі повторювані версії і перезавантажте Ваш пристрій.</string>
+    <string name="home_dialog_duplicate_app_detected_title">Виявлено копію застосунку</string>
+    <string name="home_dialog_duplicate_app_detected_message">На вашому пристрої встановлена інша версія цього застосунку. Для продовження видаліть всі повторювані версії і перезавантажте ваш пристрій.</string>
     <string name="home_dialog_button_exit">Вийти</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">Дозвіл на adb обмежений</string>
-    <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Можливо, ваш виробник пристрою лімітує дозвіл adb.<p>Можливо, є рішення для вашої системи у <b><a href="%1$s">цьому документі</a></b>.]]></string>
+    <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Цілком можливо, що виробник вашого пристрою обмежує права adb.<p>Можливо, рішення для вашої системи є в <b><a href=\"%1$s\">цьому документі</a></b>.]]></string>
     <string name="app_management_toggle_all">Перемкнути все</string>
-    <string name="app_management_search_hint">Пошук додатків</string>
+    <string name="app_management_search_hint">Пошук застосунків</string>
     <string name="app_management_sort">Упорядкувати</string>
-    <string name="apps_needs_shizuku">Запустіть Shizuku, щоб переглянути програми</string>
-    <string name="apps_empty">Немає додатків для відображення</string>
-    <string name="apps_filter_empty">Немає додатків в цьому фільтрі</string>
+    <string name="apps_needs_shizuku">Запустіть Shizuku, щоб переглянути застосунки</string>
+    <string name="apps_empty">Немає застосунків для показу</string>
+    <string name="apps_filter_empty">Немає застосунків у цьому фільтрі</string>
     <string name="apps_filter_all">Всі</string>
-    <string name="apps_filter_granted">Дозволити</string>
+    <string name="apps_filter_granted">Дозволено</string>
     <string name="apps_filter_revoked">Revoked</string>
     <string name="apps_filter_hidden">Hidden</string>
     <string name="apps_no_match">Жодна програма не відповідає вашому пошуку</string>
@@ -145,6 +145,7 @@
     <string name="hiding_hidden_count">%1$d hidden</string>
     <string name="hiding_gate">Увімкнено</string>
     <string name="hiding_gate_disabled">Вимкнено</string>
+    <string name="hiding_gate_kept">Збережено: %1$d</string>
     <string name="hiding_filter_hidden">Hidden</string>
     <string name="hiding_filter_shown">Видимий</string>
     <string name="hiding_filter_empty">Нічого не ховається.</string>
@@ -159,20 +160,22 @@
     <string name="tab_force_dark">Примусовий темний режим</string>
     <string name="force_dark_gate">Примусовий темний режим</string>
     <string name="force_dark_gate_disabled">Примусовий темний режим вимкнено</string>
+    <string name="force_dark_count">Примусово: %1$d</string>
     <string name="force_dark_filter_forced">Примусово</string>
     <string name="force_dark_filter_not">Не примусово</string>
     <string name="force_dark_empty">Ніщо не затемнено.</string>
     <string name="force_dark_system_theme">Змінити системну тему</string>
     <string name="force_dark_toggled">Примусове закриття застосунку</string>
     <string name="force_dark_notification_title">Примусовий темний режим увімкнено</string>
-    <string name="force_dark_notification_text">Додаток у списку примусових темних режимів відкрито</string>
-    <string name="force_dark_notification_watching">Очікування на додаток в списку, щоб відкрити</string>
+    <string name="force_dark_notification_text">Відкрито застосунок зі списку примусового темного режиму</string>
+    <string name="force_dark_notification_watching">Очікування на застосунок у списку, щоб відкрити</string>
     <string name="tab_activities">Запускач заходів</string>
+    <string name="activities_apps_count">Застосунків: %1$d</string>
     <string name="activities_count">Активність %1$d</string>
     <string name="activities_launcher">Лаунчер</string>
     <string name="activities_exported">Експортовано</string>
     <string name="activities_not_exported">Не експортовано</string>
-    <string name="activities_empty">Цей додаток не оголошує жодної діяльності.</string>
+    <string name="activities_empty">Цей застосунок не містить оголошеної діяльності.</string>
     <string name="activities_needs_shizuku">Shizuku не запущено, і тільки він може запустити вправу програму, яка зберігається в собі.</string>
     <string name="activities_refused">Діяльність не вдалося розпочати.</string>
     <string name="activities_long_press">Довго натисніть на рядок, щоб побачити повне ім\'я.</string>
@@ -208,7 +211,7 @@
     <string name="intent_key">Ключ</string>
     <string name="intent_value">Цінність</string>
     <string name="intent_flags">Прапори</string>
-    <string name="intent_start">Запуск</string>
+    <string name="intent_start">Запустити</string>
     <string name="intent_nothing">Дайте наміру дію, деякі дані, пакет або компонент.</string>
     <string name="intent_refused">Написання не було розпочато.</string>
     <string name="intent_flag_clear_top">Очистити зверху</string>
@@ -247,7 +250,7 @@
     <string name="device_doze">Доз</string>
     <string name="device_usage_note">Прогалини забезпечені самою платформою. Вони скидають кожного разу, коли заряджається батарея, ось чому телефон заряджався годину тому читає секунди, і одна з них прочитала весь день.</string>
     <string name="device_drain">Який використовував акумулятор</string>
-    <string name="device_drain_note">Атрибути компонентом, який є тим, що ця платформа друкує. Вони зберігають постаті для додатку, як стандартні блокування, а не для мільйонних годин, тож тут не будуть винайдені номери для кожного додатка.</string>
+    <string name="device_drain_note">Розподілено за компонентами — саме так показує ця платформа. Для кожного застосунку вона показує дані про блокування переходу в режим сну та час роботи, а не в міліампер-годинах, тож тут не вигадано жодних показників у розрізі застосунків.</string>
     <string name="device_max_charging_current">Максимальний струм зарядки</string>
     <string name="device_max_charging_voltage">Максимальна напруга зарядки</string>
     <string name="device_capacity_rated">Рейтинг</string>
@@ -274,14 +277,15 @@
     <string name="device_start_method">Розпочато</string>
     <string name="device_transport">Транспорт</string>
     <string name="device_watchdog">Сторожовий пес</string>
-    <string name="device_app_in_front">Додаток попереду</string>
+    <string name="device_app_in_front">Застосунок на передньому плані</string>
     <string name="device_hiding_held">Хакерта</string>
     <string name="device_thermal">Термоконтроль</string>
     <string name="device_thermal_note">Кожен тепловий датчик показує ядро, спочатку гарячий. Датчик з нічим прикріпленими повідомленнями про засудження -273 і залишається в ногах, як і рівень поїздки з постачання енергії, які не є температурою. %d зони були перелічені.</string>
     <string name="device_cpu">ЦП</string>
     <string name="device_load_average">Середнє навантаження</string>
-    <string name="device_cpu_note">Це вікно обліку ядра під назвою \"її сміття\". Навантаження це один, п\'ять і п\'ятнадцять хвилин в середньому; кожен рядок це процесор, час, який використовується, і ядра з’являються через те, що вони працюють не тільки додатки.</string>
+    <string name="device_cpu_note">Облік ядра за період, зазначений у його дампі. Завантаження — це середнє навантаження за одну, п’ять і п’ятнадцять хвилин; кожен рядок показує процесорний час, використаний відповідним процесом, а робочі потоки ядра показуються, бо вони виконують роботу, а не лише застосунки.</string>
     <string name="tab_log">Логотип</string>
+    <string name="log_count">%1$d рядків за останні 24 години</string>
     <string name="log_search_hint">Шукати в журналі</string>
     <string name="log_empty">Ніщо не увійшло за останні 24 години.</string>
     <string name="log_filter_all">Всі</string>
@@ -290,22 +294,23 @@
     <string name="log_save">Зберегти</string>
     <string name="log_clear">Очистити</string>
     <string name="log_cleared">Журнал очищено</string>
-    <string name="log_saved">Збережено як %1$sу теці додатків на спільному сховищі</string>
+    <string name="log_saved">Збережено як %1$s у теці застосунку у спільному сховищі</string>
     <string name="log_nothing_to_save">Нічого зберігати.</string>
     <string name="log_pulled">%1$d рядки витягнуті з logcat</string>
-    <string name="log_tab_app">Цей додаток</string>
+    <string name="log_tab_app">Цей застосунок</string>
     <string name="log_tab_capture">Запис</string>
     <string name="log_tab_saved">Збережено</string>
-    <string name="log_capture_start">Запуск</string>
+    <string name="log_capture_start">Запустити</string>
     <string name="log_capture_stop">Зупинити</string>
     <string name="log_capture_device">Весь пристрій</string>
-    <string name="log_capture_choose">Додаток для запису</string>
-    <string name="log_capture_choose_hint">Пошук додатків</string>
+    <string name="log_capture_choose">Застосунок для запису</string>
+    <string name="log_capture_choose_hint">Пошук застосунків</string>
+    <string name="log_capture_running">Записування %1$s · %2$d рядків · %3$s</string>
     <string name="log_capture_idle">Ніщо не записується.</string>
     <string name="log_capture_waiting">Запис. Ще нічого не записано.</string>
     <string name="log_capture_empty">Ще нічого не було записано.</string>
     <string name="log_capture_jump">Остання помилка</string>
-    <string name="log_capture_needs_shizuku">Запис журналу про пристрій потребує Shizuku: читання журналу іншої програми є привілеєм оболонки, і цей додаток запозичує оболонку.</string>
+    <string name="log_capture_needs_shizuku">Запис журналу про пристрій потребує Shizuku: читання журналу іншого застосунку є привілеєм оболонки, і цей застосунок запозичує оболонку.</string>
     <string name="log_capture_stopped_size">Запис зупинено: досягнуто обмеження розміру.</string>
     <string name="log_capture_stopped_time">Запис зупинено: досяг обмеження часу.</string>
     <string name="log_capture_stopped_ended">Запис зупинено: потік журналу завершився.</string>
@@ -317,9 +322,9 @@
     <string name="log_session_busy">%1$s все ще записується.</string>
     <string name="log_session_running">запис</string>
     <string name="permissions_usage_access">Доступ до історії використання</string>
-    <string name="permissions_usage_access_summary">Дає змогу приховувати списки при яких додаток буде відкритий. Його можна активувати на сервісі Shizuku або в налаштуваннях доступу до пристрою Android.</string>
+    <string name="permissions_usage_access_summary">Дозволяє спискам приховування бачити, який застосунок відкрито. Дозвіл надається через Shizuku або в налаштуваннях Android у розділі «Доступ до даних про використання».</string>
     <string name="permissions_dump">Читати причини виходу з програми</string>
-    <string name="permissions_dump_summary">Приховує списки світописків, якщо додаток закритий замість того, щоб просто працювати у фоні. Зроблено Шізуку.</string>
+    <string name="permissions_dump_summary">Дозволяє спискам приховування повідомляти, коли застосунок закрито, а не просто залишено працювати у фоновому режимі. Надано через Shizuku.</string>
     <string name="home_other_methods">Інші методи початку</string>
     <string name="home_hiding_active_note">Shizuku може зупинитися, коли прихована програма відкрита, тому що приховування може вимкнути налагоджувальне з\'єднання. Shizuku запускається знову, коли програма закрита.</string>
     <string name="hiding_vpn_client_none">Не вибрано: виберіть програму VPN</string>
@@ -327,7 +332,7 @@
     <string name="hiding_notification_title">Налаштування приховані</string>
     <string name="hiding_notification_text">Торкніться, щоб відновити їх.</string>
     <string name="hiding_notification_idle_title">Приховування увімкнено</string>
-    <string name="hiding_notification_watching">Перегляд ваших записаних додатків.</string>
+    <string name="hiding_notification_watching">Відстежую застосунки у вашому списку.</string>
     <string name="hiding_notification_paused_title">Приховування призупинено</string>
     <string name="hiding_notification_paused_text">Ваші налаштування відновлені. Продовжіть приховування їх для ваших перерахованих програм.</string>
     <string name="hiding_resume">Поновити</string>
@@ -341,6 +346,7 @@
     <string name="home_status_started_with">Поточна версія</string>
     <string name="home_status_started_default">Типово</string>
     <string name="uid_label">ІД UID</string>
+    <string name="uid_name_format">(%1$s)</string>
     <string name="uid_name_root">корінь</string>
     <string name="uid_name_system">система</string>
     <string name="uid_name_shell">оболонка</string>
@@ -362,8 +368,8 @@
     <string name="status_stopped_short">Зупинено</string>
     <string name="action_start">Запуск</string>
     <string name="tools_stealth">Режим захисту</string>
-    <string name="tools_terminal">Термінальні додатки</string>
-    <string name="tools_terminal_summary">Запускати команди shell в будь-якому терміналі додатку, використовуючи rish</string>
+    <string name="tools_terminal">Термінальні застосунки</string>
+    <string name="tools_terminal_summary">Запускати команди оболонки в будь-якому термінальному застосунку за допомогою rish</string>
     <string name="tools_battery">Оптимізація акумулятора</string>
     <string name="intents_title">Інтенти</string>
     <string name="about_package">Пакет</string>
@@ -373,21 +379,21 @@
     <string name="action_open_wireless_debugging">Бездротові налагодження</string>
     <string name="start_failed_unsupported">Цей пристрій не може запустити його у фоновому режимі</string>
     <string name="start_failed_wifi_required">Підключіться до Wi-Fi-мережі, система бездротова налагодження вимкнеться без одного. Або запустіть з комп\'ютера за допомогою команди ADB нижче.</string>
-    <string name="start_failed_binder_went_away">Служба була запущена, а потім зупинилася знову, так що нічого не може її використовувати. Це відбувається, коли сервер запустився з додатком який було завершено, що відбувається після його запуску. Спробуйте почати заново.</string>
-    <string name="start_failed_no_port">Не знайдено порт для бездротової зневадження. Переконайтеся, що бездротовий відладка увімкнуто і Wi-Fi підключено.</string>
+    <string name="start_failed_binder_went_away">Службу запустили, але потім знову зупинили, тому скористатися нею поки неможливо. Таке стається, коли сервер вимикається разом із застосунком, через який запустили службу. Саме це й робить пакет даних після її запуску. Спробуйте запустити службу ще раз.</string>
+    <string name="start_failed_no_port">Порт бездротового налагодження не знайдено. Переконайтеся, що бездротове налагодження ввімкнено, а Wi-Fi під’єднано.</string>
     <string name="start_failed_no_port_no_permission">Не знайдено порт для бездротової налагодження і без WRITE_SECURE_SETTINGS: <b>adb shell pm не працює. hizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Або запустіть Shizuku через USB-налагодження, коли він згодом настане.</string>
     <string name="start_failed_no_auth">Бездротовий налагодження не дозволений в цій мережі. Підключіть пристрій ще раз.</string>
     <string name="action_dismiss">Відхилити</string>
     <string name="action_connect_wifi">Підключитися</string>
     <string name="action_pair">Пара</string>
     <string name="start_failed_pairing_required">Цей пристрій не призначений для бездротового налагодження. Під\'єднайте його знову.</string>
-    <string name="start_failed_connection_lost">Підключення до ADB закрито під час запуску. Спробуйте знову.</string>
-    <string name="start_failed_usb_no_port">Жоден локальний порт ADB не очищає його при кожному перезавантаженні і не перевідкриває його, підключення для позичання. Підключення до Wi-Fi і Shizuku повторно відкриє його через бездротове налагодження, запустіть <b>adb tcpip 5555</b> з комп\'ютера, або виберіть <b>Запустити без Wi-Fi</b> як метод початку роботи над бездротовою налагодженістю.</string>
+    <string name="start_failed_connection_lost">Під час запуску з’єднання ADB закрилося. Спробуйте ще раз.</string>
+    <string name="start_failed_usb_no_port">Локальний порт ADB не відкрито. Android очищає його після кожного перезавантаження, а для повторного відкриття потрібне з’єднання, щоб позичити його. Під’єднайтеся до Wi-Fi, і Shizuku знову відкриє його через налагодження через бездротову мережу; виконайте на комп’ютері команду <b>adb tcpip 5555</b> або виберіть <b>Запустити без Wi-Fi</b> як спосіб запуску, аби запустити через налагодження через бездротову мережу.</string>
     <string name="start_failed_root_unavailable">Корінь більше не доступна на цьому пристрої, тому Shizuku не може починатися з root. Виберіть інший метод запуску.</string>
-    <string name="start_failed_system_needs_app">Системний старт повинен бути запущений з додатку.</string>
-    <string name="start_failed_system_no_exploit">Цей пристрій не відправляє FOTA Agent Samsung (com.sdet. otaagent), який є єдиним компонентом, який може використовувати система запуску, тому тут немає нічого, що потрібно посилити. Переключіть систему для виконання користувацьких команд: додаток покаже вам, що слід використовувати при ескалації пристрою.</string>
+    <string name="start_failed_system_needs_app">Метод запуску системи потрібно запускати із застосунку.</string>
+    <string name="start_failed_system_no_exploit">На цьому пристрої немає агента Samsung FOTA (com.sdet.fotaagent), а це єдиний компонент, який може використовувати метод запуску системи, тож тут нічого не можна виконати з підвищенням привілеїв. Перемкніть метод запуску системи на «Власна команда»: застосунок покаже, яку команду виконати з доступним на вашому пристрої способом підвищення привілеїв.</string>
     <string name="start_failed_no_binder">Сервіс не з\'явився протягом хвилини. Обидві половинки зберігають журнал: старт під ShizukuServiceStarter і ручка при BinderSender. Переглядач logcat відфільтрованих до них двох показує, чи отриманий початківець до тих пір, поки сервер, і чи сервер коли-небудь просив зв\'язок.</string>
-    <string name="start_system_custom_intro">Щоб не це, автоматизація чи коренева оболонка автоматизація і запуск цієї команди: вона запускає службу в якості локальної системи. Додаток очікує на його появу.</string>
+    <string name="start_system_custom_intro">Підвищте привілеї будь-яким способом: за допомогою власного експлойта, автоматизації чи root-оболонки, і виконай цю команду: вона запускає службу з системним UID. Застосунок чекає, поки вона з’явиться.</string>
     <string name="start_system_custom_lookup">Запустити цю частину, де оболонка може запитати менеджера пакетів. Він вирішує виконуваний файл під час запуску, тому оновлення, яке не може зламати команду:</string>
     <string name="start_system_custom_plain">І ось цей шлях не може цього досягти, що є абсолютним шляхом, який відразу це знає:</string>
     <string name="start_system_custom_copied">Команда скопійована до буферу обміну.</string>
@@ -401,7 +407,7 @@
     <string name="settings_theme_system">Слідувати за системою</string>
     <string name="settings_theme_light">Світла</string>
     <string name="settings_theme_dark">Темна</string>
-    <string name="intents_description">Автоматизовані програми можуть контролювати Shizuku за допомогою цих трансляцій. Автовизначення необхідно передавати в розділі \"auth\" додатка.</string>
+    <string name="intents_description">Програми автоматизації можуть керувати Shizuku за допомогою цих трансляцій. Токен авторизації потрібно передавати в додатковому параметрі «auth».</string>
     <string name="intents_require_token">Вимагати маркер авторизації</string>
     <string name="intents_require_token_summary">Для запуску і зупинки потрібен маркер нижче. Вимкніть його, щоб надсилати його без токену.</string>
     <string name="intents_token">Токен аутентифікації</string>
@@ -414,13 +420,15 @@
     <string name="intents_watchdog_toggle">Перемикач для перегляду</string>
     <string name="intents_adb_command">Запустити через комп\'ютер</string>
     <string name="home_battery_warning">Shizuku може бути вбито у фоновому режимі. Дозвольте ігнорувати оптимізацію заряду акумулятора.</string>
+    <string name="batch_selected_count">Вибрано: %1$d</string>
     <string name="app_management_action_select_all">Виділити все</string>
     <string name="app_management_action_grant">Грант</string>
     <string name="app_management_action_revoke">Revoke</string>
     <string name="app_management_batch_grant_title">Надати дозвіл</string>
     <string name="app_management_batch_revoke_title">Відкликати дозвіл</string>
     <string name="app_management_batch_message">Застосувати до обраних застосунків %1$d?</string>
-    <string name="app_management_batch_granted">Доступ до додатків %1$d</string>
+    <string name="app_management_toggle_all_message">Застосувати до всіх %1$d застосунків зі списку?</string>
+    <string name="app_management_batch_granted">Надано доступ до %1$d застосунків</string>
     <string name="app_management_batch_revoked">Доступ заборонено через програми %1$d</string>
     <string name="action_undo">Скасувати</string>
     <!-- Terminal -->
@@ -447,7 +455,7 @@
     <string name="stealth_info_reconfigure">Потрібно перепаркувати і повторно налаштувати Shizuku після встановлення прихованої версії.</string>
     <string name="stealth_info_rish">Користувачів риші: повторно експортувати файли після встановлення прихованої версії.</string>
     <string name="stealth_info_intents">Intent користувачів: оновлення намірів нового імені пакета.</string>
-    <string name="stealth_info_update">Ви повинні оновити Shizuku через додаток, якщо використовуєте приховану версію, оскільки вона має інший підпис.</string>
+    <string name="stealth_info_update">Під час використання прихованої версії Shizuku потрібно оновлювати через застосунок, оскільки він має інший цифровий підпис.</string>
     <string name="stealth_package_name">Назва пакету (необов\'язково)</string>
     <string name="stealth_package_name_helper_text">Якщо залишити порожнім, то випадковий суфікс буде додано до назви пакету.</string>
     <string name="stealth_error_ends_with_period">Назва пакету не може закінчуватися крапкою.</string>
@@ -491,6 +499,7 @@
     <string name="settings_force_wireless_debugging_summary">Запуск Shizuku без налагодження по Wi-Fi або USB. Також вимикає очікування Wi-Fi та автоматичне бездротове налагодження.</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
+    <string name="settings_needs_write_secure_settings">Потрібен дозвіл WRITE_SECURE_SETTINGS. Один раз запустіть Shizuku, щоби надати його, а потім поверніться.</string>
     <string name="state_on">Увімк</string>
     <string name="state_off">Вимкнено</string>
     <string name="settings_persist_adb_port">Залишити порт ADB після перезавантаження</string>
@@ -540,18 +549,36 @@
     <string name="permissions_battery_summary">Зупиняє Android вбивати Сідзуку у фоновому режимі.</string>
     <string name="settings_help">Допомога</string>
     <string name="settings_report_bug">Повідомити про помилку</string>
+    <string name="settings_support_coffee">Пригостити мене кавою</string>
+    <string name="settings_support_coffee_note">Підтримайте розробку Shizuku Next</string>
+    <string name="settings_contributors">Вкладники</string>
+    <string name="settings_contributors_hint">Перетягніть, щоб дослідити · Зведіть пальці, щоби масштабувати · Торкніться, аби переглянути деталі</string>
     <!--
       A plural, not a plain string: most of the people on this wall are here for a single commit,
       so the singular is read more often than the plural is.
     -->
+    <plurals name="contributor_commits">
+        <item quantity="one">%1$d коміт</item>
+        <item quantity="few">%1$d коміти</item>
+        <item quantity="many">%1$d комітів</item>
+        <item quantity="other">%1$d комітів</item>
+    </plurals>
+    <string name="contributor_view_github">Переглянути на GitHub</string>
+    <string name="contributor_details_close">Закрити</string>
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
+    <string name="contributor_area_app">Застосунок</string>
     <string name="contributor_area_server">Сервер</string>
+    <string name="contributor_area_adb">ADB</string>
+    <string name="contributor_area_build">Збірка</string>
+    <string name="contributor_area_i18n">Переклади</string>
+    <string name="contributor_area_docs">Документація</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
       worked in, and the languages they translated into. There is deliberately no string per
       person: a new contributor is described the moment the generator sees them, and %1$s/%2$s are
       filled with the area names above and with language names the platform already localises.
     -->
+    <string name="contributor_summary_code">Проведено роботу над %1$s.</string>
     <string name="settings_legacy_pairing">Сполучення зі старими пристроями</string>
     <string name="settings_legacy_pairing_summary">Введіть код сполучення в діалоговому вікні, а не
         в сповіщенні</string>
@@ -580,7 +607,7 @@
     <string name="check_for_updates">Перевірити наявність оновлень</string>
     <string name="update_latest_installed">У вас установлена остання версія</string>
     <string name="update_check_failed">Не вдається перевірити наявність оновлень</string>
-    <string name="update_check_offline">Не вдалося зв\'язатися з GitHub. Перевірте своє підключення та повторіть спробу.</string>
+    <string name="update_check_offline">Не вдалося зв’язатися з GitHub. Перевірте своє з’єднання та повторіть спробу.</string>
     <string name="update_check_rate_limited">GitHub обмежує кількість оновлень на GitHub. Повторіть спробу пізніше.</string>
     <string name="update_check_rate_limited_minutes">GitHub обмежує кількість оновлень на GitHub. Спробуйте ще раз про %1$d min.</string>
     <string name="update_check_http_error">Не вдалося перевірити оновлення (HTTP %1$d)</string>
@@ -590,7 +617,7 @@
     <string name="update_success">Оновлення завершено</string>
     <string name="update_failed">Оновлення не вдалося</string>
     <!-- Toast -->
-    <string name="toast_no_email_app">Поштового додатка не знайдено</string>
+    <string name="toast_no_email_app">Поштового застосунку не знайдено</string>
     <string name="toast_pairing_timeout">Сервіс парування Шідзуку закінчився.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme">Тема</string>
@@ -615,13 +642,13 @@
     <string name="notification_adb_pairing_failed_title">Парування невдале</string>
     <string name="notification_adb_pairing_retry">Спробувати ще раз</string>
     <string name="notification_auth_missing_title">Потрібен токен автентифікації</string>
-    <string name="notification_auth_missing_message">Додайте «auth» додатково в додаток. Ви можете знайти свій токен, натиснувши «Перегляд контактів» в додатку.</string>
+    <string name="notification_auth_missing_message">Додайте додатковий параметр «auth» до свого наміру. Свій токен можна знайти, натиснувши в застосунку «Переглянути наміри».</string>
     <string name="notification_auth_invalid_title">Помилка ключа auth</string>
-    <string name="notification_auth_invalid_message">Переконайтеся, що маркер у вашому намірі збігається з тим, що показаний в додатку під «Перегляд намірів».</string>
+    <string name="notification_auth_invalid_message">Переконайтеся, що токен у вашому намірі збігається з токеном, указаним у розділі «Переглянути наміри» в застосунку.</string>
     <!-- Permission related, appears in system permission UI -->
     <string name="permission_label">доступ до Shizuku</string>
     <string name="permission_description">Дозволити програмі використовувати Shizuku.</string>
-    <string name="permission_warning_template"><![CDATA[Дозволити додатку <b>%1$s</b> таке: %2$s\?]]></string>
+    <string name="permission_warning_template"><![CDATA[Дозволити <b>%1$s</b> %2$s?]]></string>
     <string name="grant_dialog_button_allow_always">Завжди дозволяти</string>
     <string name="grant_dialog_button_deny">"Заборонити"</string>
     <!-- Starter -->
@@ -630,8 +657,7 @@
         або цей пристрій не рутовано.</string>
     <!-- WADB Starter -->
     <string name="wadb_notification_title">Початок гри «Шідзуку»…</string>
-    <string name="wadb_notification_wifi_required">Очікування підключення до Wi-Fi перед
-        продовженням</string>
+    <string name="wadb_notification_wifi_required">Очікування на Wi-Fi</string>
     <string name="wadb_notification_retry">Очікування повторної спроби</string>
     <string name="wadb_notification_connecting">Запуск Shizuku з бездротовим ADB</string>
     <string name="wadb_notification_waiting_for_unlock">Щоб продовжити, розблокуйте пристрій</string>
@@ -650,7 +676,7 @@
     <string name="shell_backend_root_status">Рут 0</string>
     <string name="shell_backend_offline">Командний runner не активовано</string>
     <string name="shell_needs_a_backend">Запустити Shizuku або вибрати Root на рутованому пристрої: один з двох запускає команду. Корень працює з Shizuku зупинено.</string>
-    <string name="shell_intro">Запускається як uid Shizuku працює як (2000 протягом adb, 0 з root), так що вона досягає все, що таке uid може: /sdcard, /system і додаткові дані з root. Вона відкривається у /sdcard, одну команду за один раз; не маючи невже згаданих програми, яким потрібен термінал (nano, суворий рядок) не буде працювати тут.</string>
+    <string name="shell_intro">Працює від імені того самого UID, що й Shizuku (2000 через ADB, 0 із root-доступом), тож має доступ до всього, до чого має доступ цей UID: /sdcard, /system і даних застосунків за наявності root-доступу. Запускається в /sdcard, по одній команді за раз; оскільки термінала (TTY) немає, застосунки, яким потрібен термінал (nano, запит пароля SSH), тут не працюватимуть.</string>
     <string name="shell_root_granted">Доступна root: команди які виконуються як uid 0.</string>
     <string name="shell_root_refused">Права суперкористувача заборонені, тому команди будуть використовувати Shizuku. Надайте цьому root доступ для використання Root.</string>
     <string name="shell_search">Пошук</string>
@@ -719,7 +745,7 @@
     <string name="watchdog_shizuku_crashed_action_turn_off_alerts">Вимкнути сповіщення</string>
     <string name="watchdog_shizuku_recovered_title">Сідзуку знову працює</string>
     <string name="watchdog_shizuku_recovered_text">Сторож знову почав його перестати сам по собі.</string>
-    <string name="watchdog_given_up_action_start">Запуск</string>
+    <string name="watchdog_given_up_action_start">Запустити</string>
     <!-- Misc -->
     <string name="error">Помилка</string>
     <string name="off">Вимкнено</string>
@@ -737,15 +763,15 @@
     <string name="dialog_requesting_legacy_button_open_shizuku">Відкрити Shizuku</string>
     <string name="wadb_notification_attempt_now">Спробувати ще раз</string>
     <!-- Manage tab -->
-    <string name="tab_manage">Дозволи додатків</string>
-    <string name="manage_search_hint">Пошук додатків</string>
+    <string name="tab_manage">Дозволи застосунків</string>
+    <string name="manage_search_hint">Пошук застосунків</string>
     <string name="manage_filter_all">Всі</string>
     <string name="manage_filter_user">Користувач</string>
     <string name="manage_filter_system">Система</string>
     <string name="manage_filter_disabled">Вимкнено</string>
     <string name="manage_filter_hidden">Hidden</string>
     <string name="manage_filter_empty">Немає нічого в цьому фільтрі.</string>
-    <string name="manage_empty">Додатки не знайдено.</string>
+    <string name="manage_empty">Застосунків не знайдено.</string>
     <string name="manage_status_system">Система</string>
     <string name="manage_status_user">Користувач</string>
     <string name="manage_status_removed">Видалено, дані зберігаються</string>
@@ -753,11 +779,11 @@
     <string name="manage_status_suspended">Призупинено</string>
     <string name="manage_status_hidden">Hidden</string>
     <!-- One app, and what it may do on the device -->
-    <string name="app_detail_missing">Цей додаток більше не встановлено.</string>
+    <string name="app_detail_missing">Цей застосунок більше не встановлено.</string>
     <string name="app_open_info">Про програму</string>
     <string name="app_section_permissions">Системні дозволи</string>
     <string name="app_section_runtime">Права Runtime</string>
-    <string name="app_section_ops">Дозволи додатків</string>
+    <string name="app_section_ops">Дозволи застосунків</string>
     <string name="app_section_actions">Дії</string>
     <string name="app_section_battery">Батарея</string>
     <string name="app_section_info">Інформація</string>
@@ -766,15 +792,15 @@
     <string name="app_permission_locked">%1$s, не можна змінити через ADB</string>
     <string name="app_permission_granted">Дозвіл надано</string>
     <string name="app_permission_revoked">Дозвіл скасовано</string>
-    <string name="app_grant_confirm_message">Додаток дає живлення на рівні ADB-. Дозволити тільки додаткам, яким ви довіряєте.</string>
+    <string name="app_grant_confirm_message">Це надає застосунку повноваження на рівні ADB. Надавайте їх лише застосункам, яким довіряєте.</string>
     <string name="app_grant_confirm_ok">Грант</string>
     <string name="app_action_failed">Android відмовився від цього. Нічого не змінилося.</string>
-    <string name="app_ops_note">Додаток - це консультації з платформи, а adb - це ті, які розташовані нижче. Декілька можливостей є спеціальними правами в системних налаштуваннях, а не додатками доступ до всіх файлів, доступ до використання, точні сигнали будильника, зміни налаштувань системи і програма не може змінювати їх.</string>
+    <string name="app_ops_note">Дозволи застосунків — це дозволи, до яких звертається сама платформа, і ADB може змінювати наведені нижче. Деякі можливості є спеціальними дозволами в системних налаштуваннях, а не дозволами застосунків: доступ до всіх файлів, доступ до статистики використання, точні будильники та зміна системних налаштувань. Жоден застосунок не може їх змінювати.</string>
     <string name="app_ops_needs_shizuku">Запустити Shizuku для читання і зміни опцій.</string>
     <string name="app_op_background">Запустити у фоновому режимі</string>
     <string name="app_op_background_note">Заборонити запуск програми на задньому плані.</string>
     <string name="app_op_any_background">Автозапуск при завантаженні</string>
-    <string name="app_op_any_background_note">Припинити запуск додатків при завантаженні або через фонові трансляції.</string>
+    <string name="app_op_any_background_note">Заборонити застосункам самостійно запускатися під час увімкнення смартфона або у фоновому режимі.</string>
     <string name="app_op_foreground">Пріоритетні послуги</string>
     <string name="app_op_foreground_note">Заперечення припиняє свої передні послуги.</string>
     <string name="app_op_wake_lock">Активний режим</string>
@@ -783,7 +809,7 @@
     <string name="app_op_notifications_note">Заборонити приховує свої сповіщення.</string>
     <string name="app_op_clipboard">Читання буфера обміну</string>
     <string name="app_op_clipboard_note">Забороняє читання буфера обміну.</string>
-    <string name="app_op_overlay">Відображати поверх додатків</string>
+    <string name="app_op_overlay">Показувати поверх застосунків</string>
     <string name="app_op_overlay_note">Заборонити показ інших програм на екрані. Для роботи деякі програми.</string>
     <string name="app_op_install">Встановити інші програми</string>
     <string name="app_op_install_note">Заборона зупиняє встановлення APKs.</string>
@@ -792,7 +818,7 @@
     <string name="app_op_project_media">Захопити екран</string>
     <string name="app_op_project_media_note">Заборона зупиняє запис або відтворення що на екрані.</string>
     <string name="app_op_record_audio">Записати аудіо</string>
-    <string name="app_op_record_audio_note">Заборона залишає дозвіл надано, а записи повернуться порожніми у цьому місці, що таке додаток, який не споживатиме ні для потреб відповіді.</string>
+    <string name="app_op_record_audio_note">«Заборонити» залишає дозвіл наданим і натомість повертає порожні записи — саме те, що потрібно застосунку, який не приймає відмови.</string>
     <string name="app_op_camera">Використовувати камеру</string>
     <string name="app_op_camera_note">Така ж ідея камери: дозвіл залишається, малюнки не приходять.</string>
     <string name="app_op_vibrate">Вібрація</string>
@@ -801,7 +827,7 @@
     <string name="app_op_mock_location_note">Заборона зупиняє подовжування місця розташування інших програм.</string>
     <string name="app_op_pip">Зображення в зображенні</string>
     <string name="app_op_pip_note">Заборона зупиняє його скорочення у невелике плаваюче вікно.</string>
-    <string name="app_op_set">Додаток змінено</string>
+    <string name="app_op_set">Параметр застосунку змінено</string>
     <string name="app_op_mode_default">Типово</string>
     <string name="app_op_mode_allow">Дозволити</string>
     <string name="app_op_mode_ignore">Ігнорувати</string>
@@ -817,9 +843,9 @@
     <string name="app_action_clear_data">Очистити дані</string>
     <string name="app_action_clear_data_note">Видаляє всі його файли, настройки та облікові записи.</string>
     <string name="app_action_uninstall">Видалити для цього користувача</string>
-    <string name="app_action_uninstall_note">Видаляє додаток, але зберігає свої дані.</string>
+    <string name="app_action_uninstall_note">Видаляє застосунок, але зберігає його дані.</string>
     <string name="app_action_restore">Відновити системний додаток</string>
-    <string name="app_action_restore_note">Відновлює вилучений системний додаток для цього користувача.</string>
+    <string name="app_action_restore_note">Відновлює вилучений системний застосунок для цього користувача.</string>
     <string name="app_confirm_title">Ви впевнені?</string>
     <string name="app_confirm_disable">Вимкнути застосування %1$s? ? Зупиняє поки ви знову не включите його.</string>
     <string name="app_confirm_clear_data">Видалити всі дані для %1$s? Це не можна скасувати.</string>
@@ -832,7 +858,7 @@
     <string name="app_bucket_default">Типово</string>
     <string name="app_bucket_default_note">Android вирішує, скільки він може запуститися.</string>
     <string name="app_bucket_exempted">Потребується</string>
-    <string name="app_bucket_exempted_note">Система очищує цей додаток від застосунку, що знаходиться в режимі очікування, тому вказаний нижче простір не в силі.</string>
+    <string name="app_bucket_exempted_note">Система звільняє цей застосунок від режиму очікування, тому наведена нижче категорія не є чинною.</string>
     <string name="app_bucket_frequent">Часто використовувані</string>
     <string name="app_bucket_frequent_note">Може часто бігати, але не вільно.</string>
     <string name="app_bucket_rare">Рідкісний</string>
@@ -844,7 +870,7 @@
     <string name="app_battery_unrestricted">Ігнорувати оптимізацію використання батареї</string>
     <string name="app_battery_unrestricted_note">Дозволяє залишатися активним у Doze, але використовує більше батареї.</string>
     <string name="app_section_network">Мережа</string>
-    <string name="app_network_needs_shizuku">Запустіть Shizuku, щоб змінити охоплення додатка.</string>
+    <string name="app_network_needs_shizuku">Запустіть Shizuku, щоб змінити, до чого може отримати доступ застосунок.</string>
     <string name="app_network_unsupported">Цей пристрій не пропонує брандмауер.</string>
     <string name="app_network_block">Блокувати доступ до мережі</string>
     <string name="app_network_block_note">Ця платформа опускає свій трафік.</string>
@@ -867,13 +893,64 @@
     <string name="files_root_system">Система</string>
     <string name="files_root_root">Корінь</string>
     <string name="files_sort">Упорядкувати</string>
+    <string name="files_selected_count">Вибрано: %1$d</string>
     <string name="files_action_select_all">Виділити все</string>
     <string name="files_action_rename">Перейменувати</string>
     <string name="files_action_copy">Копія</string>
     <string name="files_action_delete">Видалити</string>
     <string name="files_field_name">Ім\'я</string>
+    <string name="files_working_compressing">Стиснення</string>
+    <string name="files_working_extracting">Видобування</string>
+    <string name="tab_install">Встановлювач застосунків</string>
+    <string name="install_no_file">Не обрано жодного пакету</string>
+    <string name="install_choose">Обрати</string>
+    <string name="install_choose_hint">APK, APKS або XAPK файл</string>
+    <string name="install_action">Встановити</string>
+    <string name="install_running">Встановлення\u2026</string>
+    <string name="install_done">Встановлено.</string>
+    <string name="install_options_heading">Параметри встановлення</string>
+    <string name="install_instant">Встановити як миттєвий застосунок</string>
+    <string name="install_instant_desc">Запускає без встановлення повного застосунку або додасть його до лаунчера.</string>
+    <string name="install_rollback">Залишити відкат</string>
+    <string name="install_rollback_desc">Збережіть попередню версію, щоб згодом можна було її відновити.</string>
+    <string name="install_ignore_dexopt">Ігнорувати профіль dexopt</string>
+    <string name="install_ignore_dexopt_desc">Не використовуйте профіль застосунку при його оптимізації.</string>
+    <string name="install_dexopt">Dexopt</string>
+    <string name="install_dexopt_default">Типова платформа</string>
+    <string name="install_dexopt_verify">перевірити</string>
+    <string name="install_dexopt_quicken">прискорити</string>
+    <string name="install_dexopt_speed_profile">швидкісний профіль</string>
+    <string name="install_dexopt_speed">швидкісний</string>
+    <string name="install_dexopt_everything">усе</string>
+    <string name="install_referrer">Реферер</string>
+    <string name="install_referrer_desc">URI, який повідомляє застосунку, звідки його було встановлено.</string>
+    <string name="install_details_reading">Читання пакета\u2026</string>
+    <string name="install_details_unreadable">Цей файл не є дійсним пакетом застосунку.</string>
     <string name="install_details_version">Версія</string>
     <string name="install_details_target">Target SDK</string>
+    <string name="install_details_permissions">Дозволи (%1$d)</string>
     <string name="install_details_installed">Встановлено</string>
+    <string name="install_details_not_installed">Не встановлено</string>
+    <string name="install_details_not_installed_note">Немає встановлених застосунків для заміни.</string>
+    <string name="install_details_update">Новіша за встановлену версію.</string>
+    <string name="install_details_downgrade">Старіша за встановлену %1$s \u2014 дозволити зниження версії.</string>
+    <string name="install_details_same">Та сама версія, що й встановлений застосунок.</string>
+    <string name="install_option_unsupported">Не підтримується на цій версії Android</string>
+    <string name="install_failed">Помилка: %1$s</string>
+    <string name="install_could_not_read">Не вдалося прочитати цей файл.</string>
+    <string name="install_replace">Замінити встановлений застосунок</string>
+    <string name="install_replace_desc">Збережіть ці дані та оновіть їх.</string>
+    <string name="install_downgrade">Дозволити пониження</string>
+    <string name="install_downgrade_desc">Встановити старішу версію поверх новішої.</string>
+    <string name="install_grant_all">Надати всі дозволи</string>
+    <string name="install_grant_all_desc">Надайте всі дозволи, які запитує застосунок під час установлення.</string>
+    <string name="install_allow_test">Дозволити тестові пакети</string>
+    <string name="install_allow_test_desc">Дозволити програми, позначені як тестові або налагоджувальні збірки.</string>
+    <string name="install_keep_running">Не закривати застосунок примусово</string>
+    <string name="install_keep_running_desc">Залишити застосунок запущеним, поки він замінений.</string>
+    <string name="install_skip_verification">Пропустити перевірку</string>
+    <string name="install_skip_verification_desc">Пропустити перевірку щодо пакета.</string>
+    <string name="install_bypass_sdk">Обійти блокування цільового SDK</string>
+    <string name="install_bypass_sdk_desc">Дозволити встановлювати застосунки, орієнтовані на надто стару версію Android, у звичайному режимі.</string>
     <string name="install_location_auto">Параметри розробника</string>
 </resources>
