@@ -9,9 +9,33 @@
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[무선 디버깅으로 시작]]></string>
+    <string name="home_wireless_adb_starting_without_wifi">Wi-Fi 없이 시작: 무선 디버깅이 켜진 상태로 유지될 때까지 기기에 계속해서 요청을 보냅니다. 시작되거나 포기할 때까지 최대 2분이 걸릴 수 있습니다.</string>
+    <string name="home_usb_adb_needs_network">USB로 시작하면 기존 ADB 포트를 사용하며, 이 포트를 다시 열려면 네트워크가 필요합니다. Wi-Fi에 한 번 연결하거나, 시작 방법을 <b>Wi-Fi 없이 시작</b>으로 선택해 무선 디버깅으로 다시 시작하세요.</string>
+    <string name="home_wireless_adb_summary">무선 디버깅을 사용해 시작합니다.</string>
+    <string name="home_usb_adb_title"><![CDATA[USB 디버깅으로 시작]]></string>
+    <string name="home_usb_adb_summary">USB 디버깅을 사용해 시작합니다.</string>
+    <string name="home_support_body">Shizuku Next는 무료이며 광고가 없습니다. 커피 한 잔은 유지 관리에 드는 시간을 위해 쓰입니다.</string>
+    <string name="diagnostics_title">진단 정보</string>
+    <string name="diagnostics_copy">진단 정보 복사</string>
+    <string name="diagnostics_copied">진단 정보가 복사되었습니다</string>
+    <string name="diagnostics_service">서비스</string>
+    <string name="diagnostics_server_uid">서버 uid</string>
+    <string name="diagnostics_server_api">서버 API</string>
+    <string name="diagnostics_wireless_debugging">무선 디버깅</string>
+    <string name="diagnostics_adb_port">ADB 포트</string>
+    <string name="diagnostics_battery">배터리 최적화</string>
+    <string name="diagnostics_device">기기</string>
+    <string name="diagnostics_started_with">시작 방법</string>
+    <string name="diagnostics_default">기본 방법</string>
+    <string name="diagnostics_not_required">필요 없음</string>
+    <string name="diagnostics_connected">연결됨</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
+    <string name="diagnostics_battery_unrestricted">제한 없음</string>
+    <string name="diagnostics_available">사용 가능</string>
+    <string name="diagnostics_unavailable">사용 불가</string>
+    <string name="diagnostics_closed">닫힘</string>
     <!-- Adb -->
     <string name="dialog_adb_port">포트 번호</string>
     <string name="dialog_adb_invalid_port">포트 번호는 1에서 65535 사이의 정수입니다.</string>
@@ -29,6 +53,7 @@
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
+    <string name="dialog_adb_pairing_open_app_info">앱 정보</string>
     <string name="dialog_adb_pairing_accessibility_navigate">다음 단계를 수행하여 페어링을 시작하세요.\n- \"개발자 옵션\"으로
         이동합니다.\n- \"USB 디버깅\" 및 \"무선 디버깅\"을 활성화합니다.\n- \"무선 디버깅\"의 왼쪽을 탭합니다.\n- \"페어링 코드로 기기 페어링\"을
         탭합니다. Shizuku가 자동으로 페어링 코드를 감지합니다.</string>
@@ -40,6 +65,8 @@
     <string name="adb_error_stop_tcp">TCP를 통한 ADB를 중지하지 못했습니다.</string>
     <string name="adb_pair_required">페어링 단계를 먼저 진행하세요.</string>
     <string name="enable">할 수 있게 하다</string>
+    <string name="auto_pair_instructions">코드를 입력하지 않고 페어링하기:\n\n1. 개발자 옵션 → 무선 디버깅\n2. 페어링 코드로 기기 페어링\n\nShizuku가 해당 대화상자에서 코드와 포트를 직접 읽어와 스스로 시작합니다. 페어링이 끝날 때까지 대화상자를 열어 두세요.</string>
+    <string name="auto_pair_manual">수동</string>
     <string name="development_settings">개발자 옵션</string>
     <string name="notification_settings">알림 옵션</string>
     <string name="adb_pairing_tutorial_content_notification">Shizuku의 알림이 페어링을 완료하는 데 도움이 될 수도 있습니다.</string>
@@ -69,14 +96,57 @@
     <!-- Home - Learn more -->
     <!-- Home - Adb permissions limited -->
     <!-- Home - Dialogs -->
+    <string name="home_dialog_reboot_required_title">재부팅 필요</string>
+    <string name="home_dialog_reboot_required_message">Shizuku가 제대로 작동하려면 기기를 재부팅해야 합니다. 계속하려면 기기를 재부팅하세요.</string>
+    <string name="home_dialog_duplicate_app_detected_title">중복된 앱 발견됨</string>
+    <string name="home_dialog_duplicate_app_detected_message">이 앱의 다른 버전이 기기에 설치되어 있습니다. 계속하려면 중복된 버전을 모두 제거하고 기기를 재부팅하세요.</string>
+    <string name="home_dialog_button_exit">종료</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">ADB의 권한이 제한됨</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[기기 제조사에서 ADB의 권한을 제한하고 있을 가능성이 높습니다.<p><b><a href="%1$s">이 문서</a></b>에 시스템에 대한 해결 방안이 있을 수 있습니다.]]></string>
     <string name="app_management_toggle_all">모두 전환</string>
+    <string name="app_management_search_hint">앱 검색</string>
+    <string name="app_management_sort">정렬</string>
+    <string name="apps_needs_shizuku">앱을 보려면 Shizuku를 시작하세요</string>
+    <string name="apps_empty">표시할 앱이 없습니다</string>
+    <string name="apps_filter_empty">이 필터에 해당하는 앱이 없습니다</string>
+    <string name="apps_filter_all">전체</string>
+    <string name="apps_filter_granted">허용됨</string>
+    <string name="apps_filter_revoked">거부됨</string>
+    <string name="apps_filter_hidden">숨김</string>
+    <string name="apps_no_match">검색 결과와 일치하는 앱이 없습니다</string>
+    <string name="app_management_sort_last_added">최근 추가순</string>
+    <string name="app_management_sort_updated">업데이트순</string>
+    <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="tab_home">홈</string>
+    <string name="tab_apps">앱</string>
+    <string name="tab_shell">셸</string>
+    <string name="tab_labs">실험실</string>
+    <string name="tab_firewall">방화벽</string>
+    <string name="tab_autostart">자동 시작</string>
+    <string name="labs_filter_allowed">허용됨</string>
+    <string name="labs_filter_blocked">차단됨</string>
+    <string name="labs_blocked_count">%1$d개 차단됨</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="tab_hide_developer_options">개발자 옵션 숨기기</string>
+    <string name="tab_hide_usb_debugging">USB 디버깅 숨기기</string>
+    <string name="tab_hide_wireless_debugging">무선 디버깅 숨기기</string>
+    <string name="tab_hide_private_dns">프라이빗 DNS 숨기기</string>
+    <string name="tab_hide_vpn">VPN 숨기기</string>
+    <string name="hiding_gate">사용함</string>
+    <string name="hiding_gate_disabled">사용 안 함</string>
+    <string name="hiding_filter_hidden">숨김</string>
+    <string name="hiding_signal_developer_options">개발자 옵션</string>
+    <string name="hiding_signal_usb_debugging">USB 디버깅</string>
+    <string name="hiding_signal_wireless_debugging">무선 디버깅</string>
+    <string name="hiding_signal_private_dns">프라이빗 DNS</string>
+    <string name="hiding_signal_vpn">VPN</string>
+    <string name="hiding_vpn_client">숨길 VPN 클라이언트</string>
     <string name="intent_start">시작</string>
     <string name="device_watchdog">지키는 개</string>
+    <string name="log_filter_all">전체</string>
     <string name="log_capture_start">시작</string>
+    <string name="log_capture_choose_hint">앱 검색</string>
     <string name="action_start">시작</string>
     <string name="intents_start">시작</string>
     <!-- Terminal -->
@@ -180,6 +250,7 @@
     <string name="wadb_permission_error_notification_content">Shizuku를 부팅 시 시작하려면
         WRITE_SECURE_SETTINGS 권한이 필요합니다. 탭하여 권한을 부여하는 방법을 알아보세요.</string>
     <!-- Shell -->
+    <string name="shell_title">셸</string>
     <!-- Watchdog -->
     <string name="watchdog_running">워치독이 실행 중입니다</string>
     <string name="watchdog_turn_off">끄세요</string>
@@ -202,8 +273,14 @@
     <string name="dialog_requesting_legacy_button_open_shizuku">Shizuku 열기</string>
     <string name="wadb_notification_attempt_now">재시도</string>
     <!-- Manage tab -->
+    <string name="manage_search_hint">앱 검색</string>
+    <string name="manage_filter_all">전체</string>
+    <string name="manage_filter_hidden">숨김</string>
+    <string name="manage_status_hidden">숨김</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_op_mode_deny">거부</string>
     <string name="app_action_enable">할 수 있게 하다</string>
+    <string name="app_info_updated">업데이트순</string>
+    <string name="files_sort">정렬</string>
     <string name="install_location_auto">개발자 옵션</string>
 </resources>
