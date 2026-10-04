@@ -752,6 +752,7 @@
     <string name="manage_empty">Nenhum aplicativo encontrado.</string>
     <string name="manage_status_system">SISTEMA</string>
     <string name="manage_status_user">Usuário</string>
+    <string name="permissions_action_deny">Negar</string>
     <string name="manage_status_removed">Removido, dados mantidos</string>
     <string name="manage_status_disabled">Desabilitado</string>
     <string name="manage_status_suspended">Suspenso</string>

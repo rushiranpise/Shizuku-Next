@@ -610,6 +610,7 @@
     <string name="manage_empty">Hiçbir uygulama bulunamadı.</string>
     <string name="manage_status_system">Sistem</string>
     <string name="manage_status_user">Kullanıcı</string>
+    <string name="permissions_action_deny">Reddet</string>
     <string name="manage_status_removed">Kaldırıldı, veriler korundu</string>
     <string name="manage_status_disabled">Devre dışı</string>
     <string name="manage_status_suspended">Askıda</string>

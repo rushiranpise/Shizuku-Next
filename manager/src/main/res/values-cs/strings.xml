@@ -707,6 +707,7 @@
     <string name="manage_empty">Nebyly nalezeny žádné aplikace.</string>
     <string name="manage_status_system">Systém</string>
     <string name="manage_status_user">Uživatel</string>
+    <string name="permissions_action_deny">Zakázat</string>
     <string name="manage_status_removed">Odstraněno, data uchována</string>
     <string name="manage_status_disabled">Zakázáno</string>
     <string name="manage_status_suspended">Pozastaveno</string>

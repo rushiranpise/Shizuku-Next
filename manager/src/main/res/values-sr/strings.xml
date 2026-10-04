@@ -225,6 +225,7 @@
     <string name="dialog_requesting_legacy_button_open_shizuku">Отвори Шизуку</string>
     <string name="wadb_notification_attempt_now">Покушај поново</string>
     <!-- Manage tab -->
+    <string name="permissions_action_deny">Одбиј</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_op_mode_deny">Одбиј</string>
     <string name="app_action_enable">Омогући</string>

@@ -372,6 +372,7 @@
     <string name="manage_search_hint">앱 검색</string>
     <string name="manage_filter_all">전체</string>
     <string name="manage_filter_hidden">숨김</string>
+    <string name="permissions_action_deny">거부</string>
     <string name="manage_status_hidden">숨김</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_op_mode_deny">거부</string>

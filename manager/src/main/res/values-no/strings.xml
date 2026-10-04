@@ -748,6 +748,7 @@
     <string name="manage_empty">Ingen apper funnet.</string>
     <string name="manage_status_system">Systemadministrasjon</string>
     <string name="manage_status_user">Bruker</string>
+    <string name="permissions_action_deny">Benekte</string>
     <string name="manage_status_removed">Fjernet, data oppbevart</string>
     <string name="manage_status_disabled">Deaktivert</string>
     <string name="manage_status_suspended">Suspendert</string>

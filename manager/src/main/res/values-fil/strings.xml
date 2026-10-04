@@ -230,6 +230,7 @@
     <string name="dialog_requesting_legacy_button_open_shizuku">Buksan ang Shizuku</string>
     <string name="wadb_notification_attempt_now">Subukan ulit</string>
     <!-- Manage tab -->
+    <string name="permissions_action_deny">Tanggihan</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_op_mode_deny">Tanggihan</string>
     <string name="app_action_enable">Paganahin</string>

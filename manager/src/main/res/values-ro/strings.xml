@@ -751,6 +751,7 @@
     <string name="manage_empty">Nicio aplicație găsită.</string>
     <string name="manage_status_system">Sistem</string>
     <string name="manage_status_user">Utilizator</string>
+    <string name="permissions_action_deny">Refuz</string>
     <string name="manage_status_removed">Date șterse, păstrate</string>
     <string name="manage_status_disabled">Dezactivat</string>
     <string name="manage_status_suspended">Suspendat</string>

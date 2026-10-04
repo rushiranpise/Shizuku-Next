@@ -226,6 +226,7 @@
     <string name="dialog_requesting_legacy_button_open_shizuku">باز کردن Shizuku</string>
     <string name="wadb_notification_attempt_now">سعی مجدد</string>
     <!-- Manage tab -->
+    <string name="permissions_action_deny">رد</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_op_mode_deny">رد</string>
     <string name="app_action_enable">فعال کردن</string>

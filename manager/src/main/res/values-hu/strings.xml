@@ -481,6 +481,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="manage_filter_empty">Semmi nincs ezzel a szűréssel.</string>
     <string name="manage_status_system">Rendszer</string>
     <string name="manage_status_user">Felhasználó</string>
+    <string name="permissions_action_deny">Megtagad</string>
     <string name="manage_status_removed">Eltávolítva, adatok megőrizve</string>
     <string name="manage_status_disabled">Letiltva</string>
     <string name="manage_status_suspended">Felfüggesztve</string>

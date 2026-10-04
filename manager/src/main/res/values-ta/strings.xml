@@ -235,6 +235,7 @@
     <string name="dialog_requesting_legacy_button_open_shizuku">ஷிசுகுவைத் திறக்கவும்</string>
     <string name="wadb_notification_attempt_now">மீண்டும் முயற்சிக்கவும்</string>
     <!-- Manage tab -->
+    <string name="permissions_action_deny">மறுக்கவும்</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_op_mode_deny">மறுக்கவும்</string>
     <string name="app_action_enable">இயக்கு</string>

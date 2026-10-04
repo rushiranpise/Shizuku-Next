@@ -743,6 +743,7 @@
     <string name="manage_empty">アプリが見つかりません。</string>
     <string name="manage_status_system">システム</string>
     <string name="manage_status_user">ユーザー</string>
+    <string name="permissions_action_deny">許可しない</string>
     <string name="manage_status_removed">削除済み、データは保持</string>
     <string name="manage_status_disabled">無効</string>
     <string name="manage_status_suspended">サスペンド</string>

@@ -751,6 +751,7 @@
     <string name="manage_empty">Sovelluksia ei löytynyt.</string>
     <string name="manage_status_system">Järjestelmä</string>
     <string name="manage_status_user">Käyttäjä</string>
+    <string name="permissions_action_deny">Kieltää</string>
     <string name="manage_status_removed">Poistettu, tietoja säilytetään</string>
     <string name="manage_status_disabled">Pois Käytöstä</string>
     <string name="manage_status_suspended">Keskeytetty</string>

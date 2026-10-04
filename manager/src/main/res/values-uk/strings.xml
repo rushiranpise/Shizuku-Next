@@ -775,6 +775,7 @@
     <string name="manage_empty">Застосунків не знайдено.</string>
     <string name="manage_status_system">Система</string>
     <string name="manage_status_user">Користувач</string>
+    <string name="permissions_action_deny">Заборонити</string>
     <string name="manage_status_removed">Видалено, дані зберігаються</string>
     <string name="manage_status_disabled">Вимкнено</string>
     <string name="manage_status_suspended">Призупинено</string>

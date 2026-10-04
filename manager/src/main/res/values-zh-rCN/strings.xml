@@ -776,6 +776,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="manage_status_system">系统</string>
     <string name="manage_status_user">用户</string>
     <string name="app_row_user">用户 %1$d</string>
+    <string name="permissions_action_deny">拒绝</string>
     <string name="manage_status_removed">已移除，数据保留</string>
     <string name="manage_status_disabled">已停用</string>
     <string name="manage_status_suspended">暂停</string>

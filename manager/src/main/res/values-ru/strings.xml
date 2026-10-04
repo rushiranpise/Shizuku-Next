@@ -658,6 +658,7 @@
     <string name="manage_empty">Приложения не найдены.</string>
     <string name="manage_status_system">Система</string>
     <string name="manage_status_user">Пользовательские</string>
+    <string name="permissions_action_deny">Запретить</string>
     <string name="manage_status_removed">Удалено, данные сохранены</string>
     <string name="manage_status_disabled">Отключён</string>
     <string name="manage_status_suspended">Приостановлено</string>

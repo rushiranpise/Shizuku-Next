@@ -226,6 +226,7 @@
     <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> heeft moderne Shizuku-ondersteuning, maar vraagt om de oude versie van Shizuku. Dit kan komen doordat Shizuku niet draait, check alsjeblieft in de Shizuku-app.<p>De oude versie van Shizuku is sinds maart 2019 buiten gebruik gesteld.]]></string>
     <string name="wadb_notification_attempt_now">Opnieuw</string>
     <!-- Manage tab -->
+    <string name="permissions_action_deny">Weigeren</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_op_mode_deny">Weigeren</string>
     <string name="app_action_enable">Inschakelen</string>
