@@ -36,7 +36,7 @@
     <string name="diagnostics_default">默认方式</string>
     <string name="diagnostics_hiding">隐藏</string>
     <string name="diagnostics_root">Root</string>
-    <string name="diagnostics_granted">已授予</string>
+    <string name="diagnostics_granted">已授权</string>
     <string name="diagnostics_missing">缺失</string>
     <string name="diagnostics_not_required">不需要</string>
     <string name="diagnostics_connected">已连接</string>
@@ -135,8 +135,8 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="apps_filter_revoked">已撤销</string>
     <string name="apps_filter_hidden">已隐藏</string>
     <string name="apps_no_match">没有符合您搜索条件的应用</string>
-    <string name="app_management_sort_last_added">最近添加的</string>
-    <string name="app_management_sort_updated">已更新</string>
+    <string name="app_management_sort_last_added">最近添加</string>
+    <string name="app_management_sort_updated">最近更新</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
     <string name="tab_home">首页</string>
     <string name="tab_apps">应用</string>
@@ -371,7 +371,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="home_device_fingerprint">指纹</string>
     <string name="home_device_selinux">SELinux 状态</string>
     <string name="home_device_seccomp">Seccomp 状态</string>
-    <string name="selinux_enforcing">执行</string>
+    <string name="selinux_enforcing">强制（Enforcing）</string>
     <string name="selinux_permissive">宽容（Permissive）</string>
     <string name="selinux_disabled">已禁用</string>
     <string name="seccomp_disabled">已禁用</string>
@@ -497,7 +497,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="action_turn_on_developer_options">打开开发者选项</string>
     <string name="toast_developer_options_required">关闭无开发者选项的 ADB</string>
     <string name="settings_adb_without_developer_options_confirm_title">关闭开发者选项？</string>
-    <string name="settings_adb_without_developer_options_confirm_message">重启后，Shizuku 将继续工作并恢复其 ADB 设置。 您将无法打开开发者选项以更改 USB 或无线调试设置或配对新设备。要关闭开发者选项吗？</string>
+    <string name="settings_adb_without_developer_options_confirm_message">重启后，Shizuku 会继续工作并恢复其 ADB 设置。您将无法打开开发者选项来更改 USB 或无线调试设置，也无法配对新设备。要关闭开发者选项吗？</string>
     <string name="settings_adb_without_developer_options_confirm">关闭</string>
     <string name="settings_adb_without_developer_options_failed">Shizuku 无法更改设置。首先在权限页面上授予 WRITE_SECURE_SETTINGS</string>
     <string name="settings_wait_for_wifi">等待 Wi-Fi</string>
@@ -519,8 +519,8 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="settings_system_start_method_exploit">三星（FOTA agent）</string>
     <string name="settings_system_start_method_custom">自定义命令</string>
     <string name="home_system_title">通过系统 UID 启动</string>
-    <string name="home_system_summary">以 system 用户（UID 1000）而不是 adb 身份运行 Shizuku：仅限三星，通过那些固件搭载的 FOTA agent</string>
-    <string name="home_adb_command_summary">通过 ADB 从计算机启动 Shizuku 。点击以复制命令</string>
+    <string name="home_system_summary">以 system 用户（UID 1000）而不是 adb 身份运行 Shizuku：仅限三星，经由其固件内置的 FOTA agent 实现</string>
+    <string name="home_adb_command_summary">在电脑上通过 ADB 启动 Shizuku。点按复制命令</string>
     <string name="settings_tcp_mode">TCP 模式</string>
     <string name="settings_tcp_mode_summary">"允许 Shizuku 在没有 Wi-Fi 的情况下重启。（Shizuku 必须在重启后启动过一次）"</string>
     <string name="settings_tcp_mode_dialog_close_port">"TCP 端口将立即关闭。您需要连接 Wi-Fi 才能重新启用 TCP 模式。是否继续？"</string>
@@ -612,7 +612,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="update_check_rate_limited_minutes">GitHub 正在限制更新检查的频率，请约 %1$d 分钟后重试。</string>
     <string name="update_check_http_error">无法检查更新 (HTTP %1$d)</string>
     <string name="update_check_no_release">还没有可比较的已发布版本</string>
-    <string name="update_downloading">正在下载更新...</string>
+    <string name="update_downloading">正在下载更新…</string>
     <string name="update_download_failed">无法下载更新</string>
     <string name="update_success">更新完成</string>
     <string name="update_failed">更新失败</string>
@@ -707,7 +707,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="shell_bookmark_rename">重命名</string>
     <string name="shell_bookmark_delete">删除</string>
     <string name="shell_bookmark_name_hint">名称</string>
-    <string name="shell_bookmark_sort_newest">最新的</string>
+    <string name="shell_bookmark_sort_newest">最新</string>
     <string name="shell_bookmark_sort_name">名称</string>
     <string name="shell_bookmark_empty">还没有保存过命令。输入命令后点按收藏按钮即可保存。</string>
     <string name="shell_quick_battery">电池</string>
@@ -775,6 +775,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="manage_empty">未找到应用。</string>
     <string name="manage_status_system">系统</string>
     <string name="manage_status_user">用户</string>
+    <string name="app_row_user">用户 %1$d</string>
     <string name="manage_status_removed">已移除，数据保留</string>
     <string name="manage_status_disabled">已停用</string>
     <string name="manage_status_suspended">暂停</string>
@@ -791,8 +792,8 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="app_permissions_note">只有保护级别包含 development 的权限和危险权限可以通过 adb 更改；其余的无论 Shizuku 多受信任，平台都会拒绝，所以那些行的开关保持关闭。</string>
     <string name="app_permissions_none">此应用没有系统权限。</string>
     <string name="app_permission_locked">%1$s，无法通过 ADB 更改</string>
-    <string name="app_permission_granted">已授予权限</string>
-    <string name="app_permission_revoked">权限已撤销</string>
+    <string name="app_permission_granted">已授权</string>
+    <string name="app_permission_revoked">已撤销</string>
     <string name="app_grant_confirm_title">将 %1$s 授予 %2$s？</string>
     <string name="app_grant_confirm_message">这会让该应用拥有 ADB 级别的能力。只授予你信任的应用。</string>
     <string name="app_grant_confirm_ok">授权</string>
@@ -861,7 +862,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="app_bucket_default_note">由 Android 决定它能运行多少。</string>
     <string name="app_bucket_exempted">豁免</string>
     <string name="app_bucket_exempted_note">系统豁免了此应用的应用待机，所以下面选的分组并不是实际生效的那个。</string>
-    <string name="app_bucket_frequent">频率</string>
+    <string name="app_bucket_frequent">频繁</string>
     <string name="app_bucket_frequent_note">可以经常运行，但不能自由运行。</string>
     <string name="app_bucket_rare">极少</string>
     <string name="app_bucket_rare_note">只得到很少的后台时间。</string>
@@ -885,7 +886,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="app_info_signature">签名</string>
     <string name="app_info_installer">安装自</string>
     <string name="app_info_installed">已安装</string>
-    <string name="app_info_updated">已更新</string>
+    <string name="app_info_updated">最近更新</string>
     <string name="app_info_debuggable">可调试</string>
     <string name="app_info_backup">允许备份</string>
     <string name="app_info_launcher">启动器条目</string>

@@ -242,11 +242,15 @@
     <string name="device_first_use">Primo utilizzo</string>
     <string name="device_max_temp">Temperatura max registrata</string>
     <string name="device_max_current">Corrente più alta</string>
+    <string name="device_health_source">Samsung li conserva nei dati del servizio batteria e li riporta nel dump della batteria. Non fanno parte delle API di Android, quindi un altro produttore non li avrà.</string>
     <string name="device_usage">Tempo</string>
     <string name="device_screen_on">Schermo acceso</string>
     <string name="device_time_on_battery">Su batteria</string>
     <string name="device_screen_off">Schermo spento</string>
+    <string name="device_doze">Doze</string>
+    <string name="device_usage_note">Contatori gestiti dalla piattaforma stessa. Si azzerano ogni volta che la batteria viene caricata completamente, ed è per questo che un telefono caricato un\'ora fa mostra pochi secondi, mentre uno scollegato dal caricabatterie da tutto il giorno mostra molte ore.</string>
     <string name="device_drain">Cosa ha utilizzato la batteria</string>
+    <string name="device_drain_note">Attribuito per componente, ed è ciò che riporta questa piattaforma. I dati per app sono tenuti come wake lock e tempi di esecuzione, non come milliampere-ora, quindi qui non vengono inventati numeri per singola app.</string>
     <string name="device_max_charging_current">Corrente di ricarica massima</string>
     <string name="device_max_charging_voltage">Voltaggio di corrente massimo</string>
     <string name="device_capacity_rated">Nominale</string>
@@ -279,6 +283,7 @@
     <string name="device_thermal_note">Ogni sensore termico esposto dal kernel, dal più caldo al più freddo. Un sensore a cui non è collegato nulla segnala il valore sentinella -273 e viene escluso, così come le soglie di intervento dell\'alimentazione, che non sono temperature. %d zone elencate.</string>
     <string name="device_cpu">CPU</string>
     <string name="device_load_average">Carico medio</string>
+    <string name="device_cpu_note">Il conteggio del kernel sull\'intervallo indicato nel suo dump. Il carico è la media a uno, cinque e quindici minuti; ogni riga è il tempo di processore usato da quel processo, e i kernel worker compaiono perché svolgono il lavoro, non solo le app.</string>
     <string name="tab_log">Log</string>
     <string name="log_count">%1$d righe, ultime 24 ore</string>
     <string name="log_search_hint">Cerca nel log</string>
@@ -302,10 +307,23 @@
     <string name="log_capture_choose_hint">Cerca app</string>
     <string name="log_capture_running">Registrazione %1$s · %2$d righe · %3$s</string>
     <string name="log_capture_idle">Nessun elemento è stato registrato.</string>
+    <string name="log_capture_waiting">Registrazione. Non è stato ancora registrato nulla.</string>
+    <string name="log_capture_empty">Nessun elemento è stato registrato.</string>
+    <string name="log_capture_jump">Ultimo arresto anomalo</string>
+    <string name="log_capture_needs_shizuku">La registrazione del log del dispositivo richiede Shizuku: leggere il log di un\'altra app è un privilegio della shell, e questa app si appoggia alla shell.</string>
     <string name="log_capture_stopped_size">Registrazione interrotta: ha raggiunto il limite di dimensione.</string>
     <string name="log_capture_stopped_time">Registrazione interrotta: ha raggiunto il limite di tempo.</string>
     <string name="log_capture_stopped_ended">Registrazione interrotta: il flusso dei log è terminato.</string>
+    <string name="log_filter_crashes">Arresti anomali</string>
+    <string name="log_saved_empty">Nessun elemento è stato registrato.</string>
+    <string name="log_session_share">Condividi</string>
+    <string name="log_session_delete">Elimina</string>
+    <string name="log_session_deleted">%1$s eliminata</string>
+    <string name="log_session_busy">%1$s è ancora registrazione.</string>
+    <string name="log_session_running">registrazione</string>
+    <string name="permissions_usage_access">Accesso di utilizzo</string>
     <string name="permissions_usage_access_summary">Consente agli elenchi della modalità nascosta di rilevare quale app è aperta. Concesso da Shizuku o nelle impostazioni di Accesso ai dati di utilizzo di Android.</string>
+    <string name="permissions_dump">Leggi i motivi di chiusura delle app</string>
     <string name="permissions_dump_summary">Consente agli elenchi della modalità nascosta di rilevare quando un\'app è chiusa, e non solo in esecuzione in background. Concesso da Shizuku.</string>
     <string name="home_other_methods">Altri metodi di avvio</string>
     <string name="home_hiding_active_note">Shizuku potrebbe interrompersi quando è aperta un\'app nascosta, in quanto la modalità nascosta può disattivare la connessione di debug. Shizuku riparte quando l\'app viene chiusa.</string>
@@ -323,11 +341,41 @@
     <string name="hiding_notification_stopped_text">Shizuku non è in esecuzione, quindi la modalità nascosta non può rilevare quale app è aperta. Tutte le impostazioni nascoste sono state ripristinate.</string>
     <string name="hiding_carries_session_wireless">Non applicato: Shizuku usa il debug wireless, quindi nasconderlo ne causerebbe l\'interruzione.</string>
     <string name="hiding_carries_session_usb">Non applicato: Shizuku usa il debug USB, quindi nasconderlo ne causerebbe l\'interruzione.</string>
+    <string name="tab_settings">Impostazioni</string>
+    <string name="home_status_transport_label">Trasporto</string>
     <string name="home_status_started_with">Attuale</string>
     <string name="home_status_started_default">Predefinito</string>
+    <string name="uid_label">UID</string>
+    <string name="uid_name_format">(%1$s)</string>
+    <string name="uid_name_root">root</string>
+    <string name="uid_name_system">sistema</string>
+    <string name="uid_name_shell">shell</string>
+    <string name="home_device_manager_version">Versione del manager</string>
+    <string name="home_device_android_version">Versione di Android</string>
+    <string name="home_device_kernel_version">Versione del kernel</string>
+    <string name="home_device_model">Modello del dispositivo</string>
+    <string name="home_device_fingerprint">Fingerprint</string>
+    <string name="home_device_selinux">Stato di SELinux</string>
+    <string name="home_device_seccomp">Stato di Seccomp</string>
+    <string name="selinux_enforcing">Enforcing</string>
+    <string name="selinux_permissive">Permissive</string>
+    <string name="selinux_disabled">Disabilitato</string>
+    <string name="seccomp_disabled">Disabilitato</string>
+    <string name="seccomp_strict">Strict</string>
+    <string name="seccomp_filter">Filter</string>
+    <string name="status_value_none">-</string>
+    <string name="status_running_short">In esecuzione</string>
+    <string name="status_stopped_short">Arrestato</string>
     <string name="action_start">Avvia</string>
+    <string name="tools_stealth">Modalità invisibile</string>
+    <string name="tools_terminal">App del terminale</string>
+    <string name="tools_terminal_summary">Esegui comandi shell in qualsiasi app di terminale, usando rish</string>
+    <string name="tools_battery">Ottimizzazione della batteria</string>
+    <string name="intents_title">Intent</string>
+    <string name="about_package">Pacchetto</string>
     <string name="check_for_updates_now">Verifica ora</string>
     <string name="start_failed">Impossibile avviare Shizuku</string>
+    <string name="start_failed_write_secure_settings">Shizuku non può attivare il debug wireless senza il permesso WRITE_SECURE_SETTINGS. Attivalo tu in Opzioni sviluppatore &gt; Debug wireless, oppure concedi l\'autorizzazione con <b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Una volta in esecuzione, Shizuku mantiene da solo quell\'autorizzazione, quindi basta farlo una volta.</string>
     <string name="action_open_wireless_debugging">Debug wireless</string>
     <string name="start_failed_unsupported">Questo dispositivo non può essere avviato in background</string>
     <string name="start_failed_wifi_required">Connettiti a una rete Wi-Fi: senza di essa il sistema disattiva il debug wireless. Oppure avvia da un computer usando il comando ADB qui sotto.</string>
@@ -342,13 +390,47 @@
     <string name="start_failed_connection_lost">La connessione ADB è stata chiusa all\'avvio. Riprova.</string>
     <string name="start_failed_usb_no_port">Nessuna porta ADB locale è aperta: Android la chiude a ogni riavvio e, per riaprirla, serve una connessione di cui servirsi. Connettiti al Wi-Fi e Shizuku la riaprirà tramite il debug wireless, esegui <b>adb tcpip 5555</b> da un computer, oppure scegli <b>Avvia senza Wi-Fi</b> come metodo di avvio per avviare invece tramite il debug wireless.</string>
     <string name="start_failed_root_unavailable">Il root non è più disponibile su questo dispositivo, quindi Shizuku non può avviarsi tramite root. Scegli un altro metodo di avvio.</string>
+    <string name="start_failed_system_needs_app">Il metodo di avvio di sistema deve essere eseguito dall\'app.</string>
+    <string name="start_failed_system_no_exploit">Questo dispositivo non include l\'agente FOTA di Samsung (com.sdet.fotaagent), che è l\'unico componente utilizzabile dal metodo di avvio di sistema, quindi non è presente nulla con cui elevare i privilegi. Imposta il metodo di avvio di sistema su Comando personalizzato: l\'app ti mostrerà cosa eseguire con un\'elevazione dei privilegi disponibile sul tuo dispositivo.</string>
+    <string name="start_failed_no_binder">Il servizio non è comparso entro un minuto. Entrambe le parti conservano un log: lo starter con il tag ShizukuServiceStarter e la consegna del binder con BinderSender. Un lettore di logcat filtrato su questi due tag mostra se lo starter è arrivato fino al fork del server e se il server ha mai richiesto il binder.</string>
+    <string name="start_system_custom_intro">Eleva i privilegi in qualsiasi modo tu possa, con un tuo exploit, un\'automazione o una shell root, ed esegui questo comando: avvia il servizio con l\'UID di sistema. L\'app è in attesa che compaia.</string>
+    <string name="start_system_custom_lookup">Esegui questa variante dove la shell può interrogare il package manager. Individua l\'eseguibile in fase di esecuzione, in modo tale che un aggiornamento che lo sposta non può far fallire il comando:</string>
+    <string name="start_system_custom_plain">E questa dove non può farlo, con un percorso assoluto così come l\'app lo conosce in questo momento:</string>
+    <string name="start_system_custom_copied">Comando copiato negli appunti.</string>
+    <string name="start_system_custom_copy_failed">Il comando è sopra, pronto da copiare a mano.</string>
+    <string name="settings_section_startup">Avvio</string>
     <string name="settings_section_wireless">Debug wireless</string>
+    <string name="settings_section_tools">Strumenti</string>
+    <string name="settings_section_appearance">Aspetto</string>
+    <string name="settings_section_about">Informazioni</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_theme_system">Segui il sistema</string>
+    <string name="settings_theme_light">Chiaro</string>
+    <string name="settings_theme_dark">Scuro</string>
+    <string name="intents_description">Le applicazioni di automazione possono controllare Shizuku con questo broadcast. Il token di autenticazione deve essere passato nell\'extra \"auth\".</string>
+    <string name="intents_require_token">Richiedi il token di autenticazione</string>
     <string name="intents_require_token_summary">L\'avvio e l\'arresto degli intent richiedono il token qui sotto. Disattivalo per inviarli senza un token.</string>
+    <string name="intents_token">Token di autenticazione</string>
+    <string name="intents_copy">Copia</string>
+    <string name="intents_regenerate">Rigenera</string>
     <string name="intents_start">Avvia</string>
     <string name="intents_stop">Arresta</string>
     <string name="intents_watchdog_on">Attiva watchdog</string>
     <string name="intents_watchdog_off">Disattiva watchdog</string>
     <string name="intents_watchdog_toggle">Attiva/disattiva watchdog</string>
+    <string name="intents_adb_command">Avvia tramite computer</string>
+    <string name="home_battery_warning">Shizuku potrebbe essere chiuso in background. Consentigli di ignorare le ottimizzazioni della batteria.</string>
+    <string name="batch_selected_count">%1$d selezionati</string>
+    <string name="app_management_action_select_all">Seleziona tutto</string>
+    <string name="app_management_action_grant">Concedi</string>
+    <string name="app_management_action_revoke">Revoca</string>
+    <string name="app_management_batch_grant_title">Concedi autorizzazione</string>
+    <string name="app_management_batch_revoke_title">Revoca autorizzazione</string>
+    <string name="app_management_batch_message">Applicare a %1$d app selezionate?</string>
+    <string name="app_management_toggle_all_message">Applicare a tutte le %1$d app elencate?</string>
+    <string name="app_management_batch_granted">Accesso consentito a %1$d app</string>
+    <string name="app_management_batch_revoked">Accesso revocato a %1$d app</string>
+    <string name="action_undo">Annulla</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Gli utenti hanno segnalato che MIUI interrompe lo Storage
         Access Framework, utilizzato dalla funzione di esportazione.</string>
@@ -372,107 +454,194 @@
     <string name="stealth_warning_detection">Alcune app potrebbero comunque rilevare Shizuku anche quando è nascosto.</string>
     <string name="stealth_info_reconfigure">Dopo aver installato la versione nascosta, dovrai accoppiare e configurare Shizuku di nuovo.</string>
     <string name="stealth_info_rish">Utenti Rish: esportate di nuovo i file dopo aver installato la versione nascosta.</string>
+    <string name="stealth_info_intents">Se usi gli intent, aggiornali con il nuovo nome del pacchetto.</string>
     <string name="stealth_info_update">Quando utilizzi la versione nascosta Shizuku ha una firma differente, e devi aggiornala tramite l\'app.</string>
+    <string name="stealth_package_name">Nome del pacchetto (facoltativo)</string>
+    <string name="stealth_package_name_helper_text">Se lasciato vuoto, verrà aggiunto un suffisso casuale al nome del pacchetto.</string>
+    <string name="stealth_error_ends_with_period">Il nome del pacchetto non può terminare con un punto.</string>
+    <string name="stealth_error_invalid_characters">Sono consentite solo lettere, numeri e punti.</string>
+    <string name="stealth_error_needs_two_segments">Il nome del pacchetto deve avere almeno due segmenti.</string>
+    <string name="stealth_error_segment_starts_with_number">I segmenti non possono iniziare con un numero.</string>
+    <string name="stealth_uninstall_required">Disinstallazione necessaria</string>
+    <string name="stealth_uninstall_message">Il sistema ti chiederà di disinstallare Shizuku. Poi, installa il clone.</string>
+    <string name="stealth_uninstall">Disinstalla</string>
     <string name="stealth_hide">Nascondi</string>
     <string name="stealth_unhide">Mostra</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">Avvia all\'accensione</string>
+    <string name="settings_use_system_color">Usa colore tema di sistema</string>
+    <string name="settings_use_system_color_summary">Segui la palette di sistema</string>
     <string name="settings_watchdog">Watchdog</string>
     <string name="settings_watchdog_summary">Riavvia Shizuku automaticamente se si arresta in modo anomalo</string>
+    <string name="settings_auto_disable_wireless_debugging">Disabilita debug wireless</string>
     <string name="settings_auto_disable_wireless_debugging_summary">Spegni il debug wireless quando Shizuku si arresta.</string>
+    <string name="settings_start_method">Metodo di avvio predefinito</string>
+    <string name="settings_start_method_root_unavailable">Questo dispositivo non ha accesso root, quindi gli avvii ricorrono al debug wireless.</string>
+    <string name="start_method_wireless_no_network">Senza Wi-Fi</string>
+    <string name="start_method_wireless">Wireless</string>
+    <string name="start_method_usb">USB</string>
+    <string name="start_method_system">Sistema</string>
+    <string name="start_method_root">Root</string>
     <string name="transport_adb">adb</string>
+    <string name="settings_adb_without_developer_options">Disabilita opzioni sviluppatore</string>
+    <string name="start_failed_developer_options_off">Le opzioni sviluppatore sono disattivate perché ADB senza opzioni sviluppatore è abilitato</string>
+    <string name="action_turn_on_developer_options">Attiva opzioni sviluppatore</string>
+    <string name="toast_developer_options_required">Disattiva ADB senza opzioni sviluppatore</string>
+    <string name="settings_adb_without_developer_options_confirm_title">Disattivare le opzioni sviluppatore?</string>
+    <string name="settings_adb_without_developer_options_confirm">Disattiva</string>
+    <string name="settings_adb_without_developer_options_failed">Shizuku non può cambiare le impostazioni. Concedi prima WRITE_SECURE_SETTINGS nella pagina delle autorizzazioni.</string>
+    <string name="settings_wait_for_wifi">Attendi il Wi-Fi</string>
+    <string name="settings_wait_for_wifi_summary">Il riavvio automatico di Shizuku attende una connessione Wi-Fi non a consumo.</string>
+    <string name="settings_unavailable_while_forcing_wireless">Non disponibile se Avvia senza Wi-Fi è attivo.</string>
+    <string name="settings_force_wireless_debugging">Avvia senza Wi-Fi (sperimentale)</string>
+    <string name="settings_force_wireless_debugging_summary">Tenta di avviare Shizuku senza debug wireless o USB. Questo disattiva anche l\'attesa Wi-Fi e il debug wireless automatico.</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
+    <string name="settings_needs_write_secure_settings">Richiede l\'autorizzazione WRITE_SECURE_SETTINGS. Avvia Shizuku una volta per concederlo, poi torna indietro.</string>
+    <string name="state_on">Attivo</string>
+    <string name="state_off">Disattivo</string>
+    <string name="settings_persist_adb_port">Mantieni la porta ADB dopo il riavvio</string>
+    <string name="settings_persist_adb_port_summary">Mantiene aperta la porta ADB dopo ogni riavvio, in modo tale che Shizuku possa avviarsi senza Wi-Fi o hotspot.</string>
+    <string name="settings_persist_adb_port_ok">La porta ADB rimarrà aperta dopo il riavvio</string>
+    <string name="settings_persist_adb_port_refused">Android ha rifiutato questa operazione. Shizuku deve essere in esecuzione come root o come utente di sistema.</string>
     <string name="settings_tcp_mode">Modalità TCP</string>
-    <string name="settings_tcp_mode_summary">"Permette a Shizuku di riavviarsi senza Wi-Fi. (Shizuku
-        deve essere stato avviato una volta dopo il riavvio)"</string>
+    <string name="settings_tcp_mode_summary">"Permette a Shizuku di riavviarsi senza Wi-Fi. (Shizuku deve essere stato avviato una volta dopo il riavvio)"</string>
     <string name="settings_tcp_mode_dialog_close_port">"La porta TCP verrà chiusa immediatamente. Sarà necessario il Wi-Fi per riattivare la modalità TCP. Continuare?"</string>
     <string name="settings_restart_dialog_title">Riavvio richiesto</string>
     <string name="settings_restart_dialog_message">Per applicare questa impostazione, Shizuku deve essere riavviato.</string>
-    <string name="settings_restart_dialog_message_wifi_required"><![CDATA[<br><br><b>Il Wi-Fi è necessario. Shizuku continuerà a funzionare e aspetterà una connessione Wi-Fi prima di riavviare in background.</b>]]></string>
+    <string name="settings_restart_dialog_message_wifi_required"><![CDATA[<br><br><b>Il Wi-Fi è necessario. Shizuku continuerà a funzionare e aspetterà una connessione Wi-Fi prima di riavviarsi in background.</b>]]></string>
     <string name="settings_tcp_port">Porta TCP</string>
     <string name="settings_language">Lingua</string>
-    <string name="settings_black_night_theme">Tema nero notte</string>
+    <string name="settings_black_night_theme">Nero AMOLED</string>
     <string name="settings_black_night_theme_summary">Usa il tema nero puro se la modalità notte è
         abilitata</string>
+    <string name="permissions_action_settings">Impostazioni</string>
+    <string name="permissions_write_secure_settings">Scrittura delle impostazioni protette</string>
+    <string name="permissions_write_secure_settings_summary">Permette a Shizuku di attivare il debug wireless. Solo ADB può concedere questa autorizzazione.</string>
+    <string name="permissions_accessibility">Servizio di accessibilità</string>
+    <string name="permissions_accessibility_summary">Legge automaticamente il codice di accoppiamento.</string>
+    <string name="permissions_battery_summary">Impedisce ad Android di chiudere Shizuku in background.</string>
     <string name="settings_help">Aiuto</string>
     <string name="settings_report_bug">Segnala un bug</string>
+    <string name="settings_support_coffee">Offrimi un caffè</string>
+    <string name="settings_support_coffee_note">Sostieni lo sviluppo di Shizuku Next</string>
+    <string name="settings_contributors">Collaboratori</string>
+    <string name="settings_contributors_hint">Trascina per esplorare · Pizzicare per ingrandire · Tocca per i dettagli</string>
     <!--
       A plural, not a plain string: most of the people on this wall are here for a single commit,
       so the singular is read more often than the plural is.
     -->
+    <plurals name="contributor_commits">
+        <item quantity="one">%1$d commit</item>
+        <item quantity="other">%1$d commit</item>
+    </plurals>
+    <string name="contributor_view_github">Visualizza su GitHub</string>
+    <string name="contributor_details_close">Chiudi</string>
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
     <string name="contributor_area_app">App</string>
     <string name="contributor_area_server">Server</string>
+    <string name="contributor_area_adb">ADB</string>
+    <string name="contributor_area_build">Build</string>
+    <string name="contributor_area_i18n">Traduzioni</string>
+    <string name="contributor_area_docs">Documenti</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
       worked in, and the languages they translated into. There is deliberately no string per
       person: a new contributor is described the moment the generator sees them, and %1$s/%2$s are
       filled with the area names above and with language names the platform already localises.
     -->
-    <string name="settings_legacy_pairing">Abbinamento legacy</string>
-    <string name="settings_legacy_pairing_summary">Inserisci il codice di associazione in una
-        finestra di dialogo anziché in una notifica</string>
+    <string name="contributor_summary_code">Ha lavorato su %1$s.</string>
+    <string name="contributor_summary_translations">Ha tradotto l\'app in %1$s.</string>
+    <string name="contributor_summary_code_translations">Ha lavorato su %1$s, e ha tradotto l\'app in %2$s.</string>
+    <string name="contributor_summary_default">Collaboratore</string>
+    <string name="settings_legacy_pairing">Accoppiamento legacy</string>
+    <string name="settings_legacy_pairing_summary">Inserisci il codice di accoppiamento in una finestra anziché in una notifica</string>
     <!-- Bug Report Dialog -->
     <string name="bug_report_dialog_before_reporting">Per prima cosa, procedi come segue:</string>
-    <string name="bug_report_dialog_update">Verificare di utilizzare ^1.</string>
+    <string name="bug_report_dialog_update">Verifica di utilizzare l\'^1.</string>
     <string name="bug_report_dialog_link_update">ultima versione</string>
-    <string name="bug_report_dialog_wiki">Leggere ^1 e seguire tutti i passaggi pertinenti per la
-        risoluzione dei problemi.</string>
-    <string name="bug_report_dialog_issues">Cerca in tutti i ^1 per vedere se il tuo bug è già stato
-        segnalato.</string>
+    <string name="bug_report_dialog_wiki">Leggi la ^1 e segui tutti i passaggi di risoluzione dei problemi pertinenti.</string>
+    <string name="bug_report_dialog_link_wiki">wiki</string>
+    <string name="bug_report_dialog_issues">Cerca tra tutte le ^1 per vedere se il tuo bug è già stato segnalato.</string>
     <string name="bug_report_dialog_link_issues">problemi esistenti</string>
     <string name="bug_report_dialog_method">Se hai un account, segnala un problema su ^1.</string>
     <string name="bug_report_dialog_method_2">Altrimenti puoi inviare un\'e-mail.</string>
     <string name="bug_report_dialog_button_email">E-mail</string>
+    <string name="bug_report_dialog_diagnostics_note">I dati diagnostici attuali vengono inseriti all\'inizio della segnalazione e dell\'e-mail.</string>
+    <string name="bug_report_dialog_body_prompt">Descrivi il bug. Se possibile, includi i passaggi per riprodurlo, così come qualsiasi log o immagine pertinente.</string>
     <!-- Snackbar -->
-    <string name="snackbar_battery_optimization_settings">Per utilizzare questa funzione,
-        disattivare l\'ottimizzazione della batteria.</string>
-    <string name="snackbar_action_fix">Aggiustare</string>
+    <string name="snackbar_battery_optimization_settings">Per utilizzare questa funzione disattiva l\'ottimizzazione della batteria.</string>
+    <string name="snackbar_action_fix">Risolvi</string>
+    <string name="snackbar_update_available">È disponibile un nuovo aggiornamento</string>
+    <string name="snackbar_action_update">Aggiorna</string>
     <!-- Updates -->
+    <string name="check_for_updates">Controlla aggiornamenti</string>
+    <string name="update_latest_installed">Hai già l\'ultima versione</string>
+    <string name="update_check_failed">Impossibile controllare gli aggiornamenti</string>
+    <string name="update_check_offline">Impossibile raggiungere GitHub. Controlla la connessione e riprova.</string>
+    <string name="update_check_rate_limited">GitHub sta limitando il controllo di aggiornamenti. Riprova più tardi.</string>
+    <string name="update_check_rate_limited_minutes">GitHub sta limitando il controllo di aggiornamenti. Riprova tra circa %1$d min.</string>
+    <string name="update_check_http_error">Impossibile controllare gli aggiornamenti (HTTP %1$d)</string>
+    <string name="update_check_no_release">Nessuna release pubblica da confrontare presente</string>
+    <string name="update_downloading">Download dell\'aggiornamento…</string>
+    <string name="update_download_failed">Impossibile scaricare l\'aggiornamento</string>
+    <string name="update_success">Aggiornamento completato</string>
+    <string name="update_failed">Aggiornamento non riuscito</string>
     <!-- Toast -->
-    <string name="toast_no_email_app">Nessuna app di posta elettronica trovata</string>
-    <string name="toast_pairing_timeout">Il servizio di accoppiamento di Shizuku è terminato.</string>
+    <string name="toast_no_email_app">Nessuna app e-mail trovata</string>
+    <string name="toast_pairing_timeout">Timeout del servizio di accoppiamento di Shizuku</string>
     <!-- Dark Mode Setting Override -->
-    <string name="dark_theme_off">Sempre leggero</string>
-    <string name="dark_theme_on">Sempre buio</string>
+    <string name="dark_theme">Tema</string>
+    <string name="dark_theme_off">Sempre chiaro</string>
+    <string name="dark_theme_on">Sempre scuro</string>
+    <string name="follow_system">Segui il sistema</string>
     <!-- About -->
     <!-- Start/Stop -->
     <string name="start">Avvia</string>
     <string name="action_stop">Arresta</string>
+    <string name="action_restart">Riavvia</string>
+    <string name="action_open_adb_port">Apri porta ADB</string>
     <!-- Notification -->
-    <string name="notification_channel_adb_pairing">Accoppiamento debug wireless</string>
-    <string name="notification_adb_pairing_input_paring_code">Inserire codice di associazione</string>
+    <string name="notification_channel_adb_pairing">Accoppiamento del debug wireless</string>
+    <string name="notification_adb_pairing_input_paring_code">Inserisci codice di associazione</string>
     <string name="notification_adb_pairing_searching_for_service_title">Ricerca del servizio di accoppiamento</string>
     <string name="notification_adb_pairing_service_found_title">Servizio di accoppiamento trovato</string>
     <string name="notification_adb_pairing_stop_searching">Interrompi la ricerca</string>
     <string name="notification_adb_pairing_working_title">Accoppiamento in corso</string>
     <string name="notification_adb_pairing_succeed_title">Accoppiato con successo</string>
-    <string name="notification_adb_pairing_succeed_text">Ora puoi avviare il servizio Shizuku.</string>
+    <string name="notification_adb_pairing_succeed_text">Ora puoi avviare Shizuku.</string>
     <string name="notification_adb_pairing_failed_title">Accoppiamento non riuscito</string>
     <string name="notification_adb_pairing_retry">Riprova</string>
+    <string name="notification_auth_missing_title">Token di autenticazione necessario</string>
+    <string name="notification_auth_missing_message">Aggiungi l\'extra \"auth\" al tuo intent. Puoi trovare il tuo token toccando \"Visualizza intent\" nell\'app.</string>
+    <string name="notification_auth_invalid_title">Token di autenticazione non valido</string>
+    <string name="notification_auth_invalid_message">Assicurati che il token nel tuo intent corrisponda a quello mostrato nell\'app sotto “Visualizza intent”.</string>
     <!-- Permission related, appears in system permission UI -->
-    <string name="permission_label">accesso Shizuku</string>
+    <string name="permission_label">accedere a Shizuku</string>
     <string name="permission_description">Consenti all\'app di usare Shizuku.</string>
     <string name="permission_warning_template"><![CDATA[Consentire a <b>%1$s</b> di %2$s\?]]></string>
     <string name="grant_dialog_button_allow_always">Consenti sempre</string>
     <string name="grant_dialog_button_deny">"Nega"</string>
     <!-- Starter -->
-    <string name="starter">Accensione</string>
-    <string name="start_with_root_failed">Impossibile avviare il servizio poiché i permessi di root
-        non sono stati concessi o questo dispositivo non è rootato.</string>
+    <string name="starter">Avviatore</string>
+    <string name="start_with_root_failed">Impossibile avviare perché l\'accesso root non è disponibile.</string>
     <!-- WADB Starter -->
-    <string name="wadb_notification_title">Inizia Shizuku…</string>
-    <string name="wadb_notification_wifi_required">In attesa della connessione Wi-Fi prima di
-        procedere</string>
+    <string name="wadb_notification_title">Avvio di Shizuku…</string>
+    <string name="wadb_notification_wifi_required">In attesa del Wi-Fi</string>
     <string name="wadb_notification_retry">In attesa di riprovare</string>
-    <string name="wadb_error_title">Errore durante l\'avvio all\'avvio</string>
+    <string name="wadb_notification_connecting">Avvio di Shizuku con ADB wireless</string>
+    <string name="wadb_notification_waiting_for_unlock">Sblocca il dispositivo per continuare</string>
+    <string name="wadb_notification_forcing_wireless">Debug wireless mantenuto attivo</string>
+    <string name="wadb_error_title">Impossibile avviare dopo il riavvio</string>
     <string name="wadb_error_notify_dev">Tocca per avvisare lo sviluppatore.</string>
     <string name="wadb_permission_error_notification_title">Errore di autorizzazione</string>
-    <string name="wadb_permission_error_notification_content">Shizuku necessita di
-        WRITE_SECURE_SETTINGS per avviarsi all\'avvio. Tocca per scoprire come concederlo.</string>
+    <string name="wadb_permission_error_notification_content">Shizuku richiede il permesso WRITE_SECURE_SETTINGS per attivare il debug wireless. Tocca per vedere come concederlo.</string>
     <!-- Shell -->
     <string name="shell_title">Shell</string>
+    <string name="shell_backend_shizuku">Shizuku</string>
+    <string name="shell_backend_root">Root</string>
+    <string name="shell_backend_shizuku_status">Shizuku, UID %1$d</string>
+    <string name="shell_backend_root_status">Root, UID 0</string>
     <string name="shell_search">Cerca</string>
     <string name="shell_search_hint">Trova</string>
     <string name="shell_search_position">%1$d di %2$d</string>
@@ -493,13 +662,16 @@
     <string name="shell_history">Cronologia</string>
     <string name="shell_bookmarks">Salvato</string>
     <string name="shell_bookmark_saved">Salvato</string>
+    <string name="shell_quick_grant">Concedi autorizzazione</string>
+    <string name="shell_quick_revoke">Revoca autorizzazione</string>
     <string name="shell_stop">Arresta</string>
+    <string name="shell_copy">Copia</string>
     <!-- Watchdog -->
     <string name="watchdog_running">Watchdog attivo</string>
-    <string name="watchdog_turn_off">Spegni</string>
+    <string name="watchdog_turn_off">Disattiva</string>
     <string name="watchdog_shizuku_crashed_title">Shizuku si è arrestato in modo anomalo di recente</string>
     <string name="watchdog_shizuku_crashed_text">Watchdog ha riavviato Shizuku. Tocca per vedere come evitare gli arresti anomali.</string>
-    <string name="watchdog_shizuku_crashed_action_turn_off_alerts">Disattiva gli avvisi</string>
+    <string name="watchdog_shizuku_crashed_action_turn_off_alerts">Disattiva avvisi</string>
     <string name="watchdog_shizuku_recovered_title">Shizuku è di nuovo in esecuzione</string>
     <string name="watchdog_shizuku_recovered_text">Watchdog lo ha riavviato dopo che si era interrotto.</string>
     <string name="watchdog_given_up_title">Impossibile avviare Shizuku</string>
@@ -508,38 +680,97 @@
     <string name="watchdog_not_running_title">Watchdog non è in esecuzione</string>
     <string name="watchdog_not_running_text">Android non ha consentito l\'avvio automatico. Tocca per avviarlo di nuovo.</string>
     <!-- Misc -->
+    <string name="off">Disattivo</string>
     <string name="dialog_cannot_open_browser_title">Impossibile avviare il browser</string>
     <string name="toast_copied_to_clipboard">Copiato negli appunti</string>
-    <string name="accessibility_service_description">Fornisce supporto per l\'associazione per
-        dispositivi (ad esempio, TV con Android 14+) in cui non è possibile utilizzare le notifiche
-        o lo schermo diviso.\n\nConsente a Shizuku di estrarre il codice di associazione dalla
-        schermata di debug wireless. Si disabiliterà automaticamente una volta trovato il codice di
-        associazione.</string>
+    <string name="accessibility_service_description">Accoppia il debug wireless senza dover digitare il codice.\n\nShizuku legge il codice di accoppiamento e la porta dalla schermata di sistema “Accoppia con dispositivo”, esegue l\'accoppiamento e si avvia da solo. Sulle TV (ad esempio con Android 14 o versioni successive) gestisce l\'intera procedura e si disattiva una volta trovato il codice.</string>
     <!-- Messages for legacy -->
     <string name="dialog_legacy_not_support_title">%1$s non supporta il moderno Shizuku</string>
-    <string name="dialog_legacy_not_support_message"><![CDATA[Shizuku legacy è stato deprecato a marzo 2019. Inoltre, Shizuku legacy non funziona sui sistemi Android più recenti.<p>Chiedi allo sviluppatore<b>%1$s</b> di aggiornare.]]></string>
+    <string name="dialog_legacy_not_support_message"><![CDATA[Shizuku legacy è obsoleto da marzo 2019. Inoltre, Shizuku legacy non funziona sui sistemi Android più recenti.<p>Chiedi allo sviluppatore<b>%1$s</b> di aggiornare.]]></string>
     <string name="dialog_requesting_legacy_title">%1$s sta richiedendo Shizuku legacy</string>
-    <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> ha il supporto al Shizuku moderno, ma sta richiedendo Shizuku legacy. Questo potrebbe essere perché Shizuku non è in esecuzione, controlla nell\'app Shizuku.<p>Shizuku legacy è stato deprecato a marzo 2019.]]></string>
+    <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> supporta la versione moderna di Shizuku, ma sta richiedendo quella legacy. Potrebbe dipendere dal fatto che Shizuku non è in esecuzione: controlla nell'app Shizuku.<p>La versione legacy di Shizuku è obsoleta da marzo 2019.]]></string>
     <string name="dialog_requesting_legacy_button_open_shizuku">Apri Shizuku</string>
     <string name="wadb_notification_attempt_now">Riprova</string>
     <!-- Manage tab -->
+    <string name="tab_manage">App-op</string>
     <string name="manage_search_hint">Cerca app</string>
     <string name="manage_filter_all">Tutte</string>
+    <string name="manage_filter_system">Sistema</string>
+    <string name="manage_filter_disabled">Disabilitato</string>
     <string name="manage_filter_hidden">Nascosto</string>
+    <string name="manage_status_system">Sistema</string>
+    <string name="manage_status_removed">Rimossi, dati conservati</string>
+    <string name="manage_status_disabled">Disabilitato</string>
+    <string name="manage_status_suspended">Sospeso</string>
     <string name="manage_status_hidden">Nascosto</string>
     <!-- One app, and what it may do on the device -->
+    <string name="app_detail_missing">Questa app non è più installata.</string>
+    <string name="app_open_info">Informazioni app</string>
+    <string name="app_section_permissions">Autorizzazioni di sistema</string>
+    <string name="app_section_runtime">Autorizzazioni di runtime</string>
+    <string name="app_section_ops">App-op</string>
+    <string name="app_section_actions">Azioni</string>
+    <string name="app_section_battery">Batteria</string>
+    <string name="app_section_info">Informazioni</string>
+    <string name="app_permissions_note">Tramite adb si possono modificare solo i permessi il cui livello di protezione include development, oppure quelli pericolosi; la piattaforma rifiuta tutti gli altri, per quanto Shizuku sia attendibile, quindi in quelle righe l\'interruttore resta disattivato.</string>
+    <string name="app_permissions_none">Questa app non ha autorizzazioni di sistema.</string>
+    <string name="app_permission_locked">%1$s, non può essere modificata tramite ADB</string>
+    <string name="app_permission_granted">Autorizzazione concessa</string>
+    <string name="app_permission_revoked">Autorizzazione revocata</string>
+    <string name="app_grant_confirm_title">Concedere %1$s a %2$s?</string>
+    <string name="app_grant_confirm_message">Questo conferisce all\'app i privilegi di livello ADB. Concedili solo alle app che riteni attendibili.</string>
+    <string name="app_grant_confirm_ok">Concedi</string>
+    <string name="app_action_failed">Android ha rifiutato questa operazione. Non è cambiato nulla.</string>
+    <string name="app_ops_note">Gli app-op sono ciò che la piattaforma stessa consulta, e adb può modificare quelli qui sotto. Alcune funzionalità sono un accesso speciale nelle impostazioni di sistema e non app-op: accesso a tutti i file, accesso ai dati di utilizzo, sveglie esatte, modifica delle impostazioni di sistema, e nessuna app può cambiarle.</string>
+    <string name="app_ops_needs_shizuku">Avvia Shizuku per leggere e modificare gli app-op.</string>
+    <string name="app_op_background">Esegui in background</string>
+    <string name="app_op_background_note">Se non consenti, non potrà essere eseguita in background.</string>
+    <string name="app_op_any_background">Avvia automaticamente all\'accensione</string>
+    <string name="app_op_any_background_note">Impedisci alle app di avviarsi da sole all\'avvio del dispositivo o tramite broadcast in background.</string>
+    <string name="app_op_foreground">Servizi in primo piano</string>
+    <string name="app_op_foreground_note">Se non consenti, i suoi servizi in primo piano verranno arrestati.</string>
+    <string name="app_op_wake_lock">Mantieni attivo</string>
+    <string name="app_op_wake_lock_note">Se non consenti, non potrà tenere attivo il dispositivo.</string>
+    <string name="app_op_notifications">Mostra notifiche</string>
     <string name="app_op_notifications_note">Se non consenti, le sue notifiche vengono nascoste.</string>
+    <string name="app_op_clipboard">Leggi appunti</string>
+    <string name="app_op_clipboard_note">Se non consenti, non potrà leggere gli appunti.</string>
+    <string name="app_op_overlay">Mostra sopra le altre app</string>
+    <string name="app_op_overlay_note">Se non consenti, non potrà mostrarsi sopra le altre app. Alcune app lo richiedono per funzionare.</string>
+    <string name="app_op_install">Installa altre app</string>
+    <string name="app_op_install_note">Se non consenti, non potrà installare APK.</string>
+    <string name="app_op_toast">Mostra toast</string>
+    <string name="app_op_toast_note">Se non consenti, non potrà far apparire piccoli messaggi in sovrimpressione sopra altre app.</string>
+    <string name="app_op_project_media">Registra lo schermo</string>
+    <string name="app_op_project_media_note">Se non consenti, non potrà registrare o trasmettere cosa c\'è nello schermo.</string>
+    <string name="app_op_record_audio">Registra audio</string>
+    <string name="app_op_record_audio_note">Se non consenti, l\'autorizzazione resta concessa e le registrazioni risultano invece vuote, ed è ciò che serve a un\'app che non accetta un rifiuto.</string>
+    <string name="app_op_camera">Utilizza la fotocamera</string>
+    <string name="app_op_camera_note">Lo stesso concetto per la fotocamera: se l\'autorizzazione rimane, non arrivano le immagini.</string>
+    <string name="app_op_vibrate">Vibrazione</string>
+    <string name="app_op_vibrate_note">Se non consenti, non potrà sfruttare la vibrazione.</string>
+    <string name="app_op_mock_location">Posizione fittizia</string>
+    <string name="app_op_mock_location_note">Se non consenti, non potrà fornire una posizione fittizia alle altre app.</string>
+    <string name="app_op_pip">Picture in picture</string>
+    <string name="app_op_pip_note">Se non consenti, non potrà comprimersi in una piccola finestra fluttuante.</string>
+    <string name="app_op_set">App-op modificato</string>
     <string name="app_op_mode_default">Predefinito</string>
     <string name="app_op_mode_deny">Nega</string>
-    <string name="app_action_enable">Abilitare</string>
+    <string name="app_action_enable">Abilita</string>
     <string name="app_bucket_default">Predefinito</string>
+    <string name="app_info_uid">UID</string>
     <string name="app_info_updated">Aggiornate</string>
     <string name="wifi_passwords_hide">Nascondi password</string>
     <string name="wifi_passwords_unsupported">La lettura delle reti salvate richiede Android 9 o versioni successive, perché è da lì che si può raggiungere il servizio Wi-Fi non pubblico.</string>
     <string name="files_root_app_data">Dati</string>
+    <string name="files_root_system">Sistema</string>
+    <string name="files_root_root">Root</string>
     <string name="files_all_hidden">Tutti gli elementi in questa cartella sono nascosti.</string>
     <string name="files_sort">Ordina</string>
     <string name="files_show_hidden">Mostra file nascosti</string>
     <string name="files_hide_hidden">Nascondi file nascosti</string>
+    <string name="files_selected_count">%1$d selezionati</string>
+    <string name="files_action_select_all">Seleziona tutto</string>
+    <string name="files_action_copy">Copia</string>
     <string name="install_location_auto">Automatico</string>
 </resources>
