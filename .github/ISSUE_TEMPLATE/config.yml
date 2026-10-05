@@ -1,5 +1,0 @@
-blank_issues_enabled: false
-contact_links:
-  - name: Wiki
-    url: https://github.com/thedjchi/Shizuku/wiki
-    about: The upstream wiki (it documents the behaviour this fork inherits). Please read it before creating a bug report.

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<paths>
-    <cache-path name="cache" path="." />
-    <!-- Recorded logs live in the app's own directory on shared storage, so they survive the
-         app being cleared and a file manager can reach them. Shared from where they are rather
-         than copied somewhere first. -->
-    <external-files-path name="logcat" path="logcat/" />
-</paths>
