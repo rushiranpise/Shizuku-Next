@@ -16,6 +16,7 @@
     <string name="home_wireless_adb_summary">Si avvia utilizzando il debug wireless.</string>
     <string name="home_usb_adb_title"><![CDATA[Avvia tramite debug USB]]></string>
     <string name="home_usb_adb_summary">Si avvia utilizzando il debug USB.</string>
+    <string name="home_support_body">Shizuku-Next è gratuito e senza annunci. Un caffè contribuisce al tempo necessario per mantenerlo.</string>
     <string name="diagnostics_title">Diagnostica</string>
     <string name="diagnostics_copy">Copia diagnostica</string>
     <string name="diagnostics_copied">Diagnostica copiata</string>
@@ -541,8 +542,12 @@
     <string name="permissions_accessibility_summary">Legge automaticamente il codice di accoppiamento.</string>
     <string name="permissions_battery_summary">Impedisce ad Android di chiudere Shizuku in background.</string>
     <string name="settings_help">Aiuto</string>
+    <string name="settings_translate">Partecipa alla traduzione</string>
+    <string name="settings_translate_note">Traduci l\'app su Crowdin.</string>
+    <string name="crowdin_url">https://crowdin.com/project/Shizuku-Next</string>
     <string name="settings_report_bug">Segnala un bug</string>
     <string name="settings_support_coffee">Offrimi un caffè</string>
+    <string name="settings_support_coffee_note">Sostieni lo sviluppo di Shizuku-Next</string>
     <string name="settings_contributors">Collaboratori</string>
     <string name="settings_contributors_hint">Trascina per esplorare · Pizzica per ingrandire · Tocca per i dettagli</string>
     <!--
@@ -747,7 +752,7 @@
     <string name="dialog_legacy_not_support_title">%1$s non supporta il moderno Shizuku</string>
     <string name="dialog_legacy_not_support_message"><![CDATA[Shizuku legacy è obsoleto da marzo 2019. Inoltre, Shizuku legacy non funziona sui sistemi Android più recenti.<p>Chiedi allo sviluppatore<b>%1$s</b> di aggiornare.]]></string>
     <string name="dialog_requesting_legacy_title">%1$s sta richiedendo Shizuku legacy</string>
-    <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> supporta la versione moderna di Shizuku, ma sta richiedendo quella legacy. Potrebbe dipendere dal fatto che Shizuku non è in esecuzione: controlla nell\'app Shizuku.<p>La versione legacy di Shizuku è obsoleta da marzo 2019.]]></string>
+    <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> supporta la versione moderna di Shizuku, ma sta richiedendo quella legacy. Potrebbe dipendere dal fatto che Shizuku non è in esecuzione: controlla nell'app Shizuku.<p>La versione legacy di Shizuku è obsoleta da marzo 2019.]]></string>
     <string name="dialog_requesting_legacy_button_open_shizuku">Apri Shizuku</string>
     <string name="wadb_notification_attempt_now">Riprova</string>
     <!-- Manage tab -->
