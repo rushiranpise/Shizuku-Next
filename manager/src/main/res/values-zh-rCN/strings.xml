@@ -16,7 +16,6 @@
     <string name="home_wireless_adb_summary">通过无线调试启动。</string>
     <string name="home_usb_adb_title"><![CDATA[通过 USB 调试启动]]></string>
     <string name="home_usb_adb_summary">通过 USB 调试启动。</string>
-    <string name="home_support_body">Shizuku-Next 免费且无广告。请作者喝杯咖啡，就是对维护工作的支持。</string>
     <string name="diagnostics_title">诊断</string>
     <string name="diagnostics_copy">复制诊断信息</string>
     <string name="diagnostics_copied">诊断信息已复制</string>
@@ -35,6 +34,7 @@
     <string name="diagnostics_started_with">启动方式</string>
     <string name="diagnostics_default">默认方式</string>
     <string name="diagnostics_hiding">隐藏</string>
+    <string name="diagnostics_phantom">进程查杀</string>
     <string name="diagnostics_root">Root</string>
     <string name="diagnostics_granted">已授权</string>
     <string name="diagnostics_missing">缺失</string>
@@ -193,7 +193,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="activities_needs_shizuku">Shizuku 未运行，而只有它才能启动应用私有的活动。</string>
     <string name="activities_refused">无法启动此活动。</string>
     <string name="activities_long_press">长按一行查看整个名称。</string>
-    <string name="activities_detail_package">包名</string>
+    <string name="activities_detail_package">应用包名</string>
     <string name="activities_detail_activity">活动</string>
     <string name="activities_detail_state">状态</string>
     <string name="activities_open">打开</string>
@@ -209,7 +209,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="intent_data">数据</string>
     <string name="intent_type">类型</string>
     <string name="intent_component">组件</string>
-    <string name="intent_package">包名</string>
+    <string name="intent_package">应用包名</string>
     <string name="intent_categories">Categories</string>
     <string name="intent_operation_activity">启动活动</string>
     <string name="intent_operation_broadcast">发送广播</string>
@@ -376,17 +376,17 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="selinux_disabled">已禁用</string>
     <string name="seccomp_disabled">已禁用</string>
     <string name="seccomp_strict">严格</string>
-    <string name="seccomp_filter">过滤器</string>
+    <string name="seccomp_filter">过滤</string>
     <string name="status_value_none">-</string>
     <string name="status_running_short">正在运行</string>
     <string name="status_stopped_short">已停止</string>
     <string name="action_start">启动</string>
-    <string name="tools_stealth">隐形模式</string>
+    <string name="tools_stealth">隐身模式</string>
     <string name="tools_terminal">终端应用</string>
     <string name="tools_terminal_summary">在任何终端应用中运行 shell 命令</string>
     <string name="tools_battery">电池优化</string>
     <string name="intents_title">Intent</string>
-    <string name="about_package">包名</string>
+    <string name="about_package">应用包名</string>
     <string name="check_for_updates_now">立即检查</string>
     <string name="start_failed">无法启动 Shizuku</string>
     <string name="start_failed_write_secure_settings">没有 WRITE_SECURE_SETTINGS 权限，Shizuku 无法打开无线调试。请在开发者选项 > 无线调试中自行开启，或用 <b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b> 授予该权限。Shizuku 运行后会自己保住这个权限，所以只需一次。</string>
@@ -464,7 +464,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="stealth_info_rish">Rish 用户：安装隐藏版本后重新导出文件。</string>
     <string name="stealth_info_intents">Intent 用户：请用新包名更新你的 Intent。</string>
     <string name="stealth_info_update">您必须在使用隐藏版本时更新 Shizuku，因为它有不同的签名。</string>
-    <string name="stealth_package_name">包名 (可选)</string>
+    <string name="stealth_package_name">应用包名（可选）</string>
     <string name="stealth_package_name_helper_text">如果留空，随机后缀将添加到包名中。</string>
     <string name="stealth_error_ends_with_period">包名不能以句点结尾。</string>
     <string name="stealth_error_invalid_characters">只允许字母、数字和句点。</string>
@@ -524,6 +524,9 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="settings_tcp_mode">TCP 模式</string>
     <string name="settings_tcp_mode_summary">"允许 Shizuku 在没有 Wi-Fi 的情况下重启。（Shizuku 必须在重启后启动过一次）"</string>
     <string name="settings_tcp_mode_dialog_close_port">"TCP 端口将立即关闭。您需要连接 Wi-Fi 才能重新启用 TCP 模式。是否继续？"</string>
+    <string name="settings_tcp_mode_close_wireless">未关闭：无线调试处于开启状态，关闭端口会使它停止。重启手机后端口会自动关闭。</string>
+    <string name="settings_tcp_mode_close_usb_off">未关闭：USB 调试已关闭。请开启后重试。</string>
+    <string name="settings_tcp_mode_close_nothing">没有已打开的 TCP 端口。</string>
     <string name="settings_restart_dialog_title">需要重启</string>
     <string name="settings_restart_dialog_message">Shizuku 需要重启才能应用此设置。</string>
     <string name="settings_restart_dialog_message_wifi_required"><![CDATA[<br><br><b>需要 Wi-Fi。Shizuku 会在后台继续运行并等待 Wi-Fi 连接，连接成功后才会重启。</b>]]></string>
@@ -554,7 +557,6 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="settings_help">帮助</string>
     <string name="settings_report_bug">报告错误</string>
     <string name="settings_support_coffee">请我喝杯咖啡</string>
-    <string name="settings_support_coffee_note">支持 Shizuku-Next 的开发</string>
     <string name="settings_contributors">贡献者</string>
     <string name="settings_contributors_hint">拖动浏览 · 双指缩放 · 点按查看详情</string>
     <!--
@@ -579,9 +581,9 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
       person: a new contributor is described the moment the generator sees them, and %1$s/%2$s are
       filled with the area names above and with language names the platform already localises.
     -->
-    <string name="contributor_summary_code">参与了 %1$s。</string>
-    <string name="contributor_summary_translations">将应用翻译成了 %1$s。</string>
-    <string name="contributor_summary_code_translations">参与了 %1$s，并将应用翻译成了 %2$s。</string>
+    <string name="contributor_summary_code">参与了%1$s相关工作。</string>
+    <string name="contributor_summary_translations">将应用翻译成了%1$s。</string>
+    <string name="contributor_summary_code_translations">参与了%1$s，并将应用翻译成了%2$s。</string>
     <string name="contributor_summary_default">贡献者</string>
     <string name="settings_legacy_pairing">传统配对</string>
     <string name="settings_legacy_pairing_summary">在对话框中输入配对码，而不是在通知中输入</string>
@@ -589,14 +591,14 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="bug_report_dialog_before_reporting">首先，请执行以下操作：</string>
     <string name="bug_report_dialog_update">请检查您是否正在使用 ^1。</string>
     <string name="bug_report_dialog_link_update">最新版本</string>
-    <string name="bug_report_dialog_wiki">阅读 ^1 并遵循所有相关故障排除步骤。</string>
-    <string name="bug_report_dialog_link_wiki">维基</string>
-    <string name="bug_report_dialog_issues">在所有 ^1 中进行搜索，以查看您的 bug 是否已经被报告。</string>
-    <string name="bug_report_dialog_link_issues">现有问题</string>
-    <string name="bug_report_dialog_method">如果您有账号，请在 ^1 上提交问题。</string>
-    <string name="bug_report_dialog_method_2">否则，您可以通过发送电子邮件的方式。</string>
+    <string name="bug_report_dialog_wiki">阅读 ^1，并遵循其中相关的排查步骤。</string>
+    <string name="bug_report_dialog_link_wiki">wiki</string>
+    <string name="bug_report_dialog_issues">请先搜索^1，确认您的问题是否已被报告。</string>
+    <string name="bug_report_dialog_link_issues">已有的 issue</string>
+    <string name="bug_report_dialog_method">如果您有账号，请在 ^1 上提交 issue。</string>
+    <string name="bug_report_dialog_method_2">否则，也可以发送电子邮件。</string>
     <string name="bug_report_dialog_button_email">电子邮件</string>
-    <string name="bug_report_dialog_diagnostics_note">提交 issue 或发送邮件时，您当前的诊断信息会自动填在顶部。</string>
+    <string name="bug_report_dialog_diagnostics_note">提交 issue 或发送电子邮件时，您当前的诊断信息会自动填在顶部。</string>
     <string name="bug_report_dialog_body_prompt">请描述这个错误，并尽可能附上复现步骤和相关截图/日志。</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">请禁用电池优化功能以使用此功能。</string>
@@ -605,7 +607,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="snackbar_action_update">更新</string>
     <!-- Updates -->
     <string name="check_for_updates">检查更新</string>
-    <string name="update_latest_installed">您已经有最新版本</string>
+    <string name="update_latest_installed">已是最新版本</string>
     <string name="update_check_failed">无法检查更新</string>
     <string name="update_check_offline">无法连接 GitHub。请检查网络后重试。</string>
     <string name="update_check_rate_limited">GitHub 正在限制更新检查的频率。请稍后重试。</string>
@@ -776,7 +778,10 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="manage_status_system">系统</string>
     <string name="manage_status_user">用户</string>
     <string name="app_row_user">用户 %1$d</string>
+    <string name="permissions_phantom">后台进程</string>
+    <string name="permissions_phantom_summary">Android 12 及以上版本可能会在应用关闭后停止该应用启动的进程，开机启动的服务端也可能因此停止。此设置影响整个设备，可能需要重启才能生效。</string>
     <string name="permissions_action_deny">拒绝</string>
+    <string name="permissions_phantom_failed">无法更改。需要 Shizuku 或 WRITE_SECURE_SETTINGS 权限。</string>
     <string name="manage_status_removed">已移除，数据保留</string>
     <string name="manage_status_disabled">已停用</string>
     <string name="manage_status_suspended">暂停</string>
@@ -902,6 +907,34 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="wifi_passwords_needs_shizuku">Shizuku 未运行，没有 shell 可以用来读取已保存的网络。</string>
     <string name="wifi_passwords_failed">Wi-Fi 服务没有响应，详情见日志。</string>
     <string name="wifi_passwords_unsupported">读取已保存的网络需要 Android 9 及以上版本，隐藏的 Wi-Fi 服务从该版本起才能访问。</string>
+    <string name="wifi_passwords_search_hint">搜索网络</string>
+    <string name="wifi_passwords_no_match">没有找到已保存的网络。</string>
+    <string name="wifi_passwords_actions">网络操作</string>
+    <string name="wifi_passwords_all_actions">全部网络</string>
+    <string name="wifi_passwords_connected">已连接</string>
+    <string name="wifi_passwords_connect">连接</string>
+    <string name="wifi_passwords_wifi_off">Wi-Fi 已关闭。请开启后重试。</string>
+    <string name="wifi_passwords_wifi_off_hint">Wi-Fi 已关闭。请开启后再连接。</string>
+    <string name="wifi_passwords_connected_toast">已连接到 %1$s</string>
+    <string name="wifi_passwords_forget">取消保存</string>
+    <string name="wifi_passwords_forget_message">将取消保存 %1$s，包括已保存的密码。此操作无法撤销。</string>
+    <string name="wifi_passwords_forgot">已取消保存 %1$s</string>
+    <string name="wifi_passwords_forget_all">取消保存全部网络</string>
+    <string name="wifi_passwords_forget_all_message">将取消保存所有已保存的网络，包括当前连接的网络。此操作无法撤销。</string>
+    <string name="wifi_passwords_forgot_all">已取消保存 %1$d 个网络</string>
+    <string name="wifi_passwords_action_failed">操作失败。详情见日志。</string>
+    <string name="wifi_backup_export">导出网络</string>
+    <string name="wifi_backup_import">导入网络</string>
+    <string name="wifi_backup_export_message">将网络和密码保存到文件。可以用密码保护文件；没有密码将无法打开。</string>
+    <string name="wifi_backup_format_plain">纯文本</string>
+    <string name="wifi_backup_format_compressed">压缩</string>
+    <string name="wifi_backup_password">密码</string>
+    <string name="wifi_backup_password_hint">留空则创建不带保护的文件。</string>
+    <string name="wifi_backup_needs_android8">密码保护需要 Android 8 及以上版本。</string>
+    <string name="wifi_backup_exported">已写入 %1$d 个网络</string>
+    <string name="wifi_backup_imported">已添加 %2$d 个网络中的 %1$d 个</string>
+    <string name="wifi_backup_unreadable">无法读取文件，或密码错误。详情见日志。</string>
+    <string name="wifi_backup_unwritable">无法写入文件。详情见日志。</string>
     <string name="tab_files">文件</string>
     <string name="files_root_internal">内部存储</string>
     <string name="files_root_app_data">数据</string>

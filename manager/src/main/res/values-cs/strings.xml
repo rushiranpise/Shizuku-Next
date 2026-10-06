@@ -824,6 +824,7 @@
     <string name="app_info_launcher">Položka spouštěče</string>
     <string name="app_info_yes">Ano</string>
     <string name="app_info_no">Ne</string>
+    <string name="wifi_passwords_connect">Připojit</string>
     <string name="files_root_app_data">Údaje</string>
     <string name="files_root_system">Systém</string>
     <string name="files_root_root">Root</string>

@@ -868,6 +868,7 @@
     <string name="app_info_launcher">Käynnistimen syöttö</string>
     <string name="app_info_yes">Kyllä</string>
     <string name="app_info_no">Ei</string>
+    <string name="wifi_passwords_connect">Yhdistä</string>
     <string name="files_root_app_data">Tiedot</string>
     <string name="files_root_system">Järjestelmä</string>
     <string name="files_root_root">Juuri</string>

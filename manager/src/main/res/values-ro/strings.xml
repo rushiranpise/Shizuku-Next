@@ -868,6 +868,7 @@
     <string name="app_info_launcher">Intrare lansator</string>
     <string name="app_info_yes">Da</string>
     <string name="app_info_no">Nr</string>
+    <string name="wifi_passwords_connect">Conectează-te</string>
     <string name="files_root_app_data">Date</string>
     <string name="files_root_system">Sistem</string>
     <string name="files_root_root">Rădăcină</string>

@@ -16,7 +16,6 @@
     <string name="home_wireless_adb_summary">Починається за допомогою бездротового налагодження.</string>
     <string name="home_usb_adb_title"><![CDATA[Почати через USB налагодження]]></string>
     <string name="home_usb_adb_summary">Починається використання USB-налагодження.</string>
-    <string name="home_support_body">Shizuku-Next безплатний і не містить реклами. Кава — це внесок у час, потрібний для його підтримки.</string>
     <string name="diagnostics_title">Діагностика</string>
     <string name="diagnostics_copy">Копіювати діагностику</string>
     <string name="diagnostics_copied">Діагностику скопійовано</string>
@@ -35,6 +34,7 @@
     <string name="diagnostics_started_with">Розпочато за допомогою</string>
     <string name="diagnostics_default">Типовий метод</string>
     <string name="diagnostics_hiding">Приховування</string>
+    <string name="diagnostics_phantom">Завершувач процесів</string>
     <string name="diagnostics_root">Root</string>
     <string name="diagnostics_granted">надано</string>
     <string name="diagnostics_missing">відсутній</string>
@@ -509,6 +509,9 @@
     <string name="settings_tcp_mode">Режим TCP</string>
     <string name="settings_tcp_mode_summary">"Дозволяє Shizuku перезапускатися без Wi-Fi. (Shizuku має запуститися принаймні один раз після перезавантаження)"</string>
     <string name="settings_tcp_mode_dialog_close_port">"TCP-порт буде негайно закрито. Щоб знову ввімкнути режим TCP, знадобиться Wi-Fi. Продовжити?"</string>
+    <string name="settings_tcp_mode_close_wireless">Не закрито: бездротове налагодження ввімкнено. Закриття порту зупинить його роботу. Порт закриється після перезавантаження телефона.</string>
+    <string name="settings_tcp_mode_close_usb_off">Не закрито: USB-налагодження вимкнено. Увімкніть його та спробуйте ще раз.</string>
+    <string name="settings_tcp_mode_close_nothing">Жоден TCP-порт не був відкритий.</string>
     <string name="settings_restart_dialog_title">Потрібно перезавантажити</string>
     <string name="settings_restart_dialog_message">Щоб застосувати це налаштування, Shizuku потрібно перезапустити.</string>
     <string name="settings_restart_dialog_message_wifi_required"><![CDATA[<br><br><b>Потрібен Wi-Fi. Шідзуку продовжить працювати і чекати на Wi-Fi, перш ніж перезапустити у фоновому режимі.</b>]]></string>
@@ -540,7 +543,6 @@
     <string name="settings_help">Допомога</string>
     <string name="settings_report_bug">Повідомити про помилку</string>
     <string name="settings_support_coffee">Пригостити мене кавою</string>
-    <string name="settings_support_coffee_note">Підтримайте розробку Shizuku-Next</string>
     <string name="settings_contributors">Вкладники</string>
     <string name="settings_contributors_hint">Перетягніть, щоб дослідити · Зведіть пальці, щоби масштабувати · Торкніться, аби переглянути деталі</string>
     <!--
@@ -775,7 +777,11 @@
     <string name="manage_empty">Застосунків не знайдено.</string>
     <string name="manage_status_system">Система</string>
     <string name="manage_status_user">Користувач</string>
+    <string name="app_row_user">користувач %1$d</string>
+    <string name="permissions_phantom">Фонові процеси</string>
+    <string name="permissions_phantom_summary">Android 12 і новіші версії можуть зупиняти процеси, запущені застосунком, після його закриття. Через це сервер може зупинитися після запуску під час завантаження системи. Цей параметр впливає на весь пристрій, і може знадобитися його перезавантаження.</string>
     <string name="permissions_action_deny">Заборонити</string>
+    <string name="permissions_phantom_failed">Не вдалося змінити. Потрібен Shizuku або дозвіл WRITE_SECURE_SETTINGS.</string>
     <string name="manage_status_removed">Видалено, дані зберігаються</string>
     <string name="manage_status_disabled">Вимкнено</string>
     <string name="manage_status_suspended">Призупинено</string>
@@ -901,6 +907,34 @@
     <string name="wifi_passwords_needs_shizuku">Shizuku не запущено, тому немає оболонки, за допомогою якої можна прочитати збережені мережі.</string>
     <string name="wifi_passwords_failed">Служба Wi‑Fi не відповіла. У журналі записано, що вона сказала.</string>
     <string name="wifi_passwords_unsupported">Для читання збережених мереж потрібен Android 9 або новіше, починаючи з якого можна отримати доступ до прихованої служби Wi-Fi.</string>
+    <string name="wifi_passwords_search_hint">Пошук мереж</string>
+    <string name="wifi_passwords_no_match">Збережену мережу не знайдено.</string>
+    <string name="wifi_passwords_actions">Мережеві дії</string>
+    <string name="wifi_passwords_all_actions">Усі мережі</string>
+    <string name="wifi_passwords_connected">Під’єднано</string>
+    <string name="wifi_passwords_connect">Під’єднатися</string>
+    <string name="wifi_passwords_wifi_off">Wi-Fi вимкнено. Увімкніть його та спробуйте ще раз.</string>
+    <string name="wifi_passwords_wifi_off_hint">Wi-Fi вимкнено. Увімкніть його, щоби під’єднатися.</string>
+    <string name="wifi_passwords_connected_toast">Під’єднано до %1$s</string>
+    <string name="wifi_passwords_forget">Забути</string>
+    <string name="wifi_passwords_forget_message">%1$s буде забуто, разом із збереженим паролем. Цю дію неможливо скасувати.</string>
+    <string name="wifi_passwords_forgot">%1$s забуто</string>
+    <string name="wifi_passwords_forget_all">Забути всі мережі</string>
+    <string name="wifi_passwords_forget_all_message">Усі збережені мережі буде забуто, зокрема поточну мережу. Цю дію неможливо скасувати.</string>
+    <string name="wifi_passwords_forgot_all">Забуто %1$d мереж</string>
+    <string name="wifi_passwords_action_failed">Не вдалося виконати дію. Перевірте журнал, аби дізнатися подробиці.</string>
+    <string name="wifi_backup_export">Експортувати мережі</string>
+    <string name="wifi_backup_import">Імпортувати мережі</string>
+    <string name="wifi_backup_export_message">Зберігає ваші мережі та паролі у файл. Ви можете захистити файл паролем. Без пароля файл неможливо відкрити.</string>
+    <string name="wifi_backup_format_plain">Звичайний текст</string>
+    <string name="wifi_backup_format_compressed">Стиснуто</string>
+    <string name="wifi_backup_password">Пароль</string>
+    <string name="wifi_backup_password_hint">Залиште поле порожнім, щоб створити незахищений файл.</string>
+    <string name="wifi_backup_needs_android8">Для захисту паролем потрібен Android 8 або новіша версія.</string>
+    <string name="wifi_backup_exported">Записано %1$d мереж</string>
+    <string name="wifi_backup_imported">Додано %1$d з %2$d мереж</string>
+    <string name="wifi_backup_unreadable">Не вдалося прочитати файл або пароль неправильний. Докладнішу інформацію дивіться у журналі.</string>
+    <string name="wifi_backup_unwritable">Не вдалося записати файл. Докладнішу інформацію дивіться у журналі.</string>
     <string name="tab_files">Файли</string>
     <string name="files_root_internal">Внутрішній</string>
     <string name="files_root_app_data">Дані</string>
@@ -993,5 +1027,13 @@
     <string name="install_skip_verification_desc">Пропустити перевірку щодо пакета.</string>
     <string name="install_bypass_sdk">Обійти блокування цільового SDK</string>
     <string name="install_bypass_sdk_desc">Дозволити встановлювати застосунки, орієнтовані на надто стару версію Android, у звичайному режимі.</string>
+    <string name="install_user">Встановити для</string>
+    <string name="install_user_current">Цей користувач</string>
+    <string name="install_user_all">Усі користувачі</string>
+    <string name="install_location">Куди</string>
     <string name="install_location_auto">Параметри розробника</string>
+    <string name="install_location_internal">Внутрішнє сховище</string>
+    <string name="install_location_shared">Спільне сховище</string>
+    <string name="install_spoof_source">Підробити джерело встановлення</string>
+    <string name="install_spoof_source_desc">Пакет Android повідомляє, що цей застосунок встановлено.</string>
 </resources>

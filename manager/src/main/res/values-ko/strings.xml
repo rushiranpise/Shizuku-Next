@@ -14,7 +14,6 @@
     <string name="home_wireless_adb_summary">무선 디버깅을 사용해 시작합니다.</string>
     <string name="home_usb_adb_title"><![CDATA[USB 디버깅으로 시작]]></string>
     <string name="home_usb_adb_summary">USB 디버깅을 사용해 시작합니다.</string>
-    <string name="home_support_body">Shizuku-Next는 무료이며 광고가 없습니다. 커피 한 잔은 유지 관리에 드는 시간을 위해 쓰입니다.</string>
     <string name="diagnostics_title">진단 정보</string>
     <string name="diagnostics_copy">진단 정보 복사</string>
     <string name="diagnostics_copied">진단 정보가 복사되었습니다</string>

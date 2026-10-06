@@ -869,6 +869,7 @@
     <string name="app_info_launcher">Lançador de referências</string>
     <string name="app_info_yes">sim</string>
     <string name="app_info_no">Não</string>
+    <string name="wifi_passwords_connect">Conectar</string>
     <string name="files_root_app_data">Dado</string>
     <string name="files_root_system">SISTEMA</string>
     <string name="files_root_root">raiz</string>

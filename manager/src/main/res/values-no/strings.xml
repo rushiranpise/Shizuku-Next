@@ -865,6 +865,7 @@
     <string name="app_info_launcher">Visning av Launcher</string>
     <string name="app_info_yes">Ja</string>
     <string name="app_info_no">Nei</string>
+    <string name="wifi_passwords_connect">Nettverk</string>
     <string name="files_root_app_data">Data</string>
     <string name="files_root_system">Systemadministrasjon</string>
     <string name="files_root_root">Rot</string>

@@ -870,6 +870,7 @@
     <string name="app_info_launcher">Wpis Launcher</string>
     <string name="app_info_yes">Tak</string>
     <string name="app_info_no">Nie</string>
+    <string name="wifi_passwords_connect">Połącz</string>
     <string name="files_root_app_data">Dane</string>
     <string name="files_root_system">System</string>
     <string name="files_root_root">Główny</string>

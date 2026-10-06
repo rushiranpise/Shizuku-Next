@@ -561,6 +561,7 @@
     <string name="app_info_launcher">Запись в лаунчере</string>
     <string name="app_info_yes">Да</string>
     <string name="app_info_no">Нет</string>
+    <string name="wifi_passwords_connect">Подключиться</string>
     <string name="files_root_system">Система</string>
     <string name="files_sort">Сортировка</string>
     <string name="files_selected_count">Выбрано: %1$d</string>

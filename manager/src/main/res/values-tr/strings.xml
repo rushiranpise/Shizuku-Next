@@ -722,6 +722,7 @@
     <string name="app_info_launcher">Başlatıcı ögesi</string>
     <string name="app_info_yes">Evet</string>
     <string name="app_info_no">Hayır</string>
+    <string name="wifi_passwords_connect">Bağlan</string>
     <string name="files_root_system">Sistem</string>
     <string name="files_sort">Sırala</string>
     <string name="files_selected_count">%1$d seçildi</string>
