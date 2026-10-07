@@ -16,6 +16,7 @@
     <string name="home_wireless_adb_summary">透過無線偵錯啟動。</string>
     <string name="home_usb_adb_title"><![CDATA[透過 USB 偵錯啟動]]></string>
     <string name="home_usb_adb_summary">透過 USB 偵錯啟動。</string>
+    <string name="home_support_body">Shizuku-Next 免費且無廣告。請作者喝杯咖啡，就是對維護工作的支援。</string>
     <string name="diagnostics_title">診斷</string>
     <string name="diagnostics_copy">複製診斷資訊</string>
     <string name="diagnostics_copied">診斷資訊已複製</string>
@@ -51,62 +52,46 @@
     <string name="diagnostics_closed">已關閉</string>
     <!-- Adb -->
     <string name="dialog_adb_port">通訊埠</string>
-    <string name="dialog_adb_invalid_port">通訊埠是一個 1 至 65535 的整數。</string>
+    <string name="dialog_adb_invalid_port">請輸入 1～65535 之間的整數連接埠號碼。</string>
     <string name="adb_pairing">配對</string>
     <string name="dialog_adb_pairing_title">與裝置配對</string>
     <string name="dialog_adb_pairing_discovery">正在尋找配對服務</string>
     <string name="dialog_adb_pairing_paring_code">配對碼</string>
     <string name="paring_code_is_wrong">配對碼錯誤。</string>
-    <string name="cannot_connect_port">無法連線到無線偵錯服務。\n\n請確保將 Shizuku 新增至所有防火牆、廣告攔截器、VPN
-        或類似可能限制網路存取的應用程式中的白名單。</string>
-    <string name="dialog_adb_pairing_message">請開始配對，請執行以下步驟：\n- 導覽至「開發人員選項」\n- 啟用「USB 偵錯」與「無線偵錯」\n-
-        點選「無線偵錯」的左側\n- 點擊「使用配對碼配對裝置」\n- 在通知中輸入配對代碼</string>
+    <string name="cannot_connect_port">無法連線到無線偵錯服務。\n\n請確保將 Shizuku 新增至所有防火牆、廣告攔截器、VPN 或類似可能限制網路存取的應用程式中的白名單。</string>
+    <string name="dialog_adb_pairing_message">請開始配對，請執行以下步驟：\n- 導覽至「開發人員選項」\n- 啟用「USB 偵錯」與「無線偵錯」\n- 點選「無線偵錯」的左側\n- 點擊「使用配對碼配對裝置」\n- 在通知中輸入配對代碼</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
-    <string name="dialog_adb_pairing_accessibility_permission">Android 會封鎖非應用程式商店安裝的應用程式使用這個開關。請允許 ^1 應用程式操作來開啟無障礙服務，無障礙清單裡它會顯示為「由受限設定控制」。
-
-開啟應用程式資訊，從選單裡選擇「允許受限設定」，或者在電腦上執行：
-
-^2
-
-兩種方式都可以，之後這個開關就能用了。</string>
+    <string name="dialog_adb_pairing_accessibility_permission">Android 會封鎖非應用程式商店安裝的應用程式使用這個開關。請允許 ^1 應用程式操作來開啟無障礙服務，無障礙清單裡它會顯示為「由受限設定控制」。\n\n開啟應用程式資訊，從選單裡選擇「允許受限設定」，或者在電腦上執行：\n\n^2\n\n兩種方式都可以，之後這個開關就能用了。</string>
     <string name="dialog_adb_pairing_open_app_info">應用程式資訊</string>
-    <string name="dialog_adb_pairing_accessibility_enable">自動配對要透過 Shizuku 的無障礙服務從系統對話框裡讀取配對碼，所以需要開啟它——而且只在需要的那一小段時間：找到配對碼後或一分鐘後，服務會自行關閉以節省電力。Shizuku 通常會自己開啟它，這需要 WRITE_SECURE_SETTINGS 權限，而全新安裝還沒有這個權限。
-
-在下一畫面開啟它、在「手動」下自己輸入配對碼，或者授予一次權限：
-
-adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</string>
-    <string name="dialog_adb_pairing_accessibility_navigate">請依照以下步驟開始配對：\n- 進入「開發人員選項」\n-
-        啟用「USB 偵錯」與「無線偵錯」\n- 點選「無線偵錯」左側\n- 點擊「使用配對碼配對裝置」。 Shizuku 將自動檢測配對碼。</string>
-    <string name="adb_pairing_requires_multi_window">請先進入「分割畫面」(多視窗) 模式。</string>
+    <string name="dialog_adb_pairing_accessibility_enable">自動配對要透過 Shizuku 的無障礙服務從系統對話框裡讀取配對碼，所以需要開啟它——而且只在需要的那一小段時間：找到配對碼後或一分鐘後，服務會自行關閉以節省電力。Shizuku 通常會自己開啟它，這需要 WRITE_SECURE_SETTINGS 權限，而全新安裝還沒有這個權限。\n\n在下一畫面開啟它、在「手動」下自己輸入配對碼，或者授予一次權限：\n\nadb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</string>
+    <string name="dialog_adb_pairing_accessibility_navigate">請依照以下步驟開始配對：\n- 進入「開發人員選項」\n- 啟用「USB 偵錯」與「無線偵錯」\n- 點選「無線偵錯」左側\n- 點擊「使用配對碼配對裝置」。 Shizuku 將自動檢測配對碼。</string>
+    <string name="adb_pairing_requires_multi_window">請先進入分割畫面模式。</string>
     <string name="adb_pairing_requires_multi_window_reason">
         系統需求配對對話框始終可見。只有使用分割畫面模式才能讓此應用程式和系統對話方塊同時可見。</string>
     <string name="adb_error_key_store">無法產生無線偵錯密鑰。\n這可能是因為此裝置的金鑰庫機制已損壞。</string>
-    <string name="adb_error_stop_tcp">未能阻止 ADB 透過 TCP 傳輸</string>
+    <string name="adb_error_stop_tcp">無法透過 TCP 停止 ADB</string>
     <string name="adb_pair_required">請先進行配對步驟。</string>
     <string name="enable">啟用</string>
     <string name="auto_pair_instructions">免輸碼配對：\n\n1. 開發人員選項 → 無線偵錯\n2. 使用配對碼配對裝置\n\nShizuku 會直接從那個對話方塊讀取配對碼和埠並自行啟動。配對完成前請保持對話方塊開啟。</string>
     <string name="auto_pair_manual">手動</string>
     <string name="development_settings">開發人員選項</string>
     <string name="notification_settings">通知設定</string>
-    <string name="adb_pairing_tutorial_content_notification">一則來自 Shizuku 的通知將協助您完成配對。</string>
+    <string name="adb_pairing_tutorial_content_notification">一則來自 Shizuku 的通知將協助你完成配對。</string>
     <string name="adb_pairing_tutorial_content_steps">進入「開發人員選項」，然後啟用「USB 偵錯」和「無線偵錯」。</string>
-    <string name="adb_pairing_tutorial_content_enter_pairing_code">
-        點選「無線偵錯」左側，然後點選「使用配對碼配對裝置」。輸入通知中的代碼以完成配對。</string>
-    <string name="adb_pairing_tutorial_content_notification_blocked">配對過程需要您與 Shizuku 的通知互動。請允許
-        Shizuku 發布通知。</string>
-    <string name="adb_pairing_tutorial_content_miui">MIUI
-        使用者可能需要在系統設定中從「通知管理」-「通知顯示設定」將通知樣式切換為「原生樣式」。</string>
-    <string name="adb_pairing_tutorial_content_miui_2">否則，您可能無法輸入通知中的配對碼。</string>
-    <string name="adb_pairing_tutorial_content_finish">回到 Shizuku 並開始 Shizuku。</string>
+    <string name="adb_pairing_tutorial_content_enter_pairing_code">點選「無線偵錯」左側，然後點選「使用配對碼配對裝置」。輸入通知中的代碼以完成配對。</string>
+    <string name="adb_pairing_tutorial_content_notification_blocked">配對過程需要你與 Shizuku 的通知互動。請允許
+ Shizuku 發布通知。</string>
+    <string name="adb_pairing_tutorial_content_miui">MIUI 使用者可能需要在系統設定中從「通知管理」-「通知顯示設定」將通知樣式切換為「原生樣式」。</string>
+    <string name="adb_pairing_tutorial_content_miui_2">否則，你可能無法在通知中輸入配對碼。</string>
+    <string name="adb_pairing_tutorial_content_finish">回到 Shizuku 並啟動 Shizuku。</string>
     <string name="adb_pairing_tutorial_content_network">Shizuku 需要存取本地網路。這受網路權限控制。</string>
-    <string name="adb_pairing_tutorial_content_network_limation_not_foreground">某些系統（例如
-        MIUI）會禁止應用在不可見時存取網路，即使該應用程式使用了前景服務。請在這些系統上為 Shizuku 關閉電池優化功能。</string>
+    <string name="adb_pairing_tutorial_content_network_limation_not_foreground">某些系統（例如 MIUI）會禁止應用在不可見時存取網路，即使該應用程式使用了前景服務。請在這些系統上為 Shizuku 關閉電池優化功能。</string>
     <!-- Home - Root -->
-    <string name="home_root_title"><![CDATA[啟動 (針對已 Root 裝置)]]></string>
-    <string name="home_root_description"><![CDATA[如果您正在使用 Magisk，可以嘗試使用 %1$s。對於 root 用戶，它最終會取代 Shizuku。請注意，現有應用程式需要稍作修改才能使用 %2$s。]]></string>
+    <string name="home_root_title"><![CDATA[透過 Root 啟動]]></string>
+    <string name="home_root_description"><![CDATA[如果你正在使用 Magisk，可以嘗試使用 %1$s。對於 root 用戶，它最終會取代 Shizuku。請注意，現有應用程式需要稍作修改才能使用 %2$s。]]></string>
     <string name="home_root_button_start">啟動</string>
     <!-- Home - Application management -->
     <plurals name="home_app_management_authorized_apps_count">
@@ -118,9 +103,9 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <!-- Home - Adb permissions limited -->
     <!-- Home - Dialogs -->
     <string name="home_dialog_reboot_required_title">需要重啟</string>
-    <string name="home_dialog_reboot_required_message">需要重啟裝置才能正常工作。若要繼續，請重新啟動您的裝置。</string>
+    <string name="home_dialog_reboot_required_message">請重新啟動裝置，以便 Shizuku 正常運作。</string>
     <string name="home_dialog_duplicate_app_detected_title">檢測到重複的應用程式</string>
-    <string name="home_dialog_duplicate_app_detected_message">此應用程式的另一個版本已安裝在您的裝置上。若要繼續，請解除安裝所有重複版本並重新啟動您的裝置。</string>
+    <string name="home_dialog_duplicate_app_detected_message">此應用程式的另一個版本已安裝在你的裝置上。若要繼續，請解除安裝所有重複版本並重新啟動你的裝置。</string>
     <string name="home_dialog_button_exit">退出</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">ADB 權限受限</string>
@@ -130,12 +115,12 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="app_management_sort">排序</string>
     <string name="apps_needs_shizuku">啟動 Shizuku 後才能檢視應用程式</string>
     <string name="apps_empty">沒有要顯示的應用程式</string>
-    <string name="apps_filter_empty">此過濾器中沒有應用程式</string>
+    <string name="apps_filter_empty">沒有符合篩選條件的應用程式</string>
     <string name="apps_filter_all">全部</string>
     <string name="apps_filter_granted">已授權</string>
     <string name="apps_filter_revoked">已撤銷</string>
     <string name="apps_filter_hidden">已隱藏</string>
-    <string name="apps_no_match">沒有符合您搜尋條件的應用程式</string>
+    <string name="apps_no_match">沒有符合你搜尋條件的應用程式</string>
     <string name="app_management_sort_last_added">最近新增</string>
     <string name="app_management_sort_updated">最近更新</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
@@ -162,9 +147,10 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="hiding_gate_disabled">已停用</string>
     <string name="hiding_gate_kept">保留 %1$d 項</string>
     <string name="hiding_filter_hidden">已隱藏</string>
+    <string name="hiding_open_with_hiding">開啟時保持設定隱藏</string>
     <string name="hiding_filter_shown">可見</string>
     <string name="hiding_filter_empty">沒有隱藏任何內容。</string>
-    <string name="hiding_restore">恢復</string>
+    <string name="hiding_restore">還原設定</string>
     <string name="hiding_signal_developer_options">開發人員選項</string>
     <string name="hiding_signal_usb_debugging">USB 偵錯</string>
     <string name="hiding_signal_wireless_debugging">無線偵錯</string>
@@ -178,7 +164,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="force_dark_count">已強制 %1$d 個</string>
     <string name="force_dark_filter_forced">已強制</string>
     <string name="force_dark_filter_not">未強制</string>
-    <string name="force_dark_empty">沒有強制深色的應用程式。</string>
+    <string name="force_dark_empty">尚未對任何應用程式強制啟用深色模式。</string>
     <string name="force_dark_system_theme">改為切換系統主題</string>
     <string name="force_dark_toggled">已強制關閉該應用程式</string>
     <string name="force_dark_notification_title">強制深色模式已開啟</string>
@@ -202,7 +188,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="activities_edit_as_intent">作為 Intent 編輯</string>
     <string name="activities_copied">已複製</string>
     <string name="tab_intent_builder">Intent 構建器</string>
-    <string name="intent_builder_note">構建併傳送 Intent。可以設定它的 action、data、type、元件、categories、extras 和 flags。也可以從 URI 載入 Intent，例如 intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end，這是 Activity Launcher 和大多數自動化工具使用的格式。載入後會填入各欄位，方便你在傳送前檢查和修改。</string>
+    <string name="intent_builder_note">構建並傳送 Intent。可以設定它的 action、data、type、元件、categories、extras 和 flags。也可以從 URI 載入 Intent，例如 intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end，這是 Activity Launcher 和大多數自動化工具使用的格式。載入後會填入各欄位，方便你在傳送前檢查和修改。</string>
     <string name="intent_uri">Intent URI</string>
     <string name="intent_uri_load">載入到各欄位</string>
     <string name="intent_uri_invalid">這不是有效的 Intent URI。</string>
@@ -235,8 +221,8 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="intent_flag_new_document">新建文件</string>
     <string name="intent_flag_no_animation">無動畫</string>
     <string name="intent_flag_exclude_recents">不在最近任務中</string>
-    <string name="intent_flag_grant_read">授予讀取</string>
-    <string name="intent_flag_grant_write">授予寫入</string>
+    <string name="intent_flag_grant_read">授予讀取權限</string>
+    <string name="intent_flag_grant_write">授予寫入權限</string>
     <string name="tab_device_info">裝置資訊</string>
     <string name="device_refresh">重新整理</string>
     <string name="device_battery">電池</string>
@@ -244,25 +230,25 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="device_temperature">溫度</string>
     <string name="device_voltage">電壓</string>
     <string name="device_current">電流</string>
-    <string name="device_current_average">電流（平均）</string>
+    <string name="device_current_average">平均電流</string>
     <string name="device_charge_counter">充電計數器</string>
     <string name="device_technology">技術</string>
-    <string name="device_health">保健</string>
+    <string name="device_health">健康狀態</string>
     <string name="device_charging">正在充電</string>
     <string name="device_charged">已充滿</string>
-    <string name="device_health_section">保健</string>
+    <string name="device_health_section">健康</string>
     <string name="device_bsoh">電池健康度</string>
     <string name="device_cycles">迴圈次數</string>
     <string name="device_asoc">充電狀態</string>
     <string name="device_first_use">首次使用</string>
-    <string name="device_max_temp">記錄的最大溫度</string>
+    <string name="device_max_temp">記錄的最高溫度</string>
     <string name="device_max_current">最高電流</string>
     <string name="device_health_source">三星把這些資料儲存在電池服務資料裡，並列印在電池 dump 中。它們不屬於 Android API，其他品牌的裝置沒有這些資料。</string>
     <string name="device_usage">時間</string>
     <string name="device_screen_on">螢幕開啟</string>
     <string name="device_time_on_battery">使用電池</string>
     <string name="device_screen_off">螢幕關閉</string>
-    <string name="device_doze">小門</string>
+    <string name="device_doze">Doze 模式</string>
     <string name="device_usage_note">由系統平台自己維護的計數器。每次電池充滿後都會重置，所以一小時前才充滿電的手機在這裡讀到的是秒數，而一整天沒插充電器的手機讀到的是小時數。</string>
     <string name="device_drain">電池使用情況</string>
     <string name="device_drain_note">按元件歸因，這是本平台列印的方式。它把每個應用程式的耗電記為喚醒鎖和執行時間，而不是毫安時，所以這裡不編造每個應用程式的數字。</string>
@@ -270,19 +256,19 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="device_max_charging_voltage">最大充電電壓</string>
     <string name="device_capacity_rated">標稱</string>
     <string name="device_capacity_typical">典型</string>
-    <string name="device_capacity">能力</string>
+    <string name="device_capacity">容量</string>
     <string name="device_capacity_estimated">估計</string>
     <string name="device_capacity_learned">最近學習值</string>
     <string name="device_capacity_range">學習範圍</string>
-    <string name="device_capacity_note">平台不報告設計容量，而這臺裝置連 shell 都讀不到電量計，所以無法誠實地算出相對滿電的百分比。系統學習到的數值見上。</string>
+    <string name="device_capacity_note">平台不報告設計容量，而這臺裝置連 shell 都讀不到電量計，所以無法可靠計算相對滿電的百分比。系統學習到的數值見上。</string>
     <string name="device_history">歷史記錄</string>
     <string name="device_history_level">電量</string>
     <string name="device_history_temperature">溫度</string>
     <string name="device_system">系統</string>
-    <string name="device_model">模型</string>
+    <string name="device_model">型號</string>
     <string name="device_android">Android</string>
     <string name="device_kernel">核心</string>
-    <string name="device_abi">結構</string>
+    <string name="device_abi">架構</string>
     <string name="device_cores">CPU 核心數</string>
     <string name="device_uptime">執行時間</string>
     <string name="device_memory">記憶體</string>
@@ -294,7 +280,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="device_watchdog">看門狗</string>
     <string name="device_app_in_front">前景應用程式</string>
     <string name="device_hiding_held">隱藏保持項</string>
-    <string name="device_thermal">熱量</string>
+    <string name="device_thermal">溫度資訊</string>
     <string name="device_thermal_note">核心暴露的所有溫控感測器，最熱的排在前面。沒有掛載任何東西的感測器會報告 -273 哨兵值，已略去；電源的跳變閾值也不是溫度，同樣略去。共列出 %d 個溫區。</string>
     <string name="device_cpu">CPU</string>
     <string name="device_load_average">平均負載</string>
@@ -309,48 +295,48 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="log_save">儲存</string>
     <string name="log_clear">清空</string>
     <string name="log_cleared">日誌已清除</string>
-    <string name="log_saved">儲存為 %1$s，在共享儲存的應用程式資料夾中</string>
+    <string name="log_saved">已儲存為 %1$s，位於共用儲存空間的應用程式資料夾中</string>
     <string name="log_nothing_to_save">沒有可儲存的內容。</string>
-    <string name="log_pulled">從 logcat 拉取的 %1$d 行</string>
+    <string name="log_pulled">已從 logcat 取得 %1$d 行日誌</string>
     <string name="log_tab_app">此應用程式</string>
     <string name="log_tab_capture">記錄</string>
     <string name="log_tab_saved">已儲存</string>
-    <string name="log_capture_start">啟動</string>
+    <string name="log_capture_start">開始</string>
     <string name="log_capture_stop">停止</string>
     <string name="log_capture_device">整個裝置</string>
-    <string name="log_capture_choose">錄製應用程式</string>
+    <string name="log_capture_choose">要記錄日誌的應用程式</string>
     <string name="log_capture_choose_hint">搜尋應用程式</string>
     <string name="log_capture_running">正在錄製 %1$s · %2$d 行 · %3$s</string>
-    <string name="log_capture_idle">當前沒有在錄製。</string>
-    <string name="log_capture_waiting">正在錄製。尚未記錄到日誌。</string>
+    <string name="log_capture_idle">目前未在記錄。</string>
+    <string name="log_capture_waiting">正在記錄。尚未記錄到日誌。</string>
     <string name="log_capture_empty">還沒有任何記錄。</string>
     <string name="log_capture_jump">最新崩潰</string>
-    <string name="log_capture_needs_shizuku">錄製裝置日誌需要 Shizuku：讀取其他應用程式的日誌是 shell 特權，本應用程式借用的正是 shell。</string>
-    <string name="log_capture_stopped_size">錄製已停止：它已達到大小限制。</string>
-    <string name="log_capture_stopped_time">錄音已停止：已達到時限。</string>
-    <string name="log_capture_stopped_ended">錄製已停止：日誌流結束。</string>
+    <string name="log_capture_needs_shizuku">記錄裝置日誌需要 Shizuku：讀取其他應用程式的日誌是 shell 特權，本應用程式借用的正是 shell。</string>
+    <string name="log_capture_stopped_size">日誌記錄已停止：已達到大小限制。</string>
+    <string name="log_capture_stopped_time">日誌記錄已停止：已達到時間限制。</string>
+    <string name="log_capture_stopped_ended">日誌記錄已停止：日誌串流已結束。</string>
     <string name="log_filter_crashes">崩潰</string>
     <string name="log_saved_empty">還沒有任何記錄。</string>
     <string name="log_session_share">分享</string>
     <string name="log_session_delete">刪除</string>
     <string name="log_session_deleted">已刪除 %1$s</string>
     <string name="log_session_busy">%1$s 仍在記錄。</string>
-    <string name="log_session_running">正在錄製</string>
+    <string name="log_session_running">記錄中</string>
     <string name="permissions_usage_access">使用情況訪問</string>
-    <string name="permissions_usage_access_summary">讓隱藏名單能看到當前開啟的是哪個應用程式。可透過 Shizuku 或系統的使用情況訪問設定授予。</string>
+    <string name="permissions_usage_access_summary">讓隱藏功能識別目前開啟的應用程式。</string>
     <string name="permissions_dump">讀取應用程式退出原因</string>
-    <string name="permissions_dump_summary">讓隱藏名單能分辨應用程式是被關閉了而不是僅在背景執行。透過 Shizuku 授予。</string>
+    <string name="permissions_dump_summary">讓隱藏功能判斷應用程式是已關閉，還是僅在背景執行。</string>
     <string name="home_other_methods">其他啟動方法</string>
     <string name="home_hiding_active_note">Shizuku 可能會在隱藏應用程式開啟時停止，因為隱藏可能會關閉偵錯連線。Shizuku 將在應用程式關閉時再次啟動。</string>
     <string name="hiding_vpn_client_none">未選擇：選擇 VPN 應用程式</string>
     <string name="hiding_notification_channel">隱藏</string>
     <string name="hiding_notification_title">設定已隱藏</string>
-    <string name="hiding_notification_text">點選以恢復它們。</string>
+    <string name="hiding_notification_text">點選以還原設定。</string>
     <string name="hiding_notification_idle_title">隱藏已開啟</string>
-    <string name="hiding_notification_watching">正在監視您列出的應用程式。</string>
+    <string name="hiding_notification_watching">正在監視你列出的應用程式。</string>
     <string name="hiding_notification_paused_title">隱藏已暫停</string>
-    <string name="hiding_notification_paused_text">你的設定已恢復。可為名單中的應用程式重新開啟隱藏。</string>
-    <string name="hiding_resume">恢復</string>
+    <string name="hiding_notification_paused_text">設定已還原。可為清單中的應用程式恢復隱藏。</string>
+    <string name="hiding_resume">恢復隱藏</string>
     <string name="hiding_start_again">重新開始</string>
     <string name="hiding_notification_stopped_title">隱藏已停止</string>
     <string name="hiding_notification_stopped_text">Shizuku 未執行，因此隱藏無法檢測哪些應用程式已開啟。所有隱藏設定已恢復。</string>
@@ -372,8 +358,8 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="home_device_fingerprint">指紋</string>
     <string name="home_device_selinux">SELinux 狀態</string>
     <string name="home_device_seccomp">Seccomp 狀態</string>
-    <string name="selinux_enforcing">強制（Enforcing）</string>
-    <string name="selinux_permissive">寬容（Permissive）</string>
+    <string name="selinux_enforcing">強制</string>
+    <string name="selinux_permissive">寬容</string>
     <string name="selinux_disabled">已禁用</string>
     <string name="seccomp_disabled">已禁用</string>
     <string name="seccomp_strict">嚴格</string>
@@ -384,19 +370,19 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="action_start">啟動</string>
     <string name="tools_stealth">隱身模式</string>
     <string name="tools_terminal">終端應用程式</string>
-    <string name="tools_terminal_summary">在任何終端應用程式中執行 shell 命令</string>
+    <string name="tools_terminal_summary">透過 rish 在任意終端應用程式中執行 shell 命令</string>
     <string name="tools_battery">電池最佳化</string>
     <string name="intents_title">Intent</string>
     <string name="about_package">應用包名</string>
     <string name="check_for_updates_now">立即檢查</string>
     <string name="start_failed">無法啟動 Shizuku</string>
-    <string name="start_failed_write_secure_settings">沒有 WRITE_SECURE_SETTINGS 許可權，Shizuku 無法開啟無線偵錯。請在開發人員選項 > 無線偵錯中自行開啟，或用 <b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b> 授予該許可權。Shizuku 執行後會自己保住這個許可權，所以只需一次。</string>
+    <string name="start_failed_write_secure_settings">沒有 WRITE_SECURE_SETTINGS 權限，Shizuku 無法開啟無線偵錯。請在開發人員選項 &gt; 無線偵錯中自行開啟，或用 <b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b> 授予該權限。Shizuku 執行後會自己保住這個權限，所以只需一次。</string>
     <string name="action_open_wireless_debugging">無線偵錯</string>
-    <string name="start_failed_unsupported">此裝置不能在背景啟動</string>
+    <string name="start_failed_unsupported">此裝置不支援在背景啟動 Shizuku</string>
     <string name="start_failed_wifi_required">請連線 Wi-Fi 網路，否則系統會關閉無線偵錯。也可以用下面的 ADB 命令從電腦啟動。</string>
     <string name="start_failed_binder_went_away">服務啟動後隨即停止，現在還無法使用。當伺服器隨著啟動所經過的那個應用程式一起被撤下時會發生這種情況——負載啟動它之後就是這麼做的。請重試啟動。</string>
     <string name="start_failed_no_port">未找到無線偵錯埠。請確保啟用無線偵錯並連線 Wi-Fi。</string>
-    <string name="start_failed_no_port_no_permission">未找到無線偵錯埠，而沒有 WRITE_SECURE_SETTINGS 許可權 Shizuku 無法開啟無線偵錯：<b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>。或者先透過 USB 偵錯啟動一次 Shizuku，之後它會自行獲取許可權。</string>
+    <string name="start_failed_no_port_no_permission">未找到無線偵錯埠，而沒有 WRITE_SECURE_SETTINGS 權限 Shizuku 無法開啟無線偵錯：<b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>。或者先透過 USB 偵錯啟動一次 Shizuku，之後它會自行獲取權限。</string>
     <string name="start_failed_no_auth">在此網路上不允許進行無線偵錯。再次配對裝置。</string>
     <string name="action_dismiss">關閉</string>
     <string name="action_connect_wifi">連線</string>
@@ -405,14 +391,14 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="start_failed_connection_lost">ADB 連線在啟動時已關閉，請重試。</string>
     <string name="start_failed_usb_no_port">沒有已開啟的本地 ADB 埠——Android 每次重啟都會清除它，重新開啟需要借用一次連線。連線 Wi-Fi 後 Shizuku 會透過無線偵錯重新開啟；也可以在電腦上執行 <b>adb tcpip 5555</b>，或將啟動方式設為 <b>無 Wi-Fi 啟動</b> 改由無線偵錯啟動。</string>
     <string name="start_failed_root_unavailable">此裝置不再有 root，Shizuku 無法透過 root 啟動。請選擇其他啟動方式。</string>
-    <string name="start_failed_system_needs_app">系統啟動方式必須從應用程式內啟動。</string>
+    <string name="start_failed_system_needs_app">系統啟動方式必須在應用程式內使用。</string>
     <string name="start_failed_system_no_exploit">此裝置沒有搭載三星 FOTA agent（com.sdet.fotaagent），而那是系統啟動方式唯一能利用的元件，這裡沒有可用來提權的東西。請將系統啟動方式切換為自訂命令：應用程式會給出你這臺裝置上確實有的提權方式所對應的命令。</string>
     <string name="start_failed_no_binder">服務在一分鐘內沒有出現。前後兩段各有一份日誌：啟動器記在 ShizukuServiceStarter 下，交接記在 BinderSender 下。用只過濾這兩個標籤的 logcat 閱讀器，可以看出啟動器是否 fork 出了伺服器、伺服器是否請求過 binder。</string>
     <string name="start_system_custom_intro">用你能做到的任何方式提權——你自己的漏洞利用、自動化工具或 root shell——執行這條命令：它會以 system uid 啟動服務。應用程式正在等待它出現。</string>
     <string name="start_system_custom_lookup">在 shell 可以詢問包管理器的環境中執行這一條。它在執行時解析可執行檔案的位置，所以就算更新挪走了檔案，命令也不會失效：</string>
     <string name="start_system_custom_plain">在不可以詢問的環境中執行這一條，它是本應用程式此刻知道的絕對路徑：</string>
     <string name="start_system_custom_copied">命令已複製到剪貼簿。</string>
-    <string name="start_system_custom_copy_failed">命令就在上面，可以手動複製。</string>
+    <string name="start_system_custom_copy_failed">請手動複製上方命令。</string>
     <string name="settings_section_startup">啟動</string>
     <string name="settings_section_wireless">無線偵錯</string>
     <string name="settings_section_tools">工具</string>
@@ -434,13 +420,13 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="intents_watchdog_off">看門狗關閉</string>
     <string name="intents_watchdog_toggle">切換看門狗</string>
     <string name="intents_adb_command">透過電腦啟動</string>
-    <string name="home_battery_warning">Shizuku 可能在背景被殺死。允許它忽略電池最佳化。</string>
+    <string name="home_battery_warning">Shizuku 可能在背景被系統終止，請允許其忽略電池最佳化。</string>
     <string name="batch_selected_count">已選擇 %1$d</string>
     <string name="app_management_action_select_all">全選</string>
     <string name="app_management_action_grant">授權</string>
     <string name="app_management_action_revoke">撤銷</string>
-    <string name="app_management_batch_grant_title">授予許可權</string>
-    <string name="app_management_batch_revoke_title">撤銷許可權</string>
+    <string name="app_management_batch_grant_title">授予權限</string>
+    <string name="app_management_batch_revoke_title">撤銷權限</string>
     <string name="app_management_batch_message">套用到選中的 %1$d 個應用程式？</string>
     <string name="app_management_toggle_all_message">套用到列出的全部 %1$d 個應用程式？</string>
     <string name="app_management_batch_granted">已授權 %1$d 個應用程式</string>
@@ -448,29 +434,28 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="action_undo">復原</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">使用者反映 MIUI 破壞了匯出功能所使用的儲存存取框架。</string>
-    <string name="terminal_tutorial_miui_2">如果您使用的是 MIUI 系統，則可能需要從 Shizuku 的 APK 的 assets 資料夾中提取該檔案。</string>
-    <string name="terminal_tutorial_1">將文件匯出到新資料夾。</string>
+    <string name="terminal_tutorial_miui_2">如果你使用的是 MIUI 系統，則可能需要從 Shizuku 的 APK 的 assets 資料夾中提取該檔案。</string>
+    <string name="terminal_tutorial_1">點選以將檔案匯出至新的資料夾。</string>
     <string name="terminal_tutorial_1_description">將匯出兩個檔案： %1$s 和 %2$s。如果所選資料夾中已存在這些文件，則會將其刪除。</string>
     <string name="terminal_tutorial_2">使用終端應用程式將檔案複製到其私有檔案目錄。</string>
-    <string name="terminal_tutorial_2_description">提示：如果你的終端應用程式的主目錄（~）位於私有檔案目錄中，將檔案放在那裡就可以直接運行 %1$s
-        而無需輸入路徑。\n\n否則，你可以在終端應用程式的 %3$s 設定檔中為 %2$s 建立一個別名。</string>
+    <string name="terminal_tutorial_2_description">提示：如果你的終端應用程式的主目錄（~）位於私有檔案目錄中，將檔案放在那裡就可以直接運行 %1$s 而無需輸入路徑。\n\n否則，你可以在終端應用程式的 %3$s 設定檔中為 %2$s 建立一個別名。</string>
     <string name="terminal_tutorial_3">使用以下命令開啟 shell：</string>
     <!-- Stealth -->
     <string name="stealth_description">對檢測到 Shizuku 安裝便拒絕執行的應用程式隱藏 Shizuku。會匯出一個使用不同包名的分身供你安裝。</string>
-    <string name="stealth_warning_compatibility">一些使用 Shizuku 的應用程式可能在隱藏時無法工作，因為他們試圖檢測 Shizuku 是否已安裝。</string>
+    <string name="stealth_warning_compatibility">一些使用 Shizuku 的應用程式可能在隱藏時無法工作，因為它們試圖檢測 Shizuku 是否已安裝。</string>
     <string name="stealth_warning_compatibility_2">臨時取消隱藏可以繞過檢測，恢復時會以原包名安裝一個佔位應用程式。用完之後可以重新隱藏。</string>
     <string name="stealth_warning_compatibility_3">點按此卡片可複製一段程式碼，發給應用程式開發人員，他們的 \"已安裝 Shizuku\" 檢測在 Shizuku 隱藏後就能正常工作。</string>
-    <string name="stealth_warning_detection">某些應用程式甚至在隱藏時仍然能夠檢測 Shizuku。</string>
-    <string name="stealth_info_reconfigure">安裝隱藏版本後，您需要重新配對並重新配置 Shizuku。</string>
+    <string name="stealth_warning_detection">即使隱藏 Shizuku，部分應用程式仍可能偵測到它。</string>
+    <string name="stealth_info_reconfigure">安裝隱藏版本後，你需要重新配對並重新配置 Shizuku。</string>
     <string name="stealth_info_rish">Rish 使用者：安裝隱藏版本後重新匯出檔案。</string>
     <string name="stealth_info_intents">Intent 使用者：請用新包名更新你的 Intent。</string>
-    <string name="stealth_info_update">您必須在使用隱藏版本時更新 Shizuku，因為它有不同的簽名。</string>
+    <string name="stealth_info_update">使用隱藏版本時，必須透過應用程式內更新 Shizuku。</string>
     <string name="stealth_package_name">應用包名（可選）</string>
     <string name="stealth_package_name_helper_text">如果留空，隨機字尾將新增到包名中。</string>
     <string name="stealth_error_ends_with_period">包名不能以句點結尾。</string>
     <string name="stealth_error_invalid_characters">只允許字母、數字和句點。</string>
     <string name="stealth_error_needs_two_segments">包名至少要有兩段。</string>
-    <string name="stealth_error_segment_starts_with_number">段不能以數字開頭。</string>
+    <string name="stealth_error_segment_starts_with_number">套件名稱的每一段都不能以數字開頭。</string>
     <string name="stealth_uninstall_required">需要解除安裝</string>
     <string name="stealth_uninstall_message">系統現在會提示你解除安裝 Shizuku。之後再安裝分身。</string>
     <string name="stealth_uninstall">解除安裝</string>
@@ -479,13 +464,13 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <!-- Settings -->
     <string name="settings_start_on_boot">開機時啟動</string>
     <string name="settings_use_system_color">使用系統主題色彩</string>
-    <string name="settings_use_system_color_summary">跟隨系統調色盤</string>
+    <string name="settings_use_system_color_summary">使用系統配色</string>
     <string name="settings_watchdog">看門狗</string>
     <string name="settings_watchdog_summary">如果 Shizuku 崩潰，則自動重新啟動。</string>
     <string name="settings_auto_disable_wireless_debugging">關閉無線偵錯</string>
     <string name="settings_auto_disable_wireless_debugging_summary">Shizuku 停止時關閉無線偵錯。</string>
     <string name="settings_start_method">預設啟動方式</string>
-    <string name="settings_start_method_root_unavailable">此裝置沒有 root，啟動會退回無線偵錯。</string>
+    <string name="settings_start_method_root_unavailable">此裝置無法使用 root，將改用無線偵錯啟動。</string>
     <string name="start_method_wireless_no_network">無 Wi-Fi</string>
     <string name="start_method_wireless">無線</string>
     <string name="start_method_usb">USB</string>
@@ -498,12 +483,12 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="action_turn_on_developer_options">開啟開發人員選項</string>
     <string name="toast_developer_options_required">關閉無開發人員選項的 ADB</string>
     <string name="settings_adb_without_developer_options_confirm_title">關閉開發人員選項？</string>
-    <string name="settings_adb_without_developer_options_confirm_message">重啟後，Shizuku 會繼續執行並還原其 ADB 設定。您將無法開啟開發人員選項來更改 USB 或無線偵錯設定，也無法配對新裝置。要關閉開發人員選項嗎？</string>
+    <string name="settings_adb_without_developer_options_confirm_message">重啟後，Shizuku 會繼續執行並還原其 ADB 設定。你將無法開啟開發人員選項來更改 USB 或無線偵錯設定，也無法配對新裝置。要關閉開發人員選項嗎？</string>
     <string name="settings_adb_without_developer_options_confirm">關閉</string>
-    <string name="settings_adb_without_developer_options_failed">Shizuku 無法更改設定。首先在許可權頁面上授予 WRITE_SECURE_SETTINGS</string>
+    <string name="settings_adb_without_developer_options_failed">Shizuku 無法更改設定。請先在權限頁面授予 WRITE_SECURE_SETTINGS。</string>
     <string name="settings_wait_for_wifi">等待 Wi-Fi</string>
     <string name="settings_wait_for_wifi_summary">Shizuku 自動重啟時會等待不按流量計費的 Wi-Fi 連線。</string>
-    <string name="settings_unavailable_while_forcing_wireless">「無 Wi-Fi 啟動」開啟時不可用。</string>
+    <string name="settings_unavailable_while_forcing_wireless">開啟「不使用 Wi-Fi 啟動」時，此選項無法使用。</string>
     <string name="settings_force_wireless_debugging">不使用 Wi-Fi 啟動（實驗性）</string>
     <string name="settings_force_wireless_debugging_summary">嘗試在沒有 Wi-Fi 或 USB 偵錯的情況下啟動 Shizuku。這也會關閉 Wi-Fi 等候和自動無線偵錯功能。</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
@@ -512,7 +497,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="state_on">開啟</string>
     <string name="state_off">關閉</string>
     <string name="settings_persist_adb_port">重啟後保留 ADB 埠</string>
-    <string name="settings_persist_adb_port_summary">每次重啟後保持 ADB 埠開啟，所以 Shizuku 可以不使用 Wi-Fi 或熱點。</string>
+    <string name="settings_persist_adb_port_summary">每次重新啟動後保持 ADB 連接埠開啟，讓 Shizuku 無需 Wi-Fi 或熱點即可啟動。</string>
     <string name="settings_persist_adb_port_ok">ADB 埠將在重啟後保持開啟</string>
     <string name="settings_persist_adb_port_refused">Android 拒絕了此操作。Shizuku 必須以 root 或 system 使用者執行。</string>
     <string name="settings_persist_adb_port_unavailable">首先啟動 Shizuku。此設定只能透過 Shizuku 更改。</string>
@@ -524,7 +509,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="home_adb_command_summary">在電腦上透過 ADB 啟動 Shizuku。點按以複製命令</string>
     <string name="settings_tcp_mode">TCP 模式</string>
     <string name="settings_tcp_mode_summary">"讓 Shizuku 能在沒有 Wi-Fi 的情況下重新開始。（Shizuku 自重新開機後應該啟動過一次）"</string>
-    <string name="settings_tcp_mode_dialog_close_port">"TCP 連接埠將立即關閉。您需要連線 Wi-Fi 才能重新啟用 TCP 模式。是否繼續？"</string>
+    <string name="settings_tcp_mode_dialog_close_port">"\"TCP 連接埠將立即關閉。你需要連線 Wi-Fi 才能重新啟用 TCP 模式。是否繼續？\""</string>
     <string name="settings_tcp_mode_close_wireless">未關閉：無線偵錯開啟中，關閉連接埠會使它停止。重新啟動手機後連接埠會自動關閉。</string>
     <string name="settings_tcp_mode_close_usb_off">未關閉：USB 偵錯已關閉。請開啟後再試。</string>
     <string name="settings_tcp_mode_close_nothing">沒有已開啟的 TCP 連接埠。</string>
@@ -536,28 +521,32 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="settings_auto_disable_usb_debugging_summary">停止 Shizuku 時關閉 USB 偵錯</string>
     <string name="settings_language">語言</string>
     <string name="settings_language_system">系統預設</string>
-    <string name="settings_black_night_theme">黑色夜間主題</string>
-    <string name="settings_black_night_theme_summary">夜間模式啟用時使用純黑色主題</string>
+    <string name="settings_black_night_theme">Amoled 純黑主題</string>
+    <string name="settings_black_night_theme_summary">在深色模式下使用純黑主題</string>
     <string name="settings_update_stable">穩定版</string>
     <string name="settings_update_beta">開發版</string>
-    <string name="settings_permissions">許可權</string>
-    <string name="settings_permissions_summary">Shizuku 的需要和允許的內容</string>
+    <string name="settings_permissions">權限</string>
+    <string name="settings_permissions_summary">檢視 Shizuku 所需權限及授權狀態</string>
     <string name="permissions_allowed">已允許</string>
     <string name="permissions_action_allow">允許</string>
     <string name="permissions_action_settings">設定</string>
-    <string name="permissions_open_settings_hint">Android 不會再詢問。請在應用程式資訊 → 許可權中開啟。</string>
+    <string name="permissions_open_settings_hint">Android 不會再詢問。請在應用程式資訊 → 權限中開啟。</string>
     <string name="permissions_notifications">通知</string>
-    <string name="permissions_notifications_summary">顯示配對程式碼，啟動進度和錯誤。</string>
+    <string name="permissions_notifications_summary">顯示配對碼、啟動進度和錯誤資訊。</string>
     <string name="permissions_nearby">附近裝置</string>
-    <string name="permissions_nearby_summary">在您的網路上查詢無線偵錯埠。</string>
+    <string name="permissions_nearby_summary">在你的網路上查詢無線偵錯埠。</string>
     <string name="permissions_write_secure_settings">寫入安全設定</string>
-    <string name="permissions_write_secure_settings_summary">讓 Shizuku 開啟無線偵錯。只有 ADB 可以授予此許可權。</string>
+    <string name="permissions_write_secure_settings_summary">讓 Shizuku 開啟無線偵錯。只有 ADB 可以授予此權限。</string>
     <string name="permissions_accessibility">無障礙服務</string>
-    <string name="permissions_accessibility_summary">自動讀取配對程式碼。</string>
-    <string name="permissions_battery_summary">停止安卓在背景殺死 Shizuku。</string>
+    <string name="permissions_accessibility_summary">自動讀取配對碼。</string>
+    <string name="permissions_battery_summary">防止 Android 在背景終止 Shizuku。</string>
     <string name="settings_help">幫助</string>
+    <string name="settings_translate">參與翻譯</string>
+    <string name="settings_translate_note">在 Crowdin 上翻譯這個應用程式。</string>
+    <string name="crowdin_url">https://crowdin.com/project/Shizuku-Next</string>
     <string name="settings_report_bug">回報錯誤</string>
     <string name="settings_support_coffee">請我喝杯咖啡</string>
+    <string name="settings_support_coffee_note">支援 Shizuku-Next 的開發</string>
     <string name="settings_contributors">貢獻者</string>
     <string name="settings_contributors_hint">拖曳瀏覽 · 雙指縮放 · 點按查看詳情</string>
     <!--
@@ -587,24 +576,24 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="contributor_summary_code_translations">參與了%1$s，並將應用程式翻譯成了%2$s。</string>
     <string name="contributor_summary_default">貢獻者</string>
     <string name="settings_legacy_pairing">傳統配對</string>
-    <string name="settings_legacy_pairing_summary">請在對話框中輸入配對代碼，而非通知</string>
+    <string name="settings_legacy_pairing_summary">在對話方塊中輸入配對碼，而不是在通知中輸入</string>
     <!-- Bug Report Dialog -->
     <string name="bug_report_dialog_before_reporting">首先，請執行以下操作：</string>
-    <string name="bug_report_dialog_update">請檢查您是否正在使用^1。</string>
+    <string name="bug_report_dialog_update">請檢查你是否正在使用^1。</string>
     <string name="bug_report_dialog_link_update">最新版本</string>
     <string name="bug_report_dialog_wiki">閱讀 ^1，並遵循其中相關的排查步驟。</string>
     <string name="bug_report_dialog_link_wiki">wiki</string>
-    <string name="bug_report_dialog_issues">請先搜尋^1，確認您的問題是否已被回報。</string>
+    <string name="bug_report_dialog_issues">請先搜尋^1，確認你的問題是否已被回報。</string>
     <string name="bug_report_dialog_link_issues">已有的 issue</string>
-    <string name="bug_report_dialog_method">如果您有帳號，請在 ^1 上提交 issue。</string>
-    <string name="bug_report_dialog_method_2">或者，您也可以發送電子郵件。</string>
+    <string name="bug_report_dialog_method">如果你有帳號，請在 ^1 上提交 issue。</string>
+    <string name="bug_report_dialog_method_2">或者，你也可以發送電子郵件。</string>
     <string name="bug_report_dialog_button_email">電子郵件</string>
-    <string name="bug_report_dialog_diagnostics_note">提交 issue 或傳送郵件時，您當前的診斷資訊會自動填在頂部。</string>
-    <string name="bug_report_dialog_body_prompt">請描述這個錯誤，並儘可能附上覆現步驟和相關截圖/日誌。</string>
+    <string name="bug_report_dialog_diagnostics_note">提交 issue 或傳送郵件時，你當前的診斷資訊會自動填在頂部。</string>
+    <string name="bug_report_dialog_body_prompt">請描述這個錯誤，並儘可能附上重現步驟和相關截圖/日誌。</string>
     <!-- Snackbar -->
-    <string name="snackbar_battery_optimization_settings">請關閉電池最佳化以使用此功能。</string>
+    <string name="snackbar_battery_optimization_settings">請先關閉電池最佳化，再使用此功能。</string>
     <string name="snackbar_action_fix">修正</string>
-    <string name="snackbar_update_available">有新的更新可用</string>
+    <string name="snackbar_update_available">有新版本可用</string>
     <string name="snackbar_action_update">更新</string>
     <!-- Updates -->
     <string name="check_for_updates">檢查更新</string>
@@ -612,10 +601,10 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="update_check_failed">無法檢查更新</string>
     <string name="update_check_offline">無法連線 GitHub。請檢查網路後重試。</string>
     <string name="update_check_rate_limited">GitHub 正在限制更新檢查的頻率。請稍後重試。</string>
-    <string name="update_check_rate_limited_minutes">GitHub 正在限制更新檢查的頻率，請約 %1$d 分鐘後重試。</string>
+    <string name="update_check_rate_limited_minutes">GitHub 已限制更新檢查頻率，請在約 %1$d 分鐘後重試。</string>
     <string name="update_check_http_error">無法檢查更新 (HTTP %1$d)</string>
     <string name="update_check_no_release">還沒有可比較的已釋出版本</string>
-    <string name="update_downloading">正在下載更新…</string>
+    <string name="update_downloading">正在下載更新……</string>
     <string name="update_download_failed">無法下載更新</string>
     <string name="update_success">更新完成</string>
     <string name="update_failed">更新失敗</string>
@@ -641,7 +630,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="notification_adb_pairing_stop_searching">停止尋找</string>
     <string name="notification_adb_pairing_working_title">正在進行配對</string>
     <string name="notification_adb_pairing_succeed_title">配對成功</string>
-    <string name="notification_adb_pairing_succeed_text">您現在可以啟動 Shizuku 服務了。</string>
+    <string name="notification_adb_pairing_succeed_text">你現在可以啟動 Shizuku 服務了。</string>
     <string name="notification_adb_pairing_failed_title">配對失敗</string>
     <string name="notification_adb_pairing_retry">重試</string>
     <string name="notification_auth_missing_title">需要身份驗證令牌</string>
@@ -658,17 +647,16 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="starter">啟動器</string>
     <string name="start_with_root_failed">未授予 Root 權限或是此裝置沒有 Root，因此無法啟動服務。</string>
     <!-- WADB Starter -->
-    <string name="wadb_notification_title">開始 Shizuku…</string>
+    <string name="wadb_notification_title">正在啟動 Shizuku…</string>
     <string name="wadb_notification_wifi_required">等待 Wi-Fi 連線後再繼續</string>
     <string name="wadb_notification_retry">等待重試</string>
     <string name="wadb_notification_connecting">使用無線 ADB 啟動 Shizuku</string>
     <string name="wadb_notification_waiting_for_unlock">解鎖裝置以繼續</string>
     <string name="wadb_notification_forcing_wireless">保持無線偵錯開啟</string>
-    <string name="wadb_error_title">開機時出現錯誤</string>
-    <string name="wadb_error_notify_dev">點擊即可通知開發者。</string>
+    <string name="wadb_error_title">裝置重新啟動後無法啟動 Shizuku</string>
+    <string name="wadb_error_notify_dev">點選以向開發人員回報此問題。</string>
     <string name="wadb_permission_error_notification_title">權限錯誤</string>
-    <string name="wadb_permission_error_notification_content">Shizuku
-        需要 WRITE_SECURE_SETTINGS 才能於開機時啟動。點擊了解如何授予此權限。</string>
+    <string name="wadb_permission_error_notification_content">Shizuku 需要 WRITE_SECURE_SETTINGS 權限才能開啟無線偵錯。點選以瞭解如何授予此權限。</string>
     <!-- Shell -->
     <string name="shell_title">終端</string>
     <string name="shell_backend_shizuku">Shizuku</string>
@@ -679,7 +667,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="shell_needs_a_backend">啟動 Shizuku，或在已 root 的裝置上選擇 Root：兩者之一負責執行命令。Shizuku 停止時 Root 也能用。</string>
     <string name="shell_intro">以 Shizuku 執行時的 uid 執行（adb 下是 2000，root 下是 0），所以它能觸及該 uid 能觸及的一切：/sdcard、/system，以及 root 下的應用程式資料。它開啟在 /sdcard，一次執行一條命令；背後沒有 tty，需要終端的程式（nano、ssh 互動提示）在這裡無法執行。</string>
     <string name="shell_root_granted">Root 可用：以 uid 0 執行命令。</string>
-    <string name="shell_root_refused">Root 訪問被拒絕，所以命令將使用 Shizuku。授予此應用程式 Root 許可權以使用 Root。</string>
+    <string name="shell_root_refused">Root 授權遭拒，將改用 Shizuku 執行命令。請授予此應用程式 root 權限後再使用 Root。</string>
     <string name="shell_search">搜尋</string>
     <string name="shell_search_hint">查詢</string>
     <string name="shell_search_position">%1$d / %2$d</string>
@@ -690,7 +678,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="shell_save_output">儲存</string>
     <string name="shell_output_saved">已儲存</string>
     <string name="shell_output_save_failed">無法儲存</string>
-    <string name="shell_expand">擴充套件</string>
+    <string name="shell_expand">展開</string>
     <string name="shell_collapse">收起</string>
     <string name="shell_library">命令庫</string>
     <string name="shell_library_hint">搜尋命令</string>
@@ -717,8 +705,8 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="shell_quick_storage">儲存</string>
     <string name="shell_quick_device">裝置</string>
     <string name="shell_quick_apps">我的應用程式</string>
-    <string name="shell_quick_grant">授予許可權</string>
-    <string name="shell_quick_revoke">撤銷許可權</string>
+    <string name="shell_quick_grant">授予權限</string>
+    <string name="shell_quick_revoke">撤銷權限</string>
     <string name="shell_quick_app_ops">應用程式操作</string>
     <string name="shell_quick_force_stop">強行停止</string>
     <string name="shell_adb_prefix_dropped">已在裝置上執行：adb shell 字首是你在電腦上才會輸入的。</string>
@@ -731,7 +719,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="shell_paste_empty">剪貼簿上沒有要貼上的內容。</string>
     <string name="shell_jump_to_newest">跳轉到最新輸出</string>
     <string name="shell_su_needs_root">單獨執行 su 會等待 root 授權，但這個終端裡沒有授權彈窗。請使用 Root 後端，或用 su -c 後跟命令。</string>
-    <string name="shell_exit_note">沒有要退出的 shell，因為每個命令都分開執行。您當前的資料夾和環境變數都被保留。</string>
+    <string name="shell_exit_note">每個命令都會獨立執行，因此這裡沒有可離開的 shell。目前目錄和環境變數會保留。</string>
     <string name="shell_input_hint">命令</string>
     <string name="shell_run">執行</string>
     <string name="shell_stop">停止</string>
@@ -743,10 +731,10 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="watchdog_running">看門狗正在執行</string>
     <string name="watchdog_turn_off">關閉</string>
     <string name="watchdog_shizuku_crashed_title">Shizuku 最近崩潰了</string>
-    <string name="watchdog_shizuku_crashed_text">看門狗重新啟動了這項服務。點擊以了解防止未來當機的潛在修復方法。</string>
+    <string name="watchdog_shizuku_crashed_text">看門狗已重新啟動 Shizuku。點選以查看預防崩潰的方法。</string>
     <string name="watchdog_shizuku_crashed_action_turn_off_alerts">關閉警報</string>
-    <string name="watchdog_shizuku_recovered_title">Shizuku 又在執行了</string>
-    <string name="watchdog_shizuku_recovered_text">它自行停止後，看門狗再次啟動了它。</string>
+    <string name="watchdog_shizuku_recovered_title">Shizuku 已恢復執行</string>
+    <string name="watchdog_shizuku_recovered_text">Shizuku 自行停止後，看門狗已將其重新啟動。</string>
     <string name="watchdog_given_up_title">無法啟動 Shizuku</string>
     <string name="watchdog_given_up_text">已嘗試啟動 Shizuku %1$d 次，都沒有成功。在問題解決之前，再次啟動也無濟於事。</string>
     <string name="watchdog_given_up_action_start">啟動</string>
@@ -758,14 +746,14 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="dialog_cannot_open_browser_title">無法啟動瀏覽器</string>
     <string name="toast_copied_to_clipboard">已複製到剪貼簿</string>
     <string name="accessibility_service_description">為無法使用通知或分割畫面的裝置（例如運行 Android 14+
-        的電視）提供配對支援。\n\n使 Shizuku 能從無線偵錯配對畫面擷取配對程式碼。一旦找到配對碼，它就會自動停用。</string>
+        的電視）提供配對支援。\n\n使 Shizuku 能從無線偵錯配對畫面擷取配對碼。一旦找到配對碼，它就會自動停用。</string>
     <!-- Messages for legacy -->
-    <string name="dialog_legacy_not_support_title">%1$s 不支援現代 Shizuku</string>
-    <string name="dialog_legacy_not_support_message"><![CDATA[舊式 Shizuku 已於 2019 年 3 月被棄用。此外，舊式 Shizuku 無法在較新版本的 Android 系統上工作。<p>請要求 <b>%1$s</b> 的開發人員進行更新。]]></string>
+    <string name="dialog_legacy_not_support_title">%1$s 不支援新版 Shizuku</string>
+    <string name="dialog_legacy_not_support_message"><![CDATA[舊版 Shizuku 已於 2019 年 3 月被棄用。此外，舊版 Shizuku 無法在較新版本的 Android 系統上工作。<p>請要求 <b>%1$s</b> 的開發人員進行更新。]]></string>
     <string name="dialog_requesting_legacy_title">%1$s 正在要求舊版 Shizuku</string>
-    <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> 支援現代 Shizuku，但它正在要求舊版 Shizuku。這可能是因為 Shizuku 未在執行，請在 Shizuku 應用程式內檢查。<p>舊版 Shizuku 已於 2019 年 3 月被棄用。]]></string>
+    <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> 支援新版 Shizuku，但它正在要求舊版 Shizuku。這可能是因為 Shizuku 未在執行，請在 Shizuku 應用程式內檢查。<p>舊版 Shizuku 已於 2019 年 3 月被棄用。]]></string>
     <string name="dialog_requesting_legacy_button_open_shizuku">開啟 Shizuku</string>
-    <string name="wadb_notification_attempt_now">現在嘗試</string>
+    <string name="wadb_notification_attempt_now">重試</string>
     <!-- Manage tab -->
     <string name="tab_manage">應用程式操作</string>
     <string name="manage_search_hint">搜尋應用程式</string>
@@ -774,7 +762,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="manage_filter_system">系統</string>
     <string name="manage_filter_disabled">已停用</string>
     <string name="manage_filter_hidden">已隱藏</string>
-    <string name="manage_filter_empty">此過濾器中沒有任何內容。</string>
+    <string name="manage_filter_empty">沒有符合篩選條件的應用程式。</string>
     <string name="manage_empty">未找到應用程式。</string>
     <string name="manage_status_system">系統</string>
     <string name="manage_status_user">使用者</string>
@@ -788,56 +776,56 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="manage_status_suspended">暫停</string>
     <string name="manage_status_hidden">已隱藏</string>
     <!-- One app, and what it may do on the device -->
-    <string name="app_detail_missing">此應用程式不再被安裝。</string>
+    <string name="app_detail_missing">此應用程式目前未安裝。</string>
     <string name="app_open_info">應用程式資訊</string>
-    <string name="app_section_permissions">系統許可權</string>
-    <string name="app_section_runtime">執行時許可權</string>
-    <string name="app_section_ops">應用程式操作（AppOps）</string>
+    <string name="app_section_permissions">系統權限</string>
+    <string name="app_section_runtime">執行時權限</string>
+    <string name="app_section_ops">應用程式操作</string>
     <string name="app_section_actions">行動</string>
     <string name="app_section_battery">電池</string>
     <string name="app_section_info">資訊</string>
-    <string name="app_permissions_note">只有保護級別包含 development 的許可權和危險許可權可以透過 adb 更改；其餘的無論 Shizuku 多受信任，平台都會拒絕，所以那些行的開關保持關閉。</string>
-    <string name="app_permissions_none">此應用程式沒有系統許可權。</string>
+    <string name="app_permissions_note">只有保護級別包含 development 的權限和危險權限可以透過 adb 更改；其餘的無論 Shizuku 多受信任，平台都會拒絕，所以那些行的開關保持關閉。</string>
+    <string name="app_permissions_none">此應用程式沒有系統權限。</string>
     <string name="app_permission_locked">%1$s，無法透過 ADB 更改</string>
     <string name="app_permission_granted">已授權</string>
     <string name="app_permission_revoked">已撤銷</string>
     <string name="app_grant_confirm_title">將 %1$s 授予 %2$s？</string>
-    <string name="app_grant_confirm_message">這賦予應用程式 ADB 級別的許可權。只授予您信任的應用程式。</string>
+    <string name="app_grant_confirm_message">這會讓該應用程式擁有 ADB 級別的能力。只授予你信任的應用程式。</string>
     <string name="app_grant_confirm_ok">授權</string>
     <string name="app_action_failed">Android 拒絕了此操作。沒有任何更改。</string>
-    <string name="app_ops_note">應用程式操作（AppOps）是系統底層實際參考的機制，adb 可以更改下面這些。少數能力屬於系統設定中的特殊訪問許可權而非應用程式操作——所有檔案訪問、使用情況訪問、精確鬧鐘、修改系統設定——任何應用程式都改不了它們。</string>
+    <string name="app_ops_note">應用程式操作是系統底層實際參考的機制，adb 可以更改下面這些。少數能力屬於系統設定中的特殊訪問權限而非應用程式操作——所有檔案訪問、使用情況訪問、精確鬧鐘、修改系統設定——任何應用程式都改不了它們。</string>
     <string name="app_ops_needs_shizuku">啟動 Shizuku 後才能讀取和更改應用程式操作。</string>
     <string name="app_op_background">背景執行</string>
-    <string name="app_op_background_note">拒絕可阻止它在背景執行。</string>
+    <string name="app_op_background_note">選擇「拒絕」後，將禁止此應用程式在背景執行。</string>
     <string name="app_op_any_background">開機自啟</string>
     <string name="app_op_any_background_note">阻止應用程式在開機時自行啟動或透過背景廣播啟動。</string>
     <string name="app_op_foreground">前景服務</string>
-    <string name="app_op_foreground_note">拒絕可阻止它的前景服務。</string>
+    <string name="app_op_foreground_note">選擇「拒絕」後，將禁止此應用程式執行前景服務。</string>
     <string name="app_op_wake_lock">保持喚醒</string>
-    <string name="app_op_wake_lock_note">拒絕可阻止它保持裝置喚醒。</string>
+    <string name="app_op_wake_lock_note">選擇「拒絕」後，將禁止此應用程式讓裝置保持喚醒。</string>
     <string name="app_op_notifications">顯示通知</string>
-    <string name="app_op_notifications_note">拒絕隱藏其通知。</string>
+    <string name="app_op_notifications_note">選擇「拒絕」後，將隱藏此應用程式的通知。</string>
     <string name="app_op_clipboard">讀取剪貼簿</string>
-    <string name="app_op_clipboard_note">拒絕它讀取您的剪貼簿。</string>
+    <string name="app_op_clipboard_note">選擇「拒絕」後，將禁止此應用程式讀取剪貼簿。</string>
     <string name="app_op_overlay">在其他應用程式上顯示</string>
-    <string name="app_op_overlay_note">拒絕可阻止它覆蓋在其他應用程式之上顯示。部分應用程式需要此功能才能工作。</string>
+    <string name="app_op_overlay_note">選擇「拒絕」後，將禁止此應用程式顯示在其他應用程式上方。</string>
     <string name="app_op_install">安裝其他應用程式</string>
-    <string name="app_op_install_note">拒絕可阻止它安裝 APK。</string>
-    <string name="app_op_toast">顯示 Toast</string>
-    <string name="app_op_toast_note">拒絕可阻止它的小彈窗出現在其他應用程式之上。</string>
-    <string name="app_op_project_media">螢幕採集</string>
-    <string name="app_op_project_media_note">拒絕可阻止它錄製或投屏螢幕上的內容。</string>
+    <string name="app_op_install_note">選擇「拒絕」後，將禁止此應用程式安裝 APK。</string>
+    <string name="app_op_toast">顯示 Toast 提示</string>
+    <string name="app_op_toast_note">選擇「拒絕」後，將禁止此應用程式顯示 Toast。</string>
+    <string name="app_op_project_media">螢幕擷取</string>
+    <string name="app_op_project_media_note">選擇「拒絕」後，將禁止此應用程式錄製或投放螢幕。</string>
     <string name="app_op_record_audio">錄製音訊</string>
-    <string name="app_op_record_audio_note">拒絕會讓許可權保持授予，但錄音內容變為空白——這正是對付不肯接受拒絕的應用程式所需要的。</string>
-    <string name="app_op_camera">使用攝像頭</string>
-    <string name="app_op_camera_note">相機同理：許可權還在，照片不會來。</string>
+    <string name="app_op_record_audio_note">選擇「拒絕」後權限仍在，但錄音內容將為空——專治不接受「拒絕」的應用程式。</string>
+    <string name="app_op_camera">使用相機</string>
+    <string name="app_op_camera_note">相機同理：選擇「拒絕」後權限仍在，但無法取得影像。</string>
     <string name="app_op_vibrate">振動</string>
-    <string name="app_op_vibrate_note">拒絕可阻止它使用振動器。</string>
-    <string name="app_op_mock_location">偽造位置</string>
-    <string name="app_op_mock_location_note">拒絕可阻止它向其他應用程式提供虛構的位置。</string>
+    <string name="app_op_vibrate_note">選擇「拒絕」後，將禁止此應用程式使用振動。</string>
+    <string name="app_op_mock_location">模擬位置</string>
+    <string name="app_op_mock_location_note">選擇「拒絕」後，將禁止此應用程式提供模擬位置。</string>
     <string name="app_op_pip">畫中畫</string>
-    <string name="app_op_pip_note">拒絕可阻止它縮成懸浮小窗。</string>
-    <string name="app_op_set">應用程式操作已更改</string>
+    <string name="app_op_pip_note">選擇「拒絕」後，將禁止此應用程式以浮動小視窗顯示。</string>
+    <string name="app_op_set">應用程式操作已更新</string>
     <string name="app_op_mode_default">預設</string>
     <string name="app_op_mode_allow">允許</string>
     <string name="app_op_mode_ignore">忽略</string>
@@ -856,7 +844,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="app_action_uninstall_note">移除應用程式，但保留其資料。</string>
     <string name="app_action_restore">恢復系統應用程式</string>
     <string name="app_action_restore_note">為此使用者恢復被移除的系統應用程式。</string>
-    <string name="app_confirm_title">您確定嗎？</string>
+    <string name="app_confirm_title">你確定嗎？</string>
     <string name="app_confirm_disable">停用 %1$s？它會停止執行，直到你重新啟用。</string>
     <string name="app_confirm_clear_data">刪除 %1$s 的所有資料？此操作無法撤銷。</string>
     <string name="app_confirm_uninstall">為此使用者移除 %1$s？其資料會保留。</string>
@@ -866,37 +854,37 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="app_bucket_active">不受限制</string>
     <string name="app_bucket_active_note">它可以在背景自由執行。</string>
     <string name="app_bucket_default">預設</string>
-    <string name="app_bucket_default_note">由 Android 決定它能執行多少。</string>
+    <string name="app_bucket_default_note">由 Android 決定此應用程式的執行限制。</string>
     <string name="app_bucket_exempted">豁免</string>
-    <string name="app_bucket_exempted_note">系統豁免了此應用程式的應用程式待機，所以下面選的分組並不是實際生效的那個。</string>
+    <string name="app_bucket_exempted_note">系統已將此應用程式排除在待機限制之外，下方選擇的分組不會實際生效。</string>
     <string name="app_bucket_frequent">頻繁</string>
     <string name="app_bucket_frequent_note">可以經常執行，但不能自由執行。</string>
     <string name="app_bucket_rare">極少</string>
-    <string name="app_bucket_rare_note">只得到很少的背景時間。</string>
+    <string name="app_bucket_rare_note">僅有少量背景執行時間。</string>
     <string name="app_bucket_restricted">受限</string>
     <string name="app_bucket_restricted_note">很少被允許在背景執行。</string>
     <string name="app_bucket_never">從不</string>
     <string name="app_bucket_never_note">無法在背景執行。</string>
     <string name="app_battery_unrestricted">忽略電池最佳化</string>
-    <string name="app_battery_unrestricted_note">讓它在 Doze 期間保持活動狀態，但使用更多電池。</string>
+    <string name="app_battery_unrestricted_note">允許此應用程式在 Doze 模式下保持活動，但會增加耗電。</string>
     <string name="app_section_network">網路</string>
-    <string name="app_network_needs_shizuku">啟動 Shizuku 後才能更改應用程式可訪問的範圍。</string>
+    <string name="app_network_needs_shizuku">啟動 Shizuku 後才能更改此應用程式的網路存取設定。</string>
     <string name="app_network_unsupported">此裝置不支援此功能所需的防火牆。</string>
-    <string name="app_network_block">阻止網路訪問</string>
+    <string name="app_network_block">封鎖網路存取</string>
     <string name="app_network_block_note">平台會丟棄它的流量。</string>
     <string name="app_info_version">版本</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">目標 SDK</string>
-    <string name="app_info_min_sdk">最小 SDK</string>
+    <string name="app_info_min_sdk">最低 SDK 版本</string>
     <string name="app_info_abi">ABI</string>
     <string name="app_info_data_dir">資料目錄</string>
     <string name="app_info_signature">簽名</string>
-    <string name="app_info_installer">安裝自</string>
+    <string name="app_info_installer">安裝來源</string>
     <string name="app_info_installed">已安裝</string>
     <string name="app_info_updated">已更新</string>
     <string name="app_info_debuggable">可偵錯</string>
     <string name="app_info_backup">允許備份</string>
-    <string name="app_info_launcher">啟動器條目</string>
+    <string name="app_info_launcher">啟動器入口</string>
     <string name="app_info_yes">是</string>
     <string name="app_info_no">否</string>
     <string name="tab_wifi_passwords">Wi-Fi 密碼</string>
@@ -930,9 +918,9 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="wifi_backup_format_plain">純文字</string>
     <string name="wifi_backup_format_compressed">壓縮</string>
     <string name="wifi_backup_password">密碼</string>
-    <string name="wifi_backup_password_hint">留空則建立不受保護的檔案。</string>
+    <string name="wifi_backup_password_hint">留空則建立不受密碼保護的檔案。</string>
     <string name="wifi_backup_needs_android8">密碼保護需要 Android 8 以上版本。</string>
-    <string name="wifi_backup_exported">已寫入 %1$d 個網路</string>
+    <string name="wifi_backup_exported">已匯出 %1$d 個網路</string>
     <string name="wifi_backup_imported">已新增 %2$d 個網路中的 %1$d 個</string>
     <string name="wifi_backup_unreadable">無法讀取檔案，或密碼錯誤。詳情請看日誌。</string>
     <string name="wifi_backup_unwritable">無法寫入檔案。詳情請看日誌。</string>
@@ -953,7 +941,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="files_sort_descending">降冪</string>
     <string name="files_show_hidden">顯示隱藏檔案</string>
     <string name="files_hide_hidden">不顯示隱藏檔案</string>
-    <string name="files_failed">無法列出 %1$s。沒有 shell 權限，或資料夾不存在。</string>
+    <string name="files_failed">無法列出 %1$s 的內容：沒有 shell 存取權限，或資料夾不存在。</string>
     <string name="files_needs_shizuku">Shizuku 未執行，無法讀取檔案。</string>
     <string name="files_preview_binary">這不是文字檔，無法顯示。</string>
     <string name="files_preview_failed">無法讀取此檔案。</string>
@@ -982,7 +970,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="install_choose">選擇</string>
     <string name="install_choose_hint">APK、APKS 或 XAPK 檔案</string>
     <string name="install_action">安裝</string>
-    <string name="install_running">正在安裝…</string>
+    <string name="install_running">正在安裝\u2026</string>
     <string name="install_done">安裝完成。</string>
     <string name="install_options_heading">安裝選項</string>
     <string name="install_instant">安裝為即時應用程式</string>
@@ -1000,7 +988,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="install_dexopt_everything">everything</string>
     <string name="install_referrer">安裝來源</string>
     <string name="install_referrer_desc">用來告知應用程式安裝來源的 URI。</string>
-    <string name="install_details_reading">正在讀取安裝包…</string>
+    <string name="install_details_reading">正在讀取安裝包\u2026</string>
     <string name="install_details_unreadable">這個檔案不是有效的應用程式安裝包。</string>
     <string name="install_details_version">版本</string>
     <string name="install_details_target">目標 SDK</string>
@@ -1009,7 +997,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="install_details_not_installed">未安裝</string>
     <string name="install_details_not_installed_note">沒有已安裝的應用程式可替換。</string>
     <string name="install_details_update">比已安裝的版本新。</string>
-    <string name="install_details_downgrade">比已安裝的 %1$s 舊——允許降級。</string>
+    <string name="install_details_downgrade">版本低於已安裝的 %1$s，需要允許降級。</string>
     <string name="install_details_same">與已安裝的應用程式版本相同。</string>
     <string name="install_option_unsupported">此 Android 版本不支援</string>
     <string name="install_failed">失敗：%1$s</string>
@@ -1017,7 +1005,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="install_replace">取代已安裝的應用程式</string>
     <string name="install_replace_desc">保留資料並更新。</string>
     <string name="install_downgrade">允許降級</string>
-    <string name="install_downgrade_desc">在較新版本上安裝較舊版本。</string>
+    <string name="install_downgrade_desc">以較舊版本覆蓋已安裝的較新版本。</string>
     <string name="install_grant_all">授予全部權限</string>
     <string name="install_grant_all_desc">安裝時授予該應用程式要求的所有權限。</string>
     <string name="install_allow_test">允許測試包</string>
@@ -1028,7 +1016,7 @@ adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SE
     <string name="install_skip_verification_desc">跳過安裝包驗證。</string>
     <string name="install_bypass_sdk">繞過目標 SDK 限制</string>
     <string name="install_bypass_sdk_desc">允許安裝目標 Android 版本過舊、通常無法安裝的應用程式。</string>
-    <string name="install_user">安裝給</string>
+    <string name="install_user">安裝對象</string>
     <string name="install_user_current">此使用者</string>
     <string name="install_user_all">所有使用者</string>
     <string name="install_location">安裝位置</string>

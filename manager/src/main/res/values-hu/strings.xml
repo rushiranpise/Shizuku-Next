@@ -16,6 +16,7 @@
     <string name="home_wireless_adb_summary">Indítás vezeték nélküli hibakeresés használatával.</string>
     <string name="home_usb_adb_title"><![CDATA[Indítás USB hibakereséssel]]></string>
     <string name="home_usb_adb_summary">Indítás USB hibakeresés használatával.</string>
+    <string name="home_support_body">A Shizuku Next ingyenes, és nem tartalmaz hirdetéseket. Egy kávé fedezi a fenntartásához szükséges időt.</string>
     <string name="diagnostics_title">Diagnosztika</string>
     <string name="diagnostics_copy">Diagnosztika másolása</string>
     <string name="diagnostics_copied">Diagnosztika másolva</string>
@@ -31,7 +32,7 @@
     <string name="diagnostics_app">Alkalmazás</string>
     <string name="diagnostics_android">Android</string>
     <string name="diagnostics_device">Készülék</string>
-    <string name="diagnostics_started_with">Indítás ezzel:</string>
+    <string name="diagnostics_started_with">Indítás ezzel</string>
     <string name="diagnostics_default">Alapértelmezett mód</string>
     <string name="diagnostics_hiding">Elrejtés</string>
     <string name="diagnostics_phantom">Folyamatkezelő</string>
@@ -209,6 +210,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="device_temperature">Hőmérséklet</string>
     <string name="device_voltage">Feszültség</string>
     <string name="device_current">Jelenleg</string>
+    <string name="device_first_use">Első használat</string>
     <string name="device_history">Előzmények</string>
     <string name="device_history_level">Szint</string>
     <string name="device_history_temperature">Hőmérséklet</string>
@@ -283,7 +285,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="status_running_short">Fut</string>
     <string name="status_stopped_short">Leállítva</string>
     <string name="action_start">Indítás</string>
-    <string name="tools_stealth">Rejtőzködő mód</string>
+    <string name="tools_stealth">Rejtett üzemmód</string>
     <string name="tools_terminal">Terminál alkalmazások</string>
     <string name="tools_terminal_summary">Futtasson shell parancsokat bármely terminálalkalmazásban a rish használatával</string>
     <string name="tools_battery">Akkumulátor optimalizálás</string>
@@ -331,6 +333,11 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="intents_watchdog_toggle">Felügyelet átkapcsolás</string>
     <string name="intents_adb_command">Indítás számítógépről</string>
     <string name="home_battery_warning">Előfordulhat, hogy Shizuku a háttérben leáll. Engedélyezze az akkumulátor-optimalizálás figyelmen kívül hagyását.</string>
+    <string name="app_management_action_grant">Megadás</string>
+    <string name="app_management_action_revoke">Visszavonás</string>
+    <string name="app_management_batch_grant_title">Engedélyek megadása</string>
+    <string name="app_management_batch_revoke_title">Engedélyek visszavonása</string>
+    <string name="action_undo">Visszavon</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">A felhasználók arról számoltak be, hogy az MIUI sérti a
         Storage Access Frameworköt, amelyet az exportálási funkció használ.</string>
@@ -347,6 +354,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
         számára a terminálalkalmazásod %3$s konfigurációs fájljában.</string>
     <string name="terminal_tutorial_3">Nyisson meg egy shell-t a következő paranccsal:</string>
     <!-- Stealth -->
+    <string name="stealth_description">A Shizuku elrejtése azon alkalmazások elől, amelyek a Shizuku telepítése után nem futnak. A program létrehoz egy más csomagnévvel rendelkező klónt a telepítéshez.</string>
     <string name="stealth_warning_compatibility">Előfordulhat, hogy egyes Shizuku-t használó alkalmazások nem működnek, ha a Shizuku el van rejtve, mivel ezek megpróbálják felismerni, hogy a Shizuku telepítve van-e.</string>
     <string name="stealth_warning_compatibility_2">Megkerülő megoldásként ideiglenesen felfedheti a Shizukut, amely egy kis programrészt telepít az eredeti csomagnévvel. Ha végzett, újra elrejtheti Shizukut.</string>
     <string name="stealth_warning_compatibility_3">Koppintson erre a kártyára egy kódrészlet másolásához, amelyet elküldhet a fejlesztőnek, így a \"Shizuku telepítve\" ellenőrzés működni fog, amikor Shizuku el van rejtve.</string>
@@ -358,7 +366,10 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="stealth_package_name">Csomagnév (nem kötelező)</string>
     <string name="stealth_package_name_helper_text">Ha üresen hagyjuk, egy véletlenszerű utótag kerül hozzáadásra a csomag nevéhez.</string>
     <string name="stealth_error_invalid_characters">Csak betűk, számok és pontok megengedettek.</string>
+    <string name="stealth_uninstall_message">A rendszer most felszólítja a Shizuku eltávolítására. Ezután telepítse a klónt.</string>
+    <string name="stealth_uninstall">Eltávolítás</string>
     <string name="stealth_hide">Elrejtés</string>
+    <string name="stealth_unhide">Felfedés</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">Indítás rendszerindításkor</string>
     <string name="settings_use_system_color">Használja a rendszertéma színét</string>
@@ -435,10 +446,12 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="permissions_accessibility_summary">Automatikusan beolvassa a párosítási kódot.</string>
     <string name="permissions_battery_summary">Megakadályozza, hogy az Android leállítsa a Shizuku háttérbeli futását.</string>
     <string name="settings_help">Segítség</string>
+    <string name="settings_translate">Közreműködés a fordításban</string>
     <string name="settings_report_bug">Hiba jelentése</string>
     <string name="settings_support_coffee">Vegyen nekem egy kávét</string>
+    <string name="settings_support_coffee_note">Támogassa a Shizuku Next fejlesztését</string>
     <string name="settings_contributors">Közreműködők</string>
-    <string name="settings_contributors_hint">Húzással fedezheti · Két ujjal nagyíthat · Érintéssel megtekintheti a részleteket</string>
+    <string name="settings_contributors_hint">Húzással felfedezheti · Két ujjal nagyíthat · Érintéssel megtekintheti a részleteket</string>
     <!--
       A plural, not a plain string: most of the people on this wall are here for a single commit,
       so the singular is read more often than the plural is.
@@ -541,6 +554,14 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="shell_backend_root">Root</string>
     <string name="shell_backend_shizuku_status">Shizuku, uid %1$d</string>
     <string name="shell_backend_root_status">Root, uid 0</string>
+    <string name="shell_search">Keresés</string>
+    <string name="shell_save_output">Mentés</string>
+    <string name="shell_expand">Kibontás</string>
+    <string name="shell_collapse">Összecsukás</string>
+    <string name="shell_library">Könyvtár</string>
+    <string name="shell_library_hint">Parancsok keresése</string>
+    <string name="shell_quick_grant">Engedélyek megadása</string>
+    <string name="shell_quick_revoke">Engedélyek visszavonása</string>
     <string name="shell_quick_app_ops">Alkalmazásművelet</string>
     <string name="shell_stop">Leállítás</string>
     <string name="shell_copy">Másolás</string>
@@ -586,6 +607,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="manage_status_hidden">Rejtve</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_section_ops">Alkalmazásműveletek</string>
+    <string name="app_grant_confirm_ok">Megadás</string>
     <string name="app_op_notifications">Értesítések megjelenítése</string>
     <string name="app_op_notifications_note">Megakadályozza az értesítéseket.</string>
     <string name="app_op_mode_default">Alapértelmezett</string>
