@@ -100,7 +100,7 @@
     <string name="tab_labs">Лаборатория</string>
     <string name="lab_more_apps">Приложения</string>
     <string name="tab_firewall">Брандмауэр</string>
-    <string name="tab_autostart">Автостарт</string>
+    <string name="tab_autostart">Автозагрузка</string>
     <string name="labs_filter_allowed">Разрешено</string>
     <string name="labs_filter_blocked">Заблокировано</string>
     <string name="labs_blocked_count">Заблокировано: %1$d</string>
@@ -232,7 +232,7 @@
     <string name="device_server">Сервер</string>
     <string name="device_start_method">Кем запущен</string>
     <string name="device_transport">Транспорт</string>
-    <string name="device_watchdog">Сторожевой таймер</string>
+    <string name="device_watchdog">Сторожевой сервис</string>
     <string name="device_app_in_front">Приложение на переднем плане</string>
     <string name="device_hiding_held">Скрытие удержаний</string>
     <string name="device_thermal">Термодатчики</string>
@@ -396,7 +396,7 @@
     <string name="settings_start_on_boot">Запускать при загрузке</string>
     <string name="settings_use_system_color">Использовать системные цвета</string>
     <string name="settings_use_system_color_summary">Следует палитре системы (Dynamic Colors)</string>
-    <string name="settings_watchdog">Сторожевой таймер</string>
+    <string name="settings_watchdog">Сторожевой сервис</string>
     <string name="settings_watchdog_summary">Автоматически перезапускать Shizuku при сбое</string>
     <string name="settings_auto_disable_wireless_debugging">Отключить беспроводную отладку</string>
     <string name="settings_auto_disable_wireless_debugging_summary">Отключать беспроводную отладку при остановке Shizuku.</string>
@@ -472,6 +472,7 @@
     -->
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
     <string name="contributor_area_server">Сервер</string>
+    <string name="contributor_area_build">Сборка</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
       worked in, and the languages they translated into. There is deliberately no string per
@@ -658,6 +659,8 @@
     <string name="manage_empty">Приложения не найдены.</string>
     <string name="manage_status_system">Система</string>
     <string name="manage_status_user">Пользовательские</string>
+    <string name="permissions_phantom">Фоновые процессы</string>
+    <string name="permissions_phantom_summary">Android 12 и более поздние версии могут завершать процессы, запущенные приложением, после его закрытия. Это может привести к остановке сервера после автоматического запуска при загрузке. Данное свойство влияет на все устройство, и для его применения может потребоваться перезагрузка.</string>
     <string name="permissions_action_deny">Запретить</string>
     <string name="manage_status_removed">Удалено, данные сохранены</string>
     <string name="manage_status_disabled">Отключён</string>
@@ -773,18 +776,31 @@
     <string name="app_info_launcher">Запись в лаунчере</string>
     <string name="app_info_yes">Да</string>
     <string name="app_info_no">Нет</string>
+    <string name="tab_wifi_passwords">Пароли Wi-Fi</string>
+    <string name="wifi_passwords_hide">Скрыть пароль</string>
+    <string name="wifi_passwords_copy">Копировать пароль</string>
+    <string name="wifi_passwords_none">Нет пароля</string>
     <string name="wifi_passwords_connect">Подключиться</string>
+    <string name="wifi_backup_password">Пароль</string>
+    <string name="tab_files">Файлы</string>
     <string name="files_root_app_data">Данные</string>
     <string name="files_root_system">Система</string>
     <string name="files_sort">Сортировка</string>
+    <string name="files_sort_size">По размеру</string>
+    <string name="files_sort_modified">По дате</string>
     <string name="files_selected_count">Выбрано: %1$d</string>
     <string name="files_action_select_all">Выбрать все</string>
     <string name="files_action_rename">Переименовать</string>
     <string name="files_action_copy">Копировать</string>
+    <string name="files_action_cut">Вырезать</string>
     <string name="files_action_delete">Удалить</string>
+    <string name="files_action_new_folder">Новая папка</string>
     <string name="files_field_name">Название</string>
     <string name="install_details_version">Версия</string>
     <string name="install_details_target">Целевой SDK</string>
     <string name="install_details_installed">Установлено</string>
+    <string name="install_details_not_installed">Не установлено</string>
+    <string name="install_user_all">Все пользователи</string>
     <string name="install_location_auto">Автоматически</string>
+    <string name="install_location_internal">Хранилище</string>
 </resources>

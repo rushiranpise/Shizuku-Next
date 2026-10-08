@@ -6,8 +6,8 @@
       a change here reaches translators on the next push and not before.
     -->
     <!-- To translators: you can leave your here -->
-    <string name="home_status_adb_wireless">reclame</string>
-    <string name="home_status_adb_usb">reclame</string>
+    <string name="home_status_adb_wireless">adb</string>
+    <string name="home_status_adb_usb">adb</string>
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Pornește prin depanare fără fir]]></string>
@@ -171,6 +171,7 @@
     <string name="hiding_gate_disabled">Dezactivat</string>
     <string name="hiding_gate_kept">%1$d păstrat</string>
     <string name="hiding_filter_hidden">Hidden</string>
+    <string name="hiding_open_with_hiding">Deschide cu setările ascunse</string>
     <string name="hiding_filter_shown">Vizibil</string>
     <string name="hiding_filter_empty">Nimic ascuns.</string>
     <string name="hiding_restore">Restaurează</string>

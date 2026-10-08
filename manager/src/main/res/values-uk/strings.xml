@@ -16,6 +16,7 @@
     <string name="home_wireless_adb_summary">Починається за допомогою бездротового налагодження.</string>
     <string name="home_usb_adb_title"><![CDATA[Почати через USB налагодження]]></string>
     <string name="home_usb_adb_summary">Починається використання USB-налагодження.</string>
+    <string name="home_support_body">Shizuku-Next безплатний і не містить реклами. Чашка кави допоможе покрити час, витрачений на підтримку.</string>
     <string name="diagnostics_title">Діагностика</string>
     <string name="diagnostics_copy">Копіювати діагностику</string>
     <string name="diagnostics_copied">Діагностику скопійовано</string>
@@ -147,6 +148,7 @@
     <string name="hiding_gate_disabled">Вимкнено</string>
     <string name="hiding_gate_kept">Збережено: %1$d</string>
     <string name="hiding_filter_hidden">Приховано</string>
+    <string name="hiding_open_with_hiding">Відкрити, приховавши налаштування</string>
     <string name="hiding_filter_shown">Видно</string>
     <string name="hiding_filter_empty">Нічого не приховано.</string>
     <string name="hiding_restore">Відновити</string>
@@ -541,8 +543,12 @@
     <string name="permissions_accessibility_summary">Автоматично читає код для парування.</string>
     <string name="permissions_battery_summary">Зупиняє Android вбивати Сідзуку у фоновому режимі.</string>
     <string name="settings_help">Допомога</string>
+    <string name="settings_translate">Долучитися до перекладу</string>
+    <string name="settings_translate_note">Перекладайте застосунок на Crowdin.</string>
+    <string name="crowdin_url">https://crowdin.com/project/Shizuku-Next</string>
     <string name="settings_report_bug">Повідомити про помилку</string>
     <string name="settings_support_coffee">Пригостити мене кавою</string>
+    <string name="settings_support_coffee_note">Підтримайте розробку Shizuku-Next</string>
     <string name="settings_contributors">Вкладники</string>
     <string name="settings_contributors_hint">Перетягніть, щоб дослідити · Зведіть пальці, щоби масштабувати · Торкніться, аби переглянути деталі</string>
     <!--
