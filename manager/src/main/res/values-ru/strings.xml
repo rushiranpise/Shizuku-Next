@@ -15,6 +15,7 @@
     <string name="home_usb_adb_title"><![CDATA[Запуск через отладку по USB]]></string>
     <string name="home_usb_adb_summary">Запускает через отладку по USB.</string>
     <string name="diagnostics_wireless_debugging">Беспроводная отладка</string>
+    <string name="diagnostics_local_network">Локальная сеть</string>
     <string name="diagnostics_battery">Оптимизация батареи</string>
     <string name="diagnostics_device">Устройство</string>
     <string name="diagnostics_hiding">Скрытие</string>
@@ -59,7 +60,7 @@
     <!-- Home - Root -->
     <string name="home_root_title"><![CDATA[Запуск через root]]></string>
     <string name="home_root_description"><![CDATA[Если вы используете Magisk, попробуйте %1$s. Для пользователей root он со временем заменит Shizuku. Обратите внимание: существующим приложениям потребуется немного изменить код, чтобы использовать %2$s.]]></string>
-    <string name="home_root_button_start">Запустить</string>
+    <string name="home_root_button_start">Старт</string>
     <!-- Home - Application management -->
     <plurals name="home_app_management_authorized_apps_count">
         <item quantity="one"><![CDATA[Выдано разрешение: %d приложению]]></item>
@@ -96,7 +97,7 @@
     <string name="app_management_sort_alphabetical">А–Я</string>
     <string name="tab_home">Главная</string>
     <string name="tab_apps">Приложения</string>
-    <string name="tab_shell">Оболочка</string>
+    <string name="tab_shell">Терминал</string>
     <string name="tab_labs">Лаборатория</string>
     <string name="lab_more_apps">Приложения</string>
     <string name="tab_firewall">Брандмауэр</string>
@@ -521,8 +522,8 @@
     <!-- About -->
     <!-- Start/Stop -->
     <string name="start">Запустить</string>
-    <string name="action_stop">Остановить</string>
-    <string name="action_restart">Перезапустить</string>
+    <string name="action_stop">Стоп</string>
+    <string name="action_restart">Перезап.</string>
     <string name="action_open_adb_port">Открыть порт ADB</string>
     <!-- Notification -->
     <string name="notification_channel_adb_pairing">Сопряжение беспроводной отладки</string>
@@ -633,7 +634,7 @@
     <string name="watchdog_shizuku_crashed_action_turn_off_alerts">Отключить уведомления</string>
     <string name="watchdog_shizuku_recovered_title">Shizuku снова работает</string>
     <string name="watchdog_shizuku_recovered_text">Сторожевой таймер перезапустил сервис после его незапланированной остановки.</string>
-    <string name="watchdog_given_up_action_start">Запустить</string>
+    <string name="watchdog_given_up_action_start">Старт</string>
     <!-- Misc -->
     <string name="error">Ошибка</string>
     <string name="off">Выключено</string>
@@ -796,6 +797,7 @@
     <string name="files_action_delete">Удалить</string>
     <string name="files_action_new_folder">Новая папка</string>
     <string name="files_field_name">Название</string>
+    <string name="tab_install">Установка</string>
     <string name="install_details_version">Версия</string>
     <string name="install_details_target">Целевой SDK</string>
     <string name="install_details_installed">Установлено</string>

@@ -9,6 +9,8 @@
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Bắt đầu thông qua Gỡ lỗi không dây]]></string>
+    <string name="home_support_body">Shizuku-Next là ứng dụng miễn phí và không có quảng cáo. Bạn chỉ cần mua một ly cà phê để trang trải chi phí duy trì ứng dụng.</string>
+    <string name="diagnostics_device">Thiết bị</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
@@ -86,9 +88,12 @@
     <string name="app_management_toggle_all">Chuyển đổi tất cả</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="intent_start">Bắt đầu</string>
-    <string name="device_watchdog">Chó canh gác</string>
+    <string name="tab_device_info">Thông tin thiết bị</string>
+    <string name="device_health_source">Hãng giữ các thông tin này trong phần dữ liệu dịch vụ pin rồi in ra ở tệp trích xuất hệ thống. Các thông số trên không thuộc bộ giao tiếp lập trình ứng dụng gốc nên các thương hiệu sản xuất khác sẽ không tích hợp chúng.</string>
+    <string name="device_watchdog">Trình giám sát hệ thống</string>
     <string name="log_capture_start">Bắt đầu</string>
     <string name="action_start">Bắt đầu</string>
+    <string name="check_for_updates_now">Kiểm tra</string>
     <string name="intents_start">Bắt đầu</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Người dùng đã báo cáo rằng MIUI làm hỏng Storage Access
@@ -122,16 +127,24 @@
     <string name="settings_restart_dialog_message_wifi_required"><![CDATA[<br><br><b>Wi-Fi là bắt buộc. Shizuku sẽ tiếp tục chạy và đợi kết nối Wi-Fi trước khi khởi động lại trong nền.</b>]]></string>
     <string name="settings_tcp_port">Cổng TCP</string>
     <string name="settings_language">Ngôn ngữ</string>
+    <string name="settings_language_system">Mặc định hệ thống</string>
     <string name="settings_black_night_theme">Chủ đề đen</string>
     <string name="settings_black_night_theme_summary">Sử dụng chủ đề đen tuyền nếu chế độ ban đêm
         được bật</string>
+    <string name="settings_update_stable">Ổn định</string>
     <string name="settings_help">Giúp đỡ</string>
+    <string name="settings_translate">Tham gia dịch thuật</string>
+    <string name="settings_translate_note">Dịch ứng dụng trên Crowdin.</string>
     <string name="settings_report_bug">Báo cáo lỗi</string>
+    <string name="settings_support_coffee">Tặng nhà phát triển một ly cà phê</string>
+    <string name="settings_support_coffee_note">Hãy ủng hộ sự phát triển của Shizuku-Next</string>
     <!--
       A plural, not a plain string: most of the people on this wall are here for a single commit,
       so the singular is read more often than the plural is.
     -->
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
+    <string name="contributor_area_app">Ứng dụng</string>
+    <string name="contributor_area_i18n">Dịch thuật</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
       worked in, and the languages they translated into. There is deliberately no string per
@@ -152,17 +165,24 @@
     <string name="bug_report_dialog_method">Vui lòng báo cáo sự cố trên ^1 nếu bạn có tài khoản.</string>
     <string name="bug_report_dialog_method_2">Nếu không, bạn có thể gửi email.</string>
     <string name="bug_report_dialog_button_email">E-mail</string>
+    <string name="bug_report_dialog_diagnostics_note">Thông tin chẩn đoán hiện tại của bạn đã được điền ở phần trên cùng của báo cáo sự cố và email.</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Vui lòng tắt tính năng tối ưu hóa pin để
         sử dụng tính năng này.</string>
     <string name="snackbar_action_fix">Sửa chữa</string>
     <!-- Updates -->
+    <string name="check_for_updates">Kiểm tra các bản cập nhật</string>
+    <string name="update_latest_installed">Bạn đang dùng phiên bản mới nhất</string>
+    <string name="update_check_failed">Không thể kiểm tra cập nhật</string>
+    <string name="update_check_offline">Không thể kết nối đến GitHub. Vui lòng kiểm tra kết nối &amp; thử lại.</string>
+    <string name="update_check_rate_limited">GitHub đang giới hạn số lượng kiểm tra cập nhật. Vui lòng thử lại sau.</string>
     <!-- Toast -->
     <string name="toast_no_email_app">Không tìm thấy ứng dụng email</string>
     <string name="toast_pairing_timeout">Dịch vụ ghép nối Shizuku đã hết thời gian chờ.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme_off">Luôn nhẹ nhàng</string>
     <string name="dark_theme_on">Luôn tối</string>
+    <string name="follow_system">Theo dõi hệ thống</string>
     <!-- About -->
     <!-- Start/Stop -->
     <string name="start">Bắt đầu</string>
@@ -205,6 +225,9 @@
     <string name="watchdog_shizuku_crashed_text">Cơ quan giám sát đã khởi động lại dịch vụ. Nhấn để
         tìm hiểu về các bản sửa lỗi tiềm năng nhằm ngăn chặn sự cố trong tương lai.</string>
     <string name="watchdog_shizuku_crashed_action_turn_off_alerts">Tắt cảnh báo</string>
+    <string name="watchdog_shizuku_recovered_title">Shizuku đã chạy lại</string>
+    <string name="watchdog_shizuku_recovered_text">Trình giám sát đã tự động chạy lại sau khi ứng dụng bị dừng đột ngột.</string>
+    <string name="watchdog_given_up_title">Không thể khởi động được Shizuku</string>
     <string name="watchdog_given_up_action_start">Bắt đầu</string>
     <!-- Misc -->
     <string name="dialog_cannot_open_browser_title">Không thể khởi động trình duyệt</string>
