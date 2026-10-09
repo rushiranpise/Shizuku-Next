@@ -16,6 +16,14 @@
     <string name="home_wireless_adb_summary">Mulai menggunakan debugging nirkabel.</string>
     <string name="home_usb_adb_title"><![CDATA[Mulai lewat debugging USB]]></string>
     <string name="home_usb_adb_summary">Mulai lewat debugging USB.</string>
+    <string name="home_support_body">Shizuku-Next ini gratis dan tanpa iklan. Secangkir kopi dihitung sebagai bagian dari waktu yang dibutuhkan untuk perawatan.</string>
+    <string name="diagnostics_title">Diagnosis</string>
+    <string name="diagnostics_copy">Salin diagnosis</string>
+    <string name="diagnostics_copied">Diagnosis disalin</string>
+    <string name="diagnostics_service">Layanan</string>
+    <string name="diagnostics_battery">Optimalisasi baterai</string>
+    <string name="diagnostics_started_with">Dimulai dengan</string>
+    <string name="diagnostics_default">Metode bawaan</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->

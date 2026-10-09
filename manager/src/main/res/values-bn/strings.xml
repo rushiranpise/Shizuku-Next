@@ -6,16 +6,52 @@
       a change here reaches translators on the next push and not before.
     -->
     <!-- To translators: you can leave your here -->
+    <string name="home_status_adb_wireless">adb</string>
+    <string name="home_status_adb_usb">adb</string>
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
+    <string name="home_wireless_adb_title"><![CDATA[ওয়্যারলেস ডিবাগিং এর মাধ্যমে শুরু করুন]]></string>
+    <string name="home_usb_adb_title"><![CDATA[ইউএসবি ডিবাগিং এর মাধ্যমে শুরু করুন]]></string>
+    <string name="diagnostics_title">ডায়াগনস্টিকস</string>
+    <string name="diagnostics_copy">ডায়াগনস্টিকস কপি করুন</string>
+    <string name="diagnostics_copied">ডায়াগনস্টিকস করি হয়েছে</string>
+    <string name="diagnostics_service">সার্ভিস</string>
+    <string name="diagnostics_server_uid">সার্ভার uid</string>
+    <string name="diagnostics_server_api">সার্ভার API</string>
+    <string name="diagnostics_server_context">সার্ভার কন্টেক্সট</string>
+    <string name="diagnostics_wireless_debugging">ওয়্যারলেস ডিবাগিং</string>
+    <string name="diagnostics_adb_port">ADB পোর্ট</string>
+    <string name="diagnostics_wifi">ওয়াইফাই</string>
+    <string name="diagnostics_local_network">লোকাল নেটওয়ার্ক</string>
+    <string name="diagnostics_battery">ব্যাটারি অপ্টিমাইজেশন</string>
+    <string name="diagnostics_app">অ্যাপ</string>
+    <string name="diagnostics_android">অ্যান্ড্রয়েড</string>
+    <string name="diagnostics_device">ডিভাইস</string>
+    <string name="diagnostics_started_with">এর সাথে শুরু হয়েছে</string>
+    <string name="diagnostics_default">ডিফল্ট পদ্ধতি</string>
+    <string name="diagnostics_hiding">লুকানো</string>
+    <string name="diagnostics_phantom">প্রক্রিয়া বন্ধকারী</string>
+    <string name="diagnostics_root">রুট</string>
+    <string name="diagnostics_granted">অনুমোদিত</string>
+    <string name="diagnostics_missing">পাওয়া যায়নি</string>
+    <string name="diagnostics_not_required">প্রয়োজন নেই</string>
+    <string name="diagnostics_connected">কানেক্টেড</string>
+    <string name="diagnostics_not_connected">কানেক্টেড নয়</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
+    <string name="diagnostics_battery_optimized">অপ্টিমাইজ করা হয়েছে</string>
+    <string name="diagnostics_battery_unrestricted">অনিয়ন্ত্রিত</string>
+    <string name="diagnostics_available">উপলব্ধ</string>
+    <string name="diagnostics_unavailable">উপলব্ধ নয়</string>
+    <string name="diagnostics_closed">বন্ধ</string>
     <!-- Adb -->
+    <string name="dialog_adb_port">পোর্ট</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
+    <string name="dialog_adb_pairing_open_app_info">অ্যাপের তথ্য</string>
     <!-- Home - Root -->
     <!-- Home - Application management -->
     <!-- Home - Automation -->
@@ -24,10 +60,30 @@
     <!-- Home - Adb permissions limited -->
     <!-- Home - Dialogs -->
     <!-- Application management -->
+    <string name="apps_empty">দেখানোর মতো কোনো অ্যাপ নেই</string>
+    <string name="apps_filter_empty">এই ফিল্টারে কোনো অ্যাপ নেই</string>
+    <string name="apps_filter_all">সব</string>
+    <string name="apps_filter_granted">অনুমোদিত</string>
+    <string name="apps_filter_revoked">বাতিল করা হয়েছে</string>
+    <string name="apps_filter_hidden">লুকায়িত</string>
+    <string name="apps_no_match">আপনার সার্চের সাথে কোনো অ্যাপ পাওয়া যায়নি</string>
+    <string name="app_management_sort_last_added">সম্প্রতি যুক্ত হয়েছে</string>
+    <string name="app_management_sort_updated">আপডেটেড</string>
+    <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="tab_home">হোম</string>
+    <string name="tab_apps">অ্যাপগুলি</string>
+    <string name="tab_shell">শেল</string>
+    <string name="lab_more_apps">আরো অ্যাপ সমূহ</string>
+    <string name="tab_firewall">ফায়ারওয়াল</string>
+    <string name="tab_autostart">অটোস্টার্ট</string>
+    <string name="labs_filter_allowed">অনুমোদিত</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="hiding_filter_hidden">লুকায়িত</string>
+    <string name="log_filter_all">সব</string>
     <!-- Terminal -->
     <!-- Stealth -->
     <!-- Settings -->
+    <string name="transport_adb">adb</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
     <!--
@@ -35,6 +91,7 @@
       so the singular is read more often than the plural is.
     -->
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
+    <string name="contributor_area_app">অ্যাপ</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
       worked in, and the languages they translated into. There is deliberately no string per
@@ -53,9 +110,14 @@
     <!-- Starter -->
     <!-- WADB Starter -->
     <!-- Shell -->
+    <string name="shell_title">শেল</string>
     <!-- Watchdog -->
     <!-- Misc -->
     <!-- Messages for legacy -->
     <!-- Manage tab -->
+    <string name="manage_filter_all">সব</string>
+    <string name="manage_filter_hidden">লুকায়িত</string>
+    <string name="manage_status_hidden">লুকায়িত</string>
     <!-- One app, and what it may do on the device -->
+    <string name="app_info_updated">আপডেটেড</string>
 </resources>

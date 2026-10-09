@@ -62,11 +62,8 @@
         szolgáltatáshoz.\n\nKérjük, győződjön meg arról, hogy a Shizuku szerepel az összes olyan
         tűzfal-, hirdetésblokkoló-, VPN- vagy hasonló alkalmazás fehérlistáján, amely korlátozhatja
         a hálózati hozzáférést.</string>
-    <string name="dialog_adb_pairing_message">Kérjük, kezdje el a párosítást a következő lépések
-        végrehajtásával:\n- Navigáljon a „Fejlesztői beállítások” menüpontra\n- Engedélyezze az
-        „USB-hibakeresés” és a „Vezeték nélküli hibakeresés” lehetőséget\n- Koppintson a „Vezeték
-        nélküli hibakeresés” bal oldalára\n- Koppintson az „Eszköz párosítása párosító kóddal”
-        lehetőségre\n- Írja be az értesítésben megjelenő párosítási kódot</string>
+    <string name="dialog_adb_pairing_message">Kérjük, kezdje el a párosítást a következő lépések végrehajtásával:\n- Navigáljon a \"Fejlesztői beállítások\" menüpontra\n- Engedélyezze az \"USB-hibakeresés\" és a \"Vezeték nélküli hibakeresés\" lehetőségeket\n- Koppintson a \"Vezeték nélküli hibakeresés\" bal oldalára\n- Koppintson az \"Eszköz párosítása párosító kóddal\"
+lehetőségre\n- Írja be az értesítésben megjelenő párosítási kódot</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -396,7 +393,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="settings_adb_without_developer_options_confirm">Kikapcsolás</string>
     <string name="settings_adb_without_developer_options_failed">Shizuku nem tudta módosítani a beállításokat. Először engedélyezze a WRITE_SECURE_SETTINGS jogosultságot a jogosultsági oldalon.</string>
     <string name="settings_wait_for_wifi">Várakozás a Wi-Fi-re</string>
-    <string name="settings_wait_for_wifi_summary">A Shizuku automatikus újraindulása mindaddig vár, míg renelkezésre nem áll korlátozás nélküli Wi-Fi-kapcsolat.</string>
+    <string name="settings_wait_for_wifi_summary">A Shizuku mindaddig vár az automatikus újraindulással, míg rendelkezésre nem áll korlátozás nélküli Wi-Fi-kapcsolat.</string>
     <string name="settings_unavailable_while_forcing_wireless">Nem érhető el, ha az \"Indítás Wi-Fi nélkül\" be van kapcsolva.</string>
     <string name="settings_force_wireless_debugging">Indítás Wi-Fi nélkül (kísérleti)</string>
     <string name="settings_force_wireless_debugging_summary">Megpróbálja elindítani a Shizukut Wi-Fi vagy USB hibakeresés nélkül. Ezzel letiltja a Wi-Fi várakozást és az automatikus vezeték nélküli hibakeresést is.</string>
@@ -471,7 +468,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     -->
     <string name="contributor_summary_default">Közreműködő</string>
     <string name="settings_legacy_pairing">Hagyományos párosítás</string>
-    <string name="settings_legacy_pairing_summary">A párosítási kódot megadása egy párbeszédpanelen, ne pedig egy értesítésben történjen</string>
+    <string name="settings_legacy_pairing_summary">A párosítási kód megadása egy párbeszédpanelen, ne pedig egy értesítésben történjen</string>
     <!-- Bug Report Dialog -->
     <string name="bug_report_dialog_before_reporting">Először is, kérjük, tegye a következőket:</string>
     <string name="bug_report_dialog_update">Ellenőrizze, hogy a ^1-t használja-e.</string>
