@@ -2,12 +2,10 @@
 
 package moe.shizuku.manager.ui.screen
 
-import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
 import java.io.File
 import moe.shizuku.manager.ui.component.PillButton
@@ -118,9 +116,11 @@ import moe.shizuku.manager.ui.component.SegmentedListItem
 import moe.shizuku.manager.ui.component.stripHtmlTags
 import moe.shizuku.manager.utils.CustomTabsHelper
 import moe.shizuku.manager.utils.EnvironmentUtils
+import moe.shizuku.manager.utils.PermissionOwnership
 import moe.shizuku.manager.utils.SettingsHelper
 import moe.shizuku.manager.utils.SettingsPage
 import moe.shizuku.manager.utils.ShizukuStateMachine
+import moe.shizuku.manager.utils.permissionOwnership
 import moe.shizuku.manager.utils.runShellCommand
 import moe.shizuku.manager.utils.UpdateHelper
 import rikka.core.util.ClipboardUtils
@@ -137,8 +137,12 @@ fun HomeScreen(bottomPadding: Dp) {
         mutableStateOf(SettingsHelper.isIgnoringBatteryOptimizations(context))
     }
     var showAdbCommand by remember { mutableStateOf(false) }
-    var rebootRequired by remember { mutableStateOf(false) }
-    var duplicateApp by remember { mutableStateOf(false) }
+    // What Android says about who owns Shizuku's permission. Reported, never enforced: neither
+    // answer it can give keeps Shizuku from working, see PermissionOwnership.
+    var permissionOwner by remember { mutableStateOf<PermissionOwnership>(PermissionOwnership.Ours) }
+    // The warning already read and put away. Only that one is hidden, so a state that changes
+    // still comes up.
+    var permissionWarningDismissed by remember { mutableStateOf<PermissionOwnership?>(null) }
     var updateAvailable by remember { mutableStateOf(false) }
     var rooted by remember { mutableStateOf(false) }
     var startMethod by remember { mutableStateOf(ShizukuSettings.getStartMethod()) }
@@ -280,23 +284,19 @@ fun HomeScreen(bottomPadding: Dp) {
 
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
         scope.launch { refresh() }
+
+        // Asked again every time the screen comes back: what clears this is the platform reading
+        // the declaration, or a reboot, and a warning that outlives its cause is one nobody reads.
+        permissionOwner = readPermissionOwnership(context)
     }
 
     LaunchedEffect(Unit) {
         refresh()
 
-        // After reinstalling under a different package name (stealth mode) the
-        // system may not recognize the Shizuku permission until a reboot, or a
-        // duplicate app may own it.
-        try {
-            context.packageManager.getPermissionGroupInfo(Manifest.permission_group.API, 0)
-            val permission = context.packageManager.getPermissionInfo(Manifest.permission.API_V23, 0)
-            if (permission.packageName != context.packageName) {
-                duplicateApp = true
-            }
-        } catch (e: PackageManager.NameNotFoundException) {
-            rebootRequired = true
-        }
+        // Asked once when the screen first opens, and again on every resume: a reinstall
+        // commonly leaves the platform answering with a package that owns Shizuku's permission
+        // and is not installed any more, and this is what tells the user whose it is.
+        permissionOwner = readPermissionOwnership(context)
 
         updateAvailable = runCatching {
             UpdateHelper.isCheckForUpdatesEnabled() && UpdateHelper.isNewUpdateAvailable()
@@ -315,6 +315,49 @@ fun HomeScreen(bottomPadding: Dp) {
             contentPadding = PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp, bottom = bottomPadding),
             verticalArrangement = Arrangement.spacedBy(13.dp)
         ) {
+            // A warning about where Android says Shizuku's permission lives, and nothing more:
+            // every part of the app works with it wrong, but other apps look Shizuku up by that
+            // permission, so finding out what they find is worth saying - once, and out of the way.
+            val ownership = permissionOwner
+            if (ownership !is PermissionOwnership.Ours && ownership != permissionWarningDismissed) {
+                item {
+                    Surface(
+                        modifier = Modifier.fillMaxWidth(),
+                        color = MaterialTheme.colorScheme.errorContainer,
+                        contentColor = MaterialTheme.colorScheme.onErrorContainer,
+                        shape = MaterialTheme.shapes.large
+                    ) {
+                        Column(
+                            modifier = Modifier.padding(16.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Text(
+                                text = stringResource(
+                                    if (ownership is PermissionOwnership.Other)
+                                        R.string.home_dialog_duplicate_app_detected_title
+                                    else R.string.home_dialog_reboot_required_title
+                                ),
+                                style = MaterialTheme.typography.titleSmall
+                            )
+                            Text(
+                                text = if (ownership is PermissionOwnership.Other) {
+                                    stringResource(
+                                        R.string.home_permission_owned_by,
+                                        ownership.packageName
+                                    )
+                                } else {
+                                    stringResource(R.string.home_permission_not_registered)
+                                },
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                            PillButtonQuiet(onClick = { permissionWarningDismissed = ownership }) {
+                                Text(stringResource(R.string.action_dismiss))
+                            }
+                        }
+                    }
+                }
+            }
+
             if (updateAvailable) {
                 item {
                     Surface(
@@ -812,20 +855,6 @@ fun HomeScreen(bottomPadding: Dp) {
         }
     }
 
-    if (rebootRequired) {
-        ExitDialog(
-            R.string.home_dialog_reboot_required_title,
-            R.string.home_dialog_reboot_required_message
-        )
-    }
-
-    if (duplicateApp) {
-        ExitDialog(
-            R.string.home_dialog_duplicate_app_detected_title,
-            R.string.home_dialog_duplicate_app_detected_message
-        )
-    }
-
     if (showAdbCommand) {
         AlertDialog(
             onDismissRequest = { showAdbCommand = false },
@@ -1165,19 +1194,23 @@ private fun ServerActionButtons(
     }
 }
 
-@Composable
-private fun ExitDialog(titleRes: Int, messageRes: Int) {
-    val activity = LocalContext.current as? Activity
-    AlertDialog(
-        onDismissRequest = { activity?.finishAffinity() },
-        title = { Text(stringResource(titleRes)) },
-        text = { Text(stringResource(messageRes)) },
-        confirmButton = {
-            PillButton(onClick = { activity?.finishAffinity() }) {
-                Text(stringResource(R.string.home_dialog_button_exit))
-            }
-        }
-    )
+/**
+ * What Android answers about Shizuku's own permission.
+ *
+ * Both look-ups are wrapped because "not there" is one of the answers and the platform says it by
+ * throwing. The group is asked as well as the permission: a reinstall can leave either of them
+ * unprocessed, and the two together are what tells the two states apart.
+ */
+private fun readPermissionOwnership(context: Context): PermissionOwnership {
+    val manager = context.packageManager
+    val owner = runCatching {
+        manager.getPermissionInfo(Manifest.permission.API_V23, 0).packageName
+    }.getOrNull()
+    val groupResolved = runCatching {
+        manager.getPermissionGroupInfo(Manifest.permission_group.API, 0)
+    }.isSuccess
+
+    return permissionOwnership(context.packageName, owner, groupResolved)
 }
 
 

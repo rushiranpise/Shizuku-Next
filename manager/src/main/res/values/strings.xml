@@ -116,6 +116,9 @@
     <string name="home_dialog_reboot_required_message">A device reboot is required for Shizuku to work properly. To continue, please reboot your device.</string>
     <string name="home_dialog_duplicate_app_detected_title">Duplicate app detected</string>
     <string name="home_dialog_duplicate_app_detected_message">Another version of this app is installed on your device. To continue, please uninstall all duplicate versions and reboot your device.</string>
+    <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
+    <string name="home_permission_owned_by">Apps look Shizuku up by its permission, and Android says %1$s declares it - a copy of Shizuku, or what is left of one. Those apps will ask that one until it is uninstalled and the device is rebooted.</string>
+    <string name="home_permission_not_registered">Apps look Shizuku up by its permission, and Android has not registered it yet, which a reinstall can leave behind until the device is rebooted. Shizuku itself is unaffected; other apps may not find it.</string>
     <string name="home_dialog_button_exit">Exit</string>
 
     <!-- Application management -->
