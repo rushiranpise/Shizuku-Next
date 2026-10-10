@@ -494,6 +494,9 @@
     <string name="stealth_error_invalid_characters">Only letters, numbers, and periods are allowed.</string>
     <string name="stealth_error_needs_two_segments">Package name must have at least two segments.</string>
     <string name="stealth_error_segment_starts_with_number">Segments cannot start with a number.</string>
+    <string name="stealth_display_name">Display name (optional)</string>
+    <string name="stealth_display_name_helper_text">Shown as the name of the copy in the launcher and the app list. Left empty, the copy keeps the name of this app.</string>
+    <string name="stealth_error_display_name_too_long">Keep it to %1$d characters or fewer.</string>
     <string name="stealth_uninstall_required">Uninstall required</string>
     <string name="stealth_uninstall_message">The system will now prompt you to uninstall Shizuku. Then, install the clone.</string>
     <string name="stealth_uninstall">Uninstall</string>

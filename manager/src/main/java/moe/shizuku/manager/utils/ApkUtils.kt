@@ -17,6 +17,7 @@ import java.util.function.Predicate
 import moe.shizuku.manager.R
 import moe.shizuku.manager.ShizukuApplication
 import moe.shizuku.manager.utils.STUB_DEX_ASSET
+import moe.shizuku.manager.utils.renameHiddenCopy
 import moe.shizuku.manager.utils.rewrittenPackageReference
 import moe.shizuku.manager.utils.stubApkModule
 import moe.shizuku.manager.utils.ApkSigner
@@ -46,7 +47,11 @@ val workDir by lazy {
     }
 }
 
-fun File.changePackageName(newPkgName: String, maybeCreateSigningKey: Boolean = false): File {
+fun File.changePackageName(
+    newPkgName: String,
+    maybeCreateSigningKey: Boolean = false,
+    displayName: String? = null,
+): File {
     Log.i(TAG, "Loading APK")
     val module = ApkModule.loadApkFile(this)
     val manifest = module.androidManifest
@@ -65,6 +70,13 @@ fun File.changePackageName(newPkgName: String, maybeCreateSigningKey: Boolean = 
     Log.i(TAG, "Rewriting what the package name is written into")
     val rewritten = manifest.rewritePackageReferences(oldPkgName, newPkgName)
     Log.i(TAG, "Rewrote $rewritten manifest values that carried $oldPkgName")
+
+    // The name the copy is listed under, when the user asked for one - and after the rewrite, not
+    // before it: whatever they typed is theirs, and a name that happens to begin with the old
+    // package name is not something to rewrite a second time.
+    if (manifest.renameHiddenCopy(displayName)) {
+        Log.i(TAG, "The copy is called $displayName in the launcher")
+    }
 
     Log.i(TAG, "Inserting signing key")
     val key = ApkSigner.getSigningKey(maybeCreateSigningKey)

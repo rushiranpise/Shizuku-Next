@@ -1,5 +1,7 @@
 package moe.shizuku.manager.utils
 
+import com.reandroid.arsc.chunk.xml.AndroidManifestBlock
+
 /**
  * [value] with a leading [oldPackage] replaced by [newPackage], or null when this value has nothing
  * to do with the old package name.
@@ -21,4 +23,22 @@ internal fun rewrittenPackageReference(
     value == oldPackage -> newPackage
     !value.startsWith("$oldPackage.") -> null
     else -> newPackage + value.removePrefix(oldPackage)
+}
+
+/**
+ * [this] manifest's label replaced with [requested], and whether a name of its own was written.
+ *
+ * A hidden copy is a copy of this app's own APK, so its label is this app's label: the manifest
+ * points the launcher at a string resource, and that resource says this app's name however the
+ * package is called. The name a user types is written over it as a literal, because the point is
+ * what the copy is listed as, not a renamed app - the same resource is what the app's own screens
+ * read, and a copy whose launcher entry and whose screens disagree is its own kind of tell.
+ *
+ * Blank is not a name: it leaves the manifest alone, which is what an empty field means.
+ */
+fun AndroidManifestBlock.renameHiddenCopy(requested: String?): Boolean {
+    val label = requested?.trim()?.takeIf { it.isNotEmpty() } ?: return false
+
+    setApplicationLabel(label)
+    return true
 }

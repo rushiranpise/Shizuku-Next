@@ -49,6 +49,8 @@ import moe.shizuku.manager.stealth.Action
 import moe.shizuku.manager.stealth.ApkType
 import moe.shizuku.manager.stealth.StealthTutorialViewModel
 import moe.shizuku.manager.stealth.UiState
+import moe.shizuku.manager.stealth.MAX_DISPLAY_NAME_LENGTH
+import moe.shizuku.manager.stealth.validateDisplayName
 import moe.shizuku.manager.stealth.validatePackageName
 import moe.shizuku.manager.ui.component.SegmentedColumn
 import moe.shizuku.manager.ui.component.SegmentedListItem
@@ -83,6 +85,7 @@ fun StealthScreen(onBack: () -> Unit) {
     val state by vm.uiState.observeAsState(UiState.Idle(Action.HIDE))
 
     var packageName by remember { mutableStateOf("") }
+    var displayName by remember { mutableStateOf("") }
     var outDir by remember { mutableStateOf<Uri?>(null) }
     var error by remember { mutableStateOf<String?>(null) }
     var pendingUninstall by remember { mutableStateOf(false) }
@@ -127,6 +130,7 @@ fun StealthScreen(onBack: () -> Unit) {
     val action = (state as? UiState.Idle)?.action ?: Action.HIDE
     val busy = state is UiState.Loading || state is UiState.Pending
     val packageNameError = packageName.validatePackageName()
+    val displayNameError = displayName.validateDisplayName()
 
     Column(modifier = Modifier.fillMaxSize()) {
         TopAppBar(
@@ -247,6 +251,27 @@ fun StealthScreen(onBack: () -> Unit) {
                         singleLine = true
                     )
                 }
+
+                // The package name is what other apps address the copy by; this is what a person
+                // sees it called. Both are the copy's, so both are asked for before it is built -
+                // the APK carries the name, and changing it afterwards means hiding again.
+                item {
+                    OutlinedTextField(
+                        value = displayName,
+                        onValueChange = { displayName = it },
+                        modifier = Modifier.fillMaxWidth(),
+                        label = { Text(stringResource(R.string.stealth_display_name)) },
+                        supportingText = {
+                            Text(
+                                displayNameError?.let {
+                                    stringResource(it, MAX_DISPLAY_NAME_LENGTH)
+                                } ?: stringResource(R.string.stealth_display_name_helper_text)
+                            )
+                        },
+                        isError = displayNameError != null,
+                        singleLine = true
+                    )
+                }
             }
 
             item {
@@ -255,6 +280,7 @@ fun StealthScreen(onBack: () -> Unit) {
                         when (action) {
                             Action.HIDE -> {
                                 vm.setPackageName(packageName.ifEmpty { null })
+                                vm.setDisplayName(displayName.ifEmpty { null })
                                 picker.launch(null)
                             }
 
@@ -265,7 +291,10 @@ fun StealthScreen(onBack: () -> Unit) {
                             }
                         }
                     },
-                    enabled = !busy && (action != Action.HIDE || packageNameError == null)
+                    enabled = !busy && (
+                        action != Action.HIDE ||
+                            (packageNameError == null && displayNameError == null)
+                        )
                 ) {
                     Text(
                         stringResource(

@@ -50,6 +50,7 @@ class StealthTutorialViewModel(
     val uiState: LiveData<UiState> = _uiState
 
     private var _packageName: String? = null
+    private var _displayName: String? = null
 
     private fun isShizukuHidden() =
         runCatching {
@@ -72,6 +73,11 @@ class StealthTutorialViewModel(
         _packageName = packageName ?: app.packageName.appendRandomSuffix()
     }
 
+    /** The name the copy is listed under, or null for the one it already has. */
+    fun setDisplayName(displayName: String? = null) {
+        _displayName = displayName
+    }
+
     fun createApk(apkType: ApkType) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -81,7 +87,11 @@ class StealthTutorialViewModel(
                     when (apkType) {
                         ApkType.CLONE -> {
                             File(app.applicationInfo.sourceDir)
-                                .changePackageName(_packageName!!, maybeCreateSigningKey = true)
+                                .changePackageName(
+                                    _packageName!!,
+                                    maybeCreateSigningKey = true,
+                                    displayName = _displayName
+                                )
                         }
                         ApkType.STUB ->
                             // The stub holds the name clients still ask for and passes what it
@@ -101,6 +111,20 @@ class StealthTutorialViewModel(
         super.onCleared()
         workDir.deleteRecursively()
     }
+}
+
+/**
+ * The longest a launcher name can be and still be one: past this most launchers cut it off with
+ * an ellipsis, which leaves a name that cannot tell the copy from the app it is a copy of.
+ */
+const val MAX_DISPLAY_NAME_LENGTH = 30
+
+/** The problem with [this] as a launcher name, or null when there is none. */
+fun String.validateDisplayName(): Int? = when {
+    // Blank is not a problem: it means the copy keeps the name it has.
+    trim().length > MAX_DISPLAY_NAME_LENGTH -> R.string.stealth_error_display_name_too_long
+
+    else -> null
 }
 
 fun String.validatePackageName(): Int? =
