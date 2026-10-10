@@ -322,7 +322,9 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
             return;
         }
 
-        Intent intent = new Intent(ServerConstants.REQUEST_PERMISSION_ACTION)
+        // Both halves of this have to name the manager the way it is installed now: the package
+        // and the action the manifest declares under it. A hidden copy is a rename of both.
+        Intent intent = new Intent(ServerConstants.requestPermissionAction(MANAGER_APPLICATION_ID))
                 .setPackage(MANAGER_APPLICATION_ID)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
                 .putExtra("uid", callingUid)
