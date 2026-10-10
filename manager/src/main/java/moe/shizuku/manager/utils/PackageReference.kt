@@ -42,3 +42,16 @@ fun AndroidManifestBlock.renameHiddenCopy(requested: String?): Boolean {
     setApplicationLabel(label)
     return true
 }
+
+/**
+ * The name a hidden copy has to keep across an update, or null when it has none of its own.
+ *
+ * An update downloads the released APK and, while hidden, renames it to the running package name -
+ * which rebuilds the label from this app's own string resource and would undo whatever name the
+ * user chose when they hid. [currentLabel] is what the running copy is listed as, which is that
+ * name; [appName] is what the resource says in the locale in use. When the two differ a name was
+ * chosen and is written again, and when they are the same nothing is written at all - which is what
+ * keeps the label translated for everybody who never chose one.
+ */
+fun displayNameToKeep(currentLabel: String, appName: String): String? =
+    currentLabel.takeIf { it != appName }

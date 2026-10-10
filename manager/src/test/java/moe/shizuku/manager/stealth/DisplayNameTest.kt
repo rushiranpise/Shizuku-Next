@@ -2,6 +2,7 @@ package moe.shizuku.manager.stealth
 
 import com.reandroid.arsc.chunk.xml.AndroidManifestBlock
 import moe.shizuku.manager.R
+import moe.shizuku.manager.utils.displayNameToKeep
 import moe.shizuku.manager.utils.renameHiddenCopy
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -71,6 +72,18 @@ class DisplayNameTest {
             R.string.stealth_error_display_name_too_long,
             "a".repeat(MAX_DISPLAY_NAME_LENGTH + 1).validateDisplayName()
         )
+    }
+
+    @Test
+    fun `an update keeps a name that was chosen`() {
+        assertEquals("My Shizuku", displayNameToKeep("My Shizuku", "Shizuku-Next"))
+    }
+
+    @Test
+    fun `an update leaves the label alone when no name was chosen`() {
+        // The same string both ways means the copy was never named, and writing a literal over the
+        // resource would pin the label to whatever locale the update happened in.
+        assertNull(displayNameToKeep("Shizuku-Next", "Shizuku-Next"))
     }
 
     @Test

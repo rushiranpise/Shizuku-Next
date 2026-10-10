@@ -188,7 +188,17 @@ object UpdateHelper {
                 if (app.packageName != apkPackageName) {
                     try {
                         android.util.Log.d("UpdateHelper", "Changing package name from $apkPackageName to ${app.packageName}")
-                        changePackageName(app.packageName)
+
+                        // The name this copy is listed under goes with it: rebuilding the copy
+                        // rebuilds the label too, and an update that quietly put this app's name
+                        // back would undo what the user chose when they hid.
+                        changePackageName(
+                            app.packageName,
+                            displayName = displayNameToKeep(
+                                currentLabel = app.applicationInfo.loadLabel(pm).toString(),
+                                appName = appContext.getString(R.string.app_name)
+                            )
+                        )
                     } catch (e: Exception) {
                         Toast
                             .makeText(
