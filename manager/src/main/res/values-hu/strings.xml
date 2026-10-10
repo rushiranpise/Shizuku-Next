@@ -294,6 +294,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="action_open_wireless_debugging">Vezeték nélküli hibakeresés</string>
     <string name="start_failed_unsupported">Ez az eszköz nem tudja elindítani a háttérben</string>
     <string name="start_failed_wifi_required">Csatlakozzon egy Wi-Fi hálózathoz, mert anélkül a rendszer kikapcsolja a vezeték nélküli hibakeresést. Vagy indítsa el a folyamatot egy számítógépről az alábbi ADB-parancs segítségével.</string>
+    <string name="start_failed_binder_went_away">A szolgáltatás elindult, majd újra leállt, így még semmi sem tudja azt használni. Ez akkor fordul elő, amikor a szerver leáll az alkalmazással együtt, amelyen keresztül az indítás megtörtént – pontosan ezt teszi a payload az indítás után. Próbálja meg újra elindítani.</string>
     <string name="start_failed_no_port">Nem található vezeték nélküli hibakeresési port. Győződjön meg arról, hogy a vezeték nélküli hibakeresés engedélyezve van, és csatlakozik a Wi-Fi-hez.</string>
     <string name="start_failed_no_port_no_permission">Nem található vezeték nélküli hibakeresési port, így a Shizuku nem tudja bekapcsolni a vezeték nélküli hibakeresést a WRITE_SECURE_SETTINGS jogosultság nélkül: <b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Vagy indítsd el a Shizukut USB hibakeresésen keresztül, miután a program megadta magának a jogosultságot.</string>
     <string name="start_failed_no_auth">A vezeték nélküli hibakeresés nem engedélyezett ezen a hálózaton. Párosítsa újra a készüléket.</string>
@@ -345,10 +346,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
         fájlok már léteznek a kiválasztott mappában, akkor törlődnek.</string>
     <string name="terminal_tutorial_2">A terminálalkalmazással másolja a fájlokat a privát fájlok
         könyvtárába.</string>
-    <string name="terminal_tutorial_2_description">Tipp: Ha a terminálalkalmazásod kezdőkönyvtára
-        (~) a privát fájlok könyvtárában található, akkor a fájlok oda helyezése lehetővé teszi a
-        %1$s futtatását az elérési út megadása nélkül.\n\nEgyébként létrehozhatsz egy aliast a %2$s
-        számára a terminálalkalmazásod %3$s konfigurációs fájljában.</string>
+    <string name="terminal_tutorial_2_description">Tipp: Ha a terminálalkalmazásod kezdőkönyvtára (~) a privát fájlok könyvtárában található, akkor a fájlok oda helyezése lehetővé teszi a %1$s futtatását az elérési út megadása nélkül.\n\nEgyébként létrehozhat egy aliast a %2$s számára a terminálalkalmazás %3$s konfigurációs fájljában.</string>
     <string name="terminal_tutorial_3">Nyisson meg egy shell-t a következő paranccsal:</string>
     <!-- Stealth -->
     <string name="stealth_description">A Shizuku elrejtése azon alkalmazások elől, amelyek a Shizuku telepítése után nem futnak. A program létrehoz egy más csomagnévvel rendelkező klónt a telepítéshez.</string>
@@ -363,6 +361,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="stealth_package_name">Csomagnév (nem kötelező)</string>
     <string name="stealth_package_name_helper_text">Ha üresen hagyjuk, egy véletlenszerű utótag kerül hozzáadásra a csomag nevéhez.</string>
     <string name="stealth_error_invalid_characters">Csak betűk, számok és pontok megengedettek.</string>
+    <string name="stealth_uninstall_required">Eltávolítás szükséges</string>
     <string name="stealth_uninstall_message">A rendszer most felszólítja a Shizuku eltávolítására. Ezután telepítse a klónt.</string>
     <string name="stealth_uninstall">Eltávolítás</string>
     <string name="stealth_hide">Elrejtés</string>
@@ -402,6 +401,10 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="settings_needs_write_secure_settings">WRITE_SECURE_SETTINGS engedély szükséges. Indítsa el egyszer a Shizukut, hogy biztosítva legyen, aztán térjen vissza.</string>
     <string name="state_on">Be</string>
     <string name="state_off">Ki</string>
+    <string name="settings_persist_adb_port">Tartsa meg az ADB portot újraindítás után</string>
+    <string name="settings_persist_adb_port_summary">Minden újraindítás után nyitva tartja az ADB portot, így a Shizuku Wi-Fi vagy hotspot nélkül is elindulhat.</string>
+    <string name="settings_persist_adb_port_ok">Az ADB port az újraindítás után nyitva marad</string>
+    <string name="settings_persist_adb_port_refused">Az Android ezt elutasította. A Shizukunak rootként vagy rendszerfelhasználóként kell futnia.</string>
     <string name="settings_persist_adb_port_unavailable">Először indítsa el a Shizukut. Ez a beállítás csak a Shizuku-n keresztül módosítható.</string>
     <string name="settings_system_start_method">Rendszerindítási módszer</string>
     <string name="settings_system_start_method_exploit">Samsung (FOTA ügynök)</string>
@@ -532,7 +535,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="permission_description">Engedélyezze az app számára a Shizuku használatát.</string>
     <string name="permission_warning_template"><![CDATA[Engedélyezi <b>%1$s</b> ide, %2$s?]]></string>
     <string name="grant_dialog_button_allow_always">Mindig engedje meg</string>
-    <string name="grant_dialog_button_deny">"Megtagad"</string>
+    <string name="grant_dialog_button_deny">"Tiltás"</string>
     <!-- Starter -->
     <string name="starter">Indító</string>
     <string name="start_with_root_failed">Nem sikerült elindítani, mert a root hozzáférés nem érhető el.</string>
@@ -540,6 +543,8 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="wadb_notification_title">Shizuku indítása…</string>
     <string name="wadb_notification_wifi_required">Wi-Fi kapcsolatra vár a folytatás előtt</string>
     <string name="wadb_notification_retry">Várakozás az újrapróbálkozásra</string>
+    <string name="wadb_notification_connecting">Shizuku indítása vezeték nélküli ADB-vel</string>
+    <string name="wadb_notification_forcing_wireless">A vezeték nélküli hibakeresés bekapcsolva tartása</string>
     <string name="wadb_error_title">Hiba a rendszerindításkor</string>
     <string name="wadb_error_notify_dev">Koppintson a fejlesztő értesítéséhez.</string>
     <string name="wadb_permission_error_notification_title">Engedélyezési hiba</string>
@@ -551,6 +556,8 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="shell_backend_root">Root</string>
     <string name="shell_backend_shizuku_status">Shizuku, uid %1$d</string>
     <string name="shell_backend_root_status">Root, uid 0</string>
+    <string name="shell_needs_a_backend">Indítsa el a Shizukut, vagy rootolt eszközön válassza a Root lehetőséget: a két lehetőség közül az egyik végrehajtja a parancsokat. A Root funkció akkor is működik, ha a Shizuku le van állítva.</string>
+    <string name="shell_root_refused">A root hozzáférés megtagadásra került, ezért a parancsok a Shizuku alkalmazást fogják használni. Engedélyezze ennek az alkalmazásnak a root hozzáférést a Root használatához.</string>
     <string name="shell_search">Keresés</string>
     <string name="shell_save_output">Mentés</string>
     <string name="shell_expand">Kibontás</string>
@@ -569,9 +576,15 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="watchdog_shizuku_crashed_text">A Watchdog újraindította a szolgáltatást.
         Koppintson a lehetséges javításokról a jövőbeli összeomlások megelőzése érdekében.</string>
     <string name="watchdog_shizuku_crashed_action_turn_off_alerts">Kapcsolja ki a riasztásokat</string>
+    <string name="watchdog_shizuku_recovered_title">A Shizuku újra fut</string>
+    <string name="watchdog_shizuku_recovered_text">A Felügyeleti mód újra elindította, miután magától leállt.</string>
     <string name="watchdog_given_up_title">A Shizuku elindítása nem sikerült</string>
+    <string name="watchdog_given_up_text">A Shizuku %1$d indítási kísérlet után sem indult újra. Az újraindítás tehát nem segít, amíg az ok meg nem szünik.</string>
     <string name="watchdog_given_up_action_start">Indítás</string>
+    <string name="watchdog_not_running_title">A Felügyeleti mód nem fut</string>
+    <string name="watchdog_not_running_text">Az Android nem engedte, hogy magától elinduljon. Koppintson az újraindításhoz.</string>
     <!-- Misc -->
+    <string name="error">Hiba</string>
     <string name="off">Ki</string>
     <string name="dialog_cannot_open_browser_title">Nem lehet elindítani a böngészőt</string>
     <string name="toast_copied_to_clipboard">Vágólapra másolva</string>
@@ -597,22 +610,49 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="manage_filter_empty">Semmi nincs ezzel a szűréssel.</string>
     <string name="manage_status_system">Rendszer</string>
     <string name="manage_status_user">Felhasználó</string>
-    <string name="permissions_action_deny">Megtagad</string>
+    <string name="permissions_phantom">Háttérfolyamatok</string>
+    <string name="permissions_phantom_summary">Az Android 12 és újabb verziói leállíthatják az alkalmazás által elindított folyamatokat az alkalmazás bezárása után. Ez a rendszerindítás után a szerver leállását okozhatja. Ez a beállítás az egész eszközre vonatkozik, és az eszköz újraindítását teheti szükségessé.</string>
+    <string name="permissions_action_deny">Tiltás</string>
+    <string name="permissions_phantom_failed">Nem sikerült módosítani. Ehhez Shizuku-ra vagy a WRITE_SECURE_SETTINGS jogosultságra van szükség.</string>
     <string name="manage_status_removed">Eltávolítva, adatok megőrizve</string>
     <string name="manage_status_disabled">Letiltva</string>
     <string name="manage_status_suspended">Felfüggesztve</string>
     <string name="manage_status_hidden">Rejtve</string>
     <!-- One app, and what it may do on the device -->
+    <string name="app_detail_missing">Ez az alkalmazás már nincs telepítve.</string>
+    <string name="app_open_info">Alkalmazás infó</string>
+    <string name="app_section_permissions">Rendszer engedélyek</string>
+    <string name="app_section_runtime">Futtatási jogosultságok</string>
     <string name="app_section_ops">Alkalmazásműveletek</string>
+    <string name="app_section_actions">Műveletek</string>
+    <string name="app_section_battery">Akkumulátor</string>
+    <string name="app_section_info">Infó</string>
+    <string name="app_permissions_note">Csak a fejlesztői vagy a veszélyes védelmi szintű engedélyek módosíthatók adb-n keresztül. A platform a többit elutasítja, függetlenül attól, hogy a Shizuku mennyire megbízható, így ezeknél a soroknál a kapcsoló kikapcsolva marad.</string>
     <string name="app_grant_confirm_ok">Megadás</string>
+    <string name="app_op_background">Futtatás a háttérben</string>
+    <string name="app_op_background_note">A Tiltás megakadályozza a háttérben való futását.</string>
+    <string name="app_op_any_background">Automatikus indítás rendszerindításkor</string>
+    <string name="app_op_any_background_note">Megakadályozza, hogy az alkalmazások elinduljanak a rendszerindításkor vagy a háttérbeni adások által.</string>
+    <string name="app_op_foreground_note">A Tilás leállítja előtérbeli szolgáltatásait.</string>
+    <string name="app_op_wake_lock_note">A Tiltás leállítja az eszköz ébren tartását.</string>
     <string name="app_op_notifications">Értesítések megjelenítése</string>
-    <string name="app_op_notifications_note">Megakadályozza az értesítéseket.</string>
+    <string name="app_op_notifications_note">A tiltás elrejti az értesítéseket.</string>
+    <string name="app_op_clipboard_note">A Tiltás leállítja a vágólap olvasását.</string>
+    <string name="app_op_overlay_note">A Tiltás leállítja a megjelenítését más alkalmazások felett. Egyes alkalmazásoknak szükségük van erre a működéshez.</string>
+    <string name="app_op_install_note">A Tiltás leállítja az APK-k telepítését.</string>
+    <string name="app_op_toast_note">A Tiltás leállítja a kis felugró üzenetek megjelenését egy másik alkalmazás felett.</string>
+    <string name="app_op_project_media_note">A Tiltás leállítja a képernyőn látható tartalmak rögzítését vagy átküldését.</string>
+    <string name="app_op_record_audio_note">A Tiltás meghagyja a megadott engedélyt, és a lekérdezések eredményeként üres értékeket ad vissza. Pontosan erre van szüksége egy olyan alkalmazásnak, amely nem fogad el nemleges választ.</string>
+    <string name="app_op_vibrate_note">A Tiltás leállítja, rezgés alkalmazásával.</string>
+    <string name="app_op_mock_location_note">A Tiltás megakadályozza, hogy a rendszer kitalált pozícióadatokat továbbítson más alkalmazásoknak.</string>
+    <string name="app_op_pip_note">A Tiltás megakadályozza, hogy egy kis lebegő ablakká zsugorodik össze.</string>
     <string name="app_op_mode_default">Alapértelmezett</string>
     <string name="app_op_mode_allow">Engedélyezés</string>
-    <string name="app_op_mode_deny">Megtagad</string>
+    <string name="app_op_mode_deny">Tiltás</string>
     <string name="app_action_enable">Engedélyezés</string>
     <string name="app_bucket_default">Alapértelmezett</string>
     <string name="app_bucket_restricted_note">Ritkán engedélyezve a háttérben való futtatás.</string>
+    <string name="app_bucket_never_note">Nem fut a háttérben.</string>
     <string name="app_info_version">Verzió</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_installer">Telepítve innen</string>
