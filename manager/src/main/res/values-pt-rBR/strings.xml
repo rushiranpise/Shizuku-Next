@@ -12,6 +12,7 @@
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Iniciar via depuração sem fio]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Começando sem rede: o dispositivo é solicitado pela depuração sem fio várias vezes até ficar ligado. Isto pode demorar até dois minutos antes de começar ou desistir.</string>
+    <string name="home_usb_adb_needs_network">A USB start uses the classic ADB port, and reopening it needs a network. Connect to Wi-Fi once, or choose <b>Start without Wi-Fi</b> as the start method and start over wireless debugging instead.</string>
     <string name="home_wireless_adb_summary">Inicia o uso de depuração sem fio.</string>
     <string name="home_usb_adb_title"><![CDATA[Iniciar via depuração USB]]></string>
     <string name="home_usb_adb_summary">Inicia o uso da depuração USB.</string>
@@ -24,6 +25,8 @@
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
+    <string name="diagnostics_battery_optimized">otimizado</string>
+    <string name="diagnostics_battery_unrestricted">não restrito</string>
     <!-- Adb -->
     <string name="dialog_adb_port">Porta</string>
     <string name="dialog_adb_invalid_port">Porta é um número inteiro que varia de 1 a 65535.</string>
@@ -45,7 +48,9 @@
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
+    <string name="dialog_adb_pairing_accessibility_permission">Android blocks this switch for apps installed outside an app store. Allow the ^1 app-op to turn on the accessibility service. The accessibility list shows this as \"Controlled by Restricted Setting\".\n\nOpen App info and select \"Allow restricted settings\" from the menu, or run this on a computer:\n\n^2\n\nEither option works. The switch will work afterwards.</string>
     <string name="dialog_adb_pairing_open_app_info">Informações do app</string>
+    <string name="dialog_adb_pairing_accessibility_enable">Seguinte, O emparelhamento automático lê o código da caixa de diálogo do sistema através do serviço de acessibilidade do Shizuku, portanto, ele precisa estar ativado, e apenas pelo tempo necessário: o serviço se desativa assim que o código é encontrado ou após um minuto para economizar energia. Normalmente, o Shizuku o ativa automaticamente, o que requer a permissão WRITE_SECURE_SETTINGS, que ainda não foi concedida em uma instalação nova.\n\nAtive-o na próxima tela, digite o código em *Manual* ou conceda a permissão uma única vez:\n\nadb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Para iniciar o emparelhamento, siga os
         seguintes passos:\n- Aceda a \"Opções de programador\"\n- Ative \"Depuração USB\" e
         \"Depuração sem fios\"\n- Toque no lado esquerdo de \"Depuração sem fios\"\n- Toque em
