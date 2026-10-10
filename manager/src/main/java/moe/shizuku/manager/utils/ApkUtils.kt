@@ -9,18 +9,16 @@ import android.content.pm.PackageInstaller
 import android.os.Build
 import android.util.Log
 import androidx.core.content.ContextCompat
-import com.reandroid.apk.AndroidFrameworks
 import com.reandroid.apk.ApkModule
-import com.reandroid.archive.ByteInputSource
-import com.reandroid.arsc.chunk.TableBlock
-import java.util.function.Predicate
 import com.reandroid.arsc.chunk.xml.AndroidManifestBlock
-import com.reandroid.arsc.chunk.xml.ResXmlDocument
 import com.reandroid.arsc.chunk.xml.ResXmlElement
 import com.reandroid.archive.FileInputSource
+import java.util.function.Predicate
 import moe.shizuku.manager.R
 import moe.shizuku.manager.ShizukuApplication
+import moe.shizuku.manager.utils.STUB_DEX_ASSET
 import moe.shizuku.manager.utils.rewrittenPackageReference
+import moe.shizuku.manager.utils.stubApkModule
 import moe.shizuku.manager.utils.ApkSigner
 import java.io.File
 
@@ -116,50 +114,43 @@ private fun AndroidManifestBlock.rewritePackageReferences(oldPackage: String, ne
     return roots.fold(0) { total, root -> total + walk(root) }
 }
 
-fun createStubApk(pkgName: String): File {
-    Log.i(TAG, "Initializing APK framework")
+/**
+ * The APK installed at [pkgName] while the app is hidden, which passes on what clients that still
+ * name the app by that package ask for.
+ *
+ * [targetPackage] is the running copy and is written into the stub, so [pkgName] must be a name
+ * other than the app's own - the stub has nothing to pass anything to otherwise, and says so.
+ *
+ * The contents are built in [stubApkModule] and only signed here, because the signing key and the
+ * file to write live on the device and the manifest does not: see that function for what the stub
+ * declares and why it declares so little.
+ */
+fun createStubApk(pkgName: String, targetPackage: String): File {
+    Log.i(TAG, "Assembling the stub APK for $targetPackage")
     val outFile = File(appContext.filesDir, "stub.apk")
 
-    val tableBlock = TableBlock()
-    val manifest = AndroidManifestBlock()
-    val dummyDex = ByteInputSource(ByteArray(0), "classes.dex")
+    val dex = appContext.assets.open(STUB_DEX_ASSET).use { it.readBytes() }
 
     val module =
-        ApkModule().apply {
-            setTableBlock(tableBlock)
-            setManifest(manifest)
-            add(dummyDex)
-        }
-
-    Log.i(TAG, "Adding APK resources")
-    val packageBlock = tableBlock.newPackage(0x7f, pkgName)
-    val appName =
-        packageBlock.getOrCreate("", "string", "app_name").apply {
-            setValueAsString("${getAppLabel()} Stub")
-        }
-    val appIcon =
-        packageBlock.getOrCreate("", "drawable", "ic_launcher").apply {
-            setValueAsReference(R.drawable.ic_launcher)
-        }
-
-    Log.i(TAG, "Creating manifest")
-    manifest.apply {
-        setPackageName(pkgName)
-        // The most this package can ever claim. The stub carries the original package name, so
-        // Google Play sees that app installed and offers the store's version over it - which is
-        // what issue #73 reports: an update that cannot work, and that would take the stub's place
-        // if it did. A code above the store's own ceiling (2,100,000,000) is the one no release can
-        // outrank, so nothing is ever offered for it again.
-        setVersionCode(STUB_VERSION_CODE)
-        // The fork's own version name rather than a made-up one: this is what the app-info page and
-        // the store's row show, and a stub reading "1.0.0" is what made it look like an outdated
-        // copy of the original.
-        setVersionName(getVersionName())
-        setApplicationLabel(appName.getResourceId())
-        setIconResourceId(appIcon.getResourceId())
-        setTargetSdkVersion(app.applicationInfo.targetSdkVersion)
-        setMinSdkVersion(app.applicationInfo.minSdkVersion)
-    }
+        stubApkModule(
+            dex = dex,
+            pkgName = pkgName,
+            targetPackage = targetPackage,
+            label = "${getAppLabel()} Stub",
+            iconReference = R.drawable.ic_launcher,
+            // The most this package can ever claim. The stub carries the original package name, so
+            // Google Play sees that app installed and offers the store's version over it - which
+            // is what issue #73 reports: an update that cannot work, and that would take the
+            // stub's place if it did. A code above the store's own ceiling (2,100,000,000) is the
+            // one no release can outrank, so nothing is ever offered for it again.
+            versionCode = STUB_VERSION_CODE,
+            // The fork's own version name rather than a made-up one: this is what the app-info
+            // page and the store's row show, and a stub reading "1.0.0" is what made it look like
+            // an outdated copy of the original.
+            versionName = getVersionName(),
+            targetSdk = app.applicationInfo.targetSdkVersion,
+            minSdk = app.applicationInfo.minSdkVersion
+        )
 
     return module.buildAndSign(outFile, maybeCreateSigningKey = true)
 }

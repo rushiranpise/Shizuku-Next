@@ -152,6 +152,11 @@ afterEvaluate {
     tasks.getByName("optimizeReleaseResources").finalizedBy(collapseReleaseResourceNames)
     tasks.getByName("preReleaseBuild").dependsOn(":shell:assembleRelease")
     tasks.getByName("preDebugBuild").dependsOn(":shell:assembleDebug")
+
+    // The stub APK the stealth screen installs is assembled on device around this dex, so it has
+    // to be in the assets before they are packaged - the same arrangement rish's dex uses.
+    tasks.getByName("preReleaseBuild").dependsOn(":stub:assembleRelease")
+    tasks.getByName("preDebugBuild").dependsOn(":stub:assembleDebug")
 }
 
 android.applicationVariants.configureEach { variant ->

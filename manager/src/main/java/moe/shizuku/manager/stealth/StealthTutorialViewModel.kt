@@ -83,7 +83,10 @@ class StealthTutorialViewModel(
                             File(app.applicationInfo.sourceDir)
                                 .changePackageName(_packageName!!, maybeCreateSigningKey = true)
                         }
-                        ApkType.STUB -> createStubApk(ORIGINAL_PACKAGE_NAME)
+                        ApkType.STUB ->
+                            // The stub holds the name clients still ask for and passes what it
+                            // receives to this app, which is the copy that is installed.
+                            createStubApk(ORIGINAL_PACKAGE_NAME, app.packageName)
                     }
 
                 _uiState.postValue(UiState.Pending(apk, apkType))

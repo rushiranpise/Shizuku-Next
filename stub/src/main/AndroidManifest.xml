@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The components are not declared here: this module's own APK is never installed. What is taken
+    from it is classes.dex, and the manifest the stub APK is installed under is generated on
+    device - it has to name a package chosen by the user, which cannot be known at build time.
+-->
+<manifest />

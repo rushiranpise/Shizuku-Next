@@ -1,0 +1,48 @@
+plugins {
+    id "com.android.application"
+}
+
+android {
+    namespace = "moe.shizuku.stub"
+    defaultConfig {
+        versionCode = rootProject.ext.versionCode
+        versionName = rootProject.ext.versionName
+    }
+    buildTypes {
+        debug {
+            // One dex file, so the copy below has a single thing to take - the arrangement the
+            // shell module uses for the same reason.
+            multiDexEnabled = false
+        }
+        release {
+            // Not minified on purpose. The stub APK the app builds on device names these classes
+            // in a manifest generated there, so the names have to be the ones in this source tree.
+            minifyEnabled = false
+        }
+    }
+    dependenciesInfo {
+        includeInApk = false
+    }
+    lint {
+        checkReleaseBuilds = false
+    }
+}
+
+// Only the dex is used. The stub APK is assembled around it on device, under a manifest generated
+// there, and it is copied into the manager's assets the way rish's dex is - which is what the
+// preReleaseBuild/preDebugBuild dependencies in manager/build.gradle are for.
+android.applicationVariants.all { variant ->
+    variant.outputs.all {
+        def dexPath = "${rootProject.rootDir.path}/manager/src/main/assets"
+        variant.assembleProvider.get().doLast {
+            copy {
+                def file = zipTree(file(outputFile)).matching { include "classes*.dex" }.singleFile
+                from file
+                into dexPath
+                rename { String fileName ->
+                    fileName.replace(file.getName(), "stub_shizuku.dex")
+                }
+            }
+        }
+    }
+}
