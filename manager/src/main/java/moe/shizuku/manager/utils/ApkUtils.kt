@@ -227,6 +227,27 @@ fun Context.installPackage(
     session.close()
 }
 
+/**
+ * Wakes the stub the moment it is installed.
+ *
+ * A package that has never been started is in the platform's "stopped" state, and a broadcast to a
+ * stopped package is dropped unless the sender asked for stopped packages as well. rish does ask,
+ * which is why the binder request works straight away, but an automation app does not - so a stub
+ * that nothing had woken would sit there answering nothing, silently, until something else happened
+ * to start it. One broadcast is enough: the platform clears the state as it delivers it. The status
+ * question is the one action here that changes nothing, and its answer is thrown away - the state
+ * change is the point, not the reply.
+ */
+fun wakeStub(context: Context, stubPackage: String) {
+    val intent = Intent("$stubPackage.WATCHDOG_STATUS")
+        .setPackage(stubPackage)
+        .addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES)
+
+    runCatching {
+        context.sendOrderedBroadcast(intent, null, null, null, 0, null, null)
+    }
+}
+
 fun Context.uninstallPackage(
     pkgName: String,
     cb: ((Boolean, String?) -> Unit)? = null,

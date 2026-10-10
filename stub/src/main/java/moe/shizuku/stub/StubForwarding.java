@@ -70,4 +70,21 @@ public final class StubForwarding {
                 .setPackage(target)
                 .addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
     }
+
+    /**
+     * An automation action as the copy answers it, or null when it is not addressed to this stub.
+     *
+     * Automation written while Shizuku was visible says `moe.shizuku.privileged.api.START`, and the
+     * copy compares what it receives against its own package name - so a request passed on as it
+     * stands is one the copy reads and then ignores. Only the leading package name is translated:
+     * whatever follows it is the action's own name and is the copy's business.
+     *
+     * This is the rule the manifest rewrite applies when a copy is built, applied here to the other
+     * end of the same problem - a name written into an action instead of into a package.
+     */
+    public static String translatedAction(String action, String ownPackage, String target) {
+        if (action == null || !action.startsWith(ownPackage + ".")) return null;
+
+        return target + action.substring(ownPackage.length());
+    }
 }

@@ -44,7 +44,7 @@ class StubApkTest {
             label = label,
             iconReference = 0x7f080001,
             versionCode = Int.MAX_VALUE,
-            versionName = "14.0.21-next",
+            versionName = "14.0.22-next",
             targetSdk = 36,
             minSdk = 24
         )
@@ -66,6 +66,10 @@ class StubApkTest {
         return application.getElements().asSequence().toList()
     }
 
+    /** The one component the manifest declares for [className], or null when there is none. */
+    private fun componentOf(manifest: AndroidManifestBlock, className: String): ResXmlElement? =
+        components(manifest).singleOrNull { it.androidString(attrName) == className }
+
     private fun ResXmlElement.androidString(id: Int): String? =
         searchAttributeByResourceId(id)?.valueAsString
 
@@ -79,13 +83,22 @@ class StubApkTest {
             .map { it.androidString(attrName) }
             .toList()
 
+    /** Exported is what decides whether anything outside this app can reach a component at all. */
+    private fun assertExported(component: ResXmlElement, what: String) {
+        assertEquals(
+            "$what has to be exported: what asks it is another app, or a shell",
+            true,
+            component.androidBoolean(attrExported)
+        )
+    }
+
     @Test
     fun `it installs as the package it holds, above the store's ceiling`() {
         val manifest = reloaded()
 
         assertEquals(stubPackage, manifest.packageName)
         assertEquals(Int.MAX_VALUE, manifest.versionCode)
-        assertEquals("14.0.21-next", manifest.versionName)
+        assertEquals("14.0.22-next", manifest.versionName)
         assertEquals(36, manifest.targetSdkVersion)
         assertEquals(24, manifest.minSdkVersion)
     }
@@ -101,27 +114,41 @@ class StubApkTest {
 
     @Test
     fun `both components answer the binder request and are exported`() {
-        val declared = components(reloaded()).associateBy { it.getName() }
+        val manifest = reloaded()
 
-        for ((tag, className) in listOf("receiver" to STUB_RECEIVER_CLASS, "activity" to STUB_ACTIVITY_CLASS)) {
-            val component = declared[tag]
-            assertNotNull("the stub has no $tag", component)
+        for (className in listOf(STUB_RECEIVER_CLASS, STUB_ACTIVITY_CLASS)) {
+            val component = componentOf(manifest, className)
+            assertNotNull("the stub declares no $className", component)
 
-            assertEquals(className, component!!.androidString(attrName))
-            assertEquals(
-                "$tag has to be exported: the request comes from a shell, which is not an app",
-                true,
-                component.androidBoolean(attrExported)
-            )
+            assertExported(component!!, className)
             assertEquals(listOf(STUB_REQUEST_ACTION), component.actions())
         }
+    }
+
+    @Test
+    fun `automation written against the old name is answered under it`() {
+        val component = componentOf(reloaded(), STUB_AUTOMATION_RECEIVER_CLASS)
+        assertNotNull("the stub declares no $STUB_AUTOMATION_RECEIVER_CLASS", component)
+
+        assertExported(component!!, STUB_AUTOMATION_RECEIVER_CLASS)
+
+        // The names the automation was written against: whatever the stub is installed as, which is
+        // the package the user's MacroDroid or Tasker task already says.
+        assertEquals(
+            STUB_AUTOMATION_ACTIONS.map { "$stubPackage.$it" },
+            component.actions()
+        )
     }
 
     @Test
     fun `the classes it declares are in the dex it ships`() {
         val dex = String(stubDex().readBytes(), Charsets.ISO_8859_1)
 
-        for (className in listOf(STUB_RECEIVER_CLASS, STUB_ACTIVITY_CLASS)) {
+        for (className in listOf(
+            STUB_RECEIVER_CLASS,
+            STUB_ACTIVITY_CLASS,
+            STUB_AUTOMATION_RECEIVER_CLASS
+        )) {
             val descriptor = "L" + className.replace('.', '/') + ";"
             assertTrue("$className is named by the manifest but not in the dex", dex.contains(descriptor))
         }
@@ -135,10 +162,11 @@ class StubApkTest {
     fun `it declares nothing of the running copy`() {
         val manifest = reloaded()
 
-        // Present: the two components and what tells them where to pass a request on.
+        // Present: what tells the components where to pass a request on, the two that carry the
+        // binder request, and the one that carries automation.
         assertEquals(
-            setOf("meta-data", "receiver", "activity"),
-            components(manifest).map { it.getName() }.toSet()
+            listOf("activity", "meta-data", "receiver", "receiver"),
+            components(manifest).map { it.getName() }.sorted()
         )
 
         // Absent: everything a second app claiming the app's names would bring with it - the

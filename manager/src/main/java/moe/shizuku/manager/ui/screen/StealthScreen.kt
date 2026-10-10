@@ -58,6 +58,7 @@ import moe.shizuku.manager.utils.ApkUtils.ORIGINAL_PACKAGE_NAME
 import moe.shizuku.manager.utils.ApkUtils.buildApkFilename
 import moe.shizuku.manager.utils.ApkUtils.installPackage
 import moe.shizuku.manager.utils.ApkUtils.uninstallPackage
+import moe.shizuku.manager.utils.ApkUtils.wakeStub
 import rikka.core.util.ClipboardUtils
 import java.io.File
 
@@ -113,7 +114,15 @@ fun StealthScreen(onBack: () -> Unit) {
                 ApkType.STUB -> {
                     context.installPackage(s.apk) { ok, msg ->
                         vm.refresh()
-                        if (!ok) error = msg ?: "Install failed"
+                        if (ok) {
+                            // Straight after the install, and not on first use: a stub that has
+                            // never been started is stopped as far as the platform is concerned,
+                            // and stops taking broadcasts - which for an automation app means
+                            // silently doing nothing. See wakeStub.
+                            wakeStub(context, ORIGINAL_PACKAGE_NAME)
+                        } else {
+                            error = msg ?: "Install failed"
+                        }
                     }
                 }
             }
