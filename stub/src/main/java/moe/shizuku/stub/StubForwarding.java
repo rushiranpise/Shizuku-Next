@@ -54,9 +54,19 @@ public final class StubForwarding {
         }
     }
 
-    /** The request as the copy has to receive it. */
+    /**
+     * The request as the copy has to receive it.
+     *
+     * The component is cleared, and that is the whole reason this is not a one-liner. The platform
+     * hands a request to a manifest receiver that is not running yet by starting the process and
+     * delivering it with the component filled in, and an explicit component outranks the package:
+     * a request forwarded with it still on arrives back at this same receiver, which forwards it
+     * again. What the caller waits for never leaves the stub, so it timed out while the request
+     * went round in a loop - which is what the broadcast history showed on the device.
+     */
     public static Intent forwarded(Intent intent, String target) {
         return new Intent(intent)
+                .setComponent(null)
                 .setPackage(target)
                 .addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
     }

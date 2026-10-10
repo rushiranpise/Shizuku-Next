@@ -21,6 +21,7 @@ public class StubBinderRequestActivity extends Activity {
 
         String target = StubForwarding.target(this);
         if (target != null) {
+            Log.i(StubForwarding.TAG, "Passing " + getIntent().getAction() + " on to " + target);
             try {
                 startActivity(
                         StubForwarding.forwarded(getIntent(), target)

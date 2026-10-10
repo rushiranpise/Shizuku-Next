@@ -22,6 +22,10 @@ public class StubBinderRequestReceiver extends BroadcastReceiver {
             return;
         }
 
+        // Said out loud because this is the half of the flow that cannot be seen from either end:
+        // whether the request left the stub, and which package it was pointed at.
+        Log.i(StubForwarding.TAG, "Passing " + intent.getAction() + " on to " + target);
+
         // FLAG_RECEIVER_FOREGROUND shares its bit with FLAG_ACTIVITY_CLEAR_TOP, which a broadcast
         // does not read: here it asks for the copy to be woken now rather than queued behind
         // whatever else is on its way.
