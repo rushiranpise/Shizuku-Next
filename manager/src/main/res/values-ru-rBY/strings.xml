@@ -74,6 +74,7 @@
     <string name="home_dialog_reboot_required_message">Для корректной работы Shizuku требуется перезагрузить устройство. Чтобы продолжить, перезагрузите устройство.</string>
     <string name="home_dialog_duplicate_app_detected_title">Обнаружена копия приложения</string>
     <string name="home_dialog_duplicate_app_detected_message">На устройстве установлена другая версия этого приложения. Чтобы продолжить, удалите все копии приложения и перезагрузите устройство.</string>
+    <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
     <string name="home_dialog_button_exit">Выйти</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">Разрешения ADB ограничены</string>

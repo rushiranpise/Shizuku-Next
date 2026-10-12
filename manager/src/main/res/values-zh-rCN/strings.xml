@@ -105,6 +105,9 @@
     <string name="home_dialog_reboot_required_message">请重启设备，以便 Shizuku 正常运行。</string>
     <string name="home_dialog_duplicate_app_detected_title">检测到重复的应用</string>
     <string name="home_dialog_duplicate_app_detected_message">设备上安装了另一个版本的本应用。请卸载所有重复版本并重启设备以继续。</string>
+    <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
+    <string name="home_permission_owned_by">应用通过 Shizuku 的权限来查找它，而 Android 显示 %1$s 声明了该权限——这可能是 Shizuku 的一个分身或残留。在卸载该分身并重启设备之前，这些应用会一直请求它。</string>
+    <string name="home_permission_not_registered">应用通过 Shizuku 的权限来查找它，但 Android 尚未注册该权限——重新安装后可能出现此情况，重启设备即可解决。Shizuku 本身不受影响，但其他应用可能找不到它。</string>
     <string name="home_dialog_button_exit">退出</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">adb 权限受限</string>
@@ -419,6 +422,8 @@
     <string name="intents_watchdog_off">看门狗关闭</string>
     <string name="intents_watchdog_toggle">切换看门狗</string>
     <string name="intents_adb_command">通过电脑启动</string>
+    <string name="intents_status_broadcast">状态广播</string>
+    <string name="intents_status_broadcast_extra">status extra：1 = 运行中，0 = 未运行</string>
     <string name="home_battery_warning">Shizuku 可能在后台被系统终止，请允许其忽略电池优化。</string>
     <string name="batch_selected_count">已选择 %1$d</string>
     <string name="app_management_action_select_all">全选</string>
@@ -455,6 +460,9 @@
     <string name="stealth_error_invalid_characters">只允许字母、数字和句点。</string>
     <string name="stealth_error_needs_two_segments">包名至少要有两段。</string>
     <string name="stealth_error_segment_starts_with_number">包名的每一段都不能以数字开头。</string>
+    <string name="stealth_display_name">显示名称（可选）</string>
+    <string name="stealth_display_name_helper_text">在启动器和应用列表中显示为分身的名称。留空则分身保持本应用的名称。</string>
+    <string name="stealth_error_display_name_too_long">不能超过 %1$d 个字符。</string>
     <string name="stealth_uninstall_required">需要卸载</string>
     <string name="stealth_uninstall_message">系统现在会提示你卸载 Shizuku。之后再安装分身。</string>
     <string name="stealth_uninstall">卸载</string>

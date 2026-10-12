@@ -86,6 +86,7 @@
     <!-- Home - Learn more -->
     <!-- Home - Adb permissions limited -->
     <!-- Home - Dialogs -->
+    <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">adb இன் அனுமதி குறைவாக உள்ளது.</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[உங்கள் சாதன உற்பத்தியாளர் adb இன் அனுமதியை வரம்பிடுவது மிகவும் சாத்தியம்.<p> <b><a href=\"%1$s\">இந்த ஆவணத்தில்</a></b>உங்கள் கணினிக்கு ஒரு தீர்வு இருக்கலாம்.]]></string>

@@ -80,6 +80,7 @@
     <string name="home_dialog_reboot_required_message">Pro správnou funkci Shizuku je vyžadován restart zařízení. Chcete-li pokračovat, restartujte zařízení.</string>
     <string name="home_dialog_duplicate_app_detected_title">Detekována duplicitní aplikace</string>
     <string name="home_dialog_duplicate_app_detected_message">Jiná verze této aplikace je nainstalována na vašem zařízení. Chcete-li pokračovat, odinstalujte prosím všechny duplicitní verze a restartujte zařízení.</string>
+    <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
     <string name="home_dialog_button_exit">Ukončit</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">Oprávnění adb je omezené</string>

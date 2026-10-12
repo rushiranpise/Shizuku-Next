@@ -101,6 +101,7 @@
     <string name="home_dialog_reboot_required_message">En omstart av enheten er nødvendig for at Shizuku skal fungere ordentlig. For å fortsette må du starte enheten på nytt.</string>
     <string name="home_dialog_duplicate_app_detected_title">Duplisert app oppdaget</string>
     <string name="home_dialog_duplicate_app_detected_message">En annen versjon av denne appen er installert på enheten. For å fortsette, må du avinstallere alle duplikatversjoner og starte enheten på nytt.</string>
+    <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
     <string name="home_dialog_button_exit">Avslutt</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">Tillatelsen til adb er begrenset</string>

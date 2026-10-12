@@ -102,6 +102,7 @@
     <string name="home_dialog_reboot_required_message">Shizuku\'nun düzgün çalışabilmesi için cihazın yeniden başlatılması gerekiyor. Devam etmek için lütfen cihazınızı yeniden başlatın.</string>
     <string name="home_dialog_duplicate_app_detected_title">Çift uygulama tespit edildi</string>
     <string name="home_dialog_duplicate_app_detected_message">Cihazınızda bu uygulamanın başka bir sürümü yüklü. Devam etmek için lütfen tüm çift sürümleri kaldırın ve cihazınızı yeniden başlatın.</string>
+    <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
     <string name="home_dialog_button_exit">Çık</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">ADB’nin izni sınırlıdır</string>

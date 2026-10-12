@@ -110,6 +110,7 @@
     <string name="home_dialog_reboot_required_message">É necessário reiniciar o dispositivo para que o Shizuku funcione corretamente. Para continuar, reinicie seu dispositivo.</string>
     <string name="home_dialog_duplicate_app_detected_title">Aplicativo duplicado detectado</string>
     <string name="home_dialog_duplicate_app_detected_message">Outra versão deste app está instalada no seu dispositivo. Para continuar, desinstale todas as versões duplicadas e reinicie o seu dispositivo.</string>
+    <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
     <string name="home_dialog_button_exit">Sair</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">A permissão do adb é limitada</string>
@@ -558,6 +559,7 @@
     -->
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
     <string name="contributor_area_server">Servidor</string>
+    <string name="contributor_area_i18n"></string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
       worked in, and the languages they translated into. There is deliberately no string per

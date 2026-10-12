@@ -103,6 +103,7 @@
     <string name="home_dialog_reboot_required_message">Shizukun uudelleenkäynnistys on tarpeen, jotta Shizuku toimisi oikein. Käynnistä laite uudelleen.</string>
     <string name="home_dialog_duplicate_app_detected_title">Sovelluksen kaksoiskappale havaittu</string>
     <string name="home_dialog_duplicate_app_detected_message">Toinen versio tästä sovelluksesta on asennettu laitteellesi. Jatkaaksesi, poista kaikki kaksoisversiot ja käynnistä laite uudelleen.</string>
+    <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
     <string name="home_dialog_button_exit">Poistu</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">adb:n lupa on rajoitettu</string>

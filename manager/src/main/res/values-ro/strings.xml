@@ -130,6 +130,7 @@
     <string name="home_dialog_reboot_required_message">Pentru ca Shizuku să funcționeze corect, este necesară o repornire a dispozitivului. Pentru a continua, reporniți dispozitivul.</string>
     <string name="home_dialog_duplicate_app_detected_title">Aplicație duplicat detectată</string>
     <string name="home_dialog_duplicate_app_detected_message">O altă versiune a acestei aplicații este instalată pe dispozitivul dvs. Pentru a continua, vă rugăm să dezinstalați toate versiunile duplicat și să reporniți dispozitivul.</string>
+    <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
     <string name="home_dialog_button_exit">Ieșire</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">Permisiunea adb este limitată</string>

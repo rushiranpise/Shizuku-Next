@@ -59,6 +59,7 @@
     <!-- Home - Learn more -->
     <!-- Home - Adb permissions limited -->
     <!-- Home - Dialogs -->
+    <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
     <!-- Application management -->
     <string name="apps_empty">দেখানোর মতো কোনো অ্যাপ নেই</string>
     <string name="apps_filter_empty">এই ফিল্টারে কোনো অ্যাপ নেই</string>

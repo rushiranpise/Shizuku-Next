@@ -105,6 +105,9 @@
     <string name="home_dialog_reboot_required_message">Per funzionare correttamente, Shizuku richiede un riavvio del dispositivo. Per continuare, riavvia il dispositivo.</string>
     <string name="home_dialog_duplicate_app_detected_title">Rilevata app duplicata</string>
     <string name="home_dialog_duplicate_app_detected_message">Un\'altra versione di questa app è installata nel dispositivo. Per continuare, disinstalla tutte le versioni duplicate e riavvia il dispositivo.</string>
+    <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
+    <string name="home_permission_owned_by">Le app cercano Shizuku tramite il suo permesso e Android indica che lo dichiara %1$s: una copia di Shizuku, o quel che ne resta. Quelle app interrogheranno quella copia finché non sarà disinstallata e il dispositivo riavviato.</string>
+    <string name="home_permission_not_registered">Le app cercano Shizuku tramite il suo permesso e Android non lo ha ancora registrato: dopo una reinstallazione può succedere finché il dispositivo non viene riavviato. Shizuku in sé non è interessato, ma altre app potrebbero non trovarlo.</string>
     <string name="home_dialog_button_exit">Esci</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">L\'autorizzazione di adb è limitata</string>
@@ -419,6 +422,8 @@
     <string name="intents_watchdog_off">Disattiva watchdog</string>
     <string name="intents_watchdog_toggle">Attiva/disattiva watchdog</string>
     <string name="intents_adb_command">Avvia tramite computer</string>
+    <string name="intents_status_broadcast">Stato broadcast</string>
+    <string name="intents_status_broadcast_extra">stato extra: 1 = in esecuzione, 0 = disattivato</string>
     <string name="home_battery_warning">Shizuku potrebbe essere chiuso in background. Consentigli di ignorare le ottimizzazioni della batteria.</string>
     <string name="batch_selected_count">%1$d selezionati</string>
     <string name="app_management_action_select_all">Seleziona tutto</string>
@@ -457,6 +462,9 @@
     <string name="stealth_error_invalid_characters">Sono consentite solo lettere, numeri e punti.</string>
     <string name="stealth_error_needs_two_segments">Il nome del pacchetto deve avere almeno due segmenti.</string>
     <string name="stealth_error_segment_starts_with_number">I segmenti non possono iniziare con un numero.</string>
+    <string name="stealth_display_name">Nome visualizzato (facoltativo)</string>
+    <string name="stealth_display_name_helper_text">Mostrato come nome della copia nel launcher e nell\'elenco delle app. Se lasciato vuoto, la copia mantiene il nome di questa app.</string>
+    <string name="stealth_error_display_name_too_long">Usa al massimo %1$d caratteri.</string>
     <string name="stealth_uninstall_required">Disinstallazione necessaria</string>
     <string name="stealth_uninstall_message">Il sistema ti chiederà di disinstallare Shizuku. Poi, installa il clone.</string>
     <string name="stealth_uninstall">Disinstalla</string>
@@ -753,7 +761,7 @@
     <string name="dialog_legacy_not_support_title">%1$s non supporta il moderno Shizuku</string>
     <string name="dialog_legacy_not_support_message"><![CDATA[Shizuku legacy è obsoleto da marzo 2019. Inoltre, Shizuku legacy non funziona sui sistemi Android più recenti.<p>Chiedi allo sviluppatore<b>%1$s</b> di aggiornare.]]></string>
     <string name="dialog_requesting_legacy_title">%1$s sta richiedendo Shizuku legacy</string>
-    <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> supporta la versione moderna di Shizuku, ma sta richiedendo quella legacy. Potrebbe dipendere dal fatto che Shizuku non è in esecuzione: controlla nell\'app Shizuku.<p>La versione legacy di Shizuku è obsoleta da marzo 2019.]]></string>
+    <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> supporta la versione moderna di Shizuku, ma sta richiedendo quella legacy. Potrebbe dipendere dal fatto che Shizuku non è in esecuzione: controlla nell'app Shizuku.<p>La versione legacy di Shizuku è obsoleta da marzo 2019.]]></string>
     <string name="dialog_requesting_legacy_button_open_shizuku">Apri Shizuku</string>
     <string name="wadb_notification_attempt_now">Riprova</string>
     <!-- Manage tab -->
