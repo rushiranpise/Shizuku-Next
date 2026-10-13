@@ -6,61 +6,70 @@
       a change here reaches translators on the next push and not before.
     -->
     <!-- To translators: you can leave your here -->
-    <string name="home_status_adb_wireless">Adb</string>
-    <string name="home_status_adb_usb">Adb</string>
+    <string name="home_status_adb_wireless">adb</string>
+    <string name="home_status_adb_usb">adb</string>
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Iniciar via depuração sem fio]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Começando sem rede: o dispositivo é solicitado pela depuração sem fio várias vezes até ficar ligado. Isto pode demorar até dois minutos antes de começar ou desistir.</string>
-    <string name="home_usb_adb_needs_network">A USB start uses the classic ADB port, and reopening it needs a network. Connect to Wi-Fi once, or choose <b>Start without Wi-Fi</b> as the start method and start over wireless debugging instead.</string>
+    <string name="home_usb_adb_needs_network">A inicialização via USB utiliza a porta ADB clássica, e para reabri-la é necessária uma conexão de rede. Conecte-se ao Wi-Fi uma vez ou escolha <b>Iniciar sem Wi-Fi</b> como método de inicialização e inicie a depuração sem fio.</string>
     <string name="home_wireless_adb_summary">Inicia o uso de depuração sem fio.</string>
     <string name="home_usb_adb_title"><![CDATA[Iniciar via depuração USB]]></string>
     <string name="home_usb_adb_summary">Inicia o uso da depuração USB.</string>
+    <string name="home_support_body">Shizuku-Next é gratuito e não tem anúncios. O valor do seu café ajuda a cobrir o tempo gasto na manutenção.</string>
+    <string name="diagnostics_title">Diagnósticos</string>
+    <string name="diagnostics_copy">Copiar diagnósticos</string>
+    <string name="diagnostics_copied">Diagnósticos copiados</string>
+    <string name="diagnostics_service">Serviço</string>
+    <string name="diagnostics_server_uid">Uid do servidor</string>
+    <string name="diagnostics_server_api">API do servidor</string>
+    <string name="diagnostics_server_context">Contexto do servidor</string>
     <string name="diagnostics_wireless_debugging">Depuração sem fio</string>
+    <string name="diagnostics_adb_port">Porta ADB</string>
+    <string name="diagnostics_wifi">Wi-Fi</string>
+    <string name="diagnostics_local_network">Rede local</string>
     <string name="diagnostics_battery">Otimização da bateria</string>
+    <string name="diagnostics_app">Aplicativo</string>
     <string name="diagnostics_android">Android</string>
     <string name="diagnostics_device">Dispositivo</string>
+    <string name="diagnostics_started_with">Começou com</string>
+    <string name="diagnostics_default">Método padrão</string>
     <string name="diagnostics_hiding">Ocultando</string>
+    <string name="diagnostics_phantom">Matador de processos</string>
     <string name="diagnostics_root">raiz</string>
+    <string name="diagnostics_granted">concedido</string>
+    <string name="diagnostics_missing">ausente</string>
+    <string name="diagnostics_not_required">não é necessário</string>
+    <string name="diagnostics_connected">conectado</string>
+    <string name="diagnostics_not_connected">não conectado</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
     <string name="diagnostics_battery_optimized">otimizado</string>
     <string name="diagnostics_battery_unrestricted">não restrito</string>
+    <string name="diagnostics_available">disponível</string>
+    <string name="diagnostics_unavailable">indisponível</string>
+    <string name="diagnostics_closed">fechado</string>
     <!-- Adb -->
     <string name="dialog_adb_port">Porta</string>
-    <string name="dialog_adb_invalid_port">Porta é um número inteiro que varia de 1 a 65535.</string>
+    <string name="dialog_adb_invalid_port">Digite um número de porta entre 1 e 65535.</string>
     <string name="adb_pairing">Emparelhamento</string>
     <string name="dialog_adb_pairing_title">Emparelhar com dispositivo</string>
     <string name="dialog_adb_pairing_discovery">Procurando serviço de pareamento</string>
     <string name="dialog_adb_pairing_paring_code">Código de pareamento</string>
     <string name="paring_code_is_wrong">O código de emparelhamento está errado.</string>
-    <string name="cannot_connect_port">Não consigo ligar-me ao serviço de depuração sem fios.\n\nPor
-        favor, certifique-se de que o Shizuku está na lista branca em todas as aplicações de
-        firewall, bloqueadores de anúncios, VPN ou semelhantes que possam restringir o acesso à
-        rede.</string>
-    <string name="dialog_adb_pairing_message">Para iniciar o emparelhamento, siga os seguintes
-        passos:\n- Aceda a \"Opções de programador\"\n- Ative \"Depuração USB\" e \"Depuração sem
-        fios\"\n- Toque no lado esquerdo de \"Depuração sem fios\"\n- Toque em \"Emparelhar
-        dispositivo com código de emparelhamento\"\n- Introduza o código de emparelhamento na
-        notificação</string>
+    <string name="cannot_connect_port">Não é possível conectar-se ao serviço de depuração sem fio.\n\nVerifique se o Shizuku está na lista de permissões de todos os aplicativos de firewall, bloqueadores de anúncios, VPN ou similares que possam restringir o acesso à rede.</string>
+    <string name="dialog_adb_pairing_message">Para iniciar o emparelhamento, siga estas etapas:\n- Acesse “Opções do desenvolvedor”\n- Ative “Depuração por USB” e “Depuração sem fio”\n- Toque no lado esquerdo de “Depuração sem fio”\n- Toque em “Emparelhar dispositivo com código de emparelhamento”\n- Digite o código de emparelhamento na notificação</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
-    <string name="dialog_adb_pairing_accessibility_permission">Android blocks this switch for apps installed outside an app store. Allow the ^1 app-op to turn on the accessibility service. The accessibility list shows this as \"Controlled by Restricted Setting\".\n\nOpen App info and select \"Allow restricted settings\" from the menu, or run this on a computer:\n\n^2\n\nEither option works. The switch will work afterwards.</string>
+    <string name="dialog_adb_pairing_accessibility_permission">O Android bloqueia esse botão para aplicativos instalados fora de uma loja de aplicativos. Permita que o comando ^1 app-op ative o serviço de acessibilidade. A lista de acessibilidade exibe isso como “Controlado por configuração restrita”.\n\nAbra “Informações do aplicativo” e selecione “Permitir configurações restritas” no menu, ou execute este comando em um computador:\n\n^2\n\nQualquer uma das opções funciona. O botão passará a funcionar depois disso.</string>
     <string name="dialog_adb_pairing_open_app_info">Informações do app</string>
-    <string name="dialog_adb_pairing_accessibility_enable">Seguinte, O emparelhamento automático lê o código da caixa de diálogo do sistema através do serviço de acessibilidade do Shizuku, portanto, ele precisa estar ativado, e apenas pelo tempo necessário: o serviço se desativa assim que o código é encontrado ou após um minuto para economizar energia. Normalmente, o Shizuku o ativa automaticamente, o que requer a permissão WRITE_SECURE_SETTINGS, que ainda não foi concedida em uma instalação nova.\n\nAtive-o na próxima tela, digite o código em *Manual* ou conceda a permissão uma única vez:\n\nadb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</string>
-    <string name="dialog_adb_pairing_accessibility_navigate">Para iniciar o emparelhamento, siga os
-        seguintes passos:\n- Aceda a \"Opções de programador\"\n- Ative \"Depuração USB\" e
-        \"Depuração sem fios\"\n- Toque no lado esquerdo de \"Depuração sem fios\"\n- Toque em
-        \"Emparelhar dispositivo com código de emparelhamento\". O Shizuku detetará o código de
-        emparelhamento automaticamente.</string>
-    <string name="adb_pairing_requires_multi_window">Por favor, entre primeiro no modo de tela
-        dividida (várias janelas).</string>
-    <string name="adb_pairing_requires_multi_window_reason">O sistema exige que o diálogo de
-        emparelhamento seja sempre visível. Usar o modo de ecrã dividido é a única forma de permitir
-        que esta aplicação e o diálogo do sistema sejam visíveis ao mesmo tempo.</string>
+    <string name="dialog_adb_pairing_accessibility_enable">O emparelhamento automático lê o código da caixa de diálogo do sistema por meio do serviço de acessibilidade do Shizuku; portanto, ele precisa estar ativado, e apenas pelo tempo necessário: o serviço se desativa assim que o código é encontrado ou após um minuto, para economizar energia. Normalmente, o Shizuku habilita isso sozinho, e isso requer a permissão WRITE_SECURE_SETTINGS, que ainda não foi concedida em uma instalação nova.\n\nHabilite-a na próxima tela, digite o código manualmente na opção “Manual” ou conceda a permissão uma vez:\n\nadb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</string>
+    <string name="dialog_adb_pairing_accessibility_navigate">Para iniciar o emparelhamento, siga estas etapas:\n- Acesse “Opções do desenvolvedor”\n- Ative “Depuração por USB” e “Depuração sem fio”\n- Toque no lado esquerdo de “Depuração sem fio”\n- Toque em “Emparelhar dispositivo com código de emparelhamento”. O Shizuku detectará automaticamente o código de emparelhamento.</string>
+    <string name="adb_pairing_requires_multi_window">Primeiro, abra o modo de tela dividida.</string>
+    <string name="adb_pairing_requires_multi_window_reason">O sistema exige que a janela de emparelhamento permaneça sempre visível. Usar o modo de tela dividida é a única maneira de manter este aplicativo e a janela do sistema visíveis ao mesmo tempo.</string>
     <string name="adb_error_key_store">Não é possível gerar a chave para depuração sem fios.\nIsto
         pode dever-se ao facto de o mecanismo KeyStore deste dispositivo estar avariado.</string>
     <string name="adb_error_stop_tcp">Falha ao interromper o ADB sobre TCP</string>
@@ -80,18 +89,11 @@
     <string name="adb_pairing_tutorial_content_notification_blocked">O processo de emparelhamento
         precisa que você interaja com uma notificação de Shizuku. Por favor, permita que Shizuku
         mostre notificações.</string>
-    <string name="adb_pairing_tutorial_content_miui">Os usuários do MIUI podem precisar mudar o
-        estilo de notificação para \"Android\" de \"Notificação\" - \"Sombra de notificação\" nas
-        configurações do sistema.</string>
-    <string name="adb_pairing_tutorial_content_miui_2">Caso contrário, pode não conseguir introduzir
-        o código de emparelhamento a partir da notificação.</string>
-    <string name="adb_pairing_tutorial_content_finish">Volta para a Shizuku e começa a Shizuku.</string>
-    <string name="adb_pairing_tutorial_content_network">A Shizuku precisa de aceder à rede local. É
-        controlado pela permissão da rede.</string>
-    <string name="adb_pairing_tutorial_content_network_limation_not_foreground">Alguns sistemas
-        (como o MIUI) impedem que aplicações acedam à rede quando não são visíveis, mesmo que a
-        aplicação utilize um serviço em primeiro plano. Por favor, desative as funcionalidades de
-        otimização da bateria para Shizuku nesses sistemas.</string>
+    <string name="adb_pairing_tutorial_content_miui">Os usuários do MIUI talvez precisem alterar o estilo de notificação de “Notificação” para “Android” na opção “Barra de notificações”, nas configurações do sistema.</string>
+    <string name="adb_pairing_tutorial_content_miui_2">Caso contrário, talvez você não consiga inserir o código de emparelhamento que aparece na notificação.</string>
+    <string name="adb_pairing_tutorial_content_finish">Volte para o Shizuku e inicie o Shizuku.</string>
+    <string name="adb_pairing_tutorial_content_network">O Shizuku precisa acessar a rede local. Isso é controlado pela permissão de rede.</string>
+    <string name="adb_pairing_tutorial_content_network_limation_not_foreground">Alguns sistemas (como o MIUI) impedem que os aplicativos acessem a rede quando não estão visíveis, mesmo que o aplicativo utilize um serviço em primeiro plano. Desative os recursos de otimização de bateria para o Shizuku nesses sistemas.</string>
     <!-- Home - Root -->
     <string name="home_root_title"><![CDATA[Iniciar (para dispositivos com root)]]></string>
     <string name="home_root_description"><![CDATA[Se estiver a utilizar o Magisk, pode tentar %1$s. Para os utilizadores root, acabará por substituir o Shizuku. Note que as aplicações existentes terão de ser ligeiramente alteradas para usar %2$s.]]></string>
@@ -111,6 +113,8 @@
     <string name="home_dialog_duplicate_app_detected_title">Aplicativo duplicado detectado</string>
     <string name="home_dialog_duplicate_app_detected_message">Outra versão deste app está instalada no seu dispositivo. Para continuar, desinstale todas as versões duplicadas e reinicie o seu dispositivo.</string>
     <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
+    <string name="home_permission_owned_by">Os aplicativos verificam se o Shizuku possui essa permissão, e o Android informa que %1$s a declara — uma cópia do Shizuku, ou o que restou dele. Esses aplicativos continuarão solicitando essa permissão até que o aplicativo seja desinstalado e o dispositivo seja reiniciado.</string>
+    <string name="home_permission_not_registered">Os aplicativos procuram o Shizuku por meio de sua permissão, e o Android ainda não o registrou, o que pode ocorrer após uma reinstalação até que o dispositivo seja reiniciado. O próprio Shizuku não é afetado; outros aplicativos podem não encontrá-lo.</string>
     <string name="home_dialog_button_exit">Sair</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">A permissão do adb é limitada</string>
@@ -123,7 +127,7 @@
     <string name="apps_filter_empty">Nenhum app neste filtro</string>
     <string name="apps_filter_all">TODOS</string>
     <string name="apps_filter_granted">Concedido</string>
-    <string name="apps_filter_revoked">Revoked</string>
+    <string name="apps_filter_revoked">Revogado</string>
     <string name="apps_filter_hidden">Hidden</string>
     <string name="apps_no_match">Nenhum aplicativo corresponde à sua pesquisa</string>
     <string name="app_management_sort_last_added">Adicionado recentemente</string>
@@ -131,7 +135,7 @@
     <string name="app_management_sort_alphabetical">A-Z</string>
     <string name="tab_home">Residencial</string>
     <string name="tab_apps">Aplicativos</string>
-    <string name="tab_shell">Concha</string>
+    <string name="tab_shell">Shell</string>
     <string name="tab_labs">Laboratórios</string>
     <string name="lab_more_apps">Mais aplicativos</string>
     <string name="tab_firewall">Firewall</string>
@@ -152,6 +156,7 @@
     <string name="hiding_gate_disabled">Desabilitado</string>
     <string name="hiding_gate_kept">Mantida em %1$d</string>
     <string name="hiding_filter_hidden">Hidden</string>
+    <string name="hiding_open_with_hiding">Abrir com as configurações ocultas</string>
     <string name="hiding_filter_shown">Visível</string>
     <string name="hiding_filter_empty">Nada oculto.</string>
     <string name="hiding_restore">RESTAURAR</string>
@@ -264,7 +269,7 @@
     <string name="device_capacity_estimated">Estimado</string>
     <string name="device_capacity_learned">Último aprendizado</string>
     <string name="device_capacity_range">Faixa aprendida</string>
-    <string name="device_capacity_note">A plataforma não relata a capacidade de design, e esse dispositivo nega o indicador de combustível nem mesmo à concha, portanto, nenhuma porcentagem de uma bateria cheia pode ser calculada honestamente. O que o sistema aprendeu acima.</string>
+    <string name="device_capacity_note">A plataforma não informa a capacidade nominal, e esse dispositivo nem mesmo exibe a barra de carga, de modo que não é possível calcular com precisão a porcentagem de carga da bateria. O que o sistema aprendeu está descrito acima.</string>
     <string name="device_history">Histórico</string>
     <string name="device_history_level">Nível</string>
     <string name="device_history_temperature">Temperatura</string>
@@ -355,7 +360,7 @@
     <string name="uid_name_root">raiz</string>
     <string name="uid_name_system">Sistema</string>
     <string name="uid_name_shell">shell</string>
-    <string name="home_device_manager_version">Versão do gerente</string>
+    <string name="home_device_manager_version">Versão do gerenciador</string>
     <string name="home_device_android_version">Versão do Android</string>
     <string name="home_device_kernel_version">Versão do kernel</string>
     <string name="home_device_model">Modelo do dispositivo</string>
@@ -373,6 +378,54 @@
     <string name="status_stopped_short">Parado</string>
     <string name="action_start">Iniciar</string>
     <string name="tools_stealth">Modo furtivo</string>
+    <string name="tools_modules">Módulos</string>
+    <string name="tab_modules">Módulos</string>
+    <string name="modules_catalog">Encontrar módulos</string>
+    <string name="catalog_apps_title">Mais aplicativos</string>
+    <string name="catalog_search">Pesquisar aplicativos, tópicos, idiomas\u2026</string>
+    <string name="catalog_filter_sort">Ordenar</string>
+    <string name="catalog_filter_category">Categoria</string>
+    <string name="catalog_filter_updated">Atualizado</string>
+    <string name="catalog_filter_all_categories">Todas as categorias</string>
+    <string name="catalog_updated_any">Qualquer hora</string>
+    <string name="catalog_updated_last_7">Últimos 7 dias</string>
+    <string name="catalog_updated_last_30">Últimos 30 dias</string>
+    <string name="catalog_updated_last_90">Últimos 90 dias</string>
+    <string name="catalog_sort_updated">Atualizado recentemente</string>
+    <string name="catalog_sort_stars">Mais estrelas</string>
+    <string name="catalog_sort_name">Nome de A a Z</string>
+    <string name="catalog_sort_released">Última versão</string>
+    <string name="catalog_sort_added">Mais recentes</string>
+    <string name="catalog_latest_release">Último lançamento: %1$s</string>
+    <string name="catalog_no_release">Sem lançamentos</string>
+    <string name="catalog_no_apk">Não há APK nesta versão</string>
+    <string name="catalog_apk_installed">%1$s instalado</string>
+    <string name="catalog_install_failed">Não foi possível iniciar a instalação.</string>
+    <string name="catalog_view_github">Ver no GitHub</string>
+    <string name="modules_repo_retry">Repetir</string>
+    <string name="modules_repo_error">Não foi possível carregar os repositórios.</string>
+    <string name="modules_repo_by_author">por %1$s</string>
+    <string name="modules_repo_latest_version">Versão mais recente</string>
+    <string name="modules_find_modules">Encontrar módulos</string>
+    <string name="modules_settings">Módulos</string>
+    <string name="modules_catalog_installed">Instalado</string>
+    <string name="modules_disabled">Desabilitado</string>
+    <string name="modules_update">Atualização</string>
+    <string name="modules_sort">Ordenar</string>
+    <string name="modules_action_stop">Interromper</string>
+    <string name="modules_action_short">Acão</string>
+    <string name="modules_service_short">Serviço</string>
+    <string name="modules_service_running_short">Executando</string>
+    <string name="modules_installed">%1$s instalado</string>
+    <string name="modules_delete">excluir</string>
+    <string name="modules_result_title">%1$s</string>
+    <string name="modules_result_exit">Código de saída %1$d</string>
+    <string name="modules_error_not_a_module">Esse arquivo não é um módulo: o arquivo module.prop está faltando ou está inutilizável.</string>
+    <string name="modules_error_unsafe_path">Esse módulo tentou gravar fora do próprio diretório, por isso a operação foi recusada.</string>
+    <string name="modules_error_too_many_entries">Esse módulo contém mais arquivos do que um módulo pode ter, por isso foi rejeitado.</string>
+    <string name="modules_error_too_large">Esse módulo, quando descompactado, ocupa mais espaço do que um módulo deve ocupar; por isso, foi rejeitado.</string>
+    <string name="modules_error_script_too_large">Um script nesse módulo excede o tamanho permitido para um script, por isso foi rejeitado.</string>
+    <string name="modules_error_install_failed">Não foi possível instalar o módulo.</string>
     <string name="tools_terminal">Apps de terminal</string>
     <string name="tools_terminal_summary">Execute comandos de shell em qualquer aplicativo de terminal, usando rish</string>
     <string name="tools_battery">Otimização da bateria</string>
@@ -424,6 +477,8 @@
     <string name="intents_watchdog_off">Watchdog para fora</string>
     <string name="intents_watchdog_toggle">Watchdog interruptor</string>
     <string name="intents_adb_command">Comece através do Computador</string>
+    <string name="intents_status_broadcast">Transmissão de status</string>
+    <string name="intents_status_broadcast_extra">status extra: 1 = em execução, 0 = não está</string>
     <string name="home_battery_warning">O Shizuku pode ser encerrado em segundo plano. Permita que ignore as otimizações de bateria.</string>
     <string name="batch_selected_count">%1$d selecionado</string>
     <string name="app_management_action_select_all">Selecionar todos</string>
@@ -431,9 +486,10 @@
     <string name="app_management_action_revoke">Revoke</string>
     <string name="app_management_batch_grant_title">Conceder permissão</string>
     <string name="app_management_batch_revoke_title">Revogar permissão</string>
+    <string name="app_management_batch_message">Aplicar aos %1$d aplicativos selecionados?</string>
     <string name="app_management_toggle_all_message">Aplicar a todos os apps listados em %1$d?</string>
-    <string name="app_management_batch_granted">Acesso concedido a apps %1$d</string>
-    <string name="app_management_batch_revoked">Acesso revogado do app %1$d</string>
+    <string name="app_management_batch_granted">Acesso concedido a %1$d aplicativos</string>
+    <string name="app_management_batch_revoked">Acesso revogado de %1$d aplicativos</string>
     <string name="action_undo">Desfazer</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Os utilizadores relataram que a MIUI quebra o Storage
@@ -466,6 +522,9 @@
     <string name="stealth_error_invalid_characters">Apenas letras, números e períodos são permitidos.</string>
     <string name="stealth_error_needs_two_segments">Nome do pacote deve ter pelo menos dois segmentos.</string>
     <string name="stealth_error_segment_starts_with_number">Segmentos não podem começar com um número.</string>
+    <string name="stealth_display_name">Nome de exibição (opcional)</string>
+    <string name="stealth_display_name_helper_text">Exibido como o nome da cópia no iniciador e na lista de aplicativos. Se deixado em branco, a cópia mantém o nome deste aplicativo.</string>
+    <string name="stealth_error_display_name_too_long">Limite-se a %1$d caracteres ou menos.</string>
     <string name="stealth_uninstall_required">Desinstalação necessária</string>
     <string name="stealth_uninstall_message">O sistema agora irá solicitar que você desinstale o Shizuku. Em seguida, instale o clone.</string>
     <string name="stealth_uninstall">Desinstalar</string>
@@ -487,7 +546,7 @@
     <string name="start_method_usb">BR</string>
     <string name="start_method_system">SISTEMA</string>
     <string name="start_method_root">raiz</string>
-    <string name="transport_adb">Adb</string>
+    <string name="transport_adb">adb</string>
     <string name="settings_adb_without_developer_options">Desabilitar opções do desenvolvedor</string>
     <string name="settings_adb_without_developer_options_summary">Desativa as opções do desenvolvedor, mas mantém as configurações do ADB que o Shizuku precisa. O Shizuku continuará funcionando, e estas configurações serão restauradas após cada reinicialização.</string>
     <string name="start_failed_developer_options_off">As opções do desenvolvedor estão desativadas porque o ADB sem as opções do desenvolvedor está ativado</string>
@@ -504,6 +563,7 @@
     <string name="settings_force_wireless_debugging_summary">Tenta iniciar o Shizuku sem Wi-Fi ou depuração USB. Isso também desativa a espera por Wi-Fi e a depuração automática sem fio.</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
+    <string name="settings_needs_write_secure_settings">É necessária a permissão WRITE_SECURE_SETTINGS. Inicie o Shizuku uma vez para conceder essa permissão e, em seguida, volte aqui.</string>
     <string name="state_on">Ligado</string>
     <string name="state_off">Desligado</string>
     <string name="settings_persist_adb_port">Manter a porta do ADB após reiniciar</string>
@@ -522,6 +582,9 @@
         deve ter sido iniciado pelo menos uma vez desde o reinício)"</string>
     <string name="settings_tcp_mode_dialog_close_port">"A porta TCP será fechada imediatamente.
         Precisará de Wi-Fi para ativar novamente o modo TCP. Continuar?"</string>
+    <string name="settings_tcp_mode_close_wireless">Não está fechada: a depuração sem fio está ativada. Fechar a porta interromperia esse processo. A porta será fechada quando o celular for reiniciado.</string>
+    <string name="settings_tcp_mode_close_usb_off">Não está fechada: a depuração via USB está desativada. Ative-a e tente novamente.</string>
+    <string name="settings_tcp_mode_close_nothing">Nenhuma porta TCP estava aberta.</string>
     <string name="settings_restart_dialog_title">É necessário reiniciar.</string>
     <string name="settings_restart_dialog_message">A Shizuku precisa de reiniciar para poder aplicar
         esta definição.</string>
@@ -552,20 +615,41 @@
     <string name="permissions_accessibility_summary">Lê o código de emparelhamento automaticamente.</string>
     <string name="permissions_battery_summary">Para o Android de matar Shizuku em segundo plano.</string>
     <string name="settings_help">Ajuda</string>
+    <string name="settings_translate">Participe da tradução</string>
+    <string name="settings_translate_note">Traduza o aplicativo no Crowdin.</string>
+    <string name="crowdin_url">https://crowdin.com/project/Shizuku-Next</string>
     <string name="settings_report_bug">Reportar um bug</string>
+    <string name="settings_support_coffee">Me pague um café</string>
+    <string name="settings_support_coffee_note">Apoie o desenvolvimento do Shizuku-Next</string>
+    <string name="settings_contributors">Colaboradores</string>
+    <string name="settings_contributors_hint">Arraste para explorar · Aperte os dedos para ampliar · Toque para ver detalhes</string>
     <!--
       A plural, not a plain string: most of the people on this wall are here for a single commit,
       so the singular is read more often than the plural is.
     -->
+    <plurals name="contributor_commits">
+        <item quantity="one">%1$d commit</item>
+        <item quantity="other">%1$d%1$d commits</item>
+    </plurals>
+    <string name="contributor_view_github">Ver no GitHub</string>
+    <string name="contributor_details_close">Fechar</string>
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
+    <string name="contributor_area_app">Aplicativo</string>
     <string name="contributor_area_server">Servidor</string>
+    <string name="contributor_area_adb">ADB</string>
+    <string name="contributor_area_build">Build</string>
     <string name="contributor_area_i18n"></string>
+    <string name="contributor_area_docs">Documentos</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
       worked in, and the languages they translated into. There is deliberately no string per
       person: a new contributor is described the moment the generator sees them, and %1$s/%2$s are
       filled with the area names above and with language names the platform already localises.
     -->
+    <string name="contributor_summary_code">Trabalhei em %1$s.</string>
+    <string name="contributor_summary_translations">Traduzi o aplicativo para %1$s.</string>
+    <string name="contributor_summary_code_translations">Trabalhei no %1$s e traduzi o aplicativo para %2$s.</string>
+    <string name="contributor_summary_default">Colaborador</string>
     <string name="settings_legacy_pairing">Emparelhamento legado</string>
     <string name="settings_legacy_pairing_summary">Introduza o código de emparelhamento numa caixa
         de diálogo em vez de uma notificação.</string>
@@ -582,6 +666,8 @@
     <string name="bug_report_dialog_method">Por favor, abra um pedido em ^1 se tiver uma conta.</string>
     <string name="bug_report_dialog_method_2">Caso contrário, pode enviar um e-mail.</string>
     <string name="bug_report_dialog_button_email">E-mail</string>
+    <string name="bug_report_dialog_diagnostics_note">Seus dados de diagnóstico atuais estão preenchidos na parte superior do ticket e do e-mail.</string>
+    <string name="bug_report_dialog_body_prompt">Por favor, descreva o bug. Inclua, se possível, os passos para reproduzi-lo, bem como quaisquer imagens ou registros relevantes.</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Desative a otimização da bateria para
         utilizar esta funcionalidade.</string>
@@ -594,6 +680,7 @@
     <string name="update_check_failed">Não foi possível verificar se há atualizações</string>
     <string name="update_check_offline">Não foi possível encontrar o GitHub. Verifique sua conexão e tente novamente.</string>
     <string name="update_check_rate_limited">GitHub está limitando verificações de atualização. Tente novamente mais tarde.</string>
+    <string name="update_check_rate_limited_minutes">O GitHub está limitando a frequência das verificações de atualizações. Tente novamente em cerca de %1$d minutos.</string>
     <string name="update_check_http_error">Não foi possível verificar atualizações (HTTP %1$d)</string>
     <string name="update_check_no_release">Nenhuma versão publicada para comparar ainda</string>
     <string name="update_downloading">Baixando atualização...</string>
@@ -652,7 +739,7 @@
     <string name="wadb_permission_error_notification_content">O Shizuku necessita da permissão
         WRITE_SECURE_SETTINGS para iniciar no arranque do sistema. Toque para saber como concedê-la.</string>
     <!-- Shell -->
-    <string name="shell_title">Concha</string>
+    <string name="shell_title">Shell</string>
     <string name="shell_backend_shizuku">Shizuku</string>
     <string name="shell_backend_root">raiz</string>
     <string name="shell_backend_shizuku_status">Localização, Uid %1$d</string>
@@ -664,6 +751,7 @@
     <string name="shell_root_refused">O acesso root foi negado, então os comandos usarão Shizuku. Conceda o acesso root a este app.</string>
     <string name="shell_search">Pesquisa</string>
     <string name="shell_search_hint">Localizar</string>
+    <string name="shell_search_position">%1$d de %2$d</string>
     <string name="shell_search_previous">Partida anterior</string>
     <string name="shell_search_next">Próxima partida</string>
     <string name="shell_search_close">Fechar pesquisa</string>
@@ -729,7 +817,11 @@
     <string name="watchdog_shizuku_crashed_action_turn_off_alerts">Desativar alertas</string>
     <string name="watchdog_shizuku_recovered_title">Shizuku está sendo executado novamente</string>
     <string name="watchdog_shizuku_recovered_text">Watchdog o começou de novo depois de parar por si só.</string>
+    <string name="watchdog_given_up_title">Não foi possível iniciar o Shizuku</string>
+    <string name="watchdog_given_up_text">O Shizuku foi iniciado %1$d vezes e não voltou a funcionar. Reiniciá-lo não vai adiantar nada até que o problema seja resolvido.</string>
     <string name="watchdog_given_up_action_start">Iniciar</string>
+    <string name="watchdog_not_running_title">O Watchdog não está em execução</string>
+    <string name="watchdog_not_running_text">O Android não permitiu que o aplicativo fosse iniciado automaticamente. Toque para iniciá-lo novamente.</string>
     <!-- Misc -->
     <string name="error">ERRO</string>
     <string name="off">Desligado</string>
@@ -759,7 +851,11 @@
     <string name="manage_empty">Nenhum aplicativo encontrado.</string>
     <string name="manage_status_system">SISTEMA</string>
     <string name="manage_status_user">Usuário</string>
+    <string name="app_row_user">usuário %1$d</string>
+    <string name="permissions_phantom">Processos em segundo plano</string>
+    <string name="permissions_phantom_summary">O Android 12 e versões posteriores podem encerrar processos iniciados por um aplicativo após o fechamento do aplicativo. Isso pode fazer com que o servidor seja encerrado após a inicialização do dispositivo. Essa configuração afeta todo o dispositivo e pode exigir uma reinicialização.</string>
     <string name="permissions_action_deny">Negar</string>
+    <string name="permissions_phantom_failed">Não foi possível alterar. É necessário ter o Shizuku ou a permissão WRITE_SECURE_SETTINGS.</string>
     <string name="manage_status_removed">Removido, dados mantidos</string>
     <string name="manage_status_disabled">Desabilitado</string>
     <string name="manage_status_suspended">Suspenso</string>
@@ -876,17 +972,37 @@
     <string name="app_info_launcher">Lançador de referências</string>
     <string name="app_info_yes">sim</string>
     <string name="app_info_no">Não</string>
+    <string name="tab_wifi_passwords">Senhas de Wi-Fi</string>
+    <string name="wifi_passwords_show">Mostrar senha</string>
+    <string name="wifi_passwords_hide">Ocultar senha</string>
     <string name="wifi_passwords_connect">Conectar</string>
+    <string name="tab_files">Arquivos</string>
+    <string name="files_root_internal">Interno</string>
     <string name="files_root_app_data">Dado</string>
+    <string name="files_root_app_obb">Obb</string>
     <string name="files_root_system">SISTEMA</string>
+    <string name="files_root_tmp">Tmp</string>
     <string name="files_root_root">raiz</string>
+    <string name="files_empty">Não há nada nesta pasta</string>
+    <string name="files_all_hidden">Tudo nesta pasta está oculto.</string>
     <string name="files_sort">Ordenar</string>
+    <string name="files_sort_name">Ordenar por nome</string>
+    <string name="files_sort_size">Ordenar por tamanho</string>
+    <string name="files_sort_modified">Ordenar por data</string>
+    <string name="files_sort_ascending">Ascendente</string>
+    <string name="files_sort_descending">Descendente</string>
+    <string name="files_show_hidden">Mostrar arquivos ocultos</string>
+    <string name="files_hide_hidden">Ocultar arquivos ocultos</string>
+    <string name="files_preview_binary">Este não é um arquivo de texto, portanto não pode ser exibido.</string>
+    <string name="files_preview_failed">Não foi possível ler este arquivo.</string>
+    <string name="files_preview_truncated">Apenas o início do arquivo é exibido.</string>
     <string name="files_selected_count">%1$d selecionado</string>
     <string name="files_action_select_all">Selecionar todos</string>
     <string name="files_action_rename">Renomear</string>
     <string name="files_action_copy">copiar</string>
     <string name="files_action_delete">excluir</string>
     <string name="files_field_name">Nome:</string>
+    <string name="tab_install">Instalador de aplicativos</string>
     <string name="install_details_version">Versão</string>
     <string name="install_details_target">Target SDK</string>
     <string name="install_details_installed">Instalado</string>

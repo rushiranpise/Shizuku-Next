@@ -366,6 +366,17 @@
     <string name="status_stopped_short">Pysäytetty</string>
     <string name="action_start">Aloittaa</string>
     <string name="tools_stealth">Stealth tila</string>
+    <string name="catalog_filter_sort">Järjestä</string>
+    <string name="catalog_filter_updated">Päivitetty</string>
+    <string name="modules_repo_retry">Yritä</string>
+    <string name="modules_catalog_installed">Asennettu</string>
+    <string name="modules_disabled">Pois Käytöstä</string>
+    <string name="modules_update">Päivitä</string>
+    <string name="modules_sort">Järjestä</string>
+    <string name="modules_action_stop">Pysäytä</string>
+    <string name="modules_action_short">Toiminto</string>
+    <string name="modules_service_running_short">Käynnissä</string>
+    <string name="modules_delete">Poista</string>
     <string name="tools_terminal">Päätesovellukset</string>
     <string name="tools_terminal_summary">Suorita komentoja missä tahansa päätesovelluksessa, käyttäen rish</string>
     <string name="tools_battery">Akun optimointi</string>

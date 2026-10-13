@@ -90,6 +90,7 @@
     <string name="device_watchdog">สุนัขเฝ้าบ้าน</string>
     <string name="log_capture_start">เริ่ม</string>
     <string name="action_start">เริ่ม</string>
+    <string name="modules_repo_retry">ลองใหม่</string>
     <string name="intents_start">เริ่ม</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">ผู้ใช้รายงานว่า MIUI ทำลาย Storage Access Framework

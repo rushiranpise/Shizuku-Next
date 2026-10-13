@@ -243,6 +243,12 @@
     <string name="log_capture_start">시작</string>
     <string name="log_capture_choose_hint">앱 검색</string>
     <string name="action_start">시작</string>
+    <string name="catalog_filter_sort">정렬</string>
+    <string name="catalog_filter_updated">업데이트순</string>
+    <string name="modules_repo_retry">재시도</string>
+    <string name="modules_sort">정렬</string>
+    <string name="modules_action_short">액션</string>
+    <string name="modules_service_short">서비스</string>
     <string name="intents_start">시작</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">사용자들은 MIUI가 내보내기 기능에서 사용되는 Storage Access Framework를

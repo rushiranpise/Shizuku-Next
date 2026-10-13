@@ -99,6 +99,7 @@
     <string name="device_watchdog">Άγρυπνος φρουρός</string>
     <string name="log_capture_start">Αρχή</string>
     <string name="action_start">Αρχή</string>
+    <string name="modules_repo_retry">Δοκιμάζω πάλι</string>
     <string name="intents_start">Αρχή</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Οι χρήστες έχουν αναφέρει ότι το MIUI παραβιάζει το

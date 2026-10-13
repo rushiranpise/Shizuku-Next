@@ -91,6 +91,7 @@
     <string name="device_watchdog">دیده‌بان</string>
     <string name="log_capture_start">راه‌اندازی</string>
     <string name="action_start">راه‌اندازی</string>
+    <string name="modules_repo_retry">سعی مجدد</string>
     <string name="intents_start">راه‌اندازی</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">کاربران گزارش داده‌اند که MIUI چارچوب دسترسی به حافظه

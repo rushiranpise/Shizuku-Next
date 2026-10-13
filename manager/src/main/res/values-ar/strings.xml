@@ -94,6 +94,7 @@
     <string name="device_watchdog">مراقب</string>
     <string name="log_capture_start">البدء بالتشغيل</string>
     <string name="action_start">البدء بالتشغيل</string>
+    <string name="modules_repo_retry">أعد المحاولة</string>
     <string name="intents_start">البدء بالتشغيل</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">أبلغ المستخدمون أن MIUI يكسر إطار عمل الوصول إلى التخزين،

@@ -302,6 +302,17 @@
     <string name="status_stopped_short">Остановлено</string>
     <string name="action_start">Запустить</string>
     <string name="tools_stealth">Скрытый режим</string>
+    <string name="catalog_filter_sort">Сортировка</string>
+    <string name="catalog_filter_updated">Обновлённые</string>
+    <string name="modules_repo_retry">Повторить</string>
+    <string name="modules_catalog_installed">Установлено</string>
+    <string name="modules_disabled">Отключён</string>
+    <string name="modules_update">Обновить</string>
+    <string name="modules_sort">Сортировка</string>
+    <string name="modules_action_stop">Остановить</string>
+    <string name="modules_action_short">Действие</string>
+    <string name="modules_service_running_short">Запущено</string>
+    <string name="modules_delete">Удалить</string>
     <string name="tools_terminal">Терминальные приложения</string>
     <string name="tools_terminal_summary">Выполняйте команды оболочки в любом терминальном приложении с помощью rish</string>
     <string name="tools_battery">Оптимизация батареи</string>

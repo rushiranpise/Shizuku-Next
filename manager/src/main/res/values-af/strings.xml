@@ -94,6 +94,7 @@
     <string name="device_watchdog">Waghond</string>
     <string name="log_capture_start">Begin</string>
     <string name="action_start">Begin</string>
+    <string name="modules_repo_retry">Probeer weer</string>
     <string name="intents_start">Begin</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Gebruikers het berig dat MIUI die Storage Access

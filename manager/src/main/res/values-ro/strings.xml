@@ -13,9 +13,9 @@
     <string name="home_wireless_adb_title"><![CDATA[Pornește prin depanare fără fir]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Pornire fără rețea: dispozitivul este cerut pentru depanare fără fir din nou și din nou până când rămâne pornit. Acest lucru poate dura până la două minute înainte de a începe sau de a renunța.</string>
     <string name="home_usb_adb_needs_network">Un start USB folosește portul ADB clasic și redeschiderea acestuia necesită o rețea. Conectați-vă la Wi-Fi o singură dată sau alegeți <b>Porniți fără Wi-Fi</b> ca metodă de pornire și porniți prin depanare fără fir.</string>
-    <string name="home_wireless_adb_summary">Începe să utilizezi depanarea wireless.</string>
-    <string name="home_usb_adb_title"><![CDATA[Pornire prin USB debugging]]></string>
-    <string name="home_usb_adb_summary">Pornește folosind USB debuggging.</string>
+    <string name="home_wireless_adb_summary">Începe să utilizezi depanarea fără fir.</string>
+    <string name="home_usb_adb_title"><![CDATA[Pornire prin depanare USB]]></string>
+    <string name="home_usb_adb_summary">Pornește folosind depanarea USB.</string>
     <string name="home_support_body">Shizuku-Next este gratuit și nu are reclame. O cafea este folosită pentru timpul necesar întreținerii.</string>
     <string name="diagnostics_title">Diagnostică</string>
     <string name="diagnostics_copy">Copiere informații pentru diagnoză</string>
@@ -24,7 +24,7 @@
     <string name="diagnostics_server_uid">uid server</string>
     <string name="diagnostics_server_api">API Server</string>
     <string name="diagnostics_server_context">Context server</string>
-    <string name="diagnostics_wireless_debugging">Depanare Wireless</string>
+    <string name="diagnostics_wireless_debugging">Depanare fără fir</string>
     <string name="diagnostics_adb_port">Portul ADB</string>
     <string name="diagnostics_wifi">Wi-Fi</string>
     <string name="diagnostics_local_network">Rețea locală</string>
@@ -58,13 +58,8 @@
     <string name="dialog_adb_pairing_discovery">Se caută serviciul de asociere</string>
     <string name="dialog_adb_pairing_paring_code">Cod de asociere</string>
     <string name="paring_code_is_wrong">Codul de asociere este greșit.</string>
-    <string name="cannot_connect_port">Nu mă pot conecta la serviciul de depanare wireless.\n\nTe
-        rugăm să te asiguri că Shizuku este pe lista albă în toate firewall-urile, ad-block-urile,
-        VPN-urile sau aplicațiile similare care pot restricționa accesul la rețea.</string>
-    <string name="dialog_adb_pairing_message">Vă rugăm să începeți asocierea urmând următorii
-        pași:\n- Navigați la „Opțiuni pentru dezvoltatori”\n- Activați „Depanare USB” și „Depanare
-        wireless”\n- Atingeți partea stângă a opțiunii „Depanare wireless”\n- Atingeți „Asocieți
-        dispozitivul cu cod de asociere”\n- Introduceți codul de asociere în notificare</string>
+    <string name="cannot_connect_port">Nu se poate stabili conexiunea la serviciul de depanare wireless.\n\nAsigură-te că aplicația Shizuku se află pe lista albă a tuturor aplicațiilor de tip firewall, blocare a reclamelor, VPN sau a altor aplicații similare care pot restricționa accesul la rețea.</string>
+    <string name="dialog_adb_pairing_message">Începe procesul de asociere urmând pașii de mai jos:\n- Accesează „Opțiuni pentru dezvoltatori”\n- Activează „Depanare USB” și „Depanare wireless”\n- Atinge partea stângă a opțiunii „Depanare wireless”\n- Atinge „Asociere dispozitiv cu un cod de asociere”\n- Introdu codul de asociere din notificare</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -72,31 +67,24 @@
     <string name="dialog_adb_pairing_accessibility_permission">Android blochează acest comutator pentru aplicațiile instalate din afara unui magazin de aplicații. Permite aplicației ^1 să activeze serviciul de accesibilitate. Lista de accesibilitate arată acest lucru ca \"Controlat de setarea restricționată\".\n\nDeschide Informații despre aplicație și selectează „Permite setări restricționate” din meniu sau rulează pe un computer:\n\n^2\n\nOricare opţiune funcţionează. Comutatorul va funcționa ulterior.</string>
     <string name="dialog_adb_pairing_open_app_info">Informații aplicație</string>
     <string name="dialog_adb_pairing_accessibility_enable">Împerecherea automată citește codul din dialogul de sistem prin serviciul de accesibilitate Shizuku, așa că trebuie activat și numai atât timp cât este necesar: serviciul se oprește automat odată ce codul este găsit sau după un minut pentru a economisi energie. În mod normal, Shizuku o activează singur, iar acest lucru necesită permisiunea WRITE_SECURE_SETTINGS, care nu a fost încă acordată la o instalare nouă.\n\nActivează pe ecranul următor, introdu codul în secțiunea Manual sau acordă permisiunea o singură dată:\n\nadb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</string>
-    <string name="dialog_adb_pairing_accessibility_navigate">Vă rugăm să începeți asocierea urmând
-        următorii pași:\n- Navigați la „Opțiuni pentru dezvoltatori”\n- Activați „Depanare USB” și
-        „Depanare wireless”\n- Atingeți partea stângă a opțiunii „Depanare wireless”\n- Atingeți
-        „Asocieți dispozitivul cu cod de asociere”. Shizuku va detecta automat codul de asociere.</string>
+    <string name="dialog_adb_pairing_accessibility_navigate">Începe procesul de asociere urmând pașii de mai jos:\n- Accesează „Opțiuni pentru dezvoltatori”\n- Activează „Depanare USB” și „Depanare wireless”\n- Atinge partea stângă a opțiunii „Depanare wireless”\n- Atinge „Asociază dispozitivul cu codul de asociere”. Shizuku va detecta automat codul de asociere.</string>
     <string name="adb_pairing_requires_multi_window">Intră mai întâi în modul ecran divizat
         (ferestre multiple).</string>
     <string name="adb_pairing_requires_multi_window_reason">Sistemul cere ca dialogul de împerechere
         să fie mereu vizibil. Folosirea modului split-screen este singura modalitate de a lăsa
         această aplicație și dialogul de sistem să fie vizibile în același timp.</string>
-    <string name="adb_error_key_store">Nu pot genera cheia pentru depanarea wireless.\nAcest lucru
-        poate fi cauzat de faptul că mecanismul KeyStore al acestui dispozitiv este defect.</string>
+    <string name="adb_error_key_store">Nu se poate genera cheia pentru depanarea wireless.\nAcest lucru poate fi cauzat de faptul că mecanismul KeyStore al acestui dispozitiv este defect.</string>
     <string name="adb_error_stop_tcp">Nu s-a putut opri ADB prin TCP</string>
     <string name="adb_pair_required">Parcurge mai întâi procesul de asociere.</string>
     <string name="enable">Permite</string>
-    <string name="auto_pair_instructions">Asociază fără a scrie un cod:\n\n1. Opțiuni de dezvoltare → Depanare fără fir\n2. Dispozitivul de împerechere cu codul\n\nShizuku citește codul și portul direct din acel dialog și pornește singur. Păstraţi dialogul deschis până la terminarea împerecherii.</string>
+    <string name="auto_pair_instructions">Asociază fără a scrie un cod:\n\n1. Opțiuni de dezvoltare → Depanare fără fir\n2. Dispozitivul de împerechere cu codul\n\nShizuku citește codul și portul direct din acel dialog și pornește singur. Păstrează dialogul deschis până la finalizarea împerecherii.</string>
     <string name="auto_pair_manual">Manual</string>
     <string name="development_settings">Opțiuni dezvoltator</string>
     <string name="notification_settings">Opțiuni de notificare</string>
     <string name="adb_pairing_tutorial_content_notification">O notificare de la Shizuku te va ajuta
         să finalizezi asocierea.</string>
-    <string name="adb_pairing_tutorial_content_steps">Navigați la „Opțiuni pentru dezvoltatori”,
-        apoi activați „Depanare USB” și „Depanare wireless”.</string>
-    <string name="adb_pairing_tutorial_content_enter_pairing_code">Atingeți partea stângă a opțiunii
-        „Depanare wireless”, apoi atingeți „Asocierea dispozitivului cu codul de asociere”.
-        Introduceți codul din notificare pentru a finaliza asocierea.</string>
+    <string name="adb_pairing_tutorial_content_steps">Navighează la „Opțiuni pentru dezvoltatori”, apoi activează „Depanare USB” și „Depanare wireless”.</string>
+    <string name="adb_pairing_tutorial_content_enter_pairing_code">Atinge partea stângă a opțiunii „Depanare wireless”, apoi atinge „Asocierea dispozitivului cu codul de asociere”. Introdu codul din notificare pentru a finaliza asocierea.</string>
     <string name="adb_pairing_tutorial_content_notification_blocked">Procesul de asociere necesită
         să interacționarea cu o notificare de la Shizuku. Permite lui Shizuku să afișeze notificări.</string>
     <string name="adb_pairing_tutorial_content_miui">Este posibil ca utilizatorii MIUI să fie
@@ -131,6 +119,8 @@
     <string name="home_dialog_duplicate_app_detected_title">Aplicație duplicat detectată</string>
     <string name="home_dialog_duplicate_app_detected_message">O altă versiune a acestei aplicații este instalată pe dispozitivul dvs. Pentru a continua, vă rugăm să dezinstalați toate versiunile duplicat și să reporniți dispozitivul.</string>
     <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
+    <string name="home_permission_owned_by">Aplicațiile caută Shizuku pe baza permisiunii sale, iar Android indică faptul că %1$s o declară – o copie a aplicației Shizuku sau ceea ce a mai rămas din ea. Aceste aplicații vor solicita permisiunea respectivă până când aplicația va fi dezinstalată și dispozitivul va fi repornit.</string>
+    <string name="home_permission_not_registered">Aplicațiile caută Shizuku pe baza permisiunii sale, iar Android nu a înregistrat-o încă, situație care poate persista după o reinstalare până la repornirea dispozitivului. Aplicația Shizuku în sine nu este afectată; este posibil ca alte aplicații să nu o găsească.</string>
     <string name="home_dialog_button_exit">Ieșire</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">Permisiunea adb este limitată</string>
@@ -151,7 +141,7 @@
     <string name="app_management_sort_alphabetical">A-Z</string>
     <string name="tab_home">Acasă</string>
     <string name="tab_apps">Aplicații</string>
-    <string name="tab_shell">Proiectile</string>
+    <string name="tab_shell">Terminal</string>
     <string name="tab_labs">Laboratoare</string>
     <string name="lab_more_apps">Mai multe aplicații</string>
     <string name="tab_firewall">Firewall</string>
@@ -162,8 +152,8 @@
     <string name="labs_blocked_empty">Nimic nu este blocat.</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hide_developer_options">Ascunde opțiunile dezvoltatorului</string>
-    <string name="tab_hide_usb_debugging">Ascunde USB debugging</string>
-    <string name="tab_hide_wireless_debugging">Ascunde depanare wireless</string>
+    <string name="tab_hide_usb_debugging">Ascunde depanarea USB</string>
+    <string name="tab_hide_wireless_debugging">Ascunde depanarea fără fir</string>
     <string name="tab_hide_accessibility">Ascunde accesibilitatea</string>
     <string name="tab_hide_private_dns">Ascunde DNS Privat</string>
     <string name="tab_hide_vpn">Ascunde VPN</string>
@@ -178,7 +168,7 @@
     <string name="hiding_restore">Restaurează</string>
     <string name="hiding_signal_developer_options">Opțiuni pentru dezvoltatori</string>
     <string name="hiding_signal_usb_debugging">Depanare USB</string>
-    <string name="hiding_signal_wireless_debugging">Depanare Wireless</string>
+    <string name="hiding_signal_wireless_debugging">Depanare fără fir</string>
     <string name="hiding_signal_accessibility">Servicii de accesibilitate</string>
     <string name="hiding_signal_private_dns">DNS privat</string>
     <string name="hiding_signal_vpn">VPN</string>
@@ -375,7 +365,7 @@
     <string name="uid_name_format">(%1$s)</string>
     <string name="uid_name_root">rădăcină</string>
     <string name="uid_name_system">sistem</string>
-    <string name="uid_name_shell">shell</string>
+    <string name="uid_name_shell">terminal</string>
     <string name="home_device_manager_version">Versiune manager</string>
     <string name="home_device_android_version">Versiune Android</string>
     <string name="home_device_kernel_version">Versiune nucleu</string>
@@ -394,6 +384,104 @@
     <string name="status_stopped_short">Oprit</string>
     <string name="action_start">Pornire</string>
     <string name="tools_stealth">Mod invizibil</string>
+    <string name="tools_modules">Module</string>
+    <string name="tab_modules">Module</string>
+    <string name="modules_catalog">Găsește module</string>
+    <string name="catalog_apps_title">Mai multe aplicații</string>
+    <string name="catalog_search">Căutare aplicații, subiecte, limbi\u2026</string>
+    <string name="catalog_filter_sort">Sortează</string>
+    <string name="catalog_filter_category">Categorie</string>
+    <string name="catalog_filter_updated">Actualizat</string>
+    <string name="catalog_filter_all_categories">Toate categoriile</string>
+    <string name="catalog_updated_any">Oricând</string>
+    <string name="catalog_updated_last_7">Ultimele 7 zile</string>
+    <string name="catalog_updated_last_30">Ultimele 30 de zile</string>
+    <string name="catalog_updated_last_90">Ultimele 90 de zile</string>
+    <string name="catalog_sort_updated">Actualizate recent</string>
+    <string name="catalog_sort_stars">Cele mai multe stele</string>
+    <string name="catalog_sort_name">Denumire A-Z</string>
+    <string name="catalog_sort_released">Ultima lansare</string>
+    <string name="catalog_sort_added">Cele mai noi adăugate</string>
+    <string name="catalog_latest_release">Ultima lansare: %1$s</string>
+    <string name="catalog_no_release">Nicio lansare</string>
+    <string name="catalog_no_apk">Nu există APK în această versiune</string>
+    <string name="catalog_apk_installed">%1$s instalat</string>
+    <string name="catalog_install_failed">Instalarea nu poate fi pornită.</string>
+    <string name="catalog_view_github">Vezi pe GitHub</string>
+    <string name="modules_repo_retry">Încearcă din nou</string>
+    <string name="modules_repo_error">Nu s-au putut încărca depozitele.</string>
+    <string name="modules_repo_by_author">de la %1$s</string>
+    <string name="modules_repo_latest_version">Ultima versiune</string>
+    <string name="modules_repo_loading">Se încarcă...</string>
+    <string name="modules_repo_sort_stars_low_to_high">Stele (câteva mai întâi)</string>
+    <string name="modules_repo_sort_stars_high_to_low">Stele (mai multe întâi)</string>
+    <string name="modules_find_modules">Găsește module</string>
+    <string name="modules_install_from_file">Instalează dintr-un fișier</string>
+    <string name="modules_install_title">Instalează un modul</string>
+    <string name="modules_settings">Module</string>
+    <string name="modules_settings_summary">Ce poate face un modul și cât de sigur vrei să fii</string>
+    <string name="modules_access_full_summary_short">Serviciile și puntea de legătură cu interfața WebUI</string>
+    <string name="modules_allow_background_summary_short">Un script de servicii care rulează nevăzut</string>
+    <string name="modules_catalog_install">Instalează</string>
+    <string name="modules_catalog_installing">Se instalează</string>
+    <string name="modules_catalog_no_releases">Acest depozit nu are lansări.</string>
+    <string name="modules_catalog_installed">Instalat</string>
+    <string name="modules_card_line">Versiune: %1$s - %2$s</string>
+    <string name="modules_card_version">Versiune: %1$s</string>
+    <string name="modules_card_author">Autor: %1$s</string>
+    <string name="modules_card_id">ID: %1$s</string>
+    <string name="modules_disabled">Dezactivat</string>
+    <string name="modules_error_set_enabled">Modulul nu a putut fi pornit sau oprit: directorul nu permite scrierea.</string>
+    <string name="modules_trust">De încredere</string>
+    <string name="modules_untrust">Nu este de încredere</string>
+    <string name="modules_full_trust">Încrederea completă</string>
+    <string name="modules_trust_confirm">Ai încredere în %1$s?</string>
+    <string name="modules_trust_confirm_message">Comenzile sale se execută fără a ți se afișa mai întâi, indiferent dacă provin din acțiunea sa, din serviciul său sau din interfața WebUI. Tot restul rămâne neschimbat: modulul este în continuare oprit cu ajutorul comutatorului său, iar ieșirea sa este în continuare limitată și se oprește la expirarea timpului. Ai încredere doar într-un modul pe care l-ai citit și l-ai înțeles.</string>
+    <string name="module_update_available">Actualizare disponibilă</string>
+    <string name="modules_update">Actualizare</string>
+    <string name="modules_sort">Sortează</string>
+    <string name="modules_sort_a_to_z">Nume (A-Z)</string>
+    <string name="modules_sort_z_to_a">Nume (Z-A)</string>
+    <string name="modules_sort_size_low_to_high">Dimensiune (mai întâi mică)</string>
+    <string name="modules_sort_size_high_to_low">Dimensiune (mai întâi mare)</string>
+    <string name="modules_sort_enabled_first">Activat la început</string>
+    <string name="modules_sort_action_first">Mai întâi cu o acțiune</string>
+    <string name="modules_sort_webui_first">Cu un WebUI mai întâi</string>
+    <string name="modules_action_stop">Oprește</string>
+    <string name="modules_web_ui_short">WebUI</string>
+    <string name="modules_action_short">Acțiune</string>
+    <string name="modules_service_short">Serviciu</string>
+    <string name="modules_service_running_short">Rulează</string>
+    <string name="modules_summary">Adaugă caracteristici la Shizuku cu module din comunitate</string>
+    <string name="modules_warning">Un modul este un script shell creat de altcineva, care se execută prin Shizuku cu aceleași drepturi de acces pe care le are Shizuku. Instalează doar ceea ce consideri de încredere și citește cu atenție comenzile pe care ți se cere să le execuți.</string>
+    <string name="modules_none">Nici un modul instalat încă.</string>
+    <string name="modules_search">Caută module</string>
+    <string name="modules_no_match">Niciun modul nu corespunde cu asta.</string>
+    <string name="modules_install">Instalează un modul</string>
+    <string name="modules_installed">%1$s instalat</string>
+    <string name="modules_access_full">Acces complet</string>
+    <string name="modules_access_full_summary">Permite modulelor să ruleze script-urile de serviciu și să utilizeze puntea WebUI shell. Fără aceasta, doar acțiunile rulează.</string>
+    <string name="modules_allow_background">Permite acțiuni de fundal</string>
+    <string name="modules_allow_background_summary">Permite ca scriptul de serviciu al unui modul să ruleze fără ca nimeni să-l supravegheze.</string>
+    <string name="modules_row_summary">%1$s - %2$s</string>
+    <string name="modules_action_run">Execută acțiunea</string>
+    <string name="modules_service_start">Pornește serviciul</string>
+    <string name="modules_service_stop">Oprește serviciul</string>
+    <string name="modules_web_ui">Deschide WebUI</string>
+    <string name="modules_delete">Șterge</string>
+    <string name="modules_delete_confirm">Ștergi %1$s?</string>
+    <string name="modules_delete_confirm_message">Modulul și tot ce se află în directorul său sunt eliminate, jurnalele sunt incluse.</string>
+    <string name="modules_review_title">Rulezi această comandă?</string>
+    <string name="modules_review_message">%1$s a cerut lui Shizuku să ruleze:</string>
+    <string name="modules_review_approve">Rulează</string>
+    <string name="modules_result_title">%1$s</string>
+    <string name="modules_result_exit">Cod ieșire %1$d</string>
+    <string name="modules_error_not_a_module">Acest fișier nu este un modul: module.prop lipsește sau este inutilizabil.</string>
+    <string name="modules_error_unsafe_path">Acest modul a încercat să scrie în afara propriului său director, așa că a fost refuzat.</string>
+    <string name="modules_error_too_many_entries">Acest modul are mai multe fișiere decât are un modul, deci a fost refuzat.</string>
+    <string name="modules_error_too_large">Acest modul se despachetează la mai mult de un modul astfel încât a fost refuzat.</string>
+    <string name="modules_error_script_too_large">Un script în acel modul este mai mare decât un script, deci a fost refuzat.</string>
+    <string name="modules_error_install_failed">Modulul nu a putut fi instalat.</string>
     <string name="tools_terminal">Aplicații terminale</string>
     <string name="tools_terminal_summary">Rulează comenzile de shell în orice aplicație terminalului, folosind rish</string>
     <string name="tools_battery">Optimizare baterie</string>
@@ -402,7 +490,7 @@
     <string name="check_for_updates_now">Verifică acum</string>
     <string name="start_failed">Nu s-a putut porni Shizuku</string>
     <string name="start_failed_write_secure_settings">Shizuku nu poate activa depanarea wireless fără permisiunea WRITE_SECURE_SETTINGS. Pornește-te singur în opțiunile &gt; Debugging Wireless sau acordă permisiunea cu <b>adb shell pm grant. hizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Odată Shizuku rulează, păstrează permisiunea în sine, deci aceasta este o singură dată.</string>
-    <string name="action_open_wireless_debugging">Depanare Wireless</string>
+    <string name="action_open_wireless_debugging">Depanare fără fir</string>
     <string name="start_failed_unsupported">Acest dispozitiv nu îl poate porni în fundal</string>
     <string name="start_failed_wifi_required">Conectează-te la o rețea Wi-Fi, sistemul dezactivează depanarea fără precedent. Sau pornește de la un computer folosind comanda ADB de mai jos.</string>
     <string name="start_failed_binder_went_away">Serviciul a fost pornit şi apoi oprit din nou, deci nimic nu poate fi folosit încă. Acest lucru se întâmplă atunci când serverul este retras cu aplicaţia prin care a trecut pornirea, ceea ce face sarcina utilă după ce a început-o. Încearcă din nou începutul.</string>
@@ -425,7 +513,7 @@
     <string name="start_system_custom_copied">Comanda a fost copiată în clipboard.</string>
     <string name="start_system_custom_copy_failed">Comanda este sus, gata să fie copiată manual.</string>
     <string name="settings_section_startup">Lansare</string>
-    <string name="settings_section_wireless">Depanare Wireless</string>
+    <string name="settings_section_wireless">Depanare fără fir</string>
     <string name="settings_section_tools">Unelte</string>
     <string name="settings_section_appearance">Aspect</string>
     <string name="settings_section_about">Despre</string>
@@ -445,6 +533,8 @@
     <string name="intents_watchdog_off">Watchdog oprit</string>
     <string name="intents_watchdog_toggle">Comutator Watchdog</string>
     <string name="intents_adb_command">Pornire de pe calculator</string>
+    <string name="intents_status_broadcast">Status transmisiune</string>
+    <string name="intents_status_broadcast_extra">status extra: 1 = rulează, 0 = nu</string>
     <string name="home_battery_warning">Shizuku ar putea fi închis în fundal. Permite-i să ignore optimizările bateriei.</string>
     <string name="batch_selected_count">%1$d selectat</string>
     <string name="app_management_action_select_all">Selectează tot</string>
@@ -481,6 +571,9 @@
     <string name="stealth_error_invalid_characters">Sunt permise doar litere, numere și perioade.</string>
     <string name="stealth_error_needs_two_segments">Numele pachetului trebuie să aibă cel puțin două segmente.</string>
     <string name="stealth_error_segment_starts_with_number">Segmentele nu pot începe cu un număr.</string>
+    <string name="stealth_display_name">Nume afișat (opțional)</string>
+    <string name="stealth_display_name_helper_text">Se afișează ca nume al copiei în lansator și în lista de aplicații. Dacă se lasă necompletat, copia păstrează numele acestei aplicații.</string>
+    <string name="stealth_error_display_name_too_long">Păstrează-l la %1$d caractere sau mai puțin.</string>
     <string name="stealth_uninstall_required">Dezinstalare necesară</string>
     <string name="stealth_uninstall_message">Sistemul va solicita acum dezinstalarea Shizuku. Apoi, instalarea clonei.</string>
     <string name="stealth_uninstall">Dezinstalează</string>
@@ -492,7 +585,7 @@
     <string name="settings_use_system_color_summary">Urmează paleta sistemului</string>
     <string name="settings_watchdog">Watchdog</string>
     <string name="settings_watchdog_summary">Repornește automat Shizuku dacă se blochează</string>
-    <string name="settings_auto_disable_wireless_debugging">Dezactivează depanarea wireless</string>
+    <string name="settings_auto_disable_wireless_debugging">Dezactivează depanarea fără fir</string>
     <string name="settings_auto_disable_wireless_debugging_summary">Dezactivează depanarea wireless atunci când Shizuku se oprește.</string>
     <string name="settings_start_method">Metoda de pornire implicită</string>
     <string name="settings_start_method_root_unavailable">Acest dispozitiv nu are acces la rădăcină, așa că revine la depanarea fără fir.</string>
@@ -543,7 +636,7 @@
         această setare.</string>
     <string name="settings_restart_dialog_message_wifi_required"><![CDATA[<br><br><b>Wi-Fi este necesar. Shizuku va continua să ruleze și va aștepta o conexiune Wi-Fi înainte de a reporni în fundal.</b>]]></string>
     <string name="settings_tcp_port">Port TCP</string>
-    <string name="settings_auto_disable_usb_debugging">Dezactivează USB debugging</string>
+    <string name="settings_auto_disable_usb_debugging">Dezactivează depanarea USB</string>
     <string name="settings_auto_disable_usb_debugging_summary">Dezactivează depanarea USB la oprirea Shizuku</string>
     <string name="settings_language">Limba</string>
     <string name="settings_language_system">Implicit sistem</string>
@@ -680,13 +773,13 @@
     <string name="wadb_notification_retry">Se așteaptă o nouă încercare</string>
     <string name="wadb_notification_connecting">Pornește Shizuku prin ADB wireless</string>
     <string name="wadb_notification_waiting_for_unlock">Deblochează dispozitivul pentru a continua</string>
-    <string name="wadb_notification_forcing_wireless">Păstrarea depanării wireless</string>
+    <string name="wadb_notification_forcing_wireless">Păstrarea depanării fără fir</string>
     <string name="wadb_error_title">Eroare la pornire</string>
     <string name="wadb_error_notify_dev">Atinge pentru a notifica dezvoltatorul.</string>
     <string name="wadb_permission_error_notification_title">Eroare de permisiune</string>
     <string name="wadb_permission_error_notification_content">Shizuku are nevoie de WRITE_SECURE_SETTINGS pentru a rula la pornire. Atinge pentru a afla cum să o acorzi.</string>
     <!-- Shell -->
-    <string name="shell_title">Shell</string>
+    <string name="shell_title">Terminal</string>
     <string name="shell_backend_shizuku">Shizuku</string>
     <string name="shell_backend_root">Rădăcină</string>
     <string name="shell_backend_shizuku_status">Shizuku, uid %1$d</string>
@@ -909,7 +1002,7 @@
     <string name="app_info_installer">Instalat de la</string>
     <string name="app_info_installed">Instalat</string>
     <string name="app_info_updated">Actualizat</string>
-    <string name="app_info_debuggable">Depanabil</string>
+    <string name="app_info_debuggable">Poate fi depanat</string>
     <string name="app_info_backup">Copie de rezervă permisă</string>
     <string name="app_info_launcher">Intrare lansator</string>
     <string name="app_info_yes">Da</string>

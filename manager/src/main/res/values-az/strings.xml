@@ -94,6 +94,7 @@
     <string name="device_watchdog">Nəzarətçi</string>
     <string name="log_capture_start">Başlat</string>
     <string name="action_start">Başlat</string>
+    <string name="modules_repo_retry">Yenidən cəhd edin</string>
     <string name="intents_start">Başlat</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">İstifadəçilər MIUI-nin ixrac funksiyası tərəfindən

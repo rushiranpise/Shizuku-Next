@@ -364,6 +364,17 @@
     <string name="status_stopped_short">Stoppet</string>
     <string name="action_start">Begynn</string>
     <string name="tools_stealth">Usynlig modus</string>
+    <string name="catalog_filter_sort">Sorter</string>
+    <string name="catalog_filter_updated">Oppdatert</string>
+    <string name="modules_repo_retry">Prøve</string>
+    <string name="modules_catalog_installed">Installert</string>
+    <string name="modules_disabled">Deaktivert</string>
+    <string name="modules_update">Oppdater</string>
+    <string name="modules_sort">Sorter</string>
+    <string name="modules_action_stop">Stopp</string>
+    <string name="modules_action_short">Handling</string>
+    <string name="modules_service_running_short">Kjører</string>
+    <string name="modules_delete">Slett</string>
     <string name="tools_terminal">Terminale apper</string>
     <string name="tools_terminal_summary">Kjør skallkommandoer i hvilken som helst terminal app, bruk rish</string>
     <string name="tools_battery">Batteri optimalisering</string>

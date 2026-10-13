@@ -107,6 +107,8 @@
     <string name="device_watchdog">Penjaga</string>
     <string name="log_capture_start">Mulai</string>
     <string name="action_start">Mulai</string>
+    <string name="modules_repo_retry">Ulangi</string>
+    <string name="modules_service_short">Layanan</string>
     <string name="intents_start">Mulai</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Pengguna telah melaporkan bahwa MIUI merusak Storage

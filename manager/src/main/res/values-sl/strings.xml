@@ -95,6 +95,7 @@
     <string name="device_watchdog">Nadzorni pes</string>
     <string name="log_capture_start">Začni</string>
     <string name="action_start">Začni</string>
+    <string name="modules_repo_retry">Poskusi znova</string>
     <string name="intents_start">Začni</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Uporabniki so poročali, da MIUI krši ogrodje za dostop do

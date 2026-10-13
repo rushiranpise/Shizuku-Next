@@ -94,6 +94,7 @@
     <string name="device_watchdog">Chien de garde</string>
     <string name="log_capture_start">Démarrer</string>
     <string name="action_start">Démarrer</string>
+    <string name="modules_repo_retry">Réessayer</string>
     <string name="intents_start">Démarrer</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Des utilisateurs ont signalé que MIUI endommage le Storage

@@ -343,6 +343,17 @@
     <string name="status_stopped_short">Zastaveno</string>
     <string name="action_start">Spustit</string>
     <string name="tools_stealth">Režim neviditelnosti</string>
+    <string name="catalog_filter_sort">Seřadit</string>
+    <string name="catalog_filter_updated">Aktualizováno</string>
+    <string name="modules_repo_retry">Zkusit znovu</string>
+    <string name="modules_catalog_installed">Nainstalováno</string>
+    <string name="modules_disabled">Zakázáno</string>
+    <string name="modules_update">Aktualizovat</string>
+    <string name="modules_sort">Seřadit</string>
+    <string name="modules_action_stop">Zastavit</string>
+    <string name="modules_action_short">Akce</string>
+    <string name="modules_service_running_short">Běh</string>
+    <string name="modules_delete">Vymazat</string>
     <string name="tools_terminal">Terminálové aplikace</string>
     <string name="tools_terminal_summary">Spustit příkazy shell v jakékoliv terminálové aplikaci, pomocí rish</string>
     <string name="tools_battery">Optimalizace baterie</string>

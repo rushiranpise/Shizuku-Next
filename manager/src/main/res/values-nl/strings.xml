@@ -93,6 +93,7 @@
     <string name="device_watchdog">Bewaker</string>
     <string name="log_capture_start">Starten</string>
     <string name="action_start">Starten</string>
+    <string name="modules_repo_retry">Opnieuw</string>
     <string name="intents_start">Starten</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Gebruikers hebben gemeld dat MIUI het Storage Access

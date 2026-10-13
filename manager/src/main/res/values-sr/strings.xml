@@ -92,6 +92,7 @@
     <string name="device_watchdog">Чувар</string>
     <string name="log_capture_start">Почетак</string>
     <string name="action_start">Почетак</string>
+    <string name="modules_repo_retry">Покушај поново</string>
     <string name="intents_start">Почетак</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Корисници су пријавили да MIUI крши Storage Access

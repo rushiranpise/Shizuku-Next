@@ -97,6 +97,7 @@
     <string name="device_watchdog">Wachhund</string>
     <string name="log_capture_start">Anfangen</string>
     <string name="action_start">Anfangen</string>
+    <string name="modules_repo_retry">Wiederholen</string>
     <string name="intents_start">Anfangen</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Nutzer haben berichtet, dass MIUI das Storage Access

@@ -95,6 +95,7 @@
     <string name="device_watchdog">მაკონტროლებელი</string>
     <string name="log_capture_start">დაწყება</string>
     <string name="action_start">დაწყება</string>
+    <string name="modules_repo_retry">ხელახლა სცადეთ</string>
     <string name="intents_start">დაწყება</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">მომხმარებლებმა განაცხადეს, რომ MIUI არღვევს Storage Access

@@ -96,6 +96,7 @@
     <string name="device_watchdog">கண்காணிப்பு நாய்</string>
     <string name="log_capture_start">தொடங்கு</string>
     <string name="action_start">தொடங்கு</string>
+    <string name="modules_repo_retry">மீண்டும் முயற்சிக்கவும்</string>
     <string name="intents_start">தொடங்கு</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">ஏற்றுமதி செயல்பாட்டால் பயன்படுத்தப்படும் சேமிப்பக அணுகல்

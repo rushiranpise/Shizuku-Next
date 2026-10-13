@@ -365,6 +365,17 @@
     <string name="status_stopped_short">Zatrzymano</string>
     <string name="action_start">Uruchom</string>
     <string name="tools_stealth">Tryb ukrycia</string>
+    <string name="catalog_filter_sort">Sortuj</string>
+    <string name="catalog_filter_updated">Aktualizacja</string>
+    <string name="modules_repo_retry">Ponów</string>
+    <string name="modules_catalog_installed">Zainstalowane</string>
+    <string name="modules_disabled">Wyłączone</string>
+    <string name="modules_update">Aktualizuj</string>
+    <string name="modules_sort">Sortuj</string>
+    <string name="modules_action_stop">Zatrzymaj</string>
+    <string name="modules_action_short">Akcja</string>
+    <string name="modules_service_running_short">Uruchamianie</string>
+    <string name="modules_delete">Usuń</string>
     <string name="tools_terminal">Aplikacje terminali</string>
     <string name="tools_terminal_summary">Uruchom polecenia powłoki w dowolnej aplikacji terminala przy użyciu wzrostu</string>
     <string name="tools_battery">Optymalizacja baterii</string>

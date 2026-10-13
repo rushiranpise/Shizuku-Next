@@ -94,6 +94,7 @@
     <string name="device_watchdog">Tagapagbantay</string>
     <string name="log_capture_start">Simulan</string>
     <string name="action_start">Simulan</string>
+    <string name="modules_repo_retry">Subukan ulit</string>
     <string name="intents_start">Simulan</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Iniulat ng mga user na sinira ng MIUI ang Storage Access

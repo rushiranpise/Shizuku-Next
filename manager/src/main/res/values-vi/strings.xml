@@ -94,6 +94,7 @@
     <string name="device_watchdog">Trình giám sát hệ thống</string>
     <string name="log_capture_start">Bắt đầu</string>
     <string name="action_start">Bắt đầu</string>
+    <string name="modules_repo_retry">Thử lại</string>
     <string name="check_for_updates_now">Kiểm tra</string>
     <string name="intents_start">Bắt đầu</string>
     <!-- Terminal -->

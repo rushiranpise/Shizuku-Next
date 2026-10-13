@@ -229,6 +229,16 @@
     <string name="status_stopped_short">Durduruldu</string>
     <string name="action_start">Başlat</string>
     <string name="tools_stealth">Gizlilik modu</string>
+    <string name="catalog_filter_sort">Sırala</string>
+    <string name="catalog_filter_updated">Güncellenenler</string>
+    <string name="modules_repo_retry">Yeniden dene</string>
+    <string name="modules_catalog_installed">Yüklendi</string>
+    <string name="modules_disabled">Devre dışı</string>
+    <string name="modules_update">Güncelle</string>
+    <string name="modules_sort">Sırala</string>
+    <string name="modules_action_stop">Durdur</string>
+    <string name="modules_service_running_short">Çalışıyor</string>
+    <string name="modules_delete">Sil</string>
     <string name="tools_terminal">Terminal uygulamaları</string>
     <string name="tools_terminal_summary">Rish kullanarak herhangi bir terminal uygulamasında shell komutlarını çalıştır</string>
     <string name="tools_battery">Pil optimizasyonu</string>

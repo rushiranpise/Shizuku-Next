@@ -89,6 +89,7 @@
     <string name="app_management_toggle_all">Visa/visa alla</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="device_watchdog">Vakthund</string>
+    <string name="modules_repo_retry">Försöka igen</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Användare har rapporterat att MIUI bryter mot Storage
         Access Framework, som används av exportfunktionen.</string>

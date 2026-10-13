@@ -93,6 +93,7 @@
     <string name="device_watchdog">Հսկիչ</string>
     <string name="log_capture_start">Միացնել</string>
     <string name="action_start">Միացնել</string>
+    <string name="modules_repo_retry">Կրկին փորձել</string>
     <string name="intents_start">Միացնել</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Օգտատերերը հայտնել են, որ MIUI-ը խախտում է Storage Access

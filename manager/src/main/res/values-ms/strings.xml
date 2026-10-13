@@ -94,6 +94,7 @@
     <string name="device_watchdog">Pengawas</string>
     <string name="log_capture_start">Mulakan</string>
     <string name="action_start">Mulakan</string>
+    <string name="modules_repo_retry">Cuba semula</string>
     <string name="intents_start">Mulakan</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Pengguna telah melaporkan bahawa MIUI memecahkan Rangka
