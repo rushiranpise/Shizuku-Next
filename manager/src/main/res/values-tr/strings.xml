@@ -16,6 +16,11 @@
     <string name="home_wireless_adb_summary">Kablosuz hata ayıklama kullanılarak başlatılır.</string>
     <string name="home_usb_adb_title"><![CDATA[USB hata ayıklama ile başlat]]></string>
     <string name="home_usb_adb_summary">USB hata ayıklama ile başlatılır.</string>
+    <string name="home_support_body">Shizuku-Next ücretsizdir ve reklam içermez. Bir kahve, bakım için harcanan zamana katkı sağlar.</string>
+    <string name="diagnostics_title">Tanılama</string>
+    <string name="diagnostics_copy">Tanılamayı kopyala</string>
+    <string name="diagnostics_copied">Tanılama kopyalandı</string>
+    <string name="diagnostics_service">Hizmet</string>
     <string name="diagnostics_server_uid">Sunucu uid</string>
     <string name="diagnostics_server_api">Sunucu API</string>
     <string name="diagnostics_server_context">Sunucu bağlamı</string>
@@ -27,8 +32,14 @@
     <string name="diagnostics_app">Uygulama</string>
     <string name="diagnostics_android">Android</string>
     <string name="diagnostics_device">Cihaz</string>
+    <string name="diagnostics_started_with">Şununla başlatıldı</string>
     <string name="diagnostics_default">Varsayılan yöntem</string>
+    <string name="diagnostics_hiding">Gizleme</string>
+    <string name="diagnostics_phantom">İşlem sonlandırıcı</string>
     <string name="diagnostics_root">Root</string>
+    <string name="diagnostics_granted">i̇zin verildi</string>
+    <string name="diagnostics_missing">eksik</string>
+    <string name="diagnostics_not_required">gerekli değil</string>
     <string name="diagnostics_connected">bağlı</string>
     <string name="diagnostics_not_connected">bağlı değil</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
@@ -40,6 +51,7 @@
     <string name="diagnostics_unavailable">kullanım dışı</string>
     <string name="diagnostics_closed">kapalı</string>
     <!-- Adb -->
+    <string name="dialog_adb_port">Bağlantı noktası</string>
     <string name="dialog_adb_invalid_port">Port 1 ile 65535 arasında değişen bir tamsayı olmalıdır. </string>
     <string name="adb_pairing">Eşleştiriliyor</string>
     <string name="dialog_adb_pairing_title">Cihazla eşleş</string>
@@ -57,7 +69,9 @@
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
+    <string name="dialog_adb_pairing_accessibility_permission">Android, uygulama mağazası dışından yüklenen uygulamalar için bu ayarı engeller. Erişilebilirlik hizmetini etkinleştirmek için ^1 uygulama iznine izin verin. Erişilebilirlik listesi bunu \"Kısıtlanmış ayar tarafından kontrol ediliyor\" şeklinde gösterir.\n\nUygulama Bilgisini açın ve menüden \"Kısıtlanmış ayarlara izin ver\" seçeneğini seçin, veya bir bilgisayarda şunu çalıştırın:\n\n^2\n\nHer iki seçenek de iş görür. Bu işlemden sonra anahtar çalışacaktır.</string>
     <string name="dialog_adb_pairing_open_app_info">Uygulama bilgileri</string>
+    <string name="dialog_adb_pairing_accessibility_enable">Otomatik eşleşme, sistem diyaloğundaki kodu Shizuku\'nun erişilebilirlik hizmeti üzerinden okur, bu yüzden söz konusu hizmetin - ve yalnızca işlem süresince - etkinleştirilmesi gerekir: kod bulunduktan sonra veya güç tasarrufu için 1 dakika sonra hizmet kendini kapatır. Shizuku bunu normalde kendiliğinden etkinleştirir, ancak bu işlem yeni bir kurulumda henüz verilmemiş olan WRITE_SECURE_SETTINGS iznini gerektirir.\n\nBunu bir sonraki ekranda etkinleştirin, kodu Manuel kısmından kendiniz girin veya izni bir kereliğine verin:\n\nadb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Lütfen aşağıdaki adımları uygulayarak
         eşleştirmeyi başlatın:\n- \"Geliştirici Seçenekleri\"ne gidin\n- \"USB hata ayıklama\" ve
         \"Kablosuz hata ayıklama\"yı etkinleştirin\n- \"Kablosuz hata ayıklama\"nın sol tarafına
@@ -118,6 +132,8 @@
     <string name="home_dialog_duplicate_app_detected_title">Çift uygulama tespit edildi</string>
     <string name="home_dialog_duplicate_app_detected_message">Cihazınızda bu uygulamanın başka bir sürümü yüklü. Devam etmek için lütfen tüm çift sürümleri kaldırın ve cihazınızı yeniden başlatın.</string>
     <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
+    <string name="home_permission_owned_by">Uygulamalar Shizuku\'yu sahip olduğu izin üzerinden bulur, ve Android %1$s\'in (yani Shizuku\'nun bir kopyasının veya ondan geriye kalanın) bu izni beyan ettiğini söyler. Bu uygulamalar, kopya kaldırılıp cihaz yeniden başlatılana kadar o kopyayı sorgulayacaktır.</string>
+    <string name="home_permission_not_registered">Uygulamalar Shizuku\'yu sahip olduğu izin üzerinden bulur, ancak Android bunu henüz kaydetmemiştir (bu durum yeniden yüklemeden sonra cihaz yeniden başlatılana kadar devam edebilir). Shizuku\'nun kendisi bundan etkilenmez, diğer uygulamalar onu bulamayabilir.</string>
     <string name="home_dialog_button_exit">Çık</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">ADB’nin izni sınırlıdır</string>
@@ -135,8 +151,10 @@
     <string name="apps_no_match">Aramanızla eşleşen uygulama bulunamadı</string>
     <string name="app_management_sort_last_added">Son eklenenler</string>
     <string name="app_management_sort_updated">Güncellenenler</string>
+    <string name="app_management_sort_alphabetical">A-Z</string>
     <string name="tab_home">Ana Sayfa</string>
     <string name="tab_apps">Uygulamalar</string>
+    <string name="tab_shell">Kabuk</string>
     <string name="tab_labs">Deneysel</string>
     <string name="lab_more_apps">Daha fazla uygulama</string>
     <string name="tab_firewall">Güvenlik duvarı</string>
@@ -157,6 +175,7 @@
     <string name="hiding_gate_disabled">Devre dışı</string>
     <string name="hiding_gate_kept">%1$d korundu</string>
     <string name="hiding_filter_hidden">Gizli</string>
+    <string name="hiding_open_with_hiding">Ayarlar gizli olarak aç</string>
     <string name="hiding_filter_shown">Görünür</string>
     <string name="hiding_filter_empty">Hiçbir şey gizlenmemiş.</string>
     <string name="hiding_restore">Geri yükle</string>
@@ -165,6 +184,7 @@
     <string name="hiding_signal_wireless_debugging">Kablosuz hata ayıklama</string>
     <string name="hiding_signal_accessibility">Erişilebilirlik hizmetleri</string>
     <string name="hiding_signal_private_dns">Özel DNS</string>
+    <string name="hiding_signal_vpn">VPN</string>
     <string name="hiding_vpn_client">Gizlenecek VPN istemcisi</string>
     <string name="tab_force_dark">Koyu moda zorla</string>
     <string name="force_dark_gate">Koyu moda zorla</string>
@@ -173,6 +193,7 @@
     <string name="force_dark_filter_forced">Zorlanmış</string>
     <string name="force_dark_filter_not">Zorlanmamış</string>
     <string name="force_dark_empty">Hiçbir şey koyu moda zorlanmamış.</string>
+    <string name="force_dark_system_theme">Bunun yerine sistem temasını değiştir</string>
     <string name="force_dark_toggled">Uygulama zorla kapatıldı</string>
     <string name="force_dark_notification_title">Koyu moda zorlama açık</string>
     <string name="force_dark_notification_text">Zorunlu karanlık mod listesindeki bir uygulama açık</string>
@@ -195,8 +216,32 @@
     <string name="activities_copied">Kopyalandı</string>
     <string name="tab_intent_builder">Intent oluşturucu</string>
     <string name="intent_builder_note">Bir intent oluşturup gönderin. Eylem, veri, tür, bileşen, kategoriler, ek veriler ve bayrakları ayarlayabilirsiniz. Ayrıca \"intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end\" gibi bir URI\'den intent yükleyebilirsiniz. Bu, Activity Launcher ve çoğu otomasyon aracının kullandığı formattır. Bir intent yüklemek, göndermeden önce alanları kontrol edip düzenleyebilmeniz için alanları otomatik olarak doldurur.</string>
+    <string name="intent_uri">İstek URI\'si</string>
+    <string name="intent_uri_load">Alanlara yükle</string>
+    <string name="intent_uri_invalid">Bu geçerli bir istek URI\'si değil.</string>
+    <string name="intent_action">Eylem</string>
+    <string name="intent_data">Veri</string>
+    <string name="intent_type">Tip</string>
+    <string name="intent_component">Bileşen</string>
     <string name="intent_package">Paket</string>
+    <string name="intent_categories">Kategoriler</string>
+    <string name="intent_operation_activity">Bir aktivite başlat</string>
+    <string name="intent_operation_broadcast">Yayın gönder</string>
+    <string name="intent_choose_activity">Bir aktivite seç</string>
+    <string name="intent_picking">Bileşeni doldurmak için bir aktiviteye dokunun.</string>
+    <string name="intent_targets">%1$d %2$s tarafından cevaplandı</string>
+    <string name="intent_targets_none">Bu cihazda bu isteği cevaplayan hiçbir şey yok.</string>
+    <string name="intent_send_broadcast">Yayını gönder</string>
+    <string name="intent_broadcast_refused">Yayın gönderilemedi.</string>
+    <string name="intent_extras">Ekstralar</string>
+    <string name="intent_extra_add">Ekstra ekle</string>
+    <string name="intent_extra_remove">Bu ekstrayı kaldır</string>
+    <string name="intent_key">Anahtar</string>
+    <string name="intent_value">Değer</string>
+    <string name="intent_flags">İşaretler</string>
     <string name="intent_start">Başlat</string>
+    <string name="intent_nothing">İsteğe bir eylem, veri, paket veya bileşen verin.</string>
+    <string name="intent_refused">İstek başlatılamadı.</string>
     <string name="device_battery">Pil</string>
     <string name="device_current">Mevcut</string>
     <string name="device_history">Geçmiş</string>
@@ -243,6 +288,8 @@
     <string name="modules_update">Güncelle</string>
     <string name="modules_sort">Sırala</string>
     <string name="modules_action_stop">Durdur</string>
+    <string name="modules_action_short">Eylem</string>
+    <string name="modules_service_short">Hizmet</string>
     <string name="modules_service_running_short">Çalışıyor</string>
     <string name="modules_delete">Sil</string>
     <string name="tools_terminal">Terminal uygulamaları</string>
@@ -517,6 +564,7 @@
     <string name="wadb_permission_error_notification_content">Shizuku\'nun önyükleme sırasında
         WRITE_SECURE_SETTINGS ayarına ihtiyacı var. Nasıl izin vereceğinizi öğrenmek için dokunun.</string>
     <!-- Shell -->
+    <string name="shell_title">Kabuk</string>
     <string name="shell_backend_offline">Aktif bir komut çalıştırıcı yok</string>
     <string name="shell_needs_a_backend">Shizuku\'yu başlatın veya root\'lu bir cihazda Root\'u seçin: Komutları bu ikisinden biri çalıştırır. Root, Shizuku durdurulmuş olsa bile çalışır.</string>
     <string name="shell_intro">Shizuku\'nun çalıştığı Uid ile çalışır (Adb üzerinde 2000, root ile 0). Böylece bu Uid\'nin erişebildiği her yere ulaşabilir: /sdcard, /system ve root yetkisiyle uygulama verileri. /sdcard konumunda, her defasında tek bir komut çalışacak şekilde açılır; Tty desteği olmadığı için terminal gerektiren programlar (nano, Ssh istemi gibi) burada çalışmaz.</string>
@@ -734,6 +782,7 @@
     <string name="app_info_yes">Evet</string>
     <string name="app_info_no">Hayır</string>
     <string name="wifi_passwords_connect">Bağlan</string>
+    <string name="files_root_app_data">Veri</string>
     <string name="files_root_system">Sistem</string>
     <string name="files_sort">Sırala</string>
     <string name="files_selected_count">%1$d seçildi</string>

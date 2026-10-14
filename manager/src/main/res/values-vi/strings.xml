@@ -115,7 +115,7 @@
     <!-- Stealth -->
     <!-- Settings -->
     <string name="settings_start_on_boot">Bắt đầu khi khởi động</string>
-    <string name="settings_watchdog">Chó canh gác</string>
+    <string name="settings_watchdog">Trình giám sát</string>
     <string name="settings_watchdog_summary">Tự động khởi động lại Shizuku nếu nó bị sập</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
