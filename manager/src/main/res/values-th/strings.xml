@@ -150,16 +150,12 @@
     <string name="bug_report_dialog_issues">ค้นหาผ่าน ^1
         ทั้งหมดเพื่อดูว่ามีรายงานข้อผิดพลาดของคุณแล้วหรือไม่</string>
     <string name="bug_report_dialog_link_issues">ปัญหาที่มีอยู่</string>
-    <string name="bug_report_dialog_method">หากคุณมีบัญชี โปรดแจ้งปัญหาผ่านทาง ^1</string>
-    <string name="bug_report_dialog_method_2">หรืออีกวิธีหนึ่ง คุณสามารถส่งอีเมลได้</string>
-    <string name="bug_report_dialog_button_email">อีเมล</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">
         โปรดปิดใช้งานการเพิ่มประสิทธิภาพแบตเตอรี่เพื่อใช้ฟีเจอร์นี้</string>
     <string name="snackbar_action_fix">แก้ไข</string>
     <!-- Updates -->
     <!-- Toast -->
-    <string name="toast_no_email_app">ไม่พบแอปอีเมล</string>
     <string name="toast_pairing_timeout">บริการจับคู่ Shizuku หมดเวลา</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme_off">สว่างเสมอ</string>

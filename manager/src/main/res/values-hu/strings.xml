@@ -143,6 +143,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="labs_blocked_count">%1$d blokkolva</string>
     <string name="labs_blocked_empty">Semmi sincs blokkolva.</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="tab_hiding">Elrejtés</string>
     <string name="tab_hide_developer_options">Fejlesztői beállítások elrejtése</string>
     <string name="tab_hide_usb_debugging">USB hibakeresés elrejtése</string>
     <string name="tab_hide_wireless_debugging">Vezeték nélküli hibakeresés elrejtése</string>
@@ -530,10 +531,6 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="bug_report_dialog_link_wiki">wiki</string>
     <string name="bug_report_dialog_issues">Nézzen körül az ismert ^1 közt, hogy megtudja, jelentették-e már ezt a hibát.</string>
     <string name="bug_report_dialog_link_issues">meglévő problémák</string>
-    <string name="bug_report_dialog_method">Kérjük, küldje be a problémáját a ^1 oldalon keresztül, ha van fiókja.</string>
-    <string name="bug_report_dialog_method_2">Továbbá e-mailt is küldhet.</string>
-    <string name="bug_report_dialog_button_email">Email</string>
-    <string name="bug_report_dialog_diagnostics_note">A jelenlegi diagnosztikai adatok a hibaüzenet és az e-mail felső részén szerepelnek.</string>
     <string name="bug_report_dialog_body_prompt">Kérjük, írja le a hibát. Ha lehetséges, adja meg a reprodukáláshoz szükséges lépéseket, valamint minden releváns képet/hibanaplót.</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Kérjük, kapcsolja ki az
@@ -555,7 +552,6 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="update_success">A frissítés befejeződött</string>
     <string name="update_failed">A frissítés nem sikerült</string>
     <!-- Toast -->
-    <string name="toast_no_email_app">Nem található e-mail alkalmazás</string>
     <string name="toast_pairing_timeout">A Shizuku párosítási szolgáltatás időtúllépést okozott.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme">Téma</string>

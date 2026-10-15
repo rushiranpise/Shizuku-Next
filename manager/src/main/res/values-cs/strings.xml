@@ -111,6 +111,7 @@
     <string name="labs_blocked_count">%1$d zablokováno</string>
     <string name="labs_blocked_empty">Nic není zablokováno.</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="tab_hiding">Skrývat</string>
     <string name="tab_hide_developer_options">Skrýt možnosti vývojáře</string>
     <string name="tab_hide_usb_debugging">Skrýt ladění USB</string>
     <string name="tab_hide_wireless_debugging">Skrýt bezdrátové ladění</string>
@@ -545,9 +546,6 @@
     <string name="bug_report_dialog_link_wiki">wiki</string>
     <string name="bug_report_dialog_issues">Prohledejte všechny ^1 a zjistěte, zda vaše chyba již byla nahlášena.</string>
     <string name="bug_report_dialog_link_issues">existující problémy</string>
-    <string name="bug_report_dialog_method">Pokud máte účet, odešlete prosím problém na ^1.</string>
-    <string name="bug_report_dialog_method_2">Jinak můžete poslat e-mail.</string>
-    <string name="bug_report_dialog_button_email">E-mail</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Pro použití této funkce prosím vypněte optimalizaci baterie.</string>
     <string name="snackbar_action_fix">Opravit</string>
@@ -567,7 +565,6 @@
     <string name="update_success">Aktualizace dokončena</string>
     <string name="update_failed">Aktualizace se nezdařila</string>
     <!-- Toast -->
-    <string name="toast_no_email_app">Žádná e-mailová aplikace nenalezena</string>
     <string name="toast_pairing_timeout">Časový limit párovací služby Shizuku vypršel.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme">Téma</string>

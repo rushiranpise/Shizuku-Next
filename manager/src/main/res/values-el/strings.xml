@@ -164,16 +164,12 @@
     <string name="bug_report_dialog_issues">Αναζητήστε σε όλα τα ^1 για να δείτε αν το σφάλμα σας
         έχει ήδη αναφερθεί.</string>
     <string name="bug_report_dialog_link_issues">υπάρχοντα ζητήματα</string>
-    <string name="bug_report_dialog_method">Υποβάλετε ένα πρόβλημα στο ^1 εάν έχετε λογαριασμό.</string>
-    <string name="bug_report_dialog_method_2">Διαφορετικά, μπορείτε να στείλετε ένα email.</string>
-    <string name="bug_report_dialog_button_email">E-mail</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Απενεργοποιήστε τη βελτιστοποίηση
         μπαταρίας για να χρησιμοποιήσετε αυτήν τη δυνατότητα.</string>
     <string name="snackbar_action_fix">Διορθώνω</string>
     <!-- Updates -->
     <!-- Toast -->
-    <string name="toast_no_email_app">Δεν βρέθηκε εφαρμογή email</string>
     <string name="toast_pairing_timeout">Το χρονικό όριο της υπηρεσίας σύζευξης Shizuku έληξε.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme_off">Πάντα ελαφρύ</string>

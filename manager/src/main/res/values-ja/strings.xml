@@ -131,6 +131,7 @@
     <string name="labs_blocked_count">%1$d がブロックされました</string>
     <string name="labs_blocked_empty">何もブロックされていません。</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="tab_hiding">非表示中</string>
     <string name="tab_hide_developer_options">開発者向けオプションを非表示</string>
     <string name="tab_hide_usb_debugging">USBデバッグを隠す</string>
     <string name="tab_hide_wireless_debugging">無線デバッグを隠す</string>
@@ -581,9 +582,6 @@
     <string name="bug_report_dialog_link_wiki">ウィキ</string>
     <string name="bug_report_dialog_issues">バグがすでに報告されているかどうかを確認するには、^1 全体を検索してください。</string>
     <string name="bug_report_dialog_link_issues">既存の問題</string>
-    <string name="bug_report_dialog_method">アカウントをお持ちの場合は、^1 に問題を送信してください。</string>
-    <string name="bug_report_dialog_method_2">それ以外の場合は、電子メールを送信できます。</string>
-    <string name="bug_report_dialog_button_email">メール</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">この機能を使用するには、バッテリーの最適化を無効にしてください。</string>
     <string name="snackbar_action_fix">修理</string>
@@ -603,7 +601,6 @@
     <string name="update_success">アップデート完了</string>
     <string name="update_failed">更新に失敗しました</string>
     <!-- Toast -->
-    <string name="toast_no_email_app">メールアプリが見つかりません</string>
     <string name="toast_pairing_timeout">Shizuku のペアリングサービスがタイムアウトしました</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme">テーマ</string>

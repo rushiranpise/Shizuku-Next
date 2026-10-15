@@ -138,6 +138,7 @@
     <string name="labs_blocked_count">%1$d bloccate</string>
     <string name="labs_blocked_empty">Nessun elemento bloccato.</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="tab_hiding">Modalità nascosta</string>
     <string name="tab_hide_developer_options">Nascondi opzioni sviluppatore</string>
     <string name="tab_hide_usb_debugging">Nascondi debug USB</string>
     <string name="tab_hide_wireless_debugging">Nascondi debug wireless</string>
@@ -299,6 +300,7 @@
     <string name="log_cleared">Log cancellato</string>
     <string name="log_saved">Salvato come %1$s, nella cartella dell\'app sulla memoria condivisa</string>
     <string name="log_nothing_to_save">Nessun elemento da salvare.</string>
+    <string name="log_share_failed">Impossibile condividere il log</string>
     <string name="log_pulled">%1$d righe ottenute dal logcat</string>
     <string name="log_tab_app">Questa app</string>
     <string name="log_tab_capture">Registro</string>
@@ -694,11 +696,10 @@
     <string name="bug_report_dialog_link_wiki">wiki</string>
     <string name="bug_report_dialog_issues">Cerca tra tutte le ^1 per vedere se il tuo bug è già stato segnalato.</string>
     <string name="bug_report_dialog_link_issues">problemi esistenti</string>
-    <string name="bug_report_dialog_method">Se hai un account, segnala un problema su ^1.</string>
-    <string name="bug_report_dialog_method_2">Altrimenti puoi inviare un\'e-mail.</string>
-    <string name="bug_report_dialog_button_email">E-mail</string>
-    <string name="bug_report_dialog_diagnostics_note">I dati diagnostici attuali vengono inseriti all\'inizio della segnalazione e dell\'e-mail.</string>
+    <string name="bug_report_dialog_method">Invia una segnalazione su ^1.</string>
+    <string name="bug_report_dialog_diagnostics_note">I dati diagnostici attuali vengono inseriti all\'inizio della segnalazione. Condividi l\'intero log qui sotto e allegalo.</string>
     <string name="bug_report_dialog_body_prompt">Descrivi il bug. Se possibile, includi i passaggi per riprodurlo, così come qualsiasi log o immagine pertinente.</string>
+    <string name="bug_report_dialog_share_log">Condividi il log</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Per utilizzare questa funzione disattiva l\'ottimizzazione della batteria.</string>
     <string name="snackbar_action_fix">Risolvi</string>
@@ -718,7 +719,6 @@
     <string name="update_success">Aggiornamento completato</string>
     <string name="update_failed">Aggiornamento non riuscito</string>
     <!-- Toast -->
-    <string name="toast_no_email_app">Nessuna app e-mail trovata</string>
     <string name="toast_pairing_timeout">Timeout del servizio di accoppiamento di Shizuku</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme">Tema</string>
@@ -859,7 +859,7 @@
     <string name="dialog_legacy_not_support_title">%1$s non supporta il moderno Shizuku</string>
     <string name="dialog_legacy_not_support_message"><![CDATA[Shizuku legacy è obsoleto da marzo 2019. Inoltre, Shizuku legacy non funziona sui sistemi Android più recenti.<p>Chiedi allo sviluppatore<b>%1$s</b> di aggiornare.]]></string>
     <string name="dialog_requesting_legacy_title">%1$s sta richiedendo Shizuku legacy</string>
-    <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> supporta la versione moderna di Shizuku, ma sta richiedendo quella legacy. Potrebbe dipendere dal fatto che Shizuku non è in esecuzione: controlla nell\'app Shizuku.<p>La versione legacy di Shizuku è obsoleta da marzo 2019.]]></string>
+    <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> supporta la versione moderna di Shizuku, ma sta richiedendo quella legacy. Potrebbe dipendere dal fatto che Shizuku non è in esecuzione: controlla nell'app Shizuku.<p>La versione legacy di Shizuku è obsoleta da marzo 2019.]]></string>
     <string name="dialog_requesting_legacy_button_open_shizuku">Apri Shizuku</string>
     <string name="wadb_notification_attempt_now">Riprova</string>
     <!-- Manage tab -->

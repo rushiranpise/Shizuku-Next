@@ -440,9 +440,6 @@
     <string name="bug_report_dialog_issues">Hatanızın daha önce bildirilip bildirilmediğini görmek
         için ^1 numaralı tüm kayıtları inceleyin.</string>
     <string name="bug_report_dialog_link_issues">mevcut sorunlar</string>
-    <string name="bug_report_dialog_method">Hesabınız varsa lütfen ^1 üzerinden bir sorun bildirin.</string>
-    <string name="bug_report_dialog_method_2">Alternatif olarak, e-posta gönderebilirsiniz.</string>
-    <string name="bug_report_dialog_button_email">E-posta</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Bu özelliği kullanmak için lütfen pil
         optimizasyonunu devre dışı bırakın.</string>
@@ -463,7 +460,6 @@
     <string name="update_success">Güncelleme başarılı</string>
     <string name="update_failed">Güncelleme başarısız</string>
     <!-- Toast -->
-    <string name="toast_no_email_app">E-posta uygulaması bulunamadı</string>
     <string name="toast_pairing_timeout">Shizuku eşleştirme servisi zaman doldu.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme">Tema</string>

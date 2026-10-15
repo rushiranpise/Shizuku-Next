@@ -159,16 +159,12 @@
     <string name="bug_report_dialog_issues">მოძებნეთ ყველა ^1, რომ ნახოთ, უკვე შეტყობინებულია თუ არა
         თქვენი შეცდომა.</string>
     <string name="bug_report_dialog_link_issues">არსებული პრობლემები</string>
-    <string name="bug_report_dialog_method">თუ ანგარიში გაქვთ, გთხოვთ, წარმოადგინოთ პრობლემა ^1-ზე.</string>
-    <string name="bug_report_dialog_method_2">წინააღმდეგ შემთხვევაში, შეგიძლიათ ელ.ფოსტის გაგზავნა.</string>
-    <string name="bug_report_dialog_button_email">ელ. ფოსტა</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">გთხოვთ, გამორთოთ ბატარეის ოპტიმიზაცია ამ
         ფუნქციის გამოსაყენებლად.</string>
     <string name="snackbar_action_fix">დაფიქსირება</string>
     <!-- Updates -->
     <!-- Toast -->
-    <string name="toast_no_email_app">ელ.ფოსტის აპი ვერ მოიძებნა</string>
     <string name="toast_pairing_timeout">შიზუკუს დაწყვილების სერვისს ვადა ამოეწურა.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme_off">ყოველთვის მსუბუქი</string>

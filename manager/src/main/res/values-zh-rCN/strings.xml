@@ -138,6 +138,7 @@
     <string name="labs_blocked_count">已阻止 %1$d 个</string>
     <string name="labs_blocked_empty">没有已阻止的应用。</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="tab_hiding">隐藏</string>
     <string name="tab_hide_developer_options">隐藏开发者选项</string>
     <string name="tab_hide_usb_debugging">隐藏 USB 调试</string>
     <string name="tab_hide_wireless_debugging">隐藏无线调试</string>
@@ -299,6 +300,7 @@
     <string name="log_cleared">日志已清除</string>
     <string name="log_saved">已保存为 %1$s，位于共享存储的应用文件夹中</string>
     <string name="log_nothing_to_save">没有可保存的内容。</string>
+    <string name="log_share_failed">无法分享日志</string>
     <string name="log_pulled">已从 logcat 获取 %1$d 行日志</string>
     <string name="log_tab_app">此应用</string>
     <string name="log_tab_capture">记录</string>
@@ -647,7 +649,7 @@
     <string name="permissions_battery_summary">防止 Android 在后台终止 Shizuku。</string>
     <string name="settings_help">帮助</string>
     <string name="settings_translate">参与翻译</string>
-    <string name="settings_translate_note">在 Crowdin 上翻译此应用。</string>
+    <string name="settings_translate_note">在 Crowdin 上翻译此应用</string>
     <string name="crowdin_url">https://crowdin.com/project/Shizuku-Next</string>
     <string name="settings_report_bug">报告错误</string>
     <string name="settings_support_coffee">请我喝杯咖啡</string>
@@ -690,11 +692,10 @@
     <string name="bug_report_dialog_link_wiki">wiki</string>
     <string name="bug_report_dialog_issues">请先搜索^1，确认你的问题是否已被报告。</string>
     <string name="bug_report_dialog_link_issues">已有的 issue</string>
-    <string name="bug_report_dialog_method">如果你有账号，请在 ^1 上提交 issue。</string>
-    <string name="bug_report_dialog_method_2">否则，也可以发送电子邮件。</string>
-    <string name="bug_report_dialog_button_email">电子邮件</string>
-    <string name="bug_report_dialog_diagnostics_note">提交 issue 或发送电子邮件时，你当前的诊断信息会自动填在顶部。</string>
+    <string name="bug_report_dialog_method">请在 ^1 上提交 issue。</string>
+    <string name="bug_report_dialog_diagnostics_note">你当前的诊断信息会填在 issue 顶部。请分享并附上下方的完整日志。</string>
     <string name="bug_report_dialog_body_prompt">请描述这个错误，并尽可能附上复现步骤和相关截图/日志。</string>
+    <string name="bug_report_dialog_share_log">分享日志</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">请先关闭电池优化，再使用此功能。</string>
     <string name="snackbar_action_fix">修复</string>
@@ -714,7 +715,6 @@
     <string name="update_success">更新完成</string>
     <string name="update_failed">更新失败</string>
     <!-- Toast -->
-    <string name="toast_no_email_app">未找到电子邮件应用</string>
     <string name="toast_pairing_timeout">Shizuku 配对服务超时</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme">主题</string>

@@ -156,16 +156,12 @@
     <string name="bug_report_dialog_issues">Претражите све ^1 да бисте видели да ли је ваша грешка
         већ пријављена.</string>
     <string name="bug_report_dialog_link_issues">постојећи проблеми</string>
-    <string name="bug_report_dialog_method">Молимо вас да пријавите проблем на ^1 ако имате налог.</string>
-    <string name="bug_report_dialog_method_2">У супротном, можете послати е-пошту.</string>
-    <string name="bug_report_dialog_button_email">Е-пошта</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Онемогућите оптимизацију батерије да бисте
         користили ову функцију.</string>
     <string name="snackbar_action_fix">Поправи</string>
     <!-- Updates -->
     <!-- Toast -->
-    <string name="toast_no_email_app">Није пронађена апликација за е-пошту</string>
     <string name="toast_pairing_timeout">Shizuku uparivanje servis je isteklo.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme_off">Увек светло</string>

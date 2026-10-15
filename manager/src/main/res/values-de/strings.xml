@@ -163,17 +163,12 @@
     <string name="bug_report_dialog_issues">Durchsuchen Sie alle Einträge ^1, um zu sehen, ob Ihr
         Fehler bereits gemeldet wurde.</string>
     <string name="bug_report_dialog_link_issues">bestehende Probleme</string>
-    <string name="bug_report_dialog_method">Bitte melden Sie das Problem auf ^1, falls Sie dort ein
-        Konto haben.</string>
-    <string name="bug_report_dialog_method_2">Alternativ können Sie eine E-Mail senden.</string>
-    <string name="bug_report_dialog_button_email">E-Mail</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Bitte deaktivieren Sie die
         Batterieoptimierung, um diese Funktion zu nutzen.</string>
     <string name="snackbar_action_fix">Lösung</string>
     <!-- Updates -->
     <!-- Toast -->
-    <string name="toast_no_email_app">Keine E-Mail-App gefunden</string>
     <string name="toast_pairing_timeout">Der Shizuku-Pairing-Service ist abgelaufen.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme_off">Immer leicht</string>

@@ -150,16 +150,12 @@
     <string name="bug_report_dialog_issues">Sök igenom alla ^1 för att se om ditt fel redan har
         rapporterats.</string>
     <string name="bug_report_dialog_link_issues">befintliga problem</string>
-    <string name="bug_report_dialog_method">Vänligen skicka in ett ärende på ^1 om du har ett konto.</string>
-    <string name="bug_report_dialog_method_2">Annars kan du skicka ett e-postmeddelande.</string>
-    <string name="bug_report_dialog_button_email">E-post</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Inaktivera batterioptimering för att
         använda den här funktionen.</string>
     <string name="snackbar_action_fix">Fixera</string>
     <!-- Updates -->
     <!-- Toast -->
-    <string name="toast_no_email_app">Ingen e-postapp hittades</string>
     <string name="toast_pairing_timeout">Shizukus parningstjänst gick ut på tid.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme_off">Alltid ljus</string>

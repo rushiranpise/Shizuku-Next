@@ -156,17 +156,12 @@
     <string name="bug_report_dialog_issues">Doorzoek alle ^1 meldingen om te zien of jouw bug al is
         gemeld.</string>
     <string name="bug_report_dialog_link_issues">bestaande problemen</string>
-    <string name="bug_report_dialog_method">Als je een account hebt, kun je een probleem melden op
-        ^1.</string>
-    <string name="bug_report_dialog_method_2">Anders kunt u een e-mail sturen.</string>
-    <string name="bug_report_dialog_button_email">E-mail</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Schakel alstublieft batterijoptimalisatie
         uit om deze functie te gebruiken.</string>
     <string name="snackbar_action_fix">Repareren</string>
     <!-- Updates -->
     <!-- Toast -->
-    <string name="toast_no_email_app">Geen e-mailapp gevonden</string>
     <string name="toast_pairing_timeout">Er is een time-out opgetreden bij de
         Shizuku-koppelingsservice.</string>
     <!-- Dark Mode Setting Override -->

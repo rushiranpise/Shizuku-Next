@@ -163,17 +163,12 @@
     <string name="bug_report_dialog_issues">உங்கள் பிழை ஏற்கனவே புகாரளிக்கப்பட்டுள்ளதா என்பதைப்
         பார்க்க ^1 முழுவதும் தேடுங்கள்.</string>
     <string name="bug_report_dialog_link_issues">ஏற்கனவே உள்ள சிக்கல்கள்</string>
-    <string name="bug_report_dialog_method">உங்களிடம் கணக்கு இருந்தால் ^1 இல் ஒரு சிக்கலைச்
-        சமர்ப்பிக்கவும்.</string>
-    <string name="bug_report_dialog_method_2">இல்லையென்றால், நீங்கள் ஒரு மின்னஞ்சல் அனுப்பலாம்.</string>
-    <string name="bug_report_dialog_button_email">மின்னஞ்சல்</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">இந்த அம்சத்தைப் பயன்படுத்த பேட்டரி
         மேம்படுத்தலை முடக்கவும்.</string>
     <string name="snackbar_action_fix">சரிசெய்தல்</string>
     <!-- Updates -->
     <!-- Toast -->
-    <string name="toast_no_email_app">மின்னஞ்சல் பயன்பாடு எதுவும் கிடைக்கவில்லை.</string>
     <string name="toast_pairing_timeout">Shizuku இணைத்தல் சேவை நேரம் முடிந்துவிட்டது.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme_off">எப்போதும் வெளிச்சம்</string>

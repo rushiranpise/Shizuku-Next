@@ -158,16 +158,12 @@
     <string name="bug_report_dialog_issues">Prebrskaj vse ^1, da vidiš, ali je bila tvoja napaka že
         prijavljena.</string>
     <string name="bug_report_dialog_link_issues">obstoječe težave</string>
-    <string name="bug_report_dialog_method">Če imate račun, prosim, oddajte težavo na ^1.</string>
-    <string name="bug_report_dialog_method_2">Sicer pa lahko pošljete e-pošto.</string>
-    <string name="bug_report_dialog_button_email">E-pošta</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Prosimo, da onemogočite optimizacijo
         baterije za uporabo te funkcije.</string>
     <string name="snackbar_action_fix">Popraviti</string>
     <!-- Updates -->
     <!-- Toast -->
-    <string name="toast_no_email_app">Ni najdene aplikacije za e-pošto</string>
     <string name="toast_pairing_timeout">Storitev za parjenje Shizuku je potekla.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme_off">Vedno svetloba</string>

@@ -151,6 +151,7 @@
     <string name="labs_blocked_count">%1$d blocat</string>
     <string name="labs_blocked_empty">Nimic nu este blocat.</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="tab_hiding">Ascuns</string>
     <string name="tab_hide_developer_options">Ascunde opțiunile dezvoltatorului</string>
     <string name="tab_hide_usb_debugging">Ascunde depanarea USB</string>
     <string name="tab_hide_wireless_debugging">Ascunde depanarea fără fir</string>
@@ -706,10 +707,6 @@
     <string name="bug_report_dialog_link_wiki">wiki</string>
     <string name="bug_report_dialog_issues">Caută prin toate ^1 pentru a vedea dacă eroarea ta a fost deja raportată.</string>
     <string name="bug_report_dialog_link_issues">probleme existente</string>
-    <string name="bug_report_dialog_method">Te rugăm să trimiți o problemă pe ^1 dacă ai deja un cont.</string>
-    <string name="bug_report_dialog_method_2">În caz contrar, poți trimite un e-mail.</string>
-    <string name="bug_report_dialog_button_email">E-mail</string>
-    <string name="bug_report_dialog_diagnostics_note">Diagnosticarea actuală este completată în partea de sus a problemei și a e-mailului.</string>
     <string name="bug_report_dialog_body_prompt">Te rog să descrii eroarea. Include pașii pentru reproducere, dacă este posibil, precum și orice imagini/jurnale relevante.</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Dezactivează optimizarea bateriei pentru a utiliza această funcție.</string>
@@ -730,7 +727,6 @@
     <string name="update_success">Actualizare completă</string>
     <string name="update_failed">Actualizarea a eșuat</string>
     <!-- Toast -->
-    <string name="toast_no_email_app">Nu a fost găsită nicio aplicație de e-mail</string>
     <string name="toast_pairing_timeout">Serviciul de pereche Shizuku expirat</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme">Temă</string>

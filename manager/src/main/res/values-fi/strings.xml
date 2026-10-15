@@ -134,6 +134,7 @@
     <string name="labs_blocked_count">%1$d estetty</string>
     <string name="labs_blocked_empty">Mitään ei ole estetty.</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="tab_hiding">Piilotus</string>
     <string name="tab_hide_developer_options">Piilota kehittäjän asetukset</string>
     <string name="tab_hide_usb_debugging">Piilota USB-vianetsintä</string>
     <string name="tab_hide_wireless_debugging">Piilota langaton virheenkorjaus</string>
@@ -582,9 +583,6 @@
     <string name="bug_report_dialog_issues">Hae kaikista ^1 nähdäksesi, onko virheestäsi jo
         ilmoitettu.</string>
     <string name="bug_report_dialog_link_issues">olemassa olevat ongelmat</string>
-    <string name="bug_report_dialog_method">Lähetä ongelma osoitteeseen ^1, jos sinulla on tili.</string>
-    <string name="bug_report_dialog_method_2">Muussa tapauksessa voit lähettää sähköpostia.</string>
-    <string name="bug_report_dialog_button_email">Sähköposti</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Ole hyvä ja poista akun optimointi
         käytöstä tämän ominaisuuden käyttämiseksi.</string>
@@ -605,7 +603,6 @@
     <string name="update_success">Päivitys valmis</string>
     <string name="update_failed">Päivitys epäonnistui</string>
     <!-- Toast -->
-    <string name="toast_no_email_app">Sähköpostisovellusta ei löytynyt</string>
     <string name="toast_pairing_timeout">Shizukun pariliitospalvelu aikakatkaistiin.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme">Teema</string>

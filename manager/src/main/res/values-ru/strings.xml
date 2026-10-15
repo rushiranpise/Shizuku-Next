@@ -108,6 +108,7 @@
     <string name="labs_blocked_count">Заблокировано: %1$d</string>
     <string name="labs_blocked_empty">Ничего не заблокировано.</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="tab_hiding">Скрытие</string>
     <string name="tab_hide_developer_options">Разработчик</string>
     <string name="tab_hide_usb_debugging">Скрыть USB</string>
     <string name="tab_hide_wireless_debugging">Wi-Fi</string>
@@ -502,9 +503,6 @@
     <string name="bug_report_dialog_link_wiki">вики</string>
     <string name="bug_report_dialog_issues">Просмотрите все ^1, чтобы проверить, не сообщалось ли уже об этой ошибке.</string>
     <string name="bug_report_dialog_link_issues">существующие проблемы</string>
-    <string name="bug_report_dialog_method">Если у вас есть учётная запись, создайте сообщение об ошибке на ^1.</string>
-    <string name="bug_report_dialog_method_2">В противном случае отправьте электронное письмо.</string>
-    <string name="bug_report_dialog_button_email">Электронная почта</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Отключите оптимизацию батареи, чтобы использовать эту функцию.</string>
     <string name="snackbar_action_fix">Исправить</string>
@@ -524,7 +522,6 @@
     <string name="update_success">Обновление завершено</string>
     <string name="update_failed">Не удалось обновить</string>
     <!-- Toast -->
-    <string name="toast_no_email_app">Приложение для электронной почты не найдено</string>
     <string name="toast_pairing_timeout">Истекло время ожидания службы сопряжения Shizuku</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme">Тема</string>

@@ -155,16 +155,12 @@
     <string name="bug_report_dialog_issues">ابحث في جميع ^1 لمعرفة ما إذا تم الإبلاغ عن الخطأ الخاص
         بك بالفعل.</string>
     <string name="bug_report_dialog_link_issues">المشكلات القائمة</string>
-    <string name="bug_report_dialog_method">يرجى تقديم مشكلة على ^1 إذا كان لديك حساب.</string>
-    <string name="bug_report_dialog_method_2">وإلا، يمكنك إرسال بريد إلكتروني.</string>
-    <string name="bug_report_dialog_button_email">بريد إلكتروني</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">يرجى تعطيل تحسين البطارية لاستخدام هذه
         الميزة.</string>
     <string name="snackbar_action_fix">يصلح</string>
     <!-- Updates -->
     <!-- Toast -->
-    <string name="toast_no_email_app">لم يتم العثور على تطبيق البريد الإلكتروني</string>
     <string name="toast_pairing_timeout">انتهت مهلة خدمة إقران شيزوكو.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme_off">دائما خفيف</string>

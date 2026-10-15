@@ -15,7 +15,7 @@
     <string name="home_usb_adb_needs_network">Menjalankan lewat USB menggunakan port ADB klasik, dan membukanya kembali membutuhkan jaringan. Hubungkan ke Wi-Fi sekali, atau pilih <b>Mulai tanpa Wi-Fi</b> sebagai metode mulai lalu jalankan lewat debugging nirkabel.</string>
     <string name="home_wireless_adb_summary">Mulai menggunakan debugging nirkabel.</string>
     <string name="home_usb_adb_title"><![CDATA[Mulai lewat debugging USB]]></string>
-    <string name="home_usb_adb_summary">Mulai lewat debugging USB.</string>
+    <string name="home_usb_adb_summary">Mulai menggunakan debugging USB.</string>
     <string name="home_support_body">Shizuku-Next ini gratis dan tanpa iklan. Secangkir kopi dihitung sebagai bagian dari waktu yang dibutuhkan untuk perawatan.</string>
     <string name="diagnostics_title">Diagnosis</string>
     <string name="diagnostics_copy">Salin diagnosis</string>
@@ -172,16 +172,12 @@
     <string name="bug_report_dialog_issues">Telusuri semua ^1 untuk melihat apakah bug Anda sudah
         dilaporkan.</string>
     <string name="bug_report_dialog_link_issues">masalah yang ada</string>
-    <string name="bug_report_dialog_method">Silakan laporkan masalah di ^1 jika Anda memiliki akun.</string>
-    <string name="bug_report_dialog_method_2">Atau, Anda bisa mengirim email.</string>
-    <string name="bug_report_dialog_button_email">E-mail</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Nonaktifkan pengoptimalan baterai untuk
         menggunakan fitur ini.</string>
     <string name="snackbar_action_fix">Memperbaiki</string>
     <!-- Updates -->
     <!-- Toast -->
-    <string name="toast_no_email_app">Tidak ada aplikasi email yang ditemukan</string>
     <string name="toast_pairing_timeout">Layanan pemasangan Shizuku telah habis waktunya.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme_off">Selalu terang</string>

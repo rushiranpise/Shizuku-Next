@@ -132,6 +132,7 @@
     <string name="labs_blocked_count">%1$d blokkert</string>
     <string name="labs_blocked_empty">Ingenting er blokkert.</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="tab_hiding">Skjuler</string>
     <string name="tab_hide_developer_options">Skjul utvikleralternativer</string>
     <string name="tab_hide_usb_debugging">Skjul USB feilretting</string>
     <string name="tab_hide_wireless_debugging">Skjul trådløs feilsøking</string>
@@ -579,9 +580,6 @@
     <string name="bug_report_dialog_issues">Søk gjennom alle ^1 for å se om feilen din allerede er
         rapportert.</string>
     <string name="bug_report_dialog_link_issues">eksisterende problemer</string>
-    <string name="bug_report_dialog_method">Send inn et problem på ^1 hvis du har en konto.</string>
-    <string name="bug_report_dialog_method_2">Ellers kan du sende en e-post.</string>
-    <string name="bug_report_dialog_button_email">E-post</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Vennligst deaktiver batterioptimalisering
         for å bruke denne funksjonen.</string>
@@ -602,7 +600,6 @@
     <string name="update_success">Oppdatering fullført</string>
     <string name="update_failed">Oppdatering feilet</string>
     <!-- Toast -->
-    <string name="toast_no_email_app">Ingen e-postapp funnet</string>
     <string name="toast_pairing_timeout">Shizuku-paringstjenesten gikk ut.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme">Tema</string>

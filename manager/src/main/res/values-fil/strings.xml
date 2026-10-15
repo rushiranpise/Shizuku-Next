@@ -155,17 +155,12 @@
     <string name="bug_report_dialog_issues">Hanapin sa lahat ng ^1 para makita kung naiulat na ang
         iyong bug.</string>
     <string name="bug_report_dialog_link_issues">mga umiiral na isyu</string>
-    <string name="bug_report_dialog_method">Mangyaring magsumite ng isyu sa ^1 kung mayroon kang
-        account.</string>
-    <string name="bug_report_dialog_method_2">Kung hindi, maaari kang magpadala ng email.</string>
-    <string name="bug_report_dialog_button_email">I-email</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Mangyaring huwag paganahin ang
         pag-optimize ng baterya upang magamit ang tampok na ito.</string>
     <string name="snackbar_action_fix">Ayusin</string>
     <!-- Updates -->
     <!-- Toast -->
-    <string name="toast_no_email_app">Walang natagpuang email app</string>
     <string name="toast_pairing_timeout">Nag-time out ang serbisyo ng pagpapares ng Shizuku.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme_off">Laging magaan</string>

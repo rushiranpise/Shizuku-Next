@@ -11,7 +11,7 @@
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Kablosuz hata ayıklama ile başlat]]></string>
-    <string name="home_wireless_adb_starting_without_wifi">Ağ bağlantısı olmadan başlatılıyor: Cihaz açık kalana kadar tekrar tekrar kablosuz hata ayıklama istenir. Bu işlem başlamadan veya vazgeçmeden önce iki dakikaya kadar sürebilir.</string>
+    <string name="home_wireless_adb_starting_without_wifi">Ağ bağlantısı olmadan başlatılıyor: kablosuz hata ayıklama açık kalana kadar tekrar tekrar cihazdan istenir. Bu işlem çalışmadan veya vazgeçmeden önce iki dakikaya kadar sürebilir.</string>
     <string name="home_usb_adb_needs_network">USB ile başlatma klasik ADB portunu kullanır ve bunu yeniden açmak bir ağ bağlantısı gerektirir. Bir kez Wi-Fi\'ye bağlanın veya başlatma yöntemi olarak <b>Wi-Fi olmadan başlat</b> seçeneğini seçip bunun yerine kablosuz hata ayıklama üzerinden başlatın.</string>
     <string name="home_wireless_adb_summary">Kablosuz hata ayıklama kullanılarak başlatılır.</string>
     <string name="home_usb_adb_title"><![CDATA[USB hata ayıklama ile başlat]]></string>
@@ -164,6 +164,7 @@
     <string name="labs_blocked_count">%1$d engellendi</string>
     <string name="labs_blocked_empty">Hiçbir şey engellenmemiş.</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="tab_hiding">Gizleme</string>
     <string name="tab_hide_developer_options">Geliştirici seçeneklerini gizle</string>
     <string name="tab_hide_usb_debugging">USB hata ayıklamayı gizle</string>
     <string name="tab_hide_wireless_debugging">Kablosuz hata ayıklamayı gizle</string>
@@ -213,6 +214,7 @@
     <string name="activities_detail_state">Durum</string>
     <string name="activities_open">Açık</string>
     <string name="activities_copy">Kopyala</string>
+    <string name="activities_edit_as_intent">İstek olarak düzenle</string>
     <string name="activities_copied">Kopyalandı</string>
     <string name="tab_intent_builder">Intent oluşturucu</string>
     <string name="intent_builder_note">Bir intent oluşturup gönderin. Eylem, veri, tür, bileşen, kategoriler, ek veriler ve bayrakları ayarlayabilirsiniz. Ayrıca \"intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end\" gibi bir URI\'den intent yükleyebilirsiniz. Bu, Activity Launcher ve çoğu otomasyon aracının kullandığı formattır. Bir intent yüklemek, göndermeden önce alanları kontrol edip düzenleyebilmeniz için alanları otomatik olarak doldurur.</string>
@@ -242,29 +244,145 @@
     <string name="intent_start">Başlat</string>
     <string name="intent_nothing">İsteğe bir eylem, veri, paket veya bileşen verin.</string>
     <string name="intent_refused">İstek başlatılamadı.</string>
+    <string name="intent_flag_clear_top">Üsttekileri temizle</string>
+    <string name="intent_flag_single_top">Tek üst</string>
+    <string name="intent_flag_clear_task">Görevi temizle</string>
+    <string name="intent_flag_new_document">Yeni belge</string>
+    <string name="intent_flag_no_animation">Animasyon yok</string>
+    <string name="intent_flag_exclude_recents">Son ekranlarda yok</string>
+    <string name="intent_flag_grant_read">Okuma izni ver</string>
+    <string name="intent_flag_grant_write">Yazma izni ver</string>
+    <string name="tab_device_info">Cihaz bilgisi</string>
+    <string name="device_refresh">Yenile</string>
     <string name="device_battery">Pil</string>
+    <string name="device_status">Durum</string>
+    <string name="device_temperature">Sıcaklık</string>
+    <string name="device_voltage">Voltaj</string>
     <string name="device_current">Mevcut</string>
+    <string name="device_current_average">Voltaj, ortalama</string>
+    <string name="device_charge_counter">Şarj sayacı</string>
+    <string name="device_technology">Teknoloji</string>
+    <string name="device_health">Sağlık</string>
+    <string name="device_charging">Şarj oluyor</string>
+    <string name="device_charged">Şarj oldu</string>
+    <string name="device_health_section">Sağlık</string>
+    <string name="device_bsoh">Pil sağlığı</string>
+    <string name="device_cycles">Döngüler</string>
+    <string name="device_asoc">Şarj durumu</string>
+    <string name="device_first_use">İlk kullanım</string>
+    <string name="device_max_temp">Kaydedilen en yüksek sıcaklık</string>
+    <string name="device_max_current">En yüksek akım</string>
+    <string name="device_health_source">Samsung bunları pil servis verisinde tutar ve pil dökümünde yazdırır. Bunlar Android API\'sinin bir parçası değildir, bu nedenle diğer markalarda bu veriler olmayacaktır.</string>
+    <string name="device_usage">Zaman</string>
+    <string name="device_screen_on">Ekran açık</string>
+    <string name="device_time_on_battery">Pilde</string>
+    <string name="device_screen_off">Ekran kapalı</string>
+    <string name="device_doze">Uyku</string>
+    <string name="device_usage_note">Platformun bizzat tuttuğu sayaçlar. Bunlar pil her tam şarj edildiğinde sıfırlanır; bu nedenle bir saat önce şarj olan telefon burada saniyeleri gösterirken, bütün gün şarj olmamış bir telefon ise saatleri gösterir.</string>
+    <string name="device_drain">Pili ne kullandı</string>
+    <string name="device_drain_note">Bileşene göre ilişkilendirilmiştir; bu platformun çıktısını aldığı budur. Uygulama bazlı verileri miliamper-saat cinsinden değil, \"wake lock\" (uyandırma kilidi) ve çalışma süreleri olarak tutar; dolayısıyla burada uygulama bazlı rakamlar söz konusu değildir.</string>
+    <string name="device_max_charging_current">Maksimum şarj akımı</string>
+    <string name="device_max_charging_voltage">Maksimum şarj voltajı</string>
+    <string name="device_capacity_rated">Oranlı</string>
+    <string name="device_capacity_typical">Tipik</string>
+    <string name="device_capacity">Kapasite</string>
+    <string name="device_capacity_estimated">Tahmini</string>
+    <string name="device_capacity_learned">Son öğrenilen</string>
+    <string name="device_capacity_range">Öğrenilen aralık</string>
+    <string name="device_capacity_note">Platform tasarlanan kapasiteyi raporlamıyor ve cihaz yakıt göstergesini kabuk\'a bile göstermiyor, bu nedenle tam bir pile göre yüzde hesabı doğru bir şekilde yapılamıyor. Sistemin öğrendiği her şey yukarıdadır.</string>
     <string name="device_history">Geçmiş</string>
+    <string name="device_history_level">Düzey</string>
+    <string name="device_history_temperature">Sıcaklık</string>
     <string name="device_system">Sistem</string>
+    <string name="device_model">Model</string>
+    <string name="device_android">Android</string>
+    <string name="device_kernel">Çekirdek</string>
+    <string name="device_abi">Mimari</string>
+    <string name="device_cores">CPU çekirdekleri</string>
+    <string name="device_uptime">Çalışma süresi</string>
+    <string name="device_memory">Bellek</string>
     <string name="device_storage">Depolama</string>
+    <string name="device_shizuku">Shizuku</string>
+    <string name="device_server">Sunucu</string>
+    <string name="device_start_method">Şunla başlatıldı</string>
     <string name="device_transport">Aktarım</string>
     <string name="device_watchdog">Bekçi köpeği</string>
+    <string name="device_app_in_front">Öndeki uygulama</string>
+    <string name="device_hiding_held">Gizleme tutucular</string>
+    <string name="device_thermal">Termal</string>
+    <string name="device_thermal_note">Çekirdeğin sunduğu tüm termal sensörler, en sıcak ilk sırada gösterilir. Hiçbir şeyin bağlı olmadığı bir sensör -273 işaret değerini bildirir ve sıcaklık değeri olmayan güç kaynağı açma/kapama eşik değerleri gibi değerlendirme dışı tutulur. %d bölge listelendi.</string>
+    <string name="device_cpu">CPU</string>
+    <string name="device_load_average">Ortalama yük</string>
+    <string name="device_cpu_note">Çekirdeğin dökümünde belirtilen zaman dilimi boyunca yaptığı işlemler. Yük; bir, beş ve on beş dakikalık ortalamadır; her satır, o işlemin kullandığı işlemci süresini gösterir; yalnızca uygulamalar değil, çekirdek çalışanları da iş yaptığı için gözükür.</string>
+    <string name="tab_log">Günlük</string>
+    <string name="log_count">%1$d satır, son 24 saat</string>
+    <string name="log_search_hint">Günlükte ara</string>
+    <string name="log_empty">Son 24 saatte günlüğe hiçbir şey işlenmedi.</string>
     <string name="log_filter_all">Tümü</string>
     <string name="log_filter_problems">Hata</string>
+    <string name="log_refresh">Logcat\'tan yenisini çek</string>
     <string name="log_save">Kaydet</string>
     <string name="log_clear">Temizle</string>
+    <string name="log_cleared">Günlük temizlendi</string>
+    <string name="log_saved">Paylaşılan depolamadaki uygulama klasörüne %1$s olarak kaydedildi</string>
+    <string name="log_nothing_to_save">Kaydedilecek bir şey yok.</string>
+    <string name="log_share_failed">Günlük paylaşılamadı</string>
+    <string name="log_pulled">Logcat\'tan %1$d satır çekildi</string>
+    <string name="log_tab_app">Bu uygulama</string>
+    <string name="log_tab_capture">Kaydet</string>
     <string name="log_tab_saved">Kaydedildi</string>
     <string name="log_capture_start">Başlat</string>
     <string name="log_capture_stop">Durdur</string>
+    <string name="log_capture_device">Bütün cihaz</string>
+    <string name="log_capture_choose">Kaydedilecek uygulama</string>
     <string name="log_capture_choose_hint">Uygulamalarda ara</string>
+    <string name="log_capture_running">%1$s kaydediliyor - %2$d satır · %3$s</string>
+    <string name="log_capture_idle">Hiçbir şey kaydedilmiyor.</string>
+    <string name="log_capture_waiting">Kaydediliyor. Henüz hiçbir şey günlüğe işlenmedi.</string>
+    <string name="log_capture_empty">Henüz hiçbir şey kaydedilmedi.</string>
+    <string name="log_capture_jump">Son çökme</string>
+    <string name="log_capture_needs_shizuku">Cihazın günlüğünü kaydetme Shizuku gerektirir: başka bir uygulamanın günlüğünü okumak kabuk yetkisi gerektirir, ve bu uygulama kabuk\'u kullanır.</string>
+    <string name="log_capture_stopped_size">Kayıt durdu: boyut sınırına ulaştı.</string>
+    <string name="log_capture_stopped_time">Kayıt durdu: süre sınırına ulaştı.</string>
+    <string name="log_capture_stopped_ended">Kayıt durdu: günlük akışı sonlandı.</string>
+    <string name="log_filter_crashes">Çökmeler</string>
+    <string name="log_saved_empty">Henüz hiçbir şey kaydedilmedi.</string>
+    <string name="log_session_share">Paylaş</string>
     <string name="log_session_delete">Sil</string>
     <string name="log_session_deleted">%1$s silindi</string>
+    <string name="log_session_busy">%1$s hâlâ kaydediliyor.</string>
+    <string name="log_session_running">kaydediliyor</string>
+    <string name="permissions_usage_access">Kullanım erişimi</string>
+    <string name="permissions_usage_access_summary">Gizleme listelerinin hangi uygulamanın açık olduğunu görmesini sağlar. Shizuku tarafından veya Android\'in Kullanım erişimi ayarlarında yetkilendirilir.</string>
+    <string name="permissions_dump">Uygulama çıkış nedenlerini oku</string>
+    <string name="permissions_dump_summary">Gizleme listelerinin bir uygulamanın sadece arka planda çalışması yerine ne zaman kapatıldığını bilmesini sağlar. Shizuku tarafından yetkilendirilir.</string>
+    <string name="home_other_methods">Diğer başlangıç yöntemleri</string>
+    <string name="home_hiding_active_note">Gizleme, hata ayıklama bağlantısını kapatabileceği için gizlenen bir uygulama açıkken Shizuku durabilir. Uygulama kapatıldığında Shizuku tekrar başlar.</string>
+    <string name="hiding_vpn_client_none">Seçilmedi: VPN uygulamasını seçin</string>
+    <string name="hiding_notification_channel">Gizleme</string>
+    <string name="hiding_notification_title">Ayarlar gizlendi</string>
+    <string name="hiding_notification_text">Geri getirmek için dokunun.</string>
+    <string name="hiding_notification_idle_title">Gizleme açık</string>
+    <string name="hiding_notification_watching">Listelediğiniz uygulamalar izleniyor.</string>
+    <string name="hiding_notification_paused_title">Gizleme duraklatıldı</string>
+    <string name="hiding_notification_paused_text">Ayarlarınız geri getirildi. Listelediğiniz uygulamalar için onları gizlemeyi devam ettirin.</string>
+    <string name="hiding_resume">Devam et</string>
+    <string name="hiding_start_again">Tekrar başlat</string>
+    <string name="hiding_notification_stopped_title">Gizleme durduruldu</string>
+    <string name="hiding_notification_stopped_text">Shizuku çalışmıyor, bu nedenle gizleme hangi uygulamanın çalıştığını algılayamaz. Tüm gizli ayarlar geri getirildi.</string>
+    <string name="hiding_carries_session_wireless">Uygulanmadı: Shizuku kablosuz hata ayıklamayı kullanır, bu yüzden onu gizlemek Shizuku\'yu durdurur.</string>
+    <string name="hiding_carries_session_usb">Uygulanmadı: Shizuku USB hata ayıklamayı kullanır, bu yüzden onu gizlemek Shizuku\'yu durdurur.</string>
     <string name="tab_settings">Ayarlar</string>
     <string name="home_status_transport_label">Aktarım</string>
     <string name="home_status_started_with">Mevcut</string>
     <string name="home_status_started_default">Varsayılan</string>
+    <string name="uid_label">UID</string>
+    <string name="uid_name_format">(%1$s)</string>
+    <string name="uid_name_root">root</string>
     <string name="uid_name_system">sistem</string>
+    <string name="uid_name_shell">kabuk</string>
     <string name="home_device_manager_version">Manager sürümü</string>
+    <string name="home_device_android_version">Android sürümü</string>
     <string name="home_device_kernel_version">Kernel sürümü</string>
     <string name="home_device_model">Cihaz modeli</string>
     <string name="home_device_fingerprint">Parmak izi</string>
@@ -276,22 +394,109 @@
     <string name="seccomp_disabled">Devre dışı</string>
     <string name="seccomp_strict">Katı</string>
     <string name="seccomp_filter">Filtre</string>
+    <string name="status_value_none">-</string>
     <string name="status_running_short">Çalışıyor</string>
     <string name="status_stopped_short">Durduruldu</string>
     <string name="action_start">Başlat</string>
     <string name="tools_stealth">Gizlilik modu</string>
+    <string name="tools_modules">Modüller</string>
+    <string name="tab_modules">Modüller</string>
+    <string name="modules_catalog">Modül bul</string>
+    <string name="catalog_apps_title">Daha fazla uygulama</string>
+    <string name="catalog_search">Uygulama, konu veya dil aratın</string>
     <string name="catalog_filter_sort">Sırala</string>
+    <string name="catalog_filter_category">Kategori</string>
     <string name="catalog_filter_updated">Güncellenenler</string>
+    <string name="catalog_filter_all_categories">Tüm kategoriler</string>
+    <string name="catalog_updated_any">Herhangi bir zaman</string>
+    <string name="catalog_updated_last_7">Son 7 gün</string>
+    <string name="catalog_updated_last_30">Son 30 gün</string>
+    <string name="catalog_updated_last_90">Son 90 gün</string>
+    <string name="catalog_sort_updated">Son güncellenen</string>
+    <string name="catalog_sort_stars">En çok yıldız alan</string>
+    <string name="catalog_sort_name">İsim A-Z</string>
+    <string name="catalog_sort_released">En son sürüm</string>
+    <string name="catalog_sort_added">Yeni eklenen</string>
+    <string name="catalog_latest_release">En son sürüm: %1$s</string>
+    <string name="catalog_no_release">Sürüm yok</string>
+    <string name="catalog_no_apk">Bu sürümde APK yok</string>
+    <string name="catalog_apk_installed">%1$s yüklendi</string>
+    <string name="catalog_install_failed">Kurulum başlatılamadı.</string>
+    <string name="catalog_view_github">GitHub\'da görüntüle</string>
     <string name="modules_repo_retry">Yeniden dene</string>
+    <string name="modules_repo_error">Depolar yüklenemedi.</string>
+    <string name="modules_repo_by_author">%1$s tarafından</string>
+    <string name="modules_repo_latest_version">En son sürüm</string>
+    <string name="modules_repo_loading">Yükleniyor...</string>
+    <string name="modules_repo_sort_stars_low_to_high">Yıldızlar (önce az)</string>
+    <string name="modules_repo_sort_stars_high_to_low">Yıldızlar (önce çok)</string>
+    <string name="modules_find_modules">Modül bul</string>
+    <string name="modules_install_from_file">Dosyadan yükle</string>
+    <string name="modules_install_title">Modül yükle</string>
+    <string name="modules_settings">Modüller</string>
+    <string name="modules_settings_summary">Bir modülün ne yapabileceği ve ne kadar emin olmak istediğiniz</string>
+    <string name="modules_access_full_summary_short">Hizmetler ve WebUI kabuk köprüsü</string>
+    <string name="modules_allow_background_summary_short">Gözetimsiz çalışan bir servis script\'i</string>
+    <string name="modules_catalog_install">Yükle</string>
+    <string name="modules_catalog_installing">Yükleniyor</string>
+    <string name="modules_catalog_no_releases">Bu depoda hiçbir sürüm yok.</string>
     <string name="modules_catalog_installed">Yüklendi</string>
+    <string name="modules_card_line">Sürüm: %1$s - %2$s</string>
+    <string name="modules_card_version">Sürüm: %1$s</string>
+    <string name="modules_card_author">Yazar: %1$s</string>
+    <string name="modules_card_id">Kimlik: %1$s</string>
     <string name="modules_disabled">Devre dışı</string>
+    <string name="modules_error_set_enabled">Modül açılamadı veya kapanamadı: klasörü yazılabilir değil.</string>
+    <string name="modules_trust">Güven</string>
+    <string name="modules_untrust">Güveni kaldır</string>
+    <string name="modules_full_trust">Tam Güven</string>
+    <string name="modules_trust_confirm">Şuna güvenilsin mi: %1$s?</string>
+    <string name="modules_trust_confirm_message">Modülün komutları ister eyleminden, ister hizmetinden, isterse de WebUI\'sinden gelsin; size önceden gösterilmeden çalışır. Diğer herşey olduğu gibi kalır: modül hâlâ anahtarı ile kapatılabilir, çıktısı hâlâ sınırlıdır ve saatinde durur. Sadece içeriğini okuyup anladığınız modüllere güvenin.</string>
+    <string name="module_update_available">Güncelleme mevcut</string>
     <string name="modules_update">Güncelle</string>
     <string name="modules_sort">Sırala</string>
+    <string name="modules_sort_a_to_z">İsim (A-Z)</string>
+    <string name="modules_sort_z_to_a">İsim (Z-A)</string>
+    <string name="modules_sort_size_low_to_high">Boyut (önce küçük)</string>
+    <string name="modules_sort_size_high_to_low">Boyut (önce büyük)</string>
+    <string name="modules_sort_enabled_first">Önce etkin olanlar</string>
+    <string name="modules_sort_action_first">Önce eylemi olanlar</string>
+    <string name="modules_sort_webui_first">Önce WebUI olanlar</string>
     <string name="modules_action_stop">Durdur</string>
+    <string name="modules_web_ui_short">WebUI</string>
     <string name="modules_action_short">Eylem</string>
     <string name="modules_service_short">Hizmet</string>
     <string name="modules_service_running_short">Çalışıyor</string>
+    <string name="modules_summary">Topluluk modülleri ile Shizuku\'ya özellikler ekleyin</string>
+    <string name="modules_warning">Modül, başka birinin kabuk script\'idir ve Shizuku üzerinden Shizuku ile aynı yetkilerle çalışır. Sadece güvendiğiniz modülleri yükleyin, ve çalıştırmak istedikleri komutları okuyun.</string>
+    <string name="modules_none">Henüz hiçbir modül yüklenmedi.</string>
+    <string name="modules_search">Modül ara</string>
+    <string name="modules_no_match">Hiçbir modül bununla eşleşmiyor.</string>
+    <string name="modules_install">Modül yükle</string>
+    <string name="modules_installed">%1$s yüklendi</string>
+    <string name="modules_access_full">Tam erişim</string>
+    <string name="modules_access_full_summary">Modüllerin hizmet script\'lerini çalıştırmasını ve WebUI kabuk köprüsünü kullanmasına izin verir. Bu olmadan yalnızca eylemler çalışır.</string>
+    <string name="modules_allow_background">Arka plan eylemlerine izin ver</string>
+    <string name="modules_allow_background_summary">Modül hizmet script\'inin kimse izlemeden çalışmasına izin verir.</string>
+    <string name="modules_row_summary">%1$s - %2$s</string>
+    <string name="modules_action_run">Eylemi yürüt</string>
+    <string name="modules_service_start">Hizmeti başlat</string>
+    <string name="modules_service_stop">Hizmeti durdur</string>
+    <string name="modules_web_ui">WebUI\'yi aç</string>
     <string name="modules_delete">Sil</string>
+    <string name="modules_delete_confirm">%1$s silinsin mi?</string>
+    <string name="modules_delete_confirm_message">Modül ve dizinindeki her şey kaldırılır, günlükler dahil.</string>
+    <string name="modules_review_title">Bu komut çalıştırılsın mı?</string>
+    <string name="modules_review_message">%1$s Shizuku\'nun şunu çalıştırmasını istedi:</string>
+    <string name="modules_review_approve">Çalıştır</string>
+    <string name="modules_result_title">%1$s</string>
+    <string name="modules_result_exit">Çıkış kodu %1$d</string>
+    <string name="modules_error_not_a_module">Bu dosya bir modül değil: module.prop eksik veya kullanılamaz durumda.</string>
+    <string name="modules_error_unsafe_path">Bu modül kendi klasörünün dışına yazmayı denedi, bu yüzden reddedildi.</string>
+    <string name="modules_error_too_many_entries">Bu modül sahip olabileceğinden daha fazla dosyaya sahip, bu yüzden reddedildi.</string>
+    <string name="modules_error_too_large">Bu modül açığa çıkarabileceğinden daha fazlasını açığa çıkarıyor, bu yüzden reddedildi.</string>
+    <string name="modules_error_script_too_large">Bu modüldeki bir script, olabileceğinden daha büyük; bu yüzden reddedildi.</string>
+    <string name="modules_error_install_failed">Modül yüklenemedi.</string>
     <string name="tools_terminal">Terminal uygulamaları</string>
     <string name="tools_terminal_summary">Rish kullanarak herhangi bir terminal uygulamasında shell komutlarını çalıştır</string>
     <string name="tools_battery">Pil optimizasyonu</string>
@@ -343,6 +548,8 @@
     <string name="intents_watchdog_off">Watchdog\'u kapat</string>
     <string name="intents_watchdog_toggle">Watchdog durumunu değiştir</string>
     <string name="intents_adb_command">Bilgisayar ile başlat</string>
+    <string name="intents_status_broadcast">Yayın akışı</string>
+    <string name="intents_status_broadcast_extra">durum ekstra: 1 = çalışıyor, 0 = çalışmıyor</string>
     <string name="home_battery_warning">Shizuku arka planda sonlandırılabilir. Pil optimizasyonlarını yoksaymasına izin verin.</string>
     <string name="batch_selected_count">%1$d seçildi</string>
     <string name="app_management_action_select_all">Tümünü seç</string>
@@ -386,6 +593,9 @@
     <string name="stealth_error_invalid_characters">Yalnızca harf, sayı ve nokta kullanılabilir.</string>
     <string name="stealth_error_needs_two_segments">Paket adı en az iki bölümden oluşmalı.</string>
     <string name="stealth_error_segment_starts_with_number">Bölümler bir sayıyla başlayamaz.</string>
+    <string name="stealth_display_name">Görüntülenen ad (isteğe bağlı)</string>
+    <string name="stealth_display_name_helper_text">Kopyanın başlatıcıdaki ve uygulama listesindeki adı olarak gözükür. Boş bırakıldığında kopya bu uygulamanın adını korur.</string>
+    <string name="stealth_error_display_name_too_long">%1$d veya daha az karakter olacak şekilde tutun.</string>
     <string name="stealth_uninstall_required">Kaldırılması gerekli</string>
     <string name="stealth_uninstall_message">Sistem şimdi Shizuku\'yu kaldırmanızı isteyecektir. Ardından klonu yükleyin.</string>
     <string name="stealth_uninstall">Kaldır</string>
@@ -394,6 +604,7 @@
     <!-- Settings -->
     <string name="settings_start_on_boot">Önyüklemede başla</string>
     <string name="settings_use_system_color">Sistem teması rengini kullan</string>
+    <string name="settings_use_system_color_summary">Sistem paletini takip et</string>
     <string name="settings_watchdog">Bekçi köpeği</string>
     <string name="settings_watchdog_summary">Çökerse Shizuku\'yu otomatik olarak yeniden başlat</string>
     <string name="settings_auto_disable_wireless_debugging">Kablosuz hata ayıklamayı devre dışı bırak</string>
@@ -402,7 +613,9 @@
     <string name="settings_start_method_root_unavailable">Bu cihazda root erişimi olmadığı için başlatma işlemi kablosuz hata ayıklamaya yönlendiriliyor.</string>
     <string name="start_method_wireless_no_network">Wi-Fi olmadan</string>
     <string name="start_method_wireless">Kablosuz</string>
+    <string name="start_method_usb">USB</string>
     <string name="start_method_system">Sistem</string>
+    <string name="start_method_root">Root</string>
     <string name="transport_adb">adb</string>
     <string name="settings_adb_without_developer_options">Geliştirici seçeneklerini devre dışı bırak</string>
     <string name="settings_adb_without_developer_options_summary">Geliştirici seçeneklerini kapatır ancak Shizuku\'nun ihtiyaç duyduğu ADB ayarlarını korur. Shizuku çalışmaya devam eder ve bu ayarlar her yeniden başlatmadan sonra yeniden yüklenir.</string>
@@ -420,6 +633,7 @@
     <string name="settings_force_wireless_debugging_summary">Wi-Fi veya USB hata ayıklama kullanılmadan Shizuku başlatılmaya çalışılır. Bu işlem, Wi-Fi bekleme süresini ve otomatik kablosuz hata ayıklamayı da devre dışı bırakır.</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
+    <string name="settings_needs_write_secure_settings">WRITE_SECURE_SETTINGS iznini gerektirir. İzni vermek için Shizuku\'yu bir defa başlatın ve geri dönün.</string>
     <string name="state_on">Açık</string>
     <string name="state_off">Kapalı</string>
     <string name="settings_persist_adb_port">Yeniden başlatma sonrasında ADB portunu koru</string>
@@ -428,6 +642,7 @@
     <string name="settings_persist_adb_port_refused">Android bu eylemi reddetti. Shizuku, root veya sistem kullanıcısı olarak çalışmalıdır.</string>
     <string name="settings_persist_adb_port_unavailable">Önce Shizuku\'yu başlatın. Bu ayar yalnızca Shizuku üzerinden değiştirilebilir.</string>
     <string name="settings_system_start_method">Sistem başlatma yöntemi</string>
+    <string name="settings_system_start_method_exploit">Samsung (FOTA ajanı)</string>
     <string name="settings_system_start_method_custom">Özel komut</string>
     <string name="home_system_title">Sistem UID ile başlat</string>
     <string name="home_system_summary">Shizuku\'yu adb yerine sistem kullanıcısı (UID 1000) olarak çalıştırın: Yalnızca Samsung, bu sürümlerle birlikte gelen FOTA aracısı üzerinden</string>
@@ -437,6 +652,9 @@
         verir. (Shizuku'nun yeniden başlatıldıktan sonra bir kez başlatılmış olması gerekir)"</string>
     <string name="settings_tcp_mode_dialog_close_port">"TCP portu hemen kapatılacaktır. TCP modunu
         tekrar açmak için Wi-Fi'ye ihtiyacınız olacak. Devam edilsin mi?"</string>
+    <string name="settings_tcp_mode_close_wireless">Kapatılmadı: hata ayıklama açık. Bağlantı noktasını kapatmak onu durdurur. Bağlantı noktası cihaz yeniden başlatıldığında kapanacaktır.</string>
+    <string name="settings_tcp_mode_close_usb_off">Kapatılmadı: USB hata ayıklama kapalı. Onu açın ve tekrar deneyin.</string>
+    <string name="settings_tcp_mode_close_nothing">Hiçbir TCP portu açık değil.</string>
     <string name="settings_restart_dialog_title">Yeniden Başlatma Gerekli</string>
     <string name="settings_restart_dialog_message">Shizuku\'nun bu ayarı uygulayabilmesi için
         yeniden başlatması gerekiyor.</string>
@@ -445,9 +663,11 @@
     <string name="settings_auto_disable_usb_debugging">USB hata ayıklamayı devre dışı bırak</string>
     <string name="settings_auto_disable_usb_debugging_summary">Shizuku durdurulduğunda USB hata ayıklamasını devre dışı bırak</string>
     <string name="settings_language">Dil</string>
+    <string name="settings_language_system">Sistem varsayılanı</string>
     <string name="settings_black_night_theme">Siyah gece teması</string>
     <string name="settings_black_night_theme_summary">Gece modu etkinse saf siyah temasını kullanın</string>
     <string name="settings_update_stable">Kararlı</string>
+    <string name="settings_update_beta">Geliştirme</string>
     <string name="settings_permissions">İzinler</string>
     <string name="settings_permissions_summary">Shizuku\'nun gereksinimleri ve izin verilenler</string>
     <string name="permissions_allowed">İzin verilenler</string>
@@ -464,19 +684,41 @@
     <string name="permissions_accessibility_summary">Eşleştirme kodunu otomatik olarak okur.</string>
     <string name="permissions_battery_summary">Android\'in Shizuku\'yu arka planda sonlandırmasını engeller.</string>
     <string name="settings_help">Yardım</string>
+    <string name="settings_translate">Çeviriye katkıda bulun</string>
+    <string name="settings_translate_note">Crowdin\'de uygulamayı çevirin.</string>
+    <string name="crowdin_url">https://crowdin.com/project/Shizuku-Next</string>
     <string name="settings_report_bug">Bir hata bildirin</string>
+    <string name="settings_support_coffee">Bana bir kahve ısmarlayın</string>
+    <string name="settings_support_coffee_note">Shizuku-Next geliştirmesini destekleyin</string>
+    <string name="settings_contributors">Katkıda bulunanlar</string>
+    <string name="settings_contributors_hint">Keşfetmek için sürükle · Yakınlaştırmak için sıkıştır · Detaylar için dokun</string>
     <!--
       A plural, not a plain string: most of the people on this wall are here for a single commit,
       so the singular is read more often than the plural is.
     -->
+    <plurals name="contributor_commits">
+        <item quantity="one">%1$d commit</item>
+        <item quantity="other">%1$d commit</item>
+    </plurals>
+    <string name="contributor_view_github">GitHub\'da görüntüle</string>
+    <string name="contributor_details_close">Kapat</string>
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
     <string name="contributor_area_app">Uygulama</string>
+    <string name="contributor_area_server">Sunucu</string>
+    <string name="contributor_area_adb">ADB</string>
+    <string name="contributor_area_build">Derleme</string>
+    <string name="contributor_area_i18n">Çeviriler</string>
+    <string name="contributor_area_docs">Dokümantasyon</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
       worked in, and the languages they translated into. There is deliberately no string per
       person: a new contributor is described the moment the generator sees them, and %1$s/%2$s are
       filled with the area names above and with language names the platform already localises.
     -->
+    <string name="contributor_summary_code">%1$s üzerinde çalıştı.</string>
+    <string name="contributor_summary_translations">Uygulamayı %1$s diline çevirdi.</string>
+    <string name="contributor_summary_code_translations">%1$s üzerinde çalıştı ve uygulamayı %2$s diline çevirdi.</string>
+    <string name="contributor_summary_default">Katkıda bulunan</string>
     <string name="settings_legacy_pairing">Miras eşleştirmesi</string>
     <string name="settings_legacy_pairing_summary">Eşleştirme kodunu bildirim yerine bir iletişim
         kutusuna girin</string>
@@ -490,9 +732,10 @@
     <string name="bug_report_dialog_issues">Hatanızın daha önce bildirilip bildirilmediğini görmek
         için ^1 numaralı tüm kayıtları inceleyin.</string>
     <string name="bug_report_dialog_link_issues">mevcut sorunlar</string>
-    <string name="bug_report_dialog_method">Hesabınız varsa lütfen ^1 üzerinden bir sorun bildirin.</string>
-    <string name="bug_report_dialog_method_2">Alternatif olarak, e-posta gönderebilirsiniz.</string>
-    <string name="bug_report_dialog_button_email">E-posta</string>
+    <string name="bug_report_dialog_method">Lütfen ^1 üzerinde bir sorun bildirin.</string>
+    <string name="bug_report_dialog_diagnostics_note">Şu anki tanımlamalarınız sorunun üst kısmına yerleştirilmiştir. Aşağıdaki günlüğün tamamını paylaşın ve ekleyin.</string>
+    <string name="bug_report_dialog_body_prompt">Lütfen hatayı açıklayın. Mümkünse hatayı yeniden oluşturmak için adımları ve ilgili resim/günlükleri dahil edin.</string>
+    <string name="bug_report_dialog_share_log">Günlüğü paylaş</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Bu özelliği kullanmak için lütfen pil
         optimizasyonunu devre dışı bırakın.</string>
@@ -513,7 +756,6 @@
     <string name="update_success">Güncelleme başarılı</string>
     <string name="update_failed">Güncelleme başarısız</string>
     <!-- Toast -->
-    <string name="toast_no_email_app">E-posta uygulaması bulunamadı</string>
     <string name="toast_pairing_timeout">Shizuku eşleştirme servisi zaman doldu.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme">Tema</string>
@@ -565,6 +807,10 @@
         WRITE_SECURE_SETTINGS ayarına ihtiyacı var. Nasıl izin vereceğinizi öğrenmek için dokunun.</string>
     <!-- Shell -->
     <string name="shell_title">Kabuk</string>
+    <string name="shell_backend_shizuku">Shizuku</string>
+    <string name="shell_backend_root">Root</string>
+    <string name="shell_backend_shizuku_status">Shizuku, uid %1$d</string>
+    <string name="shell_backend_root_status">Root, uid 0</string>
     <string name="shell_backend_offline">Aktif bir komut çalıştırıcı yok</string>
     <string name="shell_needs_a_backend">Shizuku\'yu başlatın veya root\'lu bir cihazda Root\'u seçin: Komutları bu ikisinden biri çalıştırır. Root, Shizuku durdurulmuş olsa bile çalışır.</string>
     <string name="shell_intro">Shizuku\'nun çalıştığı Uid ile çalışır (Adb üzerinde 2000, root ile 0). Böylece bu Uid\'nin erişebildiği her yere ulaşabilir: /sdcard, /system ve root yetkisiyle uygulama verileri. /sdcard konumunda, her defasında tek bir komut çalışacak şekilde açılır; Tty desteği olmadığı için terminal gerektiren programlar (nano, Ssh istemi gibi) burada çalışmaz.</string>
@@ -638,7 +884,11 @@
     <string name="watchdog_shizuku_crashed_action_turn_off_alerts">Uyarıları Kapat</string>
     <string name="watchdog_shizuku_recovered_title">Shizuku yeniden çalışıyor</string>
     <string name="watchdog_shizuku_recovered_text">Kendiliğinden durduktan sonra Watchdog onu tekrar başlattı.</string>
+    <string name="watchdog_given_up_title">Shizuku başlatılamadı</string>
+    <string name="watchdog_given_up_text">Shizuku %1$d defa çalıştırıldı ancak geri gelmedi. Sebep çözülene kadar yeniden çalıştırmak işe yaramayacaktır.</string>
     <string name="watchdog_given_up_action_start">Başlat</string>
+    <string name="watchdog_not_running_title">Watchdog çalışmıyor</string>
+    <string name="watchdog_not_running_text">Android bunun kendi kendine çalışmasına izin vermez. Yeniden çalıştırmak için dokunun.</string>
     <!-- Misc -->
     <string name="error">Hata</string>
     <string name="off">Kapalı</string>
@@ -667,7 +917,11 @@
     <string name="manage_empty">Hiçbir uygulama bulunamadı.</string>
     <string name="manage_status_system">Sistem</string>
     <string name="manage_status_user">Kullanıcı</string>
+    <string name="app_row_user">kullanıcı %1$d</string>
+    <string name="permissions_phantom">Arka plan işlemleri</string>
+    <string name="permissions_phantom_summary">Android 12 ve üstü bir uygulama kapandıktan sonra uygulama tarafından başlatılan işlemleri sonlandırabilir. Bu, sunucuyu açılıştan sonra durdurabilir. Bu ayar tüm cihazı etkiler ve yeniden başlatma gerektirebilir.</string>
     <string name="permissions_action_deny">Reddet</string>
+    <string name="permissions_phantom_failed">Değiştirilemedi. Shizuku veya WRITE_SECURE_SETTINGS ayarı gerekiyor.</string>
     <string name="manage_status_removed">Kaldırıldı, veriler korundu</string>
     <string name="manage_status_disabled">Devre dışı</string>
     <string name="manage_status_suspended">Askıda</string>
@@ -770,7 +1024,10 @@
     <string name="app_network_block">Ağ erişimini engelle</string>
     <string name="app_network_block_note">Platform trafiğini keser.</string>
     <string name="app_info_version">Sürüm</string>
+    <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">Hedef SDK</string>
+    <string name="app_info_min_sdk">Minimum SDK</string>
+    <string name="app_info_abi">ABI</string>
     <string name="app_info_data_dir">Veri dizini</string>
     <string name="app_info_signature">İmza</string>
     <string name="app_info_installer">Yükleme kaynağı</string>
@@ -781,18 +1038,80 @@
     <string name="app_info_launcher">Başlatıcı ögesi</string>
     <string name="app_info_yes">Evet</string>
     <string name="app_info_no">Hayır</string>
+    <string name="tab_wifi_passwords">Wi-Fi şifreleri</string>
+    <string name="wifi_passwords_show">Şifreyi göster</string>
+    <string name="wifi_passwords_hide">Şifreyi gizle</string>
+    <string name="wifi_passwords_copy">Şifreyi kopyala</string>
+    <string name="wifi_passwords_none">Şifre yok</string>
+    <string name="wifi_passwords_empty">Kayıtlı ağ yok.</string>
+    <string name="wifi_passwords_needs_shizuku">Shizuku çalışmıyor, bu yüzden kayıtlı ağları okuyacak bir kabuk yok.</string>
+    <string name="wifi_passwords_failed">Wifi hizmeti yanıt vermedi. Günlükte hizmetin ne söylediğini var.</string>
     <string name="wifi_passwords_connect">Bağlan</string>
+    <string name="wifi_passwords_forget_all">Tüm ağları unut</string>
+    <string name="wifi_passwords_forget_all_message">Şu anki ağ dahil kayıtlı tüm ağlar unutulacaktır. Bu işlem geri alınamaz.</string>
+    <string name="wifi_passwords_forgot_all">%1$d ağ unutuldu</string>
+    <string name="wifi_passwords_action_failed">Eylem başarısız oldu. Detaylar için günlüğü kontrol edin.</string>
+    <string name="wifi_backup_export">Ağları dışa aktar</string>
+    <string name="wifi_backup_import">Ağları içe aktar</string>
+    <string name="wifi_backup_export_message">Ağlarınızı ve şifrelerini bir dosyaya kaydeder. Bir şifre ile dosyayı koruyabilirsiniz. Şifre olmadan dosya açılamaz.</string>
+    <string name="wifi_backup_format_plain">Düz metin</string>
+    <string name="wifi_backup_format_compressed">Sıkıştırılmış</string>
+    <string name="wifi_backup_password">Şifre</string>
+    <string name="wifi_backup_password_hint">Korunmayan bir dosya oluşturmak için boş bırakın.</string>
+    <string name="wifi_backup_needs_android8">Şifre koruması Android 8 veya üstünü gerektirir.</string>
+    <string name="wifi_backup_exported">%1$d ağ yazıldı</string>
+    <string name="wifi_backup_imported">%2$d ağdan %1$d eklendi</string>
+    <string name="wifi_backup_unreadable">Dosya okunamadı, veya şifre yanlış. Detaylar için günlüğü kontrol edin.</string>
+    <string name="wifi_backup_unwritable">Dosya yazılamadı. Detaylar için günlüğü kontrol edin.</string>
+    <string name="tab_files">Dosyalar</string>
+    <string name="files_root_internal">Dahili</string>
     <string name="files_root_app_data">Veri</string>
+    <string name="files_root_app_obb">Obb</string>
     <string name="files_root_system">Sistem</string>
+    <string name="files_root_tmp">Tmp</string>
+    <string name="files_root_root">Root</string>
+    <string name="files_empty">Bu klasörde hiçbir şey yok.</string>
+    <string name="files_all_hidden">Bu klasördeki herşey gizli.</string>
     <string name="files_sort">Sırala</string>
+    <string name="files_sort_name">İsme göre sırala</string>
+    <string name="files_sort_size">Boyuta göre sırala</string>
+    <string name="files_sort_modified">Tarihe göre sırala</string>
+    <string name="files_sort_ascending">Artan</string>
+    <string name="files_sort_descending">Azalan</string>
+    <string name="files_show_hidden">Gizli dosyaları göster</string>
+    <string name="files_hide_hidden">Gizli dosyaları gizle</string>
+    <string name="files_failed">%1$s listelenemedi. Kabuk erişimi yok veya klasör eksik.</string>
+    <string name="files_needs_shizuku">Shizuku çalışmıyor, bu yüzden dosyalar okunamaz.</string>
+    <string name="files_preview_binary">Bu bir metin dosyayı değil, bu yüzden görüntülenemez.</string>
+    <string name="files_preview_failed">Bu dosya okunamadı.</string>
+    <string name="files_preview_truncated">Bu dosyanın sadece başlangıcı gösteriliyor.</string>
     <string name="files_selected_count">%1$d seçildi</string>
     <string name="files_action_select_all">Tümünü seç</string>
     <string name="files_action_rename">Yeniden adlandır</string>
     <string name="files_action_copy">Kopyala</string>
+    <string name="files_action_cut">Kes</string>
+    <string name="files_action_paste_copy">Buraya yapıştır</string>
+    <string name="files_action_paste_move">Buraya taşı</string>
     <string name="files_action_delete">Sil</string>
+    <string name="files_action_compress">Sıkıştır veya çıkart</string>
+    <string name="files_action_new_folder">Yeni klasör</string>
+    <string name="files_dialog_compress">Zip adı</string>
     <string name="files_field_name">Ad</string>
+    <string name="files_dialog_delete_title">%1$d öğe silinsin mi?</string>
+    <string name="files_dialog_delete_message">Bu onları sonsuza dek kaldırır; burada geri dönüşüm kutusu yok.</string>
+    <string name="files_working_copying">Kopyalanıyor</string>
+    <string name="files_working_moving">Taşınıyor</string>
+    <string name="files_working_deleting">Siliniyor</string>
+    <string name="files_working_compressing">Sıkıştırılıyor</string>
+    <string name="files_working_extracting">Çıkartılıyor</string>
+    <string name="tab_install">Uygulama yükleyici</string>
+    <string name="install_no_file">Paket seçilmedi</string>
+    <string name="install_choose">Seç</string>
     <string name="install_details_version">Sürüm</string>
     <string name="install_details_target">Hedef SDK</string>
     <string name="install_details_installed">Yüklendi</string>
     <string name="install_location_auto">Geliştirici seçenekleri</string>
+    <string name="install_location_shared">Paylaşılan depolama</string>
+    <string name="install_spoof_source">Yükleme kaynağını taklit et</string>
+    <string name="install_spoof_source_desc">Android\'e bu uygulamayı yüklediği söylenen paket.</string>
 </resources>

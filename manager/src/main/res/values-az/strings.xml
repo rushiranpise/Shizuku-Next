@@ -159,17 +159,12 @@
     <string name="bug_report_dialog_issues">Səhvinizin artıq bildirilib-bilinmədiyini görmək üçün
         bütün ^1-ləri axtarın.</string>
     <string name="bug_report_dialog_link_issues">mövcud problemlər</string>
-    <string name="bug_report_dialog_method">Hesabınız varsa, xahiş edirəm ^1-də bir məsələ təqdim
-        edin.</string>
-    <string name="bug_report_dialog_method_2">Əks halda, bir e-poçt göndərə bilərsiniz.</string>
-    <string name="bug_report_dialog_button_email">E-poçt</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Zəhmət olmasa, bu funksiyadan istifadə
         etmək üçün batareya optimizasiyasını söndürün.</string>
     <string name="snackbar_action_fix">Düzəlt</string>
     <!-- Updates -->
     <!-- Toast -->
-    <string name="toast_no_email_app">Heç bir e-poçt tətbiqi tapılmadı</string>
     <string name="toast_pairing_timeout">Shizuku cütləşdirmə xidmətinin vaxtı bitdi.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme_off">Həmişə yüngül</string>

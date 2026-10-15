@@ -160,16 +160,12 @@
     <string name="bug_report_dialog_issues">Busque en todos los ^1 para ver si su error ya ha sido
         informado.</string>
     <string name="bug_report_dialog_link_issues">problemas existentes</string>
-    <string name="bug_report_dialog_method">Envíe un problema en ^1 si tiene una cuenta.</string>
-    <string name="bug_report_dialog_method_2">De lo contrario, puede enviar un correo electrónico.</string>
-    <string name="bug_report_dialog_button_email">Correo electrónico</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Deshabilite la optimización de la batería
         para utilizar esta función.</string>
     <string name="snackbar_action_fix">Arreglar</string>
     <!-- Updates -->
     <!-- Toast -->
-    <string name="toast_no_email_app">No se encontró ninguna aplicación de correo electrónico</string>
     <string name="toast_pairing_timeout">El servicio de emparejamiento de Shizuku se agotó.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme_off">Siempre ligero</string>

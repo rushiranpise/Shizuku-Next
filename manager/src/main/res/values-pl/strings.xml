@@ -133,6 +133,7 @@
     <string name="labs_blocked_count">%1$d Zablokowane</string>
     <string name="labs_blocked_empty">Nic nie jest zablokowane.</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="tab_hiding">Ukrywanie</string>
     <string name="tab_hide_developer_options">Ukryte opcję deweloperskie</string>
     <string name="tab_hide_usb_debugging">Ukryj debugowanie poprzez USB</string>
     <string name="tab_hide_wireless_debugging">Ukryj debugowanie bezprzewodowe</string>
@@ -582,9 +583,6 @@
     <string name="bug_report_dialog_issues">Przeszukaj wszystkie ^1, aby sprawdzić, czy Twój błąd
         został już zgłoszony.</string>
     <string name="bug_report_dialog_link_issues">istniejące problemy</string>
-    <string name="bug_report_dialog_method">Jeśli masz konto, zgłoś problem na ^1.</string>
-    <string name="bug_report_dialog_method_2">Alternatywnie możesz wysłać wiadomość e-mail.</string>
-    <string name="bug_report_dialog_button_email">E-mail</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Wyłącz optymalizację baterii, aby
         korzystać z tej funkcji.</string>
@@ -605,7 +603,6 @@
     <string name="update_success">Aktualizacja zakończona</string>
     <string name="update_failed">Aktualizacja nieudana</string>
     <!-- Toast -->
-    <string name="toast_no_email_app">Nie znaleziono aplikacji pocztowej</string>
     <string name="toast_pairing_timeout">Upłynął limit czasu usługi parowania Shizuku.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme">Motyw</string>

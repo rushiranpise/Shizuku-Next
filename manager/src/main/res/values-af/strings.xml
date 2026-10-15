@@ -157,17 +157,12 @@
     <string name="bug_report_dialog_issues">Soek deur al ^1 om te sien of jou fout reeds aangemeld
         is.</string>
     <string name="bug_report_dialog_link_issues">bestaande probleme</string>
-    <string name="bug_report_dialog_method">Dien asseblief \'n probleem in op ^1 as jy \'n rekening
-        het.</string>
-    <string name="bug_report_dialog_method_2">Andersins kan jy \'n e-pos stuur.</string>
-    <string name="bug_report_dialog_button_email">E-pos</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Deaktiveer asseblief batteryoptimalisering
         om hierdie kenmerk te gebruik.</string>
     <string name="snackbar_action_fix">Herstel</string>
     <!-- Updates -->
     <!-- Toast -->
-    <string name="toast_no_email_app">Geen e-posprogram gevind nie</string>
     <string name="toast_pairing_timeout">Shizuku-paringsdiens het \'n tydsverloop gehad.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme_off">Altyd lig</string>

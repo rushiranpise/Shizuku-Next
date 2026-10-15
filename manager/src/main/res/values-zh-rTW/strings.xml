@@ -139,6 +139,7 @@
     <string name="labs_blocked_count">已阻止 %1$d 個</string>
     <string name="labs_blocked_empty">沒有已阻止的應用程式。</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="tab_hiding">隱藏</string>
     <string name="tab_hide_developer_options">隱藏開發人員選項</string>
     <string name="tab_hide_usb_debugging">隱藏 USB 偵錯</string>
     <string name="tab_hide_wireless_debugging">隱藏無線偵錯</string>
@@ -300,6 +301,7 @@
     <string name="log_cleared">日誌已清除</string>
     <string name="log_saved">已儲存為 %1$s，位於共用儲存空間的應用程式資料夾中</string>
     <string name="log_nothing_to_save">沒有可儲存的內容。</string>
+    <string name="log_share_failed">無法分享日誌</string>
     <string name="log_pulled">已從 logcat 取得 %1$d 行日誌</string>
     <string name="log_tab_app">此應用程式</string>
     <string name="log_tab_capture">記錄</string>
@@ -572,7 +574,7 @@
     <string name="settings_use_system_color">使用系統主題色彩</string>
     <string name="settings_use_system_color_summary">使用系統配色</string>
     <string name="settings_watchdog">看門狗</string>
-    <string name="settings_watchdog_summary">如果 Shizuku 崩潰，則自動重新啟動。</string>
+    <string name="settings_watchdog_summary">如果 Shizuku 崩潰，則自動重新啟動</string>
     <string name="settings_auto_disable_wireless_debugging">關閉無線偵錯</string>
     <string name="settings_auto_disable_wireless_debugging_summary">Shizuku 停止時關閉無線偵錯。</string>
     <string name="settings_start_method">預設啟動方式</string>
@@ -648,7 +650,7 @@
     <string name="permissions_battery_summary">防止 Android 在背景終止 Shizuku。</string>
     <string name="settings_help">幫助</string>
     <string name="settings_translate">參與翻譯</string>
-    <string name="settings_translate_note">在 Crowdin 上翻譯這個應用程式。</string>
+    <string name="settings_translate_note">在 Crowdin 上翻譯這個應用程式</string>
     <string name="crowdin_url">https://crowdin.com/project/Shizuku-Next</string>
     <string name="settings_report_bug">回報錯誤</string>
     <string name="settings_support_coffee">請我喝杯咖啡</string>
@@ -691,11 +693,10 @@
     <string name="bug_report_dialog_link_wiki">wiki</string>
     <string name="bug_report_dialog_issues">請先搜尋^1，確認你的問題是否已被回報。</string>
     <string name="bug_report_dialog_link_issues">已有的 issue</string>
-    <string name="bug_report_dialog_method">如果你有帳號，請在 ^1 上提交 issue。</string>
-    <string name="bug_report_dialog_method_2">或者，你也可以發送電子郵件。</string>
-    <string name="bug_report_dialog_button_email">電子郵件</string>
-    <string name="bug_report_dialog_diagnostics_note">提交 issue 或傳送郵件時，你當前的診斷資訊會自動填在頂部。</string>
+    <string name="bug_report_dialog_method">請在 ^1 上提交 issue。</string>
+    <string name="bug_report_dialog_diagnostics_note">你當前的診斷資訊會填在 issue 頂部。請分享並附上下方的完整日誌。</string>
     <string name="bug_report_dialog_body_prompt">請描述這個錯誤，並儘可能附上重現步驟和相關截圖/日誌。</string>
+    <string name="bug_report_dialog_share_log">分享日誌</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">請先關閉電池最佳化，再使用此功能。</string>
     <string name="snackbar_action_fix">修正</string>
@@ -715,7 +716,6 @@
     <string name="update_success">更新完成</string>
     <string name="update_failed">更新失敗</string>
     <!-- Toast -->
-    <string name="toast_no_email_app">找不到電子郵件應用程式</string>
     <string name="toast_pairing_timeout">Shizuku 配對服務超時</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme">主題</string>

@@ -157,16 +157,12 @@
     <string name="bug_report_dialog_issues">Cari semua ^1 untuk melihat sama ada pepijat anda telah
         dilaporkan.</string>
     <string name="bug_report_dialog_link_issues">isu-isu sedia ada</string>
-    <string name="bug_report_dialog_method">Sila kemukakan isu pada ^1 jika anda mempunyai akaun.</string>
-    <string name="bug_report_dialog_method_2">Jika tidak, anda boleh menghantar e-mel.</string>
-    <string name="bug_report_dialog_button_email">E-mel</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Sila lumpuhkan pengoptimuman bateri untuk
         menggunakan ciri ini.</string>
     <string name="snackbar_action_fix">Betulkan</string>
     <!-- Updates -->
     <!-- Toast -->
-    <string name="toast_no_email_app">Tiada apl e-mel ditemui</string>
     <string name="toast_pairing_timeout">Perkhidmatan gandingan Shizuku tamat masa.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme_off">Sentiasa ringan</string>

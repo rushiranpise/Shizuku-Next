@@ -145,6 +145,7 @@
     <string name="labs_blocked_count">%1$d bloqueado</string>
     <string name="labs_blocked_empty">Nada está bloqueado.</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="tab_hiding">Ocultando</string>
     <string name="tab_hide_developer_options">Ocultar opções do desenvolvedor</string>
     <string name="tab_hide_usb_debugging">Ocultar depuração USB</string>
     <string name="tab_hide_wireless_debugging">Ocultar depuração sem fio</string>
@@ -406,7 +407,9 @@
     <string name="modules_repo_error">Não foi possível carregar os repositórios.</string>
     <string name="modules_repo_by_author">por %1$s</string>
     <string name="modules_repo_latest_version">Versão mais recente</string>
+    <string name="modules_repo_loading">Loading...</string>
     <string name="modules_find_modules">Encontrar módulos</string>
+    <string name="modules_install_title">New</string>
     <string name="modules_settings">Módulos</string>
     <string name="modules_catalog_installed">Instalado</string>
     <string name="modules_disabled">Desabilitado</string>
@@ -416,6 +419,7 @@
     <string name="modules_action_short">Acão</string>
     <string name="modules_service_short">Serviço</string>
     <string name="modules_service_running_short">Executando</string>
+    <string name="modules_install">New</string>
     <string name="modules_installed">%1$s instalado</string>
     <string name="modules_delete">excluir</string>
     <string name="modules_result_title">%1$s</string>
@@ -663,10 +667,6 @@
     <string name="bug_report_dialog_issues">Pesquise em todos os relatórios ^1 para ver se o seu bug
         já foi reportado.</string>
     <string name="bug_report_dialog_link_issues">problemas existentes</string>
-    <string name="bug_report_dialog_method">Por favor, abra um pedido em ^1 se tiver uma conta.</string>
-    <string name="bug_report_dialog_method_2">Caso contrário, pode enviar um e-mail.</string>
-    <string name="bug_report_dialog_button_email">E-mail</string>
-    <string name="bug_report_dialog_diagnostics_note">Seus dados de diagnóstico atuais estão preenchidos na parte superior do ticket e do e-mail.</string>
     <string name="bug_report_dialog_body_prompt">Por favor, descreva o bug. Inclua, se possível, os passos para reproduzi-lo, bem como quaisquer imagens ou registros relevantes.</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Desative a otimização da bateria para
@@ -688,7 +688,6 @@
     <string name="update_success">Atualização completa</string>
     <string name="update_failed">Falha na atualização</string>
     <!-- Toast -->
-    <string name="toast_no_email_app">Nenhuma aplicação de e-mail encontrada</string>
     <string name="toast_pairing_timeout">Serviço de emparelhamento Shizuku esgotado.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme">Tema</string>

@@ -138,6 +138,7 @@
     <string name="labs_blocked_count">%1$d заблоковано</string>
     <string name="labs_blocked_empty">Нічого не заблоковано.</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="tab_hiding">Приховування</string>
     <string name="tab_hide_developer_options">Приховати параметри розробника</string>
     <string name="tab_hide_usb_debugging">Приховати налагодження USB</string>
     <string name="tab_hide_wireless_debugging">Приховати бездротовий налагоджувач</string>
@@ -608,12 +609,6 @@
     <string name="bug_report_dialog_issues">Перегляньте всі ^1, щоб побачити, чи про вашу помилку
         вже повідомляли.</string>
     <string name="bug_report_dialog_link_issues">існуючі проблеми</string>
-    <string name="bug_report_dialog_method">Будь ласка, надішліть запит на ^1, якщо у вас є
-        обліковий запис.</string>
-    <string name="bug_report_dialog_method_2">В іншому випадку ви можете надіслати електронного
-        листа.</string>
-    <string name="bug_report_dialog_button_email">Електронна пошта</string>
-    <string name="bug_report_dialog_diagnostics_note">Ваші поточні діагностичні дані вказані на початку звернення та в листі.</string>
     <string name="bug_report_dialog_body_prompt">Опишіть помилку. Якщо можливо, вкажіть кроки для її відтворення, а також додайте відповідні зображення чи журнали.</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Будь ласка, вимкніть оптимізацію батареї,
@@ -635,7 +630,6 @@
     <string name="update_success">Оновлення завершено</string>
     <string name="update_failed">Оновлення не вдалося</string>
     <!-- Toast -->
-    <string name="toast_no_email_app">Поштового застосунку не знайдено</string>
     <string name="toast_pairing_timeout">Сервіс парування Шідзуку закінчився.</string>
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme">Тема</string>
