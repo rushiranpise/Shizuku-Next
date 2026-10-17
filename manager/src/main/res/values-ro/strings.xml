@@ -313,6 +313,7 @@
     <string name="log_cleared">Jurnal golit</string>
     <string name="log_saved">Salvat ca %1$s, în folderul cu aplicații pentru spațiul de stocare partajat</string>
     <string name="log_nothing_to_save">Nimic de salvat.</string>
+    <string name="log_share_failed">Nu s-a putut partaja jurnalul</string>
     <string name="log_pulled">%1$d linii trase din logcat</string>
     <string name="log_tab_app">Această aplicație</string>
     <string name="log_tab_capture">Înregistrare</string>
@@ -707,7 +708,10 @@
     <string name="bug_report_dialog_link_wiki">wiki</string>
     <string name="bug_report_dialog_issues">Caută prin toate ^1 pentru a vedea dacă eroarea ta a fost deja raportată.</string>
     <string name="bug_report_dialog_link_issues">probleme existente</string>
+    <string name="bug_report_dialog_method">Te rugăm să trimiți o problemă pe ^1.</string>
+    <string name="bug_report_dialog_diagnostics_note">Diagnosticele actuale sunt completate în partea de sus a raportului. Copiază întregul jurnal mai jos și atașează-l.</string>
     <string name="bug_report_dialog_body_prompt">Te rog să descrii eroarea. Include pașii pentru reproducere, dacă este posibil, precum și orice imagini/jurnale relevante.</string>
+    <string name="bug_report_dialog_share_log">Distribuie jurnalul</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Dezactivează optimizarea bateriei pentru a utiliza această funcție.</string>
     <string name="snackbar_action_fix">Repară</string>

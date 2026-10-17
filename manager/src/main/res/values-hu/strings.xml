@@ -232,7 +232,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="device_server">Szerver</string>
     <string name="device_start_method">Indítás</string>
     <string name="device_transport">Átvitel</string>
-    <string name="device_watchdog">Felügyelet</string>
+    <string name="device_watchdog">Önvédelem</string>
     <string name="tab_log">Napló</string>
     <string name="log_filter_all">Mind</string>
     <string name="log_filter_problems">Hiba</string>
@@ -377,9 +377,9 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="intents_regenerate">Újragenerálás</string>
     <string name="intents_start">Indítás</string>
     <string name="intents_stop">Leállítás</string>
-    <string name="intents_watchdog_on">Felügyelet bekapcsolás</string>
-    <string name="intents_watchdog_off">Felügyelet kikapcsolás</string>
-    <string name="intents_watchdog_toggle">Felügyelet átkapcsolás</string>
+    <string name="intents_watchdog_on">Önvédelem bekapcsolása</string>
+    <string name="intents_watchdog_off">Önvédelem kikapcsolása</string>
+    <string name="intents_watchdog_toggle">Önvédelemi mód átváltása</string>
     <string name="intents_adb_command">Indítás számítógépről</string>
     <string name="home_battery_warning">Előfordulhat, hogy Shizuku a háttérben leáll. Engedélyezze az akkumulátor-optimalizálás figyelmen kívül hagyását.</string>
     <string name="app_management_action_grant">Megadás</string>
@@ -421,7 +421,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="settings_start_on_boot">Indítás rendszerindításkor</string>
     <string name="settings_use_system_color">Használja a rendszertéma színét</string>
     <string name="settings_use_system_color_summary">Kövesse a rendszer színkészletét</string>
-    <string name="settings_watchdog">Felügyelet</string>
+    <string name="settings_watchdog">Önvédelem</string>
     <string name="settings_watchdog_summary">A Shizuku automatikus újraindítása összeomlás esetén</string>
     <string name="settings_auto_disable_wireless_debugging">A vezeték nélküli hibakeresés letiltása</string>
     <string name="settings_auto_disable_wireless_debugging_summary">Tiltsa le a vezeték nélküli hibakeresést, amikor a Shizuku leáll.</string>
@@ -616,18 +616,17 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="shell_stop">Leállítás</string>
     <string name="shell_copy">Másolás</string>
     <!-- Watchdog -->
-    <string name="watchdog_running">A felügyeleti szerv fut</string>
+    <string name="watchdog_running">Az önvédelmi mód fut</string>
     <string name="watchdog_turn_off">Kikapcsolás</string>
     <string name="watchdog_shizuku_crashed_title">Shizuku nemrég lezuhant</string>
-    <string name="watchdog_shizuku_crashed_text">A Watchdog újraindította a szolgáltatást.
-        Koppintson a lehetséges javításokról a jövőbeli összeomlások megelőzése érdekében.</string>
+    <string name="watchdog_shizuku_crashed_text">Az Önvédelem újraindította a Shizuku-t. Koppintson ide, hogy megismerje az összeomlások megelőzésének módjait.</string>
     <string name="watchdog_shizuku_crashed_action_turn_off_alerts">Kapcsolja ki a riasztásokat</string>
     <string name="watchdog_shizuku_recovered_title">A Shizuku újra fut</string>
-    <string name="watchdog_shizuku_recovered_text">A Felügyeleti mód újra elindította, miután magától leállt.</string>
+    <string name="watchdog_shizuku_recovered_text">Az Önvédelem újra elindította, miután magától leállt.</string>
     <string name="watchdog_given_up_title">A Shizuku elindítása nem sikerült</string>
     <string name="watchdog_given_up_text">A Shizuku %1$d indítási kísérlet után sem indult újra. Az újraindítás tehát nem segít, amíg az ok meg nem szünik.</string>
     <string name="watchdog_given_up_action_start">Indítás</string>
-    <string name="watchdog_not_running_title">A Felügyeleti mód nem fut</string>
+    <string name="watchdog_not_running_title">Az Önvédelmi mód nem fut</string>
     <string name="watchdog_not_running_text">Az Android nem engedte, hogy magától elinduljon. Koppintson az újraindításhoz.</string>
     <!-- Misc -->
     <string name="error">Hiba</string>

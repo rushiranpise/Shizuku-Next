@@ -307,6 +307,7 @@
     <string name="log_cleared">Registro limpo</string>
     <string name="log_saved">Salvo como %1$s, na pasta do aplicativo no armazenamento compartilhado</string>
     <string name="log_nothing_to_save">Nada para salvar.</string>
+    <string name="log_share_failed"></string>
     <string name="log_pulled">%1$d linhas puxadas do logcat</string>
     <string name="log_tab_app">Este aplicativo</string>
     <string name="log_tab_capture">Gravar</string>
@@ -411,6 +412,7 @@
     <string name="modules_find_modules">Encontrar módulos</string>
     <string name="modules_install_title">New</string>
     <string name="modules_settings">Módulos</string>
+    <string name="modules_catalog_install"></string>
     <string name="modules_catalog_installed">Instalado</string>
     <string name="modules_disabled">Desabilitado</string>
     <string name="modules_update">Atualização</string>

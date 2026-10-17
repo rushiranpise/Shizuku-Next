@@ -13,6 +13,7 @@
     <string name="home_usb_adb_needs_network">Khởi động qua USB sử dụng cổng ADB truyền thống, và việc mở lại sẽ cần kết nối mạng. Hãy kết nối Wi-Fi một lần, hoặc chọn <b>Bắt đầu không cần Wi-Fi</b> làm phương thức khởi chạy và bắt đầu lại qua gỡ lỗi không dây.</string>
     <string name="home_wireless_adb_summary">Bắt đầu bằng cách sử dụng gỡ lỗi không dây.</string>
     <string name="home_usb_adb_title"><![CDATA[Khởi chạy qua gỡ lỗi USB]]></string>
+    <string name="home_usb_adb_summary">Bắt đầu sử dụng gỡ lỗi USB\".\".</string>
     <string name="home_support_body">Shizuku-Next là ứng dụng miễn phí và không có quảng cáo. Bạn chỉ cần mua một ly cà phê để trang trải chi phí duy trì ứng dụng.</string>
     <string name="diagnostics_wireless_debugging">Gỡ lỗi không dây</string>
     <string name="diagnostics_device">Thiết bị</string>
