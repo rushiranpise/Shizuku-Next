@@ -1136,7 +1136,7 @@
     <string name="install_dexopt_quicken">hızlandır</string>
     <string name="install_dexopt_speed_profile">hız profili</string>
     <string name="install_dexopt_speed">hız</string>
-    <string name="install_dexopt_everything">herşey</string>
+    <string name="install_dexopt_everything">her şey</string>
     <string name="install_referrer">Yönlendiren</string>
     <string name="install_referrer_desc">Uygulamaya yüklemenin nereden geldiğini söyleyen URI.</string>
     <string name="install_details_reading">Paket okunuyor\u2026</string>

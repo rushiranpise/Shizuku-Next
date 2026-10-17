@@ -379,7 +379,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="intents_stop">Leállítás</string>
     <string name="intents_watchdog_on">Önvédelem bekapcsolása</string>
     <string name="intents_watchdog_off">Önvédelem kikapcsolása</string>
-    <string name="intents_watchdog_toggle">Önvédelemi mód átváltása</string>
+    <string name="intents_watchdog_toggle">Önvédelmi mód átváltása</string>
     <string name="intents_adb_command">Indítás számítógépről</string>
     <string name="home_battery_warning">Előfordulhat, hogy Shizuku a háttérben leáll. Engedélyezze az akkumulátor-optimalizálás figyelmen kívül hagyását.</string>
     <string name="app_management_action_grant">Megadás</string>
