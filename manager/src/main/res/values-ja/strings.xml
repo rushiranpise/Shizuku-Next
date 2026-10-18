@@ -466,7 +466,6 @@
     <string name="stealth_uninstall_message">これで、Shizuku のアンインストールを求められます。その後、クローンをインストールします。</string>
     <string name="stealth_uninstall">アンインストール</string>
     <string name="stealth_hide">非表示</string>
-    <string name="stealth_unhide">再表示</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">起動時にスタート</string>
     <string name="settings_use_system_color">システムテーマの色を使用</string>

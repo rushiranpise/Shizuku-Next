@@ -476,7 +476,6 @@
     <string name="stealth_uninstall_message">Järjestelmä kehottaa sinua nyt poistamaan Shizukua. Asenna klooni.</string>
     <string name="stealth_uninstall">Poista</string>
     <string name="stealth_hide">Piilota</string>
-    <string name="stealth_unhide">Unhide</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">Aloita käynnistyksestä</string>
     <string name="settings_use_system_color">Käytä järjestelmän teeman väriä</string>

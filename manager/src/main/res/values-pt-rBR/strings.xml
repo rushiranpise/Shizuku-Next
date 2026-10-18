@@ -307,7 +307,7 @@
     <string name="log_cleared">Registro limpo</string>
     <string name="log_saved">Salvo como %1$s, na pasta do aplicativo no armazenamento compartilhado</string>
     <string name="log_nothing_to_save">Nada para salvar.</string>
-    <string name="log_share_failed">Não foi possível compartilhar o registro</string>
+    <string name="log_share_failed"></string>
     <string name="log_pulled">%1$d linhas puxadas do logcat</string>
     <string name="log_tab_app">Este aplicativo</string>
     <string name="log_tab_capture">Gravar</string>
@@ -409,10 +409,11 @@
     <string name="modules_repo_by_author">por %1$s</string>
     <string name="modules_repo_latest_version">Versão mais recente</string>
     <string name="modules_repo_loading">Loading...</string>
+    <string name="modules_repo_sort_stars_low_to_high"></string>
     <string name="modules_find_modules">Encontrar módulos</string>
     <string name="modules_install_title">New</string>
     <string name="modules_settings">Módulos</string>
-    <string name="modules_catalog_install">Instalar</string>
+    <string name="modules_catalog_install"></string>
     <string name="modules_catalog_installed">Instalado</string>
     <string name="modules_disabled">Desabilitado</string>
     <string name="modules_update">Atualização</string>
@@ -535,7 +536,6 @@
     <string name="stealth_uninstall_message">O sistema agora irá solicitar que você desinstale o Shizuku. Em seguida, instale o clone.</string>
     <string name="stealth_uninstall">Desinstalar</string>
     <string name="stealth_hide">Esconder</string>
-    <string name="stealth_unhide">Unhide</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">Iniciar no arranque</string>
     <string name="settings_use_system_color">Usar cor temática do sistema</string>

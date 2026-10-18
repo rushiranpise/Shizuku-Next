@@ -10,6 +10,8 @@
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Iniciar vía Depuración inalámbrica]]></string>
     <string name="home_wireless_adb_summary">\"Iniciar usando depuración inalambrica.\"</string>
+    <string name="home_usb_adb_title"><![CDATA[Iniciar por depuración USB]]></string>
+    <string name="home_usb_adb_summary">Iniciar usando depuración USB.</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
@@ -88,14 +90,19 @@
     <!-- Home - Adb permissions limited -->
     <!-- Home - Dialogs -->
     <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
+    <string name="home_dialog_button_exit">Salir</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">El permiso de ADB es limitado</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Es muy posible que el fabricante de su dispositivo haya limitado el permiso de ADB.<p>Puede que encuentre una solución para su sistema en <b><a href="%1$s">este documento</a></b>.]]></string>
     <string name="app_management_toggle_all">Activar/desactivar todo</string>
+    <string name="app_management_search_hint">Buscar aplicaciones</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="force_dark_filter_forced">Forzar</string>
+    <string name="force_dark_filter_not">No forzar</string>
     <string name="intent_start">Iniciar</string>
     <string name="device_watchdog">Perro guardián</string>
     <string name="log_capture_start">Iniciar</string>
+    <string name="log_capture_choose_hint">Buscar aplicaciones</string>
     <string name="action_start">Iniciar</string>
     <string name="modules_repo_retry">Reintentar</string>
     <string name="intents_start">Iniciar</string>
@@ -230,6 +237,7 @@
     <string name="dialog_requesting_legacy_button_open_shizuku">Abrir Shizuku</string>
     <string name="wadb_notification_attempt_now">Reintentar</string>
     <!-- Manage tab -->
+    <string name="manage_search_hint">Buscar aplicaciones</string>
     <string name="permissions_action_deny">Denegar</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_op_mode_deny">Denegar</string>

@@ -337,7 +337,6 @@
     <string name="stealth_uninstall_message">Sistem şimdi Shizuku\'yu kaldırmanızı isteyecektir. Ardından klonu yükleyin.</string>
     <string name="stealth_uninstall">Kaldır</string>
     <string name="stealth_hide">Gizle</string>
-    <string name="stealth_unhide">Göster</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">Önyüklemede başla</string>
     <string name="settings_use_system_color">Sistem teması rengini kullan</string>

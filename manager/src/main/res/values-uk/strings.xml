@@ -477,7 +477,6 @@
     <string name="stealth_uninstall_message">Тепер система запропонує вам видалити Shizuku. Потім встановіть клон.</string>
     <string name="stealth_uninstall">Видалити</string>
     <string name="stealth_hide">Приховати</string>
-    <string name="stealth_unhide">Показати</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">Запускати при завантаженні</string>
     <string name="settings_use_system_color">Використовувати системний колір теми</string>

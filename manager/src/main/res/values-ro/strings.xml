@@ -580,7 +580,6 @@
     <string name="stealth_uninstall_message">Sistemul va solicita acum dezinstalarea Shizuku. Apoi, instalarea clonei.</string>
     <string name="stealth_uninstall">Dezinstalează</string>
     <string name="stealth_hide">Ascunde</string>
-    <string name="stealth_unhide">Anulează ascunderea</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">Pornire automată</string>
     <string name="settings_use_system_color">Folosește culoarea temei de sistem</string>
@@ -709,7 +708,7 @@
     <string name="bug_report_dialog_issues">Caută prin toate ^1 pentru a vedea dacă eroarea ta a fost deja raportată.</string>
     <string name="bug_report_dialog_link_issues">probleme existente</string>
     <string name="bug_report_dialog_method">Te rugăm să trimiți o problemă pe ^1.</string>
-    <string name="bug_report_dialog_diagnostics_note">Diagnosticele actuale sunt completate în partea de sus a raportului. Distribuie întregul jurnal de mai jos.</string>
+    <string name="bug_report_dialog_diagnostics_note">Diagnosticele actuale sunt completate în partea de sus a raportului. Copiază întregul jurnal mai jos și atașează-l.</string>
     <string name="bug_report_dialog_body_prompt">Te rog să descrii eroarea. Include pașii pentru reproducere, dacă este posibil, precum și orice imagini/jurnale relevante.</string>
     <string name="bug_report_dialog_share_log">Distribuie jurnalul</string>
     <!-- Snackbar -->

@@ -446,7 +446,6 @@
     <string name="stealth_uninstall_message">Systém vás nyní vyzve k odinstalaci Šizuku. Poté nainstalujte klon.</string>
     <string name="stealth_uninstall">Odinstalovat</string>
     <string name="stealth_hide">Skrýt</string>
-    <string name="stealth_unhide">Unhide</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">Začněte na botě</string>
     <string name="settings_use_system_color">Použít barvu systémového motivu</string>

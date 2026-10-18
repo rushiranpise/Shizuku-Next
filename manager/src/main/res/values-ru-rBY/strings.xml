@@ -236,7 +236,6 @@
     <string name="stealth_uninstall_message">Система предложит удалить Shizuku. Затем установите клон.</string>
     <string name="stealth_uninstall">Удалить</string>
     <string name="stealth_hide">Скрыть</string>
-    <string name="stealth_unhide">Показать</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">Запускать при загрузке</string>
     <string name="settings_watchdog">Сторожевой таймер</string>

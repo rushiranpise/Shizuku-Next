@@ -475,7 +475,6 @@
     <string name="stealth_uninstall_message">System poprosi Cię o odinstalowanie Shizuku. Następnie zainstaluj klon.</string>
     <string name="stealth_uninstall">Odinstaluj</string>
     <string name="stealth_hide">Ukryj</string>
-    <string name="stealth_unhide">Unhide</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">Uruchamiaj przy starcie</string>
     <string name="settings_use_system_color">Użyj systemowego koloru motywu</string>

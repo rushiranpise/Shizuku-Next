@@ -6,6 +6,8 @@
       a change here reaches translators on the next push and not before.
     -->
     <!-- To translators: you can leave your here -->
+    <string name="home_status_adb_wireless">adb</string>
+    <string name="home_status_adb_usb">adb</string>
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Запуск через беспроводную отладку]]></string>
@@ -14,14 +16,40 @@
     <string name="home_wireless_adb_summary">Запускает через беспроводную отладку.</string>
     <string name="home_usb_adb_title"><![CDATA[Запуск через отладку по USB]]></string>
     <string name="home_usb_adb_summary">Запускает через отладку по USB.</string>
+    <string name="home_support_body">Shizuku-Next — бесплатное приложение без рекламы. Стоимость одной чашки кофе покрывает время, необходимое для его обслуживания.</string>
+    <string name="diagnostics_title">Диагностика</string>
+    <string name="diagnostics_copy">Скопировать результаты диагностики</string>
+    <string name="diagnostics_copied">Результаты скопированы</string>
+    <string name="diagnostics_service">Служба</string>
+    <string name="diagnostics_server_uid">UID сервера</string>
+    <string name="diagnostics_server_api">API сервера</string>
+    <string name="diagnostics_server_context">Контекст сервера</string>
     <string name="diagnostics_wireless_debugging">Беспроводная отладка</string>
+    <string name="diagnostics_adb_port">Порт ADB</string>
+    <string name="diagnostics_wifi">Wi-Fi</string>
     <string name="diagnostics_local_network">Локальная сеть</string>
     <string name="diagnostics_battery">Оптимизация батареи</string>
+    <string name="diagnostics_app">Приложение</string>
+    <string name="diagnostics_android">Android</string>
     <string name="diagnostics_device">Устройство</string>
+    <string name="diagnostics_started_with">Запущен с</string>
+    <string name="diagnostics_default">Способ запуска по умолчанию</string>
     <string name="diagnostics_hiding">Скрытие</string>
+    <string name="diagnostics_phantom">Process Killer</string>
+    <string name="diagnostics_root">Root</string>
+    <string name="diagnostics_granted">разрешено</string>
+    <string name="diagnostics_missing">отсутствует</string>
+    <string name="diagnostics_not_required">не требуется</string>
+    <string name="diagnostics_connected">подключено</string>
+    <string name="diagnostics_not_connected">не подключено</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
+    <string name="diagnostics_battery_optimized">оптимизировано</string>
+    <string name="diagnostics_battery_unrestricted">без ограничений</string>
+    <string name="diagnostics_available">доступно</string>
+    <string name="diagnostics_unavailable">недоступно</string>
+    <string name="diagnostics_closed">закрыто</string>
     <!-- Adb -->
     <string name="dialog_adb_port">Порт</string>
     <string name="dialog_adb_invalid_port">Введите номер порта от 1 до 65535.</string>
@@ -36,7 +64,9 @@
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
+    <string name="dialog_adb_pairing_accessibility_permission">Андроид блокирует этот переключатель для приложений, установленных не из магазина приложений. Разрешите ^1 включить службу специальных возможностей. В списке это отображается как \"Управление ограниченными настройками\".\n\nОткройте информацию о приложении и выберите «Разрешить ограниченные настройки» из меню, или запустите на компьютере:\n\n^2\n\nлибо опция работает. После этого переключатель будет работать.</string>
     <string name="dialog_adb_pairing_open_app_info">Информация о приложении</string>
+    <string name="dialog_adb_pairing_accessibility_enable">Автоматическое связывание считывает код из системного диалога через сервис специальных возможностей Shizuku, поэтому он должен быть включен, и только до тех пор, пока это необходимо: сервис выключится после того, как код будет найден, или через минуту для экономии энергии. Shizuku обычно включает его самостоятельно, но для этого требуется разрешение WRITE_SECURE_SETTINGS, которое еще не предоставлено.\n\nВключите его на следующем экране, введите код самостоятельно в ручном режиме, или предоставит разрешение один раз:\n\nadb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Чтобы начать сопряжение, выполните следующие действия:\n- Откройте «Параметры разработчика»\n- Включите «Отладку по USB» и «Беспроводную отладку»\n- Нажмите левую часть пункта «Беспроводная отладка»\n- Нажмите «Сопрячь устройство с кодом сопряжения». Shizuku автоматически обнаружит код сопряжения.</string>
     <string name="adb_pairing_requires_multi_window">Сначала включите режим разделённого экрана.</string>
     <string name="adb_pairing_requires_multi_window_reason">Система требует, чтобы диалог сопряжения всегда оставался видимым. Режим разделённого экрана — единственный способ одновременно отображать это приложение и системный диалог.</string>
@@ -78,6 +108,8 @@
     <string name="home_dialog_duplicate_app_detected_title">Обнаружена копия приложения</string>
     <string name="home_dialog_duplicate_app_detected_message">На устройстве установлена другая версия этого приложения. Чтобы продолжить, удалите все копии приложения и перезагрузите устройство.</string>
     <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
+    <string name="home_permission_owned_by">Приложения запрашивают доступ к Shizuku, и Android говорит %1$s объявляет что это копия Shizuku или то, что от неё осталось. Эти приложения будут запрашивать доступ именно к этой копии до тех пор, пока она не будет удалена и устройство не будет перезагружено.</string>
+    <string name="home_permission_not_registered">Приложения ищут Shizuku с разрешения разработчика, но Android еще не зарегистрировал его, поэтому переустановка может оставить это без изменений до перезагрузки устройства. Само приложение Shizuku остается неизменным; другие приложения могут его не найти.</string>
     <string name="home_dialog_button_exit">Выйти</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">Разрешения ADB ограничены</string>
@@ -120,6 +152,7 @@
     <string name="hiding_gate_disabled">Отключён</string>
     <string name="hiding_gate_kept">Сохранено %1$d</string>
     <string name="hiding_filter_hidden">Скрытые</string>
+    <string name="hiding_open_with_hiding">Открыть, скрыв настройки</string>
     <string name="hiding_filter_shown">Видимо</string>
     <string name="hiding_filter_empty">Ничего не скрыто.</string>
     <string name="hiding_restore">Восстановить</string>
@@ -128,6 +161,7 @@
     <string name="hiding_signal_wireless_debugging">Беспроводная отладка</string>
     <string name="hiding_signal_accessibility">Службы специальных возможностей</string>
     <string name="hiding_signal_private_dns">Частный DNS</string>
+    <string name="hiding_signal_vpn">VPN</string>
     <string name="hiding_vpn_client">VPN-клиент для скрытия</string>
     <string name="tab_force_dark">Темный режим</string>
     <string name="force_dark_gate">Принудительный темный режим</string>
@@ -156,6 +190,7 @@
     <string name="activities_detail_state">Состояние</string>
     <string name="activities_open">Открыть</string>
     <string name="activities_copy">Копировать</string>
+    <string name="activities_edit_as_intent">Намеренно изменить</string>
     <string name="activities_copied">Скопировано</string>
     <string name="tab_intent_builder">Конструктор Intent</string>
     <string name="intent_builder_note">Создание и отправка Intent. Вы можете настроить его action, data, type, component, categories, extras и flags. Также можно загрузить Intent из URI вида intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end. Этот формат используется в Activity Launcher и большинстве средств автоматизации. Загрузка заполнит поля, чтобы вы могли проверить и отредактировать их перед отправкой.</string>
@@ -168,6 +203,15 @@
     <string name="intent_component">Компонент</string>
     <string name="intent_package">Пакет</string>
     <string name="intent_categories">Категории</string>
+    <string name="intent_operation_activity">Начать работу</string>
+    <string name="intent_operation_broadcast">Передача сообщения</string>
+    <string name="intent_choose_activity">Выберите действие</string>
+    <string name="intent_picking">Коснитесь действия для заполнения компонента.</string>
+    <string name="intent_targets">Ответил %1$d %2$s</string>
+    <string name="intent_targets_none">Ничто в этом устройстве не отвечает этому запросу.</string>
+    <string name="intent_send_broadcast">Передача сообщения</string>
+    <string name="intent_broadcast_refused">Трансляция не может быть отправлена.</string>
+    <string name="intent_extras">Дополнительно</string>
     <string name="intent_extra_add">Добавить extra</string>
     <string name="intent_extra_remove">Удалить этот extra</string>
     <string name="intent_key">Ключ</string>
@@ -177,6 +221,7 @@
     <string name="intent_nothing">Укажите action, data, пакет или компонент для намерения (Intent).</string>
     <string name="intent_refused">Не удалось запустить намерение (Intent).</string>
     <string name="intent_flag_clear_top">Очистить верх (top)</string>
+    <string name="intent_flag_single_top">Одиночное нажатие</string>
     <string name="intent_flag_clear_task">Очистить задачу</string>
     <string name="intent_flag_new_document">Новый документ</string>
     <string name="intent_flag_no_animation">Без анимации</string>
@@ -226,12 +271,14 @@
     <string name="device_history_temperature">Температура</string>
     <string name="device_system">Система</string>
     <string name="device_model">Модель</string>
+    <string name="device_android">Android</string>
     <string name="device_kernel">Ядро</string>
     <string name="device_abi">Архитектура</string>
     <string name="device_cores">Ядра ЦП</string>
     <string name="device_uptime">Время работы</string>
     <string name="device_memory">Память</string>
     <string name="device_storage">Хранилище</string>
+    <string name="device_shizuku">Shizuku</string>
     <string name="device_server">Сервер</string>
     <string name="device_start_method">Кем запущен</string>
     <string name="device_transport">Транспорт</string>
@@ -255,7 +302,10 @@
     <string name="log_cleared">Журнал очищен</string>
     <string name="log_saved">Сохранено как %1$s в папку приложения в общем хранилище</string>
     <string name="log_nothing_to_save">Нечего сохранять.</string>
+    <string name="log_share_failed">Не удалось поделиться логами</string>
     <string name="log_pulled">Извлечено строк из logcat: %1$d</string>
+    <string name="log_tab_app">Это приложение</string>
+    <string name="log_tab_capture">Запись</string>
     <string name="log_tab_saved">Сохранено</string>
     <string name="log_capture_start">Запустить</string>
     <string name="log_capture_stop">Остановить</string>
@@ -312,6 +362,7 @@
     <string name="modules_sort">Сортировка</string>
     <string name="modules_action_stop">Остановить</string>
     <string name="modules_action_short">Действие</string>
+    <string name="modules_service_short">Служба</string>
     <string name="modules_service_running_short">Запущено</string>
     <string name="modules_delete">Удалить</string>
     <string name="tools_terminal">Терминальные приложения</string>
@@ -405,7 +456,6 @@
     <string name="stealth_uninstall_message">Система предложит удалить Shizuku. Затем установите клон.</string>
     <string name="stealth_uninstall">Удалить</string>
     <string name="stealth_hide">Скрыть</string>
-    <string name="stealth_unhide">Показать</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">Запускать при загрузке</string>
     <string name="settings_use_system_color">Использовать системные цвета</string>
@@ -419,6 +469,7 @@
     <string name="start_method_wireless_no_network">Без Wi-Fi</string>
     <string name="start_method_wireless">Беспроводная отладка</string>
     <string name="start_method_system">Система</string>
+    <string name="transport_adb">adb</string>
     <string name="settings_adb_without_developer_options">Отключить параметры разработчика</string>
     <string name="settings_adb_without_developer_options_summary">Отключает параметры разработчика, но сохраняет необходимые Shizuku настройки ADB. Shizuku продолжит работать, а эти настройки будут восстанавливаться после каждой перезагрузки.</string>
     <string name="start_failed_developer_options_off">Параметры разработчика отключены, поскольку включён ADB без параметров разработчика</string>
@@ -485,6 +536,7 @@
       so the singular is read more often than the plural is.
     -->
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
+    <string name="contributor_area_app">Приложение</string>
     <string name="contributor_area_server">Сервер</string>
     <string name="contributor_area_build">Сборка</string>
     <!--

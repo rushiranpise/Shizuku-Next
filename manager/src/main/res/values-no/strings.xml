@@ -474,7 +474,6 @@
     <string name="stealth_uninstall_message">Systemet vil nå be deg om å avinstallere Shizuku. Deretter installere klonen.</string>
     <string name="stealth_uninstall">Avinstaller</string>
     <string name="stealth_hide">Skjul</string>
-    <string name="stealth_unhide">Unhide</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">Start på oppstart</string>
     <string name="settings_use_system_color">Bruk systemtemafargen</string>

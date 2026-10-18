@@ -81,8 +81,7 @@
     <string name="adb_pairing_tutorial_content_notification">一条来自 Shizuku 的通知将帮助你完成配对。</string>
     <string name="adb_pairing_tutorial_content_steps">进入“开发者选项”，然后启用“USB 调试”和“无线调试”。</string>
     <string name="adb_pairing_tutorial_content_enter_pairing_code">点击“无线调试”左侧，然后点击“使用配对码配对设备”。输入通知中的代码以完成配对。</string>
-    <string name="adb_pairing_tutorial_content_notification_blocked">配对过程需要你与 Shizuku 的通知交互。请允许
- Shizuku 发布通知。</string>
+    <string name="adb_pairing_tutorial_content_notification_blocked">配对过程需要你与 Shizuku 的通知交互。请允许 Shizuku 发布通知。</string>
     <string name="adb_pairing_tutorial_content_miui">MIUI 用户可能需要在系统设置中从“通知管理”-“通知显示设置”将通知样式切换为“原生样式”。</string>
     <string name="adb_pairing_tutorial_content_miui_2">否则，你可能无法在通知中输入配对码。</string>
     <string name="adb_pairing_tutorial_content_finish">回到 Shizuku 并启动 Shizuku。</string>
@@ -196,8 +195,8 @@
     <string name="intent_uri_load">加载到各字段</string>
     <string name="intent_uri_invalid">这不是有效的 Intent URI。</string>
     <string name="intent_action">Action</string>
-    <string name="intent_data">数据</string>
-    <string name="intent_type">类型</string>
+    <string name="intent_data">Data</string>
+    <string name="intent_type">Type</string>
     <string name="intent_component">组件</string>
     <string name="intent_package">应用包名</string>
     <string name="intent_categories">Categories</string>
@@ -310,7 +309,7 @@
     <string name="log_capture_device">整个设备</string>
     <string name="log_capture_choose">要记录日志的应用</string>
     <string name="log_capture_choose_hint">搜索应用</string>
-    <string name="log_capture_running">正在录制 %1$s · %2$d 行 · %3$s</string>
+    <string name="log_capture_running">正在记录 %1$s · %2$d 行 · %3$s</string>
     <string name="log_capture_idle">当前未在记录。</string>
     <string name="log_capture_waiting">正在记录。尚未记录到日志。</string>
     <string name="log_capture_empty">还没有任何记录。</string>
@@ -343,7 +342,7 @@
     <string name="hiding_resume">恢复隐藏</string>
     <string name="hiding_start_again">重新开始</string>
     <string name="hiding_notification_stopped_title">隐藏已停止</string>
-    <string name="hiding_notification_stopped_text">Shizuku 未运行，隐藏功能无法检测当前打开的应用。所有已隐藏的设置均已恢复。</string>
+    <string name="hiding_notification_stopped_text">Shizuku 未运行，隐藏功能无法检测当前打开的应用。所有已隐藏的设置均已还原。</string>
     <string name="hiding_carries_session_wireless">未应用：Shizuku 正在使用无线调试，隐藏它会停止 Shizuku。</string>
     <string name="hiding_carries_session_usb">未应用：Shizuku 正在使用 USB 调试，隐藏它会停止 Shizuku。</string>
     <string name="tab_settings">设置</string>
@@ -547,8 +546,8 @@
     <!-- Stealth -->
     <string name="stealth_description">对检测到 Shizuku 安装便拒绝运行的应用隐藏 Shizuku。会导出一个使用不同包名的分身供你安装。</string>
     <string name="stealth_warning_compatibility">一些使用 Shizuku 的应用可能在隐藏时无法工作，因为它们试图检测 Shizuku 是否已安装。</string>
-    <string name="stealth_warning_compatibility_2">临时取消隐藏可以绕过检测，恢复时会以原包名安装一个占位应用。用完之后可以重新隐藏。</string>
-    <string name="stealth_warning_compatibility_3">点按此卡片可复制一段代码，发给应用开发者，他们的 \"已安装 Shizuku\" 检测在 Shizuku 隐藏后就能正常工作。</string>
+    <string name="stealth_warning_compatibility_2">你可以暂时取消隐藏 Shizuku 作为替代方案，这会以原包名安装一个占位应用。用完之后可以重新隐藏 Shizuku。</string>
+    <string name="stealth_warning_compatibility_3">点按此卡片可复制一段代码，发给应用开发者，他们的“已安装 Shizuku”检测在 Shizuku 隐藏后就能正常工作。</string>
     <string name="stealth_warning_detection">即使隐藏 Shizuku，部分应用仍可能检测到它。</string>
     <string name="stealth_info_reconfigure">安装隐藏版本后，你需要重新配对并重新配置 Shizuku。</string>
     <string name="stealth_info_rish">Rish 用户：安装隐藏版本后重新导出文件。</string>
@@ -567,7 +566,6 @@
     <string name="stealth_uninstall_message">系统现在会提示你卸载 Shizuku。之后再安装分身。</string>
     <string name="stealth_uninstall">卸载</string>
     <string name="stealth_hide">隐藏</string>
-    <string name="stealth_unhide">取消隐藏</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">开机自启</string>
     <string name="settings_use_system_color">使用系统主题颜色</string>
@@ -585,12 +583,12 @@
     <string name="start_method_root">Root</string>
     <string name="transport_adb">adb</string>
     <string name="settings_adb_without_developer_options">关闭开发者选项</string>
-    <string name="settings_adb_without_developer_options_summary">关闭开发者选项，但保留 Shizuku 需要的 ADB 设置。Shizuku 会继续工作，这些设置在每次重启后恢复。</string>
+    <string name="settings_adb_without_developer_options_summary">关闭开发者选项，但保留 Shizuku 需要的 ADB 设置。Shizuku 会继续工作，这些设置在每次重启后还原。</string>
     <string name="start_failed_developer_options_off">开发者选项已关闭，因为启用了无开发者选项的 ADB</string>
     <string name="action_turn_on_developer_options">打开开发者选项</string>
     <string name="toast_developer_options_required">关闭无开发者选项的 ADB</string>
     <string name="settings_adb_without_developer_options_confirm_title">关闭开发者选项？</string>
-    <string name="settings_adb_without_developer_options_confirm_message">重启后，Shizuku 会继续工作并恢复其 ADB 设置。你将无法打开开发者选项来更改 USB 或无线调试设置，也无法配对新设备。要关闭开发者选项吗？</string>
+    <string name="settings_adb_without_developer_options_confirm_message">重启后，Shizuku 会继续工作并还原其 ADB 设置。你将无法打开开发者选项来更改 USB 或无线调试设置，也无法配对新设备。要关闭开发者选项吗？</string>
     <string name="settings_adb_without_developer_options_confirm">关闭</string>
     <string name="settings_adb_without_developer_options_failed">Shizuku 无法更改设置。请先在权限页面授予 WRITE_SECURE_SETTINGS。</string>
     <string name="settings_wait_for_wifi">等待 Wi-Fi</string>
@@ -649,7 +647,7 @@
     <string name="permissions_battery_summary">防止 Android 在后台终止 Shizuku。</string>
     <string name="settings_help">帮助</string>
     <string name="settings_translate">参与翻译</string>
-    <string name="settings_translate_note">在 Crowdin 上翻译此应用</string>
+    <string name="settings_translate_note">在 Crowdin 上翻译此应用。</string>
     <string name="crowdin_url">https://crowdin.com/project/Shizuku-Next</string>
     <string name="settings_report_bug">报告错误</string>
     <string name="settings_support_coffee">请我喝杯咖啡</string>
@@ -850,7 +848,7 @@
     <string name="off">关闭</string>
     <string name="dialog_cannot_open_browser_title">无法启动浏览器</string>
     <string name="toast_copied_to_clipboard">已复制到剪贴板</string>
-    <string name="accessibility_service_description">为无法使用通知或分屏功能的设备（例如，运行 Android 14 及更高版本的电视）提供配对支持。\n\n使 Shizuku 能够从无线调试配对屏幕中提取配对码。找到配对码后，它将自动禁用。</string>
+    <string name="accessibility_service_description">无需输入配对码即可完成无线调试配对。\n\nShizuku 会从系统的“与设备配对”界面读取配对码和端口，完成配对并自行启动。在电视（例如 Android 14+）上，无障碍服务会自动完成整个流程，并在找到配对码后关闭。</string>
     <!-- Messages for legacy -->
     <string name="dialog_legacy_not_support_title">%1$s 不支持新版 Shizuku</string>
     <string name="dialog_legacy_not_support_message"><![CDATA[旧版 Shizuku 已于 2019 年 3 月被弃用。此外，旧版 Shizuku 无法在较新版本的 Android 系统上工作。<p>请要求 <b>%1$s</b> 的开发者进行更新。]]></string>
@@ -946,8 +944,8 @@
     <string name="app_action_clear_data_note">删除其文件、设置和帐户。</string>
     <string name="app_action_uninstall">为此用户卸载</string>
     <string name="app_action_uninstall_note">移除应用但保留其数据。</string>
-    <string name="app_action_restore">恢复系统应用</string>
-    <string name="app_action_restore_note">为此用户恢复被移除的系统应用。</string>
+    <string name="app_action_restore">还原系统应用</string>
+    <string name="app_action_restore_note">为此用户还原被移除的系统应用。</string>
     <string name="app_confirm_title">你确定吗？</string>
     <string name="app_confirm_disable">停用 %1$s？它会停止运行，直到你重新启用。</string>
     <string name="app_confirm_clear_data">删除 %1$s 的所有数据？此操作无法撤销。</string>
@@ -1080,7 +1078,7 @@
     <string name="install_instant">安装为即时应用</string>
     <string name="install_instant_desc">无需安装完整应用，也不会添加到启动器。</string>
     <string name="install_rollback">保留回滚版本</string>
-    <string name="install_rollback_desc">保留之前的版本，以便日后恢复。</string>
+    <string name="install_rollback_desc">保留之前的版本，以便日后还原。</string>
     <string name="install_ignore_dexopt">忽略 dexopt 配置</string>
     <string name="install_ignore_dexopt_desc">优化时不使用该应用的配置文件。</string>
     <string name="install_dexopt">Dexopt</string>
