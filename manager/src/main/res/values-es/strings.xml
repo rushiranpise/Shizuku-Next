@@ -6,15 +6,45 @@
       a change here reaches translators on the next push and not before.
     -->
     <!-- To translators: you can leave your here -->
+    <string name="home_status_adb_wireless">adb</string>
+    <string name="home_status_adb_usb">adb</string>
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Iniciar vía Depuración inalámbrica]]></string>
     <string name="home_wireless_adb_summary">\"Iniciar usando depuración inalambrica.\"</string>
     <string name="home_usb_adb_title"><![CDATA[Iniciar por depuración USB]]></string>
     <string name="home_usb_adb_summary">Iniciar usando depuración USB.</string>
+    <string name="diagnostics_title">Diagnostico</string>
+    <string name="diagnostics_copy">Copiar diagnostico</string>
+    <string name="diagnostics_copied">Diagnóstico copiado</string>
+    <string name="diagnostics_service">Servicio</string>
+    <string name="diagnostics_server_uid">Servidor uid</string>
+    <string name="diagnostics_server_context">Contexto del servidor</string>
+    <string name="diagnostics_adb_port">Puerto ADB</string>
+    <string name="diagnostics_wifi">Wi-Fi</string>
+    <string name="diagnostics_local_network">Red local</string>
+    <string name="diagnostics_battery">Optimización de bateria</string>
+    <string name="diagnostics_app">App</string>
+    <string name="diagnostics_android">Android</string>
+    <string name="diagnostics_device">Dispositivo</string>
+    <string name="diagnostics_started_with">Iniciado por</string>
+    <string name="diagnostics_default">Método por defecto</string>
+    <string name="diagnostics_hiding">Ocultación</string>
+    <string name="diagnostics_phantom">Killer de procesos</string>
+    <string name="diagnostics_root">Root</string>
+    <string name="diagnostics_granted">permitido</string>
+    <string name="diagnostics_missing">ausente</string>
+    <string name="diagnostics_not_required">no requirido</string>
+    <string name="diagnostics_connected">conectado</string>
+    <string name="diagnostics_not_connected">no conectado</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
+    <string name="diagnostics_battery_optimized">optimizado</string>
+    <string name="diagnostics_battery_unrestricted">irrenstringido</string>
+    <string name="diagnostics_available">disponible</string>
+    <string name="diagnostics_unavailable">no disponible</string>
+    <string name="diagnostics_closed">cerrado</string>
     <!-- Adb -->
     <string name="dialog_adb_port">Puerto</string>
     <string name="dialog_adb_invalid_port">Puerto es un número del 1 al 65535.</string>
@@ -36,6 +66,7 @@
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
+    <string name="dialog_adb_pairing_open_app_info">Información de App</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Para iniciar el emparejamiento, siga
         estos pasos:\n- Vaya a \"Opciones de desarrollador\"\n- Habilite \"Depuración USB\" y
         \"Depuración inalámbrica\"\n- Toque el lado izquierdo de \"Depuración inalámbrica\"\n- Toque
@@ -51,6 +82,7 @@
     <string name="adb_error_stop_tcp">No se pudo detener ADB sobre TCP</string>
     <string name="adb_pair_required">Por favor, ve al paso de emparejamiento primero.</string>
     <string name="enable">Permitir</string>
+    <string name="auto_pair_manual">Manual</string>
     <string name="development_settings">Opciones para desarrolladores</string>
     <string name="notification_settings">Opciones de notificación</string>
     <string name="adb_pairing_tutorial_content_notification">Una notificación de Shizuku te ayudará
@@ -89,6 +121,8 @@
     <!-- Home - Learn more -->
     <!-- Home - Adb permissions limited -->
     <!-- Home - Dialogs -->
+    <string name="home_dialog_reboot_required_title">Reinicio requirido</string>
+    <string name="home_dialog_duplicate_app_detected_title">Duplicar app detectada</string>
     <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
     <string name="home_dialog_button_exit">Salir</string>
     <!-- Application management -->
@@ -96,15 +130,60 @@
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Es muy posible que el fabricante de su dispositivo haya limitado el permiso de ADB.<p>Puede que encuentre una solución para su sistema en <b><a href="%1$s">este documento</a></b>.]]></string>
     <string name="app_management_toggle_all">Activar/desactivar todo</string>
     <string name="app_management_search_hint">Buscar aplicaciones</string>
+    <string name="app_management_sort">Clasificar</string>
+    <string name="apps_empty">No hay apps</string>
+    <string name="apps_filter_empty">No hay Apps en este filtro</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="hiding_signal_wireless_debugging">Depuración inalambrica</string>
+    <string name="hiding_signal_accessibility">Servicio de accesibilidad</string>
+    <string name="hiding_signal_private_dns">Dns Privado</string>
+    <string name="hiding_signal_vpn">VPN</string>
+    <string name="hiding_vpn_client">Cliente VPN para ocultar</string>
+    <string name="tab_force_dark">Forzar modo oscuro</string>
+    <string name="force_dark_gate">Forzar modo oscuro</string>
+    <string name="force_dark_gate_disabled">Forzar modo oscuro esta desactivado</string>
+    <string name="force_dark_count">%1$d forzado</string>
     <string name="force_dark_filter_forced">Forzar</string>
     <string name="force_dark_filter_not">No forzar</string>
+    <string name="force_dark_empty">No hay nada forzado oscuro.</string>
+    <string name="force_dark_system_theme">Tema del sistema en su lugar</string>
+    <string name="force_dark_toggled">Cerro la aplicación forzado</string>
+    <string name="force_dark_notification_title">Forzar modo oscuro esta activado</string>
+    <string name="tab_activities">Activities Launcher</string>
+    <string name="activities_apps_count">%1$d apps</string>
+    <string name="activities_count">%1$d actividades</string>
+    <string name="activities_launcher">Launcher</string>
+    <string name="activities_exported">Exportado</string>
+    <string name="activities_not_exported">No exportado</string>
+    <string name="activities_detail_package">Paquete</string>
+    <string name="activities_detail_activity">Actividad</string>
+    <string name="activities_detail_state">Estado</string>
+    <string name="activities_open">Abrir</string>
+    <string name="activities_copy">Copiar</string>
+    <string name="activities_edit_as_intent">Editar este intent</string>
+    <string name="activities_copied">Copiado</string>
+    <string name="tab_intent_builder">Fabricador de intent</string>
+    <string name="intent_uri">Intent URI</string>
+    <string name="intent_action">Accion</string>
+    <string name="intent_data">Data</string>
+    <string name="intent_type">Tipo</string>
+    <string name="intent_component">Componente</string>
+    <string name="intent_package">Paquete</string>
+    <string name="intent_categories">Categoria</string>
+    <string name="intent_operation_activity">Iniciar una actividad</string>
+    <string name="intent_operation_broadcast">Mandar a broadcast</string>
+    <string name="intent_choose_activity">Elige una actividad</string>
+    <string name="intent_send_broadcast">Enviar broadcast</string>
     <string name="intent_start">Iniciar</string>
     <string name="device_watchdog">Perro guardián</string>
     <string name="log_capture_start">Iniciar</string>
     <string name="log_capture_choose_hint">Buscar aplicaciones</string>
     <string name="action_start">Iniciar</string>
+    <string name="catalog_filter_sort">Clasificar</string>
     <string name="modules_repo_retry">Reintentar</string>
+    <string name="modules_sort">Clasificar</string>
+    <string name="modules_action_short">Accion</string>
+    <string name="modules_service_short">Servicio</string>
     <string name="intents_start">Iniciar</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Los usuarios han informado que MIUI rompe el Storage
@@ -126,6 +205,7 @@
     <string name="settings_start_on_boot">Iniciar al arrancar</string>
     <string name="settings_watchdog">Perro guardián</string>
     <string name="settings_watchdog_summary">Reiniciar automáticamente Shizuku si falla</string>
+    <string name="transport_adb">adb</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
     <string name="settings_tcp_mode">Modo TCP</string>
@@ -149,6 +229,7 @@
       so the singular is read more often than the plural is.
     -->
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
+    <string name="contributor_area_app">App</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
       worked in, and the languages they translated into. There is deliberately no string per
@@ -242,5 +323,7 @@
     <!-- One app, and what it may do on the device -->
     <string name="app_op_mode_deny">Denegar</string>
     <string name="app_action_enable">Permitir</string>
+    <string name="files_root_app_data">Data</string>
+    <string name="files_sort">Clasificar</string>
     <string name="install_location_auto">Opciones para desarrolladores</string>
 </resources>

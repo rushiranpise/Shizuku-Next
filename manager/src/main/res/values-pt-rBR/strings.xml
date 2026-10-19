@@ -486,6 +486,7 @@
     <string name="intents_adb_command">Comece através do Computador</string>
     <string name="intents_status_broadcast">Transmissão de status</string>
     <string name="intents_status_broadcast_extra">status extra: 1 = em execução, 0 = não está</string>
+    <string name="intents_package">Pacote</string>
     <string name="home_battery_warning">O Shizuku pode ser encerrado em segundo plano. Permita que ignore as otimizações de bateria.</string>
     <string name="batch_selected_count">%1$d selecionado</string>
     <string name="app_management_action_select_all">Selecionar todos</string>
@@ -669,7 +670,6 @@
     <string name="bug_report_dialog_issues">Pesquise em todos os relatórios ^1 para ver se o seu bug
         já foi reportado.</string>
     <string name="bug_report_dialog_link_issues">problemas existentes</string>
-    <string name="bug_report_dialog_body_prompt">Por favor, descreva o bug. Inclua, se possível, os passos para reproduzi-lo, bem como quaisquer imagens ou registros relevantes.</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Desative a otimização da bateria para
         utilizar esta funcionalidade.</string>

@@ -14,7 +14,9 @@
     <string name="home_wireless_adb_summary">Bắt đầu bằng cách sử dụng gỡ lỗi không dây.</string>
     <string name="home_usb_adb_title"><![CDATA[Khởi chạy qua gỡ lỗi USB]]></string>
     <string name="home_usb_adb_summary">Bắt đầu sử dụng gỡ lỗi USB\".\".</string>
-    <string name="home_support_body">Shizuku-Next là ứng dụng miễn phí và không có quảng cáo. Bạn chỉ cần mua một ly cà phê để trang trải chi phí duy trì ứng dụng.</string>
+    <string name="home_support_body">Shizuku-Next miễn phí và không có quảng cáo. Một ly cà phê sẽ giúp nhà phát triển có thêm thời gian duy trì ứng dụng.</string>
+    <string name="diagnostics_title">Chẩn đoán</string>
+    <string name="diagnostics_copy">Sao chép chẩn đoán</string>
     <string name="diagnostics_wireless_debugging">Gỡ lỗi không dây</string>
     <string name="diagnostics_device">Thiết bị</string>
     <string name="diagnostics_default">Phương thức mặc định</string>
@@ -117,22 +119,25 @@
     <string name="hiding_notification_stopped_text">Shizuku hiện không chạy, do đó tính năng ẩn không thể phát hiện ứng dụng nào đang mở. Tất cả cài đặt ẩn đã được khôi phục.</string>
     <string name="hiding_carries_session_wireless">Không áp dụng: Shizuku sử dụng gỡ lỗi không dây, vì vậy việc ẩn tính năng này sẽ làm dừng Shizuku.</string>
     <string name="hiding_carries_session_usb">Không áp dụng: Shizuku sử dụng gỡ lỗi USB, vì vậy việc ẩn tính năng này sẽ làm dừng Shizuku.</string>
-    <string name="home_status_transport_label">Phương thức kết nối</string>
-    <string name="home_status_started_with">Hiện tại</string>
+    <string name="home_status_transport_label">Kết nối</string>
+    <string name="home_status_started_with">Đang dùng</string>
     <string name="home_status_started_default">Mặc định</string>
-    <string name="home_device_manager_version">Phiên bản Shizuku-next</string>
+    <string name="home_device_manager_version">Phiên bản ứng dụng</string>
     <string name="home_device_android_version">Phiên bản Android</string>
     <string name="home_device_kernel_version">Phiên bản nhân</string>
+    <string name="home_device_model">Mẫu thiết bị</string>
     <string name="home_device_selinux">Trạng thái SELinux</string>
     <string name="home_device_seccomp">Trạng thái Seccomp</string>
     <string name="seccomp_disabled">Đã vô hiệu hóa</string>
     <string name="seccomp_strict">Nghiêm ngặt</string>
     <string name="seccomp_filter">Bộ lọc</string>
+    <string name="status_running_short">Đang chạy</string>
     <string name="status_stopped_short">Đã dừng</string>
     <string name="action_start">Bắt đầu</string>
     <string name="modules_repo_retry">Thử lại</string>
     <string name="modules_trust_confirm_message">Các lệnh của module này sẽ chạy mà không hiển thị trước cho bạn biết, bất kể chúng đến từ hành động, dịch vụ hay giao diện WebUI của chính nó. Mọi thứ khác vẫn giữ nguyên: module vẫn bị tắt bằng công tắc kích hoạt, và đầu ra của nó vẫn bị giới hạn cũng như tự động dừng theo thời gian thiết lập. Chỉ tin tưởng module mà bạn đã đọc và hiểu rõ.</string>
     <string name="modules_action_stop">Dừng</string>
+    <string name="modules_service_running_short">Đang chạy</string>
     <string name="modules_service_stop">Dừng dịch vụ</string>
     <string name="check_for_updates_now">Kiểm tra</string>
     <string name="start_failed_write_secure_settings">Shizuku không thể tự bật gỡ lỗi không dây nếu thiếu quyền WRITE_SECURE_SETTINGS. Hãy tự bật tính năng này trong Tùy chọn nhà phát triển > Gỡ lỗi không dây, hoặc cấp quyền bằng lệnh <b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Khi Shizuku đã chạy, ứng dụng sẽ tự duy trì quyền đó nên bạn chỉ cần thực hiện việc này một lần.</string>
@@ -226,8 +231,8 @@
       filled with the area names above and with language names the platform already localises.
     -->
     <string name="contributor_summary_default">Người đóng góp</string>
-    <string name="settings_legacy_pairing">Cặp đôi di sản</string>
-    <string name="settings_legacy_pairing_summary">Nhập mã ghép nối vào hộp thoại thay vì thông báo</string>
+    <string name="settings_legacy_pairing">Ghép nối kiểu cũ</string>
+    <string name="settings_legacy_pairing_summary">Nhập mã ngay trong ứng dụng thay vì thông báo, cần chia đôi màn hình</string>
     <!-- Bug Report Dialog -->
     <string name="bug_report_dialog_before_reporting">Trước tiên, vui lòng thực hiện các bước sau:</string>
     <string name="bug_report_dialog_update">Hãy kiểm tra xem bạn có đang sử dụng ^1 hay không.</string>
@@ -257,7 +262,7 @@
     <!-- Start/Stop -->
     <string name="start">Bắt đầu</string>
     <string name="action_stop">Dừng</string>
-    <string name="action_restart">Khởi động lại</string>
+    <string name="action_restart">Chạy lại</string>
     <!-- Notification -->
     <string name="notification_channel_adb_pairing">Ghép nối gỡ lỗi không dây</string>
     <string name="notification_adb_pairing_input_paring_code">Nhập mã ghép nối</string>

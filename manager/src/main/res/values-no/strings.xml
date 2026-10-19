@@ -427,6 +427,7 @@
     <string name="intents_watchdog_off">Vakthund av</string>
     <string name="intents_watchdog_toggle">Vakthund veksling</string>
     <string name="intents_adb_command">Start via datamaskinen</string>
+    <string name="intents_package">Pakke</string>
     <string name="home_battery_warning">Shizuku kan bli drept i bakgrunnen. Tillat den å ignorere batterioptimaliseringer.</string>
     <string name="batch_selected_count">%1$d valgt</string>
     <string name="app_management_action_select_all">Velg alle</string>

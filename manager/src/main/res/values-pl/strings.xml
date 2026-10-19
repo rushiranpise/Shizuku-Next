@@ -428,6 +428,7 @@
     <string name="intents_watchdog_off">Watchdog wyłączony</string>
     <string name="intents_watchdog_toggle">Przełącznik Watchdog</string>
     <string name="intents_adb_command">Uruchom przez komputer</string>
+    <string name="intents_package">Pakiet</string>
     <string name="home_battery_warning">Shizuku może być zabity w tle. Pozwól mu zignorować optymalizację baterii.</string>
     <string name="batch_selected_count">%1$d zaznaczone</string>
     <string name="app_management_action_select_all">Zaznacz wszystkie</string>

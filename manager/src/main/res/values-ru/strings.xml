@@ -416,6 +416,7 @@
     <string name="intents_watchdog_off">Сторожевой таймер выключен</string>
     <string name="intents_watchdog_toggle">Переключить сторожевой таймер</string>
     <string name="intents_adb_command">Запуск с компьютера</string>
+    <string name="intents_package">Пакет</string>
     <string name="home_battery_warning">Shizuku может быть завершён в фоновом режиме. Разрешите ему игнорировать оптимизацию батареи.</string>
     <string name="batch_selected_count">Выбрано: %1$d</string>
     <string name="app_management_action_select_all">Выбрать все</string>

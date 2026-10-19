@@ -406,6 +406,7 @@
     <string name="intents_watchdog_off">Watchdog vypnut</string>
     <string name="intents_watchdog_toggle">Přepínač Watchdog</string>
     <string name="intents_adb_command">Spustit přes počítač</string>
+    <string name="intents_package">Balík</string>
     <string name="home_battery_warning">Šizuku může být ukončeno na pozadí. Umožňuje ignorovat optimalizaci baterie.</string>
     <string name="batch_selected_count">%1$d vybráno</string>
     <string name="app_management_action_select_all">Vybrat vše</string>

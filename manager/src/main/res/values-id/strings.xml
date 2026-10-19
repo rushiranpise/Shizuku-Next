@@ -21,12 +21,35 @@
     <string name="diagnostics_copy">Salin diagnosis</string>
     <string name="diagnostics_copied">Diagnosis disalin</string>
     <string name="diagnostics_service">Layanan</string>
+    <string name="diagnostics_server_uid">Server uid</string>
+    <string name="diagnostics_server_api">Server API</string>
+    <string name="diagnostics_server_context">Server context</string>
+    <string name="diagnostics_wireless_debugging">Wireless debugging</string>
+    <string name="diagnostics_adb_port">ADB port</string>
+    <string name="diagnostics_wifi">Wi-Fi</string>
+    <string name="diagnostics_local_network">Local network</string>
     <string name="diagnostics_battery">Optimalisasi baterai</string>
+    <string name="diagnostics_app">App</string>
+    <string name="diagnostics_android">Android</string>
+    <string name="diagnostics_device">Device</string>
     <string name="diagnostics_started_with">Dimulai dengan</string>
     <string name="diagnostics_default">Metode bawaan</string>
+    <string name="diagnostics_hiding">Hiding</string>
+    <string name="diagnostics_phantom">Process killer</string>
+    <string name="diagnostics_root">Root</string>
+    <string name="diagnostics_granted">granted</string>
+    <string name="diagnostics_missing">missing</string>
+    <string name="diagnostics_not_required">not required</string>
+    <string name="diagnostics_connected">connected</string>
+    <string name="diagnostics_not_connected">not connected</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
+    <string name="diagnostics_battery_optimized">optimized</string>
+    <string name="diagnostics_battery_unrestricted">unrestricted</string>
+    <string name="diagnostics_available">available</string>
+    <string name="diagnostics_unavailable">unavailable</string>
+    <string name="diagnostics_closed">closed</string>
     <!-- Adb -->
     <string name="dialog_adb_port">Pelabuhan</string>
     <string name="dialog_adb_invalid_port">Port adalah integer antara 1 sampai 65535.</string>
@@ -46,6 +69,9 @@
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
+    <string name="dialog_adb_pairing_accessibility_permission">Android blocks this switch for apps installed outside an app store. Allow the ^1 app-op to turn on the accessibility service. The accessibility list shows this as \"Controlled by Restricted Setting\".\n\nOpen App info and select \"Allow restricted settings\" from the menu, or run this on a computer:\n\n^2\n\nEither option works. The switch will work afterwards.</string>
+    <string name="dialog_adb_pairing_open_app_info">App info</string>
+    <string name="dialog_adb_pairing_accessibility_enable">Automatic pairing reads the code out of the system dialog through Shizuku\'s accessibility service, so it has to be enabled, and only for as long as it takes: the service turns itself off once the code is found, or after a minute to save power. Shizuku normally enables it on its own, and that needs the WRITE_SECURE_SETTINGS permission, which a fresh install has not been granted yet.\n\nEnable it on the next screen, type the code yourself under Manual, or grant the permission once:\n\nadb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Silakan mulai pemasangan dengan
         melakukan langkah-langkah berikut:\n- Buka \"Opsi Pengembang\"\n- Aktifkan \"Debugging USB\"
         dan \"Debugging Nirkabel\"\n- Ketuk sisi kiri \"Debugging Nirkabel\"\n- Ketuk \"Pasangkan
@@ -60,6 +86,8 @@
     <string name="adb_error_stop_tcp">Gagal menghentikan ADB melalui TCP</string>
     <string name="adb_pair_required">Harap lakukan penyambungan terlebih dahulu.</string>
     <string name="enable">Memungkinkan</string>
+    <string name="auto_pair_instructions">Pair without typing a code:\n\n1. Developer options → Wireless debugging\n2. Pair device with pairing code\n\nShizuku reads the code and port straight from that dialog and starts itself. Keep the dialog open until pairing finishes.</string>
+    <string name="auto_pair_manual">Manual</string>
     <string name="development_settings">Pilihan pengembang</string>
     <string name="notification_settings">Pengaturan notifikasi</string>
     <string name="adb_pairing_tutorial_content_notification">Notifikasi dari Shizuku akan membantu
@@ -97,17 +125,45 @@
     <!-- Home - Learn more -->
     <!-- Home - Adb permissions limited -->
     <!-- Home - Dialogs -->
+    <string name="home_dialog_reboot_required_title">Reboot required</string>
+    <string name="home_dialog_reboot_required_message">A device reboot is required for Shizuku to work properly. To continue, please reboot your device.</string>
+    <string name="home_dialog_duplicate_app_detected_title">Duplicate app detected</string>
+    <string name="home_dialog_duplicate_app_detected_message">Another version of this app is installed on your device. To continue, please uninstall all duplicate versions and reboot your device.</string>
     <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
+    <string name="home_permission_owned_by">Apps look Shizuku up by its permission, and Android says %1$s declares it - a copy of Shizuku, or what is left of one. Those apps will ask that one until it is uninstalled and the device is rebooted.</string>
+    <string name="home_permission_not_registered">Apps look Shizuku up by its permission, and Android has not registered it yet, which a reinstall can leave behind until the device is rebooted. Shizuku itself is unaffected; other apps may not find it.</string>
+    <string name="home_dialog_button_exit">Exit</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">Izin adb terbatas</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Kemungkinan besar merk perangkat Anda membatasi perizinan adb.<p>Solusi untuk perangkat Anda mungkin ada pada <b><a href="%1$s">dokumentasi ini</a></b>.]]></string>
     <string name="app_management_toggle_all">Beralih semua</string>
+    <string name="app_management_search_hint">Search apps</string>
+    <string name="app_management_sort">Sort</string>
+    <string name="apps_needs_shizuku">Start Shizuku to see apps</string>
+    <string name="apps_empty">No apps to show</string>
+    <string name="apps_filter_empty">No apps in this filter</string>
+    <string name="apps_filter_all">All</string>
+    <string name="apps_filter_granted">Granted</string>
+    <string name="apps_filter_revoked">Revoked</string>
+    <string name="apps_filter_hidden">Hidden</string>
+    <string name="apps_no_match">No apps match your search</string>
+    <string name="app_management_sort_last_added">Recently added</string>
+    <string name="app_management_sort_updated">Updated</string>
+    <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="tab_home">Home</string>
+    <string name="tab_apps">Apps</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="hiding_filter_hidden">Hidden</string>
     <string name="intent_start">Mulai</string>
     <string name="device_watchdog">Penjaga</string>
+    <string name="log_filter_all">All</string>
     <string name="log_capture_start">Mulai</string>
+    <string name="log_capture_choose_hint">Search apps</string>
     <string name="action_start">Mulai</string>
+    <string name="catalog_filter_sort">Sort</string>
+    <string name="catalog_filter_updated">Updated</string>
     <string name="modules_repo_retry">Ulangi</string>
+    <string name="modules_sort">Sort</string>
     <string name="modules_service_short">Layanan</string>
     <string name="intents_start">Mulai</string>
     <!-- Terminal -->
@@ -154,6 +210,7 @@
       so the singular is read more often than the plural is.
     -->
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
+    <string name="contributor_area_app">App</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
       worked in, and the languages they translated into. There is deliberately no string per
@@ -241,9 +298,15 @@
     <string name="dialog_requesting_legacy_button_open_shizuku">Buka Shizuku</string>
     <string name="wadb_notification_attempt_now">Ulangi</string>
     <!-- Manage tab -->
+    <string name="manage_search_hint">Search apps</string>
+    <string name="manage_filter_all">All</string>
+    <string name="manage_filter_hidden">Hidden</string>
     <string name="permissions_action_deny">Tolak</string>
+    <string name="manage_status_hidden">Hidden</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_op_mode_deny">Tolak</string>
     <string name="app_action_enable">Memungkinkan</string>
+    <string name="app_info_updated">Updated</string>
+    <string name="files_sort">Sort</string>
     <string name="install_location_auto">Pilihan pengembang</string>
 </resources>

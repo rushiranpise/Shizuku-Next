@@ -537,6 +537,7 @@
     <string name="intents_adb_command">Pornire de pe calculator</string>
     <string name="intents_status_broadcast">Status transmisiune</string>
     <string name="intents_status_broadcast_extra">status extra: 1 = rulează, 0 = nu</string>
+    <string name="intents_package">Pachet</string>
     <string name="home_battery_warning">Shizuku ar putea fi închis în fundal. Permite-i să ignore optimizările bateriei.</string>
     <string name="batch_selected_count">%1$d selectat</string>
     <string name="app_management_action_select_all">Selectează tot</string>
@@ -708,8 +709,6 @@
     <string name="bug_report_dialog_issues">Caută prin toate ^1 pentru a vedea dacă eroarea ta a fost deja raportată.</string>
     <string name="bug_report_dialog_link_issues">probleme existente</string>
     <string name="bug_report_dialog_method">Te rugăm să trimiți o problemă pe ^1.</string>
-    <string name="bug_report_dialog_diagnostics_note">Diagnosticele actuale sunt completate în partea de sus a raportului. Copiază întregul jurnal mai jos și atașează-l.</string>
-    <string name="bug_report_dialog_body_prompt">Te rog să descrii eroarea. Include pașii pentru reproducere, dacă este posibil, precum și orice imagini/jurnale relevante.</string>
     <string name="bug_report_dialog_share_log">Distribuie jurnalul</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Dezactivează optimizarea bateriei pentru a utiliza această funcție.</string>

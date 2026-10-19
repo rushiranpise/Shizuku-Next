@@ -525,6 +525,7 @@
     <string name="intents_adb_command">Avvia tramite computer</string>
     <string name="intents_status_broadcast">Stato broadcast</string>
     <string name="intents_status_broadcast_extra">stato extra: 1 = in esecuzione, 0 = disattivato</string>
+    <string name="intents_package">Pacchetto</string>
     <string name="home_battery_warning">Shizuku potrebbe essere chiuso in background. Consentigli di ignorare le ottimizzazioni della batteria.</string>
     <string name="batch_selected_count">%1$d selezionati</string>
     <string name="app_management_action_select_all">Seleziona tutto</string>
@@ -699,8 +700,6 @@
     <string name="bug_report_dialog_issues">Cerca tra tutte le ^1 per vedere se il tuo bug è già stato segnalato.</string>
     <string name="bug_report_dialog_link_issues">problemi esistenti</string>
     <string name="bug_report_dialog_method">Invia una segnalazione su ^1.</string>
-    <string name="bug_report_dialog_diagnostics_note">I dati diagnostici attuali vengono inseriti all\'inizio della segnalazione. Condividi l\'intero log qui sotto e allegalo.</string>
-    <string name="bug_report_dialog_body_prompt">Descrivi il bug. Se possibile, includi i passaggi per riprodurlo, così come qualsiasi log o immagine pertinente.</string>
     <string name="bug_report_dialog_share_log">Condividi il log</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Per utilizzare questa funzione disattiva l\'ottimizzazione della batteria.</string>
@@ -861,7 +860,7 @@
     <string name="dialog_legacy_not_support_title">%1$s non supporta il moderno Shizuku</string>
     <string name="dialog_legacy_not_support_message"><![CDATA[Shizuku legacy è obsoleto da marzo 2019. Inoltre, Shizuku legacy non funziona sui sistemi Android più recenti.<p>Chiedi allo sviluppatore<b>%1$s</b> di aggiornare.]]></string>
     <string name="dialog_requesting_legacy_title">%1$s sta richiedendo Shizuku legacy</string>
-    <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> supporta la versione moderna di Shizuku, ma sta richiedendo quella legacy. Potrebbe dipendere dal fatto che Shizuku non è in esecuzione: controlla nell\'app Shizuku.<p>La versione legacy di Shizuku è obsoleta da marzo 2019.]]></string>
+    <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> supporta la versione moderna di Shizuku, ma sta richiedendo quella legacy. Potrebbe dipendere dal fatto che Shizuku non è in esecuzione: controlla nell'app Shizuku.<p>La versione legacy di Shizuku è obsoleta da marzo 2019.]]></string>
     <string name="dialog_requesting_legacy_button_open_shizuku">Apri Shizuku</string>
     <string name="wadb_notification_attempt_now">Riprova</string>
     <!-- Manage tab -->

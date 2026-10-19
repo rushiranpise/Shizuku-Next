@@ -437,6 +437,7 @@
     <string name="intents_watchdog_off">Сторожовий таймер вимкнено</string>
     <string name="intents_watchdog_toggle">Перемкнути сторожовий таймер</string>
     <string name="intents_adb_command">Запустити через комп\'ютер</string>
+    <string name="intents_package">Пакет</string>
     <string name="home_battery_warning">Shizuku може бути примусово зупинено у фоновому режимі. Дозвольте йому ігнорувати оптимізацію акумулятора.</string>
     <string name="batch_selected_count">Вибрано: %1$d</string>
     <string name="app_management_action_select_all">Вибрати все</string>
@@ -608,7 +609,6 @@
     <string name="bug_report_dialog_issues">Перегляньте всі ^1, щоб побачити, чи про вашу помилку
         вже повідомляли.</string>
     <string name="bug_report_dialog_link_issues">існуючі проблеми</string>
-    <string name="bug_report_dialog_body_prompt">Опишіть помилку. Якщо можливо, вкажіть кроки для її відтворення, а також додайте відповідні зображення чи журнали.</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Будь ласка, вимкніть оптимізацію батареї,
         щоб використовувати цю функцію.</string>

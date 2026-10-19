@@ -550,6 +550,7 @@
     <string name="intents_adb_command">Bilgisayar ile başlat</string>
     <string name="intents_status_broadcast">Yayın akışı</string>
     <string name="intents_status_broadcast_extra">durum ekstra: 1 = çalışıyor, 0 = çalışmıyor</string>
+    <string name="intents_package">Paket</string>
     <string name="home_battery_warning">Shizuku arka planda sonlandırılabilir. Pil optimizasyonlarını yoksaymasına izin verin.</string>
     <string name="batch_selected_count">%1$d seçildi</string>
     <string name="app_management_action_select_all">Tümünü seç</string>
@@ -732,8 +733,6 @@
         için ^1 numaralı tüm kayıtları inceleyin.</string>
     <string name="bug_report_dialog_link_issues">mevcut sorunlar</string>
     <string name="bug_report_dialog_method">Lütfen ^1 üzerinde bir sorun bildirin.</string>
-    <string name="bug_report_dialog_diagnostics_note">Şu anki tanımlamalarınız sorunun üst kısmına yerleştirilmiştir. Aşağıdaki günlüğün tamamını paylaşın ve ekleyin.</string>
-    <string name="bug_report_dialog_body_prompt">Lütfen hatayı açıklayın. Mümkünse hatayı yeniden oluşturmak için adımları ve ilgili resim/günlükleri dahil edin.</string>
     <string name="bug_report_dialog_share_log">Günlüğü paylaş</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Bu özelliği kullanmak için lütfen pil

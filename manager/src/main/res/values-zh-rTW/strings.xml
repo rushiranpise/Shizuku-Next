@@ -65,7 +65,7 @@
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Android 會封鎖非應用程式商店安裝的應用程式使用這個開關。請允許 ^1 應用程式操作來開啟無障礙服務，無障礙清單裡它會顯示為「由受限設定控制」。\n\n開啟應用程式資訊，從選單裡選擇「允許受限設定」，或者在電腦上執行：\n\n^2\n\n兩種方式都可以，之後這個開關就能用了。</string>
-    <string name="dialog_adb_pairing_open_app_info">應用程式資訊</string>
+    <string name="dialog_adb_pairing_open_app_info">應用程式資訊u</string>
     <string name="dialog_adb_pairing_accessibility_enable">自動配對要透過 Shizuku 的無障礙服務從系統對話框裡讀取配對碼，所以需要開啟它——而且只在需要的那一小段時間：找到配對碼後或一分鐘後，服務會自行關閉以節省電力。Shizuku 通常會自己開啟它，這需要 WRITE_SECURE_SETTINGS 權限，而全新安裝還沒有這個權限。\n\n在下一畫面開啟它、在「手動」下自己輸入配對碼，或者授予一次權限：\n\nadb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">請依照以下步驟開始配對：\n- 進入「開發人員選項」\n- 啟用「USB 偵錯」與「無線偵錯」\n- 點選「無線偵錯」左側\n- 點擊「使用配對碼配對裝置」。 Shizuku 將自動檢測配對碼。</string>
     <string name="adb_pairing_requires_multi_window">請先進入分割畫面模式。</string>
@@ -123,7 +123,7 @@
     <string name="apps_filter_hidden">已隱藏</string>
     <string name="apps_no_match">沒有符合你搜尋條件的應用程式</string>
     <string name="app_management_sort_last_added">最近新增</string>
-    <string name="app_management_sort_updated">最近更新</string>
+    <string name="app_management_sort_updated">最近更新t</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
     <string name="tab_home">首頁</string>
     <string name="tab_apps">應用程式</string>
@@ -524,6 +524,7 @@
     <string name="intents_adb_command">透過電腦啟動</string>
     <string name="intents_status_broadcast">狀態廣播</string>
     <string name="intents_status_broadcast_extra">status extra：1 = 執行中，0 = 未執行</string>
+    <string name="intents_package">應用包名</string>
     <string name="home_battery_warning">Shizuku 可能在背景被系統終止，請允許其忽略電池最佳化。</string>
     <string name="batch_selected_count">已選擇 %1$d</string>
     <string name="app_management_action_select_all">全選</string>
@@ -694,8 +695,6 @@
     <string name="bug_report_dialog_issues">請先搜尋^1，確認你的問題是否已被回報。</string>
     <string name="bug_report_dialog_link_issues">已有的 issue</string>
     <string name="bug_report_dialog_method">請在 ^1 上提交 issue。</string>
-    <string name="bug_report_dialog_diagnostics_note">你當前的診斷資訊會填在 issue 頂部。請分享並附上下方的完整日誌。</string>
-    <string name="bug_report_dialog_body_prompt">請描述這個錯誤，並儘可能附上重現步驟和相關截圖/日誌。</string>
     <string name="bug_report_dialog_share_log">分享日誌</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">請先關閉電池最佳化，再使用此功能。</string>

@@ -381,6 +381,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="intents_watchdog_off">Önvédelem kikapcsolása</string>
     <string name="intents_watchdog_toggle">Önvédelemi mód átváltása</string>
     <string name="intents_adb_command">Indítás számítógépről</string>
+    <string name="intents_package">Csomag</string>
     <string name="home_battery_warning">Előfordulhat, hogy Shizuku a háttérben leáll. Engedélyezze az akkumulátor-optimalizálás figyelmen kívül hagyását.</string>
     <string name="app_management_action_grant">Megadás</string>
     <string name="app_management_action_revoke">Visszavonás</string>
@@ -530,7 +531,6 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="bug_report_dialog_link_wiki">wiki</string>
     <string name="bug_report_dialog_issues">Nézzen körül az ismert ^1 közt, hogy megtudja, jelentették-e már ezt a hibát.</string>
     <string name="bug_report_dialog_link_issues">meglévő problémák</string>
-    <string name="bug_report_dialog_body_prompt">Kérjük, írja le a hibát. Ha lehetséges, adja meg a reprodukáláshoz szükséges lépéseket, valamint minden releváns képet/hibanaplót.</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Kérjük, kapcsolja ki az
         akkumulátoroptimalizálást a funkció használatához.</string>

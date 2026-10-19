@@ -6,33 +6,58 @@
       a change here reaches translators on the next push and not before.
     -->
     <!-- To translators: you can leave your here -->
-    <string name="home_status_adb_wireless">adb</string>
-    <string name="home_status_adb_usb">adb</string>
+    <string name="home_status_adb_wireless">abd</string>
+    <string name="home_status_adb_usb">abd</string>
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
-    <string name="home_wireless_adb_title"><![CDATA[Aloita langattomalla debuggauksella]]></string>
+    <string name="home_wireless_adb_title"><![CDATA[Aloita langattomalla]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Käynnistys ilman verkkoa: laitetta pyydetään langattomasta vianjäljityksestä aina siihen asti, kunnes se pysyy päällä. Tämä voi kestää jopa kaksi minuuttia ennen kuin se käynnistyy tai luovutetaan.</string>
-    <string name="home_usb_adb_needs_network">USB-käynnistys käyttää klassista ADB-porttia, ja sen uudelleenavaaminen vaatii verkkoa. Yhdistä Wi-Fi-verkkoon kerran, tai valitse <b>Käynnistä ilman Wi-Fi</b> aloitusmenetelmänä ja aloita sen sijaan langattoman vianetsinnän päällä.</string>
-    <string name="home_wireless_adb_summary">Aloittaa langattoman vianetsinnän käytön.</string>
-    <string name="home_usb_adb_title"><![CDATA[Aloita USB-vianetsinnän kautta]]></string>
-    <string name="home_usb_adb_summary">Aloittaa USB-vianetsinnän käytön.</string>
+    <string name="home_usb_adb_needs_network">USB-käynnistys käyttää klassista ADB-porttia, ja sen uudelleenavaaminen vaatii verkkoa. Yhdistä Wi-Fi-verkkoon kerran, tai valitse <b>Käynnistä ilman Wi-Fi</b> aloitusmenetelmänä ja aloita sen sijaan langattoman päällä.</string>
+    <string name="home_wireless_adb_summary">Aloittaa langattoman käytön.</string>
+    <string name="home_usb_adb_title"><![CDATA[Aloita USB kautta]]></string>
+    <string name="home_usb_adb_summary">Aloittaa USB käytön.</string>
+    <string name="home_support_body">Shizuku-Next on ilmainen eikä sisällä on mainoksia. Kahvikupillinen auttaa kattamaan Shizuku-Next ylläpitoon kuluvan ajan.</string>
+    <string name="diagnostics_title">Diagnostia</string>
+    <string name="diagnostics_copy">Kopioi Diagnostii tiedot</string>
+    <string name="diagnostics_copied">Kopioi diagnostiikka-tiedot</string>
+    <string name="diagnostics_service">Palvellut</string>
+    <string name="diagnostics_server_uid">Palvelimen uid</string>
+    <string name="diagnostics_server_api">Palvelin API</string>
+    <string name="diagnostics_server_context">Palvelin-konteksti</string>
     <string name="diagnostics_wireless_debugging">Langaton virheenkorjaus</string>
+    <string name="diagnostics_adb_port">ADB portti</string>
+    <string name="diagnostics_wifi">Wi-Fi</string>
+    <string name="diagnostics_local_network">Paikalla verkko</string>
     <string name="diagnostics_battery">Akun optimointi</string>
+    <string name="diagnostics_app">Sovellus</string>
     <string name="diagnostics_android">Android</string>
     <string name="diagnostics_device">Laite</string>
+    <string name="diagnostics_started_with">Aloitettiin</string>
+    <string name="diagnostics_default">Oletus-menetelmä</string>
     <string name="diagnostics_hiding">Piilotus</string>
+    <string name="diagnostics_phantom">Prosessin-tappaja</string>
     <string name="diagnostics_root">Juuri</string>
+    <string name="diagnostics_granted">myönnetty</string>
+    <string name="diagnostics_missing">puuttuu</string>
+    <string name="diagnostics_not_required">ei vaadita</string>
+    <string name="diagnostics_connected">yhdistetty</string>
+    <string name="diagnostics_not_connected">ei yhdistetty</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
+    <string name="diagnostics_battery_optimized">optimoituttunut</string>
+    <string name="diagnostics_battery_unrestricted">rajoittamatonta</string>
+    <string name="diagnostics_available">saatavilla</string>
+    <string name="diagnostics_unavailable">ei saatavilla</string>
+    <string name="diagnostics_closed">suljettu</string>
     <!-- Adb -->
     <string name="dialog_adb_port">Satama</string>
-    <string name="dialog_adb_invalid_port">Portti on kokonaisluku, joka vaihtelee välillä 1–65535.</string>
+    <string name="dialog_adb_invalid_port">Portti on kokonaisluku joka vaihtelee välillä 1–65535.</string>
     <string name="adb_pairing">Paritus</string>
     <string name="dialog_adb_pairing_title">Pari laitteeseen</string>
     <string name="dialog_adb_pairing_discovery">Etsitään parituspalvelua</string>
     <string name="dialog_adb_pairing_paring_code">Parituskoodi</string>
-    <string name="paring_code_is_wrong">Parituskoodi on väärä.</string>
+    <string name="paring_code_is_wrong">Paritus-koodi on väärä.</string>
     <string name="cannot_connect_port">Langattomaan virheenkorjauspalveluun ei saada
         yhteyttä.\n\nVarmista, että Shizuku on sallittu kaikissa palomuuri-, mainostenesto-, VPN-
         tai vastaavissa sovelluksissa, jotka voivat rajoittaa verkkoyhteyttä.</string>
@@ -44,6 +69,7 @@
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
+    <string name="dialog_adb_pairing_accessibility_permission">Android estää tämän kytkimen käytön sovelluksissa, jotka on asennettu sovellus-kaupan ulkopuolelta. Salli ^1-sovellukselle esteettömyys-palvelu käyttöönotto. Esteettömyysasetusten luettelossa tämä näkyy merkinnällä ”Rajoitetun asetuksen hallinnassa”. Avaa sovelluksen tiedot ja valitse valikosta ”Salli rajoitetut asetukset” tai suorita seuraava komento tieto-koneella: ^2 Kumpi tahansa tapa toimii. Tämän jälkeen kytkin on käytettävissä.</string>
     <string name="dialog_adb_pairing_open_app_info">Sovelluksen tiedot</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Aloita pariliitos suorittamalla
         seuraavat vaiheet:\n- Siirry kohtaan \"Kehittäjäasetukset\"\n- Ota käyttöön
@@ -376,6 +402,7 @@
     <string name="modules_sort">Järjestä</string>
     <string name="modules_action_stop">Pysäytä</string>
     <string name="modules_action_short">Toiminto</string>
+    <string name="modules_service_short">Palvellut</string>
     <string name="modules_service_running_short">Käynnissä</string>
     <string name="modules_delete">Poista</string>
     <string name="tools_terminal">Päätesovellukset</string>
@@ -429,6 +456,7 @@
     <string name="intents_watchdog_off">Watchdog pois</string>
     <string name="intents_watchdog_toggle">Watchdog vaihda</string>
     <string name="intents_adb_command">Aloita tietokoneen kautta</string>
+    <string name="intents_package">Paketti</string>
     <string name="home_battery_warning">Shizuku voidaan tappaa taustalla. Anna sen ohittaa akun optimointi.</string>
     <string name="batch_selected_count">%1$d valittu</string>
     <string name="app_management_action_select_all">Valitse kaikki</string>
@@ -492,7 +520,7 @@
     <string name="start_method_usb">USB</string>
     <string name="start_method_system">Järjestelmä</string>
     <string name="start_method_root">Juuri</string>
-    <string name="transport_adb">adb</string>
+    <string name="transport_adb">abd</string>
     <string name="settings_adb_without_developer_options">Poista kehittäjän asetukset käytöstä</string>
     <string name="settings_adb_without_developer_options_summary">Poistaa kehittäjän asetukset käytöstä, mutta pitää ADB-asetukset Shizukun tarpeet. Shizuku jatkaa työskentelyään, ja asetukset palautetaan jokaisen uudelleenkäynnistyksen jälkeen.</string>
     <string name="start_failed_developer_options_off">Kehittäjän asetukset ovat pois käytöstä, koska ADB ilman kehittäjän asetuksia on käytössä</string>
@@ -563,6 +591,7 @@
       so the singular is read more often than the plural is.
     -->
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
+    <string name="contributor_area_app">Sovellus</string>
     <string name="contributor_area_server">Palvelin</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they

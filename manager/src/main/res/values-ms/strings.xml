@@ -9,6 +9,7 @@
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Mulakan melalui penyahpepijatan wayarles]]></string>
+    <string name="home_wireless_adb_summary">Starts using wireless debugging.</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->

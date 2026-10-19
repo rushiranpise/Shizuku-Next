@@ -523,6 +523,7 @@
     <string name="intents_adb_command">通过电脑启动</string>
     <string name="intents_status_broadcast">状态广播</string>
     <string name="intents_status_broadcast_extra">status extra：1 = 运行中，0 = 未运行</string>
+    <string name="intents_package">应用包名</string>
     <string name="home_battery_warning">Shizuku 可能在后台被系统终止，请允许其忽略电池优化。</string>
     <string name="batch_selected_count">已选择 %1$d</string>
     <string name="app_management_action_select_all">全选</string>
@@ -691,8 +692,6 @@
     <string name="bug_report_dialog_issues">请先搜索^1，确认你的问题是否已被报告。</string>
     <string name="bug_report_dialog_link_issues">已有的 issue</string>
     <string name="bug_report_dialog_method">请在 ^1 上提交 issue。</string>
-    <string name="bug_report_dialog_diagnostics_note">你当前的诊断信息会填在 issue 顶部。请分享并附上下方的完整日志。</string>
-    <string name="bug_report_dialog_body_prompt">请描述这个错误，并尽可能附上复现步骤和相关截图/日志。</string>
     <string name="bug_report_dialog_share_log">分享日志</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">请先关闭电池优化，再使用此功能。</string>
