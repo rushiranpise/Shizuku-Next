@@ -181,6 +181,7 @@
     <string name="force_dark_notification_text">Um aplicativo na lista de modos escuros está aberto</string>
     <string name="force_dark_notification_watching">Aguardando a abertura de um aplicativo na lista</string>
     <string name="tab_activities">Lançador de atividades</string>
+    <string name="power_confirm_title">Você tem certeza?</string>
     <string name="activities_apps_count">Apps %1$d</string>
     <string name="activities_count">Atividades %1$d</string>
     <string name="activities_launcher">Lançador</string>

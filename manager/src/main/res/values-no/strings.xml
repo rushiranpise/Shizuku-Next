@@ -167,6 +167,7 @@
     <string name="force_dark_notification_text">En app på listen med mørk modus er åpen</string>
     <string name="force_dark_notification_watching">Venter på en app i listen for å åpne</string>
     <string name="tab_activities">Aktiviteter Launcher</string>
+    <string name="power_confirm_title">Er du sikker?</string>
     <string name="activities_apps_count">%1$d apper</string>
     <string name="activities_count">%1$d aktiviteter</string>
     <string name="activities_launcher">App-Starter</string>

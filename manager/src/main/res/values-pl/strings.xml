@@ -168,6 +168,7 @@
     <string name="force_dark_notification_text">Aplikacja na liście trybu wymuszonego ciemności jest otwarta</string>
     <string name="force_dark_notification_watching">Oczekiwanie na otwarcie aplikacji na liście</string>
     <string name="tab_activities">Uruchamianie Aktywności</string>
+    <string name="power_confirm_title">Jesteś pewien?</string>
     <string name="activities_apps_count">%1$d Aplikacji</string>
     <string name="activities_count">%1$d Aktywności</string>
     <string name="activities_launcher">Launcher</string>

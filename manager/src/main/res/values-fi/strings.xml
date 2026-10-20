@@ -195,6 +195,7 @@
     <string name="force_dark_notification_text">Voiman tumman tilan listalla oleva sovellus on auki</string>
     <string name="force_dark_notification_watching">Odotetaan, että listalla on sovellus avattavaksi</string>
     <string name="tab_activities">Aktiviteetin Käynnistin</string>
+    <string name="power_confirm_title">Oletko varma?</string>
     <string name="activities_apps_count">%1$d sovellusta</string>
     <string name="activities_count">%1$d aktiviteettia</string>
     <string name="activities_launcher">Käynnistin</string>

@@ -166,6 +166,7 @@
     <string name="force_dark_notification_text">Zorunlu karanlık mod listesindeki bir uygulama açık</string>
     <string name="force_dark_notification_watching">Listedeki bir uygulamanın açılması bekleniyor</string>
     <string name="tab_activities">Etkinlik Başlatıcısı</string>
+    <string name="power_confirm_title">Emin misiniz?</string>
     <string name="activities_apps_count">%1$d uygulama</string>
     <string name="activities_count">%1$d etkinlik</string>
     <string name="activities_launcher">Başlatıcı</string>

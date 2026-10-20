@@ -173,6 +173,7 @@
     <string name="force_dark_notification_text">強制深色名單中的應用程式已開啟</string>
     <string name="force_dark_notification_watching">正在等待名單中的應用程式開啟</string>
     <string name="tab_activities">活動啟動器</string>
+    <string name="power_confirm_title">你確定嗎？</string>
     <string name="activities_apps_count">%1$d 個應用程式</string>
     <string name="activities_count">%1$d 個活動</string>
     <string name="activities_launcher">啟動器</string>

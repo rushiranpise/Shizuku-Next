@@ -101,6 +101,7 @@
     <string name="hiding_gate_disabled">Отключён</string>
     <string name="hiding_filter_hidden">Скрытые</string>
     <string name="hiding_signal_wireless_debugging">Беспроводная отладка</string>
+    <string name="power_confirm_title">Вы уверены?</string>
     <string name="activities_detail_package">Пакет</string>
     <string name="activities_copy">Копировать</string>
     <string name="intent_package">Пакет</string>

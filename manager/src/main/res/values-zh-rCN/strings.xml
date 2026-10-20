@@ -173,6 +173,7 @@
     <string name="force_dark_notification_text">强制深色名单中的应用已打开</string>
     <string name="force_dark_notification_watching">正在等待名单中的应用打开</string>
     <string name="tab_activities">活动启动器</string>
+    <string name="power_confirm_title">你确定吗？</string>
     <string name="activities_apps_count">%1$d 个应用</string>
     <string name="activities_count">%1$d 个活动</string>
     <string name="activities_launcher">启动器</string>

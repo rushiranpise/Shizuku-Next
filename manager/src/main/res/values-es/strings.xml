@@ -11,6 +11,8 @@
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Iniciar vía Depuración inalámbrica]]></string>
+    <string name="home_wireless_adb_starting_without_wifi"></string>
+    <string name="home_usb_adb_needs_network">A USB start uses the classic ADB port, and reopening it needs a network. Connect to Wi-Fi once, or choose <b>Start without Wi-Fi</b> as the start method and start over wireless debugging instead.</string>
     <string name="home_wireless_adb_summary">\"Iniciar usando depuración inalambrica.\"</string>
     <string name="home_usb_adb_title"><![CDATA[Iniciar por depuración USB]]></string>
     <string name="home_usb_adb_summary">Iniciar usando depuración USB.</string>

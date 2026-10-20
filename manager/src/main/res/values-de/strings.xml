@@ -163,6 +163,7 @@
     <string name="force_dark_notification_text">Eine App aus der Liste für erzwungenes dunkles Design ist geöffnet</string>
     <string name="force_dark_notification_watching">Warten, bis eine App aus der Liste geöffnet wird</string>
     <string name="tab_activities">Activity-Launcher</string>
+    <string name="power_confirm_title">Sind Sie sicher?</string>
     <string name="activities_apps_count">%1$d Apps</string>
     <string name="activities_count">%1$d Activities</string>
     <string name="activities_exported">Exportiert</string>

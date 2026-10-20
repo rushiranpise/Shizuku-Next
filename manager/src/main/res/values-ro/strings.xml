@@ -14,7 +14,7 @@
     <string name="home_wireless_adb_starting_without_wifi">Pornire fără rețea: dispozitivul este cerut pentru depanare fără fir din nou și din nou până când rămâne pornit. Acest lucru poate dura până la două minute înainte de a începe sau de a renunța.</string>
     <string name="home_usb_adb_needs_network">Un start USB folosește portul ADB clasic și redeschiderea acestuia necesită o rețea. Conectați-vă la Wi-Fi o singură dată sau alegeți <b>Porniți fără Wi-Fi</b> ca metodă de pornire și porniți prin depanare fără fir.</string>
     <string name="home_wireless_adb_summary">Începe să utilizezi depanarea fără fir.</string>
-    <string name="home_usb_adb_title"><![CDATA[Pornire prin depanare USB]]></string>
+    <string name="home_usb_adb_title"><![CDATA[Pornește prin depanare USB]]></string>
     <string name="home_usb_adb_summary">Pornește folosind depanarea USB.</string>
     <string name="home_support_body">Shizuku-Next este gratuit și nu are reclame. O cafea este folosită pentru timpul necesar întreținerii.</string>
     <string name="diagnostics_title">Diagnostică</string>
@@ -102,7 +102,7 @@
     <!-- Home - Root -->
     <string name="home_root_title"><![CDATA[Pornire (pentru dispozitive root-ate)]]></string>
     <string name="home_root_description"><![CDATA[Dacă folosești Magisk, poți încerca %1$s. Pentru utilizatorii root, acesta va înlocui în cele din urmă Shizuku. Reține că aplicațiile existente trebuie să se modifice puțin pentru a utiliza %2$s.]]></string>
-    <string name="home_root_button_start">Pornire</string>
+    <string name="home_root_button_start">Pornește</string>
     <!-- Home - Application management -->
     <plurals name="home_app_management_authorized_apps_count">
         <item quantity="one"><![CDATA[%d aplicație autorizată]]></item>
@@ -132,9 +132,9 @@
     <string name="apps_empty">Nicio aplicație de afișat</string>
     <string name="apps_filter_empty">Nicio aplicație în acest filtru</string>
     <string name="apps_filter_all">Toate</string>
-    <string name="apps_filter_granted">Oferit</string>
-    <string name="apps_filter_revoked">Revoked</string>
-    <string name="apps_filter_hidden">Hidden</string>
+    <string name="apps_filter_granted">Acordat</string>
+    <string name="apps_filter_revoked">Revocat</string>
+    <string name="apps_filter_hidden">Ascuns</string>
     <string name="apps_no_match">Nicio aplicație nu corespunde căutării</string>
     <string name="app_management_sort_last_added">Adăugat recent</string>
     <string name="app_management_sort_updated">Actualizat</string>
@@ -158,11 +158,13 @@
     <string name="tab_hide_accessibility">Ascunde accesibilitatea</string>
     <string name="tab_hide_private_dns">Ascunde DNS Privat</string>
     <string name="tab_hide_vpn">Ascunde VPN</string>
-    <string name="hiding_hidden_count">%1$d hidden</string>
+    <string name="hiding_hidden_count">%1$d ascunse</string>
     <string name="hiding_gate">Activat</string>
     <string name="hiding_gate_disabled">Dezactivat</string>
+    <string name="hiding_restart_on_open">Închide și redeschide la lansare</string>
+    <string name="hiding_restart_on_open_summary">Aplicațiile din listă sunt închise și redeschise atunci când le pornești, astfel încât acestea citesc setările ascunse. O aplicație care se afla în mijlocul unei operațiuni de editare pierde ceea ce nu a fost salvat.</string>
     <string name="hiding_gate_kept">%1$d păstrat</string>
-    <string name="hiding_filter_hidden">Hidden</string>
+    <string name="hiding_filter_hidden">Ascuns</string>
     <string name="hiding_open_with_hiding">Deschide cu setările ascunse</string>
     <string name="hiding_filter_shown">Vizibil</string>
     <string name="hiding_filter_empty">Nimic ascuns.</string>
@@ -174,19 +176,65 @@
     <string name="hiding_signal_private_dns">DNS privat</string>
     <string name="hiding_signal_vpn">VPN</string>
     <string name="hiding_vpn_client">Client VPN pentru a ascunde</string>
-    <string name="tab_force_dark">Mod forțat întunecat</string>
-    <string name="force_dark_gate">Mod forțat întunecat</string>
-    <string name="force_dark_gate_disabled">Modul forțat întunecat este oprit</string>
+    <string name="tab_force_dark">Mod întunecat forțat</string>
+    <string name="force_dark_gate">Mod întunecat forțat</string>
+    <string name="force_dark_gate_disabled">Modulul întunecat forțat este dezactivat</string>
     <string name="force_dark_count">%1$d forțat</string>
     <string name="force_dark_filter_forced">Forțat</string>
     <string name="force_dark_filter_not">Nu este forțat</string>
-    <string name="force_dark_empty">Nimic nu este întuneric forțat.</string>
+    <string name="force_dark_empty">Nimic nu este întunecat forțat.</string>
     <string name="force_dark_system_theme">Schimbă tema sistemului</string>
     <string name="force_dark_toggled">Aplicația a fost închisă</string>
-    <string name="force_dark_notification_title">Modul forțat întunecat este activat</string>
+    <string name="force_dark_notification_title">Modul întunecat forțat este activat</string>
     <string name="force_dark_notification_text">O aplicație pe lista modului întunecat forțat este deschisă</string>
     <string name="force_dark_notification_watching">Se așteaptă ca o aplicație din listă să fie deschisă</string>
     <string name="tab_activities">Lansator activități</string>
+    <string name="tab_power">Alimentare</string>
+    <string name="power_description">Repornește sau oprește ecranul fără a folosi butoanele telefonului.</string>
+    <string name="power_needs_shizuku">Pornește Shizuku mai întâi pentru a utiliza aceste opțiuni.</string>
+    <string name="power_reboot">Repornește</string>
+    <string name="power_reboot_summary">Repornește telefonul.</string>
+    <string name="power_reboot_confirm">Telefonul se va reporni acum. Lucrările nesalvate se vor pierde.</string>
+    <string name="power_recovery">Repornire în recuperare</string>
+    <string name="power_recovery_summary">Repornește telefonul în modul de recuperare.</string>
+    <string name="power_recovery_confirm">Telefonul va reporni în modul de recuperare. Utilizează butoanele de volum și de alimentare pentru a naviga.</string>
+    <string name="power_bootloader">Repornire în bootloader</string>
+    <string name="power_bootloader_summary">Repornește dispozitivul în modul fastboot pentru a-l conecta la un computer.</string>
+    <string name="power_bootloader_confirm">Telefonul se va reporni în modul bootloader și va rămâne în această stare până când îl vi reporni, de obicei de pe un computer.</string>
+    <string name="power_off">Oprire</string>
+    <string name="power_off_summary">Oprește telefonul.</string>
+    <string name="power_off_confirm">Telefonul se va opri acum. Lucrările nesalvate se vor pierde.</string>
+    <string name="power_screen_off">Oprește ecranul</string>
+    <string name="power_screen_off_summary">Oprește ecranul. Dacă este activată blocarea ecranului, telefonul se va bloca și el.</string>
+    <string name="power_confirm_title">Ești sigur?</string>
+    <string name="power_confirm">Continuă</string>
+    <string name="power_soft_reboot">Repornire rapidă</string>
+    <string name="power_soft_reboot_summary">Repornire Android fără a reporni nucleul. Este necesar accesul root.</string>
+    <string name="power_soft_reboot_confirm">Android va reporni. Toate aplicațiile și interfața de sistem se vor închide și redeschide, dar telefonul în sine nu va reporni. S-ar putea să fie necesar să pornești Shizuku după aceea.</string>
+    <string name="power_restart_system_ui">Repornire interfață de sistem</string>
+    <string name="power_restart_system_ui_summary">Repornește bara de stare, bara de navigare și panoul de notificări. Este necesar accesul root.</string>
+    <string name="power_needs_root">Accesul root este necesar, dar acest dispozitiv nu este root-at.</string>
+    <string name="power_needs_shizuku_rooted">Shizuku nu rulează. Este disponibilă doar repornirea rapidă.</string>
+    <string name="power_failed">Nu s-a putut rula %1$s</string>
+    <string name="tab_display">Afișare</string>
+    <string name="display_description">Modifică rezoluția ecranului, densitatea și rata de reîmprospătare. Dacă ecranul devine greu de utilizat, atinge butonul „Resetare” de lângă setare.</string>
+    <string name="display_needs_shizuku">Pornește Shizuku pentru a vizualiza sau modifica aceste setări.</string>
+    <string name="display_resolution">Rezoluție</string>
+    <string name="display_resolution_summary">Dimensiunea ecranului în pixeli (lățime x înălțime). Aceasta determină dimensiunea cu care sistemul afișează ecranul, nu dimensiunea fizică a afișajului.</string>
+    <string name="display_density">Densitate</string>
+    <string name="display_density_summary">Controlează dimensiunea elementelor de pe ecran. Valorile mai mari le fac mai mici; valorile mai mici le fac mai mari.</string>
+    <string name="display_min_refresh">Rata minimă de reîmprospătare</string>
+    <string name="display_min_refresh_summary">Cea mai mică frecvență de reîmprospătare pe care o poate utiliza ecranul, exprimată în Hz. Setează la valoarea maximă pentru a menține ecranul la această frecvență.</string>
+    <string name="display_max_refresh">Rata maximă de reîmprospătare</string>
+    <string name="display_max_refresh_summary">Cea mai mare rată de reîmprospătare pe care o poate folosi ecranul, în Hz.</string>
+    <string name="display_current">Actual: %1$s</string>
+    <string name="display_apply">Aplică</string>
+    <string name="display_reset">Resetează</string>
+    <string name="display_invalid">Valoare greșită</string>
+    <string name="display_applied">%1$s aplicat</string>
+    <string name="display_failed">Nu s-a putut modifica %1$s</string>
+    <string name="display_hz">%1$d Hz</string>
+    <string name="display_modes_missing">Nu s-a putut detecta ratele de reîmprospătare acceptate. Introdu o valoare în mod manual.</string>
     <string name="activities_apps_count">Aplicații %1$d</string>
     <string name="activities_count">Activități %1$d</string>
     <string name="activities_launcher">Lansator</string>
@@ -228,7 +276,7 @@
     <string name="intent_key">Cheie</string>
     <string name="intent_value">Valoare</string>
     <string name="intent_flags">Semnalări</string>
-    <string name="intent_start">Pornire</string>
+    <string name="intent_start">Pornește</string>
     <string name="intent_nothing">Intenția de a întreprinde o acțiune, unele date, un pachet sau o componentă.</string>
     <string name="intent_refused">Intenția nu a putut fi începută.</string>
     <string name="intent_flag_clear_top">Golește partea de sus</string>
@@ -241,6 +289,7 @@
     <string name="intent_flag_grant_write">Acordă scriere</string>
     <string name="tab_device_info">Informații despre dispozitiv</string>
     <string name="device_refresh">Împrospătează</string>
+    <string name="scroll_to_top">Derulează până sus</string>
     <string name="device_battery">Baterie</string>
     <string name="device_status">Stare</string>
     <string name="device_temperature">Temperatură</string>
@@ -384,7 +433,7 @@
     <string name="status_value_none">-</string>
     <string name="status_running_short">Rulează</string>
     <string name="status_stopped_short">Oprit</string>
-    <string name="action_start">Pornire</string>
+    <string name="action_start">Pornește</string>
     <string name="tools_stealth">Mod invizibil</string>
     <string name="tools_modules">Module</string>
     <string name="tab_modules">Module</string>
@@ -534,10 +583,13 @@
     <string name="intents_watchdog_on">Watchdog pornit</string>
     <string name="intents_watchdog_off">Watchdog oprit</string>
     <string name="intents_watchdog_toggle">Comutator Watchdog</string>
-    <string name="intents_adb_command">Pornire de pe calculator</string>
+    <string name="intents_adb_command">Pornește de pe calculator</string>
     <string name="intents_status_broadcast">Status transmisiune</string>
     <string name="intents_status_broadcast_extra">status extra: 1 = rulează, 0 = nu</string>
+    <string name="labs_gate_stays_on">Unele aplicații nu au putut fi modificate, astfel încât lista rămâne activată</string>
+    <string name="intents_values">Pentru aplicații automatizate</string>
     <string name="intents_package">Pachet</string>
+    <string name="intents_action_for">Acțiune %1$s</string>
     <string name="home_battery_warning">Shizuku ar putea fi închis în fundal. Permite-i să ignore optimizările bateriei.</string>
     <string name="batch_selected_count">%1$d selectat</string>
     <string name="app_management_action_select_all">Selectează tot</string>
@@ -581,6 +633,8 @@
     <string name="stealth_uninstall_message">Sistemul va solicita acum dezinstalarea Shizuku. Apoi, instalarea clonei.</string>
     <string name="stealth_uninstall">Dezinstalează</string>
     <string name="stealth_hide">Ascunde</string>
+    <string name="stealth_unhide">Reafișează cu stub</string>
+    <string name="stealth_stub_note">Comanda „Afișează” creează un mic „stub” la numele pachetului original al aplicației Shizuku, astfel încât aplicațiile care îl caută să poată funcționa în continuare. Acest „stub” redirecționează solicitările către aplicația Shizuku ascunsă. Nu este vorba de o a doua copie. Comanda „Ascunde” elimină acest „stub”.</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">Pornire automată</string>
     <string name="settings_use_system_color">Folosește culoarea temei de sistem</string>
@@ -609,7 +663,7 @@
     <string name="settings_wait_for_wifi">Așteaptă Wi-Fi</string>
     <string name="settings_wait_for_wifi_summary">Shizuku repornește automat în așteptarea unei conexiuni Wi-Fi nelimitate.</string>
     <string name="settings_unavailable_while_forcing_wireless">Indisponibil cât timp este activată opțiunea Pornire fără Wi-Fi.</string>
-    <string name="settings_force_wireless_debugging">Pornire fără Wi-Fi (experimental)</string>
+    <string name="settings_force_wireless_debugging">Pornește fără Wi-Fi (experimental)</string>
     <string name="settings_force_wireless_debugging_summary">Încearcă să pornească Shizuku fără depanare Wi-Fi sau USB. Aceasta dezactivează și așteptarea Wi-Fi și depanarea automată wireless.</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
@@ -624,7 +678,7 @@
     <string name="settings_system_start_method">Metoda de pornire a sistemului</string>
     <string name="settings_system_start_method_exploit">Samsung (agent FOTA)</string>
     <string name="settings_system_start_method_custom">Comandă personalizată</string>
-    <string name="home_system_title">Pornire prin UID sistem</string>
+    <string name="home_system_title">Pornește prin UID sistem</string>
     <string name="home_system_summary">Rulează Shizuku ca utilizator de sistem (UID 1000) în loc de adb: Doar Samsung, prin agentul FOTA sunt livrate acele versiuni</string>
     <string name="home_adb_command_summary">Pornește Shizuku de pe un calculator prin ADB. Atinge pentru a copia comanda</string>
     <string name="settings_tcp_mode">Mod TCP</string>
@@ -643,7 +697,7 @@
     <string name="settings_language">Limba</string>
     <string name="settings_language_system">Implicit sistem</string>
     <string name="settings_black_night_theme">Negru Amoled</string>
-    <string name="settings_black_night_theme_summary">Folosește tema negru pur dacă modul noapte este activat</string>
+    <string name="settings_black_night_theme_summary">Folosește o temă complet neagră în modul întunecat</string>
     <string name="settings_update_stable">Stabil</string>
     <string name="settings_update_beta">În dezvoltare</string>
     <string name="settings_permissions">Permisiuni</string>
@@ -709,6 +763,7 @@
     <string name="bug_report_dialog_issues">Caută prin toate ^1 pentru a vedea dacă eroarea ta a fost deja raportată.</string>
     <string name="bug_report_dialog_link_issues">probleme existente</string>
     <string name="bug_report_dialog_method">Te rugăm să trimiți o problemă pe ^1.</string>
+    <string name="bug_report_dialog_log_note">Dacă problema necesită un jurnal, te rugăm să-l copiezi integral mai jos și să-l atașezi.</string>
     <string name="bug_report_dialog_share_log">Distribuie jurnalul</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Dezactivează optimizarea bateriei pentru a utiliza această funcție.</string>
@@ -856,7 +911,7 @@
     <string name="watchdog_shizuku_recovered_text">Watchdog a început din nou după ce s-a oprit de la sine.</string>
     <string name="watchdog_given_up_title">Shizuku nu a putut fi pornit</string>
     <string name="watchdog_given_up_text">Shizuku a fost pornit de %1$d ori și nu a revenit. Repornirea nu va ajuta până când nu se rezolvă motivul.</string>
-    <string name="watchdog_given_up_action_start">Pornire</string>
+    <string name="watchdog_given_up_action_start">Pornește</string>
     <string name="watchdog_not_running_title">Watchdog-ul nu rulează</string>
     <string name="watchdog_not_running_text">Android nu permite pornirea automată. Atinge pentru a-l porni din nou.</string>
     <!-- Misc -->
@@ -873,7 +928,7 @@
     <string name="dialog_requesting_legacy_button_open_shizuku">Deschide Shizuku</string>
     <string name="wadb_notification_attempt_now">Încearcă din nou</string>
     <!-- Manage tab -->
-    <string name="tab_manage">Opțiuni aplicație</string>
+    <string name="tab_manage">Operațiuni aplicații</string>
     <string name="manage_search_hint">Căutare aplicații</string>
     <string name="manage_filter_all">Toate</string>
     <string name="manage_filter_user">Utilizator</string>
@@ -898,7 +953,7 @@
     <string name="app_open_info">Informații aplicație</string>
     <string name="app_section_permissions">Permisiuni de sistem</string>
     <string name="app_section_runtime">Permisiuni de execuție</string>
-    <string name="app_section_ops">Opțiuni aplicație</string>
+    <string name="app_section_ops">Operațiuni aplicații</string>
     <string name="app_section_actions">Acțiuni</string>
     <string name="app_section_battery">Baterie</string>
     <string name="app_section_info">Informații</string>
@@ -915,7 +970,7 @@
     <string name="app_ops_needs_shizuku">Pornește Shizuku sa citească si să schimbe opțiunile aplicației.</string>
     <string name="app_op_background">Rulează în fundal</string>
     <string name="app_op_background_note">Refuză să oprească rularea în fundal.</string>
-    <string name="app_op_any_background">Pornire automată la pornire</string>
+    <string name="app_op_any_background">Pornește automat cu sistemul de operare</string>
     <string name="app_op_any_background_note">Împiedică aplicațiile să se lanseze singure la pornire sau prin transmisii în fundal.</string>
     <string name="app_op_foreground">Servicii de prim-plan</string>
     <string name="app_op_foreground_note">Opțiunea „Refuză” dezactivează serviciile sale din prim-plan.</string>

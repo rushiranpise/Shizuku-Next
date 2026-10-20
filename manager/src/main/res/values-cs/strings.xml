@@ -146,6 +146,7 @@
     <string name="force_dark_notification_text">Aplikace na seznamu síly tmavého režimu je otevřena</string>
     <string name="force_dark_notification_watching">Čekání na otevření aplikace v seznamu</string>
     <string name="tab_activities">Aktivity spouštěč</string>
+    <string name="power_confirm_title">Jste si jisti?</string>
     <string name="activities_apps_count">%1$d aplikací</string>
     <string name="activities_count">%1$d aktivity</string>
     <string name="activities_launcher">Spouštěč</string>

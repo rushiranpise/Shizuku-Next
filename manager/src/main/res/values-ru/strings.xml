@@ -176,6 +176,7 @@
     <string name="force_dark_notification_text">Приложение из списка принудительного темного режима открыто</string>
     <string name="force_dark_notification_watching">Ожидание открытия приложения из списка</string>
     <string name="tab_activities">Активити</string>
+    <string name="power_confirm_title">Вы уверены?</string>
     <string name="activities_apps_count">%1$d прилож.</string>
     <string name="activities_count">%1$d активностей</string>
     <string name="activities_launcher">Лаунчер</string>
