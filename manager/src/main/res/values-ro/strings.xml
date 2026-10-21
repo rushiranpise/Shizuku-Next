@@ -967,7 +967,7 @@
     <string name="app_grant_confirm_ok">Acordă</string>
     <string name="app_action_failed">Android a refuzat asta. Nimic nu s-a schimbat.</string>
     <string name="app_ops_note">Platforma însăși consultă opțiunile App Operators, iar ADB le poate modifica pe cele de mai jos. Câteva capabilități sunt accesul special în setările de sistem, mai degrabă decât accesul la toate fișierele App Operators, accesul la utilizarea datelor, alarme exacte, modificarea setărilor de sistem, pe care nicio aplicație nu le poate modifica.</string>
-    <string name="app_ops_needs_shizuku">Pornește Shizuku sa citească si să schimbe opțiunile aplicației.</string>
+    <string name="app_ops_needs_shizuku">Pornește Shizuku ca să citească și să schimbe operațiunile aplicației.</string>
     <string name="app_op_background">Rulează în fundal</string>
     <string name="app_op_background_note">Refuză să oprească rularea în fundal.</string>
     <string name="app_op_any_background">Pornește automat cu sistemul de operare</string>
