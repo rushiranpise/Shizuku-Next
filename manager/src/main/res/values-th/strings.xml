@@ -11,6 +11,7 @@
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[เริ่มผ่านการแก้ไขข้อบกพร่องผ่าน Wi-Fi]]></string>
     <string name="home_wireless_adb_starting_without_wifi"></string>
+    <string name="home_usb_adb_needs_network">Buppa255@gmail.com</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->

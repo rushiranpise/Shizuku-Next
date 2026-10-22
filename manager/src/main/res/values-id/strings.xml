@@ -152,6 +152,7 @@
     <string name="app_management_sort_alphabetical">A-Z</string>
     <string name="tab_home">Home</string>
     <string name="tab_apps">Apps</string>
+    <string name="tab_labs">Laboratorium</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="hiding_filter_hidden">Hidden</string>
     <string name="intent_start">Mulai</string>

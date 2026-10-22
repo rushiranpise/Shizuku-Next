@@ -6,12 +6,71 @@
       a change here reaches translators on the next push and not before.
     -->
     <!-- To translators: you can leave your here -->
+    <string name="home_status_adb_wireless">اوامر</string>
+    <string name="home_status_adb_usb">اوامر</string>
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[البدء باستخدام التصحيح اللاسلكي]]></string>
+    <string name="home_wireless_adb_starting_without_wifi"></string>
+    <string name="home_usb_adb_needs_network">يتطلب بدء التشغيل عبر USB استخدام منفذ ADB التقليدي، كما أن إعادة فتحه تتطلب اتصالًا بالشبكة. اتصل بشبكة Wi-Fi مرة واحدة، أو اختر <b>البدء بدون Wi-Fi</b> كطريقة لبدء التشغيل، وابدأ بدلًا من ذلك باستخدام تصحيح الأخطاء اللاسلكي.
+</string>
+    <string name="home_wireless_adb_summary">يبدأ باستخدام تصحيح الأخطاء اللاسلكي.</string>
+    <string name="home_usb_adb_title"><![CDATA[البدء عبر تصحيح أخطاء USB]]></string>
+    <string name="home_usb_adb_summary">يبدأ باستخدام تصحيح أخطاء USB</string>
+    <string name="home_support_body">Shizuku-Next مجاني تمامًا وبدون إعلانات. يمكنك دعم المطوّر بشراء كوب قهوة للمساعدة في تغطية وقت صيانة التطبيق.
+</string>
+    <string name="diagnostics_title">التشخيصات
+</string>
+    <string name="diagnostics_copy">نسخ بيانات التشخيص
+</string>
+    <string name="diagnostics_copied">تم نسخ بيانات التشخيص
+</string>
+    <string name="diagnostics_service">الخدمة
+</string>
+    <string name="diagnostics_server_uid">معرّف المستخدم (UID) للخادم
+</string>
+    <string name="diagnostics_server_api">واجهة برمجة تطبيقات الخادم
+</string>
+    <string name="diagnostics_server_context">سياق الخادم
+</string>
+    <string name="diagnostics_wireless_debugging">تصحيح الأخطاء اللاسلكي
+</string>
+    <string name="diagnostics_adb_port">منفذ ADB
+</string>
+    <string name="diagnostics_wifi">Wi-Fi
+</string>
+    <string name="diagnostics_local_network">الشبكة المحلية
+</string>
+    <string name="diagnostics_battery">تحسين استهلاك البطارية
+</string>
+    <string name="diagnostics_app">التطبيق
+</string>
+    <string name="diagnostics_android">Android</string>
+    <string name="diagnostics_device">جهاز</string>
+    <string name="diagnostics_started_with">تم البدء باستخدام
+</string>
+    <string name="diagnostics_default">الطريقة الافتراضية
+</string>
+    <string name="diagnostics_hiding">الإخفاء
+</string>
+    <string name="diagnostics_phantom">أداة إنهاء العمليات
+</string>
+    <string name="diagnostics_root">الجذر</string>
+    <string name="diagnostics_granted">ممنوح
+</string>
+    <string name="diagnostics_missing">مفقود</string>
+    <string name="diagnostics_not_required">غير مطلوب
+</string>
+    <string name="diagnostics_connected">متصل</string>
+    <string name="diagnostics_not_connected">غير متصل</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
+    <string name="diagnostics_battery_optimized">تم تحسينه
+</string>
+    <string name="diagnostics_battery_unrestricted">غير مقيد</string>
+    <string name="diagnostics_unavailable">غير متاح</string>
+    <string name="diagnostics_closed">مغلق</string>
     <!-- Adb -->
     <string name="dialog_adb_port">المنفذ</string>
     <string name="dialog_adb_invalid_port">المنفذ هو عدد صحيح يتراوح من 1 إلى 65535.</string>
@@ -31,6 +90,11 @@
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
+    <string name="dialog_adb_pairing_accessibility_permission">يحظر Android تفعيل هذا الخيار للتطبيقات المثبتة من خارج متجر التطبيقات. اسمح بإذن ^1 لتفعيل خدمة تسهيل الاستخدام. ستظهر هذه الخدمة في قائمة تسهيل الاستخدام بالحالة \"يخضع لقيود الإعدادات\".\\n\\nافتح معلومات التطبيق واختر \"السماح بالإعدادات المقيّدة\" من القائمة، أو نفّذ هذا الأمر على جهاز كمبيوتر:\\n\\n^2\\n\\nكلا الخيارين يعمل. سيعمل المفتاح بعد ذلك.
+</string>
+    <string name="dialog_adb_pairing_open_app_info">معلومات التطبيق </string>
+    <string name="dialog_adb_pairing_accessibility_enable">يقوم الاقتران التلقائي بقراءة الرمز من مربع حوار النظام عبر خدمة تسهيل الاستخدام الخاصة بـ Shizuku، لذا يجب تفعيلها، ولكن للمدة اللازمة فقط: تتوقف الخدمة تلقائيًا بمجرد العثور على الرمز، أو بعد دقيقة واحدة لتوفير الطاقة. عادةً ما يقوم Shizuku بتفعيلها تلقائيًا، ويتطلب ذلك إذن WRITE_SECURE_SETTINGS، الذي لم يُمنح بعد للتثبيت الجديد.\\n\\nفعّلها في الشاشة التالية، أو أدخل الرمز بنفسك ضمن قسم Manual، أو امنح الإذن مرة واحدة:\\n\\nadb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS
+</string>
     <string name="dialog_adb_pairing_accessibility_navigate">يرجى بدء عملية الاقتران من خلال تنفيذ
         الخطوات التالية:\n- انتقل إلى \"خيارات المطور\"\n- قم بتمكين \"تصحيح أخطاء USB\" و\"تصحيح
         الأخطاء اللاسلكية\"\n- انقر على الجانب الأيسر من \"تصحيح الأخطاء اللاسلكية\"\n- انقر على
@@ -45,6 +109,10 @@
     <string name="adb_error_stop_tcp">فشل في إيقاف ADB عبر TCP</string>
     <string name="adb_pair_required">يرجى المرور بخطوة الاقتران أولاً.</string>
     <string name="enable">يُمكَِن</string>
+    <string name="auto_pair_instructions">الاقتران دون كتابة رمز:\\n\\n1. خيارات المطوّر ← تصحيح الأخطاء اللاسلكي\\n2. إقران الجهاز باستخدام رمز الاقتران\\n\\nيقرأ Shizuku الرمز والمنفذ مباشرةً من مربع الحوار ويبدأ تشغيل نفسه. اترك مربع الحوار مفتوحًا حتى يكتمل الاقتران.
+</string>
+    <string name="auto_pair_manual">يدوي
+</string>
     <string name="development_settings">خيارات للمطور</string>
     <string name="notification_settings">إعداد الإشعارات</string>
     <string name="adb_pairing_tutorial_content_notification">سيساعدك إشعار من Shizuku على إكمال
@@ -84,20 +152,67 @@
     <!-- Home - Learn more -->
     <!-- Home - Adb permissions limited -->
     <!-- Home - Dialogs -->
+    <string name="home_dialog_reboot_required_title">يلزم إعادة التشغيل
+</string>
+    <string name="home_dialog_reboot_required_message">يلزم إعادة تشغيل الجهاز لكي يعمل Shizuku بشكل صحيح. للمتابعة، يُرجى إعادة تشغيل جهازك.
+</string>
+    <string name="home_dialog_duplicate_app_detected_title">تم اكتشاف تطبيق مكرر
+</string>
+    <string name="home_dialog_duplicate_app_detected_message">يوجد إصدار آخر من هذا التطبيق مثبت على جهازك. للمتابعة، يُرجى إزالة تثبيت جميع النسخ المكررة وإعادة تشغيل جهازك.
+</string>
     <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
+    <string name="home_permission_owned_by">تبحث التطبيقات عن Shizuku باستخدام إذنه، ويشير Android إلى أن %1$s يعلن عن هذا الإذن، ما يعني أنه نسخة من Shizuku أو بقايا منها. ستستمر هذه التطبيقات في طلب الإذن من هذه النسخة حتى يتم إلغاء تثبيتها وإعادة تشغيل الجهاز.
+</string>
+    <string name="home_permission_not_registered">تبحث التطبيقات عن Shizuku باستخدام إذنه، لكن Android لم يسجّله بعد، وقد يحدث ذلك بعد إعادة تثبيت التطبيق ويستمر حتى إعادة تشغيل الجهاز. لن يتأثر Shizuku نفسه، لكن قد لا تتمكن التطبيقات الأخرى من العثور عليه.
+</string>
+    <string name="home_dialog_button_exit">خروج</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">إذن الADB محدود</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[من المحتمل جدًا أن تحدد الشركة المصنعة للجهاز إذن adb. <p> قد يكون هناك حل لنظامك في <b><a href="%1$s">هذا المستند</a></b>.]]></string>
     <string name="app_management_toggle_all">تبديل الكل</string>
+    <string name="app_management_search_hint">البحث عن التطبيقات
+</string>
+    <string name="app_management_sort">ترتيب</string>
     <string name="apps_needs_shizuku">Start Shizuku to see apps</string>
     <string name="apps_empty">U</string>
     <string name="apps_filter_empty">H</string>
+    <string name="apps_filter_all">الكل</string>
+    <string name="apps_filter_granted">ممنوح
+</string>
+    <string name="apps_filter_revoked">تم إلغاؤه
+</string>
+    <string name="apps_filter_hidden">مخفي</string>
+    <string name="apps_no_match">لا توجد تطبيقات تطابق بحثك
+</string>
+    <string name="app_management_sort_last_added">المضافة مؤخرًا
+</string>
+    <string name="app_management_sort_updated">تم التحديث
+</string>
+    <string name="app_management_sort_alphabetical">ا-ي</string>
+    <string name="tab_home">الرئيسيه</string>
+    <string name="tab_apps">التطبيقات </string>
+    <string name="tab_shell">واجهة الأوامر (Shell)
+</string>
+    <string name="tab_labs">ميزات تجريبية
+</string>
+    <string name="lab_more_apps">المزيد من التطبيقات
+</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="hiding_filter_hidden">مخفي</string>
     <string name="intent_start">البدء بالتشغيل</string>
     <string name="device_watchdog">مراقب</string>
+    <string name="log_filter_all">الكل</string>
     <string name="log_capture_start">البدء بالتشغيل</string>
+    <string name="log_capture_choose_hint">البحث عن التطبيقات
+</string>
     <string name="action_start">البدء بالتشغيل</string>
+    <string name="catalog_filter_sort">ترتيب</string>
+    <string name="catalog_filter_updated">تم التحديث
+</string>
     <string name="modules_repo_retry">أعد المحاولة</string>
+    <string name="modules_sort">ترتيب</string>
+    <string name="modules_service_short">الخدمة
+</string>
     <string name="intents_start">البدء بالتشغيل</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">أبلغ المستخدمون أن MIUI يكسر إطار عمل الوصول إلى التخزين،
@@ -118,6 +233,7 @@
     <string name="settings_start_on_boot">البدء عند التمهيد</string>
     <string name="settings_watchdog">مراقب</string>
     <string name="settings_watchdog_summary">إعادة تشغيل Shizuku تلقائيًا في حالة تعطله</string>
+    <string name="transport_adb">اوامر</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
     <string name="settings_tcp_mode">وضع TCP</string>
@@ -140,6 +256,8 @@
       so the singular is read more often than the plural is.
     -->
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
+    <string name="contributor_area_app">التطبيق
+</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
       worked in, and the languages they translated into. There is deliberately no string per
@@ -202,6 +320,8 @@
     <string name="wadb_permission_error_notification_content">يحتاج شيزوكو إلى WRITE_SECURE_SETTINGS
         للبدء عند بدء التشغيل. انقر لمعرفة كيفية تفعيله.</string>
     <!-- Shell -->
+    <string name="shell_title">واجهة الأوامر (Shell)
+</string>
     <!-- Watchdog -->
     <string name="watchdog_running">مراقب يعمل</string>
     <string name="watchdog_turn_off">إيقاف التشغيل</string>
@@ -225,9 +345,17 @@
     <string name="dialog_requesting_legacy_button_open_shizuku">افتح Shizuku</string>
     <string name="wadb_notification_attempt_now">أعد المحاولة</string>
     <!-- Manage tab -->
+    <string name="manage_search_hint">البحث عن التطبيقات
+</string>
+    <string name="manage_filter_all">الكل</string>
+    <string name="manage_filter_hidden">مخفي</string>
     <string name="permissions_action_deny">منع</string>
+    <string name="manage_status_hidden">مخفي</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_op_mode_deny">منع</string>
     <string name="app_action_enable">يُمكَِن</string>
+    <string name="app_info_updated">تم التحديث
+</string>
+    <string name="files_sort">ترتيب</string>
     <string name="install_location_auto">خيارات للمطور</string>
 </resources>
