@@ -69,6 +69,7 @@
     <string name="diagnostics_battery_optimized">تم تحسينه
 </string>
     <string name="diagnostics_battery_unrestricted">غير مقيد</string>
+    <string name="diagnostics_available">available</string>
     <string name="diagnostics_unavailable">غير متاح</string>
     <string name="diagnostics_closed">مغلق</string>
     <!-- Adb -->
@@ -93,8 +94,7 @@
     <string name="dialog_adb_pairing_accessibility_permission">يحظر Android تفعيل هذا الخيار للتطبيقات المثبتة من خارج متجر التطبيقات. اسمح بإذن ^1 لتفعيل خدمة تسهيل الاستخدام. ستظهر هذه الخدمة في قائمة تسهيل الاستخدام بالحالة \"يخضع لقيود الإعدادات\".\\n\\nافتح معلومات التطبيق واختر \"السماح بالإعدادات المقيّدة\" من القائمة، أو نفّذ هذا الأمر على جهاز كمبيوتر:\\n\\n^2\\n\\nكلا الخيارين يعمل. سيعمل المفتاح بعد ذلك.
 </string>
     <string name="dialog_adb_pairing_open_app_info">معلومات التطبيق </string>
-    <string name="dialog_adb_pairing_accessibility_enable">يقوم الاقتران التلقائي بقراءة الرمز من مربع حوار النظام عبر خدمة تسهيل الاستخدام الخاصة بـ Shizuku، لذا يجب تفعيلها، ولكن للمدة اللازمة فقط: تتوقف الخدمة تلقائيًا بمجرد العثور على الرمز، أو بعد دقيقة واحدة لتوفير الطاقة. عادةً ما يقوم Shizuku بتفعيلها تلقائيًا، ويتطلب ذلك إذن WRITE_SECURE_SETTINGS، الذي لم يُمنح بعد للتثبيت الجديد.\\n\\nفعّلها في الشاشة التالية، أو أدخل الرمز بنفسك ضمن قسم Manual، أو امنح الإذن مرة واحدة:\\n\\nadb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS
-</string>
+    <string name="dialog_adb_pairing_accessibility_enable"></string>
     <string name="dialog_adb_pairing_accessibility_navigate">يرجى بدء عملية الاقتران من خلال تنفيذ
         الخطوات التالية:\n- انتقل إلى \"خيارات المطور\"\n- قم بتمكين \"تصحيح أخطاء USB\" و\"تصحيح
         الأخطاء اللاسلكية\"\n- انقر على الجانب الأيسر من \"تصحيح الأخطاء اللاسلكية\"\n- انقر على
@@ -197,6 +197,7 @@
 </string>
     <string name="lab_more_apps">المزيد من التطبيقات
 </string>
+    <string name="tab_firewall">Firewall</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="hiding_filter_hidden">مخفي</string>
     <string name="intent_start">البدء بالتشغيل</string>

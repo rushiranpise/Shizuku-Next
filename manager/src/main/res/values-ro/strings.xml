@@ -66,7 +66,7 @@
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Android blochează acest comutator pentru aplicațiile instalate din afara unui magazin de aplicații. Permite aplicației ^1 să activeze serviciul de accesibilitate. Lista de accesibilitate arată acest lucru ca \"Controlat de setarea restricționată\".\n\nDeschide Informații despre aplicație și selectează „Permite setări restricționate” din meniu sau rulează pe un computer:\n\n^2\n\nOricare opţiune funcţionează. Comutatorul va funcționa ulterior.</string>
     <string name="dialog_adb_pairing_open_app_info">Informații aplicație</string>
-    <string name="dialog_adb_pairing_accessibility_enable">Împerecherea automată citește codul din dialogul de sistem prin serviciul de accesibilitate Shizuku, așa că trebuie activat și numai atât timp cât este necesar: serviciul se oprește automat odată ce codul este găsit sau după un minut pentru a economisi energie. În mod normal, Shizuku o activează singur, iar acest lucru necesită permisiunea WRITE_SECURE_SETTINGS, care nu a fost încă acordată la o instalare nouă.\n\nActivează pe ecranul următor, introdu codul în secțiunea Manual sau acordă permisiunea o singură dată:\n\nadb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</string>
+    <string name="dialog_adb_pairing_accessibility_enable">Împerecherea automată citește codul din dialogul de sistem prin serviciul de accesibilitate Shizuku, așa că trebuie activat și numai atât timp cât este necesar: serviciul se oprește automat odată ce codul este găsit sau după un minut pentru a economisi energie. În mod normal, Shizuku o activează singur, iar acest lucru necesită permisiunea WRITE_SECURE_SETTINGS, care nu a fost încă acordată la o instalare nouă.\n\nActivează pe ecranul următor, introdu codul în secțiunea Manual sau acordă permisiunea o singură dată:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Începe procesul de asociere urmând pașii de mai jos:\n- Accesează „Opțiuni pentru dezvoltatori”\n- Activează „Depanare USB” și „Depanare wireless”\n- Atinge partea stângă a opțiunii „Depanare wireless”\n- Atinge „Asociază dispozitivul cu codul de asociere”. Shizuku va detecta automat codul de asociere.</string>
     <string name="adb_pairing_requires_multi_window">Intră mai întâi în modul ecran divizat
         (ferestre multiple).</string>
@@ -216,8 +216,8 @@
     <string name="power_needs_root">Accesul root este necesar, dar acest dispozitiv nu este root-at.</string>
     <string name="power_needs_shizuku_rooted">Shizuku nu rulează. Este disponibilă doar repornirea rapidă.</string>
     <string name="power_failed">Nu s-a putut rula %1$s</string>
-    <string name="tab_display">Afișare</string>
-    <string name="display_description">Modifică rezoluția ecranului, densitatea și rata de reîmprospătare. Dacă ecranul devine greu de utilizat, atinge butonul „Resetare” de lângă setare.</string>
+    <string name="tab_display">Afișaj</string>
+    <string name="display_description">Modifică rezoluția ecranului, densitatea și rata de reîmprospătare. Dacă ecranul devine greu de utilizat, atinge butonul „Resetează” de lângă setare.</string>
     <string name="display_needs_shizuku">Pornește Shizuku pentru a vizualiza sau modifica aceste setări.</string>
     <string name="display_resolution">Rezoluție</string>
     <string name="display_resolution_summary">Dimensiunea ecranului în pixeli (lățime x înălțime). Aceasta determină dimensiunea cu care sistemul afișează ecranul, nu dimensiunea fizică a afișajului.</string>
@@ -540,13 +540,13 @@
     <string name="about_package">Pachet</string>
     <string name="check_for_updates_now">Verifică acum</string>
     <string name="start_failed">Nu s-a putut porni Shizuku</string>
-    <string name="start_failed_write_secure_settings">Shizuku nu poate activa depanarea wireless fără permisiunea WRITE_SECURE_SETTINGS. Pornește-te singur în opțiunile &gt; Debugging Wireless sau acordă permisiunea cu <b>adb shell pm grant. hizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Odată Shizuku rulează, păstrează permisiunea în sine, deci aceasta este o singură dată.</string>
+    <string name="start_failed_write_secure_settings">Shizuku nu poate activa depanarea wireless fără permisiunea WRITE_SECURE_SETTINGS. Activează manual în Opțiuni pentru dezvoltatori &gt; Remedierea erorilor wireless sau acordă permisiunea cu comanda <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. Odată ce Shizuku rulează, aplicația păstrează această permisiune, așa că această operațiune trebuie efectuată o singură dată.</string>
     <string name="action_open_wireless_debugging">Depanare fără fir</string>
     <string name="start_failed_unsupported">Acest dispozitiv nu îl poate porni în fundal</string>
     <string name="start_failed_wifi_required">Conectează-te la o rețea Wi-Fi, sistemul dezactivează depanarea fără precedent. Sau pornește de la un computer folosind comanda ADB de mai jos.</string>
     <string name="start_failed_binder_went_away">Serviciul a fost pornit şi apoi oprit din nou, deci nimic nu poate fi folosit încă. Acest lucru se întâmplă atunci când serverul este retras cu aplicaţia prin care a trecut pornirea, ceea ce face sarcina utilă după ce a început-o. Încearcă din nou începutul.</string>
     <string name="start_failed_no_port">Nu a fost găsit niciun port de depanare wireless. Asigurați-vă că este activat depanarea wireless și că Wi-Fi este conectat.</string>
-    <string name="start_failed_no_port_no_permission">Nu a fost găsit niciun port de depanare wireless, iar Shizuku nu poate activa depanarea wireless fără WRITE_SECURE_SETTINGS: <b>adb shell pm grant. hizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Sau pornește Shizuku prin depanarea USB odată ce se acordă ulterior.</string>
+    <string name="start_failed_no_port_no_permission">Nu s-a găsit niciun port de depanare wireless, iar Shizuku nu poate activa depanarea wireless fără permisiunea WRITE_SECURE_SETTINGS: <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. Sau pornește Shizuku prin depanarea USB după ce își acordă singur această permisiune.</string>
     <string name="start_failed_no_auth">Depanarea fără fir nu este permisă pe această rețea. Asociază dispozitivul din nou.</string>
     <string name="action_dismiss">Renunță</string>
     <string name="action_connect_wifi">Conectare</string>

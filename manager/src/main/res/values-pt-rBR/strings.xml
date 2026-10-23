@@ -66,7 +66,6 @@
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">O Android bloqueia esse botão para aplicativos instalados fora de uma loja de aplicativos. Permita que o comando ^1 app-op ative o serviço de acessibilidade. A lista de acessibilidade exibe isso como “Controlado por configuração restrita”.\n\nAbra “Informações do aplicativo” e selecione “Permitir configurações restritas” no menu, ou execute este comando em um computador:\n\n^2\n\nQualquer uma das opções funciona. O botão passará a funcionar depois disso.</string>
     <string name="dialog_adb_pairing_open_app_info">Informações do app</string>
-    <string name="dialog_adb_pairing_accessibility_enable">O emparelhamento automático lê o código da caixa de diálogo do sistema por meio do serviço de acessibilidade do Shizuku; portanto, ele precisa estar ativado, e apenas pelo tempo necessário: o serviço se desativa assim que o código é encontrado ou após um minuto, para economizar energia. Normalmente, o Shizuku habilita isso sozinho, e isso requer a permissão WRITE_SECURE_SETTINGS, que ainda não foi concedida em uma instalação nova.\n\nHabilite-a na próxima tela, digite o código manualmente na opção “Manual” ou conceda a permissão uma vez:\n\nadb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Para iniciar o emparelhamento, siga estas etapas:\n- Acesse “Opções do desenvolvedor”\n- Ative “Depuração por USB” e “Depuração sem fio”\n- Toque no lado esquerdo de “Depuração sem fio”\n- Toque em “Emparelhar dispositivo com código de emparelhamento”. O Shizuku detectará automaticamente o código de emparelhamento.</string>
     <string name="adb_pairing_requires_multi_window">Primeiro, abra o modo de tela dividida.</string>
     <string name="adb_pairing_requires_multi_window_reason">O sistema exige que a janela de emparelhamento permaneça sempre visível. Usar o modo de tela dividida é a única maneira de manter este aplicativo e a janela do sistema visíveis ao mesmo tempo.</string>
@@ -441,13 +440,11 @@
     <string name="about_package">Pacote</string>
     <string name="check_for_updates_now">Verificar agora</string>
     <string name="start_failed">Não foi possível iniciar Shizuku</string>
-    <string name="start_failed_write_secure_settings">Shizuku não pode mudar a depuração sem a permissão WRITE_SECURE_SETTINGS. Ligue você mesmo sob as opções de desenvolvedor &gt; Depuração sem fio, ou conceda a permissão com <b>adb shell pm grant moe. hizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Uma vez que Shizuku está executando, mantém essa permissão em si, então esta é uma opção única.</string>
     <string name="action_open_wireless_debugging">Depuração sem fio</string>
     <string name="start_failed_unsupported">Este dispositivo não pode iniciá-lo em segundo plano</string>
     <string name="start_failed_wifi_required">Conecte-se a uma rede Wi-Fi o sistema desativa a depuração sem uma. Ou inicie um computador usando o comando ADB abaixo.</string>
     <string name="start_failed_binder_went_away">O serviço foi iniciado e então foi interrompido novamente, então nada pode ser usado ainda. Isso acontece quando o servidor é reduzido com o aplicativo que o início passou que é o que a carga faz depois de iniciá-la. Tente o início novamente.</string>
     <string name="start_failed_no_port">Nenhuma porta de depuração sem fio foi encontrada. Certifique-se de que a depuração sem fio está ativada e o Wi-Fi está conectado.</string>
-    <string name="start_failed_no_port_no_permission">Nenhuma porta de depuração sem fio foi encontrada, e Shizuku não pode ativar depuração sem fio sem WRITE_SECURE_SETTINGS: <b>adb shell pm grant a me. hizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Ou iniciar Shizuku sobre a depuração USB uma vez que se conceder depois.</string>
     <string name="start_failed_no_auth">Depuração sem fio não é permitida nesta rede. Emparelhe o dispositivo novamente.</string>
     <string name="action_dismiss">Descartar</string>
     <string name="action_connect_wifi">Conectar</string>

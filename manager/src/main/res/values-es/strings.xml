@@ -16,12 +16,15 @@
     <string name="home_wireless_adb_summary">\"Iniciar usando depuración inalambrica.\"</string>
     <string name="home_usb_adb_title"><![CDATA[Iniciar por depuración USB]]></string>
     <string name="home_usb_adb_summary">Iniciar usando depuración USB.</string>
+    <string name="home_support_body">Shizuku-Next es gratuito y no tiene anuncios. Un café va hacia el tiempo que se tarda en mantener.</string>
     <string name="diagnostics_title">Diagnostico</string>
     <string name="diagnostics_copy">Copiar diagnostico</string>
     <string name="diagnostics_copied">Diagnóstico copiado</string>
     <string name="diagnostics_service">Servicio</string>
     <string name="diagnostics_server_uid">Servidor uid</string>
+    <string name="diagnostics_server_api">Servidor API</string>
     <string name="diagnostics_server_context">Contexto del servidor</string>
+    <string name="diagnostics_wireless_debugging">Diagnóstico de depuración inalámbrica</string>
     <string name="diagnostics_adb_port">Puerto ADB</string>
     <string name="diagnostics_wifi">Wi-Fi</string>
     <string name="diagnostics_local_network">Red local</string>
@@ -68,7 +71,9 @@
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
+    <string name="dialog_adb_pairing_accessibility_permission">Android bloquea esté interruptor para aplicaciones instaladas fuera de una tienda de aplicaciones. Permita que la aplicación ^ 1 encienda el servicio de accesibilidad. The accessibility list shows this as \"Controlled by Restricted Setting\".\n\nOpen App info and select \"Allow restricted settings\" from the menu, or run this on a computer:\n\n^2\n\nEither option works. El interruptor funcionará después.</string>
     <string name="dialog_adb_pairing_open_app_info">Información de App</string>
+    <string name="dialog_adb_pairing_accessibility_enable">El emparejamiento automático lee el código del diálogo del sistema a través del servicio de accesibilidad de Shizuku, por lo que debe habilitarse, y solo durante el tiempo que sea necesario: el servicio se apaga una vez que se encuentra el código, o después de un minuto para ahorrar energía. Shizuku normalmente lo permite por sí solo, se necesita el permiso de ESCRITURA_SEGURIDAD_CONFIGURACION que aún no se ha otorgado una nueva instalación.\n\n activado en la siguiente pantalla, escriba el código usted mismo manualmente o otorgue el permiso una vez: \n\n ADB Shell pm grant %1$s Android.Permission.ESCRITURA_SEGURIDAD_CONFIGURACION</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Para iniciar el emparejamiento, siga
         estos pasos:\n- Vaya a \"Opciones de desarrollador\"\n- Habilite \"Depuración USB\" y
         \"Depuración inalámbrica\"\n- Toque el lado izquierdo de \"Depuración inalámbrica\"\n- Toque
@@ -84,6 +89,7 @@
     <string name="adb_error_stop_tcp">No se pudo detener ADB sobre TCP</string>
     <string name="adb_pair_required">Por favor, ve al paso de emparejamiento primero.</string>
     <string name="enable">Permitir</string>
+    <string name="auto_pair_instructions">Emparejar sin escribir un código: \n\n1. Opciones de desarrollador → Depuración inalámbrica \n2. El dispositivo se empareja con el código de emparejamiento \n\n Shizuku lee el código y el puerto directamente desde ese diálogo y se inicia. Mantenga el cuadro de diálogo abierto hasta que se empareje.</string>
     <string name="auto_pair_manual">Manual</string>
     <string name="development_settings">Opciones para desarrolladores</string>
     <string name="notification_settings">Opciones de notificación</string>
@@ -124,8 +130,12 @@
     <!-- Home - Adb permissions limited -->
     <!-- Home - Dialogs -->
     <string name="home_dialog_reboot_required_title">Reinicio requirido</string>
+    <string name="home_dialog_reboot_required_message">Se requiere un reinicio del dispositivo para que Shizuku funcione correctamente. Para continuar, por favor reinicie su dispositivo.</string>
     <string name="home_dialog_duplicate_app_detected_title">Duplicar app detectada</string>
+    <string name="home_dialog_duplicate_app_detected_message">Otra versión de esta aplicación está instalada en su dispositivo. Para continuar, desinstale todas las versiones duplicadas y reinicie su dispositivo.</string>
     <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
+    <string name="home_permission_owned_by">Las aplicaciones se ven Shizuku por su permiso, y Android dice que %1$s lo declara: una copia de Shizuku, o lo que queda de uno. Esas aplicaciones lo preguntarán hasta que se desinstale y se reinicie el dispositivo.</string>
+    <string name="home_permission_not_registered">Las aplicaciones ven Shizuku por su permiso, y Android aún no lo ha registrado, que una reinstalación puede dejar atrás hasta que se reinicie el dispositivo. Shizuku en sí no se ve afectado; Otras aplicaciones pueden no encontrarlas.</string>
     <string name="home_dialog_button_exit">Salir</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">El permiso de ADB es limitado</string>
@@ -133,9 +143,47 @@
     <string name="app_management_toggle_all">Activar/desactivar todo</string>
     <string name="app_management_search_hint">Buscar aplicaciones</string>
     <string name="app_management_sort">Clasificar</string>
+    <string name="apps_needs_shizuku">Inicie Shizuku para ver apps</string>
     <string name="apps_empty">No hay apps</string>
     <string name="apps_filter_empty">No hay Apps en este filtro</string>
+    <string name="apps_filter_all">Todo</string>
+    <string name="apps_filter_granted">Concedido</string>
+    <string name="apps_filter_revoked">Revocado</string>
+    <string name="apps_filter_hidden">Ocultar</string>
+    <string name="apps_no_match">No hay apps que coincidan con su busqueda</string>
+    <string name="app_management_sort_last_added">Recientemente añadido</string>
+    <string name="app_management_sort_updated">Actualizado</string>
+    <string name="tab_home">Inicio</string>
+    <string name="tab_apps">Apps</string>
+    <string name="tab_shell">Shell</string>
+    <string name="tab_labs">Loboratorios</string>
+    <string name="lab_more_apps">Más Apps</string>
+    <string name="tab_firewall">Cortafuegos</string>
+    <string name="tab_autostart">Inicio Automático</string>
+    <string name="labs_filter_allowed">Permitido</string>
+    <string name="labs_filter_blocked">Bloqueado</string>
+    <string name="labs_blocked_count">%1$d Bloqueado</string>
+    <string name="labs_blocked_empty">Nada esta bloqueado.</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="tab_hiding">Ocultar</string>
+    <string name="tab_hide_developer_options">Ocultar opciones de desarrollador</string>
+    <string name="tab_hide_usb_debugging">Ocultar la depuración USB</string>
+    <string name="tab_hide_wireless_debugging">Ocultar la depuración inalámbrica</string>
+    <string name="tab_hide_accessibility">Ocultar Accesibilidad</string>
+    <string name="tab_hide_private_dns">Ocultar DNS Privado</string>
+    <string name="tab_hide_vpn">Ocultar VPN</string>
+    <string name="hiding_hidden_count">%1$d ocultar</string>
+    <string name="hiding_gate">Activar</string>
+    <string name="hiding_gate_disabled">Desactivar</string>
+    <string name="hiding_restart_on_open">Desactivar cerrar y reabrir en el launcher</string>
+    <string name="hiding_gate_kept">%1$d mantener</string>
+    <string name="hiding_filter_hidden">Ocultar</string>
+    <string name="hiding_open_with_hiding">Abierto con la configuración oculta</string>
+    <string name="hiding_filter_shown">Visible</string>
+    <string name="hiding_filter_empty">Visible nada oculto.</string>
+    <string name="hiding_restore">Restaurar</string>
+    <string name="hiding_signal_developer_options">Opciones de desarrollador</string>
+    <string name="hiding_signal_usb_debugging">Depuración USB</string>
     <string name="hiding_signal_wireless_debugging">Depuración inalambrica</string>
     <string name="hiding_signal_accessibility">Servicio de accesibilidad</string>
     <string name="hiding_signal_private_dns">Dns Privado</string>
@@ -151,12 +199,64 @@
     <string name="force_dark_system_theme">Tema del sistema en su lugar</string>
     <string name="force_dark_toggled">Cerro la aplicación forzado</string>
     <string name="force_dark_notification_title">Forzar modo oscuro esta activado</string>
+    <string name="force_dark_notification_text">Una app en la lista de Forzar el modo oscuro está abierta</string>
+    <string name="force_dark_notification_watching">Esperando una aplicación en la lista para abrir</string>
     <string name="tab_activities">Activities Launcher</string>
+    <string name="tab_power">Encender</string>
+    <string name="power_description">Reinicie el Encender o apague la pantalla sin usar los botones del teléfono.</string>
+    <string name="power_needs_shizuku">Inicie Shizuku primero para usar estas opciones.</string>
+    <string name="power_reboot">Reiniciar</string>
+    <string name="power_reboot_summary">Reinicie el teléfono.</string>
+    <string name="power_reboot_confirm">El teléfono se reiniciará ahora. El trabajo no guardado se perderá.</string>
+    <string name="power_recovery">Reiniciar a la recuperación</string>
+    <string name="power_recovery_summary">Reinicie el teléfono en modo recovery.</string>
+    <string name="power_recovery_confirm">El teléfono se reiniciará en modo recovery. Use los botones de volumen y apagado para navegar.</string>
+    <string name="power_bootloader">Reiniciar al bootloader</string>
+    <string name="power_bootloader_summary">Reinicie en modo Fastboot para conectarse a una computadora.</string>
+    <string name="power_bootloader_confirm">El teléfono se reiniciará en el bootloader y permanecerá allí hasta que lo reinicie, generalmente desde una computadora.</string>
+    <string name="power_off">Apagar</string>
+    <string name="power_off_summary">Apagar el telefono.</string>
+    <string name="power_off_confirm">El teléfono se apagará ahora. El trabajo no guardado se perderá.</string>
+    <string name="power_screen_off">Girar la pantalla apagado</string>
+    <string name="power_screen_off_summary">Girar la pantalla apagado. Apagado de la pantalla. Si se establece un bloqueo de pantalla, el teléfono también se bloqueará.</string>
+    <string name="power_confirm_title">¿Estás seguro?</string>
+    <string name="power_confirm">Continuar</string>
+    <string name="power_soft_reboot">Reinicio suave</string>
+    <string name="power_soft_reboot_summary">Reinicio Suave Reinicie Android sin reiniciar el kernel. Requiere root.</string>
+    <string name="power_soft_reboot_confirm">Android se reiniciará. Todas las aplicaciones y la interfaz de usuario del sistema se cerrarán y reabrirán, pero el teléfono en sí no se reiniciará. Es posible que deba comenzar Shizuku de nuevo después.</string>
+    <string name="power_restart_system_ui">Sistema de reinicio UI</string>
+    <string name="power_restart_system_ui_summary">Reinicie la barra de estado, la barra de navegación y la Notificación Sombra. Requiere root.</string>
+    <string name="power_needs_root">Se requiere root, pero este dispositivo no está rooteado.</string>
+    <string name="power_needs_shizuku_rooted">Shizuku no se está ejecutando. Sólo hay disponible reinicio suave.</string>
+    <string name="power_failed">No se pudo ejecutar %1$s</string>
+    <string name="tab_display">Mostrar</string>
+    <string name="display_description">Cambie la resolución de la pantalla, la densidad y la frecuencia de actualización. Si la pantalla se vuelve difícil de usar, presione Restablecer junto a la configuración.</string>
+    <string name="display_needs_shizuku">Inicie Shizuku para ver o cambiar estas configuraciones.</string>
+    <string name="display_resolution">Resolución</string>
+    <string name="display_resolution_summary">Tamaño de la pantalla en píxeles (ancho x altura). Esto cambia qué tan grande es el sistema de la pantalla, no la pantalla física.</string>
+    <string name="display_density">Dendidad</string>
+    <string name="display_density_summary">Controla el tamaño de los elementos en la pantalla. Los valores más altos los hacen más pequeños; Los valores más bajos los hacen más grandes.</string>
+    <string name="display_min_refresh">Tasa de actualización mínima</string>
+    <string name="display_min_refresh_summary">Tasa de Actualización Mínima La velocidad de actualización más baja La pantalla puede usar, en Hz. Configúrelo a la velocidad máxima para mantener la pantalla a esa velocidad.</string>
+    <string name="display_max_refresh">Tasa de actualización máxima</string>
+    <string name="display_max_refresh_summary">La velocidad de actualización más alta que puede usar la pantalla, en Hz.</string>
+    <string name="display_current">Actual: %1$s</string>
+    <string name="display_apply">Aplicar</string>
+    <string name="display_reset">Restablecer</string>
+    <string name="display_invalid">Valor invalido</string>
+    <string name="display_applied">%1$s aplicado</string>
+    <string name="display_failed">No se pudo cambiar %1$s</string>
+    <string name="display_hz">%1$d Hz</string>
+    <string name="display_modes_missing">No pudo detectar tasas de actualización compatibles. Ingrese un valor manualmente.</string>
     <string name="activities_apps_count">%1$d apps</string>
     <string name="activities_count">%1$d actividades</string>
     <string name="activities_launcher">Launcher</string>
     <string name="activities_exported">Exportado</string>
     <string name="activities_not_exported">No exportado</string>
+    <string name="activities_empty">Esta aplicación no declara actividades.</string>
+    <string name="activities_needs_shizuku">Shizuku no se está ejecutando, y solo puede iniciar una actividad que la aplicación mantiene a sí misma.</string>
+    <string name="activities_refused">No se pudo empezar la actividad.</string>
+    <string name="activities_long_press">Presiona por un tiempo una fila para ver el nombre completo.</string>
     <string name="activities_detail_package">Paquete</string>
     <string name="activities_detail_activity">Actividad</string>
     <string name="activities_detail_state">Estado</string>
@@ -165,7 +265,9 @@
     <string name="activities_edit_as_intent">Editar este intent</string>
     <string name="activities_copied">Copiado</string>
     <string name="tab_intent_builder">Fabricador de intent</string>
+    <string name="intent_builder_note">Construir y enviar una intención. Puede establecer su acción, datos, tipo, componente, categorías, extras y banderas. También puede cargar una intención de un URI, como la intención: #intent; acción=android.intent.action.VIEW;data= https://example.com;end. Este es el formato utilizado por la automatización de actividades y la mayoría de las herramientas de automatización. Cargando uno se llena en los campos para que pueda verificarlo y editarlo antes de enviarlo.</string>
     <string name="intent_uri">Intent URI</string>
+    <string name="intent_uri_load">Cargar en los campos</string>
     <string name="intent_action">Accion</string>
     <string name="intent_data">Data</string>
     <string name="intent_type">Tipo</string>
@@ -178,10 +280,12 @@
     <string name="intent_send_broadcast">Enviar broadcast</string>
     <string name="intent_start">Iniciar</string>
     <string name="device_watchdog">Perro guardián</string>
+    <string name="log_filter_all">Todo</string>
     <string name="log_capture_start">Iniciar</string>
     <string name="log_capture_choose_hint">Buscar aplicaciones</string>
     <string name="action_start">Iniciar</string>
     <string name="catalog_filter_sort">Clasificar</string>
+    <string name="catalog_filter_updated">Actualizado</string>
     <string name="modules_repo_retry">Reintentar</string>
     <string name="modules_sort">Clasificar</string>
     <string name="modules_action_short">Accion</string>
@@ -296,6 +400,7 @@
     <string name="wadb_permission_error_notification_content">Shizuku necesita WRITE_SECURE_SETTINGS
         para iniciarse al arrancar. Pulsa para saber cómo habilitarlo.</string>
     <!-- Shell -->
+    <string name="shell_title">Shell</string>
     <!-- Watchdog -->
     <string name="watchdog_running">El perro guardián está en marcha</string>
     <string name="watchdog_turn_off">Apaga</string>
@@ -321,10 +426,14 @@
     <string name="wadb_notification_attempt_now">Reintentar</string>
     <!-- Manage tab -->
     <string name="manage_search_hint">Buscar aplicaciones</string>
+    <string name="manage_filter_all">Todo</string>
+    <string name="manage_filter_hidden">Ocultar</string>
     <string name="permissions_action_deny">Denegar</string>
+    <string name="manage_status_hidden">Ocultar</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_op_mode_deny">Denegar</string>
     <string name="app_action_enable">Permitir</string>
+    <string name="app_info_updated">Actualizado</string>
     <string name="files_root_app_data">Data</string>
     <string name="files_sort">Clasificar</string>
     <string name="install_location_auto">Opciones para desarrolladores</string>

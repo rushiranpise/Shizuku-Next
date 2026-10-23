@@ -71,7 +71,6 @@
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Android blocks this switch for apps installed outside an app store. Allow the ^1 app-op to turn on the accessibility service. The accessibility list shows this as \"Controlled by Restricted Setting\".\n\nOpen App info and select \"Allow restricted settings\" from the menu, or run this on a computer:\n\n^2\n\nEither option works. The switch will work afterwards.</string>
     <string name="dialog_adb_pairing_open_app_info">App info</string>
-    <string name="dialog_adb_pairing_accessibility_enable">Automatic pairing reads the code out of the system dialog through Shizuku\'s accessibility service, so it has to be enabled, and only for as long as it takes: the service turns itself off once the code is found, or after a minute to save power. Shizuku normally enables it on its own, and that needs the WRITE_SECURE_SETTINGS permission, which a fresh install has not been granted yet.\n\nEnable it on the next screen, type the code yourself under Manual, or grant the permission once:\n\nadb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Silakan mulai pemasangan dengan
         melakukan langkah-langkah berikut:\n- Buka \"Opsi Pengembang\"\n- Aktifkan \"Debugging USB\"
         dan \"Debugging Nirkabel\"\n- Ketuk sisi kiri \"Debugging Nirkabel\"\n- Ketuk \"Pasangkan

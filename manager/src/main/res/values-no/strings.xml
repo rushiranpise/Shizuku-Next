@@ -384,13 +384,11 @@
     <string name="about_package">Pakke</string>
     <string name="check_for_updates_now">Sjekk nå</string>
     <string name="start_failed">Kunne ikke starte Shizuku</string>
-    <string name="start_failed_write_secure_settings">Shizuku kan ikke bytte trådløs feilsøking på uten at WRITE_SECURE_SETTINGS-tillatelsen. Slå det på deg selv under utvikleralternativer &gt; Trådløs feilsøking, eller gi tillatelse med <b>adb shell pm tilordnet moe. hizuku.privilegert.api android.permission.WRITE_SECURE_SETTINGS</b>. Når Shizuku kjører er den tillatelse selv, så dette er en engang.</string>
     <string name="action_open_wireless_debugging">Trådløs feilsøking</string>
     <string name="start_failed_unsupported">Denne enheten kan ikke starte den i bakgrunnen</string>
     <string name="start_failed_wifi_required">Koble til et Wi-Fi nettverk systemet blir trådløs feilsøking uten en. Eller start på en datamaskin med ADB-kommandoen nedenfor.</string>
     <string name="start_failed_binder_went_away">Tjenesten er startet og så stoppet den igjen, så ingenting kan brukes enda. Det skjer når serveren tas ned med appen som starten gikk gjennom, – dette er hva nyttelasten gjør etter den har begynt den. Prøv starten på nytt.</string>
     <string name="start_failed_no_port">Fant ingen trådløs debuggingport. Sørg for at trådløs feilsøking er aktivert, og at Wi-Fi er tilkoblet.</string>
-    <string name="start_failed_no_port_no_permission">Ingen trådløs feilsøkingsport ble funnet, og Shizuku kan ikke slå på trådløs feilsøking uten WRITE_SECURE_SETTINGS: <b>adb shell pm grant moe. hizuku.privilegert.api android.permission.WRITE_SECURE_SETTINGS</b>. Eller start Shizuku over USB debugging når den stikker seg tilbake.</string>
     <string name="start_failed_no_auth">Trådløs feilsøking er ikke tillatt på dette nettverket. Koble enheten til igjen.</string>
     <string name="action_dismiss">Avvis</string>
     <string name="action_connect_wifi">Nettverk</string>

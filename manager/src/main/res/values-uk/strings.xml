@@ -66,7 +66,6 @@
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Android блокує цей перемикач для застосунків, установлених не з магазину застосунків. Дозвольте операції із застосунком ^1 увімкнути службу спеціальних можливостей. У списку спеціальних можливостей для неї буде вказано «Керується обмеженим налаштуванням».\n\nВідкрийте інформацію про застосунок і виберіть у меню «Дозволити обмежені налаштування» або виконайте цю команду на комп’ютері:\n\n^2\n\nПідійде будь-який із варіантів. Після цього перемикач запрацює.</string>
     <string name="dialog_adb_pairing_open_app_info">Про застосунок</string>
-    <string name="dialog_adb_pairing_accessibility_enable">Автоматичне сполучення зчитує код із системного діалогового вікна через службу спеціальних можливостей Shizuku, тому її потрібно ввімкнути — і лише на час, необхідний для цього: служба вимикається сама, щойно знаходить код, або через хвилину, щоби заощадити заряд. Зазвичай Shizuku вмикає її самостійно, але для цього потрібен дозвіл WRITE_SECURE_SETTINGS, якого ще немає після свіжого встановлення застосунку.\n\nУвімкніть її на наступному екрані, введіть код самостійно в розділі «Вручну» або один раз надайте дозвіл:\n\nadb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Щоб почати сполучення, виконайте такі дії:\n- Перейдіть до розділу «Параметри розробника»\n- Увімкніть «Налагодження USB» і «Бездротове налагодження»\n- Торкніться лівої частини пункту «Бездротове налагодження»\n- Торкніться «З’єднати пристрій за допомогою коду сполучення». Shizuku автоматично виявить код сполучення.</string>
     <string name="adb_pairing_requires_multi_window">Спершу ввійдіть в режим розділеного екрана.</string>
     <string name="adb_pairing_requires_multi_window_reason">Система вимагає, щоб діалогове вікно сполучення завжди було видимим. Використання режиму розділеного екрана — єдиний спосіб одночасно бачити цей застосунок і системне діалогове вікно.</string>
@@ -394,13 +393,11 @@
     <string name="about_package">Пакет</string>
     <string name="check_for_updates_now">Перевірити зараз</string>
     <string name="start_failed">Не вдалося запустити Shizuku</string>
-    <string name="start_failed_write_secure_settings">Shizuku не може ввімкнути налагодження через Wi-Fi без дозволу WRITE_SECURE_SETTINGS. Увімкніть його самостійно в меню «Для розробників» &gt; «Налагодження через Wi-Fi» або надайте дозвіл за допомогою команди <b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Після запуску Shizuku зберігає цей дозвіл, тож зробити це потрібно лише один раз.</string>
     <string name="action_open_wireless_debugging">Бездротове налагодження</string>
     <string name="start_failed_unsupported">Цей пристрій не може запустити його у фоновому режимі</string>
     <string name="start_failed_wifi_required">Під’єднайтеся до мережі Wi-Fi — без неї система вимкне бездротове налагодження. Або запустіть команду з комп’ютера за допомогою наведеної нижче команди ADB.</string>
     <string name="start_failed_binder_went_away">Службу запустили, але потім знову зупинили, тому скористатися нею поки неможливо. Таке стається, коли сервер вимикається разом із застосунком, через який запустили службу. Саме це й робить пакет даних після її запуску. Спробуйте запустити службу ще раз.</string>
     <string name="start_failed_no_port">Порт бездротового налагодження не знайдено. Переконайтеся, що бездротове налагодження ввімкнено, а Wi-Fi під’єднано.</string>
-    <string name="start_failed_no_port_no_permission">Порт налагодження через Wi-Fi не знайдено, а Shizuku не може ввімкнути налагодження через Wi-Fi без дозволу WRITE_SECURE_SETTINGS: <b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Або запустіть Shizuku через налагодження USB — після цього він сам надасть собі дозвіл.</string>
     <string name="start_failed_no_auth">У цій мережі бездротове налагодження недоступне. Створіть пару з пристроєм повторно.</string>
     <string name="action_dismiss">Відхилити</string>
     <string name="action_connect_wifi">Під’єднатися</string>

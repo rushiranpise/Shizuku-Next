@@ -66,7 +66,6 @@
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Андроид блокирует этот переключатель для приложений, установленных не из магазина приложений. Разрешите ^1 включить службу специальных возможностей. В списке это отображается как \"Управление ограниченными настройками\".\n\nОткройте информацию о приложении и выберите «Разрешить ограниченные настройки» из меню, или запустите на компьютере:\n\n^2\n\nлибо опция работает. После этого переключатель будет работать.</string>
     <string name="dialog_adb_pairing_open_app_info">Информация о приложении</string>
-    <string name="dialog_adb_pairing_accessibility_enable">Автоматическое связывание считывает код из системного диалога через сервис специальных возможностей Shizuku, поэтому он должен быть включен, и только до тех пор, пока это необходимо: сервис выключится после того, как код будет найден, или через минуту для экономии энергии. Shizuku обычно включает его самостоятельно, но для этого требуется разрешение WRITE_SECURE_SETTINGS, которое еще не предоставлено.\n\nВключите его на следующем экране, введите код самостоятельно в ручном режиме, или предоставит разрешение один раз:\n\nadb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Чтобы начать сопряжение, выполните следующие действия:\n- Откройте «Параметры разработчика»\n- Включите «Отладку по USB» и «Беспроводную отладку»\n- Нажмите левую часть пункта «Беспроводная отладка»\n- Нажмите «Сопрячь устройство с кодом сопряжения». Shizuku автоматически обнаружит код сопряжения.</string>
     <string name="adb_pairing_requires_multi_window">Сначала включите режим разделённого экрана.</string>
     <string name="adb_pairing_requires_multi_window_reason">Система требует, чтобы диалог сопряжения всегда оставался видимым. Режим разделённого экрана — единственный способ одновременно отображать это приложение и системный диалог.</string>
@@ -373,13 +372,11 @@
     <string name="about_package">Пакет</string>
     <string name="check_for_updates_now">Проверить сейчас</string>
     <string name="start_failed">Не удалось запустить Shizuku</string>
-    <string name="start_failed_write_secure_settings">Shizuku не может включить беспроводную отладку без разрешения WRITE_SECURE_SETTINGS. Включите её самостоятельно в «Параметры разработчика» → «Беспроводная отладка» или выдайте разрешение командой <b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. После запуска Shizuku сохраняет это разрешение за собой, поэтому сделать это нужно только один раз.</string>
     <string name="action_open_wireless_debugging">Беспроводная отладка</string>
     <string name="start_failed_unsupported">Это устройство не может запускать Shizuku в фоновом режиме</string>
     <string name="start_failed_wifi_required">Подключитесь к сети Wi-Fi: без неё система отключает беспроводную отладку. Либо запустите Shizuku с компьютера с помощью приведённой ниже команды ADB.</string>
     <string name="start_failed_binder_went_away">Служба была запущена, а затем снова остановлена, поэтому ничего пока не может её использовать. Это происходит, когда сервер завершает работу вместе с приложением, через которое происходил запуск. Попробуйте запустить снова.</string>
     <string name="start_failed_no_port">Порт беспроводной отладки не найден. Убедитесь, что беспроводная отладка включена и устройство подключено к Wi-Fi.</string>
-    <string name="start_failed_no_port_no_permission">Порт беспроводной отладки не найден, а Shizuku не может включить беспроводную отладку без WRITE_SECURE_SETTINGS: <b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Либо один раз запустите Shizuku через отладку по USB — после этого он выдаст себе разрешение.</string>
     <string name="start_failed_no_auth">Беспроводная отладка не разрешена в этой сети. Выполните сопряжение устройства заново.</string>
     <string name="action_dismiss">Закрыть</string>
     <string name="action_connect_wifi">Подключиться</string>

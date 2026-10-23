@@ -66,7 +66,6 @@
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Android 會封鎖非應用程式商店安裝的應用程式使用這個開關。請允許 ^1 應用程式操作來開啟無障礙服務，無障礙清單裡它會顯示為「由受限設定控制」。\n\n開啟應用程式資訊，從選單裡選擇「允許受限設定」，或者在電腦上執行：\n\n^2\n\n兩種方式都可以，之後這個開關就能用了。</string>
     <string name="dialog_adb_pairing_open_app_info">應用程式資訊u</string>
-    <string name="dialog_adb_pairing_accessibility_enable">自動配對要透過 Shizuku 的無障礙服務從系統對話框裡讀取配對碼，所以需要開啟它——而且只在需要的那一小段時間：找到配對碼後或一分鐘後，服務會自行關閉以節省電力。Shizuku 通常會自己開啟它，這需要 WRITE_SECURE_SETTINGS 權限，而全新安裝還沒有這個權限。\n\n在下一畫面開啟它、在「手動」下自己輸入配對碼，或者授予一次權限：\n\nadb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">請依照以下步驟開始配對：\n- 進入「開發人員選項」\n- 啟用「USB 偵錯」與「無線偵錯」\n- 點選「無線偵錯」左側\n- 點擊「使用配對碼配對裝置」。 Shizuku 將自動檢測配對碼。</string>
     <string name="adb_pairing_requires_multi_window">請先進入分割畫面模式。</string>
     <string name="adb_pairing_requires_multi_window_reason">系統需求配對對話框始終可見。只有使用分割畫面模式才能讓此應用程式和系統對話方塊同時可見。</string>
@@ -526,13 +525,11 @@
     <string name="about_package">應用包名</string>
     <string name="check_for_updates_now">立即檢查</string>
     <string name="start_failed">無法啟動 Shizuku</string>
-    <string name="start_failed_write_secure_settings">沒有 WRITE_SECURE_SETTINGS 權限，Shizuku 無法開啟無線偵錯。請在開發人員選項 &gt; 無線偵錯中自行開啟，或用 <b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b> 授予該權限。Shizuku 執行後會自己保住這個權限，所以只需一次。</string>
     <string name="action_open_wireless_debugging">無線偵錯</string>
     <string name="start_failed_unsupported">此裝置不支援在背景啟動 Shizuku</string>
     <string name="start_failed_wifi_required">請連線 Wi-Fi 網路，否則系統會關閉無線偵錯。也可以用下面的 ADB 命令從電腦啟動。</string>
     <string name="start_failed_binder_went_away">服務啟動後隨即停止，現在還無法使用。當伺服器隨著啟動所經過的那個應用程式一起被撤下時會發生這種情況——負載啟動它之後就是這麼做的。請重試啟動。</string>
     <string name="start_failed_no_port">未找到無線偵錯連接埠。請確保啟用無線偵錯並連線 Wi-Fi。</string>
-    <string name="start_failed_no_port_no_permission">未找到無線偵錯連接埠，而沒有 WRITE_SECURE_SETTINGS 權限 Shizuku 無法開啟無線偵錯：<b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>。或者先透過 USB 偵錯啟動一次 Shizuku，之後它會自行獲取權限。</string>
     <string name="start_failed_no_auth">在此網路上不允許進行無線偵錯。再次配對裝置。</string>
     <string name="action_dismiss">關閉</string>
     <string name="action_connect_wifi">連線</string>

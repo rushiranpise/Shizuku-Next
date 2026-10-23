@@ -66,7 +66,6 @@
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Android 会拦截非应用商店安装的应用使用这个开关。请允许 ^1 应用操作来开启无障碍服务，无障碍列表里它会显示为“由受限设置控制”。\n\n打开应用信息，从菜单里选择“允许受限设置”，或者在电脑上运行：\n\n^2\n\n两种方式都行，之后这个开关就能用了。</string>
     <string name="dialog_adb_pairing_open_app_info">应用信息</string>
-    <string name="dialog_adb_pairing_accessibility_enable">自动配对要通过 Shizuku 的无障碍服务从系统对话框里读取配对码，所以需要开启它——而且只在需要的那一小会儿：找到配对码后或一分钟后，服务会自行关闭以省电。Shizuku 通常会自己开启它，这需要 WRITE_SECURE_SETTINGS 权限，而全新安装还没有这个权限。\n\n在下一屏开启它、在“手动”下自己输入配对码，或者授予一次权限：\n\nadb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">请按照以下步骤开始配对：\n- 进入“开发者选项”\n- 启用“USB 调试”和“无线调试”\n- 点击“无线调试”左侧\n- 点击“使用配对码配对设备”。Shizuku 将自动检测配对码。</string>
     <string name="adb_pairing_requires_multi_window">请先进入分屏模式。</string>
     <string name="adb_pairing_requires_multi_window_reason">系统要求配对对话框始终可见。只有使用分屏模式才能让此应用和系统对话框同时可见。</string>
@@ -526,13 +525,11 @@
     <string name="about_package">应用包名</string>
     <string name="check_for_updates_now">立即检查</string>
     <string name="start_failed">无法启动 Shizuku</string>
-    <string name="start_failed_write_secure_settings">没有 WRITE_SECURE_SETTINGS 权限，Shizuku 无法打开无线调试。请在开发者选项 &gt; 无线调试中自行开启，或用 <b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b> 授予该权限。Shizuku 运行后会自己保住这个权限，所以只需一次。</string>
     <string name="action_open_wireless_debugging">无线调试</string>
     <string name="start_failed_unsupported">此设备不支持在后台启动 Shizuku</string>
     <string name="start_failed_wifi_required">请连接 Wi-Fi 网络，否则系统会关闭无线调试。也可以用下面的 ADB 命令从电脑启动。</string>
     <string name="start_failed_binder_went_away">服务启动后随即停止，现在还无法使用。当服务器随着启动所经过的那个应用一起被撤下时会发生这种情况——负载启动它之后就是这么做的。请重试启动。</string>
     <string name="start_failed_no_port">未找到无线调试端口。请确保启用无线调试并连接 Wi-Fi。</string>
-    <string name="start_failed_no_port_no_permission">未找到无线调试端口，而没有 WRITE_SECURE_SETTINGS 权限 Shizuku 无法打开无线调试：<b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>。或者先通过 USB 调试启动一次 Shizuku，之后它会自行获取权限。</string>
     <string name="start_failed_no_auth">在此网络上不允许进行无线调试。再次配对设备。</string>
     <string name="action_dismiss">关闭</string>
     <string name="action_connect_wifi">连接</string>

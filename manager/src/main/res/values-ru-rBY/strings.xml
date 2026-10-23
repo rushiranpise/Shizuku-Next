@@ -159,12 +159,10 @@
     <string name="about_package">Пакет</string>
     <string name="check_for_updates_now">Проверить сейчас</string>
     <string name="start_failed">Не удалось запустить Shizuku</string>
-    <string name="start_failed_write_secure_settings">Shizuku не может включить беспроводную отладку без разрешения WRITE_SECURE_SETTINGS. Включите её самостоятельно в «Параметры разработчика» → «Беспроводная отладка» или выдайте разрешение командой <b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. После запуска Shizuku сохраняет это разрешение за собой, поэтому сделать это нужно только один раз.</string>
     <string name="action_open_wireless_debugging">Беспроводная отладка</string>
     <string name="start_failed_unsupported">Это устройство не может запускать Shizuku в фоновом режиме</string>
     <string name="start_failed_wifi_required">Подключитесь к сети Wi-Fi: без неё система отключает беспроводную отладку. Либо запустите Shizuku с компьютера с помощью приведённой ниже команды ADB.</string>
     <string name="start_failed_no_port">Порт беспроводной отладки не найден. Убедитесь, что беспроводная отладка включена и устройство подключено к Wi-Fi.</string>
-    <string name="start_failed_no_port_no_permission">Порт беспроводной отладки не найден, а Shizuku не может включить беспроводную отладку без WRITE_SECURE_SETTINGS: <b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Либо один раз запустите Shizuku через отладку по USB — после этого он выдаст себе разрешение.</string>
     <string name="start_failed_no_auth">Беспроводная отладка не разрешена в этой сети. Выполните сопряжение устройства заново.</string>
     <string name="action_dismiss">Закрыть</string>
     <string name="action_connect_wifi">Подключиться</string>

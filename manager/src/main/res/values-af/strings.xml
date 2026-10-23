@@ -6,6 +6,8 @@
       a change here reaches translators on the next push and not before.
     -->
     <!-- To translators: you can leave your here -->
+    <string name="home_status_adb_wireless"></string>
+    <string name="home_status_adb_usb"></string>
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Begin via draadlose ontfouting]]></string>
@@ -116,6 +118,7 @@
     <string name="settings_start_on_boot">Begin met opstart</string>
     <string name="settings_watchdog">Waghond</string>
     <string name="settings_watchdog_summary">Herbegin Shizuku outomaties as dit vasval</string>
+    <string name="transport_adb"></string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
     <string name="settings_tcp_mode">TCP-modus</string>

@@ -385,13 +385,11 @@
     <string name="about_package">Pakiet</string>
     <string name="check_for_updates_now">Sprawdź teraz</string>
     <string name="start_failed">Nie można uruchomić Shizuku</string>
-    <string name="start_failed_write_secure_settings">Shizuku nie można włączyć debugowania bezprzewodowego bez uprawnienia WRITE_SECURE_SETTINGS. Włącz ją w opcji dla programistów &gt; Bezprzewodowe debugowanie, lub udziel uprawnień z <b>adb shell pm grant moe. hizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Gdy Shizuku jest uruchomiony, zachowuje to uprawnienie, więc jest to jednorazowe.</string>
     <string name="action_open_wireless_debugging">Debugowanie bezprzewodowe</string>
     <string name="start_failed_unsupported">To urządzenie nie może uruchomić w tle</string>
     <string name="start_failed_wifi_required">Połącz się z siecią Wi-Fi, w której system wyłącza debugowanie bezprzewodowe. Lub zacznij od komputera za pomocą polecenia ADB poniżej.</string>
     <string name="start_failed_binder_went_away">Usługa została uruchomiona i została ponownie zatrzymana, więc nic nie może jej jeszcze użyć. Dzieje się tak po odebraniu serwera z aplikacją, przez którą przejdzie start, na czym polega ładunek po jego uruchomieniu. Spróbuj uruchomić ponownie.</string>
     <string name="start_failed_no_port">Nie znaleziono portu debugowania bezprzewodowego. Upewnij się, że debugowanie bezprzewodowe jest włączone, a Wi-Fi jest połączone.</string>
-    <string name="start_failed_no_port_no_permission">Nie znaleziono portu debugowania bezprzewodowego, a Shizuku nie może włączyć debugowania bezprzewodowego bez WRITE_SECURE_SETTINGS: <b>adb shell pm grant moe. hizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Lub rozpocznij Shizuku przez debugowanie USB, gdy już się da.</string>
     <string name="start_failed_no_auth">Debugowanie bezprzewodowe nie jest dozwolone w tej sieci. Sparuj urządzenie ponownie.</string>
     <string name="action_dismiss">Odrzuć</string>
     <string name="action_connect_wifi">Połącz</string>

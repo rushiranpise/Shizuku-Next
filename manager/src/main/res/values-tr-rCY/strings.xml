@@ -247,13 +247,11 @@
     <string name="about_package">Paket</string>
     <string name="check_for_updates_now">Şimdi denetle</string>
     <string name="start_failed">Shizuku başlatılamadı</string>
-    <string name="start_failed_write_secure_settings">Shizuku, WRITE_SECURE_SETTINGS izni olmadan kablosuz hata ayıklamayı açamaz. Geliştirici seçenekleri &gt; Kablosuz hata ayıklama altından kendiniz açın veya <b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b> komutuyla izni verin. Shizuku çalışmaya başladığında bu izni kendisi korur, yani bu tek seferlik bir işlemdir.</string>
     <string name="action_open_wireless_debugging">Kablosuz hata ayıklama</string>
     <string name="start_failed_unsupported">Bu cihaz bunu arka planda başlatamıyor</string>
     <string name="start_failed_wifi_required">Bir Wi-Fi ağına bağlanın; sistem, bir Wi-Fi ağı olmadan kablosuz hata ayıklamayı kapatır. Veya aşağıdaki ADB komutunu kullanarak bir bilgisayardan başlatın.</string>
     <string name="start_failed_binder_went_away">Servis başlatıldı ancak tekrar durduruldu, bu nedenle henüz hiçbir şey bunu kullanamıyor. Bu durum, başlatma işleminin yapıldığı uygulama kapandığında sunucunun da kapatılması nedeniyle olur; payload başlatmayı sağladıktan sonra bunu yapar. Başlatmayı tekrar deneyin.</string>
     <string name="start_failed_no_port">Kablosuz hata ayıklama portu bulunamadı. Kablosuz hata ayıklamanın açık olduğundan ve Wi-Fi\'a bağlı olduğunuzdan emin olun.</string>
-    <string name="start_failed_no_port_no_permission">Kablosuz hata ayıklama portu bulunamadı ve Shizuku, WRITE_SECURE_SETTINGS izni olmadan kablosuz hata ayıklamayı açamaz: <b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Veya Shizuku\'yu USB hata ayıklama üzerinden bir kez başlatın, sonrasında izni kendisi alacaktır.</string>
     <string name="start_failed_no_auth">Bu ağda kablosuz hata ayıklamaya izin verilmiyor. Cihazı yeniden eşleştirin.</string>
     <string name="action_dismiss">Kapat</string>
     <string name="action_connect_wifi">Bağlan</string>

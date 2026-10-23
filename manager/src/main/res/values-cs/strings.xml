@@ -363,13 +363,11 @@
     <string name="about_package">Balík</string>
     <string name="check_for_updates_now">Zkontrolovat nyní</string>
     <string name="start_failed">Šizuku nelze spustit</string>
-    <string name="start_failed_write_secure_settings">Shizuku nemůže přepnout bezdrátové ladění bez oprávnění WRITE_SECURE_SETTINGS. Zapněte se pod Možnosti Vývojáře &gt; Bezdrátové ladění, nebo udělte oprávnění s <b>adb shell pm udělte moc. hizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Jakmile Shizuku spustí, ponechá si toto oprávnění samo, takže je to jednorázové.</string>
     <string name="action_open_wireless_debugging">Bezdrátové ladění</string>
     <string name="start_failed_unsupported">Toto zařízení nemůže spustit na pozadí</string>
     <string name="start_failed_wifi_required">Připojte se k síti Wi-Fi, systém vypne bezdrátové ladění. Nebo spusťte z počítače pomocí příkazu ADB níže.</string>
     <string name="start_failed_binder_went_away">Služba byla spuštěna a pak znovu zastavena, takže ještě nic nemůže použít. To se stane, když je server sejmut s aplikací, kterou spustí, co dělá užitečné zatížení po jeho spuštění. Zkuste to znovu.</string>
     <string name="start_failed_no_port">Nebyl nalezen bezdrátový port pro ladění. Ujistěte se, že bezdrátové ladění je povoleno a že je připojeno Wi-Fi.</string>
-    <string name="start_failed_no_port_no_permission">Nebyl nalezen bezdrátový debugging port a Shizuku nemůže zapnout bezdrátové ladění bez WRITE_SECURE_SETTINGS: <b>adb shell pm Grant. hizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Nebo spusťte Shizuku nad USB laděním, jakmile se poté udělí.</string>
     <string name="start_failed_no_auth">Bezdrátové ladění není v této síti povoleno. Znovu spusťte zařízení.</string>
     <string name="action_dismiss">Odmítnout</string>
     <string name="action_connect_wifi">Připojit</string>

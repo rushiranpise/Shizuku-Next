@@ -413,13 +413,11 @@
     <string name="about_package">Paketti</string>
     <string name="check_for_updates_now">Tarkista nyt</string>
     <string name="start_failed">Shizukun käynnistäminen epäonnistui</string>
-    <string name="start_failed_write_secure_settings">Shizuku ei voi kytkeä langatonta vianetsintää päälle ilman WRITE_SECURE_SETTINGS -oikeutta. Laita se päälle kehittäjän valintojen &gt; Langaton vianetsintä tai myönnä lupa <b>adb shell pm -apuohjelmalle. hizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Kun Shizuku on käynnissä se pitää luvan itse, joten tämä on kertaluonteinen.</string>
     <string name="action_open_wireless_debugging">Langaton virheenkorjaus</string>
     <string name="start_failed_unsupported">Tämä laite ei voi käynnistää sitä taustalla</string>
     <string name="start_failed_wifi_required">Yhdistä Wi-Fi-verkkoon järjestelmä sammuttaa langattoman virheenkorjauksen ilman sitä. Tai aloita tietokoneesta käyttämällä alla olevaa ADB-komentoa.</string>
     <string name="start_failed_binder_went_away">Palvelu aloitettiin ja pysäytettiin uudestaan, joten mitään ei voida vielä käyttää. Näin käy, kun palvelin on otettu alas sovelluksen kanssa aloitettiin mikä on mitä hyötykuorma tekee, kun se on aloittanut sen. Yritä alkaa uudestaan.</string>
     <string name="start_failed_no_port">Langattomia vianetsintäportteja ei löytynyt. Varmista, että langaton vianetsintä on käytössä ja Wi-Fi on yhdistetty.</string>
-    <string name="start_failed_no_port_no_permission">Langattomia vianetsintäportteja ei löytynyt, ja Shizuku ei voi ottaa langatonta vianetsintää käyttöön ilman WRITE_SECURE_SETTINGS: <b>adb shell pm grant mo. hizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Tai aloita Shizuku USB-virheenkorjaus kun se myöntää itsensä jälkeenpäin.</string>
     <string name="start_failed_no_auth">Langaton vianetsintä ei ole sallittu tässä verkossa. Pari laite uudelleen.</string>
     <string name="action_dismiss">Hylkää</string>
     <string name="action_connect_wifi">Yhdistä</string>

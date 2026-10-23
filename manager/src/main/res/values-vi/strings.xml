@@ -140,12 +140,10 @@
     <string name="modules_service_running_short">Đang chạy</string>
     <string name="modules_service_stop">Dừng dịch vụ</string>
     <string name="check_for_updates_now">Kiểm tra</string>
-    <string name="start_failed_write_secure_settings">Shizuku không thể tự bật gỡ lỗi không dây nếu thiếu quyền WRITE_SECURE_SETTINGS. Hãy tự bật tính năng này trong Tùy chọn nhà phát triển > Gỡ lỗi không dây, hoặc cấp quyền bằng lệnh <b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>. Khi Shizuku đã chạy, ứng dụng sẽ tự duy trì quyền đó nên bạn chỉ cần thực hiện việc này một lần.</string>
     <string name="action_open_wireless_debugging">Mở gỡ lỗi không dây</string>
     <string name="start_failed_wifi_required">Hãy kết nối với mạng Wi-Fi hệ thống sẽ tự động tắt tính năng gỡ lỗi không dây nếu không có Wi-Fi. Hoặc khởi chạy từ máy tính bằng lệnh ADB bên dưới.</string>
     <string name="start_failed_binder_went_away">Dịch vụ đã được khởi chạy rồi lại bị dừng ngay, vì vậy hiện tại chưa có ứng dụng nào có thể sử dụng. Điều này xảy ra khi máy chủ bị sập cùng với ứng dụng thực hiện khởi chạy, đó là những gì payload thực hiện sau khi kích hoạt nó. Hãy thử khởi chạy lại.</string>
     <string name="start_failed_no_port">Không tìm thấy cổng gỡ lỗi không dây. Hãy đảm bảo tính năng gỡ lỗi không dây đã được bật và thiết bị đã kết nối Wi-Fi.</string>
-    <string name="start_failed_no_port_no_permission">Không tìm thấy cổng gỡ lỗi không dây và Shizuku không thể tự bật tính năng này nếu thiếu quyền WRITE_SECURE_SETTINGS. Vui lòng cấp quyền bằng lệnh: <b>adb shell pm grant moe.shizuku.privileged.api android.permission.WRITE_SECURE_SETTINGS</b>, hoặc khởi chạy Shizuku qua gỡ lỗi USB một lần để ứng dụng tự động cấp quyền sau đó.</string>
     <string name="start_failed_no_auth">Gỡ lỗi không dây không được phép trên mạng này. Vui lòng ghép nối lại thiết bị.</string>
     <string name="start_failed_pairing_required">Thiết bị này chưa được ghép nối để gỡ lỗi không dây. Vui lòng ghép nối lại.</string>
     <string name="start_failed_usb_no_port">Không có cổng ADB nội bộ nào được mở Android sẽ xóa cổng này sau mỗi lần khởi động lại, và việc mở lại cần một kết nối tạm thời. Hãy kết nối Wi-Fi để Shizuku mở lại cổng qua gỡ lỗi không dây, chạy lệnh <b>adb tcpip 5555</b> từ máy tính, hoặc chọn <b>Start without Wi-Fi</b> làm phương thức khởi chạy để bắt đầu lại qua gỡ lỗi không dây thay thế.</string>
