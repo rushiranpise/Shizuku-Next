@@ -66,6 +66,7 @@
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">O Android bloqueia esse botão para aplicativos instalados fora de uma loja de aplicativos. Permita que o comando ^1 app-op ative o serviço de acessibilidade. A lista de acessibilidade exibe isso como “Controlado por configuração restrita”.\n\nAbra “Informações do aplicativo” e selecione “Permitir configurações restritas” no menu, ou execute este comando em um computador:\n\n^2\n\nQualquer uma das opções funciona. O botão passará a funcionar depois disso.</string>
     <string name="dialog_adb_pairing_open_app_info">Informações do app</string>
+    <string name="dialog_adb_pairing_accessibility_enable"></string>
     <string name="dialog_adb_pairing_accessibility_navigate">Para iniciar o emparelhamento, siga estas etapas:\n- Acesse “Opções do desenvolvedor”\n- Ative “Depuração por USB” e “Depuração sem fio”\n- Toque no lado esquerdo de “Depuração sem fio”\n- Toque em “Emparelhar dispositivo com código de emparelhamento”. O Shizuku detectará automaticamente o código de emparelhamento.</string>
     <string name="adb_pairing_requires_multi_window">Primeiro, abra o modo de tela dividida.</string>
     <string name="adb_pairing_requires_multi_window_reason">O sistema exige que a janela de emparelhamento permaneça sempre visível. Usar o modo de tela dividida é a única maneira de manter este aplicativo e a janela do sistema visíveis ao mesmo tempo.</string>

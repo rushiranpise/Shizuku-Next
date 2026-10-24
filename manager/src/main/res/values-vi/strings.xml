@@ -145,6 +145,7 @@
     <string name="start_failed_binder_went_away">Dịch vụ đã được khởi chạy rồi lại bị dừng ngay, vì vậy hiện tại chưa có ứng dụng nào có thể sử dụng. Điều này xảy ra khi máy chủ bị sập cùng với ứng dụng thực hiện khởi chạy, đó là những gì payload thực hiện sau khi kích hoạt nó. Hãy thử khởi chạy lại.</string>
     <string name="start_failed_no_port">Không tìm thấy cổng gỡ lỗi không dây. Hãy đảm bảo tính năng gỡ lỗi không dây đã được bật và thiết bị đã kết nối Wi-Fi.</string>
     <string name="start_failed_no_auth">Gỡ lỗi không dây không được phép trên mạng này. Vui lòng ghép nối lại thiết bị.</string>
+    <string name="action_dismiss"></string>
     <string name="start_failed_pairing_required">Thiết bị này chưa được ghép nối để gỡ lỗi không dây. Vui lòng ghép nối lại.</string>
     <string name="start_failed_usb_no_port">Không có cổng ADB nội bộ nào được mở Android sẽ xóa cổng này sau mỗi lần khởi động lại, và việc mở lại cần một kết nối tạm thời. Hãy kết nối Wi-Fi để Shizuku mở lại cổng qua gỡ lỗi không dây, chạy lệnh <b>adb tcpip 5555</b> từ máy tính, hoặc chọn <b>Start without Wi-Fi</b> làm phương thức khởi chạy để bắt đầu lại qua gỡ lỗi không dây thay thế.</string>
     <string name="start_failed_root_unavailable">Quyền Root không còn khả dụng trên thiết bị này, vì vậy Shizuku không thể khởi chạy thông qua root. Vui lòng chọn một phương thức khởi chạy khác.</string>
