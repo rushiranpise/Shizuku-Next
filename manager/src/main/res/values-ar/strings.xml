@@ -374,6 +374,17 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="device_max_charging_current">أقصى تيار شحن</string>
     <string name="device_max_charging_voltage">أقصى جهد شحن</string>
     <string name="device_capacity_rated">السعة المُقدّرة</string>
+    <string name="device_capacity_typical">Fdd</string>
+    <string name="device_capacity">السعة
+</string>
+    <string name="device_capacity_estimated">تقديري
+</string>
+    <string name="device_capacity_learned">آخر تعلّم
+</string>
+    <string name="device_capacity_range">النطاق المتعلَّم
+</string>
+    <string name="device_capacity_note">لا تعرض المنصة السعة التصميمية، كما يمنع هذا الجهاز الوصول إلى مقياس البطارية حتى للمستخدم ذي صلاحيات Shell، لذا لا يمكن حساب نسبة مئوية من سعة البطارية الكاملة بدقة. ما تعلّمه النظام معروض أعلاه.
+</string>
     <string name="device_history">السجل</string>
     <string name="device_history_level">المستوى</string>
     <string name="device_history_temperature">درجة الحرارة</string>
@@ -389,14 +400,96 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="device_shizuku">شيزوكو</string>
     <string name="device_server">الخادم</string>
     <string name="device_start_method">بدء بواسطة</string>
+    <string name="device_transport">طريقة الاتصال
+</string>
     <string name="device_watchdog">مراقب</string>
+    <string name="device_app_in_front">التطبيق المفتوح حاليًا
+</string>
+    <string name="device_hiding_held">إخفاء حالات التعليق
+</string>
+    <string name="device_thermal">الحرارة
+</string>
+    <string name="device_thermal_note">كل مستشعرات الحرارة التي تتيحها النواة، مرتبة من الأعلى حرارة إلى الأقل. يتم استبعاد المستشعرات غير المتصلة بأي مكوّن، التي تعرض القيمة -273، وكذلك حدود فصل الطاقة التي لا تمثل درجات حرارة. تم عرض %d منطقة حرارية.
+</string>
+    <string name="device_cpu">المعالج</string>
+    <string name="device_load_average">متوسط حمل المعالج
+</string>
+    <string name="device_cpu_note">محاسبة النواة خلال الفترة المحددة في تقريرها. متوسط الحمل هو متوسط الدقائق الواحدة والخمس والخمس عشرة. يعرض كل صف وقت المعالج الذي استهلكته العملية، وتظهر عمليات النواة العاملة لأنها تنفّذ المهام، وليس التطبيقات فقط.
+</string>
+    <string name="tab_log">السجل</string>
+    <string name="log_count">%1$d سطرًا خلال آخر 24 ساعة
+</string>
+    <string name="log_search_hint">البحث في السجل
+</string>
+    <string name="log_empty">لم يتم تسجيل أي شيء خلال آخر 24 ساعة.
+</string>
     <string name="log_filter_all">الكل</string>
+    <string name="log_filter_problems">خطأ</string>
+    <string name="log_refresh">استخراج أحدث السجلات من logcat
+</string>
+    <string name="log_save">حفظ</string>
+    <string name="log_clear">مسح
+</string>
+    <string name="log_cleared">تم مسح السجل
+</string>
+    <string name="log_saved">تم الحفظ باسم %1$s في مجلد التطبيق على وحدة التخزين المشتركة
+</string>
+    <string name="log_nothing_to_save">لا يوجد شيء لحفظه.
+</string>
+    <string name="log_share_failed">تعذّرت مشاركة السجل
+</string>
+    <string name="log_pulled">تم استخراج %1$d سطرًا من سجل النظام
+</string>
+    <string name="log_tab_app">هذا التطبيق
+</string>
+    <string name="log_tab_capture">تسجيل
+</string>
+    <string name="log_tab_saved">تم الحفظ
+</string>
     <string name="log_capture_start">البدء بالتشغيل</string>
+    <string name="log_capture_stop">توقف</string>
+    <string name="log_capture_device">ع</string>
+    <string name="log_capture_choose">تطبيق لتسجيل الشاشة
+</string>
     <string name="log_capture_choose_hint">البحث عن التطبيقات</string>
+    <string name="log_capture_running">جارٍ التسجيل %1$s · %2$d سطر · %3$s
+</string>
+    <string name="log_capture_idle">لا يتم تسجيل أي شيء.
+</string>
+    <string name="log_capture_waiting">جارٍ التسجيل. لم يتم تسجيل أي شيء حتى الآن.
+</string>
+    <string name="log_capture_empty">لم يتم تسجيل أي شيء حتى الآن.
+</string>
+    <string name="log_capture_jump">أحدث انهيار للتطبيق
+</string>
+    <string name="log_capture_needs_shizuku">يتطلب تسجيل سجل الجهاز استخدام Shizuku، لأن قراءة سجلات التطبيقات الأخرى تتطلب صلاحيات Shell، وهذا التطبيق يستعير هذه الصلاحيات.
+</string>
+    <string name="log_capture_stopped_size">توقف التسجيل بسبب الوصول إلى الحد الأقصى للحجم.
+</string>
+    <string name="log_capture_stopped_time">توقف التسجيل بسبب الوصول إلى الحد الأقصى للمدة.
+</string>
+    <string name="log_capture_stopped_ended">توقف التسجيل بسبب انتهاء تدفق السجل.</string>
+    <string name="log_filter_crashes">الأعطال
+</string>
     <string name="log_saved_empty">لم يتم تسجيل شئ بعد.</string>
     <string name="log_session_share">مشاركة</string>
     <string name="log_session_delete">حذف</string>
     <string name="log_session_deleted">تم حذف %1$s</string>
+    <string name="log_session_busy">لا يزال %1$s قيد التسجيل.
+</string>
+    <string name="log_session_running">جارٍ التسجيل
+</string>
+    <string name="permissions_usage_access">إذن الوصول إلى بيانات الاستخدام
+</string>
+    <string name="permissions_usage_access_summary">يتيح لقوائم الإخفاء معرفة التطبيق المفتوح حاليًا. يُمنح هذا الإذن عبر Shizuku أو من إعدادات الوصول إلى بيانات الاستخدام في Android.
+</string>
+    <string name="permissions_dump">قراءة أسباب إغلاق التطبيقات
+</string>
+    <string name="permissions_dump_summary">يتيح لقوائم الإخفاء معرفة وقت إغلاق التطبيق بدلًا من اعتباره يعمل في الخلفية فقط. يُمنح هذا الإذن عبر Shizuku.
+</string>
+    <string name="home_other_methods">طرق التشغيل الأخري </string>
+    <string name="home_hiding_active_note">قد تتوقف خدمة Shizuku عند فتح تطبيق مخفي، لأن الإخفاء قد يؤدي إلى قطع اتصال تصحيح الأخطاء. وستعمل Shizuku مجددًا عند إغلاق التطبيق.
+</string>
     <string name="action_start">البدء بالتشغيل</string>
     <string name="catalog_filter_sort">ترتيب</string>
     <string name="catalog_filter_category">الفئة</string>

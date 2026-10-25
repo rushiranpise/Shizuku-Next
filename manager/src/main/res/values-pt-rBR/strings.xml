@@ -182,6 +182,7 @@
     <string name="force_dark_notification_watching">Aguardando a abertura de um aplicativo na lista</string>
     <string name="tab_activities">Lançador de atividades</string>
     <string name="power_confirm_title">Você tem certeza?</string>
+    <string name="power_soft_reboot_summary"></string>
     <string name="activities_apps_count">Apps %1$d</string>
     <string name="activities_count">Atividades %1$d</string>
     <string name="activities_launcher">Lançador</string>

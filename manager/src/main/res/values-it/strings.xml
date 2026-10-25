@@ -66,6 +66,7 @@
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Android blocca questo interruttore per le app installate al di fuori di uno store di app. Consenti l\'app-op ^1 per attivare il servizio di accessibilità. L\'elenco dell\'accessibilità lo indica come \"Controllato da un\'impostazione con limitazioni\".\n\nApri Info app e scegli \"Consenti impostazioni con limitazioni\" dal menu, oppure esegui questo comando da un computer:\n\n^2\n\nVa bene una qualsiasi delle due opzioni. Dopo, l\'interruttore funzionerà.</string>
     <string name="dialog_adb_pairing_open_app_info">Informazioni app</string>
+    <string name="dialog_adb_pairing_accessibility_enable">L\'accoppiamento automatico legge il codice dalla finestra di sistema tramite il servizio di accessibilità di Shizuku, quindi deve essere attivo, ma solo per il tempo necessario: il servizio si disattiva da solo una volta trovato il codice, oppure dopo un minuto per risparmiare batteria. Di norma Shizuku lo attiva in autonomia, ma serve il permesso WRITE_SECURE_SETTINGS, che dopo una nuova installazione non è ancora stato concesso.\n\nAttivalo nella schermata successiva, digita tu il codice in Manuale, oppure concedi il permesso una volta:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Avvia l\'accoppiamento seguendo questi passaggi:\n- Vai su \"Opzioni sviluppatore\"\n- Attiva \"Debug USB\" e \"Debug wireless\"\n- Tocca la parte sinistra di \"Debug wireless\"\n- Tocca \"Accoppia dispositivo con codice di accoppiamento\". Shizuku rileverà automaticamente il codice di accoppiamento.</string>
     <string name="adb_pairing_requires_multi_window">Per prima cosa, apri la modalità schermo diviso.</string>
     <string name="adb_pairing_requires_multi_window_reason">Il sistema richiede che la finestra di accoppiamento sia semore visibile. Utilizzare la modalità schermo diviso è l\'unico modo per permettere a questa app e alla finestra di sistema di essere visibili nello stesso momento.</string>
@@ -526,11 +527,13 @@
     <string name="about_package">Pacchetto</string>
     <string name="check_for_updates_now">Verifica ora</string>
     <string name="start_failed">Impossibile avviare Shizuku</string>
+    <string name="start_failed_write_secure_settings">Shizuku non può attivare il debug wireless senza il permesso WRITE_SECURE_SETTINGS. Attivalo tu in Opzioni sviluppatore &gt; Debug wireless, oppure concedi l\'autorizzazione con <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. Una volta in esecuzione, Shizuku mantiene da solo quell\'autorizzazione, quindi basta farlo una volta.</string>
     <string name="action_open_wireless_debugging">Debug wireless</string>
     <string name="start_failed_unsupported">Questo dispositivo non può essere avviato in background</string>
     <string name="start_failed_wifi_required">Connettiti a una rete Wi-Fi: senza di essa il sistema disattiva il debug wireless. Oppure avvia da un computer usando il comando ADB qui sotto.</string>
     <string name="start_failed_binder_went_away">Il servizio è stato avviato e poi arrestato di nuovo, quindi per ora non può essere usato. Succede quando il server viene chiuso insieme all\'app attraverso cui è passato l\'avvio, ed è ciò che fa il payload dopo averlo avviato. Riprova l\'avvio.</string>
     <string name="start_failed_no_port">Non è stata trovata alcuna porta di debug wireless. Assicurati che il debug wireless sia abilitato e che il Wi-Fi sia connesso.</string>
+    <string name="start_failed_no_port_no_permission">Non è stata trovata alcuna porta di debug wireless e Shizuku non può attivare il debug wireless senza WRITE_SECURE_SETTINGS: <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. In alternativa, avvia Shizuku tramite debug USB dopo essersi autorizzato autonomamente.</string>
     <string name="start_failed_no_auth">Il debug wireless non è consentito su questa rete. Accoppia nuovamente il dispositivo.</string>
     <string name="action_dismiss">Ignora</string>
     <string name="action_connect_wifi">Connetti</string>
@@ -909,7 +912,7 @@
     <string name="dialog_legacy_not_support_title">%1$s non supporta il moderno Shizuku</string>
     <string name="dialog_legacy_not_support_message"><![CDATA[Shizuku legacy è obsoleto da marzo 2019. Inoltre, Shizuku legacy non funziona sui sistemi Android più recenti.<p>Chiedi allo sviluppatore<b>%1$s</b> di aggiornare.]]></string>
     <string name="dialog_requesting_legacy_title">%1$s sta richiedendo Shizuku legacy</string>
-    <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> supporta la versione moderna di Shizuku, ma sta richiedendo quella legacy. Potrebbe dipendere dal fatto che Shizuku non è in esecuzione: controlla nell\'app Shizuku.<p>La versione legacy di Shizuku è obsoleta da marzo 2019.]]></string>
+    <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> supporta la versione moderna di Shizuku, ma sta richiedendo quella legacy. Potrebbe dipendere dal fatto che Shizuku non è in esecuzione: controlla nell'app Shizuku.<p>La versione legacy di Shizuku è obsoleta da marzo 2019.]]></string>
     <string name="dialog_requesting_legacy_button_open_shizuku">Apri Shizuku</string>
     <string name="wadb_notification_attempt_now">Riprova</string>
     <!-- Manage tab -->
