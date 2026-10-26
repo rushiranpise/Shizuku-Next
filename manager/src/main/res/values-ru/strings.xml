@@ -824,6 +824,30 @@
     <string name="app_network_unsupported">Устройство не поддерживает брандмауэр, необходимый для этой функции.</string>
     <string name="app_network_block">Заблокировать доступ к сети</string>
     <string name="app_network_block_note">Платформа сбрасывает его трафик.</string>
+    <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
+         screen. The per-app list is unaffected either way, which is what the off state says. -->
+    <string name="firewall_tile_label">Брандмауэр</string>
+    <!-- The three answers every switch outside the app can give. Unknown is its own word: a
+         state that could not be read is not the same thing as a feature that is off. -->
+    <string name="lab_state_on">Вкл</string>
+    <string name="lab_state_off">Выключено</string>
+    <!-- The switches in the shade and on the home screen that are not about one app. -->
+    <string name="lab_switch_hiding">Скрытие</string>
+    <string name="lab_switch_watchdog">Сторожевой сервис</string>
+    <!-- The three platform settings themselves, and the hiding switches that are about the same
+         three settings. Named apart so a shade with both in it does not ask which is which. -->
+    <string name="lab_switch_developer_options">Параметры разработчика</string>
+    <string name="lab_switch_usb_debugging">Отладка по USB</string>
+    <string name="lab_switch_wireless_debugging">Беспроводная отладка</string>
+    <string name="lab_switch_hide_developer_options">Разработчик</string>
+    <string name="lab_switch_hide_usb_debugging">Скрыть USB</string>
+    <string name="lab_switch_hide_wireless_debugging">Wi-Fi</string>
+    <!-- The three debugging switches on the home screen, under the server's buttons. Short
+         because three share one row; the tile picker spells them out in full. -->
+    <string name="home_switch_dev_options">Параметры разработчика</string>
+    <string name="home_switch_wireless">Беспроводная отладка</string>
+    <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
+         answer: the state is on the control, but the control is not where the finger is. -->
     <string name="app_info_version">Версия</string>
     <string name="app_info_target_sdk">Целевой SDK</string>
     <string name="app_info_min_sdk">Минимальный SDK</string>

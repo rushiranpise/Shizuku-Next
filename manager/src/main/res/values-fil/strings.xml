@@ -231,5 +231,17 @@
     <!-- One app, and what it may do on the device -->
     <string name="app_op_mode_deny">Tanggihan</string>
     <string name="app_action_enable">Paganahin</string>
+    <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
+         screen. The per-app list is unaffected either way, which is what the off state says. -->
+    <!-- The three answers every switch outside the app can give. Unknown is its own word: a
+         state that could not be read is not the same thing as a feature that is off. -->
+    <!-- The switches in the shade and on the home screen that are not about one app. -->
+    <string name="lab_switch_watchdog">Tagapagbantay</string>
+    <!-- The three platform settings themselves, and the hiding switches that are about the same
+         three settings. Named apart so a shade with both in it does not ask which is which. -->
+    <!-- The three debugging switches on the home screen, under the server's buttons. Short
+         because three share one row; the tile picker spells them out in full. -->
+    <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
+         answer: the state is on the control, but the control is not where the finger is. -->
     <string name="install_location_auto">Mga opsyon ng developer</string>
 </resources>

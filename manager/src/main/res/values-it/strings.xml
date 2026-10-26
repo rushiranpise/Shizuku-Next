@@ -912,7 +912,7 @@
     <string name="dialog_legacy_not_support_title">%1$s non supporta il moderno Shizuku</string>
     <string name="dialog_legacy_not_support_message"><![CDATA[Shizuku legacy è obsoleto da marzo 2019. Inoltre, Shizuku legacy non funziona sui sistemi Android più recenti.<p>Chiedi allo sviluppatore<b>%1$s</b> di aggiornare.]]></string>
     <string name="dialog_requesting_legacy_title">%1$s sta richiedendo Shizuku legacy</string>
-    <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> supporta la versione moderna di Shizuku, ma sta richiedendo quella legacy. Potrebbe dipendere dal fatto che Shizuku non è in esecuzione: controlla nell\'app Shizuku.<p>La versione legacy di Shizuku è obsoleta da marzo 2019.]]></string>
+    <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> supporta la versione moderna di Shizuku, ma sta richiedendo quella legacy. Potrebbe dipendere dal fatto che Shizuku non è in esecuzione: controlla nell'app Shizuku.<p>La versione legacy di Shizuku è obsoleta da marzo 2019.]]></string>
     <string name="dialog_requesting_legacy_button_open_shizuku">Apri Shizuku</string>
     <string name="wadb_notification_attempt_now">Riprova</string>
     <!-- Manage tab -->
@@ -1033,6 +1033,30 @@
     <string name="app_network_unsupported">Questo dispositivo non offre il firewall di cui ha bisogno.</string>
     <string name="app_network_block">Blocca accesso alla rete</string>
     <string name="app_network_block_note">La piattaforma scarta il suo traffico.</string>
+    <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
+         screen. The per-app list is unaffected either way, which is what the off state says. -->
+    <string name="firewall_tile_label">Firewall</string>
+    <!-- The three answers every switch outside the app can give. Unknown is its own word: a
+         state that could not be read is not the same thing as a feature that is off. -->
+    <string name="lab_state_on">Attivo</string>
+    <string name="lab_state_off">Disattivo</string>
+    <!-- The switches in the shade and on the home screen that are not about one app. -->
+    <string name="lab_switch_hiding">Modalità nascosta</string>
+    <string name="lab_switch_watchdog">Watchdog</string>
+    <!-- The three platform settings themselves, and the hiding switches that are about the same
+         three settings. Named apart so a shade with both in it does not ask which is which. -->
+    <string name="lab_switch_developer_options">Opzioni sviluppatore</string>
+    <string name="lab_switch_usb_debugging">Debug USB</string>
+    <string name="lab_switch_wireless_debugging">Debug wireless</string>
+    <string name="lab_switch_hide_developer_options">Nascondi opzioni sviluppatore</string>
+    <string name="lab_switch_hide_usb_debugging">Nascondi debug USB</string>
+    <string name="lab_switch_hide_wireless_debugging">Nascondi debug wireless</string>
+    <!-- The three debugging switches on the home screen, under the server's buttons. Short
+         because three share one row; the tile picker spells them out in full. -->
+    <string name="home_switch_dev_options">Opzioni sviluppatore</string>
+    <string name="home_switch_wireless">Debug wireless</string>
+    <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
+         answer: the state is on the control, but the control is not where the finger is. -->
     <string name="app_info_version">Versione</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">SDK target</string>

@@ -694,6 +694,30 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="app_bucket_default">Alapértelmezett</string>
     <string name="app_bucket_restricted_note">Ritkán engedélyezve a háttérben való futtatás.</string>
     <string name="app_bucket_never_note">Nem fut a háttérben.</string>
+    <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
+         screen. The per-app list is unaffected either way, which is what the off state says. -->
+    <string name="firewall_tile_label">Tűzfal</string>
+    <!-- The three answers every switch outside the app can give. Unknown is its own word: a
+         state that could not be read is not the same thing as a feature that is off. -->
+    <string name="lab_state_on">Be</string>
+    <string name="lab_state_off">Ki</string>
+    <!-- The switches in the shade and on the home screen that are not about one app. -->
+    <string name="lab_switch_hiding">Elrejtés</string>
+    <string name="lab_switch_watchdog">Önvédelem</string>
+    <!-- The three platform settings themselves, and the hiding switches that are about the same
+         three settings. Named apart so a shade with both in it does not ask which is which. -->
+    <string name="lab_switch_developer_options">Fejlesztői beállítások</string>
+    <string name="lab_switch_usb_debugging">USB hibakeresés</string>
+    <string name="lab_switch_wireless_debugging">Vezeték nélküli hibakeresés</string>
+    <string name="lab_switch_hide_developer_options">Fejlesztői beállítások elrejtése</string>
+    <string name="lab_switch_hide_usb_debugging">USB hibakeresés elrejtése</string>
+    <string name="lab_switch_hide_wireless_debugging">Vezeték nélküli hibakeresés elrejtése</string>
+    <!-- The three debugging switches on the home screen, under the server's buttons. Short
+         because three share one row; the tile picker spells them out in full. -->
+    <string name="home_switch_dev_options">Fejlesztői beállítások</string>
+    <string name="home_switch_wireless">Vezeték nélküli hibakeresés</string>
+    <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
+         answer: the state is on the control, but the control is not where the finger is. -->
     <string name="app_info_version">Verzió</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_installer">Telepítve innen</string>

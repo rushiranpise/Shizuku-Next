@@ -433,6 +433,25 @@
     <!-- One app, and what it may do on the device -->
     <string name="app_op_mode_deny">Denegar</string>
     <string name="app_action_enable">Permitir</string>
+    <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
+         screen. The per-app list is unaffected either way, which is what the off state says. -->
+    <string name="firewall_tile_label">Cortafuegos</string>
+    <!-- The three answers every switch outside the app can give. Unknown is its own word: a
+         state that could not be read is not the same thing as a feature that is off. -->
+    <!-- The switches in the shade and on the home screen that are not about one app. -->
+    <string name="lab_switch_watchdog">Perro guardián</string>
+    <!-- The three platform settings themselves, and the hiding switches that are about the same
+         three settings. Named apart so a shade with both in it does not ask which is which. -->
+    <string name="lab_switch_developer_options">Opciones de desarrollador</string>
+    <string name="lab_switch_usb_debugging">Depuración USB</string>
+    <string name="lab_switch_hide_developer_options">Ocultar opciones de desarrollador</string>
+    <string name="lab_switch_hide_usb_debugging">Ocultar la depuración USB</string>
+    <string name="lab_switch_hide_wireless_debugging">Ocultar la depuración inalámbrica</string>
+    <!-- The three debugging switches on the home screen, under the server's buttons. Short
+         because three share one row; the tile picker spells them out in full. -->
+    <string name="home_switch_dev_options">Opciones de desarrollador</string>
+    <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
+         answer: the state is on the control, but the control is not where the finger is. -->
     <string name="app_info_updated">Actualizado</string>
     <string name="files_root_app_data">Data</string>
     <string name="files_sort">Clasificar</string>

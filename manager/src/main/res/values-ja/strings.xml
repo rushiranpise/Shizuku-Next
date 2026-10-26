@@ -971,6 +971,30 @@
     <string name="app_network_unsupported">このデバイスは、必要なファイアウォールを提供していません。</string>
     <string name="app_network_block">ネットワークへのアクセスをブロック</string>
     <string name="app_network_block_note">プラットフォームはトラフィックを低下させます。</string>
+    <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
+         screen. The per-app list is unaffected either way, which is what the off state says. -->
+    <string name="firewall_tile_label">ファイアウォール</string>
+    <!-- The three answers every switch outside the app can give. Unknown is its own word: a
+         state that could not be read is not the same thing as a feature that is off. -->
+    <string name="lab_state_on">オン</string>
+    <string name="lab_state_off">オフ</string>
+    <!-- The switches in the shade and on the home screen that are not about one app. -->
+    <string name="lab_switch_hiding">非表示中</string>
+    <string name="lab_switch_watchdog">Watchdog</string>
+    <!-- The three platform settings themselves, and the hiding switches that are about the same
+         three settings. Named apart so a shade with both in it does not ask which is which. -->
+    <string name="lab_switch_developer_options">開発者向けオプション</string>
+    <string name="lab_switch_usb_debugging">USBデバッグ</string>
+    <string name="lab_switch_wireless_debugging">ワイヤレスデバッグ</string>
+    <string name="lab_switch_hide_developer_options">開発者向けオプションを非表示</string>
+    <string name="lab_switch_hide_usb_debugging">USBデバッグを隠す</string>
+    <string name="lab_switch_hide_wireless_debugging">無線デバッグを隠す</string>
+    <!-- The three debugging switches on the home screen, under the server's buttons. Short
+         because three share one row; the tile picker spells them out in full. -->
+    <string name="home_switch_dev_options">開発者向けオプション</string>
+    <string name="home_switch_wireless">ワイヤレスデバッグ</string>
+    <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
+         answer: the state is on the control, but the control is not where the finger is. -->
     <string name="app_info_version">バージョン</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">ターゲット SDK</string>

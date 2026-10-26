@@ -6,106 +6,73 @@
       a change here reaches translators on the next push and not before.
     -->
     <!-- To translators: you can leave your here -->
-    <string name="home_status_adb_wireless">آدب</string>
-    <string name="home_status_adb_usb">آدب</string>
+    <string name="home_status_adb_wireless"></string>
+    <string name="home_status_adb_usb"></string>
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
-    <string name="home_wireless_adb_title"><![CDATA[البدء باستخدام التصحيح اللاسلكي]]></string>
-    <string name="home_wireless_adb_starting_without_wifi"></string>
-    <string name="home_usb_adb_needs_network">يتطلب بدء التشغيل عبر USB استخدام منفذ ADB التقليدي، كما أن إعادة فتحه تتطلب اتصالًا بالشبكة. اتصل بشبكة Wi-Fi مرة واحدة، أو اختر <b>البدء بدون Wi-Fi</b> كطريقة لبدء التشغيل، وابدأ بدلًا من ذلك باستخدام تصحيح الأخطاء اللاسلكي.
-</string>
-    <string name="home_wireless_adb_summary">يبدأ باستخدام تصحيح الأخطاء اللاسلكي.</string>
-    <string name="home_usb_adb_title"><![CDATA[البدء عبر تصحيح أخطاء USB]]></string>
-    <string name="home_usb_adb_summary">يبدأ باستخدام تصحيح أخطاء USB</string>
-    <string name="home_support_body">Shizuku-Next مجاني تمامًا وبدون إعلانات. يمكنك دعم المطوّر بشراء كوب قهوة للمساعدة في تغطية وقت صيانة التطبيق.
-</string>
-    <string name="diagnostics_title">التشخيصات
-</string>
-    <string name="diagnostics_copy">نسخ بيانات التشخيص
-</string>
-    <string name="diagnostics_copied">تم نسخ بيانات التشخيص
-</string>
-    <string name="diagnostics_service">الخدمة
-</string>
-    <string name="diagnostics_server_uid">معرّف المستخدم (UID) للخادم
-</string>
-    <string name="diagnostics_server_api">واجهة برمجة تطبيقات الخادم
-</string>
-    <string name="diagnostics_server_context">سياق الخادم
-</string>
-    <string name="diagnostics_wireless_debugging">تصحيح الأخطاء اللاسلكي
-</string>
-    <string name="diagnostics_adb_port">منفذ ADB
-</string>
-    <string name="diagnostics_wifi">Wi-Fi
-</string>
-    <string name="diagnostics_local_network">الشبكة المحلية
-</string>
-    <string name="diagnostics_battery">تحسين استهلاك البطارية
-</string>
-    <string name="diagnostics_app">التطبيق
-</string>
-    <string name="diagnostics_android">Android</string>
-    <string name="diagnostics_device">جهاز</string>
-    <string name="diagnostics_started_with">تم البدء باستخدام
-</string>
-    <string name="diagnostics_default">الطريقة الافتراضية
-</string>
-    <string name="diagnostics_hiding">الإخفاء
-</string>
-    <string name="diagnostics_phantom">أداة إنهاء العمليات
-</string>
-    <string name="diagnostics_root">الجذر</string>
-    <string name="diagnostics_granted">ممنوح
-</string>
-    <string name="diagnostics_missing">مفقود</string>
-    <string name="diagnostics_not_required">غير مطلوب
-</string>
-    <string name="diagnostics_connected">متصل</string>
-    <string name="diagnostics_not_connected">غير متصل</string>
+    <string name="home_wireless_adb_title"><![CDATA[البدء باستخدام تصحيح اخطاء اللاسلكية]]></string>
+    <string name="home_wireless_adb_starting_without_wifi">في حال عدم وجود شبكة: يتم توجيه طلبات متكررة للجهاز لتفعيل وضع تصحيح الأخطاء عبر الشبكة اللاسلكية إلى أن يستجيب. قد تستغرق هذه العملية ما يصل إلى دقيقتين قبل أن يبدأ الوضع في العمل أو يتوقف النظام عن المحاولة.</string>
+    <string name="home_usb_adb_needs_network"></string>
+    <string name="home_wireless_adb_summary"></string>
+    <string name="home_usb_adb_title"></string>
+    <string name="home_usb_adb_summary"></string>
+    <string name="home_support_body"></string>
+    <string name="diagnostics_title"></string>
+    <string name="diagnostics_copy"></string>
+    <string name="diagnostics_copied"></string>
+    <string name="diagnostics_service"></string>
+    <string name="diagnostics_server_uid"></string>
+    <string name="diagnostics_server_api"></string>
+    <string name="diagnostics_server_context"></string>
+    <string name="diagnostics_wireless_debugging"></string>
+    <string name="diagnostics_adb_port"></string>
+    <string name="diagnostics_wifi"></string>
+    <string name="diagnostics_local_network"></string>
+    <string name="diagnostics_battery"></string>
+    <string name="diagnostics_app"></string>
+    <string name="diagnostics_android"></string>
+    <string name="diagnostics_device"></string>
+    <string name="diagnostics_started_with"></string>
+    <string name="diagnostics_default"></string>
+    <string name="diagnostics_hiding"></string>
+    <string name="diagnostics_phantom"></string>
+    <string name="diagnostics_root"></string>
+    <string name="diagnostics_granted"></string>
+    <string name="diagnostics_missing"></string>
+    <string name="diagnostics_not_required"></string>
+    <string name="diagnostics_connected"></string>
+    <string name="diagnostics_not_connected"></string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
-    <string name="diagnostics_battery_optimized">تم تحسينه
-</string>
-    <string name="diagnostics_battery_unrestricted">غير مقيد</string>
-    <string name="diagnostics_available">available</string>
-    <string name="diagnostics_unavailable">غير متاح</string>
-    <string name="diagnostics_closed">مغلق</string>
+    <string name="diagnostics_battery_optimized"></string>
+    <string name="diagnostics_battery_unrestricted"></string>
+    <string name="diagnostics_available"></string>
+    <string name="diagnostics_unavailable"></string>
+    <string name="diagnostics_closed"></string>
     <!-- Adb -->
-    <string name="dialog_adb_port">المنفذ</string>
-    <string name="dialog_adb_invalid_port">المنفذ هو عدد صحيح يتراوح من 1 إلى 65535.</string>
-    <string name="adb_pairing">الاقتران</string>
-    <string name="dialog_adb_pairing_title">إقران مع الجهاز</string>
-    <string name="dialog_adb_pairing_discovery">جاري البحث على جهاز للإتصال</string>
-    <string name="dialog_adb_pairing_paring_code">كود الاقتران</string>
-    <string name="paring_code_is_wrong">رمز الاقتران خاطئ.</string>
-    <string name="cannot_connect_port">لا يمكن الاتصال بخدمة تصحيح الأخطاء اللاسلكية.\n\nيرجى التأكد
-        من إدراج Shizuku في القائمة البيضاء لجميع جدران الحماية، أو تطبيقات حظر الإعلانات، أو VPN،
-        أو التطبيقات المماثلة التي يمكنها تقييد الوصول إلى الشبكة.</string>
-    <string name="dialog_adb_pairing_message">يرجى بدء عملية الاقتران من خلال تنفيذ الخطوات
-        التالية:\n- انتقل إلى \"خيارات المطور\"\n- قم بتمكين \"تصحيح أخطاء USB\" و\"تصحيح الأخطاء
-        اللاسلكية\"\n- انقر على الجانب الأيسر من \"تصحيح الأخطاء اللاسلكية\"\n- انقر على \"إقران
-        الجهاز برمز الاقتران\"\n- أدخل رمز الاقتران في الإشعار</string>
+    <string name="dialog_adb_port"></string>
+    <string name="dialog_adb_invalid_port"></string>
+    <string name="adb_pairing"></string>
+    <string name="dialog_adb_pairing_title"></string>
+    <string name="dialog_adb_pairing_discovery"></string>
+    <string name="dialog_adb_pairing_paring_code"></string>
+    <string name="paring_code_is_wrong"></string>
+    <string name="cannot_connect_port"></string>
+    <string name="dialog_adb_pairing_message"></string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
-    <string name="dialog_adb_pairing_accessibility_permission">يحظر Android تفعيل هذا الخيار للتطبيقات المثبتة من خارج متجر التطبيقات. اسمح بإذن ^1 لتفعيل خدمة تسهيل الاستخدام. ستظهر هذه الخدمة في قائمة تسهيل الاستخدام بالحالة \"يخضع لقيود الإعدادات\".\\n\\nافتح معلومات التطبيق واختر \"السماح بالإعدادات المقيّدة\" من القائمة، أو نفّذ هذا الأمر على جهاز كمبيوتر:\\n\\n^2\\n\\nكلا الخيارين يعمل. سيعمل المفتاح بعد ذلك.
-</string>
-    <string name="dialog_adb_pairing_open_app_info">معلومات التطبيق</string>
+    <string name="dialog_adb_pairing_accessibility_permission"></string>
+    <string name="dialog_adb_pairing_open_app_info"></string>
     <string name="dialog_adb_pairing_accessibility_enable"></string>
     <string name="dialog_adb_pairing_accessibility_navigate">يرجى بدء عملية الاقتران من خلال تنفيذ
-        الخطوات التالية:\n- انتقل إلى \"خيارات المطور\"\n- قم بتمكين \"تصحيح أخطاء USB\" و\"تصحيح
-        الأخطاء اللاسلكية\"\n- انقر على الجانب الأيسر من \"تصحيح الأخطاء اللاسلكية\"\n- انقر على
-        \"إقران الجهاز برمز الاقتران\". سيكتشف Shizuku رمز الاقتران تلقائيًا.</string>
-    <string name="adb_pairing_requires_multi_window">الرجاء إدخال وضع تقسيم الشاشة (متعدد النوافذ)
-        أولاً.</string>
+الخطوات التالية:\n- انتقل إلى \"خيارات المطور\"\n- قم بتمكين \"تصحيح أخطاء USB\" و\"تصحيح الأخطاء اللاسلكية\"\n- انقر على الجانب الأيسر من \"تصحيح الأخطاء اللاسلكية\"\n- انقر على\"إقران الجهاز برمز الاقتران\". سيكتشف Shizuku رمز الاقتران تلقائيًا.</string>
+    <string name="adb_pairing_requires_multi_window">الرجاء إدخال وضع تقسيم الشاشة متعدد النوافذ أولاً.</string>
     <string name="adb_pairing_requires_multi_window_reason">يتطلب النظام أن يكون مربع حوار الاقتران
-        مرئيًا دائمًا. استخدام وضع تقسيم الشاشة هو الطريقة الوحيدة لإظهار هذا التطبيق ومربع حوار
-        النظام في آنٍ واحد.</string>
-    <string name="adb_error_key_store">غير قادر على إنشاء مفتاح لتصحيح الأخطاء اللاسلكية.\nقد يكون
-        هذا بسبب تعطل آلية KeyStore لهذا الجهاز.</string>
+مرئيًا دائمًا. استخدام وضع تقسيم الشاشة هو الطريقة الوحيدة لإظهار هذا التطبيق ومربع حوار النظام في آنٍ واحد.</string>
+    <string name="adb_error_key_store">غير قادر على إنشاء مفتاح لتصحيح الأخطاء اللاسلكية.\nقد يكون هذا بسبب تعطل آلية KeyStore لهذا الجهاز.</string>
     <string name="adb_error_stop_tcp">فشل في إيقاف ADB عبر TCP</string>
     <string name="adb_pair_required">يرجى المرور بخطوة الاقتران أولاً.</string>
     <string name="enable">يُمكَِن</string>
@@ -490,19 +457,73 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="home_other_methods">طرق التشغيل الأخري </string>
     <string name="home_hiding_active_note">قد تتوقف خدمة Shizuku عند فتح تطبيق مخفي، لأن الإخفاء قد يؤدي إلى قطع اتصال تصحيح الأخطاء. وستعمل Shizuku مجددًا عند إغلاق التطبيق.
 </string>
+    <string name="hiding_vpn_client_none">لم يتم الاختيار: اختر تطبيق vpn</string>
+    <string name="hiding_notification_channel">اخفاء</string>
+    <string name="hiding_notification_title">الاعدادات مخفية</string>
+    <string name="hiding_notification_text">اضغط ل استعداهم.</string>
+    <string name="hiding_notification_idle_title">الاخفاء يعمل</string>
+    <string name="hiding_notification_watching">مراقبة تطبيقاتك المُدرجة.</string>
+    <string name="hiding_notification_paused_title">تم إيقاف الإخفاء مؤقتًا</string>
+    <string name="hiding_notification_paused_text">تمت استعادة إعداداتك. سيتم إخفاؤها مجددًا بالنسبة للتطبيقات المدرجة لديك.</string>
+    <string name="hiding_resume">استأنف</string>
+    <string name="hiding_start_again">ابدأ من جديد</string>
+    <string name="hiding_notification_stopped_title">الاخفاء متوقف</string>
+    <string name="hiding_notification_stopped_text">تطبيق Shizuku لا يعمل، لذا لا يمكن لخاصية الإخفاء رصد التطبيق المفتوح حالياً. تمت استعادة جميع الإعدادات المخفية.</string>
+    <string name="hiding_carries_session_wireless">غير مُطبَّق: يستخدم تطبيق Shizuku ميزة تصحيح الأخطاء عبر الشبكة اللاسلكية، لذا فإن إخفاءه سيؤدي إلى توقف Shizuku عن العمل.</string>
+    <string name="hiding_carries_session_usb">غير مُطبَّق: يستخدم تطبيق Shizuku ميزة \"تصحيح أخطاء USB، لذا فإن إخفاءها سيؤدي إلى توقف Shizuku عن العمل.</string>
+    <string name="tab_settings">الاعدادات</string>
+    <string name="home_status_transport_label">نقل</string>
+    <string name="home_status_started_with">حالي</string>
+    <string name="home_status_started_default">تلقائي</string>
+    <string name="uid_label">معرف المستخدم uid</string>
+    <string name="uid_name_root">الجدر</string>
+    <string name="uid_name_system">النضام</string>
+    <string name="uid_name_shell">موجه الأوامر</string>
+    <string name="home_device_manager_version">إصدار التطبيق</string>
+    <string name="home_device_android_version">إصدار اندرويد</string>
+    <string name="home_device_kernel_version">إصدار النواة</string>
+    <string name="home_device_model">طراز الجهاز</string>
+    <string name="home_device_fingerprint">بصمة الجهاز</string>
+    <string name="home_device_selinux">حالة SeLinux</string>
+    <string name="home_device_seccomp">حالة Seccomp</string>
+    <string name="selinux_enforcing">فرض</string>
+    <string name="selinux_permissive">متساهل</string>
+    <string name="selinux_disabled">غير مفعل</string>
+    <string name="seccomp_disabled">غير مفعل</string>
+    <string name="seccomp_strict">صارم</string>
+    <string name="seccomp_filter">تصفية</string>
+    <string name="status_value_none">-</string>
+    <string name="status_running_short">يعمل</string>
+    <string name="status_stopped_short">متوقف</string>
     <string name="action_start">البدء بالتشغيل</string>
+    <string name="tools_stealth">وضع التخفي</string>
+    <string name="tools_modules">وحدات</string>
+    <string name="tab_modules">وحدات</string>
+    <string name="modules_catalog">إيجاد الوحدات</string>
+    <string name="catalog_apps_title">المزيد من التطبيقات</string>
+    <string name="catalog_search">البحث عن التطبيقات، المواضيع، اللغات</string>
     <string name="catalog_filter_sort">ترتيب</string>
     <string name="catalog_filter_category">الفئة</string>
     <string name="catalog_filter_updated">تم التحديث</string>
     <string name="catalog_filter_all_categories">جميع الفئات</string>
     <string name="catalog_updated_any">أي وقت</string>
     <string name="catalog_updated_last_7">آخر ٧ أيام</string>
+    <string name="catalog_updated_last_30">اخر 30 يوم</string>
+    <string name="catalog_updated_last_90">اخر 90 يوم</string>
+    <string name="catalog_sort_updated">تم التحديث مؤخراً</string>
+    <string name="catalog_sort_stars">الأعلى تقييمأ</string>
+    <string name="catalog_sort_name">الاسم أ-ي</string>
     <string name="modules_repo_retry">أعد المحاولة</string>
+    <string name="modules_find_modules">إيجاد الوحدات</string>
+    <string name="modules_settings">وحدات</string>
     <string name="modules_catalog_install">تثبيت</string>
     <string name="modules_catalog_installed">مُثبَّت</string>
+    <string name="modules_disabled">غير مفعل</string>
     <string name="modules_sort">ترتيب</string>
     <string name="modules_action_short">الإجراء</string>
     <string name="modules_service_short">الخدمة</string>
+    <string name="modules_service_running_short">يعمل</string>
+    <string name="modules_installed">تم تثبيت %1$s</string>
     <string name="intents_start">البدء بالتشغيل</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">أبلغ المستخدمون أن MIUI يكسر إطار عمل الوصول إلى التخزين، والذي تستخدمه وظيفة التصدير.</string>
@@ -522,7 +543,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="settings_start_on_boot">البدء عند التمهيد</string>
     <string name="settings_watchdog">مراقب</string>
     <string name="settings_watchdog_summary">إعادة تشغيل Shizuku تلقائيًا في حالة تعطله</string>
-    <string name="transport_adb">آدب</string>
+    <string name="transport_adb"></string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
     <string name="settings_tcp_mode">وضع TCP</string>
@@ -538,6 +559,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="settings_black_night_theme">وضع السواد النقيّ</string>
     <string name="settings_black_night_theme_summary">استخدم سمة السواد النقيّ إذ الوضع الليلي الذي
         بالجهاز مفعل</string>
+    <string name="permissions_action_settings">الاعدادات</string>
     <string name="settings_help">يساعد</string>
     <string name="settings_report_bug">الإبلاغ عن خطأ</string>
     <!--
@@ -545,8 +567,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
       so the singular is read more often than the plural is.
     -->
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
-    <string name="contributor_area_app">التطبيق
-</string>
+    <string name="contributor_area_app"></string>
     <string name="contributor_area_server">الخادم</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
@@ -637,12 +658,16 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <!-- Manage tab -->
     <string name="manage_search_hint">البحث عن التطبيقات</string>
     <string name="manage_filter_all">الكل</string>
+    <string name="manage_filter_disabled">غير مفعل</string>
     <string name="manage_filter_hidden">مخفي</string>
     <string name="permissions_action_deny">منع</string>
+    <string name="manage_status_disabled">غير مفعل</string>
     <string name="manage_status_hidden">مخفي</string>
     <!-- One app, and what it may do on the device -->
+    <string name="app_op_mode_default">تلقائي</string>
     <string name="app_op_mode_deny">منع</string>
     <string name="app_action_enable">يُمكَِن</string>
+    <string name="app_bucket_default">تلقائي</string>
     <string name="app_bucket_frequent_note">يمكنه العمل بشكل متكرر، ولكن ليس بحرية.</string>
     <string name="app_bucket_rare">نادر</string>
     <string name="app_bucket_rare_note">يحصل على وقت قليل للعمل في الخلفية.</string>
@@ -657,6 +682,26 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="app_network_unsupported">لا يوفر هذا الجهاز جدار الحماية (Firewall) الذي يحتاجه هذا الإجراء.</string>
     <string name="app_network_block">حظر الوصول إلى الشبكة</string>
     <string name="app_network_block_note">يقوم النظام بحظر حركة البيانات الخاصة به.</string>
+    <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
+         screen. The per-app list is unaffected either way, which is what the off state says. -->
+    <string name="firewall_tile_label">Firewall</string>
+    <!-- The three answers every switch outside the app can give. Unknown is its own word: a
+         state that could not be read is not the same thing as a feature that is off. -->
+    <!-- The switches in the shade and on the home screen that are not about one app. -->
+    <string name="lab_switch_hiding">اخفاء</string>
+    <string name="lab_switch_watchdog">مراقب</string>
+    <!-- The three platform settings themselves, and the hiding switches that are about the same
+         three settings. Named apart so a shade with both in it does not ask which is which. -->
+    <string name="lab_switch_developer_options">خيارات المطور</string>
+    <string name="lab_switch_usb_debugging">تصحيح أخطاء USB</string>
+    <string name="lab_switch_hide_developer_options">إخفاء خيارات المطور</string>
+    <string name="lab_switch_hide_usb_debugging">إخفاء تصحيح أخطاء USB</string>
+    <string name="lab_switch_hide_wireless_debugging">إخفاء تصحيح الأخطاء اللاسلكية</string>
+    <!-- The three debugging switches on the home screen, under the server's buttons. Short
+         because three share one row; the tile picker spells them out in full. -->
+    <string name="home_switch_dev_options">خيارات المطور</string>
+    <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
+         answer: the state is on the control, but the control is not where the finger is. -->
     <string name="app_info_version">الإصدار</string>
     <string name="app_info_uid">معرّف المستخدم (UID)</string>
     <string name="app_info_target_sdk">إصدار SDK المستهدف</string>

@@ -66,6 +66,7 @@
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Android 会拦截非应用商店安装的应用使用这个开关。请允许 ^1 应用操作来开启无障碍服务，无障碍列表里它会显示为“由受限设置控制”。\n\n打开应用信息，从菜单里选择“允许受限设置”，或者在电脑上运行：\n\n^2\n\n两种方式都行，之后这个开关就能用了。</string>
     <string name="dialog_adb_pairing_open_app_info">应用信息</string>
+    <string name="dialog_adb_pairing_accessibility_enable">自动配对要通过 Shizuku 的无障碍服务从系统对话框里读取配对码，所以需要开启它——而且只在需要的那一小会儿：找到配对码后或一分钟后，服务会自行关闭以省电。Shizuku 通常会自己开启它，这需要 WRITE_SECURE_SETTINGS 权限，而全新安装还没有这个权限。\n\n在下一屏开启它、在“手动”下自己输入配对码，或者授予一次权限：\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">请按照以下步骤开始配对：\n- 进入“开发者选项”\n- 启用“USB 调试”和“无线调试”\n- 点击“无线调试”左侧\n- 点击“使用配对码配对设备”。Shizuku 将自动检测配对码。</string>
     <string name="adb_pairing_requires_multi_window">请先进入分屏模式。</string>
     <string name="adb_pairing_requires_multi_window_reason">系统要求配对对话框始终可见。只有使用分屏模式才能让此应用和系统对话框同时可见。</string>
@@ -525,11 +526,13 @@
     <string name="about_package">应用包名</string>
     <string name="check_for_updates_now">立即检查</string>
     <string name="start_failed">无法启动 Shizuku</string>
+    <string name="start_failed_write_secure_settings">没有 WRITE_SECURE_SETTINGS 权限，Shizuku 无法打开无线调试。请在开发者选项 &gt; 无线调试中自行开启，或用 <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b> 授予该权限。Shizuku 运行后会自己保住这个权限，所以只需一次。</string>
     <string name="action_open_wireless_debugging">无线调试</string>
     <string name="start_failed_unsupported">此设备不支持在后台启动 Shizuku</string>
     <string name="start_failed_wifi_required">请连接 Wi-Fi 网络，否则系统会关闭无线调试。也可以用下面的 ADB 命令从电脑启动。</string>
     <string name="start_failed_binder_went_away">服务启动后随即停止，现在还无法使用。当服务器随着启动所经过的那个应用一起被撤下时会发生这种情况——负载启动它之后就是这么做的。请重试启动。</string>
     <string name="start_failed_no_port">未找到无线调试端口。请确保启用无线调试并连接 Wi-Fi。</string>
+    <string name="start_failed_no_port_no_permission">未找到无线调试端口，且缺少 WRITE_SECURE_SETTINGS 权限时 Shizuku 无法开启无线调试：<b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>。您也可以通过 USB 调试启动 Shizuku，后续它会自行获取该权限。</string>
     <string name="start_failed_no_auth">在此网络上不允许进行无线调试。再次配对设备。</string>
     <string name="action_dismiss">关闭</string>
     <string name="action_connect_wifi">连接</string>
@@ -1025,6 +1028,37 @@
     <string name="app_network_unsupported">此设备不支持此功能所需的防火墙。</string>
     <string name="app_network_block">阻止网络访问</string>
     <string name="app_network_block_note">平台会丢弃它的流量。</string>
+    <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
+         screen. The per-app list is unaffected either way, which is what the off state says. -->
+    <string name="firewall_tile_label">防火墙</string>
+    <!-- The three answers every switch outside the app can give. Unknown is its own word: a
+         state that could not be read is not the same thing as a feature that is off. -->
+    <string name="lab_state_on">开</string>
+    <string name="lab_state_off">关</string>
+    <string name="lab_state_unavailable">不可用</string>
+    <!-- The switches in the shade and on the home screen that are not about one app. -->
+    <string name="lab_switch_service">Shizuku 服务</string>
+    <string name="lab_switch_hiding">隐藏</string>
+    <string name="lab_switch_watchdog">看门狗</string>
+    <!-- The three platform settings themselves, and the hiding switches that are about the same
+         three settings. Named apart so a shade with both in it does not ask which is which. -->
+    <string name="lab_switch_developer_options">开发者选项</string>
+    <string name="lab_switch_usb_debugging">USB 调试</string>
+    <string name="lab_switch_wireless_debugging">无线调试</string>
+    <string name="lab_switch_hide_developer_options">隐藏开发者选项</string>
+    <string name="lab_switch_hide_usb_debugging">隐藏 USB 调试</string>
+    <string name="lab_switch_hide_wireless_debugging">隐藏无线调试</string>
+    <!-- The three debugging switches on the home screen, under the server's buttons. Short
+         because three share one row; the tile picker spells them out in full. -->
+    <string name="home_switch_dev_options">开发者选项</string>
+    <string name="home_switch_usb">USB\n调试</string>
+    <string name="home_switch_wireless">无线调试</string>
+    <string name="lab_widget_description">开启或关闭此功能。</string>
+    <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
+         answer: the state is on the control, but the control is not where the finger is. -->
+    <string name="lab_switch_is_on">%1$s 已开启</string>
+    <string name="lab_switch_is_off">%1$s 已关闭</string>
+    <string name="lab_switch_could_not_change">无法更改 %1$s</string>
     <string name="app_info_version">版本</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">目标 SDK</string>

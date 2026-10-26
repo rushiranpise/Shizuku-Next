@@ -958,6 +958,30 @@
     <string name="app_network_unsupported">Este dispositivo não oferece o firewall necessário.</string>
     <string name="app_network_block">Bloquear acesso à rede</string>
     <string name="app_network_block_note">A plataforma deixa cair o tráfego.</string>
+    <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
+         screen. The per-app list is unaffected either way, which is what the off state says. -->
+    <string name="firewall_tile_label">Firewall</string>
+    <!-- The three answers every switch outside the app can give. Unknown is its own word: a
+         state that could not be read is not the same thing as a feature that is off. -->
+    <string name="lab_state_on">Ligado</string>
+    <string name="lab_state_off">Desligado</string>
+    <!-- The switches in the shade and on the home screen that are not about one app. -->
+    <string name="lab_switch_hiding">Ocultando</string>
+    <string name="lab_switch_watchdog">Cão de guarda</string>
+    <!-- The three platform settings themselves, and the hiding switches that are about the same
+         three settings. Named apart so a shade with both in it does not ask which is which. -->
+    <string name="lab_switch_developer_options">Opções do desenvolvedor</string>
+    <string name="lab_switch_usb_debugging">Depuração USB</string>
+    <string name="lab_switch_wireless_debugging">Depuração sem fio</string>
+    <string name="lab_switch_hide_developer_options">Ocultar opções do desenvolvedor</string>
+    <string name="lab_switch_hide_usb_debugging">Ocultar depuração USB</string>
+    <string name="lab_switch_hide_wireless_debugging">Ocultar depuração sem fio</string>
+    <!-- The three debugging switches on the home screen, under the server's buttons. Short
+         because three share one row; the tile picker spells them out in full. -->
+    <string name="home_switch_dev_options">Opções do desenvolvedor</string>
+    <string name="home_switch_wireless">Depuração sem fio</string>
+    <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
+         answer: the state is on the control, but the control is not where the finger is. -->
     <string name="app_info_version">Versão</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">Target SDK</string>

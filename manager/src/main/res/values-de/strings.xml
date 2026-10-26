@@ -918,6 +918,29 @@
     <string name="app_network_unsupported">Dieses Gerät bietet nicht die dafür nötige Firewall.</string>
     <string name="app_network_block">Netzwerkzugriff blockieren</string>
     <string name="app_network_block_note">Das System verwirft den Datenverkehr der App.</string>
+    <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
+         screen. The per-app list is unaffected either way, which is what the off state says. -->
+    <!-- The three answers every switch outside the app can give. Unknown is its own word: a
+         state that could not be read is not the same thing as a feature that is off. -->
+    <string name="lab_state_on">An</string>
+    <string name="lab_state_off">Aus</string>
+    <!-- The switches in the shade and on the home screen that are not about one app. -->
+    <string name="lab_switch_hiding">Verbergen</string>
+    <string name="lab_switch_watchdog">Wachhund</string>
+    <!-- The three platform settings themselves, and the hiding switches that are about the same
+         three settings. Named apart so a shade with both in it does not ask which is which. -->
+    <string name="lab_switch_developer_options">Entwickleroptionen</string>
+    <string name="lab_switch_usb_debugging">USB-Debugging</string>
+    <string name="lab_switch_wireless_debugging">Debugging über WLAN</string>
+    <string name="lab_switch_hide_developer_options">Entwickleroptionen verbergen</string>
+    <string name="lab_switch_hide_usb_debugging">USB-Debugging verbergen</string>
+    <string name="lab_switch_hide_wireless_debugging">Debugging über WLAN verbergen</string>
+    <!-- The three debugging switches on the home screen, under the server's buttons. Short
+         because three share one row; the tile picker spells them out in full. -->
+    <string name="home_switch_dev_options">Entwickleroptionen</string>
+    <string name="home_switch_wireless">Debugging über WLAN</string>
+    <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
+         answer: the state is on the control, but the control is not where the finger is. -->
     <string name="app_info_target_sdk">Ziel-SDK</string>
     <string name="app_info_min_sdk">Mindest-SDK</string>
     <string name="app_info_data_dir">Datenverzeichnis</string>
