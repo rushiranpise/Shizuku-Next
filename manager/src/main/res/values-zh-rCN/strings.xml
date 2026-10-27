@@ -1051,7 +1051,7 @@
     <!-- The three debugging switches on the home screen, under the server's buttons. Short
          because three share one row; the tile picker spells them out in full. -->
     <string name="home_switch_dev_options">开发者选项</string>
-    <string name="home_switch_usb">USB\n调试</string>
+    <string name="home_switch_usb">USB 调试</string>
     <string name="home_switch_wireless">无线调试</string>
     <string name="lab_widget_description">开启或关闭此功能。</string>
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other

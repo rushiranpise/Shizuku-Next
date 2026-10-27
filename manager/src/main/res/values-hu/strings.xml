@@ -715,6 +715,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <!-- The three debugging switches on the home screen, under the server's buttons. Short
          because three share one row; the tile picker spells them out in full. -->
     <string name="home_switch_dev_options">Fejlesztői beállítások</string>
+    <string name="home_switch_usb">USB hibakeresés</string>
     <string name="home_switch_wireless">Vezeték nélküli hibakeresés</string>
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->

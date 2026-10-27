@@ -1,17 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--
       The source strings. Translations are written in Crowdin and arrive as a pull request; see
       docs/translations.md. Uploading this file is also what applies its settings over there, so
       a change here reaches translators on the next push and not before.
     -->
-    <string name="app_name" translatable="false">Shizuku-Next</string>
-
     <!-- To translators: you can leave your here -->
     <string name="home_status_adb_wireless">adb</string>
     <string name="home_status_adb_usb">adb</string>
-
     <!-- Home - Adb -->
-
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Запуск через беспроводную отладку]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Запуск без сети: у устройства раз за разом запрашивается беспроводная отладка, пока она не останется включённой. До запуска или отказа может пройти до двух минут.</string>
@@ -53,7 +50,6 @@
     <string name="diagnostics_available">доступен</string>
     <string name="diagnostics_unavailable">недоступен</string>
     <string name="diagnostics_closed">закрыт</string>
-
     <!-- Adb -->
     <string name="dialog_adb_port">Порт</string>
     <string name="dialog_adb_invalid_port">Введите номер порта от 1 до 65535.</string>
@@ -91,28 +87,21 @@
     <string name="adb_pairing_tutorial_content_finish">Вернитесь в Shizuku и запустите его.</string>
     <string name="adb_pairing_tutorial_content_network">Для работы Shizuku нужен доступ к локальной сети. Он контролируется разрешением на доступ к сети.</string>
     <string name="adb_pairing_tutorial_content_network_limation_not_foreground">Некоторые системы (например, MIUI) запрещают приложениям доступ к сети, когда те не видны на экране, даже если приложение использует сервис переднего плана. На таких системах отключите для Shizuku оптимизацию расхода батареи.</string>
-
     <!-- Home - Root -->
     <string name="home_root_title"><![CDATA[Запуск через root]]></string>
     <string name="home_root_description"><![CDATA[Если вы используете Magisk, можете попробовать %1$s. Для root-пользователей он со временем заменит Shizuku. Обратите внимание: чтобы использовать %2$s, существующим приложениям потребуются небольшие изменения.]]></string>
-    <string name="home_root_button_start">Запустить</string>
-
+    <string name="home_root_button_start">Старт</string>
     <!-- Home - Application management -->
-        <plurals name="home_app_management_authorized_apps_count">
+    <plurals name="home_app_management_authorized_apps_count">
         <item quantity="one"><![CDATA[Авторизованных приложений: %d]]></item>
         <item quantity="few"><![CDATA[Авторизованных приложений: %d]]></item>
         <item quantity="many"><![CDATA[Авторизованных приложений: %d]]></item>
         <item quantity="other"><![CDATA[Авторизованных приложений: %d]]></item>
     </plurals>
-
     <!-- Home - Automation -->
-
     <!-- Home - Stealth mode -->
-
     <!-- Home - Learn more -->
-
     <!-- Home - Adb permissions limited -->
-
     <!-- Home - Dialogs -->
     <string name="home_dialog_reboot_required_title">Требуется перезагрузка</string>
     <string name="home_dialog_reboot_required_message">Для корректной работы Shizuku нужна перезагрузка устройства. Чтобы продолжить, перезагрузите его.</string>
@@ -122,7 +111,6 @@
     <string name="home_permission_owned_by">Приложения находят Shizuku по его разрешению, и Android сообщает, что его объявляет %1$s — копия Shizuku или то, что от неё осталось. Эти приложения будут обращаться именно к ней, пока она не будет удалена и устройство не перезагрузится.</string>
     <string name="home_permission_not_registered">Приложения находят Shizuku по его разрешению, а Android пока его не зарегистрировал — после переустановки такое может сохраняться до перезагрузки устройства. Сам Shizuku работает как обычно; другие приложения могут его не найти.</string>
     <string name="home_dialog_button_exit">Выйти</string>
-
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">Права ADB ограничены</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Весьма вероятно, что производитель устройства ограничивает права adb.<p>Возможно, решение для вашей системы есть в <b><a href=\"%1$s\">этом документе</a></b>.]]></string>
@@ -151,7 +139,6 @@
     <string name="labs_filter_blocked">Заблокировано</string>
     <string name="labs_blocked_count">Заблокировано: %1$d</string>
     <string name="labs_blocked_empty">Ничего не заблокировано.</string>
-
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Скрытие</string>
     <string name="tab_hide_developer_options">Разработчик</string>
@@ -171,20 +158,13 @@
     <string name="hiding_filter_shown">Видимо</string>
     <string name="hiding_filter_empty">Ничего не скрыто.</string>
     <string name="hiding_restore">Восстановить</string>
-
     <string name="hiding_signal_developer_options">Параметры разработчика</string>
-
     <string name="hiding_signal_usb_debugging">Отладка по USB</string>
-
     <string name="hiding_signal_wireless_debugging">Отладка по Wi-Fi</string>
-
     <string name="hiding_signal_accessibility">Службы специальных возможностей</string>
-
     <string name="hiding_signal_private_dns">Частный DNS</string>
-
     <string name="hiding_signal_vpn">VPN</string>
     <string name="hiding_vpn_client">VPN-клиент для скрытия</string>
-
     <string name="tab_force_dark">Тёмный режим</string>
     <string name="force_dark_gate">Тёмный режим</string>
     <string name="force_dark_gate_disabled">Принудительный тёмный режим выключен</string>
@@ -197,7 +177,6 @@
     <string name="force_dark_notification_title">Принудительный тёмный режим включён</string>
     <string name="force_dark_notification_text">Открыто приложение из списка принудительного тёмного режима</string>
     <string name="force_dark_notification_watching">Ожидание, пока откроется приложение из списка</string>
-
     <string name="tab_activities">Активити</string>
     <string name="tab_power">Питание</string>
     <string name="power_description">Перезагрузка и выключение экрана без кнопок телефона.</string>
@@ -261,7 +240,6 @@
     <string name="activities_copy">Копировать</string>
     <string name="activities_edit_as_intent">Редактировать как интент</string>
     <string name="activities_copied">Скопировано</string>
-
     <string name="tab_intent_builder">Конструктор интентов</string>
     <string name="intent_builder_note">Сконструируйте и отправьте интент. Можно задать его действие, данные, тип, компонент, категории, дополнения (extras) и флаги. Также можно загрузить интент из URI, например intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end, — это формат, используемый Activity Launcher и большинством инструментов автоматизации. При загрузке поля заполнятся автоматически, чтобы вы могли проверить и отредактировать их перед отправкой.</string>
     <string name="intent_uri">URI интента</string>
@@ -298,7 +276,6 @@
     <string name="intent_flag_exclude_recents">Не показывать в недавних</string>
     <string name="intent_flag_grant_read">Доступ на чтение</string>
     <string name="intent_flag_grant_write">Доступ на запись</string>
-
     <string name="tab_device_info">Об устройстве</string>
     <string name="device_refresh">Обновить</string>
     <string name="scroll_to_top">Прокрутить вверх</string>
@@ -325,7 +302,7 @@
     <string name="device_screen_on">Экран включён</string>
     <string name="device_time_on_battery">От батареи</string>
     <string name="device_screen_off">Экран выключен</string>
-    <string name="device_doze">Doze</string>
+    <string name="device_doze">Режим Doze</string>
     <string name="device_usage_note">Счётчики, которые ведёт сама платформа. Они сбрасываются при каждой полной зарядке батареи, поэтому телефон, заряженный час назад, покажет здесь секунды, а тот, что весь день провёл вне зарядки, — часы.</string>
     <string name="device_drain">Что расходовало батарею</string>
     <string name="device_drain_note">Данные приписываются компонентам — в таком виде их выводит сама платформа. Показатели по приложениям хранятся как блокировки пробуждения (wake lock) и время работы, а не как миллиампер-часы, поэтому цифры по каждому приложению здесь не выдуманы.</string>
@@ -402,42 +379,28 @@
     <string name="log_session_running">записывается</string>
     <string name="permissions_usage_access">Доступ к статистике использования</string>
     <string name="permissions_usage_access_summary">Позволяет спискам скрытия видеть, какое приложение открыто. Предоставляется Shizuku или в настройках Android «Доступ к статистике использования».</string>
-
     <string name="permissions_dump">Чтение причин закрытия приложений</string>
     <string name="permissions_dump_summary">Позволяет спискам скрытия определять, когда приложение именно закрыто, а не просто работает в фоне. Предоставляется Shizuku.</string>
     <string name="home_other_methods">Другие способы запуска</string>
     <string name="home_hiding_active_note">Shizuku может остановиться при открытии приложения из списка скрытия, поскольку скрытие способно отключить соединение отладки. Когда приложение закроется, Shizuku запустится снова.</string>
-
     <string name="hiding_vpn_client_none">Не выбрано: укажите приложение VPN</string>
-
     <string name="hiding_notification_channel">Скрытие</string>
     <string name="hiding_notification_title">Настройки скрыты</string>
     <string name="hiding_notification_text">Нажмите, чтобы восстановить их.</string>
-
     <string name="hiding_notification_idle_title">Скрытие включено</string>
     <string name="hiding_notification_watching">Отслеживаются приложения из вашего списка.</string>
-
     <string name="hiding_notification_paused_title">Скрытие приостановлено</string>
     <string name="hiding_notification_paused_text">Ваши настройки восстановлены. Возобновите их скрытие для приложений из списка.</string>
-
     <string name="hiding_resume">Возобновить</string>
     <string name="hiding_start_again">Запустить снова</string>
-
     <string name="hiding_notification_stopped_title">Скрытие остановлено</string>
     <string name="hiding_notification_stopped_text">Shizuku не запущен, поэтому скрытие не может определить, какое приложение открыто. Все скрытые настройки восстановлены.</string>
-
     <string name="hiding_carries_session_wireless">Не применено: Shizuku работает через беспроводную отладку, и её скрытие остановило бы Shizuku.</string>
-
     <string name="hiding_carries_session_usb">Не применено: Shizuku работает через отладку по USB, и её скрытие остановило бы Shizuku.</string>
     <string name="tab_settings">Настройки</string>
     <string name="home_status_transport_label">подключ.</string>
     <string name="home_status_started_with">текущий</string>
     <string name="home_status_started_default">умолчание</string>
-    <string name="uid_label">UID</string>
-    <string name="uid_name_format">(%1$s)</string>
-    <string name="uid_name_root">root</string>
-    <string name="uid_name_system">system</string>
-    <string name="uid_name_shell">shell</string>
     <string name="home_device_manager_version">Версия менеджера</string>
     <string name="home_device_android_version">Версия Android</string>
     <string name="home_device_kernel_version">Версия ядра</string>
@@ -451,7 +414,6 @@
     <string name="seccomp_disabled">Отключён</string>
     <string name="seccomp_strict">Строгий</string>
     <string name="seccomp_filter">Фильтр</string>
-    <string name="status_value_none">-</string>
     <string name="status_running_short">Работает</string>
     <string name="status_stopped_short">Остановлен</string>
     <string name="action_start">Запустить</string>
@@ -501,7 +463,6 @@
     <string name="modules_card_line">Версия: %1$s - %2$s</string>
     <string name="modules_card_version">Версия: %1$s</string>
     <string name="modules_card_author">Автор: %1$s</string>
-    <string name="modules_card_id">ID: %1$s</string>
     <string name="modules_disabled">Отключён</string>
     <string name="modules_error_set_enabled">Не удалось включить или отключить модуль: его каталог недоступен для записи.</string>
     <string name="modules_trust">Доверие</string>
@@ -520,7 +481,6 @@
     <string name="modules_sort_action_first">Сначала с действием</string>
     <string name="modules_sort_webui_first">Сначала с WebUI</string>
     <string name="modules_action_stop">Остановить</string>
-    <string name="modules_web_ui_short">WebUI</string>
     <string name="modules_action_short">Действие</string>
     <string name="modules_service_short">Служба</string>
     <string name="modules_service_running_short">Работает</string>
@@ -535,7 +495,6 @@
     <string name="modules_access_full_summary">Разрешает модулям запускать служебные скрипты и пользоваться мостом WebUI shell. Без него работают только действия.</string>
     <string name="modules_allow_background">Разрешать фоновые действия</string>
     <string name="modules_allow_background_summary">Разрешает служебному скрипту модуля работать без присмотра.</string>
-    <string name="modules_row_summary">%1$s - %2$s</string>
     <string name="modules_action_run">Запустить действие</string>
     <string name="modules_service_start">Запустить службу</string>
     <string name="modules_service_stop">Остановить службу</string>
@@ -546,7 +505,6 @@
     <string name="modules_review_title">Выполнить эту команду?</string>
     <string name="modules_review_message">%1$s просит Shizuku выполнить:</string>
     <string name="modules_review_approve">Выполнить</string>
-    <string name="modules_result_title">%1$s</string>
     <string name="modules_result_exit">Код выхода %1$d</string>
     <string name="modules_error_not_a_module">Этот файл не является модулем: его module.prop отсутствует или непригоден.</string>
     <string name="modules_error_unsafe_path">Модуль попытался писать за пределами своего каталога, поэтому он был отклонён.</string>
@@ -623,7 +581,6 @@
     <string name="app_management_batch_granted">Доступ предоставлен приложениям: %1$d</string>
     <string name="app_management_batch_revoked">Доступ отозван у приложений: %1$d</string>
     <string name="action_undo">Отменить</string>
-
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Пользователи сообщали, что MIUI ломает Storage Access Framework, используемый функцией экспорта.</string>
     <string name="terminal_tutorial_miui_2">Если вы используете MIUI, возможно, файл придётся извлечь из папки assets в APK Shizuku.</string>
@@ -632,7 +589,6 @@
     <string name="terminal_tutorial_2">Скопируйте файлы в каталог приватных файлов вашего терминального приложения.</string>
     <string name="terminal_tutorial_2_description">Совет: если домашний каталог (~) вашего терминального приложения находится в каталоге приватных файлов, поместите файлы туда — тогда %1$s можно будет запускать без указания пути.\n\nИначе можно создать псевдоним для %2$s в файле конфигурации %3$s вашего терминального приложения.</string>
     <string name="terminal_tutorial_3">Откройте оболочку с помощью следующей команды:</string>
-
     <!-- Stealth -->
     <string name="stealth_description">Скрывает Shizuku от приложений, отказывающихся работать при его установке. Для установки экспортируется клон с другим именем пакета.</string>
     <string name="stealth_warning_compatibility">Некоторые приложения, использующие Shizuku, могут не работать, пока Shizuku скрыт, поскольку они проверяют, установлен ли Shizuku.</string>
@@ -658,7 +614,6 @@
     <string name="stealth_hide">Скрыть</string>
     <string name="stealth_unhide">Отменить скрытие (с заглушкой)</string>
     <string name="stealth_stub_note">Отмена скрытия создаёт небольшую заглушку с исходным именем пакета Shizuku, чтобы приложения, которые его ищут, продолжали работать. Заглушка перенаправляет запросы скрытому приложению Shizuku. Это не вторая копия. Скрытие удаляет заглушку.</string>
-
     <!-- Settings -->
     <string name="settings_start_on_boot">Запуск при загрузке</string>
     <string name="settings_use_system_color">Использовать системный цвет темы</string>
@@ -671,9 +626,7 @@
     <string name="settings_start_method_root_unavailable">На этом устройстве нет root-доступа, поэтому запуск выполняется через беспроводную отладку.</string>
     <string name="start_method_wireless_no_network">Без Wi-Fi</string>
     <string name="start_method_wireless">Wi-Fi</string>
-    <string name="start_method_usb">USB</string>
     <string name="start_method_system">Система</string>
-    <string name="start_method_root">Root</string>
     <string name="transport_adb">adb</string>
     <string name="settings_adb_without_developer_options">Отключить параметры разработчика</string>
     <string name="settings_adb_without_developer_options_summary">Выключает «Параметры разработчика», но сохраняет необходимые Shizuku настройки ADB. Shizuku продолжит работать, а эти настройки будут восстанавливаться после каждой перезагрузки.</string>
@@ -702,13 +655,12 @@
     <string name="settings_system_start_method">Системный способ запуска</string>
     <string name="settings_system_start_method_exploit">Samsung (агент FOTA)</string>
     <string name="settings_system_start_method_custom">Пользовательская команда</string>
-
     <string name="home_system_title">Запуск от имени системного UID</string>
     <string name="home_system_summary">Запуск Shizuku от имени системного пользователя (UID 1000), а не adb: только для Samsung, через агент FOTA, поставляемый в этих сборках</string>
     <string name="home_adb_command_summary">Запустите Shizuku с компьютера через ADB. Нажмите, чтобы скопировать команду</string>
     <string name="settings_tcp_mode">Режим TCP</string>
-    <string name="settings_tcp_mode_summary">Позволяет Shizuku перезапускаться без Wi-Fi. (После перезагрузки Shizuku должен быть запущен хотя бы один раз.)</string>
-    <string name="settings_tcp_mode_dialog_close_port">TCP-порт будет закрыт немедленно. Для повторного включения режима TCP понадобится Wi-Fi. Продолжить?</string>
+    <string name="settings_tcp_mode_summary">"Позволяет Shizuku перезапускаться без Wi-Fi. (После перезагрузки Shizuku должен быть запущен хотя бы один раз.)"</string>
+    <string name="settings_tcp_mode_dialog_close_port">"TCP-порт будет закрыт немедленно. Для повторного включения режима TCP понадобится Wi-Fi. Продолжить?"</string>
     <string name="settings_tcp_mode_close_wireless">Не закрыт: включена беспроводная отладка, и закрытие порта остановило бы её. Порт закроется при перезагрузке телефона.</string>
     <string name="settings_tcp_mode_close_usb_off">Не закрыт: отладка по USB выключена. Включите её и попробуйте снова.</string>
     <string name="settings_tcp_mode_close_nothing">Не был открыт ни один TCP-порт.</string>
@@ -723,7 +675,7 @@
     <string name="settings_black_night_theme">Чёрный AMOLED</string>
     <string name="settings_black_night_theme_summary">Использовать чисто чёрную тему в тёмном режиме</string>
     <string name="settings_update_stable">Стабильная</string>
-    <string name="settings_update_beta">Dev</string>
+    <string name="settings_update_beta">Для разработчиков</string>
     <string name="settings_permissions">Разрешения</string>
     <string name="settings_permissions_summary">Что нужно Shizuku и что ему разрешено</string>
     <string name="permissions_allowed">Разрешено</string>
@@ -742,7 +694,6 @@
     <string name="settings_help">Справка</string>
     <string name="settings_translate">Участвовать в переводе</string>
     <string name="settings_translate_note">Переводите приложение на Crowdin.</string>
-    <string name="crowdin_url">https://crowdin.com/project/Shizuku-Next</string>
     <string name="settings_report_bug">Сообщить об ошибке</string>
     <string name="settings_support_coffee">Поддержать автора</string>
     <string name="settings_support_coffee_note">Поддержите разработку Shizuku-Next</string>
@@ -752,7 +703,7 @@
       A plural, not a plain string: most of the people on this wall are here for a single commit,
       so the singular is read more often than the plural is.
     -->
-        <plurals name="contributor_commits">
+    <plurals name="contributor_commits">
         <item quantity="one">Коммитов: %1$d</item>
         <item quantity="few">Коммитов: %1$d</item>
         <item quantity="many">Коммитов: %1$d</item>
@@ -763,7 +714,6 @@
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
     <string name="contributor_area_app">Приложение</string>
     <string name="contributor_area_server">Сервер</string>
-    <string name="contributor_area_adb">ADB</string>
     <string name="contributor_area_build">Сборка</string>
     <string name="contributor_area_i18n">Переводы</string>
     <string name="contributor_area_docs">Документация</string>
@@ -779,7 +729,6 @@
     <string name="contributor_summary_default">Участник</string>
     <string name="settings_legacy_pairing">Устаревшее сопряжение</string>
     <string name="settings_legacy_pairing_summary">Вводить код сопряжения в диалоговом окне, а не в уведомлении</string>
-
     <!-- Bug Report Dialog -->
     <string name="bug_report_dialog_before_reporting">Сначала выполните следующее:</string>
     <string name="bug_report_dialog_update">Убедитесь, что вы используете ^1.</string>
@@ -791,13 +740,11 @@
     <string name="bug_report_dialog_method">Создайте проблему на ^1.</string>
     <string name="bug_report_dialog_log_note">Если для проблемы нужен журнал, поделитесь полным журналом ниже и приложите его.</string>
     <string name="bug_report_dialog_share_log">Поделиться журналом</string>
-
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Чтобы использовать эту функцию, отключите оптимизацию расхода батареи.</string>
     <string name="snackbar_action_fix">Исправить</string>
     <string name="snackbar_update_available">Доступно новое обновление</string>
     <string name="snackbar_action_update">Обновить</string>
-
     <!-- Updates -->
     <string name="check_for_updates">Проверка обновлений</string>
     <string name="update_latest_installed">У вас уже установлена последняя версия</string>
@@ -811,24 +758,19 @@
     <string name="update_download_failed">Не удалось скачать обновление</string>
     <string name="update_success">Обновление завершено</string>
     <string name="update_failed">Не удалось обновить</string>
-
     <!-- Toast -->
     <string name="toast_pairing_timeout">Время ожидания службы сопряжения Shizuku истекло</string>
-
     <!-- Dark Mode Setting Override -->
     <string name="dark_theme">Тема</string>
     <string name="dark_theme_off">Всегда светлая</string>
     <string name="dark_theme_on">Всегда тёмная</string>
     <string name="follow_system">Как в системе</string>
-
     <!-- About -->
-
     <!-- Start/Stop -->
-     <string name="start">Запустить</string>
-    <string name="action_stop">Остановить</string>
+    <string name="start">Запустить</string>
+    <string name="action_stop">Стоп</string>
     <string name="action_restart">Перезапуск</string>
     <string name="action_open_adb_port">Открыть порт ADB</string>
-
     <!-- Notification -->
     <string name="notification_channel_adb_pairing">Сопряжение беспроводной отладки</string>
     <string name="notification_adb_pairing_input_paring_code">Введите код сопряжения</string>
@@ -844,20 +786,15 @@
     <string name="notification_auth_missing_message">Добавьте в интент дополнение «auth». Токен можно найти, нажав «Просмотр интентов» в приложении.</string>
     <string name="notification_auth_invalid_title">Недействительный токен авторизации</string>
     <string name="notification_auth_invalid_message">Убедитесь, что токен в вашем интенте совпадает с показанным в разделе «Просмотр интентов» приложения.</string>
-
     <!-- Permission related, appears in system permission UI -->
-    <string name="permission_group_label" translatable="false">Shizuku</string>
-    <string name="permission_group_description" translatable="false">@string/permission_label</string>
     <string name="permission_label">доступ к Shizuku</string>
     <string name="permission_description">Разрешить приложению использовать Shizuku.</string>
     <string name="permission_warning_template"><![CDATA[Разрешить <b>%1$s</b> %2$s?]]></string>
     <string name="grant_dialog_button_allow_always">Всегда разрешать</string>
-    <string name="grant_dialog_button_deny">Отказать</string>
-
+    <string name="grant_dialog_button_deny">"Отказать"</string>
     <!-- Starter -->
     <string name="starter">Запуск</string>
     <string name="start_with_root_failed">Не удалось запустить: root-доступ недоступен.</string>
-
     <!-- WADB Starter -->
     <string name="wadb_notification_title">Запуск Shizuku…</string>
     <string name="wadb_notification_wifi_required">Ожидание Wi-Fi</string>
@@ -869,13 +806,8 @@
     <string name="wadb_error_notify_dev">Нажмите, чтобы сообщить об этом разработчику.</string>
     <string name="wadb_permission_error_notification_title">Ошибка разрешений</string>
     <string name="wadb_permission_error_notification_content">Для включения беспроводной отладки Shizuku требуется WRITE_SECURE_SETTINGS. Нажмите, чтобы узнать, как выдать это разрешение.</string>
-
     <!-- Shell -->
     <string name="shell_title">Терминал</string>
-    <string name="shell_backend_shizuku">Shizuku</string>
-    <string name="shell_backend_root">Root</string>
-    <string name="shell_backend_shizuku_status">Shizuku, uid %1$d</string>
-    <string name="shell_backend_root_status">Root, uid 0</string>
     <string name="shell_backend_offline">Нет активного исполнителя команд</string>
     <string name="shell_needs_a_backend">Запустите Shizuku или выберите Root на устройстве с Root-доступом: команды выполняет одно из этих двух. Root работает и при остановленном Shizuku.</string>
     <string name="shell_intro">Команды выполняются от того uid, под которым работает Shizuku (2000 через adb, 0 с root), поэтому доступно всё, что доступно этому uid: /sdcard, /system, а с root — и данные приложений. Стартовый каталог — /sdcard, команды выполняются по одной; позади них нет tty, поэтому программы, которым нужен терминал (nano, сеанс ssh), здесь не запустятся.</string>
@@ -920,7 +852,7 @@
     <string name="shell_quick_apps">Мои приложения</string>
     <string name="shell_quick_grant">Предоставить разрешение</string>
     <string name="shell_quick_revoke">Отозвать разрешение</string>
-    <string name="shell_quick_app_ops">App op</string>
+    <string name="shell_quick_app_ops">Операция приложения</string>
     <string name="shell_quick_force_stop">Остановить принудительно</string>
     <string name="shell_adb_prefix_dropped">Выполнено на устройстве: префикс adb shell — это то, что вы набирали бы на компьютере.</string>
     <string name="shell_adb_host_devices">Эта команда перечисляет устройства, подключённые к компьютеру. Здесь вы находитесь на самом устройстве, так что перечислять нечего: `pm list packages` покажет то, что на нём установлено.</string>
@@ -940,7 +872,6 @@
     <string name="shell_copy">Копировать</string>
     <string name="shell_history_previous">Предыдущая команда</string>
     <string name="shell_history_next">Следующая команда</string>
-
     <!-- Watchdog -->
     <string name="watchdog_running">Системный таймер активен</string>
     <string name="watchdog_turn_off">Выключить</string>
@@ -954,14 +885,12 @@
     <string name="watchdog_given_up_action_start">Запустить</string>
     <string name="watchdog_not_running_title">Системный таймер не работает</string>
     <string name="watchdog_not_running_text">Android не позволил ему запуститься самостоятельно. Нажмите, чтобы запустить снова.</string>
-
     <!-- Misc -->
     <string name="error">Ошибка</string>
     <string name="off">Выкл</string>
     <string name="dialog_cannot_open_browser_title">Не удалось открыть браузер</string>
     <string name="toast_copied_to_clipboard">Скопировано в буфер обмена</string>
     <string name="accessibility_service_description">Выполняет сопряжение с беспроводной отладкой без ввода кода.\n\nShizuku считывает код сопряжения и порт с экрана «Сопряжение с устройством», выполняет сопряжение и запускается сам. На телевизорах (например, с Android 14+) он ведёт весь процесс и отключается, когда код найден.</string>
-
     <!-- Messages for legacy -->
     <string name="dialog_legacy_not_support_title">%1$s не поддерживает современный Shizuku</string>
     <string name="dialog_legacy_not_support_message"><![CDATA[Поддержка устаревшего Shizuku прекращена в марте 2019 года. Кроме того, устаревший Shizuku не работает на новых версиях Android.<p>Попросите разработчика <b>%1$s</b> обновить приложение.]]></string>
@@ -969,7 +898,6 @@
     <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> поддерживает современный Shizuku, но запрашивает устаревший. Возможно, Shizuku просто не запущен — проверьте это в приложении Shizuku.<p>Поддержка устаревшего Shizuku прекращена в марте 2019 года.]]></string>
     <string name="dialog_requesting_legacy_button_open_shizuku">Открыть Shizuku</string>
     <string name="wadb_notification_attempt_now">Повторить</string>
-
     <!-- Manage tab -->
     <string name="tab_manage">Разрешения</string>
     <string name="manage_search_hint">Поиск приложений</string>
@@ -983,7 +911,6 @@
     <string name="manage_status_system">system</string>
     <string name="manage_status_user">user</string>
     <string name="app_row_user">пользователь %1$d</string>
-
     <string name="permissions_phantom">Фоновые процессы</string>
     <string name="permissions_phantom_summary">В Android 12 и новее система может останавливать процессы, запущенные приложением, после закрытия самого приложения. Из-за этого сервер может останавливаться после запуска при загрузке. Настройка действует на всё устройство и может потребовать перезагрузки.</string>
     <string name="permissions_action_deny">Отказать</string>
@@ -992,7 +919,6 @@
     <string name="manage_status_disabled">disabled</string>
     <string name="manage_status_suspended">suspend</string>
     <string name="manage_status_hidden">hide</string>
-
     <!-- One app, and what it may do on the device -->
     <string name="app_detail_missing">Это приложение больше не установлено.</string>
     <string name="app_open_info">О приложении</string>
@@ -1011,7 +937,6 @@
     <string name="app_grant_confirm_message">Это даёт приложению возможности уровня ADB. Предоставляйте их только приложениям, которым доверяете.</string>
     <string name="app_grant_confirm_ok">Предоставить</string>
     <string name="app_action_failed">Android отклонил это действие. Ничего не изменилось.</string>
-
     <string name="app_ops_note">Операции приложений (app ops) — это то, с чем сверяется сама платформа, и adb может изменять перечисленные ниже. Некоторые возможности реализованы как особый доступ в системных настройках, а не как операции приложений: доступ ко всем файлам, доступ к статистике использования, точные будильники и изменение системных настроек, — и ни одно приложение не может их изменять.</string>
     <string name="app_ops_needs_shizuku">Запустите Shizuku, чтобы просматривать и изменять операции приложений.</string>
     <string name="app_op_background">Работа в фоне</string>
@@ -1049,7 +974,6 @@
     <string name="app_op_mode_allow">Разрешить</string>
     <string name="app_op_mode_ignore">Игнорировать</string>
     <string name="app_op_mode_deny">Отказать</string>
-
     <string name="app_action_force_stop">Остановить принудительно</string>
     <string name="app_action_force_stop_note">Останавливает приложение немедленно; позже оно может запуститься снова.</string>
     <string name="app_action_suspend">Приостановить</string>
@@ -1068,7 +992,6 @@
     <string name="app_confirm_disable">Отключить %1$s? Приложение прекратит работу, пока вы не включите его снова.</string>
     <string name="app_confirm_clear_data">Удалить все данные приложения %1$s? Это действие нельзя отменить.</string>
     <string name="app_confirm_uninstall">Удалить %1$s для этого пользователя? Его данные будут сохранены.</string>
-
     <string name="app_battery_needs_shizuku">Запустите Shizuku, чтобы изменить настройки батареи.</string>
     <string name="app_battery_bucket">Группа ожидания</string>
     <string name="app_battery_pick_title">Группа ожидания</string>
@@ -1093,22 +1016,18 @@
     <string name="app_network_unsupported">На этом устройстве нет необходимого брандмауэра.</string>
     <string name="app_network_block">Блокировать доступ к сети</string>
     <string name="app_network_block_note">Платформа будет отбрасывать его трафик.</string>
-
     <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
          screen. The per-app list is unaffected either way, which is what the off state says. -->
     <string name="firewall_tile_label">Брандмауэр</string>
-
     <!-- The three answers every switch outside the app can give. Unknown is its own word: a
          state that could not be read is not the same thing as a feature that is off. -->
     <string name="lab_state_on">Вкл</string>
     <string name="lab_state_off">Выкл</string>
     <string name="lab_state_unavailable">Недоступно</string>
-
     <!-- The switches in the shade and on the home screen that are not about one app. -->
     <string name="lab_switch_service">Служба Shizuku</string>
     <string name="lab_switch_hiding">Скрытие</string>
     <string name="lab_switch_watchdog">Системный таймер</string>
-
     <!-- The three platform settings themselves, and the hiding switches that are about the same
          three settings. Named apart so a shade with both in it does not ask which is which. -->
     <string name="lab_switch_developer_options">Параметры разработчика</string>
@@ -1117,25 +1036,20 @@
     <string name="lab_switch_hide_developer_options">Разработчик</string>
     <string name="lab_switch_hide_usb_debugging">Скрыть USB</string>
     <string name="lab_switch_hide_wireless_debugging">Скрытие Wi-Fi</string>
-
     <!-- The three debugging switches on the home screen, under the server's buttons. Short
          because three share one row; the tile picker spells them out in full. -->
     <string name="home_switch_dev_options">Параметры разработчика</string>
     <string name="home_switch_usb">Отладка\nпо USB</string>
     <string name="home_switch_wireless">Отладка по Wi-Fi</string>
     <string name="lab_widget_description">Включить или выключить эту функцию.</string>
-
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
     <string name="lab_switch_is_on">%1$s: вкл.</string>
     <string name="lab_switch_is_off">%1$s: выкл.</string>
     <string name="lab_switch_could_not_change">%1$s: изменить не удалось</string>
-
     <string name="app_info_version">Версия</string>
-    <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">Целевой SDK</string>
     <string name="app_info_min_sdk">Минимальный SDK</string>
-    <string name="app_info_abi">ABI</string>
     <string name="app_info_data_dir">Каталог данных</string>
     <string name="app_info_signature">Подпись</string>
     <string name="app_info_installer">Установлено из</string>
@@ -1146,7 +1060,6 @@
     <string name="app_info_launcher">Значок в лончере</string>
     <string name="app_info_yes">Да</string>
     <string name="app_info_no">Нет</string>
-
     <string name="tab_wifi_passwords">Пароли Wi-Fi</string>
     <string name="wifi_passwords_show">Показать пароль</string>
     <string name="wifi_passwords_hide">Скрыть пароль</string>
@@ -1183,14 +1096,11 @@
     <string name="wifi_backup_exported">Записано сетей: %1$d</string>
     <string name="wifi_backup_imported">Добавлено сетей: %1$d из %2$d</string>
     <string name="wifi_backup_unreadable">Не удалось прочитать файл, либо указан неверный пароль. Подробности см. в журнале.</string>
-<string name="wifi_backup_unwritable">Не удалось записать файл. Подробности см. в журнале.</string>
+    <string name="wifi_backup_unwritable">Не удалось записать файл. Подробности см. в журнале.</string>
     <string name="tab_files">Файлы</string>
     <string name="files_root_internal">Int.</string>
-    <string name="files_root_app_data">Data</string>
-    <string name="files_root_app_obb">Obb</string>
-    <string name="files_root_system">System</string>
-    <string name="files_root_tmp">Tmp</string>
-    <string name="files_root_root">Root</string>
+    <string name="files_root_app_data">Данные</string>
+    <string name="files_root_system">Система</string>
     <string name="files_empty">В этой папке ничего нет.</string>
     <string name="files_all_hidden">Всё содержимое этой папки скрыто.</string>
     <string name="files_sort">Сортировка</string>
@@ -1206,7 +1116,6 @@
     <string name="files_preview_binary">Это не текстовый файл, поэтому его нельзя показать.</string>
     <string name="files_preview_failed">Не удалось прочитать этот файл.</string>
     <string name="files_preview_truncated">Показано только начало файла.</string>
-
     <string name="files_selected_count">Выбрано: %1$d</string>
     <string name="files_action_select_all">Выбрать все</string>
     <string name="files_action_rename">Переименовать</string>
@@ -1226,84 +1135,58 @@
     <string name="files_working_deleting">Удаление</string>
     <string name="files_working_compressing">Сжатие</string>
     <string name="files_working_extracting">Извлечение</string>
-
-<string name="tab_install">Установка</string>
-<string name="install_no_file">Пакет не выбран</string>
-<string name="install_choose">Выбрать</string>
-<string name="install_choose_hint">Файл APK, APKS или XAPK</string>
-<string name="install_action">Установить</string>
-<string name="install_running">Установка\u2026</string>
-<string name="install_done">Установлено.</string>
-
-<string name="install_options_heading">Параметры установки</string>
-
-<string name="install_instant">Установить как мгновенное приложение</string>
-<string name="install_instant_desc">Запускается без установки полного приложения и без добавления в лончер.</string>
-
-<string name="install_rollback">Сохранить возможность отката</string>
-<string name="install_rollback_desc">Сохраняет предыдущую версию, чтобы позже можно было к ней вернуться.</string>
-
+    <string name="tab_install">Установка</string>
+    <string name="install_no_file">Пакет не выбран</string>
+    <string name="install_choose">Выбрать</string>
+    <string name="install_choose_hint">Файл APK, APKS или XAPK</string>
+    <string name="install_action">Установить</string>
+    <string name="install_running">Установка\u2026</string>
+    <string name="install_done">Установлено.</string>
+    <string name="install_options_heading">Параметры установки</string>
+    <string name="install_instant">Установить как мгновенное приложение</string>
+    <string name="install_instant_desc">Запускается без установки полного приложения и без добавления в лончер.</string>
+    <string name="install_rollback">Сохранить возможность отката</string>
+    <string name="install_rollback_desc">Сохраняет предыдущую версию, чтобы позже можно было к ней вернуться.</string>
     <string name="install_ignore_dexopt">Игнорировать профиль dexopt</string>
     <string name="install_ignore_dexopt_desc">Не использовать профиль приложения при его оптимизации.</string>
-
-<string name="install_dexopt">Dexopt</string>
-<string name="install_dexopt_default">Значение платформы по умолчанию</string>
-<string name="install_dexopt_verify">verify</string>
-<string name="install_dexopt_quicken">quicken</string>
-<string name="install_dexopt_speed_profile">speed-profile</string>
-<string name="install_dexopt_speed">speed</string>
-<string name="install_dexopt_everything">everything</string>
-
-<string name="install_referrer">Реферер</string>
-<string name="install_referrer_desc">URI, сообщающий приложению, откуда была выполнена установка.</string>
-
-<string name="install_details_reading">Чтение пакета\u2026</string>
-<string name="install_details_unreadable">Этот файл не является корректным пакетом приложения.</string>
-<string name="install_details_version">Версия</string>
-<string name="install_details_target">Целевой SDK</string>
-<string name="install_details_permissions">Разрешения (%1$d)</string>
-<string name="install_details_installed">Установлено</string>
-<string name="install_details_not_installed">Не установлено</string>
-<string name="install_details_not_installed_note">Нет установленного приложения для замены.</string>
-<string name="install_details_update">Новее установленной версии.</string>
-<string name="install_details_downgrade">Старее установленной версии %1$s \u2014 разрешите понижение.</string>
-<string name="install_details_same">Совпадает с версией установленного приложения.</string>
-
-<string name="install_option_unsupported">Не поддерживается на этой версии Android</string>
-<string name="install_failed">Не удалось: %1$s</string>
-<string name="install_could_not_read">Не удалось прочитать этот файл.</string>
-
-<string name="install_replace">Заменить установленное приложение</string>
-<string name="install_replace_desc">Сохраняет данные приложения и обновляет его.</string>
-
-<string name="install_downgrade">Разрешать понижение версии</string>
-<string name="install_downgrade_desc">Устанавливать более старую версию поверх более новой.</string>
-
-<string name="install_grant_all">Предоставлять все разрешения</string>
-<string name="install_grant_all_desc">Предоставляет все разрешения, которые приложение запрашивает при установке.</string>
-
-<string name="install_allow_test">Разрешать тестовые пакеты</string>
-<string name="install_allow_test_desc">Разрешает приложения, помеченные как тестовые или отладочные сборки.</string>
-
-<string name="install_keep_running">Не останавливать приложение</string>
-<string name="install_keep_running_desc">Оставляет приложение запущенным на время замены.</string>
-
-<string name="install_skip_verification">Пропустить проверку</string>
-<string name="install_skip_verification_desc">Пропускает проверку пакета.</string>
-
-<string name="install_bypass_sdk">Обходить блокировку целевого SDK</string>
-<string name="install_bypass_sdk_desc">Разрешает установку приложений, рассчитанных на слишком старую версию Android.</string>
-
-<string name="install_user">Установить для</string>
-<string name="install_user_current">Этот пользователь</string>
-<string name="install_user_all">Все пользователи</string>
-
-<string name="install_location">Куда</string>
-<string name="install_location_auto">Автоматически</string>
-<string name="install_location_internal">Внутренняя память</string>
-<string name="install_location_shared">Общее хранилище</string>
-
-<string name="install_spoof_source">Подменять источник установки</string>
-<string name="install_spoof_source_desc">Пакет, который Android считает установившим это приложение.</string>
-
+    <string name="install_dexopt_default">Значение платформы по умолчанию</string>
+    <string name="install_referrer">Реферер</string>
+    <string name="install_referrer_desc">URI, сообщающий приложению, откуда была выполнена установка.</string>
+    <string name="install_details_reading">Чтение пакета\u2026</string>
+    <string name="install_details_unreadable">Этот файл не является корректным пакетом приложения.</string>
+    <string name="install_details_version">Версия</string>
+    <string name="install_details_target">Целевой SDK</string>
+    <string name="install_details_permissions">Разрешения (%1$d)</string>
+    <string name="install_details_installed">Установлено</string>
+    <string name="install_details_not_installed">Не установлено</string>
+    <string name="install_details_not_installed_note">Нет установленного приложения для замены.</string>
+    <string name="install_details_update">Новее установленной версии.</string>
+    <string name="install_details_downgrade">Старее установленной версии %1$s \u2014 разрешите понижение.</string>
+    <string name="install_details_same">Совпадает с версией установленного приложения.</string>
+    <string name="install_option_unsupported">Не поддерживается на этой версии Android</string>
+    <string name="install_failed">Не удалось: %1$s</string>
+    <string name="install_could_not_read">Не удалось прочитать этот файл.</string>
+    <string name="install_replace">Заменить установленное приложение</string>
+    <string name="install_replace_desc">Сохраняет данные приложения и обновляет его.</string>
+    <string name="install_downgrade">Разрешать понижение версии</string>
+    <string name="install_downgrade_desc">Устанавливать более старую версию поверх более новой.</string>
+    <string name="install_grant_all">Предоставлять все разрешения</string>
+    <string name="install_grant_all_desc">Предоставляет все разрешения, которые приложение запрашивает при установке.</string>
+    <string name="install_allow_test">Разрешать тестовые пакеты</string>
+    <string name="install_allow_test_desc">Разрешает приложения, помеченные как тестовые или отладочные сборки.</string>
+    <string name="install_keep_running">Не останавливать приложение</string>
+    <string name="install_keep_running_desc">Оставляет приложение запущенным на время замены.</string>
+    <string name="install_skip_verification">Пропустить проверку</string>
+    <string name="install_skip_verification_desc">Пропускает проверку пакета.</string>
+    <string name="install_bypass_sdk">Обходить блокировку целевого SDK</string>
+    <string name="install_bypass_sdk_desc">Разрешает установку приложений, рассчитанных на слишком старую версию Android.</string>
+    <string name="install_user">Установить для</string>
+    <string name="install_user_current">Этот пользователь</string>
+    <string name="install_user_all">Все пользователи</string>
+    <string name="install_location">Куда</string>
+    <string name="install_location_auto">Автоматически</string>
+    <string name="install_location_internal">Внутренняя память</string>
+    <string name="install_location_shared">Общее хранилище</string>
+    <string name="install_spoof_source">Подменять источник установки</string>
+    <string name="install_spoof_source_desc">Пакет, который Android считает установившим это приложение.</string>
 </resources>

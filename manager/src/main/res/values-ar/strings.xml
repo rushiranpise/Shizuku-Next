@@ -6,18 +6,23 @@
       a change here reaches translators on the next push and not before.
     -->
     <!-- To translators: you can leave your here -->
-    <string name="home_status_adb_wireless"></string>
-    <string name="home_status_adb_usb"></string>
+    <string name="home_status_adb_wireless">ADB</string>
+    <string name="home_status_adb_usb">ADB</string>
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[البدء باستخدام تصحيح اخطاء اللاسلكية]]></string>
     <string name="home_wireless_adb_starting_without_wifi">في حال عدم وجود شبكة: يتم توجيه طلبات متكررة للجهاز لتفعيل وضع تصحيح الأخطاء عبر الشبكة اللاسلكية إلى أن يستجيب. قد تستغرق هذه العملية ما يصل إلى دقيقتين قبل أن يبدأ الوضع في العمل أو يتوقف النظام عن المحاولة.</string>
-    <string name="home_usb_adb_needs_network"></string>
-    <string name="home_wireless_adb_summary"></string>
-    <string name="home_usb_adb_title"></string>
-    <string name="home_usb_adb_summary"></string>
-    <string name="home_support_body"></string>
-    <string name="diagnostics_title"></string>
+    <string name="home_usb_adb_needs_network">يستخدم بدء التشغيل عبر USB منفذ ADB التقليدي، ويتطلب إعادة فتحه اتصالًا بالشبكة. اتصل بشبكة Wi-Fi مرة واحدة، أو اختر <b>البدء بدون Wi-Fi</b> كطريقة لبدء التشغيل، واستخدم تصحيح الأخطاء اللاسلكي بدلًا من ذلك.
+</string>
+    <string name="home_wireless_adb_summary">بدأ التشغيل باستخدام تصحيح الأخطاء اللاسلكي.
+</string>
+    <string name="home_usb_adb_title"><![CDATA[بدء التشغيل عبر تصحيح أخطاء USB
+]]></string>
+    <string name="home_usb_adb_summary">بدأ التشغيل عبر تصحيح أخطاء USB.
+</string>
+    <string name="home_support_body">Shizuku-Next مجاني تمامًا وبدون إعلانات. مساهمتك بشراء فنجان قهوة تساعد في تغطية الوقت اللازم لصيانة المشروع وتطويره.
+</string>
+    <string name="diagnostics_title">التشخيص</string>
     <string name="diagnostics_copy"></string>
     <string name="diagnostics_copied"></string>
     <string name="diagnostics_service"></string>
@@ -26,7 +31,7 @@
     <string name="diagnostics_server_context"></string>
     <string name="diagnostics_wireless_debugging"></string>
     <string name="diagnostics_adb_port"></string>
-    <string name="diagnostics_wifi"></string>
+    <string name="diagnostics_wifi">واي فاي</string>
     <string name="diagnostics_local_network"></string>
     <string name="diagnostics_battery"></string>
     <string name="diagnostics_app"></string>
@@ -102,7 +107,7 @@
         MIUI) تمنع التطبيقات من الوصول إلى الشبكة عند عدم ظهورها، حتى لو كانت تستخدم خدمة الواجهة
         الأمامية. يُرجى تعطيل ميزات تحسين أداء البطارية لتطبيق Shizuku على هذه الأنظمة.</string>
     <!-- Home - Root -->
-    <string name="home_root_title"><![CDATA[ابدأ (للأجهزة المجذرة)]]></string>
+    <string name="home_root_title"><![CDATA[ابدأ (للأجهزة التي لديها صلاحيه الجذر)]]></string>
     <string name="home_root_description"><![CDATA[إذا كنت تستخدم Magisk، يمكنك تجربة %1$s. بالنسبة لمستخدمي الجذر، سيحل هذا الخيار محل Shizuku في نهاية المطاف. ملاحظة: تحتاج التطبيقات الحالية إلى تغيير بسيط لاستخدام %2$s.]]></string>
     <string name="home_root_button_start">البدء بالتشغيل</string>
     <!-- Home - Application management -->
@@ -141,8 +146,10 @@
 </string>
     <string name="app_management_sort">ترتيب</string>
     <string name="apps_needs_shizuku">Start Shizuku to see apps</string>
-    <string name="apps_empty">U</string>
-    <string name="apps_filter_empty">H</string>
+    <string name="apps_empty">لا توجد تطبيقات لعرضها
+</string>
+    <string name="apps_filter_empty">لا توجد تطبيقات تطابق عامل التصفية ده
+</string>
     <string name="apps_filter_all">الكل</string>
     <string name="apps_filter_granted">ممنوح</string>
     <string name="apps_filter_revoked">تم إلغاؤه
@@ -163,8 +170,8 @@
 </string>
     <string name="lab_more_apps">المزيد من التطبيقات
 </string>
-    <string name="tab_firewall">Firewall</string>
-    <string name="tab_autostart">Autostart</string>
+    <string name="tab_firewall">الجدار الناري </string>
+    <string name="tab_autostart">البدء التلقائي </string>
     <string name="labs_filter_allowed">مسموح</string>
     <string name="labs_filter_blocked">محظور</string>
     <string name="labs_blocked_count">تم حظر %1$d</string>
@@ -175,7 +182,7 @@
     <string name="tab_hide_usb_debugging">إخفاء تصحيح أخطاء USB</string>
     <string name="tab_hide_wireless_debugging">إخفاء تصحيح الأخطاء اللاسلكية</string>
     <string name="tab_hide_accessibility">إخفاء إمكانية الوصول</string>
-    <string name="tab_hide_private_dns">إخفاء الـ DNS الخاص</string>
+    <string name="tab_hide_private_dns">إخفاء الـ DNS الخاص بي</string>
     <string name="tab_hide_vpn">إخفاء ال VPN</string>
     <string name="hiding_hidden_count">إخفاء %1$d</string>
     <string name="hiding_gate">مُفعّل</string>
@@ -193,7 +200,7 @@
     <string name="hiding_signal_wireless_debugging">تصحيح الأخطاء اللاسلكية</string>
     <string name="hiding_signal_accessibility">خدمات إمكانية الوصول</string>
     <string name="hiding_signal_private_dns">DNS الخاص</string>
-    <string name="hiding_signal_vpn">شبكة افتراضية خاصة >> VPN</string>
+    <string name="hiding_signal_vpn">VPN</string>
     <string name="hiding_vpn_client">تطبيق VPN للإخفاء</string>
     <string name="tab_force_dark">فرض الوضع المظلم</string>
     <string name="force_dark_gate">فرض الوضع المظلم</string>
@@ -207,8 +214,9 @@
     <string name="force_dark_notification_title">وضع الظلام الاجباري مفعل</string>
     <string name="force_dark_notification_text">تطبيق من قائمة فرض المظهر الداكن مفتوح</string>
     <string name="force_dark_notification_watching">في انتظار فتح أي تطبيق من القائمة</string>
-    <string name="tab_activities">مشغل الأنشطة</string>
-    <string name="tab_power">الطاقة</string>
+    <string name="tab_activities">فتح الأنشطة الداخلية للتطبيقات
+</string>
+    <string name="tab_power"></string>
     <string name="power_description">أعد تشغيل الهاتف أو أطفئ الشاشة دون استخدام أزرار الهاتف.</string>
     <string name="power_needs_shizuku">شغل شيزوكو أولا لإستخدام هذه الخيارات.</string>
     <string name="power_reboot">إعادة التشغيل</string>
@@ -369,7 +377,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="device_start_method">بدء بواسطة</string>
     <string name="device_transport">طريقة الاتصال
 </string>
-    <string name="device_watchdog">مراقب</string>
+    <string name="device_watchdog">مراقب النظام</string>
     <string name="device_app_in_front">التطبيق المفتوح حاليًا
 </string>
     <string name="device_hiding_held">إخفاء حالات التعليق
@@ -383,7 +391,8 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
 </string>
     <string name="device_cpu_note">محاسبة النواة خلال الفترة المحددة في تقريرها. متوسط الحمل هو متوسط الدقائق الواحدة والخمس والخمس عشرة. يعرض كل صف وقت المعالج الذي استهلكته العملية، وتظهر عمليات النواة العاملة لأنها تنفّذ المهام، وليس التطبيقات فقط.
 </string>
-    <string name="tab_log">السجل</string>
+    <string name="tab_log">سجل الأحداث
+</string>
     <string name="log_count">%1$d سطرًا خلال آخر 24 ساعة
 </string>
     <string name="log_search_hint">البحث في السجل
@@ -415,7 +424,8 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
 </string>
     <string name="log_capture_start">البدء بالتشغيل</string>
     <string name="log_capture_stop">توقف</string>
-    <string name="log_capture_device">ع</string>
+    <string name="log_capture_device">النظام بالكامل
+</string>
     <string name="log_capture_choose">تطبيق لتسجيل الشاشة
 </string>
     <string name="log_capture_choose_hint">البحث عن التطبيقات</string>
@@ -465,7 +475,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="hiding_notification_watching">مراقبة تطبيقاتك المُدرجة.</string>
     <string name="hiding_notification_paused_title">تم إيقاف الإخفاء مؤقتًا</string>
     <string name="hiding_notification_paused_text">تمت استعادة إعداداتك. سيتم إخفاؤها مجددًا بالنسبة للتطبيقات المدرجة لديك.</string>
-    <string name="hiding_resume">استأنف</string>
+    <string name="hiding_resume">إستئناف</string>
     <string name="hiding_start_again">ابدأ من جديد</string>
     <string name="hiding_notification_stopped_title">الاخفاء متوقف</string>
     <string name="hiding_notification_stopped_text">تطبيق Shizuku لا يعمل، لذا لا يمكن لخاصية الإخفاء رصد التطبيق المفتوح حالياً. تمت استعادة جميع الإعدادات المخفية.</string>
@@ -476,6 +486,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="home_status_started_with">حالي</string>
     <string name="home_status_started_default">تلقائي</string>
     <string name="uid_label">معرف المستخدم uid</string>
+    <string name="uid_name_format">(%1$s)</string>
     <string name="uid_name_root">الجدر</string>
     <string name="uid_name_system">النضام</string>
     <string name="uid_name_shell">موجه الأوامر</string>
@@ -513,6 +524,8 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="catalog_sort_updated">تم التحديث مؤخراً</string>
     <string name="catalog_sort_stars">الأعلى تقييمأ</string>
     <string name="catalog_sort_name">الاسم أ-ي</string>
+    <string name="catalog_sort_released">أحدث إصدار</string>
+    <string name="catalog_sort_added">آخر إضافة</string>
     <string name="modules_repo_retry">أعد المحاولة</string>
     <string name="modules_find_modules">إيجاد الوحدات</string>
     <string name="modules_settings">وحدات</string>
@@ -540,10 +553,11 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="terminal_tutorial_3">افتح shell باستخدام الأمر التالي:</string>
     <!-- Stealth -->
     <!-- Settings -->
-    <string name="settings_start_on_boot">البدء عند التمهيد</string>
-    <string name="settings_watchdog">مراقب</string>
+    <string name="settings_start_on_boot">التشغيل تلقائيًا عند بدء تشغيل الجهاز
+</string>
+    <string name="settings_watchdog">مراقب النظام</string>
     <string name="settings_watchdog_summary">إعادة تشغيل Shizuku تلقائيًا في حالة تعطله</string>
-    <string name="transport_adb"></string>
+    <string name="transport_adb">ADB</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
     <string name="settings_tcp_mode">وضع TCP</string>
@@ -557,17 +571,17 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="settings_tcp_port">منفذ TCP</string>
     <string name="settings_language">اللغة</string>
     <string name="settings_black_night_theme">وضع السواد النقيّ</string>
-    <string name="settings_black_night_theme_summary">استخدم سمة السواد النقيّ إذ الوضع الليلي الذي
-        بالجهاز مفعل</string>
+    <string name="settings_black_night_theme_summary">استخدام خلفية سوداء بالكامل في الوضع الداكن
+</string>
     <string name="permissions_action_settings">الاعدادات</string>
-    <string name="settings_help">يساعد</string>
+    <string name="settings_help">مساعده</string>
     <string name="settings_report_bug">الإبلاغ عن خطأ</string>
     <!--
       A plural, not a plain string: most of the people on this wall are here for a single commit,
       so the singular is read more often than the plural is.
     -->
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
-    <string name="contributor_area_app"></string>
+    <string name="contributor_area_app">تطبيق</string>
     <string name="contributor_area_server">الخادم</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
@@ -590,13 +604,13 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">يرجى تعطيل تحسين البطارية لاستخدام هذه
         الميزة.</string>
-    <string name="snackbar_action_fix">يصلح</string>
+    <string name="snackbar_action_fix">اصلاح</string>
     <!-- Updates -->
     <!-- Toast -->
     <string name="toast_pairing_timeout">انتهت مهلة خدمة إقران شيزوكو.</string>
     <!-- Dark Mode Setting Override -->
-    <string name="dark_theme_off">دائما خفيف</string>
-    <string name="dark_theme_on">دائما مظلمة</string>
+    <string name="dark_theme_off">الوضع الفاتح دائمًا</string>
+    <string name="dark_theme_on">الوضع الداكن دائمًا</string>
     <!-- About -->
     <!-- Start/Stop -->
     <string name="start">البدء بالتشغيل</string>
@@ -619,10 +633,9 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="grant_dialog_button_deny">"منع"</string>
     <!-- Starter -->
     <string name="starter">مفتاح التشغيل</string>
-    <string name="start_with_root_failed">لا يمكن بدء الخدمة لأنه لم يتم منح إذن الجذر (الروت) أو قد
-        يكون هذا الجهاز ليس مزوّدًا بحق الوصول إلى الجذر (الروت).</string>
+    <string name="start_with_root_failed">لا يمكن بدء الخدمة لأنه لم يتم منح إذن الجذر (الروت) أو قد يكون هذا الجهاز ليس مزوّدًا بحق الوصول إلى الجذر (الروت).</string>
     <!-- WADB Starter -->
-    <string name="wadb_notification_title">بداية شيزوكو…</string>
+    <string name="wadb_notification_title">بدء شيزوكو…</string>
     <string name="wadb_notification_wifi_required">في انتظار اتصال Wi-Fi قبل المتابعة</string>
     <string name="wadb_notification_retry">في انتظار إعادة المحاولة</string>
     <string name="wadb_error_title">حدث خطأ أثناء بدء التشغيل</string>
@@ -634,7 +647,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="shell_title">واجهة الأوامر (Shell)
 </string>
     <!-- Watchdog -->
-    <string name="watchdog_running">مراقب يعمل</string>
+    <string name="watchdog_running">مراقب النظام يعمل</string>
     <string name="watchdog_turn_off">إيقاف التشغيل</string>
     <string name="watchdog_shizuku_crashed_title">تحطمت شيزوكو مؤخرًا</string>
     <string name="watchdog_shizuku_crashed_text">أعاد برنامج المراقبة تشغيل الخدمة. انقر لمعرفة
@@ -684,12 +697,12 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="app_network_block_note">يقوم النظام بحظر حركة البيانات الخاصة به.</string>
     <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
          screen. The per-app list is unaffected either way, which is what the off state says. -->
-    <string name="firewall_tile_label">Firewall</string>
+    <string name="firewall_tile_label">جدار الحمايه</string>
     <!-- The three answers every switch outside the app can give. Unknown is its own word: a
          state that could not be read is not the same thing as a feature that is off. -->
     <!-- The switches in the shade and on the home screen that are not about one app. -->
     <string name="lab_switch_hiding">اخفاء</string>
-    <string name="lab_switch_watchdog">مراقب</string>
+    <string name="lab_switch_watchdog">مراقب النظام</string>
     <!-- The three platform settings themselves, and the hiding switches that are about the same
          three settings. Named apart so a shade with both in it does not ask which is which. -->
     <string name="lab_switch_developer_options">خيارات المطور</string>
@@ -700,6 +713,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <!-- The three debugging switches on the home screen, under the server's buttons. Short
          because three share one row; the tile picker spells them out in full. -->
     <string name="home_switch_dev_options">خيارات المطور</string>
+    <string name="home_switch_usb">تصحيح أخطاء USB</string>
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
     <string name="app_info_version">الإصدار</string>
@@ -757,9 +771,9 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="tab_files">الملفات</string>
     <string name="files_root_internal">الداخلي</string>
     <string name="files_root_app_data">البيانات</string>
-    <string name="files_root_app_obb">Obb</string>
+    <string name="files_root_app_obb">ملفات Obb</string>
     <string name="files_root_system">النظام</string>
-    <string name="files_root_tmp">Tmp</string>
+    <string name="files_root_tmp">ملفات Tmp</string>
     <string name="files_root_root">الجذر (Root)</string>
     <string name="files_empty">هذا المجلد فارغ.</string>
     <string name="files_all_hidden">كل شيء في هذا المجلد مخفي.</string>

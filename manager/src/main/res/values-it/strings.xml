@@ -1040,7 +1040,9 @@
          state that could not be read is not the same thing as a feature that is off. -->
     <string name="lab_state_on">Attivo</string>
     <string name="lab_state_off">Disattivo</string>
+    <string name="lab_state_unavailable">Non disponibile</string>
     <!-- The switches in the shade and on the home screen that are not about one app. -->
+    <string name="lab_switch_service">Servizio di Shizuku</string>
     <string name="lab_switch_hiding">Modalità nascosta</string>
     <string name="lab_switch_watchdog">Watchdog</string>
     <!-- The three platform settings themselves, and the hiding switches that are about the same
@@ -1054,9 +1056,14 @@
     <!-- The three debugging switches on the home screen, under the server's buttons. Short
          because three share one row; the tile picker spells them out in full. -->
     <string name="home_switch_dev_options">Opzioni sviluppatore</string>
+    <string name="home_switch_usb">Debug USB</string>
     <string name="home_switch_wireless">Debug wireless</string>
+    <string name="lab_widget_description">Attiva o disattiva questa funzionalità.</string>
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
+    <string name="lab_switch_is_on">%1$s è attivo</string>
+    <string name="lab_switch_is_off">%1$s disattivato</string>
+    <string name="lab_switch_could_not_change">%1$s non può essere modificato</string>
     <string name="app_info_version">Versione</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">SDK target</string>

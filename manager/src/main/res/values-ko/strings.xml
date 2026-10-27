@@ -424,6 +424,7 @@
     <!-- The three debugging switches on the home screen, under the server's buttons. Short
          because three share one row; the tile picker spells them out in full. -->
     <string name="home_switch_dev_options">개발자 옵션</string>
+    <string name="home_switch_usb">USB 디버깅</string>
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
     <string name="app_info_updated">업데이트순</string>
