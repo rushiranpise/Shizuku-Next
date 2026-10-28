@@ -526,8 +526,18 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="catalog_sort_name">الاسم أ-ي</string>
     <string name="catalog_sort_released">أحدث إصدار</string>
     <string name="catalog_sort_added">آخر إضافة</string>
+    <string name="catalog_latest_release">أحدث إصدار: %1$s</string>
+    <string name="catalog_no_release">لا توجد إصدارات</string>
+    <string name="catalog_view_github">عرض على GitHub</string>
     <string name="modules_repo_retry">أعد المحاولة</string>
+    <string name="modules_repo_by_author">بواسطة %1$s</string>
+    <string name="modules_repo_latest_version">اخر اصدار </string>
+    <string name="modules_repo_loading">جاري التحميل...</string>
+    <string name="modules_repo_sort_stars_low_to_high">النجوم (القليل أولاً)</string>
+    <string name="modules_repo_sort_stars_high_to_low">النجوم (العديد أولاً)</string>
     <string name="modules_find_modules">إيجاد الوحدات</string>
+    <string name="modules_install_from_file">تثبيت بواسطة ملف ZIP</string>
+    <string name="modules_install_title">تثبيت موديول</string>
     <string name="modules_settings">وحدات</string>
     <string name="modules_catalog_install">تثبيت</string>
     <string name="modules_catalog_installed">مُثبَّت</string>
@@ -536,6 +546,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="modules_action_short">الإجراء</string>
     <string name="modules_service_short">الخدمة</string>
     <string name="modules_service_running_short">يعمل</string>
+    <string name="modules_install">تثبيت موديول</string>
     <string name="modules_installed">تم تثبيت %1$s</string>
     <string name="intents_start">البدء بالتشغيل</string>
     <!-- Terminal -->
@@ -557,7 +568,11 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
 </string>
     <string name="settings_watchdog">مراقب النظام</string>
     <string name="settings_watchdog_summary">إعادة تشغيل Shizuku تلقائيًا في حالة تعطله</string>
+    <string name="settings_auto_disable_wireless_debugging">إيقاف تصحيح الأخطاء اللاسلكي
+</string>
     <string name="transport_adb">ADB</string>
+    <string name="settings_adb_without_developer_options">إيقاف خيارات المطوّر
+</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
     <string name="settings_tcp_mode">وضع TCP</string>
@@ -569,6 +584,8 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="settings_restart_dialog_message">يجب على Shizuku إعادة التشغيل لتطبيق هذا الإعداد.</string>
     <string name="settings_restart_dialog_message_wifi_required"><![CDATA[<br><br><b>يتطلب اتصالاً لاسلكياً. سيستمر شيزوكو بالعمل وينتظر اتصالاً لاسلكياً قبل إعادة التشغيل في الخلفية.</b>]]></string>
     <string name="settings_tcp_port">منفذ TCP</string>
+    <string name="settings_auto_disable_usb_debugging">إيقاف تصحيح أخطاء USB
+</string>
     <string name="settings_language">اللغة</string>
     <string name="settings_black_night_theme">وضع السواد النقيّ</string>
     <string name="settings_black_night_theme_summary">استخدام خلفية سوداء بالكامل في الوضع الداكن

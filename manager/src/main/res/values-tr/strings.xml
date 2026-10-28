@@ -198,8 +198,53 @@
     <string name="force_dark_notification_title">Koyu moda zorlama açık</string>
     <string name="force_dark_notification_text">Zorunlu karanlık mod listesindeki bir uygulama açık</string>
     <string name="force_dark_notification_watching">Listedeki bir uygulamanın açılması bekleniyor</string>
-    <string name="tab_activities">Etkinlik Başlatıcısı</string>
+    <string name="tab_activities">Etkinlik Başlatıcı</string>
+    <string name="tab_power">Güç</string>
+    <string name="power_description">Telefonun tuşlarını kullanmadan ekranı yeniden başlatın veya kapatın.</string>
+    <string name="power_needs_shizuku">Bu seçenekleri kullanabilmek için öncelikle Shizuku\'yu başlatın.</string>
+    <string name="power_reboot">Yeniden başlat</string>
+    <string name="power_reboot_summary">Telefonu yeniden başlatır.</string>
+    <string name="power_reboot_confirm">Telefon şimdi yeniden başlatılacak. Kaydedilmemiş çalışmalar kaybolacak.</string>
+    <string name="power_recovery">Kurtarma modunu başlat</string>
+    <string name="power_recovery_summary">Telefonda kurtarma modunu başlatır.</string>
+    <string name="power_recovery_confirm">Telefon kurtarma modu başlatılacaktır. Gezinmek için ses ve güç düğmelerini kullanın.</string>
+    <string name="power_bootloader">Bootloader\'ı başlat</string>
+    <string name="power_bootloader_summary">Bilgisayara bağlanmak için fastboot modunu başlatır.</string>
+    <string name="power_bootloader_confirm">Telefon yeniden başlatıldığında bootloader moduna geçer ve siz genellikle bir bilgisayardan yeniden başlatana kadar orada kalır.</string>
+    <string name="power_off">Gücü kapat</string>
+    <string name="power_off_summary">Telefonu kapatır.</string>
+    <string name="power_off_confirm">Telefon şimdi kapanacak. Kaydedilmemiş çalışmalar kaybolacak.</string>
+    <string name="power_screen_off">Ekranı kapat</string>
+    <string name="power_screen_off_summary">Ekran kapanacak. Ekran kilidi ayarlanmışsa, telefon da kilitlenecektir.</string>
     <string name="power_confirm_title">Emin misiniz?</string>
+    <string name="power_confirm">Devam</string>
+    <string name="power_soft_reboot">Yumuşak yeniden başlatma</string>
+    <string name="power_soft_reboot_summary">Çekirdeği yeniden başlatmadan Android\'i yeniden başlatır. Root erişimi gerektirir.</string>
+    <string name="power_soft_reboot_confirm">Android yeniden başlatılacak. Tüm uygulamalar ve sistem arayüzü kapanacak ve yeniden açılacak, ancak telefonun kendisi yeniden başlatılmayacak. Sonrasında Shizuku\'yu tekrar başlatmanız gerekebilir.</string>
+    <string name="power_restart_system_ui">Sistem Kullanıcı Arayüzünü\'nü yeniden başlat</string>
+    <string name="power_restart_system_ui_summary">Durum çubuğunu, gezinme çubuğunu ve bildirim panelini yeniden başlatır. Root erişimi gereklidir.</string>
+    <string name="power_needs_root">Root erişimi gereklidir ancak bu cihaz rootlu değil.</string>
+    <string name="power_needs_shizuku_rooted">Shizuku çalışmıyor. Sadece yumuşak yeniden başlatma mevcut.</string>
+    <string name="power_failed">%1$s çalıştırılamadı</string>
+    <string name="tab_display">Ekran</string>
+    <string name="display_description">Ekran çözünürlüğünü, yoğunluğunu ve yenileme hızını değiştirin. Ekran kullanımı zorlaşırsa, ayarın yanındaki Sıfırla seçeneğine dokunun.</string>
+    <string name="display_needs_shizuku">Bu ayarları görüntülemek veya değiştirmek için Shizuku\'yu başlatın.</string>
+    <string name="display_resolution">Çözünürlük</string>
+    <string name="display_resolution_summary">Ekran boyutu piksel cinsinden (genişlik x yükseklik). Bu sistemin ekranı ne kadar büyük çizeceğini değiştirir, fiziksel ekranı değil.</string>
+    <string name="display_density">Yoğunluk</string>
+    <string name="display_density_summary">Ekrandaki öğelerin boyutunu kontrol eder. Daha yüksek değerler onları küçültür; daha düşük değerler ise büyütür.</string>
+    <string name="display_min_refresh">Minimum yenileme hızı</string>
+    <string name="display_min_refresh_summary">Ekranın kullanabileceği Hz cinsinden en düşük yenileme hızı. Ekranın bu hızda kalmasını sağlamak için maksimum hıza ayarlayın.</string>
+    <string name="display_max_refresh">Maksimum yenileme hızı</string>
+    <string name="display_max_refresh_summary">Ekranın kullanabileceği Hz cinsindenen yüksek yenileme hızı.</string>
+    <string name="display_current">Mevcut: %1$s</string>
+    <string name="display_apply">Uygula</string>
+    <string name="display_reset">Sıfırla</string>
+    <string name="display_invalid">Geçersiz değer</string>
+    <string name="display_applied">%1$s uygulandı</string>
+    <string name="display_failed">%1$s değiştirilemedi</string>
+    <string name="display_hz">%1$d Hz</string>
+    <string name="display_modes_missing">Desteklenen yenileme hızları tespit edilemedi. Lütfen manuel olarak bir değer girin.</string>
     <string name="activities_apps_count">%1$d uygulama</string>
     <string name="activities_count">%1$d etkinlik</string>
     <string name="activities_launcher">Başlatıcı</string>
@@ -254,6 +299,7 @@
     <string name="intent_flag_grant_write">Yazma izni ver</string>
     <string name="tab_device_info">Cihaz bilgisi</string>
     <string name="device_refresh">Yenile</string>
+    <string name="scroll_to_top">Başa kaydır</string>
     <string name="device_battery">Pil</string>
     <string name="device_status">Durum</string>
     <string name="device_temperature">Sıcaklık</string>
@@ -665,7 +711,7 @@
     <string name="settings_black_night_theme">Siyah gece teması</string>
     <string name="settings_black_night_theme_summary">Gece modu etkinse saf siyah temasını kullanın</string>
     <string name="settings_update_stable">Kararlı</string>
-    <string name="settings_update_beta">Geliştirme</string>
+    <string name="settings_update_beta">Geliştirici</string>
     <string name="settings_permissions">İzinler</string>
     <string name="settings_permissions_summary">Shizuku\'nun gereksinimleri ve izin verilenler</string>
     <string name="permissions_allowed">İzin verilenler</string>
@@ -722,15 +768,14 @@
         kutusuna girin</string>
     <!-- Bug Report Dialog -->
     <string name="bug_report_dialog_before_reporting">Öncelikle lütfen aşağıdakileri yapın:</string>
-    <string name="bug_report_dialog_update">^1 operatörünü kullandığınızdan emin olun.</string>
+    <string name="bug_report_dialog_update">^1ü kullandığınızdan emin olun.</string>
     <string name="bug_report_dialog_link_update">en son sürüm</string>
-    <string name="bug_report_dialog_wiki">^1 numaralı metni okuyun ve ilgili tüm sorun giderme
-        adımlarını izleyin.</string>
-    <string name="bug_report_dialog_link_wiki">viki</string>
-    <string name="bug_report_dialog_issues">Hatanızın daha önce bildirilip bildirilmediğini görmek
-        için ^1 numaralı tüm kayıtları inceleyin.</string>
+    <string name="bug_report_dialog_wiki">^1 metnini okuyun ve ilgili tüm sorun giderme adımlarını izleyin.</string>
+    <string name="bug_report_dialog_link_wiki">wiki</string>
+    <string name="bug_report_dialog_issues">Hatanızın daha önce bildirilip bildirilmediğini görmek için tüm ^1ı inceleyin.</string>
     <string name="bug_report_dialog_link_issues">mevcut sorunlar</string>
     <string name="bug_report_dialog_method">Lütfen ^1 üzerinde bir sorun bildirin.</string>
+    <string name="bug_report_dialog_log_note">Sorunla ilgili bir kayıt gerekiyorsa, lütfen kaydın tamamını aşağıda paylaşın ve ekleyin.</string>
     <string name="bug_report_dialog_share_log">Günlüğü paylaş</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Bu özelliği kullanmak için lütfen pil
@@ -1026,7 +1071,9 @@
          state that could not be read is not the same thing as a feature that is off. -->
     <string name="lab_state_on">Açık</string>
     <string name="lab_state_off">Kapalı</string>
+    <string name="lab_state_unavailable">Mevcut değil</string>
     <!-- The switches in the shade and on the home screen that are not about one app. -->
+    <string name="lab_switch_service">Shizuku servisi</string>
     <string name="lab_switch_hiding">Gizleme</string>
     <string name="lab_switch_watchdog">Bekçi köpeği</string>
     <!-- The three platform settings themselves, and the hiding switches that are about the same
@@ -1042,8 +1089,12 @@
     <string name="home_switch_dev_options">Geliştirici seçenekleri</string>
     <string name="home_switch_usb">USB hata ayıklama</string>
     <string name="home_switch_wireless">Kablosuz hata ayıklama</string>
+    <string name="lab_widget_description">Bu özelliği açın veya kapatın.</string>
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
+    <string name="lab_switch_is_on">%1$s açık</string>
+    <string name="lab_switch_is_off">%1$s kapalı</string>
+    <string name="lab_switch_could_not_change">%1$s değiştirilemez</string>
     <string name="app_info_version">Sürüm</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">Hedef SDK</string>
