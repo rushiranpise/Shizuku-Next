@@ -528,6 +528,8 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="catalog_sort_added">آخر إضافة</string>
     <string name="catalog_latest_release">أحدث إصدار: %1$s</string>
     <string name="catalog_no_release">لا توجد إصدارات</string>
+    <string name="catalog_no_apk">Farj</string>
+    <string name="catalog_apk_installed">u</string>
     <string name="catalog_view_github">عرض على GitHub</string>
     <string name="modules_repo_retry">أعد المحاولة</string>
     <string name="modules_repo_by_author">بواسطة %1$s</string>

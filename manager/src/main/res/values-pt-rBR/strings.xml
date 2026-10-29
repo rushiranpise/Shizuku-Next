@@ -155,6 +155,8 @@
     <string name="hiding_hidden_count">%1$d hidden</string>
     <string name="hiding_gate">Ativado</string>
     <string name="hiding_gate_disabled">Desabilitado</string>
+    <string name="hiding_restart_on_open">Fechar e reabrir no lançamento</string>
+    <string name="hiding_restart_on_open_summary">Os aplicativos em uma lista são fechados e abertos novamente quando você os inicia, portanto, eles leem as configurações ocultas. Um aplicativo que estava em processo de edição perde o que não havia sido salvo.</string>
     <string name="hiding_gate_kept">Mantida em %1$d</string>
     <string name="hiding_filter_hidden">Hidden</string>
     <string name="hiding_open_with_hiding">Abrir com as configurações ocultas</string>
@@ -181,6 +183,11 @@
     <string name="force_dark_notification_text">Um aplicativo na lista de modos escuros está aberto</string>
     <string name="force_dark_notification_watching">Aguardando a abertura de um aplicativo na lista</string>
     <string name="tab_activities">Lançador de atividades</string>
+    <string name="tab_power">Poder</string>
+    <string name="power_description">Reinicie ou desligue a tela sem usar os botões do telefone.</string>
+    <string name="power_reboot">Reiniciar</string>
+    <string name="power_reboot_summary">Reinicie o telefone.</string>
+    <string name="power_recovery">Reinicie para recuperar</string>
     <string name="power_confirm_title">Você tem certeza?</string>
     <string name="power_soft_reboot_summary"></string>
     <string name="activities_apps_count">Apps %1$d</string>

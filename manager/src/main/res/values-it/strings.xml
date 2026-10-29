@@ -1061,7 +1061,7 @@
     <string name="lab_widget_description">Attiva o disattiva questa funzionalità.</string>
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
-    <string name="lab_switch_is_on">%1$s è attivo</string>
+    <string name="lab_switch_is_on">%1$s attivo</string>
     <string name="lab_switch_is_off">%1$s disattivato</string>
     <string name="lab_switch_could_not_change">%1$s non può essere modificato</string>
     <string name="app_info_version">Versione</string>

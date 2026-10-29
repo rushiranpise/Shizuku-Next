@@ -71,6 +71,7 @@
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Android, uygulama mağazası dışından yüklenen uygulamalar için bu ayarı engeller. Erişilebilirlik hizmetini etkinleştirmek için ^1 uygulama iznine izin verin. Erişilebilirlik listesi bunu \"Kısıtlanmış ayar tarafından kontrol ediliyor\" şeklinde gösterir.\n\nUygulama Bilgisini açın ve menüden \"Kısıtlanmış ayarlara izin ver\" seçeneğini seçin, veya bir bilgisayarda şunu çalıştırın:\n\n^2\n\nHer iki seçenek de iş görür. Bu işlemden sonra anahtar çalışacaktır.</string>
     <string name="dialog_adb_pairing_open_app_info">Uygulama bilgileri</string>
+    <string name="dialog_adb_pairing_accessibility_enable">Otomatik eşleştirme, kodu Shizuku\'nun erişilebilirlik hizmeti aracılığıyla sistem diyalog penceresinden okur; bu nedenle etkinleştirilmesi gerekir ve yalnızca gerektiği süre boyunca çalışır: kod bulunduğunda veya güç tasarrufu için bir dakika sonra hizmet kendiliğinden kapanır. Shizuku bunu normalde kendi kendine etkinleştirir ve bu da temiz bir kurulumda henüz verilmemiş olan WRITE_SECURE_SETTINGS iznini gerektirir.\n\nSonraki ekranda etkinleştirin, Manual altında kodu kendiniz yazın veya izni bir kez verin:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Lütfen aşağıdaki adımları uygulayarak
         eşleştirmeyi başlatın:\n- \"Geliştirici Seçenekleri\"ne gidin\n- \"USB hata ayıklama\" ve
         \"Kablosuz hata ayıklama\"yı etkinleştirin\n- \"Kablosuz hata ayıklama\"nın sol tarafına
@@ -173,6 +174,8 @@
     <string name="hiding_hidden_count">%1$d gizli</string>
     <string name="hiding_gate">Etkin</string>
     <string name="hiding_gate_disabled">Devre dışı</string>
+    <string name="hiding_restart_on_open">Başlangıçta kapat ve yeniden aç</string>
+    <string name="hiding_restart_on_open_summary">Listesindeki uygulamalar başlatıldıklarında kapatılıp yeniden açılır, böylece gizli ayarları okurlar. Düzenleme aşamasında olan bir uygulama, kaydetmediği verileri kaybeder.</string>
     <string name="hiding_gate_kept">%1$d korundu</string>
     <string name="hiding_filter_hidden">Gizli</string>
     <string name="hiding_open_with_hiding">Ayarlar gizli olarak aç</string>
@@ -550,11 +553,13 @@
     <string name="about_package">Paket</string>
     <string name="check_for_updates_now">Şimdi denetle</string>
     <string name="start_failed">Shizuku başlatılamadı</string>
+    <string name="start_failed_write_secure_settings">Shizuku, WRITE_SECURE_SETTINGS izni olmadan kablosuz hata ayıklamayı açamaz. Geliştirici seçenekleri &gt; Kablosuz hata ayıklama altından kendiniz açın veya <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b> komutuyla izni verin. Shizuku çalışmaya başladığında bu izni kendisi korur, yani bu tek seferlik bir işlemdir.</string>
     <string name="action_open_wireless_debugging">Kablosuz hata ayıklama</string>
     <string name="start_failed_unsupported">Bu cihaz bunu arka planda başlatamıyor</string>
     <string name="start_failed_wifi_required">Bir Wi-Fi ağına bağlanın; sistem, bir Wi-Fi ağı olmadan kablosuz hata ayıklamayı kapatır. Veya aşağıdaki ADB komutunu kullanarak bir bilgisayardan başlatın.</string>
     <string name="start_failed_binder_went_away">Servis başlatıldı ancak tekrar durduruldu, bu nedenle henüz hiçbir şey bunu kullanamıyor. Bu durum, başlatma işleminin yapıldığı uygulama kapandığında sunucunun da kapatılması nedeniyle olur; payload başlatmayı sağladıktan sonra bunu yapar. Başlatmayı tekrar deneyin.</string>
     <string name="start_failed_no_port">Kablosuz hata ayıklama portu bulunamadı. Kablosuz hata ayıklamanın açık olduğundan ve Wi-Fi\'a bağlı olduğunuzdan emin olun.</string>
+    <string name="start_failed_no_port_no_permission">Kablosuz hata ayıklama portu bulunamadı ve Shizuku, WRITE_SECURE_SETTINGS izni olmadan kablosuz hata ayıklamayı açamaz: <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. Veya Shizuku\'yu USB hata ayıklama üzerinden bir kez başlatın, sonrasında izni kendisi alacaktır.</string>
     <string name="start_failed_no_auth">Bu ağda kablosuz hata ayıklamaya izin verilmiyor. Cihazı yeniden eşleştirin.</string>
     <string name="action_dismiss">Kapat</string>
     <string name="action_connect_wifi">Bağlan</string>
@@ -594,7 +599,10 @@
     <string name="intents_adb_command">Bilgisayar ile başlat</string>
     <string name="intents_status_broadcast">Yayın akışı</string>
     <string name="intents_status_broadcast_extra">durum ekstra: 1 = çalışıyor, 0 = çalışmıyor</string>
+    <string name="labs_gate_stays_on">Bazı uygulamalar değiştirilemediği için liste aynı kalıyor</string>
+    <string name="intents_values">Otomasyon uygulamaları için</string>
     <string name="intents_package">Paket</string>
+    <string name="intents_action_for">%1$s işlem</string>
     <string name="home_battery_warning">Shizuku arka planda sonlandırılabilir. Pil optimizasyonlarını yoksaymasına izin verin.</string>
     <string name="batch_selected_count">%1$d seçildi</string>
     <string name="app_management_action_select_all">Tümünü seç</string>
@@ -645,6 +653,8 @@
     <string name="stealth_uninstall_message">Sistem şimdi Shizuku\'yu kaldırmanızı isteyecektir. Ardından klonu yükleyin.</string>
     <string name="stealth_uninstall">Kaldır</string>
     <string name="stealth_hide">Gizle</string>
+    <string name="stealth_unhide">Yer tutucu ile gizlemeyi kaldır</string>
+    <string name="stealth_stub_note">Gizlemeyi kaldırma işlemi, Shizuku\'nun orijinal paket adında küçük bir yer tutucu oluşturur, böylece onu arayan uygulamalar çalışmaya devam edebilir. Yer tutucu, istekleri gizli Shizuku uygulamasına yönlendirir. Bu, ikinci bir kopya değildir. Gizle seçeneği, yer tutucuyu kaldırır.</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">Önyüklemede başla</string>
     <string name="settings_use_system_color">Sistem teması rengini kullan</string>

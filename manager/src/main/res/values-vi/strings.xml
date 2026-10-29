@@ -18,8 +18,12 @@
     <string name="diagnostics_title">Chẩn đoán</string>
     <string name="diagnostics_copy">Sao chép chẩn đoán</string>
     <string name="diagnostics_wireless_debugging">Gỡ lỗi không dây</string>
+    <string name="diagnostics_local_network">Mạng nội bộ</string>
+    <string name="diagnostics_battery">Tối ưu hóa pin</string>
     <string name="diagnostics_device">Thiết bị</string>
     <string name="diagnostics_default">Phương thức mặc định</string>
+    <string name="diagnostics_phantom">Buộc Tắt tiến trình</string>
+    <string name="diagnostics_root">Root</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
@@ -38,6 +42,7 @@
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Android chặn công tắc này đối với các ứng dụng được cài đặt bên ngoài cửa hàng ứng dụng. Cho phép ứng dụng ^1 app-op bật dịch vụ hỗ trợ tiếp cận. Danh sách hỗ trợ tiếp cận hiển thị mục này là \"Cài đặt bị hạn chế\".\n\nMở Thông tin ứng dụng và chọn \"Cho phép cài đặt bị hạn chế\" từ menu, hoặc chạy lệnh này trên máy tính:\n\n^2\n\nMột trong hai tùy chọn đều có tác dụng. Công tắc sẽ hoạt động sau đó.</string>
+    <string name="dialog_adb_pairing_open_app_info">Thông tin ứng dụng</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Vui lòng bắt đầu ghép nối bằng cách thực hiện các bước sau:\n- Đi tới \"Tùy chọn nhà phát triển\"\n- Bật \"Gỡ lỗi USB\" và \"Gỡ lỗi không dây\"\n- Nhấn vào phần bên trái của \"Gỡ lỗi không dây\"\n- Nhấn \"Ghép nối thiết bị bằng mã ghép nối\". Shizuku sẽ tự động phát hiện mã ghép nối.</string>
     <string name="adb_pairing_requires_multi_window">Vui lòng vào chế độ chia đôi màn hình (đa cửa
         sổ) trước.</string>

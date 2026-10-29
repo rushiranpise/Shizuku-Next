@@ -153,6 +153,7 @@
     <string name="apps_no_match">No hay apps que coincidan con su busqueda</string>
     <string name="app_management_sort_last_added">Recientemente añadido</string>
     <string name="app_management_sort_updated">Actualizado</string>
+    <string name="app_management_sort_alphabetical">A-Z</string>
     <string name="tab_home">Inicio</string>
     <string name="tab_apps">Apps</string>
     <string name="tab_shell">Shell</string>
@@ -176,6 +177,7 @@
     <string name="hiding_gate">Activar</string>
     <string name="hiding_gate_disabled">Desactivar</string>
     <string name="hiding_restart_on_open">Desactivar cerrar y reabrir en el launcher</string>
+    <string name="hiding_restart_on_open_summary">Las aplicaciones en una lista se cierran y se abren de nuevo cuando las inicia, por lo que leen las configuraciones ocultas. Una aplicación que era de mediana edición pierde lo que no había guardado.</string>
     <string name="hiding_gate_kept">%1$d mantener</string>
     <string name="hiding_filter_hidden">Ocultar</string>
     <string name="hiding_open_with_hiding">Abierto con la configuración oculta</string>
@@ -268,6 +270,7 @@
     <string name="intent_builder_note">Construir y enviar una intención. Puede establecer su acción, datos, tipo, componente, categorías, extras y banderas. También puede cargar una intención de un URI, como la intención: #intent; acción=android.intent.action.VIEW;data= https://example.com;end. Este es el formato utilizado por la automatización de actividades y la mayoría de las herramientas de automatización. Cargando uno se llena en los campos para que pueda verificarlo y editarlo antes de enviarlo.</string>
     <string name="intent_uri">Intent URI</string>
     <string name="intent_uri_load">Cargar en los campos</string>
+    <string name="intent_uri_invalid">Eso no es un URL de intención válido.</string>
     <string name="intent_action">Accion</string>
     <string name="intent_data">Data</string>
     <string name="intent_type">Tipo</string>
@@ -277,6 +280,8 @@
     <string name="intent_operation_activity">Iniciar una actividad</string>
     <string name="intent_operation_broadcast">Mandar a broadcast</string>
     <string name="intent_choose_activity">Elige una actividad</string>
+    <string name="intent_picking">Toque una actividad para llenar el componente.</string>
+    <string name="intent_targets">Respondido por %1$d %2$s</string>
     <string name="intent_send_broadcast">Enviar broadcast</string>
     <string name="intent_start">Iniciar</string>
     <string name="device_watchdog">Perro guardián</string>
