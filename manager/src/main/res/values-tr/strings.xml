@@ -52,19 +52,14 @@
     <string name="diagnostics_closed">kapalı</string>
     <!-- Adb -->
     <string name="dialog_adb_port">Bağlantı noktası</string>
-    <string name="dialog_adb_invalid_port">Port 1 ile 65535 arasında değişen bir tamsayı olmalıdır. </string>
+    <string name="dialog_adb_invalid_port">1 ile 65535 arasında bir port numarası girin.</string>
     <string name="adb_pairing">Eşleştiriliyor</string>
     <string name="dialog_adb_pairing_title">Cihazla eşleş</string>
     <string name="dialog_adb_pairing_discovery">Eşleştirme servisi aranıyor</string>
     <string name="dialog_adb_pairing_paring_code">Eşleşme kodu</string>
     <string name="paring_code_is_wrong">Eşleme kodu yanlış.</string>
-    <string name="cannot_connect_port">Kablosuz hata ayıklama servisine bağlanılamıyor.\n\nLütfen
-        Shizuku\'nun ağ erişimini kısıtlayabilen tüm güvenlik duvarı, reklam engelleme, VPN veya
-        benzeri uygulamalarda beyaz listeye alındığından emin olun.</string>
-    <string name="dialog_adb_pairing_message">Lütfen aşağıdaki adımları uygulayarak eşleştirmeyi
-        başlatın:\n- \"Geliştirici Seçenekleri\"ne gidin\n- \"USB hata ayıklama\" ve \"Kablosuz hata
-        ayıklama\"yı etkinleştirin\n- \"Kablosuz hata ayıklama\"nın sol tarafına dokunun\n- \"Cihazı
-        eşleştirme koduyla eşleştir\"e dokunun\n- Bildirimde eşleştirme kodunu girin</string>
+    <string name="cannot_connect_port">Kablosuz hata ayıklama servisine bağlanılamıyor.\n\nLütfen Shizuku\'nun ağ erişimini kısıtlayabilecek tüm güvenlik duvarı, reklam engelleyici, VPN veya benzeri uygulamalarda beyaz listeye eklendiğinden emin olun.</string>
+    <string name="dialog_adb_pairing_message">Lütfen aşağıdaki adımları uygulayarak eşleştirmeye başlayın:\n- \"Geliştirici Seçenekleri\"ne gidin.\n- \"USB hata ayıklama\" ve \"Kablosuz hata ayıklama\"yı etkinleştirin.\n- \"Kablosuz hata ayıklama\"nın sol tarafına dokunun.\n\"Cihazı eşleştirme koduyla eşleştir\"e dokunun.\n- Bildirimdeki eşleştirme kodunu girin</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -77,8 +72,7 @@
         \"Kablosuz hata ayıklama\"yı etkinleştirin\n- \"Kablosuz hata ayıklama\"nın sol tarafına
         dokunun\n- \"Cihazı eşleştirme koduyla eşleştir\"e dokunun. Shizuku eşleştirme kodunu
         otomatik olarak algılayacaktır.</string>
-    <string name="adb_pairing_requires_multi_window">Lütfen önce bölünmüş ekran (çoklu pencere)
-        moduna girin.</string>
+    <string name="adb_pairing_requires_multi_window">Öncelikle bölünmüş ekran modunu açın.</string>
     <string name="adb_pairing_requires_multi_window_reason">Sistem, eşleştirme diyalogunun her zaman
         görünür olmasını gerektirir. Bölünmüş ekran modu kullanmak, bu uygulama ve sistem
         diyalogunun aynı anda görünmesini sağlamanın tek yoludur.</string>
@@ -114,7 +108,7 @@
         plan hizmeti kullansa bile. Lütfen bu tür sistemlerde Shizuku için pil optimizasyon
         özelliklerini devre dışı bırakın.</string>
     <!-- Home - Root -->
-    <string name="home_root_title"><![CDATA[Başlat (rootlu cihazlar için)]]></string>
+    <string name="home_root_title"><![CDATA[Root ile başlat]]></string>
     <string name="home_root_description"><![CDATA[Magisk kullanıyorsanız, %1$skomutunu deneyebilirsiniz. Kök kullanıcılar için, sonunda Shizuku\'nun yerini alacaktır. Mevcut uygulamaların %2$skomutunu kullanabilmesi için biraz değişiklik yapılması gerektiğini unutmayın.]]></string>
     <string name="home_root_button_start">Başlat</string>
     <!-- Home - Application management -->

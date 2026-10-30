@@ -185,6 +185,7 @@
     <string name="tab_activities">Lançador de atividades</string>
     <string name="tab_power">Poder</string>
     <string name="power_description">Reinicie ou desligue a tela sem usar os botões do telefone.</string>
+    <string name="power_needs_shizuku"></string>
     <string name="power_reboot">Reiniciar</string>
     <string name="power_reboot_summary">Reinicie o telefone.</string>
     <string name="power_recovery">Reinicie para recuperar</string>

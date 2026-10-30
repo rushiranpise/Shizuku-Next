@@ -11,6 +11,8 @@
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Begin via draadlose ontfouting]]></string>
+    <string name="home_usb_adb_title"><![CDATA[ابدأ عبر تصحيح أخطاء USB]]></string>
+    <string name="diagnostics_title">التشخيص</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
@@ -87,6 +89,7 @@
     <!-- Home - Adb permissions limited -->
     <!-- Home - Dialogs -->
     <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
+    <string name="home_permission_not_registered">تبحث التطبيقات عن Shizuku استناداً إلى الأذونات المرتبطة به، لكن نظام Android قد لا يكون قد سجّل هذه الأذونات بعد؛ وهي مشكلة قد تظل قائمة حتى بعد إعادة تثبيت التطبيق، ولا تُحل إلا بإعادة تشغيل الجهاز. تجدر الإشارة إلى أن Shizuku بحد ذاته لا يتأثر بذلك، وإنما قد تواجه التطبيقات الأخرى صعوبة في العثور عليه.</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">Die toestemming van adb is beperk</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Dit is hoogs moontlik dat jou toestelvervaardiger die toestemming van adb beperk.<p>Daar mag dalk \'n oplossing vir jou stelsel wees in <b><a href=\"%1$s\">hierdie dokument</a></b>.]]></string>

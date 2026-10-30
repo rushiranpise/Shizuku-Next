@@ -6,13 +6,52 @@
       a change here reaches translators on the next push and not before.
     -->
     <!-- To translators: you can leave your here -->
+    <string name="home_status_adb_wireless">adb</string>
+    <string name="home_status_adb_usb">adb</string>
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Démarrer par débogage sans fil]]></string>
+    <string name="home_wireless_adb_starting_without_wifi">Démarrage sans réseau: il est demandé au périphérique de déboguer sans fil jusqu\'à ce qu\'il reste allumé. Cela peut prendre jusqu\'à deux minutes avant de démarrer ou d\'abandonner.</string>
+    <string name="home_usb_adb_needs_network">Un démarrage USB utilise le port ADB classique, et la réouverture a besoin d\'un réseau. Connectez-vous une fois au Wi-Fi, ou choisissez <b>Démarrer sans Wi-Fi</b> comme méthode de démarrage et démarrez le débogage sans fil à la place.</string>
+    <string name="home_wireless_adb_summary">Démarrer l\'utilisation du débogage sans fil.</string>
+    <string name="home_usb_adb_title"><![CDATA[Démarrer via le débogage USB]]></string>
+    <string name="home_usb_adb_summary">Démarrer via le débogage USB.</string>
+    <string name="home_support_body">Shizuku-Next est gratuit et n\'a pas de publicité. Un café contribue au temps nécessaire à sa maintenance.</string>
+    <string name="diagnostics_title">Diagnostiques</string>
+    <string name="diagnostics_copy">Copier les diagnostiques</string>
+    <string name="diagnostics_copied">Diagnostiques copiés</string>
+    <string name="diagnostics_service">Service</string>
+    <string name="diagnostics_server_uid">Uid du serveur</string>
+    <string name="diagnostics_server_api">API du serveur</string>
+    <string name="diagnostics_server_context">Contexte du serveur</string>
+    <string name="diagnostics_wireless_debugging">Débogage sans fil</string>
+    <string name="diagnostics_adb_port">Port ADB</string>
+    <string name="diagnostics_wifi">Wi-Fi</string>
+    <string name="diagnostics_local_network">Réseau local</string>
+    <string name="diagnostics_battery">Optimisation de la batterie</string>
+    <string name="diagnostics_app">Application</string>
+    <string name="diagnostics_android">Android</string>
+    <string name="diagnostics_device">Appareil</string>
+    <string name="diagnostics_started_with">Démarré avec</string>
+    <string name="diagnostics_default">Méthode par défaut</string>
+    <string name="diagnostics_hiding">Caché</string>
+    <string name="diagnostics_phantom">Tueur de processus</string>
+    <string name="diagnostics_root">Racine</string>
+    <string name="diagnostics_granted">accordé</string>
+    <string name="diagnostics_missing">manquant</string>
+    <string name="diagnostics_not_required">non requis</string>
+    <string name="diagnostics_connected">connecté</string>
+    <string name="diagnostics_not_connected">non connecté</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
+    <string name="diagnostics_battery_optimized">optimisé</string>
+    <string name="diagnostics_battery_unrestricted">sans restriction</string>
+    <string name="diagnostics_available">disponible</string>
+    <string name="diagnostics_unavailable">non disponible</string>
+    <string name="diagnostics_closed">fermé</string>
     <!-- Adb -->
+    <string name="dialog_adb_port">Port</string>
     <string name="dialog_adb_invalid_port">Le port est un entier compris entre 1 et 65535.</string>
     <string name="adb_pairing">Association</string>
     <string name="dialog_adb_pairing_title">Associer avec l\'appareil</string>
@@ -31,6 +70,7 @@
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
+    <string name="dialog_adb_pairing_open_app_info">Infos de l\'application</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Veuillez commencer le jumelage en
         suivant les étapes suivantes :\n- Accédez à « Options pour les développeurs »\n- Activez
         « Débogage USB » et « Débogage sans fil »\n- Appuyez sur le côté gauche de « Débogage sans
@@ -46,6 +86,8 @@
     <string name="adb_error_stop_tcp">Une erreur est survenue lors de l\'arrêt d\'\ADB via TCP</string>
     <string name="adb_pair_required">Veuillez suivre les étapes d\'association d\'abord.</string>
     <string name="enable">Activer</string>
+    <string name="auto_pair_instructions">Appairez sans taper de code :\n\n1. Options développeur → Débogage sans fil\n2. Associer l\'appareil avec le code d\'appairage\n\nShizuku lit le code et le port directement de cette boîte de dialogue et se démarre. Garder la boîte de dialogue ouverte jusqu\'à la fin de l\'appareillage.</string>
+    <string name="auto_pair_manual">Manuel</string>
     <string name="development_settings">Options pour les développeurs</string>
     <string name="notification_settings">Options des notifications</string>
     <string name="adb_pairing_tutorial_content_notification">Une notification de Shizuku vous aidera
@@ -84,17 +126,41 @@
     <!-- Home - Learn more -->
     <!-- Home - Adb permissions limited -->
     <!-- Home - Dialogs -->
+    <string name="home_dialog_reboot_required_title">Redémarrage requis</string>
+    <string name="home_dialog_reboot_required_message">Un redémarrage de l\'appareil est nécessaire pour que Shizuku fonctionne correctement. Pour continuer, veuillez redémarrer votre appareil.</string>
+    <string name="home_dialog_duplicate_app_detected_title">Application en double détectée</string>
+    <string name="home_dialog_duplicate_app_detected_message">Une autre version de cette application est installée sur votre appareil. Pour continuer, veuillez désinstaller toutes les versions dupliquées et redémarrer votre appareil.</string>
     <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">La permission de adb est limitée</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Il est fortement possible que le fabricant de votre appareil limite la permission de adb.<p>Il pourrait avoir une solution pour votre système dans <b><a href="%1$s">ce document</a></b>.]]></string>
     <string name="app_management_toggle_all">Basculer tout</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="hiding_signal_accessibility">Services d\'accessibilité</string>
+    <string name="hiding_signal_private_dns">DNS privé</string>
+    <string name="hiding_signal_vpn">VPN</string>
+    <string name="hiding_vpn_client">Client VPN à Cacher</string>
+    <string name="tab_force_dark">Forcer le mode sombre</string>
+    <string name="force_dark_gate">Forcer le mode sombre</string>
+    <string name="force_dark_gate_disabled">Forcer le mode sombre est désactivé</string>
+    <string name="force_dark_filter_forced">Forcé</string>
+    <string name="force_dark_filter_not">Non forcé</string>
+    <string name="force_dark_empty">Rien n’est forcé en mode sombre.</string>
+    <string name="force_dark_system_theme">Changer de thème système à la place</string>
+    <string name="force_dark_toggled">Fermeture forcée de l\'application</string>
+    <string name="force_dark_notification_title">Forcer le mode sombre activé</string>
+    <string name="force_dark_notification_text">Une application dans la liste des modes sombres est ouverte</string>
+    <string name="force_dark_notification_watching">En attente de l\'ouverture d\'une application dans la liste</string>
+    <string name="tab_activities">Lanceur d\'activités</string>
+    <string name="tab_power">Alimentation</string>
+    <string name="power_description">Redémarrer ou éteindre l\'écran sans utiliser les boutons du téléphone.</string>
+    <string name="power_needs_shizuku">Lancez Shizuku d\'abord pour utiliser ces options.</string>
     <string name="intent_start">Démarrer</string>
     <string name="device_watchdog">Chien de garde</string>
     <string name="log_capture_start">Démarrer</string>
     <string name="action_start">Démarrer</string>
     <string name="modules_repo_retry">Réessayer</string>
+    <string name="modules_service_short">Service</string>
     <string name="intents_start">Démarrer</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Des utilisateurs ont signalé que MIUI endommage le Storage
@@ -117,6 +183,7 @@
     <string name="settings_start_on_boot">Démarrez au démarrage</string>
     <string name="settings_watchdog">Chien de garde</string>
     <string name="settings_watchdog_summary">Redémarrage automatique de Shizuku en cas de plantage</string>
+    <string name="transport_adb">adb</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
     <string name="settings_tcp_mode">Mode TCP</string>
@@ -140,6 +207,7 @@
       so the singular is read more often than the plural is.
     -->
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
+    <string name="contributor_area_app">Application</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
       worked in, and the languages they translated into. There is deliberately no string per
