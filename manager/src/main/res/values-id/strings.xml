@@ -198,6 +198,7 @@
     <string name="force_dark_notification_text">Sebuah aplikasi yang ada dalam daftar paksa mode gelap sedang terbuka</string>
     <string name="force_dark_notification_watching">Menunggu aplikasi dalam daftar terbuka</string>
     <string name="tab_activities">Peluncur aktifitas</string>
+    <string name="tab_power">Daya</string>
     <string name="power_description">Mulai ulang atau matikan layar tanpa menggunakan tombol ponsel.</string>
     <string name="power_needs_shizuku">Jalankan Shizuku terlebih dahulu untuk menggunakan opsi ini.</string>
     <string name="power_reboot">Menyalakan ulang</string>
@@ -235,6 +236,7 @@
     <string name="display_min_refresh_summary">Laju penyegaran terendah yang dapat digunakan oleh layar, dalam satuan Hz. Atur ke laju maksimum untuk mempertahankan layar pada laju tersebut.</string>
     <string name="display_max_refresh">Laju penyegaran maksimal</string>
     <string name="display_max_refresh_summary">Laju penyegaran tertinggi yang dapat digunakan oleh layar, dalam satuan Hz.</string>
+    <string name="display_current">Arus: %1$s</string>
     <string name="display_apply">Terapkan</string>
     <string name="display_reset">Atur ulang</string>
     <string name="display_invalid">Nilai tidak valid</string>
@@ -271,6 +273,13 @@
     <string name="intent_picking">Ketuk aktivitas untuk mengisi bagian tersebut.</string>
     <string name="intent_targets">Dijawab oleh %1$d %2$s</string>
     <string name="intent_start">Mulai</string>
+    <string name="device_battery">Baterai</string>
+    <string name="device_status">Status</string>
+    <string name="device_temperature">Temperatur</string>
+    <string name="device_technology">Teknologi</string>
+    <string name="device_first_use">Pertama kali digunakan</string>
+    <string name="device_health_source">Samsung menyimpan ini di data servis baterai, dan dicetak dalam dump baterai.
+Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.</string>
     <string name="device_usage">Waktu</string>
     <string name="device_screen_on">Layar menyala</string>
     <string name="device_time_on_battery">Menggunakan baterai</string>
@@ -340,6 +349,8 @@
     <string name="log_capture_stopped_size">Rekaman dihentikan: batas ukuran telah tercapai.</string>
     <string name="log_capture_stopped_time">Rekaman dihentikan: batas waktu telah tercapai.</string>
     <string name="log_saved_empty">Belum ada yang direkam.</string>
+    <string name="hiding_start_again">Mulai lagi</string>
+    <string name="uid_name_system">sistem</string>
     <string name="action_start">Mulai</string>
     <string name="catalog_filter_sort">Sort</string>
     <string name="catalog_filter_updated">Updated</string>
