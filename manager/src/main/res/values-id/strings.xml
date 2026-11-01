@@ -152,8 +152,10 @@
     <string name="app_management_sort_alphabetical">A-Z</string>
     <string name="tab_home">Home</string>
     <string name="tab_apps">Apps</string>
+    <string name="tab_shell">Shell</string>
     <string name="tab_labs">Laboratorium</string>
     <string name="lab_more_apps">Aplikasi Lainnya</string>
+    <string name="tab_firewall">Firewall</string>
     <string name="tab_autostart">Mulai otomatis</string>
     <string name="labs_filter_allowed">Diizinkan</string>
     <string name="labs_filter_blocked">Di blokir</string>
@@ -255,12 +257,16 @@
     <string name="activities_long_press">Tekan lama pada suatu baris untuk melihat keseluruhan nama.</string>
     <string name="activities_detail_package">Paket</string>
     <string name="activities_detail_activity">Aktivitas</string>
+    <string name="activities_detail_state">Status</string>
     <string name="activities_open">Buka</string>
     <string name="activities_copy">Salin</string>
     <string name="activities_edit_as_intent">Sunting sesuai maksud</string>
     <string name="activities_copied">Disalin</string>
+    <string name="tab_intent_builder">Pembuat Intent</string>
     <string name="intent_builder_note">Buat dan kirim intent. Anda dapat mengatur action, data, type, component, categories, extras, dan flags-nya. Anda juga dapat memuat intent dari URI, seperti intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end. Ini adalah format yang digunakan oleh Activity Launcher dan sebagian besar alat otomatisasi. Memuat intent dengan cara ini akan mengisi kolom-kolom yang ada, sehingga Anda dapat memeriksa dan menyuntingnya sebelum mengirim.</string>
+    <string name="intent_uri">URI Intent</string>
     <string name="intent_uri_load">Muat ke dalam kolom-kolom</string>
+    <string name="intent_uri_invalid">Itu bukan URI intent yang valid</string>
     <string name="intent_action">Aksi</string>
     <string name="intent_data">Data</string>
     <string name="intent_type">Tipe</string>
@@ -272,18 +278,54 @@
     <string name="intent_choose_activity">Pilih aktivitas</string>
     <string name="intent_picking">Ketuk aktivitas untuk mengisi bagian tersebut.</string>
     <string name="intent_targets">Dijawab oleh %1$d %2$s</string>
+    <string name="intent_targets_none">Tak ada di perangkat ini yang dapat menangani intent ini</string>
+    <string name="intent_send_broadcast">Kirim broadcast</string>
+    <string name="intent_broadcast_refused">Broadcast tidak dapat di kirim</string>
+    <string name="intent_extras">Extra</string>
+    <string name="intent_extra_add">Tambah Extra</string>
+    <string name="intent_extra_remove">Hapus Extra ini</string>
+    <string name="intent_key">Kunci</string>
+    <string name="intent_value">Nilai</string>
+    <string name="intent_flags">Flag</string>
     <string name="intent_start">Mulai</string>
+    <string name="intent_nothing">Berikan aksi, data, paket, atau komponen pada intent.</string>
+    <string name="intent_refused">Intent tidak dapat dijalankan.</string>
+    <string name="intent_flag_clear_top">Clear top</string>
+    <string name="intent_flag_single_top">Single top</string>
+    <string name="intent_flag_clear_task">Clear task</string>
+    <string name="intent_flag_new_document">Dokumen Baru</string>
+    <string name="intent_flag_no_animation">Tanpa Animasi</string>
+    <string name="intent_flag_exclude_recents">Kecualikan dari recents</string>
+    <string name="intent_flag_grant_read">Beri Izin Baca</string>
+    <string name="intent_flag_grant_write">Beri Izin Tulis</string>
+    <string name="tab_device_info">Info perangkat</string>
+    <string name="device_refresh">Segarkan</string>
+    <string name="scroll_to_top">Gulir ke atas</string>
     <string name="device_battery">Baterai</string>
     <string name="device_status">Status</string>
     <string name="device_temperature">Temperatur</string>
+    <string name="device_voltage">Tegangan</string>
+    <string name="device_current">Arus</string>
+    <string name="device_current_average">Arus, rata-rata</string>
+    <string name="device_charge_counter">Penghitung pengisian</string>
     <string name="device_technology">Teknologi</string>
+    <string name="device_health">Kondisi</string>
+    <string name="device_charging">Mengisi Daya</string>
+    <string name="device_charged">Terisi Penuh</string>
+    <string name="device_health_section">Kondisi</string>
+    <string name="device_bsoh">Kesehatan baterai</string>
+    <string name="device_cycles">Siklus</string>
+    <string name="device_asoc">Tingkat pengisian</string>
     <string name="device_first_use">Pertama kali digunakan</string>
+    <string name="device_max_temp">Suhu maksimal tercatat</string>
+    <string name="device_max_current">Arus tinggi</string>
     <string name="device_health_source">Samsung menyimpan ini di data servis baterai, dan dicetak dalam dump baterai.
 Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.</string>
     <string name="device_usage">Waktu</string>
     <string name="device_screen_on">Layar menyala</string>
     <string name="device_time_on_battery">Menggunakan baterai</string>
     <string name="device_screen_off">Layar dimatikan</string>
+    <string name="device_doze">Doze</string>
     <string name="device_usage_note">Penghitung dikelola oleh platform itu sendiri. Penghitung ini diatur ulang setiap kali baterai diisi hingga penuh; itulah sebabnya ponsel yang baru diisi dayanya satu jam lalu akan menunjukkan hitungan detik di sini, sementara ponsel yang sudah tidak diisi dayanya sepanjang hari akan menunjukkan hitungan jam.</string>
     <string name="device_drain">Apa yang menghabiskan baterai</string>
     <string name="device_drain_note">Data di distribusikan berdasarkan komponen, yang merupakan informasi yang ditampilkan oleh platform ini. Angka untuk setiap aplikasi disajikan dalam bentuk *wake lock* dan durasi waktu berjalan, bukan dalam satuan miliampere-jam; dengan demikian, tidak ada angka untuk aplikasi tertentu yang sekadar dikarang-karang di sini.</string>
@@ -306,10 +348,12 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
     <string name="device_abi">Arsitektur</string>
     <string name="device_cores">Inti CPU</string>
     <string name="device_uptime">Waktu aktif</string>
+    <string name="device_memory">Memori</string>
     <string name="device_storage">Penyimpanan</string>
     <string name="device_shizuku">Shizuku</string>
     <string name="device_server">Server</string>
     <string name="device_start_method">Dimulai dari</string>
+    <string name="device_transport">Transport</string>
     <string name="device_watchdog">Penjaga</string>
     <string name="device_app_in_front">Aplikasi di depan</string>
     <string name="device_hiding_held">Teknik menyembunyikan</string>
@@ -348,7 +392,13 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
     <string name="log_capture_needs_shizuku">Merekam log perangkat memerlukan Shizuku: membaca log aplikasi lain merupakan hak akses *shell*, dan aplikasi ini meminjam akses *shell* tersebut.</string>
     <string name="log_capture_stopped_size">Rekaman dihentikan: batas ukuran telah tercapai.</string>
     <string name="log_capture_stopped_time">Rekaman dihentikan: batas waktu telah tercapai.</string>
+    <string name="log_capture_stopped_ended">Perekaman dihentikan: aliran log berakhir</string>
+    <string name="log_filter_crashes">Crash</string>
     <string name="log_saved_empty">Belum ada yang direkam.</string>
+    <string name="log_session_share">Bagikan</string>
+    <string name="log_session_delete">Hapus</string>
+    <string name="log_session_deleted">%1$s di hapus</string>
+    <string name="log_session_busy">%1$s masih direkam</string>
     <string name="hiding_start_again">Mulai lagi</string>
     <string name="uid_name_system">sistem</string>
     <string name="action_start">Mulai</string>
@@ -468,6 +518,7 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
     <string name="wadb_permission_error_notification_content">Shizuku membutuhkan
         WRITE_SECURE_SETTINGS untuk memulai saat boot. Ketuk untuk mempelajari cara memberikannya.</string>
     <!-- Shell -->
+    <string name="shell_title">Shell</string>
     <!-- Watchdog -->
     <string name="watchdog_running">Watchdog sedang berjalan</string>
     <string name="watchdog_turn_off">Mematikan</string>
@@ -502,6 +553,7 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
     <string name="app_action_enable">Memungkinkan</string>
     <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
          screen. The per-app list is unaffected either way, which is what the off state says. -->
+    <string name="firewall_tile_label">Firewall</string>
     <!-- The three answers every switch outside the app can give. Unknown is its own word: a
          state that could not be read is not the same thing as a feature that is off. -->
     <!-- The switches in the shade and on the home screen that are not about one app. -->
