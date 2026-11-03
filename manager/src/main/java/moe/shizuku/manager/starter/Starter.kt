@@ -29,9 +29,8 @@ object Starter {
     val adbCommand = "adb shell $userCommand"
     val internalCommand = "$userCommand --apk=${app.applicationInfo.sourceDir}"
 
-    val serviceStartedMessage: String by lazy {
-        AppStrings.get(R.string.start_msg_service_started)
-    }
+    val serviceStartedMessage: String
+        get() = AppStrings.get(R.string.start_msg_service_started)
 
     suspend fun waitForBinder(log: ((String) -> Unit)? = null) {
         try {
