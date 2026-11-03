@@ -207,6 +207,8 @@
     <string name="activities_copy">copiar</string>
     <string name="activities_edit_as_intent">Editar como intenção</string>
     <string name="activities_copied">Copiado</string>
+    <string name="activities_apps_section">Aplicativos</string>
+    <string name="activities_save">Guardar</string>
     <string name="tab_intent_builder">Construtor de intuições</string>
     <string name="intent_builder_note">Construa e envie uma intenção. Você pode definir sua ação, dados, tipo, componente, categorias, extras e bandeiras. Você também pode carregar a intenção de um URI, como intenção:#Intent;action=android.intent. ction.VIEW;data=https://example.com;end. Este é o formato usado pelo Launcher de Atividade e a maioria das ferramentas de automação. Carregar um preenchimento nos campos, assim você pode verificar e editá-lo antes de enviar.</string>
     <string name="intent_uri">Intent URI</string>

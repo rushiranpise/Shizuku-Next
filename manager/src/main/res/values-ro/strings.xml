@@ -251,6 +251,11 @@
     <string name="activities_copy">Copiază</string>
     <string name="activities_edit_as_intent">Editează ca intenție</string>
     <string name="activities_copied">Copiat</string>
+    <string name="activities_saved">Activități salvate</string>
+    <string name="activities_apps_section">Aplicații</string>
+    <string name="activities_save">Salvează</string>
+    <string name="activities_unsave">Elimină din salvate</string>
+    <string name="activities_gone">Această activitate nu mai este instalată.</string>
     <string name="tab_intent_builder">Constructor de intenție</string>
     <string name="intent_builder_note">Construiește și trimite o intenție. Poți seta acțiunea, datele, tipul, componenta, categoriile, extra și steagurile sale. De asemenea, poți încărca o intenție de la un URI, cum ar fi intenția:#Intent;action=android.intent. ction.VIEW;data=https://example.com;end. Acesta este formatul folosit de Activity Launcher și de majoritatea instrumentelor de automatizare. Se încarcă o completare în câmpuri pentru a o putea verifica și edita înainte de a o trimite.</string>
     <string name="intent_uri">URI intenție</string>

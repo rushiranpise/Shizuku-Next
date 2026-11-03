@@ -212,6 +212,8 @@
     <string name="activities_copy">Kopioi</string>
     <string name="activities_edit_as_intent">Muokkaa aikeena</string>
     <string name="activities_copied">Kopioitu</string>
+    <string name="activities_apps_section">Sovellukset</string>
+    <string name="activities_save">Tallenna</string>
     <string name="tab_intent_builder">Intentin rakentaja</string>
     <string name="intent_builder_note">Rakenna ja lähetä aikomus. Voit asettaa sen toimintaa, tietoja, tyyppi, komponentti, luokat, extras, ja liput. Voit myös ladata aikeen URI:stä, kuten aike:#Intent;action=android.intent. ction.VIEW;data=https://example.com;end. Tämä on Activity Launcherin ja useimpien automaatiotyökalujen käyttämä muoto. Ladataan yksi täyte kenttiin, jotta voit tarkistaa ja muokata sitä ennen lähettämistä.</string>
     <string name="intent_uri">Intent URI</string>
