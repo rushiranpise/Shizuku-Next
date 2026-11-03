@@ -2,6 +2,7 @@ package moe.shizuku.manager.manage
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
@@ -78,6 +79,47 @@ class ActivitiesTest {
 
         val empty = ""
         assertEquals(empty to empty, Activities.parseBackup(Activities.backupLine(empty, empty)))
+    }
+
+    @Test
+    fun `saving puts the newest first, and saving it again takes it away`() {
+        val first = activity("com.example.One")
+        val second = activity("com.example.Two", exported = true)
+
+        val one = ActivityFavorites.toggled(emptyList(), first)
+        assertEquals(listOf("com.example.One"), one.map { it.name })
+
+        val two = ActivityFavorites.toggled(one, second)
+        assertEquals(listOf("com.example.Two", "com.example.One"), two.map { it.name })
+
+        val back = ActivityFavorites.toggled(two, first)
+        assertEquals(listOf("com.example.Two"), back.map { it.name })
+    }
+
+    @Test
+    fun `a saved activity keeps its name and title through the stored line`() {
+        val saved = listOf(
+            ActivityFavorites.Saved("com.example", "com.example.Settings", "Settings"),
+            ActivityFavorites.Saved("com.example", "com.example.Deep", "Deep link")
+        )
+        assertEquals(saved, ActivityFavorites.parse(ActivityFavorites.format(saved)))
+    }
+
+    @Test
+    fun `a record that is not whole is dropped rather than read as half a row`() {
+        assertTrue(ActivityFavorites.parse(null).isEmpty())
+        assertTrue(ActivityFavorites.parse("").isEmpty())
+        assertTrue(ActivityFavorites.parse("only-a-value").isEmpty())
+        assertTrue(
+            ActivityFavorites.parse("com.example" + 31.toChar() + "com.example.Main").isEmpty()
+        )
+
+        val good = ActivityFavorites.format(
+            listOf(ActivityFavorites.Saved("com.example", "com.example.Main", "Main"))
+        )
+        // The stored line's separators, written as characters: 31 between fields, 30 between
+        // records, so the test does not restate the escapes the file happens to use.
+        assertEquals(1, ActivityFavorites.parse(good + 30.toChar() + "broken").size)
     }
 
     @Test

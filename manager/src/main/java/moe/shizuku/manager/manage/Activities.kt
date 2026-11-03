@@ -77,6 +77,9 @@ object Activities {
     ) {
         val component: ComponentName get() = ComponentName(packageName, name)
 
+        /** What identifies this activity on its own, for a list that outlives the screen. */
+        val key: String get() = packageName + "/" + name
+
         /** The last part of the class name, which is what a person recognises. */
         val shortName: String get() = name.substringAfterLast('.')
 
@@ -136,6 +139,15 @@ object Activities {
             ?: return emptyList()
         return of(packageManager, info)
     }
+
+    /**
+     * One activity of an app, by name, or null when the app no longer declares it.
+     *
+     * Read through the same path the list is, because what is saved is a component name and the
+     * app it belongs to can be one this app cannot see without the shell.
+     */
+    fun one(context: Context, packageName: String, name: String): Activity? =
+        of(context, packageName).firstOrNull { it.name == name }
 
     private fun activity(
         packageManager: PackageManager,

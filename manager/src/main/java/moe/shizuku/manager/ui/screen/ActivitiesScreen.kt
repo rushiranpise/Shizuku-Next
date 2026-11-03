@@ -24,6 +24,8 @@ import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.StarBorder
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -65,6 +67,7 @@ import moe.shizuku.manager.ui.component.ScrollToTopButton
 import moe.shizuku.manager.ui.component.PillButtonQuiet
 import moe.shizuku.manager.R
 import moe.shizuku.manager.manage.Activities
+import moe.shizuku.manager.manage.ActivityFavorites
 import moe.shizuku.manager.ui.component.AppIcon
 import moe.shizuku.manager.ui.component.rowKey
 import moe.shizuku.manager.ui.component.CenteredMessage
@@ -104,6 +107,9 @@ fun ActivitiesScreen(bottomPadding: Dp, onBack: () -> Unit) {
     var activitiesLoading by remember { mutableStateOf(false) }
     var query by remember { mutableStateOf("") }
     var message by remember { mutableStateOf<Int?>(null) }
+    // The activities somebody saved, newest first. Shown above the apps, because the reason to
+    // save one is to reach it again without finding its app first.
+    var savedActivities by remember { mutableStateOf<List<ActivityFavorites.Saved>>(emptyList()) }
     // The activity whose whole name is being shown. A row has one line for a package and a class,
     // which is not enough for either of them, and the name is the thing needed to find the
     // activity anywhere else - in a manifest, in another log, in a bug report.
@@ -136,6 +142,14 @@ fun ActivitiesScreen(bottomPadding: Dp, onBack: () -> Unit) {
         message = null
         activities = withContext(Dispatchers.IO) { Activities.of(context, packageName) }
         activitiesLoading = false
+    }
+
+    // Read again whenever the first list is what is on screen, which is where the saved rows are:
+    // a star toggled inside one app is only visible there once somebody comes back to it.
+    LaunchedEffect(chosen == null) {
+        if (chosen == null) {
+            savedActivities = withContext(Dispatchers.IO) { ActivityFavorites.all() }
+        }
     }
 
     // Back leaves the activities before it leaves the screen, which is the order the two lists
@@ -204,6 +218,56 @@ fun ActivitiesScreen(bottomPadding: Dp, onBack: () -> Unit) {
         }
     }
 
+    /** Saves an activity, or takes it out of the saved list when it is already there. */
+    fun toggleSaved(activity: Activities.Activity) {
+        scope.launch {
+            savedActivities = withContext(Dispatchers.IO) { ActivityFavorites.toggle(activity) }
+        }
+    }
+
+    fun unsave(entry: ActivityFavorites.Saved) {
+        scope.launch {
+            savedActivities = withContext(Dispatchers.IO) {
+                ActivityFavorites.remove(entry.packageName, entry.name)
+            }
+        }
+    }
+
+    /**
+     * Opens a saved activity.
+     *
+     * Read back first, because what a row needs to open one is not the name alone: an exported
+     * activity is started directly and one the app kept to itself goes by way of the assistant,
+     * and which of the two it is lives in the manifest rather than in the saved record.
+     */
+    fun startSaved(entry: ActivityFavorites.Saved) {
+        scope.launch {
+            val activity = withContext(Dispatchers.IO) {
+                Activities.one(context, entry.packageName, entry.name)
+            }
+
+            // While the builder is waiting for a component this list is its picker here too.
+            if (activity != null && picking) {
+                prefill(activity)
+                return@launch
+            }
+
+            val text = if (activity == null) {
+                R.string.activities_gone
+            } else {
+                when (withContext(Dispatchers.IO) { Activities.launch(context, activity) }) {
+                    Activities.Outcome.STARTED, Activities.Outcome.ELEVATED -> null
+                    Activities.Outcome.NO_SHELL -> R.string.activities_needs_shizuku
+                    Activities.Outcome.REFUSED -> R.string.activities_refused
+                }
+            }
+
+            // A toast rather than the note row inside the other list: this one is tapped from the
+            // apps list, where there is no line reserved for an answer.
+            text?.let { Toast.makeText(context, context.getString(it), Toast.LENGTH_SHORT).show() }
+        }
+    }
+
     val shownApps = remember(apps, query) {
         val trimmed = query.trim()
         val filtered = if (trimmed.isBlank()) {
@@ -225,6 +289,23 @@ fun ActivitiesScreen(bottomPadding: Dp, onBack: () -> Unit) {
             activities.filter {
                 it.title.contains(trimmed, ignoreCase = true) ||
                     it.name.contains(trimmed, ignoreCase = true)
+            }
+        }
+    }
+
+    val savedKeys = remember(savedActivities) {
+        savedActivities.mapTo(HashSet()) { it.key }
+    }
+
+    val shownSaved = remember(savedActivities, query) {
+        val trimmed = query.trim()
+        if (trimmed.isBlank()) {
+            savedActivities
+        } else {
+            savedActivities.filter {
+                it.title.contains(trimmed, ignoreCase = true) ||
+                    it.name.contains(trimmed, ignoreCase = true) ||
+                    it.packageName.contains(trimmed, ignoreCase = true)
             }
         }
     }
@@ -400,6 +481,56 @@ fun ActivitiesScreen(bottomPadding: Dp, onBack: () -> Unit) {
                     ),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
+                    if (shownSaved.isNotEmpty()) {
+                        item(key = "saved_heading") {
+                            Note(stringResource(R.string.activities_saved))
+                        }
+
+                        items(shownSaved, key = { "saved:" + it.key }) { entry ->
+                            val pi = apps.firstOrNull { it.packageName == entry.packageName }
+                            SegmentedCard {
+                                ListItem(
+                                    modifier = Modifier.clickable { startSaved(entry) },
+                                    leadingContent = {
+                                        if (pi != null) {
+                                            AppIcon(pi)
+                                        } else {
+                                            Icon(Icons.Filled.Star, contentDescription = null)
+                                        }
+                                    },
+                                    headlineContent = { Text(entry.title) },
+                                    supportingContent = {
+                                        Text(
+                                            entry.name,
+                                            maxLines = 1,
+                                            overflow = TextOverflow.Ellipsis
+                                        )
+                                    },
+                                    trailingContent = {
+                                        IconButton(onClick = { unsave(entry) }) {
+                                            Icon(
+                                                Icons.Filled.Star,
+                                                contentDescription = stringResource(
+                                                    R.string.activities_unsave
+                                                ),
+                                                tint = MaterialTheme.colorScheme.primary
+                                            )
+                                        }
+                                    },
+                                    colors = ListItemDefaults.colors(
+                                        containerColor = Color.Transparent
+                                    )
+                                )
+                            }
+                        }
+
+                        // Named, because a saved row and an app row are different things and the
+                        // first one under the wrong heading would read as an app.
+                        item(key = "apps_heading") {
+                            Note(stringResource(R.string.activities_apps_section))
+                        }
+                    }
+
                     items(shownApps, key = { it.rowKey() }) { pi ->
                         SegmentedCard {
                             ListItem(
@@ -481,24 +612,44 @@ fun ActivitiesScreen(bottomPadding: Dp, onBack: () -> Unit) {
                                     )
                                 },
                                 trailingContent = {
-                                    StatusChip(
-                                        // Launcher, Exported and Not exported are the labels this
-                                        // list can show, and the chips are all as wide as the
-                                        // longest of them so the column lines up.
-                                        minWidth = statusChipMinWidth(ActivityStatusLabels),
-                                        text = stringResource(
-                                            when {
-                                                activity.launcher -> R.string.activities_launcher
-                                                activity.exported -> R.string.activities_exported
-                                                else -> R.string.activities_not_exported
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(2.dp)
+                                    ) {
+                                        StatusChip(
+                                            // Launcher, Exported and Not exported are the labels
+                                            // this list can show, and the chips are all as wide as
+                                            // the longest of them so the column lines up.
+                                            minWidth = statusChipMinWidth(ActivityStatusLabels),
+                                            text = stringResource(
+                                                when {
+                                                    activity.launcher -> R.string.activities_launcher
+                                                    activity.exported -> R.string.activities_exported
+                                                    else -> R.string.activities_not_exported
+                                                }
+                                            ),
+                                            emphasis = if (activity.launcher || !activity.exported) {
+                                                ChipEmphasis.SOFT
+                                            } else {
+                                                ChipEmphasis.NONE
                                             }
-                                        ),
-                                        emphasis = if (activity.launcher || !activity.exported) {
-                                            ChipEmphasis.SOFT
-                                        } else {
-                                            ChipEmphasis.NONE
+                                        )
+                                        val saved = activity.key in savedKeys
+                                        IconButton(onClick = { toggleSaved(activity) }) {
+                                            Icon(
+                                                if (saved) Icons.Filled.Star else Icons.Outlined.StarBorder,
+                                                contentDescription = stringResource(
+                                                    if (saved) R.string.activities_unsave
+                                                    else R.string.activities_save
+                                                ),
+                                                tint = if (saved) {
+                                                    MaterialTheme.colorScheme.primary
+                                                } else {
+                                                    MaterialTheme.colorScheme.onSurfaceVariant
+                                                }
+                                            )
                                         }
-                                    )
+                                    }
                                 },
                                 colors = ListItemDefaults.colors(containerColor = Color.Transparent)
                             )
@@ -508,7 +659,14 @@ fun ActivitiesScreen(bottomPadding: Dp, onBack: () -> Unit) {
             }
 
             val busy = if (packageName == null) loading else activitiesLoading
-            if (busy || (if (packageName == null) shownApps.isEmpty() else shownActivities.isEmpty())) {
+            // The saved rows are part of the first list, so a query that only finds one of those
+            // has found something, and the empty answer is only right when both are empty.
+            val nothing = if (packageName == null) {
+                shownApps.isEmpty() && shownSaved.isEmpty()
+            } else {
+                shownActivities.isEmpty()
+            }
+            if (busy || nothing) {
                 if (busy) {
                     CenteredMessage { LoadingIndicator() }
                 } else {

@@ -259,6 +259,11 @@
     <string name="activities_copy">Copy</string>
     <string name="activities_edit_as_intent">Edit as intent</string>
     <string name="activities_copied">Copied</string>
+    <string name="activities_saved">Saved activities</string>
+    <string name="activities_apps_section">Apps</string>
+    <string name="activities_save">Save</string>
+    <string name="activities_unsave">Remove from saved</string>
+    <string name="activities_gone">This activity is no longer installed.</string>
 
     <string name="tab_intent_builder">Intent builder</string>
     <string name="intent_builder_note">Build and send an intent. You can set its action, data, type, component, categories, extras, and flags. You can also load an intent from a URI, such as intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end. This is the format used by Activity Launcher and most automation tools. Loading one fills in the fields so you can check and edit it before sending.</string>
