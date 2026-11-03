@@ -134,7 +134,8 @@ fun ModuleWebUiScreen(module: AdbModule, active: Boolean = true, onBack: () -> U
     pendingCommand?.let { request ->
         CommandReviewDialog(
             request = request,
-            onApprove = {
+            onApprove = { trust ->
+                if (trust) ModuleSettings.setTrusted(request.module.id, true)
                 pendingCommand = null
                 approval?.complete(true)
                 approval = null

@@ -673,7 +673,8 @@ fun ModulesScreen(
     pendingCommand?.let { request ->
         CommandReviewDialog(
             request = request,
-            onApprove = {
+            onApprove = { trust ->
+                if (trust) ModuleSettings.setTrusted(request.module.id, true)
                 pendingCommand = null
                 approval?.complete(true)
                 approval = null
@@ -1204,13 +1205,20 @@ private fun SortChoice(label: Int, selected: Boolean, onClick: () -> Unit) {
  *
  * This is the whole of the review: the command as it will be handed to the shell, in the font a
  * command is read in, with no summary in between - a summary is what a person would nod at.
+ *
+ * Beside it sits the one choice a person asked often enough starts looking for: to stop being
+ * asked. The review is the only place a command is ever approved, so it is where the asking is
+ * turned off; the switch on a card stays as hidden as it was, and a ticked box approves nothing
+ * on its own - the command still waits for the button.
  */
 @Composable
 fun CommandReviewDialog(
     request: ModuleCommandRequest,
-    onApprove: () -> Unit,
+    onApprove: (trustModule: Boolean) -> Unit,
     onReject: () -> Unit,
 ) {
+    var trustModule by remember(request) { mutableStateOf(false) }
+
     AlertDialog(
         onDismissRequest = onReject,
         title = { Text(stringResource(R.string.modules_review_title)) },
@@ -1231,10 +1239,25 @@ fun CommandReviewDialog(
                     style = MaterialTheme.typography.bodySmall,
                     fontFamily = FontFamily.Monospace
                 )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(MaterialTheme.shapes.small)
+                        .clickable { trustModule = !trustModule }
+                        .padding(vertical = 2.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Checkbox(checked = trustModule, onCheckedChange = null)
+                    Text(
+                        text = stringResource(R.string.modules_review_trust, request.module.name),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
             }
         },
         confirmButton = {
-            PillButton(onClick = onApprove) {
+            PillButton(onClick = { onApprove(trustModule) }) {
                 Text(stringResource(R.string.modules_review_approve))
             }
         },
