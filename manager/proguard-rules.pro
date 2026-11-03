@@ -73,6 +73,19 @@
     public static ** valueOf(java.lang.String);
 }
 
+# A module's WebUI reaches this app through methods the WebView finds by reflection, and it only
+# exposes the ones carrying @JavascriptInterface - methods nothing in this app calls, so the
+# shrinker is free to remove or rename them. Release builds shipped a hollow window.Shizuku
+# (Object.getOwnPropertyNames answered []) while debug builds worked, because the release block
+# names only this file and so never applied the default proguard-android-optimize.txt rule that
+# keeps these members. The annotation is read at runtime to decide what a page may call, so it
+# has to survive next to them.
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
+}
+
+-keepattributes *Annotation*
+
 -allowaccessmodification
 -repackageclasses rikka.shizuku
 -keepattributes SourceFile,LineNumberTable
