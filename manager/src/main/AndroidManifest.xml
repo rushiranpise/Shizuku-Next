@@ -322,12 +322,19 @@
 
         <!-- One tile per whole-feature switch. They call the same code the screens do, so a
              switch here cannot mean something else than the switch inside the app; the ones
-             that need the server say Unavailable when it is not there rather than guessing. -->
+             that need the server say Unavailable when it is not there rather than guessing.
+
+             Each declares an icon here as well as setting one at runtime, because the two are
+             read in different places: the shade uses the icon the service sets when it starts
+             listening, and the tile picker never starts a service at all - it draws
+             ServiceInfo.icon, which without this is the application icon, and an adaptive icon
+             tinted by the system comes out as a solid rounded square. -->
         <service
             android:name=".service.ServiceTileService"
             android:enabled="true"
             android:exported="true"
             android:label="@string/lab_switch_service"
+            android:icon="@drawable/ic_tile_service"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -339,6 +346,7 @@
             android:enabled="true"
             android:exported="true"
             android:label="@string/firewall_tile_label"
+            android:icon="@drawable/ic_tile_firewall"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -350,6 +358,7 @@
             android:enabled="true"
             android:exported="true"
             android:label="@string/tab_autostart"
+            android:icon="@drawable/ic_tile_autostart"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -361,6 +370,7 @@
             android:enabled="true"
             android:exported="true"
             android:label="@string/lab_switch_developer_options"
+            android:icon="@drawable/ic_tile_developer_options"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -372,6 +382,7 @@
             android:enabled="true"
             android:exported="true"
             android:label="@string/lab_switch_usb_debugging"
+            android:icon="@drawable/ic_tile_usb_debugging"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -383,6 +394,7 @@
             android:enabled="true"
             android:exported="true"
             android:label="@string/lab_switch_wireless_debugging"
+            android:icon="@drawable/ic_tile_wireless_debugging"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -394,6 +406,7 @@
             android:enabled="true"
             android:exported="true"
             android:label="@string/lab_switch_hiding"
+            android:icon="@drawable/ic_tile_hiding"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -405,6 +418,7 @@
             android:enabled="true"
             android:exported="true"
             android:label="@string/hiding_signal_developer_options"
+            android:icon="@drawable/ic_tile_hide_developer_options"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -416,6 +430,7 @@
             android:enabled="true"
             android:exported="true"
             android:label="@string/hiding_signal_usb_debugging"
+            android:icon="@drawable/ic_tile_hide_usb_debugging"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -427,6 +442,7 @@
             android:enabled="true"
             android:exported="true"
             android:label="@string/hiding_signal_wireless_debugging"
+            android:icon="@drawable/ic_tile_hide_wireless_debugging"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -438,6 +454,7 @@
             android:enabled="true"
             android:exported="true"
             android:label="@string/hiding_signal_accessibility"
+            android:icon="@drawable/ic_tile_hide_accessibility"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -449,6 +466,7 @@
             android:enabled="true"
             android:exported="true"
             android:label="@string/hiding_signal_private_dns"
+            android:icon="@drawable/ic_tile_hide_private_dns"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -460,6 +478,7 @@
             android:enabled="true"
             android:exported="true"
             android:label="@string/hiding_signal_vpn"
+            android:icon="@drawable/ic_tile_hide_vpn"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -471,6 +490,7 @@
             android:enabled="true"
             android:exported="true"
             android:label="@string/tab_force_dark"
+            android:icon="@drawable/ic_tile_force_dark"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -482,6 +502,7 @@
             android:enabled="true"
             android:exported="true"
             android:label="@string/lab_switch_watchdog"
+            android:icon="@drawable/ic_tile_watchdog"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
