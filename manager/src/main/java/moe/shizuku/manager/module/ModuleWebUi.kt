@@ -172,4 +172,8 @@ object ModuleWebUi {
             put("stderr", reason)
             put("timedOut", false)
         }.toString()
+
+    /** The answer to a bridge call that has nothing to report but that it was heard. */
+    fun ackJson(): String =
+        buildJsonObject { put("ok", true) }.toString()
 }
