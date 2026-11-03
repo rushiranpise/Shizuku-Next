@@ -449,6 +449,18 @@ private fun CenteredContent(
             content()
         }
     }
+}/**
+ * The tabs walked through to get to [page], oldest first, as one visit more or one visit less.
+ *
+ * [page] is the tab the pager has settled on. Landing on the tab immediately before the last one
+ * is a move back - the back button, or a swipe in that direction - so it takes the last entry with
+ * it rather than adding another. A list that grew on the way back would walk between two tabs for
+ * ever instead of reaching Home and then leaving the app.
+ */
+internal fun afterSettling(visited: List<Int>, page: Int): List<Int> = when {
+    visited.size > 1 && page == visited[visited.size - 2] -> visited.dropLast(1)
+    visited.lastOrNull() == page -> visited
+    else -> visited + page
 }
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
@@ -459,6 +471,24 @@ private fun MainTabs(
     onOpenDetail: (Detail) -> Unit
 ) {
     val scope = rememberCoroutineScope()
+
+    // The tabs walked through to get here, oldest first. Five tabs are five places in one app,
+    // not five apps, so back walks this list rather than closing the app from wherever somebody
+    // is - leaving Settings used to take the one press that leaves Home. Home is still where the
+    // app leaves, which is the press Android has always answered there.
+    var visited by remember { mutableStateOf(listOf(0)) }
+
+    // Recorded from where the pager settles rather than from the bar's clicks, because a swipe and
+    // a tap are the same visit.
+    LaunchedEffect(pagerState.settledPage) {
+        visited = afterSettling(visited, pagerState.settledPage)
+    }
+
+    // A page's own back - the Activities launcher's app list, a module's full screen - is composed
+    // inside this one, so its handler is the one that answers first.
+    BackHandler(enabled = pagerState.currentPage != 0 && visited.size > 1) {
+        scope.launch { pagerState.animateScrollToPage(visited[visited.size - 2]) }
+    }
 
     // Whether the app has settled enough to read the lists nobody is looking at yet. Both app
     // lists are expensive to read - six hundred packages each - and a pager composes the page
