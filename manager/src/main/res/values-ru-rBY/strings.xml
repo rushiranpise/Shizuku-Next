@@ -104,6 +104,8 @@
     <string name="power_confirm_title">Вы уверены?</string>
     <string name="activities_detail_package">Пакет</string>
     <string name="activities_copy">Копировать</string>
+    <string name="activities_apps_section">Приложения</string>
+    <string name="activities_save">Сохранить</string>
     <string name="intent_package">Пакет</string>
     <string name="intent_start">Запустить</string>
     <string name="device_battery">Батарея</string>

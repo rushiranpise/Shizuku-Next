@@ -278,6 +278,7 @@
     <string name="activities_copy">نسخ</string>
     <string name="activities_edit_as_intent">تعديل كـ Intent</string>
     <string name="activities_copied">تم النسخ</string>
+    <string name="activities_apps_section">التطبيقات </string>
     <string name="tab_intent_builder">منشئ الـ Intent</string>
     <string name="intent_builder_note">أنشئ وأرسل Intent. يمكنك تعيين الإجراء (Action)، البيانات (Data)، النوع (Type)، المكوّن (Component)، الفئات (Categories)، الإضافات (Extras)، والعلامات (Flags). يمكنك أيضًا تحميل Intent من معرّف URI، مثل
 intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
@@ -585,7 +586,40 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="modules_install">تثبيت موديول</string>
     <string name="modules_installed">تم تثبيت %1$s</string>
     <string name="modules_access_full">وصول كامل للصلاحيات</string>
+    <string name="modules_allow_background">السماح بالتشغيل ف الخلفيه</string>
+    <string name="modules_allow_background_summary">السماح لخدمات الاضافه بالعمل بدون مراقبه.</string>
+    <string name="modules_row_summary">%1$s - %2$s</string>
+    <string name="modules_action_run">تشغيل الإجراء</string>
+    <string name="modules_service_start">بدء الخدمة</string>
+    <string name="modules_service_stop">إيقاف الخدمة</string>
+    <string name="modules_web_ui">فتح واجهة الويب</string>
+    <string name="modules_delete">حذف</string>
+    <string name="modules_delete_confirm">حذف %1$s؟</string>
+    <string name="modules_delete_confirm_message">تم حذف الاضافات و كل محتويات المسار بالكامل.</string>
+    <string name="modules_review_title">تشغيل هذا الأمر؟</string>
+    <string name="modules_review_message">%1$s يطلب السماح له بالبدء:</string>
+    <string name="modules_review_approve">بدء التشغيل</string>
+    <string name="modules_result_title">%1$s</string>
+    <string name="modules_result_exit">رمز الخروج %1$d</string>
+    <string name="modules_error_not_a_module">هذا الملف ليس باضافه ملف الخواص الخاص به (module.prop) مفقود او تالف.</string>
+    <string name="modules_error_unsafe_path">حاولت هذه الاضافه الكتابة خارج المسار الخاص بها، لذلك تم رفضها.</string>
+    <string name="modules_error_too_many_entries">هذه الاضافه تحتوي على ملفات أكثر من المعتاد لاي اضافه اخري، لذلك تم رفضها.</string>
+    <string name="modules_error_too_large">هذه الاضافه يتم فكها لملفات كثيرة، اكثر مما قد تحتويه الاضافات، لذلك تم رفضها.</string>
+    <string name="modules_error_script_too_large">يوجد سكريبت بالاضافه اكبر من المعتاد، لذلك تم رفضه.</string>
+    <string name="modules_error_install_failed">لا يمكن تثبيت هذه الاضافه.</string>
+    <string name="tools_terminal">تطبيقات الاوامر النصيه</string>
+    <string name="tools_terminal_summary">تشغيل الاوامر النصيه ف تطبيقات الاوامر النصيه باستخدام \"rish\"</string>
+    <string name="tools_battery">تحسين البطارية</string>
+    <string name="about_package">الحزمة</string>
+    <string name="check_for_updates_now">التحقق من توافر تحديثات</string>
+    <string name="start_failed">تعذر بدء تشغيل Shizuku</string>
+    <string name="start_failed_write_secure_settings">لا يمكن لـ Shizuku تبديل التصحيح اللاسلكي دون إذن WRITE_SECURE_SETTINGS. قم بتشغيله بنفسك تحت خيارات المطور &gt; التصحيح اللاسلكي، أو منح الإذن عن طريق <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. وبمجرد تشغيل Shizuku فإنه يحتفظ بهذا الإذن نفسه، لذا فهذا أمر غير متكرر.</string>
+    <string name="action_open_wireless_debugging">تصحيح الأخطاء عن طريق الشبكه اللاسلكية</string>
+    <string name="start_failed_unsupported">الجهاز لا يدعم التشغيل ف الخلفيه</string>
+    <string name="start_failed_wifi_required">فشل البدء تاكد من اتصالك بشبكه لاسلكيه \"WI-FI\" و تشغيل تحسين الاخطاء عن طريق الشبكه اللاسلكيه. او حاول التشغيل عن طريق جهاز حاسوب باستخدام ادوات \"ADB\".</string>
+    <string name="settings_section_wireless">تصحيح الأخطاء عن طريق الشبكه اللاسلكية</string>
     <string name="intents_start">البدء بالتشغيل</string>
+    <string name="intents_package">الحزمة</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">أبلغ المستخدمون أن MIUI يكسر إطار عمل الوصول إلى التخزين، والذي تستخدمه وظيفة التصدير.</string>
     <string name="terminal_tutorial_miui_2">إذا كنت تستخدم MIUI، فقد تحتاج إلى استخراج الملف من مجلد
@@ -761,6 +795,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
          three settings. Named apart so a shade with both in it does not ask which is which. -->
     <string name="lab_switch_developer_options">خيارات المطور</string>
     <string name="lab_switch_usb_debugging">تصحيح أخطاء USB</string>
+    <string name="lab_switch_wireless_debugging">تصحيح الأخطاء عن طريق الشبكه اللاسلكية</string>
     <string name="lab_switch_hide_developer_options">إخفاء خيارات المطور</string>
     <string name="lab_switch_hide_usb_debugging">إخفاء تصحيح أخطاء USB</string>
     <string name="lab_switch_hide_wireless_debugging">إخفاء تصحيح الأخطاء اللاسلكية</string>
@@ -768,6 +803,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
          because three share one row; the tile picker spells them out in full. -->
     <string name="home_switch_dev_options">خيارات المطور</string>
     <string name="home_switch_usb">تصحيح أخطاء USB</string>
+    <string name="home_switch_wireless">تصحيح الأخطاء عن طريق الشبكه اللاسلكية</string>
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
     <string name="app_info_version">الإصدار</string>

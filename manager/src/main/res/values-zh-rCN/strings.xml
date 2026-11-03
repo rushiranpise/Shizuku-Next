@@ -237,6 +237,8 @@
     <string name="activities_copy">复制</string>
     <string name="activities_edit_as_intent">作为 Intent 编辑</string>
     <string name="activities_copied">已复制</string>
+    <string name="activities_apps_section">应用</string>
+    <string name="activities_save">保存</string>
     <string name="tab_intent_builder">Intent 构建器</string>
     <string name="intent_builder_note">构建并发送 Intent。可以设置它的 action、data、type、组件、categories、extras 和 flags。也可以从 URI 加载 Intent，例如 intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end，这是 Activity Launcher 和大多数自动化工具使用的格式。加载后会填入各字段，方便你在发送前检查和修改。</string>
     <string name="intent_uri">Intent URI</string>

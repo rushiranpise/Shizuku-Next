@@ -80,6 +80,7 @@
     <string name="labs_filter_allowed">অনুমোদিত</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="hiding_filter_hidden">লুকায়িত</string>
+    <string name="activities_apps_section">অ্যাপগুলি</string>
     <string name="log_filter_all">সব</string>
     <string name="catalog_filter_updated">আপডেটেড</string>
     <string name="modules_service_short">সার্ভিস</string>

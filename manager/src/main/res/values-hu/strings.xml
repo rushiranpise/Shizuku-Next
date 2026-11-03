@@ -194,6 +194,8 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="activities_copy">Másolás</string>
     <string name="activities_edit_as_intent">Szerkesztés intent-ként</string>
     <string name="activities_copied">Másolva</string>
+    <string name="activities_apps_section">Alkalmazások</string>
+    <string name="activities_save">Mentés</string>
     <string name="tab_intent_builder">Intent készítő</string>
     <string name="intent_action">Művelet</string>
     <string name="intent_data">Adat</string>

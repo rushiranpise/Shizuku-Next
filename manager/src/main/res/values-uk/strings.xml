@@ -190,6 +190,8 @@
     <string name="activities_copy">Копіювати</string>
     <string name="activities_edit_as_intent">Редагувати як намір</string>
     <string name="activities_copied">Скопійовано</string>
+    <string name="activities_apps_section">Застосунки</string>
+    <string name="activities_save">Зберегти</string>
     <string name="tab_intent_builder">Конструктор намірів</string>
     <string name="intent_builder_note">Створіть і надішліть намір. Ви можете задати його дію, дані, тип, компонент, категорії, додаткові параметри та прапорці. Також можна завантажити намір із URI, наприклад: intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end. Це формат, який використовують Activity Launcher і більшість інструментів автоматизації. Після завантаження поля буде заповнено, тож ви зможете перевірити й відредагувати їх перед надсиланням.</string>
     <string name="intent_uri">URI наміру</string>
