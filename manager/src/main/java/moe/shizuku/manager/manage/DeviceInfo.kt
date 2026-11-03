@@ -1,6 +1,8 @@
 package moe.shizuku.manager.manage
 
 import android.app.ActivityManager
+import moe.shizuku.manager.utils.AppStrings
+import moe.shizuku.manager.R
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
@@ -678,30 +680,30 @@ object DeviceInfo {
 
     /** The battery's status, as words. */
     fun statusText(status: Int?): String = when (status) {
-        BatteryManager.BATTERY_STATUS_CHARGING -> "Charging"
-        BatteryManager.BATTERY_STATUS_DISCHARGING -> "Discharging"
-        BatteryManager.BATTERY_STATUS_FULL -> "Full"
-        BatteryManager.BATTERY_STATUS_NOT_CHARGING -> "Not charging"
+        BatteryManager.BATTERY_STATUS_CHARGING -> AppStrings.get(R.string.battery_status_charging)
+        BatteryManager.BATTERY_STATUS_DISCHARGING -> AppStrings.get(R.string.battery_status_discharging)
+        BatteryManager.BATTERY_STATUS_FULL -> AppStrings.get(R.string.battery_status_full)
+        BatteryManager.BATTERY_STATUS_NOT_CHARGING -> AppStrings.get(R.string.battery_status_not_charging)
         else -> "—"
     }
 
     /** The platform's health flag, which is a verdict rather than a number. */
     fun healthText(health: Int?): String = when (health) {
-        BatteryManager.BATTERY_HEALTH_GOOD -> "Good"
-        BatteryManager.BATTERY_HEALTH_OVERHEAT -> "Overheating"
-        BatteryManager.BATTERY_HEALTH_DEAD -> "Dead"
-        BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE -> "Over voltage"
-        BatteryManager.BATTERY_HEALTH_COLD -> "Cold"
-        BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE -> "Failure"
+        BatteryManager.BATTERY_HEALTH_GOOD -> AppStrings.get(R.string.battery_health_good)
+        BatteryManager.BATTERY_HEALTH_OVERHEAT -> AppStrings.get(R.string.battery_health_overheating)
+        BatteryManager.BATTERY_HEALTH_DEAD -> AppStrings.get(R.string.battery_health_dead)
+        BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE -> AppStrings.get(R.string.battery_health_over_voltage)
+        BatteryManager.BATTERY_HEALTH_COLD -> AppStrings.get(R.string.battery_health_cold)
+        BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE -> AppStrings.get(R.string.battery_health_failure)
         else -> "—"
     }
 
     /** Where the charge is coming from, or none. */
     fun plugText(plugged: Int?): String = when (plugged) {
-        BatteryManager.BATTERY_PLUGGED_AC -> "AC"
-        BatteryManager.BATTERY_PLUGGED_USB -> "USB"
-        BatteryManager.BATTERY_PLUGGED_WIRELESS -> "Wireless"
-        else -> "Not plugged in"
+        BatteryManager.BATTERY_PLUGGED_AC -> AppStrings.get(R.string.battery_plug_ac)
+        BatteryManager.BATTERY_PLUGGED_USB -> AppStrings.get(R.string.battery_plug_usb)
+        BatteryManager.BATTERY_PLUGGED_WIRELESS -> AppStrings.get(R.string.battery_plug_wireless)
+        else -> AppStrings.get(R.string.battery_plug_none)
     }
 
     // ---- and Shizuku itself -------------------------------------------------------
@@ -730,20 +732,20 @@ object DeviceInfo {
             uid = if (running) runCatching { Shizuku.getUid() }.getOrNull() else null,
             version = version,
             startMethod = when (ShizukuSettings.getRunningStartMethod()) {
-                ShizukuSettings.StartMethod.WIRELESS -> "Wireless debugging"
+                ShizukuSettings.StartMethod.WIRELESS -> AppStrings.get(R.string.device_method_wireless)
                 // A method of its own and not a variant of the one above: it brings up a
                 // local-only hotspot rather than using a network there is one of.
                 ShizukuSettings.StartMethod.WIRELESS_NO_NETWORK ->
-                    "Wireless debugging, no network"
+                    AppStrings.get(R.string.device_method_wireless_no_network)
 
-                ShizukuSettings.StartMethod.USB -> "USB debugging"
-                ShizukuSettings.StartMethod.SYSTEM -> "System"
-                ShizukuSettings.StartMethod.ROOT -> "Root"
-                else -> "Not started by this app"
+                ShizukuSettings.StartMethod.USB -> AppStrings.get(R.string.device_method_usb)
+                ShizukuSettings.StartMethod.SYSTEM -> AppStrings.get(R.string.device_method_system)
+                ShizukuSettings.StartMethod.ROOT -> AppStrings.get(R.string.device_method_root)
+                else -> AppStrings.get(R.string.device_method_none)
             },
             transport = when (ShizukuSettings.getLastAdbTransport()) {
-                ShizukuSettings.ADB_TRANSPORT_TCP -> "ADB port"
-                ShizukuSettings.ADB_TRANSPORT_TLS -> "Wireless debugging"
+                ShizukuSettings.ADB_TRANSPORT_TCP -> AppStrings.get(R.string.device_transport_tcp)
+                ShizukuSettings.ADB_TRANSPORT_TLS -> AppStrings.get(R.string.device_transport_tls)
                 else -> "—"
             },
             watchdog = ShizukuSettings.getWatchdog(),

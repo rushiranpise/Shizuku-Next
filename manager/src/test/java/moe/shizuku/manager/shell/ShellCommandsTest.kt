@@ -82,7 +82,7 @@ class ShellCommandsTest {
         assertEquals("no command is listed twice", commands.size, commands.distinct().size)
         assertTrue(
             "every entry is described",
-            ShellCommands.LIBRARY.all { it.description.isNotBlank() && it.tags.isNotEmpty() }
+            ShellCommands.LIBRARY.all { it.description != 0 && it.tags.isNotEmpty() }
         )
         // Every placeholder has to be one the filling can find again, which is what the regex
         // and the library have to agree on: filling them all in leaves no angle brackets.

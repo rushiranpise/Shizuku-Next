@@ -1,6 +1,7 @@
 package moe.shizuku.manager.service
 
 import android.app.Notification
+import moe.shizuku.manager.utils.AppStrings
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
@@ -574,7 +575,7 @@ class WatchdogService : Service() {
 
     private fun showCrashNotification() {
         val channelId = CRASH_CHANNEL_ID
-        val channelName = "Crash Reports"
+        val channelName = AppStrings.get(R.string.watchdog_crash_channel)
 
         val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         nm.createChannelCompat(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT)
@@ -608,7 +609,7 @@ class WatchdogService : Service() {
      */
     private fun showRecoveryNotification() {
         val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        nm.createChannelCompat(CRASH_CHANNEL_ID, "Crash Reports", NotificationManager.IMPORTANCE_DEFAULT)
+        nm.createChannelCompat(CRASH_CHANNEL_ID, AppStrings.get(R.string.watchdog_crash_channel), NotificationManager.IMPORTANCE_DEFAULT)
 
         val notification = NotificationCompat.Builder(this, CRASH_CHANNEL_ID)
             .setContentTitle(getString(R.string.watchdog_shizuku_recovered_title))
@@ -643,7 +644,7 @@ class WatchdogService : Service() {
      */
     private fun showGaveUpNotification() {
         val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        nm.createChannelCompat(CRASH_CHANNEL_ID, "Crash Reports", NotificationManager.IMPORTANCE_DEFAULT)
+        nm.createChannelCompat(CRASH_CHANNEL_ID, AppStrings.get(R.string.watchdog_crash_channel), NotificationManager.IMPORTANCE_DEFAULT)
 
         val notification = NotificationCompat.Builder(this, CRASH_CHANNEL_ID)
             .setContentTitle(getString(R.string.watchdog_given_up_title))

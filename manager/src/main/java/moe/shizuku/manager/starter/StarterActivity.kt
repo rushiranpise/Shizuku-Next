@@ -1,6 +1,7 @@
 package moe.shizuku.manager.starter
 
 import android.app.Application
+import moe.shizuku.manager.utils.AppStrings
 import android.content.ActivityNotFoundException
 import android.content.BroadcastReceiver
 import android.content.ClipData
@@ -355,7 +356,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private suspend fun startSys(): Boolean {
-        log("Starting with system...\n")
+        log(AppStrings.get(R.string.adb_start_system) + "\n")
         log(agentReport())
 
         return withContext(Dispatchers.IO) {
@@ -395,7 +396,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                     if (attempt > 0) delay(FOTA_ATTEMPT_INTERVAL_MS)
                     appContext.sendBroadcast(exploit)
                     exploitSent = true
-                    log("sent the agent command (attempt ${attempt + 1} of $FOTA_ATTEMPTS)\n")
+                    log(AppStrings.get(R.string.start_fota_sent, attempt + 1, FOTA_ATTEMPTS) + "\n")
 
                     // And stop as soon as the agent has acted. Every further send runs the
                     // payload again, and every run stops the server the previous one started,
@@ -403,7 +404,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                     // it notices: the repeats are only there for the race against the agent's
                     // receiver being registered, and that race is over the moment it answers.
                     if (payloadSeen) {
-                        log("the agent acted, so no further commands are sent\n")
+                        log(AppStrings.get(R.string.start_fota_acted) + "\n")
                         break
                     }
                 }
@@ -418,7 +419,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                 withContext(Dispatchers.Main) { StartStatusReporter.failed(message) }
                 false
             } catch (e: Throwable) {
-                log("Start system failed!", e)
+                log(AppStrings.get(R.string.start_system_failed), e)
                 false
             }
         }
@@ -515,7 +516,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private suspend fun startRoot() {
-        log("Starting with root...\n")
+        log(AppStrings.get(R.string.adb_start_root) + "\n")
 
         return withContext(Dispatchers.IO) {
             if (!Shell.getShell().isRoot) {

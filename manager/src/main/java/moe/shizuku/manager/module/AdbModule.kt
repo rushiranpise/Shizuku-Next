@@ -1,6 +1,8 @@
 package moe.shizuku.manager.module
 
 import java.io.File
+import moe.shizuku.manager.utils.AppStrings
+import moe.shizuku.manager.R
 
 /**
  * A module as it sits on disk: what it says about itself, where it lives, and what it turned out to
@@ -90,7 +92,7 @@ data class ModuleActionResult(
                 if (isNotEmpty()) append("\n\n")
                 append(stderr.trim())
             }
-            if (isBlank()) append("No output.")
+            if (isBlank()) append(AppStrings.get(R.string.module_no_output))
         }
 }
 

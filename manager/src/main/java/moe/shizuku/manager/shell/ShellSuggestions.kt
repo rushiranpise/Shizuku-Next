@@ -1,6 +1,8 @@
 package moe.shizuku.manager.shell
 
 import android.content.pm.PackageManager
+import androidx.annotation.StringRes
+import moe.shizuku.manager.R
 
 /** What the shell offers for the token being typed. */
 enum class SuggestionKind {
@@ -19,7 +21,10 @@ data class ShellSuggestion(
     val label: String,
     val detail: String,
     val insert: String,
-    val kind: SuggestionKind
+    val kind: SuggestionKind,
+
+    /** Set instead of [detail] when the second line is a description the app ships. */
+    @StringRes val detailRes: Int = 0
 )
 
 /** Everything suggestions are drawn from, read once. */
@@ -101,7 +106,7 @@ object ShellSuggestions {
             // Nothing typed yet: the commands this shell knows, so a first word can be picked
             // instead of remembered.
             return COMMANDS.take(limit).map {
-                ShellSuggestion(it.first, it.second, it.first, SuggestionKind.COMMAND)
+                ShellSuggestion(it.first, "", it.first, SuggestionKind.COMMAND, it.second)
             }
         }
 
@@ -115,7 +120,7 @@ object ShellSuggestions {
                 // Shortest first, so the command being typed leads: `du` before `dumpsys`,
                 // `ls` before `logcat`. The list order is by subject, which is no use here.
                 .sortedWith(compareBy({ it.first.length }, { it.first }))
-                .map { ShellSuggestion(it.first, it.second, it.first, SuggestionKind.COMMAND) } +
+                .map { ShellSuggestion(it.first, "", it.first, SuggestionKind.COMMAND, it.second) } +
                 source.packages
                     .filter { (label, _) -> label.startsWith(token, ignoreCase = true) }
                     .map { (label, packageName) ->
@@ -191,69 +196,69 @@ object ShellSuggestions {
      * that are on every device. Names only a suggestion is for the first word, and the rest
      * of the line is the user's.
      */
-    val COMMANDS: List<Pair<String, String>> = listOf(
-        "pm" to "packages: list, grant, revoke, suspend",
-        "am" to "activities: start, force-stop, kill",
-        "cmd" to "the platform's own services",
-        "appops" to "app op switches",
-        "settings" to "global and secure settings",
-        "dumpsys" to "everything the system knows",
-        "logcat" to "the log",
-        "getprop" to "read a system property",
-        "setprop" to "write a system property",
-        "svc" to "power, wifi, data",
-        "wm" to "screen size and density",
-        "input" to "send taps, text and keys",
-        "content" to "query and change providers",
-        "screencap" to "screenshot to a file",
-        "screenrecord" to "record the screen",
-        "monkey" to "throw events at an app",
-        "ip" to "interfaces and addresses",
-        "ping" to "reach another host",
-        "netstat" to "open sockets",
-        "iptables" to "firewall rules",
-        "df" to "free space",
-        "du" to "what is using it",
-        "mount" to "what is mounted",
-        "ls" to "list a directory",
-        "cd" to "change directory",
-        "pwd" to "where you are",
-        "cat" to "read a file",
-        "cp" to "copy",
-        "mv" to "move or rename",
-        "rm" to "delete",
-        "mkdir" to "make a directory",
-        "chmod" to "change permissions",
-        "chown" to "change owner",
-        "ln" to "link",
-        "find" to "find files",
-        "grep" to "search text",
-        "sed" to "edit text",
-        "awk" to "process columns",
-        "sort" to "sort lines",
-        "uniq" to "collapse repeats",
-        "wc" to "count lines and words",
-        "head" to "first lines",
-        "tail" to "last lines",
-        "cut" to "pick columns",
-        "tr" to "translate characters",
-        "ps" to "running processes",
-        "top" to "what is using the cpu",
-        "kill" to "stop a process",
-        "pidof" to "a process's id",
-        "id" to "who you are",
-        "date" to "the clock",
-        "uptime" to "how long it has been up",
-        "env" to "the environment",
-        "which" to "where a command is",
-        "tar" to "archives",
-        "unzip" to "extract a zip",
-        "base64" to "encode or decode",
-        "md5sum" to "a checksum",
-        "seq" to "a range of numbers",
-        "xargs" to "run something per line",
-        "sync" to "flush writes",
-        "reboot" to "restart the device",
-        "sh" to "another shell"
+    val COMMANDS: List<Pair<String, Int>> = listOf(
+        "pm" to R.string.shell_cmd_pm,
+        "am" to R.string.shell_cmd_am,
+        "cmd" to R.string.shell_cmd_cmd,
+        "appops" to R.string.shell_cmd_appops,
+        "settings" to R.string.shell_cmd_settings,
+        "dumpsys" to R.string.shell_cmd_dumpsys,
+        "logcat" to R.string.shell_cmd_logcat,
+        "getprop" to R.string.shell_cmd_getprop,
+        "setprop" to R.string.shell_cmd_setprop,
+        "svc" to R.string.shell_cmd_svc,
+        "wm" to R.string.shell_cmd_wm,
+        "input" to R.string.shell_cmd_input,
+        "content" to R.string.shell_cmd_content,
+        "screencap" to R.string.shell_cmd_screencap,
+        "screenrecord" to R.string.shell_cmd_screenrecord,
+        "monkey" to R.string.shell_cmd_monkey,
+        "ip" to R.string.shell_cmd_ip,
+        "ping" to R.string.shell_cmd_ping,
+        "netstat" to R.string.shell_cmd_netstat,
+        "iptables" to R.string.shell_cmd_iptables,
+        "df" to R.string.shell_cmd_df,
+        "du" to R.string.shell_cmd_du,
+        "mount" to R.string.shell_cmd_mount,
+        "ls" to R.string.shell_cmd_ls,
+        "cd" to R.string.shell_cmd_cd,
+        "pwd" to R.string.shell_cmd_pwd,
+        "cat" to R.string.shell_cmd_cat,
+        "cp" to R.string.shell_cmd_cp,
+        "mv" to R.string.shell_cmd_mv,
+        "rm" to R.string.shell_cmd_rm,
+        "mkdir" to R.string.shell_cmd_mkdir,
+        "chmod" to R.string.shell_cmd_chmod,
+        "chown" to R.string.shell_cmd_chown,
+        "ln" to R.string.shell_cmd_ln,
+        "find" to R.string.shell_cmd_find,
+        "grep" to R.string.shell_cmd_grep,
+        "sed" to R.string.shell_cmd_sed,
+        "awk" to R.string.shell_cmd_awk,
+        "sort" to R.string.shell_cmd_sort,
+        "uniq" to R.string.shell_cmd_uniq,
+        "wc" to R.string.shell_cmd_wc,
+        "head" to R.string.shell_cmd_head,
+        "tail" to R.string.shell_cmd_tail,
+        "cut" to R.string.shell_cmd_cut,
+        "tr" to R.string.shell_cmd_tr,
+        "ps" to R.string.shell_cmd_ps,
+        "top" to R.string.shell_cmd_top,
+        "kill" to R.string.shell_cmd_kill,
+        "pidof" to R.string.shell_cmd_pidof,
+        "id" to R.string.shell_cmd_id,
+        "date" to R.string.shell_cmd_date,
+        "uptime" to R.string.shell_cmd_uptime,
+        "env" to R.string.shell_cmd_env,
+        "which" to R.string.shell_cmd_which,
+        "tar" to R.string.shell_cmd_tar,
+        "unzip" to R.string.shell_cmd_unzip,
+        "base64" to R.string.shell_cmd_base64,
+        "md5sum" to R.string.shell_cmd_md5sum,
+        "seq" to R.string.shell_cmd_seq,
+        "xargs" to R.string.shell_cmd_xargs,
+        "sync" to R.string.shell_cmd_sync,
+        "reboot" to R.string.shell_cmd_reboot,
+        "sh" to R.string.shell_cmd_sh
     )
 }

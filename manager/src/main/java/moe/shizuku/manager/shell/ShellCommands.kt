@@ -1,10 +1,13 @@
 package moe.shizuku.manager.shell
 
+import androidx.annotation.StringRes
+import moe.shizuku.manager.R
+
 /** One command the shell offers, with what it does and what it is about. */
 data class LibraryCommand(
     /** May contain `<placeholders>`, which have to be filled in before it can run. */
     val command: String,
-    val description: String,
+    @StringRes val description: Int,
     val tags: List<String>
 )
 
@@ -44,147 +47,151 @@ object ShellCommands {
         }
 
     /** Everything matching [query] in the command, the description or the tags. */
-    fun search(query: String): List<LibraryCommand> {
+    fun search(
+        query: String,
+        /** The description as the user reads it, in their language; it is searched as well. */
+        describe: (LibraryCommand) -> String = { "" }
+    ): List<LibraryCommand> {
         val trimmed = query.trim()
         if (trimmed.isEmpty()) return LIBRARY
         return LIBRARY.filter { entry ->
             entry.command.contains(trimmed, ignoreCase = true) ||
-                entry.description.contains(trimmed, ignoreCase = true) ||
+                describe(entry).contains(trimmed, ignoreCase = true) ||
                 entry.tags.any { it.contains(trimmed, ignoreCase = true) }
         }
     }
 
     val LIBRARY: List<LibraryCommand> = listOf(
         // ---- packages -----------------------------------------------------------------
-        LibraryCommand("pm list packages", "Every package on the device.", listOf("package", "list")),
-        LibraryCommand("pm list packages -3", "Only the apps you installed.", listOf("package", "list")),
-        LibraryCommand("pm list packages -s", "Only the apps that came with the system.", listOf("package", "list")),
-        LibraryCommand("pm list packages -d", "Packages that are disabled.", listOf("package", "list")),
-        LibraryCommand("pm path <package>", "Where an app's APK lives.", listOf("package", "info")),
-        LibraryCommand("pm grant <package> <permission>", "Grant a permission to an app.", listOf("package", "permission")),
-        LibraryCommand("pm revoke <package> <permission>", "Take a permission away again.", listOf("package", "permission")),
-        LibraryCommand("pm clear <package>", "Delete an app's data and stop it.", listOf("package", "storage")),
-        LibraryCommand("pm disable-user --user 0 <package>", "Disable an app for this user.", listOf("package")),
-        LibraryCommand("pm enable <package>", "Enable a disabled app again.", listOf("package")),
-        LibraryCommand("pm suspend --user 0 <package>", "Suspend an app, keeping its data.", listOf("package")),
-        LibraryCommand("pm unsuspend --user 0 <package>", "Unsuspend an app.", listOf("package")),
-        LibraryCommand("pm uninstall --user 0 <package>", "Remove an app for this user, keeping its data.", listOf("package", "uninstall")),
-        LibraryCommand("pm install-existing --user 0 <package>", "Put a removed system app back.", listOf("package")),
-        LibraryCommand("pm dump <package>", "Everything the package manager knows about an app.", listOf("package", "info")),
-        LibraryCommand("pm list permissions -d -g", "The dangerous permissions, by group.", listOf("permission", "list")),
-        LibraryCommand("pm install <apk_path>", "Install an APK from a file on the device.", listOf("package", "install")),
-        LibraryCommand("pm reset-permissions -p <package>", "Put an app's permissions back to their defaults.", listOf("package", "permission")),
-        LibraryCommand("pm uninstall-system-updates <package>", "Roll a system app back to the version it shipped with.", listOf("package", "uninstall")),
-        LibraryCommand("pm list features", "The features this device's hardware reports.", listOf("device", "list")),
+        LibraryCommand("pm list packages", R.string.shell_lib_pm_list_packages, listOf("package", "list")),
+        LibraryCommand("pm list packages -3", R.string.shell_lib_pm_list_packages_3, listOf("package", "list")),
+        LibraryCommand("pm list packages -s", R.string.shell_lib_pm_list_packages_s, listOf("package", "list")),
+        LibraryCommand("pm list packages -d", R.string.shell_lib_pm_list_packages_d, listOf("package", "list")),
+        LibraryCommand("pm path <package>", R.string.shell_lib_pm_path, listOf("package", "info")),
+        LibraryCommand("pm grant <package> <permission>", R.string.shell_lib_pm_grant, listOf("package", "permission")),
+        LibraryCommand("pm revoke <package> <permission>", R.string.shell_lib_pm_revoke, listOf("package", "permission")),
+        LibraryCommand("pm clear <package>", R.string.shell_lib_pm_clear, listOf("package", "storage")),
+        LibraryCommand("pm disable-user --user 0 <package>", R.string.shell_lib_pm_disable_user_user_0, listOf("package")),
+        LibraryCommand("pm enable <package>", R.string.shell_lib_pm_enable, listOf("package")),
+        LibraryCommand("pm suspend --user 0 <package>", R.string.shell_lib_pm_suspend_user_0, listOf("package")),
+        LibraryCommand("pm unsuspend --user 0 <package>", R.string.shell_lib_pm_unsuspend_user_0, listOf("package")),
+        LibraryCommand("pm uninstall --user 0 <package>", R.string.shell_lib_pm_uninstall_user_0, listOf("package", "uninstall")),
+        LibraryCommand("pm install-existing --user 0 <package>", R.string.shell_lib_pm_install_existing_user_0, listOf("package")),
+        LibraryCommand("pm dump <package>", R.string.shell_lib_pm_dump, listOf("package", "info")),
+        LibraryCommand("pm list permissions -d -g", R.string.shell_lib_pm_list_permissions_d_g, listOf("permission", "list")),
+        LibraryCommand("pm install <apk_path>", R.string.shell_lib_pm_install, listOf("package", "install")),
+        LibraryCommand("pm reset-permissions -p <package>", R.string.shell_lib_pm_reset_permissions_p, listOf("package", "permission")),
+        LibraryCommand("pm uninstall-system-updates <package>", R.string.shell_lib_pm_uninstall_system_updates, listOf("package", "uninstall")),
+        LibraryCommand("pm list features", R.string.shell_lib_pm_list_features, listOf("device", "list")),
         LibraryCommand(
             "cmd package compile -m speed -f <package>",
-            "Compile an app ahead of time, so it starts faster.",
+            R.string.shell_lib_cmd_package_compile_m_speed_f,
             listOf("package", "performance")
         ),
 
         // ---- activities, intents and app ops ------------------------------------------
-        LibraryCommand("am start -n <package>/<activity>", "Launch one activity of an app.", listOf("activity", "intent")),
-        LibraryCommand("am start -a <action>", "Launch whatever handles an intent action.", listOf("activity", "intent")),
-        LibraryCommand("am force-stop <package>", "Stop an app now.", listOf("package", "process")),
-        LibraryCommand("am kill <package>", "Kill an app's background processes.", listOf("package", "process")),
-        LibraryCommand("am kill-all", "Kill every background process.", listOf("process")),
-        LibraryCommand("am broadcast -a <action>", "Send a broadcast.", listOf("intent")),
-        LibraryCommand("am get-current-user", "Which user the device is on.", listOf("user", "info")),
-        LibraryCommand("dumpsys activity activities", "What is on screen right now.", listOf("activity", "info")),
-        LibraryCommand("dumpsys activity top", "The top activity in detail.", listOf("activity", "info")),
-        LibraryCommand("cmd appops get <package>", "An app's app op modes.", listOf("appops", "package")),
-        LibraryCommand("cmd appops set <package> <op> deny", "Deny one of an app's ops.", listOf("appops", "package")),
-        LibraryCommand("cmd appops set <package> <op> allow", "Allow one of an app's ops.", listOf("appops", "package")),
-        LibraryCommand("am set-standby-bucket <package> restricted", "Restrict an app in the background.", listOf("battery", "package")),
-        LibraryCommand("am set-standby-bucket <package> active", "Stop restricting it.", listOf("battery", "package")),
+        LibraryCommand("am start -n <package>/<activity>", R.string.shell_lib_am_start_n, listOf("activity", "intent")),
+        LibraryCommand("am start -a <action>", R.string.shell_lib_am_start_a, listOf("activity", "intent")),
+        LibraryCommand("am force-stop <package>", R.string.shell_lib_am_force_stop, listOf("package", "process")),
+        LibraryCommand("am kill <package>", R.string.shell_lib_am_kill, listOf("package", "process")),
+        LibraryCommand("am kill-all", R.string.shell_lib_am_kill_all, listOf("process")),
+        LibraryCommand("am broadcast -a <action>", R.string.shell_lib_am_broadcast_a, listOf("intent")),
+        LibraryCommand("am get-current-user", R.string.shell_lib_am_get_current_user, listOf("user", "info")),
+        LibraryCommand("dumpsys activity activities", R.string.shell_lib_dumpsys_activity_activities, listOf("activity", "info")),
+        LibraryCommand("dumpsys activity top", R.string.shell_lib_dumpsys_activity_top, listOf("activity", "info")),
+        LibraryCommand("cmd appops get <package>", R.string.shell_lib_cmd_appops_get, listOf("appops", "package")),
+        LibraryCommand("cmd appops set <package> <op> deny", R.string.shell_lib_cmd_appops_set_deny, listOf("appops", "package")),
+        LibraryCommand("cmd appops set <package> <op> allow", R.string.shell_lib_cmd_appops_set_allow, listOf("appops", "package")),
+        LibraryCommand("am set-standby-bucket <package> restricted", R.string.shell_lib_am_set_standby_bucket_restricted, listOf("battery", "package")),
+        LibraryCommand("am set-standby-bucket <package> active", R.string.shell_lib_am_set_standby_bucket_active, listOf("battery", "package")),
 
         // ---- settings -----------------------------------------------------------------
-        LibraryCommand("settings list global", "Every global setting and its value.", listOf("settings", "list")),
-        LibraryCommand("settings list secure", "Every secure setting.", listOf("settings", "list")),
-        LibraryCommand("settings list system", "Every system setting.", listOf("settings", "list")),
-        LibraryCommand("settings get global <key>", "Read one global setting.", listOf("settings")),
-        LibraryCommand("settings put global <key> <value>", "Write one global setting.", listOf("settings")),
-        LibraryCommand("settings delete global <key>", "Remove an override.", listOf("settings")),
+        LibraryCommand("settings list global", R.string.shell_lib_settings_list_global, listOf("settings", "list")),
+        LibraryCommand("settings list secure", R.string.shell_lib_settings_list_secure, listOf("settings", "list")),
+        LibraryCommand("settings list system", R.string.shell_lib_settings_list_system, listOf("settings", "list")),
+        LibraryCommand("settings get global <key>", R.string.shell_lib_settings_get_global, listOf("settings")),
+        LibraryCommand("settings put global <key> <value>", R.string.shell_lib_settings_put_global, listOf("settings")),
+        LibraryCommand("settings delete global <key>", R.string.shell_lib_settings_delete_global, listOf("settings")),
         LibraryCommand(
             "settings put global animator_duration_scale 0.5",
-            "Halve the animation speed.",
+            R.string.shell_lib_settings_put_global_animator_durat,
             listOf("settings", "display")
         ),
 
         // ---- display and input ---------------------------------------------------------
-        LibraryCommand("wm size", "The screen's resolution.", listOf("display", "info")),
-        LibraryCommand("wm density", "The screen's density.", listOf("display", "info")),
-        LibraryCommand("wm size <width>x<height>", "Change the resolution.", listOf("display")),
-        LibraryCommand("wm density <dpi>", "Change the density.", listOf("display")),
-        LibraryCommand("cmd uimode night yes", "Turn the dark theme on.", listOf("display", "ui")),
-        LibraryCommand("cmd uimode night no", "Turn the dark theme off.", listOf("display", "ui")),
-        LibraryCommand("cmd statusbar expand-notifications", "Pull the notification shade down.", listOf("ui")),
-        LibraryCommand("cmd statusbar collapse", "Put the shade back.", listOf("ui")),
-        LibraryCommand("cmd notification list", "Everything currently posted.", listOf("notification", "list")),
-        LibraryCommand("dumpsys window displays", "Display and window state.", listOf("display", "info")),
-        LibraryCommand("input keyevent KEYCODE_HOME", "Press home.", listOf("input")),
-        LibraryCommand("input keyevent KEYCODE_BACK", "Press back.", listOf("input")),
-        LibraryCommand("input keyevent KEYCODE_APP_SWITCH", "Open recents.", listOf("input")),
-        LibraryCommand("input keyevent KEYCODE_POWER", "Press the power button.", listOf("input", "power")),
-        LibraryCommand("input text <text>", "Type into whatever has focus.", listOf("input")),
-        LibraryCommand("input tap <x> <y>", "Tap a point on the screen.", listOf("input")),
-        LibraryCommand("input swipe <x1> <y1> <x2> <y2>", "Drag from one point to another.", listOf("input")),
-        LibraryCommand("screencap -p /sdcard/screen.png", "Take a screenshot.", listOf("display", "file")),
-        LibraryCommand("screenrecord /sdcard/record.mp4", "Record the screen until interrupted.", listOf("display", "file")),
+        LibraryCommand("wm size", R.string.shell_lib_wm_size, listOf("display", "info")),
+        LibraryCommand("wm density", R.string.shell_lib_wm_density, listOf("display", "info")),
+        LibraryCommand("wm size <width>x<height>", R.string.shell_lib_wm_size_x, listOf("display")),
+        LibraryCommand("wm density <dpi>", R.string.shell_lib_wm_density_2, listOf("display")),
+        LibraryCommand("cmd uimode night yes", R.string.shell_lib_cmd_uimode_night_yes, listOf("display", "ui")),
+        LibraryCommand("cmd uimode night no", R.string.shell_lib_cmd_uimode_night_no, listOf("display", "ui")),
+        LibraryCommand("cmd statusbar expand-notifications", R.string.shell_lib_cmd_statusbar_expand_notifications, listOf("ui")),
+        LibraryCommand("cmd statusbar collapse", R.string.shell_lib_cmd_statusbar_collapse, listOf("ui")),
+        LibraryCommand("cmd notification list", R.string.shell_lib_cmd_notification_list, listOf("notification", "list")),
+        LibraryCommand("dumpsys window displays", R.string.shell_lib_dumpsys_window_displays, listOf("display", "info")),
+        LibraryCommand("input keyevent KEYCODE_HOME", R.string.shell_lib_input_keyevent_keycode_home, listOf("input")),
+        LibraryCommand("input keyevent KEYCODE_BACK", R.string.shell_lib_input_keyevent_keycode_back, listOf("input")),
+        LibraryCommand("input keyevent KEYCODE_APP_SWITCH", R.string.shell_lib_input_keyevent_keycode_app_switch, listOf("input")),
+        LibraryCommand("input keyevent KEYCODE_POWER", R.string.shell_lib_input_keyevent_keycode_power, listOf("input", "power")),
+        LibraryCommand("input text <text>", R.string.shell_lib_input_text, listOf("input")),
+        LibraryCommand("input tap <x> <y>", R.string.shell_lib_input_tap, listOf("input")),
+        LibraryCommand("input swipe <x1> <y1> <x2> <y2>", R.string.shell_lib_input_swipe, listOf("input")),
+        LibraryCommand("screencap -p /sdcard/screen.png", R.string.shell_lib_screencap_p_sdcard_screen_png, listOf("display", "file")),
+        LibraryCommand("screenrecord /sdcard/record.mp4", R.string.shell_lib_screenrecord_sdcard_record_mp4, listOf("display", "file")),
 
         // ---- network -------------------------------------------------------------------
-        LibraryCommand("ip addr", "Every interface and its addresses.", listOf("network", "info")),
-        LibraryCommand("ip route", "The routing table.", listOf("network", "info")),
-        LibraryCommand("cmd wifi status", "Whether Wi-Fi is on and what it is joined to.", listOf("network", "wifi")),
-        LibraryCommand("svc wifi enable", "Turn Wi-Fi on.", listOf("network", "wifi")),
-        LibraryCommand("svc wifi disable", "Turn Wi-Fi off.", listOf("network", "wifi")),
-        LibraryCommand("svc data enable", "Turn mobile data on.", listOf("network")),
-        LibraryCommand("svc data disable", "Turn mobile data off.", listOf("network")),
-        LibraryCommand("cmd connectivity airplane-mode enable", "Turn airplane mode on.", listOf("network")),
-        LibraryCommand("cmd connectivity airplane-mode disable", "Turn airplane mode off.", listOf("network")),
-        LibraryCommand("ping -c 4 <host>", "Check whether a host answers.", listOf("network")),
-        LibraryCommand("netstat", "Open sockets, and who owns them.", listOf("network", "info")),
+        LibraryCommand("ip addr", R.string.shell_lib_ip_addr, listOf("network", "info")),
+        LibraryCommand("ip route", R.string.shell_lib_ip_route, listOf("network", "info")),
+        LibraryCommand("cmd wifi status", R.string.shell_lib_cmd_wifi_status, listOf("network", "wifi")),
+        LibraryCommand("svc wifi enable", R.string.shell_lib_svc_wifi_enable, listOf("network", "wifi")),
+        LibraryCommand("svc wifi disable", R.string.shell_lib_svc_wifi_disable, listOf("network", "wifi")),
+        LibraryCommand("svc data enable", R.string.shell_lib_svc_data_enable, listOf("network")),
+        LibraryCommand("svc data disable", R.string.shell_lib_svc_data_disable, listOf("network")),
+        LibraryCommand("cmd connectivity airplane-mode enable", R.string.shell_lib_cmd_connectivity_airplane_mode_ena, listOf("network")),
+        LibraryCommand("cmd connectivity airplane-mode disable", R.string.shell_lib_cmd_connectivity_airplane_mode_dis, listOf("network")),
+        LibraryCommand("ping -c 4 <host>", R.string.shell_lib_ping_c_4, listOf("network")),
+        LibraryCommand("netstat", R.string.shell_lib_netstat, listOf("network", "info")),
 
         // ---- power and battery ----------------------------------------------------------
-        LibraryCommand("dumpsys battery", "Charge, temperature and health.", listOf("battery", "info")),
-        LibraryCommand("dumpsys deviceidle", "Whether the device is dozing.", listOf("battery", "info")),
-        LibraryCommand("dumpsys deviceidle whitelist", "The apps exempt from Doze.", listOf("battery", "list")),
-        LibraryCommand("dumpsys deviceidle whitelist +<package>", "Exempt an app from Doze.", listOf("battery", "package")),
-        LibraryCommand("dumpsys deviceidle whitelist -<package>", "Take the exemption away.", listOf("battery", "package")),
-        LibraryCommand("dumpsys power | grep -m1 mWakefulness", "Whether the screen is awake.", listOf("power", "info")),
+        LibraryCommand("dumpsys battery", R.string.shell_lib_dumpsys_battery, listOf("battery", "info")),
+        LibraryCommand("dumpsys deviceidle", R.string.shell_lib_dumpsys_deviceidle, listOf("battery", "info")),
+        LibraryCommand("dumpsys deviceidle whitelist", R.string.shell_lib_dumpsys_deviceidle_whitelist, listOf("battery", "list")),
+        LibraryCommand("dumpsys deviceidle whitelist +<package>", R.string.shell_lib_dumpsys_deviceidle_whitelist_2, listOf("battery", "package")),
+        LibraryCommand("dumpsys deviceidle whitelist -<package>", R.string.shell_lib_dumpsys_deviceidle_whitelist_3, listOf("battery", "package")),
+        LibraryCommand("dumpsys power | grep -m1 mWakefulness", R.string.shell_lib_dumpsys_power_grep_m1_mwakefulness, listOf("power", "info")),
 
         // ---- storage and files -----------------------------------------------------------
-        LibraryCommand("df -h", "Free space on every filesystem.", listOf("storage", "info")),
-        LibraryCommand("du -sh <path>", "How much space a directory takes.", listOf("storage", "directory")),
-        LibraryCommand("ls -l <path>", "List a directory in detail.", listOf("file", "directory")),
-        LibraryCommand("pwd", "Where the session is, which is the directory the next command runs in.", listOf("file", "directory")),
-        LibraryCommand("mkdir -p <path>", "Create a directory and its parents.", listOf("file", "directory")),
-        LibraryCommand("cp <source> <destination>", "Copy a file or directory.", listOf("file")),
-        LibraryCommand("mv <source> <destination>", "Move or rename it.", listOf("file")),
-        LibraryCommand("rm -rf <path>", "Delete a file or directory.", listOf("file", "directory")),
-        LibraryCommand("cat <path>", "Read a file.", listOf("file")),
-        LibraryCommand("chmod <mode> <path>", "Change a file's permissions.", listOf("file")),
-        LibraryCommand("find <path> -name <pattern>", "Find files by name.", listOf("file", "directory")),
+        LibraryCommand("df -h", R.string.shell_lib_df_h, listOf("storage", "info")),
+        LibraryCommand("du -sh <path>", R.string.shell_lib_du_sh, listOf("storage", "directory")),
+        LibraryCommand("ls -l <path>", R.string.shell_lib_ls_l, listOf("file", "directory")),
+        LibraryCommand("pwd", R.string.shell_lib_pwd, listOf("file", "directory")),
+        LibraryCommand("mkdir -p <path>", R.string.shell_lib_mkdir_p, listOf("file", "directory")),
+        LibraryCommand("cp <source> <destination>", R.string.shell_lib_cp, listOf("file")),
+        LibraryCommand("mv <source> <destination>", R.string.shell_lib_mv, listOf("file")),
+        LibraryCommand("rm -rf <path>", R.string.shell_lib_rm_rf, listOf("file", "directory")),
+        LibraryCommand("cat <path>", R.string.shell_lib_cat, listOf("file")),
+        LibraryCommand("chmod <mode> <path>", R.string.shell_lib_chmod, listOf("file")),
+        LibraryCommand("find <path> -name <pattern>", R.string.shell_lib_find_name, listOf("file", "directory")),
 
         // ---- the system itself ------------------------------------------------------------
-        LibraryCommand("getprop", "Every system property.", listOf("info", "list")),
-        LibraryCommand("getprop <property>", "Read one property.", listOf("info")),
-        LibraryCommand("setprop <property> <value>", "Set one, until the next reboot.", listOf("info")),
-        LibraryCommand("id", "Which uid the shell is running as.", listOf("info")),
-        LibraryCommand("uptime", "How long the device has been up.", listOf("info")),
-        LibraryCommand("ps -A", "Every process.", listOf("process", "list")),
-        LibraryCommand("kill <pid>", "Stop one process, by the pid ps -A shows.", listOf("process")),
-        LibraryCommand("top -n 1", "One sample of what is using the CPU.", listOf("process", "info")),
-        LibraryCommand("dumpsys meminfo", "Memory use, by app.", listOf("memory", "info")),
-        LibraryCommand("dumpsys cpuinfo", "CPU use, by app.", listOf("info")),
-        LibraryCommand("service list", "Every system service, ready for the ones with a shell interface.", listOf("info", "list")),
-        LibraryCommand("logcat -d -t 200", "The last two hundred log lines.", listOf("log", "info")),
-        LibraryCommand("logcat -d -s <tag>", "Log lines from one tag.", listOf("log")),
-        LibraryCommand("logcat -c", "Clear the log buffers.", listOf("log")),
-        LibraryCommand("pm list users", "Every user on the device.", listOf("user", "list")),
-        LibraryCommand("reboot", "Restart the device.", listOf("power")),
-        LibraryCommand("reboot recovery", "Restart into recovery.", listOf("power")),
-        LibraryCommand("reboot bootloader", "Restart into the bootloader.", listOf("power")),
-        LibraryCommand("sync", "Flush pending writes to disk.", listOf("file"))
+        LibraryCommand("getprop", R.string.shell_lib_getprop, listOf("info", "list")),
+        LibraryCommand("getprop <property>", R.string.shell_lib_getprop_2, listOf("info")),
+        LibraryCommand("setprop <property> <value>", R.string.shell_lib_setprop, listOf("info")),
+        LibraryCommand("id", R.string.shell_lib_id, listOf("info")),
+        LibraryCommand("uptime", R.string.shell_lib_uptime, listOf("info")),
+        LibraryCommand("ps -A", R.string.shell_lib_ps_a, listOf("process", "list")),
+        LibraryCommand("kill <pid>", R.string.shell_lib_kill, listOf("process")),
+        LibraryCommand("top -n 1", R.string.shell_lib_top_n_1, listOf("process", "info")),
+        LibraryCommand("dumpsys meminfo", R.string.shell_lib_dumpsys_meminfo, listOf("memory", "info")),
+        LibraryCommand("dumpsys cpuinfo", R.string.shell_lib_dumpsys_cpuinfo, listOf("info")),
+        LibraryCommand("service list", R.string.shell_lib_service_list, listOf("info", "list")),
+        LibraryCommand("logcat -d -t 200", R.string.shell_lib_logcat_d_t_200, listOf("log", "info")),
+        LibraryCommand("logcat -d -s <tag>", R.string.shell_lib_logcat_d_s, listOf("log")),
+        LibraryCommand("logcat -c", R.string.shell_lib_logcat_c, listOf("log")),
+        LibraryCommand("pm list users", R.string.shell_lib_pm_list_users, listOf("user", "list")),
+        LibraryCommand("reboot", R.string.shell_lib_reboot, listOf("power")),
+        LibraryCommand("reboot recovery", R.string.shell_lib_reboot_recovery, listOf("power")),
+        LibraryCommand("reboot bootloader", R.string.shell_lib_reboot_bootloader, listOf("power")),
+        LibraryCommand("sync", R.string.shell_lib_sync, listOf("file"))
     )
 }

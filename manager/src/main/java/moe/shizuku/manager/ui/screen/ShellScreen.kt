@@ -3,6 +3,7 @@
 package moe.shizuku.manager.ui.screen
 
 import androidx.compose.foundation.background
+import moe.shizuku.manager.utils.AppStrings
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -383,7 +384,7 @@ fun ShellScreen(bottomPadding: Dp = 0.dp, onBack: (() -> Unit)? = null) {
                 val ok = withContext(Dispatchers.IO) {
                     runCatching { session.cd(target, ::feed) }.getOrDefault(false)
                 }
-                if (!ok) feed(ShellLine("cd: no such directory: $target", ShellLine.Kind.ERROR))
+                if (!ok) feed(ShellLine(AppStrings.get(R.string.shell_cd_no_such_dir, target), ShellLine.Kind.ERROR))
                 cwd = session.cwd
                 running = false
             }
@@ -391,7 +392,7 @@ fun ShellScreen(bottomPadding: Dp = 0.dp, onBack: (() -> Unit)? = null) {
         }
 
         if (session.export(command)) {
-            feed(ShellLine("exported ${command.trim().removePrefix("export").trim()}", ShellLine.Kind.INFO))
+            feed(ShellLine(AppStrings.get(R.string.shell_exported, command.trim().removePrefix("export").trim()), ShellLine.Kind.INFO))
             return
         }
 
@@ -1248,7 +1249,7 @@ private fun SuggestionCard(suggestion: ShellSuggestion, onClick: () -> Unit) {
                 overflow = TextOverflow.Ellipsis
             )
             Text(
-                suggestion.detail,
+                if (suggestion.detailRes != 0) stringResource(suggestion.detailRes) else suggestion.detail,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 maxLines = 1,

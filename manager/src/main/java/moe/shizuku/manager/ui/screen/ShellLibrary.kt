@@ -59,7 +59,8 @@ internal fun LibrarySheet(
     onDismiss: () -> Unit
 ) {
     ModalBottomSheet(onDismissRequest = onDismiss) {
-        val matches = ShellCommands.search(query)
+        val context = androidx.compose.ui.platform.LocalContext.current
+        val matches = ShellCommands.search(query) { context.getString(it.description) }
         Column(modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)) {
             OutlinedTextField(
                 value = query,
@@ -98,7 +99,7 @@ internal fun LibrarySheet(
                                 )
                             },
                             supportingContent = {
-                                Text(entry.description, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                                Text(stringResource(entry.description), maxLines = 2, overflow = TextOverflow.Ellipsis)
                             },
                             colors = ListItemDefaults.colors(containerColor = Color.Transparent)
                         )

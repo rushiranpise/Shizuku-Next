@@ -19,6 +19,7 @@ import moe.shizuku.manager.utils.renamePackage
 import moe.shizuku.manager.utils.stubApkModule
 import moe.shizuku.manager.utils.ApkSigner
 import java.io.File
+import moe.shizuku.manager.utils.AppStrings
 
 private const val TAG = "ApkUtils"
 
@@ -54,11 +55,11 @@ fun File.changePackageName(
     // A module whose manifest could not be parsed comes back with none, and passing that on ends
     // in an NPE from somewhere inside the library rather than in a sentence the screen can show.
     val manifest = module.androidManifest
-        ?: throw IllegalStateException("The APK's manifest could not be read")
+        ?: throw IllegalStateException(AppStrings.get(R.string.apk_err_manifest_unreadable))
 
     Log.i(TAG, "Changing package name")
     val oldPkgName = manifest.packageName
-        ?: throw IllegalStateException("The APK's manifest has no package name")
+        ?: throw IllegalStateException(AppStrings.get(R.string.apk_err_manifest_no_package))
 
     // Renaming the package renames the app but not everything it is called by. Intent filter
     // actions (`<pkg>.START`, `.STOP`, the watchdog actions, the two request actions), the

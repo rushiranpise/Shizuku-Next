@@ -18,6 +18,7 @@ import org.bouncycastle.cert.X509v3CertificateBuilder
 import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder
+import moe.shizuku.manager.R
 
 private val appContext = ShizukuApplication.appContext
 
@@ -61,7 +62,7 @@ object ApkSigner {
             getSelfSigningKey()
         } catch (e: IOException) {
             if (createIfNeeded) createSigningKey()
-            else throw IllegalStateException("Signing key does not exist")
+            else throw IllegalStateException(AppStrings.get(R.string.apk_err_key_missing))
         }
 
     private fun getSelfSigningKey(): PrivateKeyEntry {
@@ -73,7 +74,7 @@ object ApkSigner {
 
         val key = loadKey()
         if (!key.matchesAppCert()) {
-            throw IllegalStateException("Signing key does not match app certificate")
+            throw IllegalStateException(AppStrings.get(R.string.apk_err_key_mismatch))
         }
         return key
     }
@@ -162,7 +163,7 @@ object ApkSigner {
         } else {
             info.signingInfo?.apkContentsSigners ?: emptyArray()
         }
-        require(signers.isNotEmpty()) { "No signing certificates found" }
+        require(signers.isNotEmpty()) { AppStrings.get(R.string.apk_err_no_certs) }
 
         val certBytes = signers[0].toByteArray()
 

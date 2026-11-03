@@ -8,6 +8,8 @@ import java.io.InputStreamReader
 import moe.shizuku.manager.AppConstants
 import moe.shizuku.manager.utils.ShizukuStateMachine
 import rikka.shizuku.Shizuku
+import moe.shizuku.manager.utils.AppStrings
+import moe.shizuku.manager.R
 
 /** Where a command runs. */
 enum class ShellBackend {
@@ -152,7 +154,7 @@ class ShellSession {
 
     private fun runThroughShizuku(script: String, sink: (ShellLine) -> Unit): Int {
         if (!ShizukuStateMachine.isRunning()) {
-            sink(ShellLine("Shizuku is not running.", ShellLine.Kind.ERROR))
+            sink(ShellLine(AppStrings.get(R.string.err_shizuku_not_running), ShellLine.Kind.ERROR))
             return -1
         }
         return try {
@@ -199,7 +201,7 @@ class ShellSession {
             val result = Shell.cmd(script).to(out, err).exec()
             if (!result.isSuccess && err.isEmpty()) {
                 // su refused, or the command died before it could say anything.
-                sink(ShellLine("Root refused the command (exit ${result.code}).", ShellLine.Kind.ERROR))
+                sink(ShellLine(AppStrings.get(R.string.shell_root_refused_command, result.code), ShellLine.Kind.ERROR))
             }
             result.code
         } catch (e: Throwable) {

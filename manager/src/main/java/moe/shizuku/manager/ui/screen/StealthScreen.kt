@@ -51,6 +51,7 @@ import moe.shizuku.manager.ui.component.PillButton
 import moe.shizuku.manager.ui.component.PillButtonQuiet
 import moe.shizuku.manager.ui.component.ScrollToTopButton
 import moe.shizuku.manager.R
+import moe.shizuku.manager.utils.AppStrings
 import moe.shizuku.manager.stealth.Action
 import moe.shizuku.manager.stealth.ApkType
 import moe.shizuku.manager.stealth.StealthTutorialViewModel
@@ -133,7 +134,7 @@ fun StealthScreen(onBack: () -> Unit) {
                             // silently doing nothing. See wakeStub.
                             wakeStub(context, ORIGINAL_PACKAGE_NAME)
                         } else {
-                            error = msg ?: "Install failed"
+                            error = msg ?: AppStrings.get(R.string.stealth_err_install_failed)
                         }
                     }
                 }
@@ -398,7 +399,7 @@ private fun exportApk(context: Context, outDir: Uri, apk: File) {
     val treeDocumentId = runCatching { DocumentsContract.getTreeDocumentId(outDir) }
         .getOrElse {
             throw IllegalStateException(
-                "That folder cannot be written to. Pick one on internal storage.", it
+                AppStrings.get(R.string.stealth_err_folder_not_writable), it
             )
         }
     val docUri = DocumentsContract.buildDocumentUriUsingTree(outDir, treeDocumentId)
@@ -407,11 +408,11 @@ private fun exportApk(context: Context, outDir: Uri, apk: File) {
             cr, docUri, "application/vnd.android.package-archive", buildApkFilename()
         )
     } catch (e: Exception) {
-        throw IllegalStateException("The folder refused a new file: ${e.message}", e)
-    } ?: throw IllegalStateException("Could not create a file in the selected folder")
+        throw IllegalStateException(AppStrings.get(R.string.stealth_err_folder_refused, e.message ?: ""), e)
+    } ?: throw IllegalStateException(AppStrings.get(R.string.stealth_err_create_file))
 
     val output = cr.openOutputStream(doc)
-        ?: throw IllegalStateException("The new file could not be opened for writing")
+        ?: throw IllegalStateException(AppStrings.get(R.string.stealth_err_open_file))
     output.use { out ->
         apk.inputStream().use { input -> input.copyTo(out) }
     }

@@ -1,6 +1,7 @@
 package moe.shizuku.manager.starter
 
 import android.util.Log
+import moe.shizuku.manager.utils.AppStrings
 import androidx.lifecycle.asFlow
 import java.io.File
 import java.util.concurrent.TimeoutException
@@ -28,11 +29,12 @@ object Starter {
     val adbCommand = "adb shell $userCommand"
     val internalCommand = "$userCommand --apk=${app.applicationInfo.sourceDir}"
 
-    val serviceStartedMessage = "Service started, this window will be automatically closed in 3 seconds"
+    val serviceStartedMessage: String
+        get() = AppStrings.get(R.string.start_msg_service_started)
 
     suspend fun waitForBinder(log: ((String) -> Unit)? = null) {
         try {
-            log?.invoke("\nWaiting for service. This may take up to 1 minute...")
+            log?.invoke("\n" + AppStrings.get(R.string.start_msg_waiting))
             withTimeout(60_000) {
                 ShizukuStateMachine.asFlow()
                     .first { it == ShizukuStateMachine.State.RUNNING }
@@ -54,7 +56,7 @@ object Starter {
 
             when {
                 ShizukuStateMachine.isRunning() ->
-                    log?.invoke("\nThe service is still running.\n")
+                    log?.invoke("\n" + AppStrings.get(R.string.start_msg_still_running) + "\n")
 
                 // A new start has begun since: the service is being replaced, not gone, and
                 // saying it went away would blame this start for what the next one is doing.
@@ -63,7 +65,7 @@ object Starter {
                 // Stopped on purpose is not a service that went away, and the card already
                 // says so: this is the state every deliberate Stop leaves behind.
                 ShizukuSettings.getManuallyStopped() ->
-                    log?.invoke("\nThe service was stopped again.\n")
+                    log?.invoke("\n" + AppStrings.get(R.string.start_msg_stopped_again) + "\n")
 
                 // A background start (boot, the watchdog, an app asking for the binder) has
                 // no screen to report on, and the watchdog is what acts on a service that
@@ -75,7 +77,7 @@ object Starter {
                 )
 
                 else -> {
-                    log.invoke("\nThe service started and then went away again.\n")
+                    log.invoke("\n" + AppStrings.get(R.string.start_msg_went_away) + "\n")
                     StartStatusReporter.failed(
                         app.getString(R.string.start_failed_binder_went_away)
                     )

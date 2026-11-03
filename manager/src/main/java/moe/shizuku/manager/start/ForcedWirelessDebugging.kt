@@ -1,6 +1,8 @@
 package moe.shizuku.manager.start
 
 import android.content.ContentResolver
+import moe.shizuku.manager.utils.AppStrings
+import moe.shizuku.manager.R
 import android.content.Context
 import android.net.wifi.WifiManager
 import android.os.Build
@@ -156,10 +158,10 @@ object ForcedWirelessDebugging {
         }
 
         if (!pass()) {
-            log("the wireless debugging setting could not be written")
+            log(AppStrings.get(R.string.fwd_setting_not_written))
             return@withContext
         }
-        log(if (writes == 0) "wireless debugging is already on" else "asking for wireless debugging")
+        log(if (writes == 0) AppStrings.get(R.string.fwd_already_on) else AppStrings.get(R.string.fwd_asking))
 
         val deadline = System.currentTimeMillis() + WINDOW_MS
 
@@ -222,14 +224,14 @@ object ForcedWirelessDebugging {
         // modern platform anyway, so on an older one there is nothing to try, and that is what
         // is reported rather than a NoClassDefFoundError.
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            log("the local-only hotspot needs Android 8")
+            log(AppStrings.get(R.string.fwd_hotspot_needs_android8))
             return false
         }
         if (reservation != null) return true
 
         val wifi = context.applicationContext.getSystemService(Context.WIFI_SERVICE) as? WifiManager
         if (wifi == null) {
-            log("no Wi-Fi service to bring a hotspot up with")
+            log(AppStrings.get(R.string.fwd_no_wifi_service))
             return false
         }
 
@@ -238,13 +240,13 @@ object ForcedWirelessDebugging {
             val started = attemptHotspot(wifi, attempt, attempts)
             if (started != null) {
                 reservation = started
-                log("local-only hotspot is up")
+                log(AppStrings.get(R.string.fwd_hotspot_up))
                 return true
             }
             if (attempt < attempts - 1) delay(HOTSPOT_RETRY_DELAY_MS)
         }
 
-        log("the local-only hotspot did not come up")
+        log(AppStrings.get(R.string.fwd_hotspot_failed))
         return false
     }
 

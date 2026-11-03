@@ -1,6 +1,8 @@
 package moe.shizuku.manager.install
 
 import android.os.Build
+import moe.shizuku.manager.utils.AppStrings
+import moe.shizuku.manager.R
 import android.os.ParcelFileDescriptor
 import java.io.InputStream
 import kotlinx.coroutines.Dispatchers
@@ -110,7 +112,7 @@ object AppInstall {
             } else {
                 listOf(target)
             }
-            if (apks.isEmpty()) return@withContext Outcome.Failed("no apk in ${name(target)}")
+            if (apks.isEmpty()) return@withContext Outcome.Failed(AppStrings.get(R.string.install_err_no_apk, name(target)))
 
             // Before anything is handed to the installer: a package whose own archive cannot be
             // read is refused by the platform too, and the reason it gives - "failed to extract
@@ -156,7 +158,7 @@ object AppInstall {
             }
         } catch (t: Throwable) {
             Diag.warn(TAG, "installing ${name(target)} failed", t)
-            Outcome.Failed(t.message ?: "the install failed")
+            Outcome.Failed(t.message ?: AppStrings.get(R.string.install_err_failed))
         }
     }
 
@@ -165,7 +167,7 @@ object AppInstall {
         .map { it.trim() }
         .firstOrNull { it.contains("Success") || it.startsWith("Failure") || it.isNotEmpty() }
         ?.take(200)
-        ?: "no output"
+        ?: AppStrings.get(R.string.install_err_no_output)
 
     /**
      * Why a package cannot be installed, when its own archive is the reason.
@@ -204,7 +206,7 @@ object AppInstall {
             ?.firstOrNull { it.startsWith("unzip:") || it.contains("Invalid", ignoreCase = true) }
             ?.trim()
 
-        return detail ?: "the archive could not be read (unzip exited with $probe)"
+        return detail ?: AppStrings.get(R.string.install_err_unreadable_archive, probe)
     }
 
     /**
@@ -267,7 +269,7 @@ object AppInstall {
             appendLine("rc=\$?")
             appendLine("rm -rf \"\$W\"")
             appendLine("exit \$rc")
-        }.also { onOutput("installing ${apks.size} apks as one package\n") }
+        }.also { onOutput(AppStrings.get(R.string.install_log_installing, apks.size) + "\n") }
     }
 
     private fun flags(options: Options): List<String> = buildList {
@@ -340,7 +342,7 @@ object AppInstall {
         listOf(".apks", ".apkm", ".xapk").any { target.endsWith(it, ignoreCase = true) }
 
     private suspend fun unpackInto(target: String, into: String, onOutput: (String) -> Unit): List<String> {
-        onOutput("unpacking ${name(target)}...\n")
+        onOutput(AppStrings.get(R.string.install_log_unpacking, name(target)) + "\n")
         val unpacked = FileOperations.extract(target, into, onProgress = {}, cancelled = { false })
         if (unpacked is FileOperations.Outcome.Failed) {
             throw IllegalStateException(unpacked.message)
@@ -348,7 +350,7 @@ object AppInstall {
 
         val found = ArrayList<String>()
         collectApks(into, found)
-        onOutput("found ${found.size} apks\n")
+        onOutput(AppStrings.get(R.string.install_log_found, found.size) + "\n")
         return found
     }
 

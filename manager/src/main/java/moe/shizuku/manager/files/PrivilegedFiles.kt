@@ -15,6 +15,8 @@ import moe.shizuku.manager.BuildConfig
 import moe.shizuku.manager.utils.Diag
 import moe.shizuku.manager.utils.ShizukuStateMachine
 import rikka.shizuku.Shizuku
+import moe.shizuku.manager.utils.AppStrings
+import moe.shizuku.manager.R
 
 /**
  * Files, opened as the shell.
@@ -152,7 +154,7 @@ object PrivilegedFiles {
     /** Creates a directory, parents and all. Throws when it could not be made. */
     @Throws(IOException::class)
     fun mkdir(path: String) {
-        if (!call { it.mkdir(path) }) throw IOException("cannot create $path")
+        if (!call { it.mkdir(path) }) throw IOException(AppStrings.get(R.string.files_err_cannot_create, path))
     }
 
     /** Renames within one filesystem. False means the caller has to copy instead. */
@@ -162,7 +164,7 @@ object PrivilegedFiles {
     /** Removes a file, or a whole tree. Throws when it is still there afterwards. */
     @Throws(IOException::class)
     fun delete(path: String, recursive: Boolean = true) {
-        if (!call { it.delete(path, recursive) }) throw IOException("cannot remove $path")
+        if (!call { it.delete(path, recursive) }) throw IOException(AppStrings.get(R.string.files_err_cannot_remove, path))
     }
 
     /** Writes a file, making its parent directory if that is what is missing. */
@@ -181,9 +183,9 @@ object PrivilegedFiles {
 
     @Throws(IOException::class)
     fun open(path: String, mode: Int): ParcelFileDescriptor = try {
-        call { it.open(path, mode) } ?: throw IOException("no descriptor for $path")
+        call { it.open(path, mode) } ?: throw IOException(AppStrings.get(R.string.files_err_no_descriptor, path))
     } catch (e: IllegalStateException) {
-        throw IOException(e.message ?: "cannot open $path", e)
+        throw IOException(e.message ?: AppStrings.get(R.string.files_err_cannot_open, path), e)
     }
 
     /** Opens a file for reading, which is what every caller so far wants. */
@@ -213,7 +215,7 @@ object PrivilegedFiles {
 
     /** Runs [call] against the service, binding first if there is nothing to run it against. */
     private fun <T> call(call: (IPrivilegedFiles) -> T): T {
-        val connected = connect() ?: throw IOException("the privileged file service is not running")
+        val connected = connect() ?: throw IOException(AppStrings.get(R.string.files_err_service_not_running))
         return try {
             call(connected)
         } catch (e: RemoteException) {
@@ -221,9 +223,9 @@ object PrivilegedFiles {
             // replaying against a corpse; the call itself is not retried, because a retry of a
             // command that already ran is how a write happens twice.
             drop(connected.asBinder())
-            throw IOException("the privileged file service disconnected", e)
+            throw IOException(AppStrings.get(R.string.files_err_service_disconnected), e)
         } catch (e: IllegalStateException) {
-            throw IOException(e.message ?: "the privileged file service refused", e)
+            throw IOException(e.message ?: AppStrings.get(R.string.files_err_service_refused), e)
         }
     }
 

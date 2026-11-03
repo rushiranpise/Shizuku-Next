@@ -13,6 +13,8 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import moe.shizuku.manager.utils.AppStrings
+import moe.shizuku.manager.R
 
 /** A repository in the community's module index, as the index lists it. */
 @Serializable
@@ -256,7 +258,7 @@ object ModuleCatalog {
             client.newCall(request).execute().use { response ->
                 if (!response.isSuccessful) throw ModuleCatalogException(httpMessage(response.code))
 
-                val body = response.body ?: throw ModuleCatalogException("The download came back empty.")
+                val body = response.body ?: throw ModuleCatalogException(AppStrings.get(R.string.catalog_err_download_empty))
                 body.byteStream().use { stream -> consume(stream) }
             }
         }
@@ -268,7 +270,7 @@ object ModuleCatalog {
 
             client.newCall(request).execute().use { response ->
                 if (!response.isSuccessful) throw ModuleCatalogException(httpMessage(response.code))
-                response.body?.bytes() ?: throw ModuleCatalogException("The download came back empty.")
+                response.body?.bytes() ?: throw ModuleCatalogException(AppStrings.get(R.string.catalog_err_download_empty))
             }
         }
 
@@ -277,7 +279,7 @@ object ModuleCatalog {
 
         client.newCall(request).execute().use { response ->
             if (!response.isSuccessful) throw ModuleCatalogException(httpMessage(response.code))
-            return response.body?.string() ?: throw ModuleCatalogException("The answer came back empty.")
+            return response.body?.string() ?: throw ModuleCatalogException(AppStrings.get(R.string.catalog_err_answer_empty))
         }
     }
 
@@ -296,9 +298,9 @@ object ModuleCatalog {
      * and for having asked too often without one, and only the second can happen here.
      */
     private fun httpMessage(code: Int): String = when (code) {
-        403, 429 -> "GitHub is rate limiting this device. Try again in a little while."
-        404 -> "That repository is not there any more."
-        else -> "GitHub answered $code."
+        403, 429 -> AppStrings.get(R.string.catalog_err_rate_limited)
+        404 -> AppStrings.get(R.string.catalog_err_repo_gone)
+        else -> AppStrings.get(R.string.catalog_err_http, code)
     }
 }
 

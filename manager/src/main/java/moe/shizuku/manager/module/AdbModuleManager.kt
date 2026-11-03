@@ -19,6 +19,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import moe.shizuku.manager.utils.Diag
 import moe.shizuku.manager.utils.newShellProcess
+import moe.shizuku.manager.utils.AppStrings
+import moe.shizuku.manager.R
 
 /**
  * Everything the app does to a module: put one there, switch it on, run it, take it away.
@@ -155,7 +157,7 @@ object AdbModuleManager {
     ): ModuleActionResult = runScript(
         module = module,
         script = module.actionScript,
-        missing = "This module has no action script.",
+        missing = AppStrings.get(R.string.module_err_no_action_script),
         background = false,
         approve = approve,
         log = module.lastActionLog,
@@ -173,26 +175,26 @@ object AdbModuleManager {
         approve: suspend (ModuleCommandRequest) -> Boolean,
     ): ModuleActionResult {
         if (isServiceRunning(module)) {
-            return ModuleActionResult(0, "Already running.", "")
+            return ModuleActionResult(0, AppStrings.get(R.string.module_already_running), "")
         }
 
         val mode = ModuleSettings.getAccessMode()
         if (!ModuleWebUi.canRunService(module, mode, ModuleSettings.allowsBackground())) {
-            return ModuleActionResult(-1, "", "Services need Full access and background actions allowed.")
+            return ModuleActionResult(-1, "", AppStrings.get(R.string.module_err_service_needs_access))
         }
         val script = module.serviceScript
-            ?: return ModuleActionResult(-1, "", "This module has no service script.")
+            ?: return ModuleActionResult(-1, "", AppStrings.get(R.string.module_err_no_service_script))
         if (!module.enabled) {
-            return ModuleActionResult(-1, "", "The module is switched off.")
+            return ModuleActionResult(-1, "", AppStrings.get(R.string.module_err_switched_off))
         }
 
         val command = moduleScriptCommand(module, script, mode, ModuleSettings.isTrusted(module.id), true)
         if (!approve(ModuleCommandRequest(module, ModuleCommandSource.SERVICE, command))) {
-            return ModuleActionResult(-1, "", "The command was not approved.")
+            return ModuleActionResult(-1, "", AppStrings.get(R.string.module_err_not_approved))
         }
 
         val process = newShellProcess(command)
-            ?: return ModuleActionResult(-1, "", "Shizuku is not running.")
+            ?: return ModuleActionResult(-1, "", AppStrings.get(R.string.err_shizuku_not_running))
 
         services[module.id] = process
         Diag.info(TAG, "service started for ${module.id}")
@@ -259,13 +261,13 @@ object AdbModuleManager {
                 ModuleSettings.isTrusted(module.id)
             )
         ) {
-            return ModuleActionResult(-1, "", "This module has no shell bridge.")
+            return ModuleActionResult(-1, "", AppStrings.get(R.string.module_err_no_shell_bridge))
         }
 
         if (!ModuleSettings.isTrusted(module.id) &&
             !approve(ModuleCommandRequest(module, ModuleCommandSource.WEB_UI, command))
         ) {
-            return ModuleActionResult(-1, "", "The command was not approved.")
+            return ModuleActionResult(-1, "", AppStrings.get(R.string.module_err_not_approved))
         }
 
         return runCommand(command, timeoutSeconds = timeoutSeconds)
@@ -281,7 +283,7 @@ object AdbModuleManager {
         onOutput: (String) -> Unit = {},
     ): ModuleActionResult {
         if (script == null) return ModuleActionResult(-1, "", missing)
-        if (!module.enabled) return ModuleActionResult(-1, "", "The module is switched off.")
+        if (!module.enabled) return ModuleActionResult(-1, "", AppStrings.get(R.string.module_err_switched_off))
 
         val mode = ModuleSettings.getAccessMode()
         val command = moduleScriptCommand(
@@ -293,7 +295,7 @@ object AdbModuleManager {
         )
 
         if (!approve(ModuleCommandRequest(module, ModuleCommandSource.ACTION, command))) {
-            return ModuleActionResult(-1, "", "The command was not approved.")
+            return ModuleActionResult(-1, "", AppStrings.get(R.string.module_err_not_approved))
         }
 
         val result = runCommand(command, onOutput, moduleId = module.id)
@@ -320,7 +322,7 @@ object AdbModuleManager {
         timeoutSeconds: Int = ModuleRunLimits.SCRIPT_TIMEOUT_SECONDS,
     ): ModuleActionResult = withContext(Dispatchers.IO) {
         val process = newShellProcess(command)
-            ?: return@withContext ModuleActionResult(-1, "", "Shizuku is not running.")
+            ?: return@withContext ModuleActionResult(-1, "", AppStrings.get(R.string.err_shizuku_not_running))
 
         val stdout = StringBuilder()
         val stderr = StringBuilder()

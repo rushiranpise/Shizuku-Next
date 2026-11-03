@@ -1,6 +1,7 @@
 package moe.shizuku.manager.adb
 
 import android.Manifest.permission.WRITE_SECURE_SETTINGS
+import moe.shizuku.manager.utils.AppStrings
 import android.content.Context
 import android.os.Build
 import android.os.SystemClock
@@ -97,7 +98,7 @@ object AdbStarter {
         // Deliberately NOT resetting adb_wifi_enabled here: keeping wireless
         // debugging on lets Shizuku restart without USB debugging or Wi-Fi.
         ShizukuStateMachine.set(ShizukuStateMachine.State.STARTING)
-        log?.invoke("Starting with wireless adb...\n")
+        log?.invoke(AppStrings.get(R.string.adb_start_wireless) + "\n")
 
         withContext(Dispatchers.IO) {
             val key = runCatching { AdbKey(PreferenceAdbKeyStore(ShizukuSettings.getPreferences()), "shizuku") }
@@ -130,15 +131,15 @@ object AdbStarter {
             )
 
             if (keepTcpPort && usbDebugging && activePort != tcpPort) {
-                log?.invoke("Connecting on port $activePort...")
+                log?.invoke(AppStrings.get(R.string.adb_start_connecting, activePort))
 
                 AdbClient("127.0.0.1", activePort, key).use { client ->
                     // Same pairing detection as the main path a TLS rejection here
                     // must not surface as a raw SSL error either.
                     client.connectForPairing()
 
-                    log?.invoke("Successfully connected on port $activePort...")
-                    log?.invoke("\nRestarting in TCP mode port: $tcpPort")
+                    log?.invoke(AppStrings.get(R.string.adb_start_connected, activePort))
+                    log?.invoke("\n" + AppStrings.get(R.string.adb_start_restart_tcp, tcpPort))
                     // Said here too, and this is the one that matters most: adbd restarts on
                     // this command, so a server already running is the thing it can take with
                     // it - the suspicion a report about repeated deaths has to settle.
@@ -161,12 +162,12 @@ object AdbStarter {
                 }
             }
 
-            log?.invoke("Connecting on port $activePort...")
+            log?.invoke(AppStrings.get(R.string.adb_start_connecting, activePort))
 
             AdbClient("127.0.0.1", activePort, key).use { client ->
                 // connectWithRetry reports a rejected handshake as pairing-required.
                 connectWithRetry(client, connectAttempts)
-                log?.invoke("Successfully connected on port $activePort...\n")
+                log?.invoke(AppStrings.get(R.string.adb_start_connected, activePort) + "\n")
                 // A start replaced while it connected must not go on to run its starter: the
                 // replacement runs one of its own, and the second one kills the first's server.
                 currentCoroutineContext().ensureActive()

@@ -1,6 +1,7 @@
 package moe.shizuku.manager.receiver
 
 import android.app.AlarmManager
+import moe.shizuku.manager.utils.AppStrings
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
@@ -97,7 +98,7 @@ class WatchdogAlarmReceiver : BroadcastReceiver() {
             ?: return
         manager.createChannelCompat(
             WatchdogService.CRASH_CHANNEL_ID,
-            "Crash Reports",
+            AppStrings.get(R.string.watchdog_crash_channel),
             NotificationManager.IMPORTANCE_DEFAULT
         )
         val notification = NotificationCompat.Builder(context, WatchdogService.CRASH_CHANNEL_ID)

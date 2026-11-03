@@ -1,5 +1,6 @@
 package moe.shizuku.manager.files
 
+import androidx.annotation.StringRes
 import android.os.ParcelFileDescriptor
 import java.io.File
 import java.io.IOException
@@ -8,6 +9,8 @@ import java.io.OutputStream
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
+import moe.shizuku.manager.utils.AppStrings
+import moe.shizuku.manager.R
 
 /**
  * The things done *to* files, as opposed to with them.
@@ -54,7 +57,7 @@ object FileOperations {
         into: String,
         onProgress: (Progress) -> Unit,
         cancelled: () -> Boolean
-    ): Outcome = run("copy") {
+    ): Outcome = run(R.string.files_err_copy) {
         val jobs = plan(paths, into)
         val scale = jobs.fold(Scale(0, 0)) { acc, (from, _) -> acc + weigh(from, cancelled) }
         var moved = 0L
@@ -77,7 +80,7 @@ object FileOperations {
         into: String,
         onProgress: (Progress) -> Unit,
         cancelled: () -> Boolean
-    ): Outcome = run("move") {
+    ): Outcome = run(R.string.files_err_move) {
         val jobs = plan(paths, into)
         val scale = jobs.fold(Scale(0, 0)) { acc, (from, _) -> acc + weigh(from, cancelled) }
         var moved = 0L
@@ -97,17 +100,17 @@ object FileOperations {
                 ?: return@run Outcome.Cancelled
             moved += copied
             if (!runCatching { PrivilegedFiles.delete(from) }.isSuccess) {
-                return@run Outcome.Failed("copied, but could not remove $from")
+                return@run Outcome.Failed(AppStrings.get(R.string.files_err_copied_not_removed, from))
             }
         }
         Outcome.Done
     }
 
-    suspend fun remove(paths: List<String>, onProgress: (Progress) -> Unit): Outcome = run("remove") {
+    suspend fun remove(paths: List<String>, onProgress: (Progress) -> Unit): Outcome = run(R.string.files_err_remove) {
         paths.forEachIndexed { index, path ->
             onProgress(Progress(Stage.DELETING, name(path), index.toLong(), paths.size.toLong()))
             if (!runCatching { PrivilegedFiles.delete(path) }.isSuccess) {
-                return@run Outcome.Failed("could not remove ${name(path)}")
+                return@run Outcome.Failed(AppStrings.get(R.string.files_err_remove_one, name(path)))
             }
         }
         Outcome.Done
@@ -124,7 +127,7 @@ object FileOperations {
         target: String,
         onProgress: (Progress) -> Unit,
         cancelled: () -> Boolean
-    ): Outcome = run("compress") {
+    ): Outcome = run(R.string.files_err_compress) {
         val scale = paths.fold(Scale(0, 0)) { acc, path -> acc + weigh(path, cancelled) }
         var written = 0L
 
@@ -173,7 +176,7 @@ object FileOperations {
         into: String,
         onProgress: (Progress) -> Unit,
         cancelled: () -> Boolean
-    ): Outcome = run("extract") {
+    ): Outcome = run(R.string.files_err_extract) {
         if (!PrivilegedFiles.exists(into)) PrivilegedFiles.mkdir(into)
 
         PrivilegedFiles.openRead(archive).use { descriptor ->
@@ -190,7 +193,7 @@ object FileOperations {
                         // it was pointed at.
                         val target = join(into, entryName)
                         if (!isInside(into, target)) {
-                            return@run Outcome.Failed("$entryName points outside ${name(into)}")
+                            return@run Outcome.Failed(AppStrings.get(R.string.files_err_zip_outside, entryName, name(into)))
                         }
 
                         if (entry.isDirectory) {
@@ -321,12 +324,12 @@ object FileOperations {
         }
     }
 
-    private inline fun run(what: String, block: () -> Outcome): Outcome = try {
+    private inline fun run(@StringRes what: Int, block: () -> Outcome): Outcome = try {
         block()
     } catch (e: IOException) {
-        Outcome.Failed(e.message ?: "could not $what")
+        Outcome.Failed(e.message ?: AppStrings.get(what))
     } catch (t: Throwable) {
-        Outcome.Failed(t.message ?: "could not $what")
+        Outcome.Failed(t.message ?: AppStrings.get(what))
     }
 
     /** Moves bytes until the input ends, reporting how many, or null when it was cancelled. */

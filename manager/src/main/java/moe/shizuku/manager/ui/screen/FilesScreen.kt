@@ -97,6 +97,7 @@ import moe.shizuku.manager.ui.component.ScrollToTopButton
 import moe.shizuku.manager.ui.component.PillButtonQuiet
 import moe.shizuku.manager.ui.component.SegmentedCard
 import moe.shizuku.manager.ui.component.SegmentedListItem
+import moe.shizuku.manager.utils.AppStrings
 
 /** How the rows of a folder are ordered. Folders are always first, whatever this says. */
 private enum class Sort {
@@ -613,9 +614,9 @@ fun FilesScreen(bottomPadding: Dp, onBack: () -> Unit) {
                                 if (PrivilegedFiles.rename(from, to)) {
                                     FileOperations.Outcome.Done
                                 } else {
-                                    FileOperations.Outcome.Failed("could not rename to $trimmed")
+                                    FileOperations.Outcome.Failed(AppStrings.get(R.string.files_err_rename_to, trimmed))
                                 }
-                            }.getOrElse { FileOperations.Outcome.Failed(it.message ?: "rename failed") }
+                            }.getOrElse { FileOperations.Outcome.Failed(it.message ?: AppStrings.get(R.string.files_err_rename)) }
                         }
                         selected = emptySet()
                     }
@@ -625,7 +626,7 @@ fun FilesScreen(bottomPadding: Dp, onBack: () -> Unit) {
                             PrivilegedFiles.mkdir(join(path, trimmed))
                             FileOperations.Outcome.Done
                         }.getOrElse {
-                            FileOperations.Outcome.Failed(it.message ?: "could not make the folder")
+                            FileOperations.Outcome.Failed(it.message ?: AppStrings.get(R.string.files_err_mkdir))
                         }
                     }
 
