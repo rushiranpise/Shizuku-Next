@@ -142,10 +142,24 @@ public class ShizukuSettings {
 
     @StartMethod
     public static int getStartMethod() {
-        int fallback = getLastLaunchMode() == LaunchMethod.ROOT
+        SharedPreferences prefs = getPreferences();
+        if (prefs.contains(Keys.KEY_START_METHOD)) {
+            return prefs.getInt(Keys.KEY_START_METHOD, StartMethod.WIRELESS);
+        }
+
+        // Nothing chosen yet, on a phone that has just been set up: follow how the server was
+        // last launched, which is what this did before there was a setting at all.
+        //
+        // Written down here, on the first read, rather than worked out again on every read. The
+        // last launch is an observation, and a wireless start made as the root fallback is an
+        // observation too: reading it afresh meant that one fallback rewrote the method that was
+        // never meant to be touched, so root coming back changed nothing and the app and the
+        // watchdog kept starting over wireless. Frozen, the choice survives what a start does.
+        @StartMethod int method = getLastLaunchMode() == LaunchMethod.ROOT
                 ? StartMethod.ROOT
                 : StartMethod.WIRELESS;
-        return getPreferences().getInt(Keys.KEY_START_METHOD, fallback);
+        prefs.edit().putInt(Keys.KEY_START_METHOD, method).apply();
+        return method;
     }
 
     public static void setStartMethod(@StartMethod int method) {

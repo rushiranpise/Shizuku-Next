@@ -246,9 +246,6 @@ fun HomeScreen(bottomPadding: Dp) {
         // for force dark as well, and up for a list that a mode has been switched off around.
         // Only hiding that is armed and live makes the warning under it true.
         hidingActive = HidingWatchService.isRunning() && Hiding.isActive()
-        // Root can be gone since the method was chosen; the card would otherwise keep
-        // promising a start the device can no longer run.
-        startMethod = StartMethodGuard.resolve()
         // A start that is already running has nothing left to report; without this a
         // "starting" state from a path that finishes elsewhere would stick.
         if (running) {
@@ -280,7 +277,10 @@ fun HomeScreen(bottomPadding: Dp) {
             // Reset rather than keep: the card must not show the uid of a server that is
             // gone.
             uid = if (running) runCatching { Shizuku.getUid() }.getOrDefault(-1) else -1
-            // Shell.getShell() can block and triggers the root request.
+            // Both of these can spawn a shell: the probe when the cached one is not root, and the
+            // guard because it asks the same question. Off the main thread for that reason, and
+            // resolved here so the card cannot describe a root that is no longer there.
+            startMethod = StartMethodGuard.resolve()
             rooted = runCatching { EnvironmentUtils.isRooted() }.getOrDefault(false)
             val (selinux, seccomp) = readDeviceStatus()
             selinuxRes = selinux

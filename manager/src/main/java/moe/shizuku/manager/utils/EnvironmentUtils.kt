@@ -7,6 +7,7 @@ import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.os.SystemClock
 import android.os.SystemProperties
 import android.provider.Settings
 import moe.shizuku.manager.ShizukuApplication
@@ -44,8 +45,44 @@ object EnvironmentUtils {
         ShizukuSettings.getForceWirelessDebugging()
     )
 
+    /** When root was last asked for, -1 before it ever was. See [isRooted]. */
+    @Volatile
+    private var lastRootProbeAt = -1L
+
+    /**
+     * How long a "not root" answer stands before the question is asked again.
+     *
+     * Long enough that a screen which refreshes cannot spawn a shell on every refresh, short
+     * enough that somebody who has just put root back sees it used on their next start.
+     */
+    private const val ROOT_REPROBE_MS = 10_000L
+
+    /**
+     * Whether this app can escalate to root right now.
+     *
+     * Asked through a shell, because that is the honest question: a device whose root manager
+     * grants this app is one a start can escalate on, and one where it does not is not.
+     *
+     * The catch is on the library's side: `Shell.getShell()` builds a shell once and hands the
+     * same one back for the life of the process, and a shell built while root was away is a plain
+     * one. So this used to answer "no root" until the process died, whatever came back
+     * afterwards. That answer is what the start method reads, so a start that fell back to
+     * wireless while root was gone stayed on wireless after root returned - the Root method was
+     * never offered again and the watchdog kept restarting over wireless, which is the whole of
+     * the bug. A cached shell that is not root is therefore dropped before the question is asked
+     * again, at most once per [ROOT_REPROBE_MS].
+     */
     fun isRooted(): Boolean {
-        return Shell.getShell().isRoot
+        val cached = Shell.getCachedShell()
+        if (cached != null && cached.isRoot) return true
+
+        val now = SystemClock.elapsedRealtime()
+        if (lastRootProbeAt >= 0 && now - lastRootProbeAt < ROOT_REPROBE_MS) return false
+        lastRootProbeAt = now
+
+        // Closed so the build below asks the root manager rather than reusing a plain shell.
+        if (cached != null) runCatching { cached.close() }
+        return runCatching { Shell.getShell().isRoot }.getOrDefault(false)
     }
 
     fun getAdbTcpPort(): Int {
