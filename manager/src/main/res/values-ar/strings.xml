@@ -6,70 +6,67 @@
       a change here reaches translators on the next push and not before.
     -->
     <!-- To translators: you can leave your here -->
-    <string name="home_status_adb_wireless">ADB</string>
-    <string name="home_status_adb_usb">ADB</string>
+    <string name="home_status_adb_wireless">adb</string>
+    <string name="home_status_adb_usb">adb</string>
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
-    <string name="home_wireless_adb_title"><![CDATA[البدء باستخدام تصحيح اخطاء اللاسلكية]]></string>
-    <string name="home_wireless_adb_starting_without_wifi">في حال عدم وجود شبكة: يتم توجيه طلبات متكررة للجهاز لتفعيل وضع تصحيح الأخطاء عبر الشبكة اللاسلكية إلى أن يستجيب. قد تستغرق هذه العملية ما يصل إلى دقيقتين قبل أن يبدأ الوضع في العمل أو يتوقف النظام عن المحاولة.</string>
-    <string name="home_usb_adb_needs_network">يستخدم بدء التشغيل عبر USB منفذ ADB التقليدي، ويتطلب إعادة فتحه اتصالًا بالشبكة. اتصل بشبكة Wi-Fi مرة واحدة، أو اختر <b>البدء بدون Wi-Fi</b> كطريقة لبدء التشغيل، واستخدم تصحيح الأخطاء اللاسلكي بدلًا من ذلك.
-</string>
-    <string name="home_wireless_adb_summary">بدأ التشغيل باستخدام تصحيح الأخطاء اللاسلكي.
-</string>
-    <string name="home_usb_adb_title"><![CDATA[بدء التشغيل عبر تصحيح أخطاء USB
-]]></string>
-    <string name="home_usb_adb_summary">بدأ التشغيل عبر تصحيح أخطاء USB.
-</string>
-    <string name="home_support_body">Shizuku-Next مجاني تمامًا وبدون إعلانات. مساهمتك بشراء فنجان قهوة تساعد في تغطية الوقت اللازم لصيانة المشروع وتطويره.
-</string>
+    <string name="home_wireless_adb_title"><![CDATA[البدء باستخدام "التصحيح اللاسلكي"]]></string>
+    <string name="home_wireless_adb_starting_without_wifi">في حال عدم وجود شبكة: يتم توجيه طلبات متكررة للجهاز لتفعيل وضع \"تصحيح الأخطاء عبر الشبكة اللاسلكية\" إلى أن يستجيب. قد تستغرق هذه العملية ما يصل إلى دقيقتين قبل أن يبدأ الوضع في العمل أو يتوقف النظام عن المحاولة.</string>
+    <string name="home_usb_adb_needs_network">يستخدم بدء التشغيل عبر USB منفذ ADB التقليدي، ويتطلب إعادة فتحه اتصالًا بالشبكة. اتصل بشبكة Wi-Fi مرة واحدة، أو اختر <b>البدء بدون Wi-Fi</b> كطريقة لبدء التشغيل، واستخدم تصحيح الأخطاء اللاسلكي بدلًا من ذلك.</string>
+    <string name="home_wireless_adb_summary">بدأ التشغيل باستخدام تصحيح الأخطاء اللاسلكي.</string>
+    <string name="home_usb_adb_title"><![CDATA[بدء التشغيل عبر تصحيح أخطاء USB]]></string>
+    <string name="home_usb_adb_summary">بدأ التشغيل عبر تصحيح أخطاء USB.</string>
+    <string name="home_support_body">\"Shizuku-Next\" مجاني تمامًا وبدون إعلانات. مساهمتك بـ\"شراء فنجان قهوة\" تساعد في تغطية الوقت اللازم لصيانة المشروع وتطويره.</string>
     <string name="diagnostics_title">التشخيص</string>
-    <string name="diagnostics_copy"></string>
-    <string name="diagnostics_copied"></string>
-    <string name="diagnostics_service"></string>
-    <string name="diagnostics_server_uid"></string>
-    <string name="diagnostics_server_api"></string>
-    <string name="diagnostics_server_context"></string>
-    <string name="diagnostics_wireless_debugging"></string>
-    <string name="diagnostics_adb_port"></string>
+    <string name="diagnostics_copy">انسخ التشخيص</string>
+    <string name="diagnostics_copied">تم نسخ التشخيص</string>
+    <string name="diagnostics_service">الخدمات</string>
+    <string name="diagnostics_server_uid">معرف الخادم \"Uid\"</string>
+    <string name="diagnostics_server_api">واجهة برمجة تطبيقات الخوادم \"API\"</string>
+    <string name="diagnostics_server_context">سياق الخادم \"Context\"</string>
+    <string name="diagnostics_wireless_debugging">التصحيح اللاسلكي</string>
+    <string name="diagnostics_adb_port">منفذ \"ADB\"</string>
     <string name="diagnostics_wifi">واي فاي</string>
-    <string name="diagnostics_local_network"></string>
+    <string name="diagnostics_local_network">الشبكة المحلية </string>
     <string name="diagnostics_battery"></string>
-    <string name="diagnostics_app"></string>
-    <string name="diagnostics_android"></string>
-    <string name="diagnostics_device"></string>
-    <string name="diagnostics_started_with"></string>
-    <string name="diagnostics_default"></string>
-    <string name="diagnostics_hiding"></string>
-    <string name="diagnostics_phantom"></string>
-    <string name="diagnostics_root"></string>
-    <string name="diagnostics_granted"></string>
-    <string name="diagnostics_missing"></string>
-    <string name="diagnostics_not_required"></string>
-    <string name="diagnostics_connected"></string>
-    <string name="diagnostics_not_connected"></string>
+    <string name="diagnostics_app">تطبيق</string>
+    <string name="diagnostics_android">اندرويد</string>
+    <string name="diagnostics_device">الجهاز</string>
+    <string name="diagnostics_started_with">تم البدء باستخدام</string>
+    <string name="diagnostics_default">الطريقة الافتراضية</string>
+    <string name="diagnostics_hiding">الإخفاء</string>
+    <string name="diagnostics_phantom">أداة إنهاء العمليات</string>
+    <string name="diagnostics_root">رووت</string>
+    <string name="diagnostics_granted">ممنوح</string>
+    <string name="diagnostics_missing">مفقود</string>
+    <string name="diagnostics_not_required">غير مطلوب</string>
+    <string name="diagnostics_connected">متصل</string>
+    <string name="diagnostics_not_connected">غير متصل</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
-    <string name="diagnostics_battery_optimized"></string>
-    <string name="diagnostics_battery_unrestricted"></string>
+    <string name="diagnostics_battery_optimized">مُحسن</string>
+    <string name="diagnostics_battery_unrestricted">غير مقيد</string>
     <string name="diagnostics_available"></string>
-    <string name="diagnostics_unavailable"></string>
-    <string name="diagnostics_closed"></string>
+    <string name="diagnostics_unavailable">غير متوفر</string>
+    <string name="diagnostics_closed">مغلق</string>
     <!-- Adb -->
-    <string name="dialog_adb_port"></string>
-    <string name="dialog_adb_invalid_port"></string>
-    <string name="adb_pairing"></string>
-    <string name="dialog_adb_pairing_title"></string>
-    <string name="dialog_adb_pairing_discovery"></string>
-    <string name="dialog_adb_pairing_paring_code"></string>
-    <string name="paring_code_is_wrong"></string>
-    <string name="cannot_connect_port"></string>
-    <string name="dialog_adb_pairing_message"></string>
+    <string name="dialog_adb_port">المنفذ</string>
+    <string name="dialog_adb_invalid_port">المنفذ هو عدد صحيح يتراوح من 1 إلى 65535.</string>
+    <string name="adb_pairing">الاقتران</string>
+    <string name="dialog_adb_pairing_title">إقران مع الجهاز</string>
+    <string name="dialog_adb_pairing_discovery">جاري البحث على جهاز للإقران</string>
+    <string name="dialog_adb_pairing_paring_code">كود الاقتران</string>
+    <string name="paring_code_is_wrong">رمز الاقتران خاطئ.</string>
+    <string name="cannot_connect_port">لا يمكن الاتصال بخدمة \"تصحيح الأخطاء اللاسلكية\". \n\nيرجى التأكد من إدراج Shizuku في القائمة البيضاء لجميع جدران الحماية، أو تطبيقات حظر الإعلانات، أو VPN، أو التطبيقات المماثلة التي يمكنها تقييد الوصول إلى الشبكة.</string>
+    <string name="dialog_adb_pairing_message">يرجى بدء عملية الاقتران من خلال تنفيذ الخطوات التالية:
+
+\n- انتقل إلى \"خيارات المطور\"\n- قم بتمكين \"تصحيح أخطاء USB\" و\"تصحيح الأخطاء اللاسلكية\" \n- انقر على الجانب الأيسر من \"تصحيح الأخطاء اللاسلكية\"\n- انقر على \"إقران الجهاز برمز الإقران\"\n- أدخل رمز الاقتران في الإشعار</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
-    <string name="dialog_adb_pairing_accessibility_permission"></string>
+    <string name="dialog_adb_pairing_accessibility_permission">يحظر Android تفعيل هذا الخيار للتطبيقات المثبتة من خارج متجر التطبيقات. اسمح بإذن ^1 لتفعيل خدمة تسهيل الاستخدام. ستظهر هذه الخدمة في قائمة تسهيل الاستخدام بالحالة \"يخضع لقيود الإعدادات\".\n\nافتح معلومات التطبيق واختر \"السماح بالإعدادات المقيّدة\" من القائمة، أو نفّذ هذا الأمر على جهاز كمبيوتر:\\n\\n^2\n\nكلا الخيارين يعمل. سيعمل المفتاح بعد ذلك.</string>
     <string name="dialog_adb_pairing_open_app_info"></string>
     <string name="dialog_adb_pairing_accessibility_enable"></string>
     <string name="dialog_adb_pairing_accessibility_navigate">يرجى بدء عملية الاقتران من خلال تنفيذ
@@ -278,7 +275,10 @@
     <string name="activities_copy">نسخ</string>
     <string name="activities_edit_as_intent">تعديل كـ Intent</string>
     <string name="activities_copied">تم النسخ</string>
-    <string name="activities_apps_section">التطبيقات </string>
+    <string name="activities_saved">الأنشطة المحفوظة</string>
+    <string name="activities_apps_section">التطبيقات</string>
+    <string name="activities_save">احفظ</string>
+    <string name="activities_unsave">أحذف من قائمة الحفظ</string>
     <string name="tab_intent_builder">منشئ الـ Intent</string>
     <string name="intent_builder_note">أنشئ وأرسل Intent. يمكنك تعيين الإجراء (Action)، البيانات (Data)، النوع (Type)، المكوّن (Component)، الفئات (Categories)، الإضافات (Extras)، والعلامات (Flags). يمكنك أيضًا تحميل Intent من معرّف URI، مثل
 intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
@@ -617,6 +617,15 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="action_open_wireless_debugging">تصحيح الأخطاء عن طريق الشبكه اللاسلكية</string>
     <string name="start_failed_unsupported">الجهاز لا يدعم التشغيل ف الخلفيه</string>
     <string name="start_failed_wifi_required">فشل البدء تاكد من اتصالك بشبكه لاسلكيه \"WI-FI\" و تشغيل تحسين الاخطاء عن طريق الشبكه اللاسلكيه. او حاول التشغيل عن طريق جهاز حاسوب باستخدام ادوات \"ADB\".</string>
+    <string name="start_failed_no_port">لم يتم العثور على منفذ \"التصحيح اللاسلكي\" تأكد من أن \"التصحيح اللاسلكي\" مفعل، وأن الانترنت متصل.</string>
+    <string name="start_failed_no_port_no_permission">لم يتم العثور على منفذ التصحيح اللاسلكي، ولا يمكن لـ Shizuku تفعيل التصحيح اللاسلكي بدون صلاحية WRITE_SECURE_SETTINGS: <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. أو قم بتشغيل Shizuku عبر \"USB Debugging\" مرة واحدة لكي يمنح نفسه الصلاحية بعد ذلك.</string>
+    <string name="start_failed_no_auth">\"التصحيح اللاسلكي\" غير مسموح على هذه الشبكة. أقرن الجهاز مرة اخرى.</string>
+    <string name="action_dismiss">تجاهل</string>
+    <string name="action_connect_wifi">اتصل</string>
+    <string name="action_pair">أقرن</string>
+    <string name="start_failed_pairing_required">هذا الجهاز غير مقرن بـ \"التصحيح اللاسلكي\"، أقرنه مجددا.</string>
+    <string name="start_failed_connection_lost">أُغلق اتصال ADB أثناء البدء. أعد المحاولة.</string>
+    <string name="start_failed_usb_no_port">لم يتم فتح أي منفذ ADB محلي. يقوم نظام أندرويد بإغلاقه عند كل إعادة تشغيل، وإعادة فتحه تتطلب اتصالاً مؤقتاً. اتصل بشبكة الإنترنت وسيقوم Shizuku بإعادة فتحه عبر \"التصحيح اللاسلكي\"، أو قم بتشغيل <b>adb tcpip 5555</b> من الكمبيوتر، أو اختر <b>البدء بدون Wi-Fi</b> كطريقة تشغيل؛ لتبدأ عبر \"التصحيح اللاسلكي\" بدلاً من ذلك.</string>
     <string name="settings_section_wireless">تصحيح الأخطاء عن طريق الشبكه اللاسلكية</string>
     <string name="intents_start">البدء بالتشغيل</string>
     <string name="intents_package">الحزمة</string>
@@ -634,6 +643,20 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
         كتابة المسار.\n\nوإلا، يمكنك إنشاء اسم مستعار لـ %2$s في ملف تكوين تطبيقك الطرفي %3$s .</string>
     <string name="terminal_tutorial_3">افتح shell باستخدام الأمر التالي:</string>
     <!-- Stealth -->
+    <string name="stealth_info_rish">Rish users: re-export the files after installing the hidden version.</string>
+    <string name="stealth_info_intents">Intent users: update your intents with the new package name.</string>
+    <string name="stealth_info_update">You must update Shizuku through the app when using the hidden version because it has a different signature.</string>
+    <string name="stealth_package_name">Package name (optional)</string>
+    <string name="stealth_package_name_helper_text">If left empty, a random suffix will be added to the package name.</string>
+    <string name="stealth_error_ends_with_period">Package name cannot end with a period.</string>
+    <string name="stealth_error_invalid_characters">Only letters, numbers, and periods are allowed.</string>
+    <string name="stealth_error_needs_two_segments">Package name must have at least two segments.</string>
+    <string name="stealth_error_segment_starts_with_number">Segments cannot start with a number.</string>
+    <string name="stealth_display_name">Display name (optional)</string>
+    <string name="stealth_display_name_helper_text">Shown as the name of the copy in the launcher and the app list. Left empty, the copy keeps the name of this app.</string>
+    <string name="stealth_error_display_name_too_long">Keep it to %1$d characters or fewer.</string>
+    <string name="stealth_uninstall_required">Uninstall required</string>
+    <string name="stealth_uninstall_message">The system will now prompt you to uninstall Shizuku. Then, install the clone.</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">التشغيل تلقائيًا عند بدء تشغيل الجهاز
 </string>
@@ -641,11 +664,13 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="settings_watchdog_summary">إعادة تشغيل Shizuku تلقائيًا في حالة تعطله</string>
     <string name="settings_auto_disable_wireless_debugging">إيقاف تصحيح الأخطاء اللاسلكي
 </string>
-    <string name="transport_adb">ADB</string>
+    <string name="transport_adb">adb</string>
     <string name="settings_adb_without_developer_options">إيقاف خيارات المطوّر
 </string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
+    <string name="settings_persist_adb_port_ok">سيبقى ADB Port مفتوحًا بعد اعادة التشغيل</string>
+    <string name="settings_persist_adb_port_refused">لم يسمح اندوريد بذلك، يجب تشغيل شيزوكو كـ \"روت\" أو \"مستخدم نظام\".</string>
     <string name="settings_tcp_mode">وضع TCP</string>
     <string name="settings_tcp_mode_summary">"يسمح لـ Shizuku بإعادة التشغيل دون اتصال Wi-Fi. (يجب
         أن يكون Shizuku قد بدأ مرة واحدة بعد إعادة التشغيل)"</string>
@@ -765,6 +790,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="manage_status_disabled">غير مفعل</string>
     <string name="manage_status_hidden">مخفي</string>
     <!-- One app, and what it may do on the device -->
+    <string name="app_open_info">معلومات التطبيق</string>
     <string name="app_op_mode_default">تلقائي</string>
     <string name="app_op_mode_deny">منع</string>
     <string name="app_action_enable">يُمكَِن</string>

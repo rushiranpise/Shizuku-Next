@@ -242,6 +242,8 @@
     <string name="activities_copied">Скопировано</string>
     <string name="activities_apps_section">Приложения</string>
     <string name="activities_save">Сохранить</string>
+    <string name="activities_unsave">Убрать из сохранённых</string>
+    <string name="activities_gone">Эта активность больше не установлена.</string>
     <string name="tab_intent_builder">Конструктор интентов</string>
     <string name="intent_builder_note">Сконструируйте и отправьте интент. Можно задать его действие, данные, тип, компонент, категории, дополнения (extras) и флаги. Также можно загрузить интент из URI, например intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end, — это формат, используемый Activity Launcher и большинством инструментов автоматизации. При загрузке поля заполнятся автоматически, чтобы вы могли проверить и отредактировать их перед отправкой.</string>
     <string name="intent_uri">URI интента</string>
@@ -1103,6 +1105,7 @@
     <string name="files_root_internal">Int.</string>
     <string name="files_root_app_data">Данные</string>
     <string name="files_root_system">Система</string>
+    <string name="files_root_root">Root</string>
     <string name="files_empty">В этой папке ничего нет.</string>
     <string name="files_all_hidden">Всё содержимое этой папки скрыто.</string>
     <string name="files_sort">Сортировка</string>
