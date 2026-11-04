@@ -238,8 +238,11 @@
     <string name="activities_copy">Copia</string>
     <string name="activities_edit_as_intent">Modifica come intento</string>
     <string name="activities_copied">Copiato</string>
+    <string name="activities_saved">Attività salvate</string>
     <string name="activities_apps_section">App</string>
     <string name="activities_save">Salva</string>
+    <string name="activities_unsave">Rimuovi da salvate</string>
+    <string name="activities_gone">Questa attività non è più installata.</string>
     <string name="tab_intent_builder">Generatore di intent</string>
     <string name="intent_builder_note">Crea e invia un intent. Puoi impostarne azione, dati, tipo, componente, categorie, extra e flag. Puoi anche caricare un intent da un URI, per esempio intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end. È il formato usato da Activity Launcher e dalla maggior parte degli strumenti di automazione. Caricarne uno compila i campi, così puoi controllarlo e modificarlo prima di inviarlo.</string>
     <string name="intent_uri">URI dell\'intent</string>
