@@ -3,6 +3,7 @@ package moe.shizuku.manager.ui.screen
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import androidx.activity.compose.BackHandler
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.clickable
@@ -23,6 +24,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.AdminPanelSettings
 import androidx.compose.material.icons.outlined.Bolt
@@ -57,6 +59,7 @@ import androidx.compose.material.icons.outlined.WifiTethering
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
@@ -125,6 +128,78 @@ import rikka.shizuku.manager.ShizukuLocales
 /** The agent a system uid start goes through, checked for when it is not running yet. */
 private const val FOTA_AGENT_PACKAGE = "com.sdet.fotaagent"
 
+/** The settings categories. The tab lists these and opens one at a time. */
+private enum class SettingsSection(
+    @StringRes val titleRes: Int,
+    @StringRes val summaryRes: Int,
+    val icon: ImageVector
+) {
+    STARTUP(
+        R.string.settings_section_startup,
+        R.string.settings_section_startup_summary,
+        Icons.Outlined.PowerSettingsNew
+    ),
+    WIRELESS(
+        R.string.settings_section_wireless,
+        R.string.settings_section_wireless_summary,
+        Icons.Outlined.Wifi
+    ),
+    TOOLS(
+        R.string.settings_section_tools,
+        R.string.settings_section_tools_summary,
+        Icons.Outlined.Tune
+    ),
+    APPEARANCE(
+        R.string.settings_section_appearance,
+        R.string.settings_section_appearance_summary,
+        Icons.Outlined.Palette
+    ),
+    ABOUT(
+        R.string.settings_section_about,
+        R.string.settings_section_about_summary,
+        Icons.Outlined.Info
+    )
+}
+
+/**
+ * The settings index: one short row per category, each opening a screen of its own.
+ *
+ * The categories used to be headers in one list, which made the tab a long scroll before
+ * anything could be found. This keeps the tab to five rows and each screen to what fits.
+ */
+@Composable
+private fun SettingsHub(
+    bottomPadding: Dp,
+    onOpen: (SettingsSection) -> Unit
+) {
+    LazyColumn(
+        contentPadding = PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp, bottom = bottomPadding),
+        verticalArrangement = Arrangement.spacedBy(13.dp)
+    ) {
+        item {
+            SegmentedColumn(modifier = Modifier.fillMaxWidth()) {
+                SettingsSection.entries.forEach { section ->
+                    item {
+                        SegmentedListItem(
+                            centerSlots = true,
+                            leadingContent = { SettingsIcon(section.icon) },
+                            headlineContent = { Text(stringResource(section.titleRes)) },
+                            supportingContent = { Text(stringResource(section.summaryRes)) },
+                            trailingContent = {
+                                Icon(
+                                    Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                                    contentDescription = null
+                                )
+                            },
+                            onClick = { onOpen(section) }
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
@@ -133,6 +208,9 @@ fun SettingsScreen(
     onRunSetup: () -> Unit
 ) {
     val context = LocalContext.current
+
+    // Null is the index. Anything else is one of the short category screens.
+    var section by rememberSaveable { mutableStateOf<SettingsSection?>(null) }
 
     var startOnBoot by remember { mutableStateOf(ShizukuSettings.getStartOnBoot(context)) }
     var watchdog by remember { mutableStateOf(ShizukuSettings.getWatchdog()) }
@@ -270,9 +348,26 @@ fun SettingsScreen(
         }
     }
 
+    val currentSection = section
+
+    // Back leaves the category before it leaves the tab.
+    BackHandler(enabled = currentSection != null) { section = null }
+
     Column(modifier = Modifier.fillMaxSize()) {
         TopAppBar(
-            title = { Text(stringResource(R.string.tab_settings)) },
+            title = {
+                Text(
+                    if (currentSection == null) stringResource(R.string.tab_settings)
+                    else stringResource(currentSection.titleRes)
+                )
+            },
+            navigationIcon = {
+                if (currentSection != null) {
+                    IconButton(onClick = { section = null }) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
+                    }
+                }
+            },
             windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp)
         )
 
@@ -281,15 +376,19 @@ fun SettingsScreen(
                 .fillMaxWidth()
                 .weight(1f)
         ) {
+            if (currentSection == null) {
+                SettingsHub(
+                    bottomPadding = bottomPadding,
+                    onOpen = { section = it }
+                )
+            } else {
             val listState = rememberLazyListState()
             LazyColumn(
                 state = listState,
                 contentPadding = PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp, bottom = bottomPadding),
                 verticalArrangement = Arrangement.spacedBy(13.dp)
             ) {
-            item {
-                SettingsSectionHeader(R.string.settings_section_startup)
-            }
+            if (currentSection == SettingsSection.STARTUP) {
             item {
                 SegmentedColumn(modifier = Modifier.fillMaxWidth()) {
                     item {
@@ -575,10 +674,9 @@ fun SettingsScreen(
                     }
                 }
             }
-
-            item {
-                SettingsSectionHeader(R.string.settings_section_wireless)
             }
+
+            if (currentSection == SettingsSection.WIRELESS) {
             item {
                 SegmentedColumn(modifier = Modifier.fillMaxWidth()) {
                     item {
@@ -681,10 +779,9 @@ fun SettingsScreen(
                     }
                 }
             }
-
-            item {
-                SettingsSectionHeader(R.string.settings_section_tools)
             }
+
+            if (currentSection == SettingsSection.TOOLS) {
             item {
                 SegmentedColumn(modifier = Modifier.fillMaxWidth()) {
                     // Battery optimisation moved onto the permissions page: it answers the
@@ -758,10 +855,9 @@ fun SettingsScreen(
                     }
                 }
             }
-
-            item {
-                SettingsSectionHeader(R.string.settings_section_appearance)
             }
+
+            if (currentSection == SettingsSection.APPEARANCE) {
             item {
                 SegmentedColumn(modifier = Modifier.fillMaxWidth()) {
                     item {
@@ -839,10 +935,9 @@ fun SettingsScreen(
                     }
                 }
             }
-
-            item {
-                SettingsSectionHeader(R.string.settings_section_about)
             }
+
+            if (currentSection == SettingsSection.ABOUT) {
             item {
                 SegmentedColumn(modifier = Modifier.fillMaxWidth()) {
                     item {
@@ -995,12 +1090,14 @@ fun SettingsScreen(
                 }
             }
             }
+            }
 
             ScrollToTopButton(
                 listState = listState,
                 bottomPadding = bottomPadding,
                 modifier = Modifier.align(Alignment.BottomEnd)
             )
+            }
         }
     }
 
