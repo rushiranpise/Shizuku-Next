@@ -459,8 +459,6 @@
     <string name="status_stopped_short">Stopped</string>
     <string name="home_status_service_active">Shizuku service is active</string>
     <string name="home_status_service_stopped">Shizuku service is not running</string>
-    <string name="home_status_active">Active</string>
-    <string name="home_status_inactive">Inactive</string>
     <string name="action_start">Start</string>
     <string name="tools_stealth">Stealth mode</string>
     <string name="tools_modules">Modules</string>

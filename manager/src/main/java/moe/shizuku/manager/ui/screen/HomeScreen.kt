@@ -18,7 +18,6 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -86,7 +85,6 @@ import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -1073,52 +1071,6 @@ private fun StatusSummaryCard(running: Boolean) {
                     color = contentColor.copy(alpha = 0.74f)
                 )
             }
-
-            Spacer(modifier = Modifier.width(12.dp))
-
-            StatusPill(running)
-        }
-    }
-}
-
-/** The activity marker from the mock, green only when the service is actually running. */
-@Composable
-private fun StatusPill(running: Boolean) {
-    val darkSurface = MaterialTheme.colorScheme.surface.luminance() < 0.5f
-    val accent = when {
-        !running -> MaterialTheme.colorScheme.onSurfaceVariant
-        darkSurface -> Color(0xFF4ADE80)
-        else -> Color(0xFF15803D)
-    }
-    val fill = when {
-        !running -> MaterialTheme.colorScheme.surfaceContainerHighest
-        darkSurface -> Color(0x334ADE80)
-        else -> Color(0xFFDCFCE7)
-    }
-
-    Surface(
-        shape = CircleShape,
-        color = fill,
-        contentColor = accent,
-        border = BorderStroke(1.dp, accent.copy(alpha = 0.55f))
-    ) {
-        Row(
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(7.dp)
-                    .background(accent, CircleShape)
-            )
-            Spacer(modifier = Modifier.width(6.dp))
-            Text(
-                stringResource(
-                    if (running) R.string.home_status_active else R.string.home_status_inactive
-                ),
-                style = MaterialTheme.typography.labelLarge,
-                maxLines = 1
-            )
         }
     }
 }
