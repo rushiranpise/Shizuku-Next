@@ -1292,16 +1292,21 @@ private data class StatusFactEntry(
 )
 
 /**
- * One fact: its label above its value. The label is set back so the eye reads the value first,
- * and every column starts at the same place so the last one cannot drift away from the rest.
+ * One fact: its label above its value, centred in its own share of the row. The four columns
+ * are equals, so centring them keeps the gaps even and stops the last one reading as a
+ * separate, flush-left block.
  */
 @Composable
 private fun StatusFact(fact: StatusFactEntry, modifier: Modifier = Modifier) {
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Text(
             stringResource(fact.label),
             style = MaterialTheme.typography.bodySmall,
             color = LocalContentColor.current.copy(alpha = 0.7f),
+            textAlign = TextAlign.Center,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis
         )
@@ -1312,6 +1317,7 @@ private fun StatusFact(fact: StatusFactEntry, modifier: Modifier = Modifier) {
             // the method names are longer than a quarter of the width and "Start without
             // Wi-Fi" clipped to "Start wi…" says less than it costs to wrap.
             style = MaterialTheme.typography.bodyMedium,
+            textAlign = TextAlign.Center,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis
         )
@@ -1320,6 +1326,7 @@ private fun StatusFact(fact: StatusFactEntry, modifier: Modifier = Modifier) {
                 it,
                 style = MaterialTheme.typography.bodySmall,
                 color = LocalContentColor.current.copy(alpha = 0.7f),
+                textAlign = TextAlign.Center,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
