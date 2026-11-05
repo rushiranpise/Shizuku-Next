@@ -18,7 +18,6 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -87,8 +86,6 @@ import androidx.compose.runtime.setValue
 import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -1028,83 +1025,59 @@ private fun StatusSummaryCard(running: Boolean) {
         contentColor = contentColor,
         shape = shape
     ) {
-        Box(modifier = Modifier.fillMaxWidth()) {
-            // A soft off-screen bloom, like the mock: the card keeps its flat role colour
-            // underneath, so the content stays readable in every theme.
-            if (running) {
-                val glow = MaterialTheme.colorScheme.primary
-                Canvas(modifier = Modifier.matchParentSize()) {
-                    val center = Offset(size.width * 0.94f, size.height * 1.08f)
-                    val radius = size.width * 0.58f
-                    drawCircle(
-                        brush = Brush.radialGradient(
-                            colors = listOf(
-                                glow.copy(alpha = 0.38f),
-                                glow.copy(alpha = 0.12f),
-                                Color.Transparent
-                            ),
-                            center = center,
-                            radius = radius
-                        ),
-                        radius = radius,
-                        center = center
-                    )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 18.dp, vertical = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            // Same tint as the old status icon: the badge is that colour at low alpha,
+            // so the glyph keeps its contrast instead of becoming a second colour role.
+            // AMOLED paints every surface black, so the ring is what keeps the badge
+            // from disappearing into the stopped card.
+            Surface(
+                modifier = Modifier.size(58.dp),
+                shape = CircleShape,
+                color = contentColor.copy(alpha = 0.12f),
+                contentColor = contentColor,
+                border = if (LocalAmoledTheme.current) {
+                    BorderStroke(1.dp, contentColor.copy(alpha = 0.45f))
+                } else {
+                    null
                 }
-            }
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 18.dp, vertical = 16.dp),
-                verticalAlignment = Alignment.CenterVertically
             ) {
-                Surface(
-                    modifier = Modifier.size(58.dp),
-                    shape = CircleShape,
-                    color = if (running) {
-                        MaterialTheme.colorScheme.primary
-                    } else {
-                        MaterialTheme.colorScheme.surfaceContainerHighest
-                    },
-                    contentColor = if (running) {
-                        MaterialTheme.colorScheme.onPrimary
-                    } else {
-                        MaterialTheme.colorScheme.onSurfaceVariant
-                    }
-                ) {
-                    Box(contentAlignment = Alignment.Center) {
-                        Icon(
-                            if (running) Icons.Rounded.Check else Icons.Rounded.Stop,
-                            contentDescription = null,
-                            modifier = Modifier.size(30.dp)
-                        )
-                    }
-                }
-
-                Spacer(modifier = Modifier.width(16.dp))
-
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        stringResource(
-                            if (running) R.string.status_running_short else R.string.status_stopped_short
-                        ),
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                    Text(
-                        stringResource(
-                            if (running) R.string.home_status_service_active
-                            else R.string.home_status_service_stopped
-                        ),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = contentColor.copy(alpha = 0.74f)
+                Box(contentAlignment = Alignment.Center) {
+                    Icon(
+                        if (running) Icons.Rounded.Check else Icons.Rounded.Stop,
+                        contentDescription = null,
+                        modifier = Modifier.size(30.dp)
                     )
                 }
-
-                Spacer(modifier = Modifier.width(12.dp))
-
-                StatusPill(running)
             }
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    stringResource(
+                        if (running) R.string.status_running_short else R.string.status_stopped_short
+                    ),
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.SemiBold
+                )
+                Text(
+                    stringResource(
+                        if (running) R.string.home_status_service_active
+                        else R.string.home_status_service_stopped
+                    ),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = contentColor.copy(alpha = 0.74f)
+                )
+            }
+
+            Spacer(modifier = Modifier.width(12.dp))
+
+            StatusPill(running)
         }
     }
 }
