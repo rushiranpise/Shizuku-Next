@@ -43,9 +43,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.rounded.AdminPanelSettings
 import androidx.compose.material.icons.rounded.CheckCircle
+import androidx.compose.material.icons.rounded.Code
 import androidx.compose.material.icons.rounded.Coffee
 import androidx.compose.material.icons.rounded.Computer
 import androidx.compose.material.icons.rounded.Numbers
+import androidx.compose.material.icons.rounded.PlayArrow
+import androidx.compose.material.icons.rounded.Refresh
+import androidx.compose.material.icons.rounded.Stop
 import androidx.compose.material.icons.rounded.StopCircle
 import androidx.compose.material.icons.rounded.Usb
 import androidx.compose.material.icons.rounded.ExpandMore
@@ -81,6 +85,7 @@ import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -692,7 +697,7 @@ fun HomeScreen(bottomPadding: Dp) {
                 // The three debugging switches, under the server's own, because they are what
                 // starting needs and what a person turns off when they are done. Blue is on and
                 // the quiet surface is off, the same blue the Restart button uses for "this does
-                // something": no new colour role, and no icon to read.
+                // something": no new colour role. The icons name each switch without colour.
                 DebuggingActionButtons(
                     devOptions = devOptions,
                     usbDebugging = usbDebugging,
@@ -1239,18 +1244,34 @@ private fun DebuggingActionButtons(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        DebuggingButton(stringResource(R.string.home_switch_dev_options), devOptions, onDevOptions)
-        DebuggingButton(stringResource(R.string.home_switch_usb), usbDebugging, onUsbDebugging)
         DebuggingButton(
-            stringResource(R.string.home_switch_wireless),
-            wirelessDebugging,
-            onWirelessDebugging
+            icon = Icons.Rounded.Code,
+            label = stringResource(R.string.home_switch_dev_options),
+            on = devOptions,
+            onClick = onDevOptions
+        )
+        DebuggingButton(
+            icon = Icons.Rounded.Usb,
+            label = stringResource(R.string.home_switch_usb),
+            on = usbDebugging,
+            onClick = onUsbDebugging
+        )
+        DebuggingButton(
+            icon = Icons.Rounded.Wifi,
+            label = stringResource(R.string.home_switch_wireless),
+            on = wirelessDebugging,
+            onClick = onWirelessDebugging
         )
     }
 }
 
 @Composable
-private fun RowScope.DebuggingButton(label: String, on: Boolean, onClick: () -> Unit) {
+private fun RowScope.DebuggingButton(
+    icon: ImageVector,
+    label: String,
+    on: Boolean,
+    onClick: () -> Unit
+) {
     Button(
         // The height a two-line label needs; a longer translation grows the button instead
         // of being cut off.
@@ -1279,12 +1300,31 @@ private fun RowScope.DebuggingButton(label: String, on: Boolean, onClick: () -> 
             null
         }
     ) {
-        Text(
+        ButtonIconLabel(
+            icon = icon,
             // The break goes after the first word rather than into the string: a translation
             // keeps its own words, and what is left wraps instead of being cut off.
-            label.replaceFirst(' ', '\n'),
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.labelLarge
+            label = label.replaceFirst(' ', '\n')
+        )
+    }
+}
+
+/** A button's glyph and label, kept together and centred in the pill. */
+@Composable
+private fun ButtonIconLabel(icon: ImageVector, label: String) {
+    Row(
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            icon,
+            contentDescription = null,
+            modifier = Modifier.size(18.dp)
+        )
+        Spacer(Modifier.width(6.dp))
+        Text(
+            text = label,
+            textAlign = TextAlign.Center
         )
     }
 }
@@ -1337,9 +1377,9 @@ private fun ServerActionButtons(
                     color = MaterialTheme.colorScheme.primary
                 )
             } else {
-                Text(
-                    text = stringResource(R.string.action_start),
-                    textAlign = TextAlign.Center
+                ButtonIconLabel(
+                    icon = Icons.Rounded.PlayArrow,
+                    label = stringResource(R.string.action_start)
                 )
             }
         }
@@ -1359,9 +1399,9 @@ private fun ServerActionButtons(
                 contentColor = MaterialTheme.colorScheme.onError
             )
         ) {
-            Text(
-                text = stringResource(R.string.action_stop),
-                textAlign = TextAlign.Center
+            ButtonIconLabel(
+                icon = Icons.Rounded.Stop,
+                label = stringResource(R.string.action_stop)
             )
         }
 
@@ -1381,9 +1421,9 @@ private fun ServerActionButtons(
                 contentColor = Color.White
             )
         ) {
-            Text(
-                text = stringResource(R.string.action_restart),
-                textAlign = TextAlign.Center
+            ButtonIconLabel(
+                icon = Icons.Rounded.Refresh,
+                label = stringResource(R.string.action_restart)
             )
         }
     }
