@@ -37,6 +37,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
@@ -1293,6 +1294,10 @@ private val RestartBlue = Color(0xFF2563EB)
  * Start, Stop and Restart below the status card, all always visible. An action that
  * doesn't apply right now is disabled rather than hidden, so the row never shifts.
  * A start in flight shows as progress inside Start, where the eye already is.
+ *
+ * The row is a set of equals: the pill shape and a minimum height are set here rather than
+ * left to the button default, because a longer translation wraps and the default shape turns
+ * into a rounded rectangle while its one-line neighbours stay pills.
  */
 @Composable
 private fun ServerActionButtons(
@@ -1302,14 +1307,22 @@ private fun ServerActionButtons(
     onStop: () -> Unit,
     onRestart: () -> Unit
 ) {
+    // A wrapped label needs room for two lines. The minimum height keeps every button in the
+    // row the same size; the smaller horizontal padding leaves long words more width.
+    val buttonPadding = PaddingValues(horizontal = 8.dp, vertical = 6.dp)
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Button(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .heightIn(min = 56.dp),
             enabled = !running && !starting,
-            onClick = onStart
+            onClick = onStart,
+            shape = CircleShape,
+            contentPadding = buttonPadding
         ) {
             if (starting) {
                 // The morphing loader rather than a ring: it is the shape Material 3
@@ -1321,37 +1334,60 @@ private fun ServerActionButtons(
                     color = MaterialTheme.colorScheme.primary
                 )
             } else {
-                Text(stringResource(R.string.action_start))
+                Text(
+                    text = stringResource(R.string.action_start),
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    textAlign = TextAlign.Center
+                )
             }
         }
 
         // Red: stopping is the destructive one, and the theme's error role stays red
         // whatever the seed colour is.
         Button(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .heightIn(min = 56.dp),
             enabled = running,
             onClick = onStop,
+            shape = CircleShape,
+            contentPadding = buttonPadding,
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.error,
                 contentColor = MaterialTheme.colorScheme.onError
             )
         ) {
-            Text(stringResource(R.string.action_stop))
+            Text(
+                text = stringResource(R.string.action_stop),
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+                textAlign = TextAlign.Center
+            )
         }
 
         // Blue on purpose: Material 3 has no blue role and the palette is seeded from
         // the wallpaper or the brand colour, so a role here would come out indigo or
         // teal depending on the theme.
         Button(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .heightIn(min = 56.dp),
             enabled = running,
             onClick = onRestart,
+            shape = CircleShape,
+            contentPadding = buttonPadding,
             colors = ButtonDefaults.buttonColors(
                 containerColor = RestartBlue,
                 contentColor = Color.White
             )
         ) {
-            Text(stringResource(R.string.action_restart))
+            Text(
+                text = stringResource(R.string.action_restart),
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+                textAlign = TextAlign.Center
+            )
         }
     }
 }
