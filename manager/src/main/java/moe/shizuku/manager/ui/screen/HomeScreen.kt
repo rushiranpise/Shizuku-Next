@@ -18,6 +18,8 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -43,7 +45,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.rounded.AdminPanelSettings
-import androidx.compose.material.icons.rounded.CheckCircle
+import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.Code
 import androidx.compose.material.icons.rounded.Coffee
 import androidx.compose.material.icons.rounded.Computer
@@ -51,7 +53,7 @@ import androidx.compose.material.icons.rounded.Numbers
 import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Stop
-import androidx.compose.material.icons.rounded.StopCircle
+import androidx.compose.material.icons.rounded.SwapHoriz
 import androidx.compose.material.icons.rounded.Usb
 import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.material.icons.rounded.MoreHoriz
@@ -85,11 +87,15 @@ import androidx.compose.runtime.setValue
 import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
@@ -976,9 +982,25 @@ private fun StatusCard(
     uid: Int,
     @StringRes startMethodLabelRes: Int
 ) {
-    val context = LocalContext.current
-    // "Stopped" is a normal state, not an error a red container made the
-    // primary action clash. Use a neutral surface instead.
+    Column(verticalArrangement = Arrangement.spacedBy(13.dp)) {
+        StatusSummaryCard(running)
+        StatusFactsCard(
+            running = running,
+            uid = uid,
+            startMethodLabelRes = startMethodLabelRes
+        )
+    }
+}
+
+/**
+ * The state at a glance: the badge, what the service is doing, and whether it is active.
+ * The facts moved to their own card underneath so the summary can breathe and the values
+ * keep their own alignment.
+ */
+@Composable
+private fun StatusSummaryCard(running: Boolean) {
+    // "Stopped" is a normal state, not an error a red container made the primary action
+    // clash. Use a neutral surface instead.
     val containerColor = if (running) {
         MaterialTheme.colorScheme.secondaryContainer
     } else {
@@ -989,10 +1011,7 @@ private fun StatusCard(
     } else {
         MaterialTheme.colorScheme.onSurface
     }
-
-    // On the pure black theme the stopped card is the same colour as the page, so it
-    // gets the same hairline outline as the other cards. The running card uses a
-    // tinted container that the page can't swallow.
+    val shape = MaterialTheme.shapes.large
     val outlined = LocalAmoledTheme.current && !running
 
     Surface(
@@ -1000,74 +1019,221 @@ private fun StatusCard(
             .fillMaxWidth()
             .then(
                 if (outlined) {
-                    Modifier.border(
-                        width = 1.dp,
-                        color = MaterialTheme.colorScheme.outlineVariant,
-                        shape = MaterialTheme.shapes.large
-                    )
+                    Modifier.border(1.dp, MaterialTheme.colorScheme.outlineVariant, shape)
                 } else {
                     Modifier
                 }
             ),
         color = containerColor,
         contentColor = contentColor,
-        shape = MaterialTheme.shapes.large
+        shape = shape
     ) {
-        // The icon reads as a status badge for the title beside it, with the facts in a
-        // row underneath the two of them.
+        Box(modifier = Modifier.fillMaxWidth()) {
+            // A soft off-screen bloom, like the mock: the card keeps its flat role colour
+            // underneath, so the content stays readable in every theme.
+            if (running) {
+                val glow = MaterialTheme.colorScheme.primary
+                Canvas(modifier = Modifier.matchParentSize()) {
+                    val center = Offset(size.width * 0.94f, size.height * 1.08f)
+                    val radius = size.width * 0.58f
+                    drawCircle(
+                        brush = Brush.radialGradient(
+                            colors = listOf(
+                                glow.copy(alpha = 0.38f),
+                                glow.copy(alpha = 0.12f),
+                                Color.Transparent
+                            ),
+                            center = center,
+                            radius = radius
+                        ),
+                        radius = radius,
+                        center = center
+                    )
+                }
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 18.dp, vertical = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Surface(
+                    modifier = Modifier.size(58.dp),
+                    shape = CircleShape,
+                    color = if (running) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.surfaceContainerHighest
+                    },
+                    contentColor = if (running) {
+                        MaterialTheme.colorScheme.onPrimary
+                    } else {
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                    }
+                ) {
+                    Box(contentAlignment = Alignment.Center) {
+                        Icon(
+                            if (running) Icons.Rounded.Check else Icons.Rounded.Stop,
+                            contentDescription = null,
+                            modifier = Modifier.size(30.dp)
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.width(16.dp))
+
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        stringResource(
+                            if (running) R.string.status_running_short else R.string.status_stopped_short
+                        ),
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                    Text(
+                        stringResource(
+                            if (running) R.string.home_status_service_active
+                            else R.string.home_status_service_stopped
+                        ),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = contentColor.copy(alpha = 0.74f)
+                    )
+                }
+
+                Spacer(modifier = Modifier.width(12.dp))
+
+                StatusPill(running)
+            }
+        }
+    }
+}
+
+/** The activity marker from the mock, green only when the service is actually running. */
+@Composable
+private fun StatusPill(running: Boolean) {
+    val darkSurface = MaterialTheme.colorScheme.surface.luminance() < 0.5f
+    val accent = when {
+        !running -> MaterialTheme.colorScheme.onSurfaceVariant
+        darkSurface -> Color(0xFF4ADE80)
+        else -> Color(0xFF15803D)
+    }
+    val fill = when {
+        !running -> MaterialTheme.colorScheme.surfaceContainerHighest
+        darkSurface -> Color(0x334ADE80)
+        else -> Color(0xFFDCFCE7)
+    }
+
+    Surface(
+        shape = CircleShape,
+        color = fill,
+        contentColor = accent,
+        border = BorderStroke(1.dp, accent.copy(alpha = 0.55f))
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(7.dp)
+                    .background(accent, CircleShape)
+            )
+            Spacer(modifier = Modifier.width(6.dp))
+            Text(
+                stringResource(
+                    if (running) R.string.home_status_active else R.string.home_status_inactive
+                ),
+                style = MaterialTheme.typography.labelLarge,
+                maxLines = 1
+            )
+        }
+    }
+}
+
+/**
+ * The facts from the old status card, now in their own row: how the server was started,
+ * what Start will do next, the wire, and the uid. The same facts are also in the diagnostics
+ * card at the end of the page, where they are one block for copying.
+ */
+@Composable
+private fun StatusFactsCard(
+    running: Boolean,
+    uid: Int,
+    @StringRes startMethodLabelRes: Int
+) {
+    val context = LocalContext.current
+    val shape = MaterialTheme.shapes.large
+    val borderColor = if (LocalAmoledTheme.current) {
+        MaterialTheme.colorScheme.outlineVariant
+    } else {
+        MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.55f)
+    }
+    val facts = listOf(
+        StatusFactEntry(
+            icon = Icons.Rounded.Computer,
+            label = R.string.home_status_started_with,
+            value = if (running) startedWithLabel(context, uid)
+            else stringResource(R.string.status_value_none)
+        ),
+        StatusFactEntry(
+            icon = startMethodIcon(startMethodLabelRes),
+            label = R.string.home_status_started_default,
+            value = stringResource(startMethodLabelRes)
+        ),
+        StatusFactEntry(
+            icon = Icons.Rounded.SwapHoriz,
+            label = R.string.home_status_transport_label,
+            value = if (running) transportLabel(context, uid)
+            else stringResource(R.string.status_value_none)
+        ),
+        StatusFactEntry(
+            icon = Icons.Rounded.Code,
+            label = R.string.uid_label,
+            value = if (uid < 0) stringResource(R.string.status_value_none) else uid.toString(),
+            detail = uidName(context, uid)
+        )
+    )
+
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .border(1.dp, borderColor, shape),
+        color = MaterialTheme.colorScheme.surfaceContainerHigh,
+        contentColor = MaterialTheme.colorScheme.onSurface,
+        shape = shape
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 14.dp)
+                .padding(horizontal = 4.dp, vertical = 14.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                if (running) Icons.Rounded.CheckCircle else Icons.Rounded.StopCircle,
-                contentDescription = null,
-                // Nudged down to sit on the title's line rather than above it.
-                modifier = Modifier.padding(top = 2.dp)
-            )
-
-            Spacer(modifier = Modifier.width(16.dp))
-
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    stringResource(
-                        if (running) R.string.status_running_short else R.string.status_stopped_short
-                    ),
-                    style = MaterialTheme.typography.titleMedium
-                )
-                // Everything about the server at a glance: how it is running now, what
-                // the Start button below will do next, and what it is running as. The same
-                // facts are in the diagnostics card at the end of the page, where they are
-                // one block with everything else in it - this is the one that is read, that
-                // one is the one that is pasted.
-                StatusFacts(
-                    StatusFactEntry(
-                        R.string.home_status_started_with,
-                        if (running) startedWithLabel(context, uid) else stringResource(R.string.status_value_none)
-                    ),
-                    StatusFactEntry(
-                        R.string.home_status_started_default,
-                        stringResource(startMethodLabelRes)
-                    ),
-                    // The wire, as opposed to the method above it: a wireless start can ride
-                    // the classic port (and a system start uses no adb at all).
-                    StatusFactEntry(
-                        R.string.home_status_transport_label,
-                        if (running) transportLabel(context, uid) else stringResource(R.string.status_value_none)
-                    ),
-                    // The number is the fact; what the uid is called goes underneath it,
-                    // because "2000 (shell)" in a quarter of the width lost its own name.
-                    StatusFactEntry(
-                        R.string.uid_label,
-                        if (uid < 0) stringResource(R.string.status_value_none) else uid.toString(),
-                        uidName(context, uid)
+            facts.forEachIndexed { index, fact ->
+                if (index > 0) {
+                    VerticalDivider(
+                        modifier = Modifier.height(44.dp),
+                        thickness = 1.dp,
+                        color = MaterialTheme.colorScheme.outlineVariant
                     )
+                }
+                StatusFact(
+                    fact,
+                    Modifier
+                        .weight(1f)
+                        .padding(horizontal = 4.dp)
                 )
             }
-
         }
     }
+}
+
+/** The method icon is chosen from the label the settings already resolved. */
+private fun startMethodIcon(@StringRes labelRes: Int): ImageVector = when (labelRes) {
+    R.string.start_method_usb -> Icons.Rounded.Usb
+    R.string.start_method_system -> Icons.Rounded.AdminPanelSettings
+    R.string.start_method_root -> Icons.Rounded.Numbers
+    else -> Icons.Rounded.Wifi
 }
 
 /**
@@ -1150,70 +1316,59 @@ private fun readSeccompStatus(): Int? {
 private fun readDeviceStatus(): Pair<Int?, Int?> = readSelinuxStatus() to readSeccompStatus()
 
 /**
- * The facts inside the status card, spread across it with a hairline rule between each
- * pair. Each takes an equal share of the width so the rules land in even gaps, and long
- * values ellipsise inside their share rather than pushing the next one along.
+ * One fact in the status row, with the icon that names its kind. Each takes an equal share
+ * of the width so the rules land in even gaps, and long values ellipsise inside their share
+ * rather than pushing the next one along.
  */
 private data class StatusFactEntry(
+    val icon: ImageVector,
     @StringRes val label: Int,
     val value: String,
     /** A quieter line under the value, for what the value is called rather than what it is. */
     val detail: String? = null
 )
 
-@Composable
-private fun StatusFacts(vararg facts: StatusFactEntry) {
-    Row(
-        // The rules are a fixed height and centred, so the row can grow with a wrapped label
-        // instead of measuring a one-line intrinsic height and cutting the translation off.
-        modifier = Modifier.fillMaxWidth().padding(top = 2.dp)
-    ) {
-        facts.forEachIndexed { index, fact ->
-            if (index > 0) {
-                VerticalDivider(
-                    modifier = Modifier
-                        .align(Alignment.CenterVertically)
-                        .height(48.dp)
-                        .padding(horizontal = 10.dp),
-                    thickness = 1.dp,
-                    color = LocalContentColor.current.copy(alpha = 0.25f)
-                )
-            }
-            StatusFact(fact, Modifier.weight(1f))
-        }
-    }
-}
-
 /**
- * One fact: its label above its value. The label is set back so the eye reads the value
- * first, and both line up with the title above them.
+ * One fact: its icon, then its label above its value. The label is set back so the eye reads
+ * the value first, and both line up with the icon beside them.
  */
 @Composable
 private fun StatusFact(fact: StatusFactEntry, modifier: Modifier = Modifier) {
-    Column(modifier = modifier) {
-        Text(
-            stringResource(fact.label),
-            style = MaterialTheme.typography.bodySmall,
-            color = LocalContentColor.current.copy(alpha = 0.7f)
+    Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
+        Icon(
+            fact.icon,
+            contentDescription = null,
+            modifier = Modifier.size(18.dp),
+            tint = LocalContentColor.current.copy(alpha = 0.7f)
         )
-        Text(
-            fact.value,
-            // One step up from the label and no more: four facts share the width, so a
-            // bigger value just eats its own ellipsis. Two lines rather than one, because
-            // the method names are longer than a quarter of the width and "Start without
-            // Wi-Fi" clipped to "Start wi…" says less than it costs to wrap.
-            style = MaterialTheme.typography.bodyMedium,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis
-        )
-        fact.detail?.let {
+        Spacer(modifier = Modifier.width(4.dp))
+        Column(modifier = Modifier.weight(1f)) {
             Text(
-                it,
+                stringResource(fact.label),
                 style = MaterialTheme.typography.bodySmall,
                 color = LocalContentColor.current.copy(alpha = 0.7f),
-                maxLines = 1,
+                maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
+            Text(
+                fact.value,
+                // One step up from the label and no more: four facts share the width, so a
+                // bigger value just eats its own ellipsis. Two lines rather than one, because
+                // the method names are longer than a quarter of the width and "Start without
+                // Wi-Fi" clipped to "Start wi…" says less than it costs to wrap.
+                style = MaterialTheme.typography.bodyMedium,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
+            fact.detail?.let {
+                Text(
+                    it,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = LocalContentColor.current.copy(alpha = 0.7f),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
         }
     }
 }
