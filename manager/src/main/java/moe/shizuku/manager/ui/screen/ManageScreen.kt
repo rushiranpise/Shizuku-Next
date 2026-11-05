@@ -283,15 +283,15 @@ fun ManageScreen(
             }
         )
 
-        // Each chip is as wide as its own label needs and the row spans the width: the first
-        // sits against one edge, the last against the other, and what is left over is spent
-        // between them. It used to scroll, which meant the last filter was half off the screen
-        // on a phone and the row looked like it had more in it than it did.
+        // The five filters share one row. Each chip is as wide as its label and count need,
+        // and the slack is spent between them. A translation that needs more room wraps
+        // inside its own chip, so the last filter is not pushed onto a line of its own.
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 4.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             ManageFilter.entries.forEach { option ->
                 val count = when (option) {

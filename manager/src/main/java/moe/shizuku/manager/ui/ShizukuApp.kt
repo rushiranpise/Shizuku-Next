@@ -1,5 +1,8 @@
 package moe.shizuku.manager.ui
 
+import android.app.Activity
+import android.os.SystemClock
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateColorAsState
@@ -65,6 +68,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -94,6 +98,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.boundsInParent
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
@@ -101,6 +106,7 @@ import kotlinx.coroutines.launch
 import moe.shizuku.manager.R
 import moe.shizuku.manager.ui.component.TelevisionFocusOutline
 import moe.shizuku.manager.ui.component.televisionFocusShape
+import moe.shizuku.manager.ui.screen.AccessibilityScreen
 import moe.shizuku.manager.ui.screen.AppsScreen
 import moe.shizuku.manager.ui.screen.ActivitiesScreen
 import moe.shizuku.manager.ui.screen.FilesScreen
@@ -183,6 +189,9 @@ enum class Detail(
     INTENTS,
     PERMISSIONS,
 
+    /** Every accessibility service, with the switch the system screen owns and a keep-alive pin. */
+    ACCESSIBILITY,
+
     /** The community's module index, shown here only when there was no browser to open it in. */
     MORE_APPS;
 
@@ -252,7 +261,7 @@ private val tabs = listOf(
 )
 
 @Composable
-fun ShizukuApp() {
+fun ShizukuApp(onRunSetup: () -> Unit) {
     ShizukuTheme {
         // Detail screens are shown outside the Scaffold, so wrap everything in a
         // Surface otherwise LocalContentColor falls back to black and plain
@@ -400,6 +409,10 @@ fun ShizukuApp() {
                             Detail.TERMINAL -> TerminalScreen(onBack = { detail = null })
                             Detail.INTENTS -> IntentsScreen(onBack = { detail = null })
                             Detail.PERMISSIONS -> PermissionsScreen(onBack = { detail = null })
+                            Detail.ACCESSIBILITY -> AccessibilityScreen(
+                                bottomPadding = 0.dp,
+                                onBack = { detail = null }
+                            )
                         }
                     }
                 } else if (LocalTelevision.current) {
@@ -412,14 +425,16 @@ fun ShizukuApp() {
                         onOpenDetail = {
                             tvReturn.detail = it
                             detail = it
-                        }
+                        },
+                        onRunSetup = onRunSetup
                     )
                 } else {
                     pages.SaveableStateProvider(TAB_PAGES) {
                         MainTabs(
                             pagerState = pagerState,
                             pill = pill,
-                            onOpenDetail = { detail = it }
+                            onOpenDetail = { detail = it },
+                            onRunSetup = onRunSetup
                         )
                     }
                 }
@@ -449,18 +464,26 @@ private fun CenteredContent(
             content()
         }
     }
-}/**
- * The tabs walked through to get to [page], oldest first, as one visit more or one visit less.
+}
+
+internal enum class BackAction { GO_HOME, EXIT, SHOW_HINT }
+
+/**
+ * What a back press means, from the tab it was pressed on and the one before it.
  *
- * [page] is the tab the pager has settled on. Landing on the tab immediately before the last one
- * is a move back - the back button, or a swipe in that direction - so it takes the last entry with
- * it rather than adding another. A list that grew on the way back would walk between two tabs for
- * ever instead of reaching Home and then leaving the app.
+ * Back is not a history: it takes any tab to Home, the app's root. From Home, a second press
+ * within [windowMs] leaves the app, and a first press explains that. Keeping the decision here
+ * rather than in the handler is what lets the test state it without a device.
  */
-internal fun afterSettling(visited: List<Int>, page: Int): List<Int> = when {
-    visited.size > 1 && page == visited[visited.size - 2] -> visited.dropLast(1)
-    visited.lastOrNull() == page -> visited
-    else -> visited + page
+internal fun backAction(
+    page: Int,
+    lastBackAt: Long,
+    now: Long,
+    windowMs: Long = 2_000L
+): BackAction = when {
+    page != 0 -> BackAction.GO_HOME
+    lastBackAt != 0L && now - lastBackAt in 0L..windowMs -> BackAction.EXIT
+    else -> BackAction.SHOW_HINT
 }
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
@@ -468,26 +491,38 @@ internal fun afterSettling(visited: List<Int>, page: Int): List<Int> = when {
 private fun MainTabs(
     pagerState: PagerState,
     pill: TabPill,
-    onOpenDetail: (Detail) -> Unit
+    onOpenDetail: (Detail) -> Unit,
+    onRunSetup: () -> Unit
 ) {
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    val activity = context as? Activity
 
-    // The tabs walked through to get here, oldest first. Five tabs are five places in one app,
-    // not five apps, so back walks this list rather than closing the app from wherever somebody
-    // is - leaving Settings used to take the one press that leaves Home. Home is still where the
-    // app leaves, which is the press Android has always answered there.
-    var visited by remember { mutableStateOf(listOf(0)) }
+    // Back is not a tab history. Any tab goes Home without claiming to be the exit press; the
+    // hint belongs to Home, where a second press within two seconds leaves. A page's own back -
+    // the Activities launcher's app list, a module's full screen, a Settings category - is
+    // composed inside this one, so its handler answers first.
+    var lastBackAt by remember { mutableLongStateOf(0L) }
 
-    // Recorded from where the pager settles rather than from the bar's clicks, because a swipe and
-    // a tap are the same visit.
+    // A move between tabs starts the count again. The Home press that shows the hint changes no
+    // page, so its timestamp stays until the next press or a tab change.
     LaunchedEffect(pagerState.settledPage) {
-        visited = afterSettling(visited, pagerState.settledPage)
+        lastBackAt = 0L
     }
 
-    // A page's own back - the Activities launcher's app list, a module's full screen - is composed
-    // inside this one, so its handler is the one that answers first.
-    BackHandler(enabled = pagerState.currentPage != 0 && visited.size > 1) {
-        scope.launch { pagerState.animateScrollToPage(visited[visited.size - 2]) }
+    BackHandler {
+        val now = SystemClock.elapsedRealtime()
+        when (backAction(pagerState.currentPage, lastBackAt, now)) {
+            BackAction.GO_HOME -> {
+                lastBackAt = 0L
+                scope.launch { pagerState.animateScrollToPage(0) }
+            }
+            BackAction.EXIT -> activity?.finish()
+            BackAction.SHOW_HINT -> {
+                lastBackAt = now
+                Toast.makeText(context, R.string.toast_press_back_again, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     // Whether the app has settled enough to read the lists nobody is looking at yet. Both app
@@ -564,7 +599,11 @@ private fun MainTabs(
                         onFullscreenChange = { modulesFullscreen = it }
                     )
                     3 -> LabsScreen(bottomPadding = bottomPadding, onOpenDetail = onOpenDetail)
-                    4 -> SettingsScreen(bottomPadding = bottomPadding, onOpenDetail = onOpenDetail)
+                    4 -> SettingsScreen(
+                        bottomPadding = bottomPadding,
+                        onOpenDetail = onOpenDetail,
+                        onRunSetup = onRunSetup
+                    )
                 }
             }
         }
@@ -793,7 +832,8 @@ private fun TelevisionTabs(
     pages: SaveableStateHolder,
     focusPageFirst: Boolean,
     returnFocus: TelevisionReturn,
-    onOpenDetail: (Detail) -> Unit
+    onOpenDetail: (Detail) -> Unit,
+    onRunSetup: () -> Unit
 ) {
     var grantedCount by remember { mutableIntStateOf(0) }
     val railItems = remember { List(tabs.size) { FocusRequester() } }
@@ -983,7 +1023,11 @@ private fun TelevisionTabs(
                         onFullscreenChange = {}
                     )
                     3 -> LabsScreen(bottomPadding = 0.dp, onOpenDetail = onOpenDetail)
-                    4 -> SettingsScreen(bottomPadding = 0.dp, onOpenDetail = onOpenDetail)
+                    4 -> SettingsScreen(
+                        bottomPadding = 0.dp,
+                        onOpenDetail = onOpenDetail,
+                        onRunSetup = onRunSetup
+                    )
                 }
                 }
             }

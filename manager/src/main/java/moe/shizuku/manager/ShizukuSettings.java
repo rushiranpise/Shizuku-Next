@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.provider.Settings;
@@ -65,6 +66,9 @@ public class ShizukuSettings {
 
         /** Whether the start and stop intents have to carry the auth token. */
         public static final String KEY_REQUIRE_INTENT_TOKEN = "require_intent_token";
+
+        /** Whether the guided first-run setup has been completed or skipped. */
+        public static final String KEY_SETUP_DONE = "setup_done";
     }
 
     public static class UpdateMode {
@@ -108,6 +112,40 @@ public class ShizukuSettings {
             sPreferences = getSettingsStorageContext(context)
                 .getSharedPreferences(NAME, Context.MODE_PRIVATE);
         }
+    }
+
+    /**
+     * Whether the guided setup has already been seen, one way or the other.
+     *
+     * Skipping it counts as seen: a setup that comes back is a setup that nags. What skipping
+     * leaves undone still shows on the home screen, so nothing is lost by not asking again.
+     *
+     * Installs that predate the setup must not meet it on their first launch after updating,
+     * so the first read decides for them. A genuinely new install is the one where the package's
+     * update time still equals its install time: every update moves the former and leaves the
+     * latter alone.
+     */
+    public static boolean isSetupDone(Context context) {
+        SharedPreferences prefs = getPreferences();
+        if (prefs.contains(Keys.KEY_SETUP_DONE)) {
+            return prefs.getBoolean(Keys.KEY_SETUP_DONE, true);
+        }
+
+        boolean freshInstall = true;
+        try {
+            PackageInfo info = context.getPackageManager()
+                    .getPackageInfo(context.getPackageName(), 0);
+            // A minute of slack, for a package manager that stamps the two fields in two calls.
+            freshInstall = info.lastUpdateTime - info.firstInstallTime < 60_000L;
+        } catch (PackageManager.NameNotFoundException ignored) {
+        }
+
+        prefs.edit().putBoolean(Keys.KEY_SETUP_DONE, !freshInstall).apply();
+        return !freshInstall;
+    }
+
+    public static void setSetupDone() {
+        getPreferences().edit().putBoolean(Keys.KEY_SETUP_DONE, true).apply();
     }
 
     /**

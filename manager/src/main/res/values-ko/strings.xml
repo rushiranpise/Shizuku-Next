@@ -178,6 +178,7 @@
     <string name="activities_copy">복사</string>
     <string name="activities_edit_as_intent">인텐트로 편집</string>
     <string name="activities_copied">복사됨</string>
+    <string name="activities_apps_section">앱</string>
     <string name="tab_intent_builder">인텐트 빌더</string>
     <string name="intent_uri">인텐트 URI</string>
     <string name="intent_uri_load">필드로 불러오기</string>

@@ -39,7 +39,6 @@
     <!-- Needed to receive mDNS multicast for wireless ADB service discovery. -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-
     <!--
     The two grants the hiding watch needs, both declared so they can be given at all.
     A permission an app has not declared cannot be granted to it, which is why the same
@@ -131,6 +130,12 @@
 
     <queries>
         <package android:name="moe.shizuku.privileged.api" />
+
+        <!-- Without this, Android 11+ hides every other app's accessibility service and the
+             manager would be a list of this app's own. -->
+        <intent>
+            <action android:name="android.accessibilityservice.AccessibilityService" />
+        </intent>
 
         <!--
             The module index is opened in the browser, and picking one means asking which
@@ -247,6 +252,29 @@
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibility_service_config" />
         </service>
+
+        <!-- The accessibility manager's keep-alive. Accessibility services are switched off by
+             battery savers and by the system, and a service the user locked is put back when
+             that happens. It watches a settings key once a minute, so it has to outlive the
+             screen that armed it. -->
+        <service
+            android:name=".accessibility.AccessibilityKeepAliveService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="The user can lock accessibility services so they stay enabled. Android and battery savers can switch those services off; this service quietly restores the locked ones when that happens." />
+        </service>
+
+        <receiver
+            android:name=".accessibility.AccessibilityBootReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name=".service.WatchdogService"

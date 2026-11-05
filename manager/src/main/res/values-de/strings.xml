@@ -177,6 +177,7 @@
     <string name="activities_copy">Kopieren</string>
     <string name="activities_edit_as_intent">Als Intent bearbeiten</string>
     <string name="activities_copied">Kopiert</string>
+    <string name="activities_save">Speichern</string>
     <string name="tab_intent_builder">Intent-Builder</string>
     <string name="intent_builder_note">Erstellen und senden Sie einen Intent. Sie können Aktion, Daten, Typ, Komponente, Kategorien, Extras und Flags festlegen. Sie können auch einen Intent aus einer URI laden, z. B. intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end. Dieses Format verwenden Activity Launcher und die meisten Automatisierungstools. Beim Laden werden die Felder ausgefüllt, sodass Sie den Intent vor dem Senden prüfen und bearbeiten können.</string>
     <string name="intent_uri">Intent-URI</string>

@@ -37,12 +37,19 @@ import moe.shizuku.manager.module.ModuleSettings
  *
  * Two things about this WebView are the point of it. It has no internet - a page with a bridge back
  * into Shizuku does not also get a network this app cannot see - and its bridge is the whole of what
- * the page can reach: the information the format says it gets, and commands that a person approves
- * unless they have marked that module trusted.
+ * the page can reach: the information the format says it gets, commands that a person approves
+ * unless they have marked that module trusted, and a way to ask for the module settings to be
+ * opened - the page a person lands on to be told the access is wrong is the one place a shortcut
+ * to the fix belongs.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ModuleWebUiScreen(module: AdbModule, active: Boolean = true, onBack: () -> Unit) {
+fun ModuleWebUiScreen(
+    module: AdbModule,
+    active: Boolean = true,
+    onBack: () -> Unit,
+    onOpenSettings: () -> Unit,
+) {
     val webRoot = module.webRoot ?: return
 
     var pendingCommand by remember { mutableStateOf<ModuleCommandRequest?>(null) }
@@ -119,7 +126,7 @@ fun ModuleWebUiScreen(module: AdbModule, active: Boolean = true, onBack: () -> U
                     }
 
                     addJavascriptInterface(
-                        ModuleJsBridge(module) { command, timeoutSeconds ->
+                        ModuleJsBridge(module, onOpenSettings) { command, timeoutSeconds ->
                             AdbModuleManager.runWebUiCommand(module, command, approve, timeoutSeconds)
                         },
                         "Shizuku"
@@ -134,7 +141,8 @@ fun ModuleWebUiScreen(module: AdbModule, active: Boolean = true, onBack: () -> U
     pendingCommand?.let { request ->
         CommandReviewDialog(
             request = request,
-            onApprove = {
+            onApprove = { trust ->
+                if (trust) ModuleSettings.setTrusted(request.module.id, true)
                 pendingCommand = null
                 approval?.complete(true)
                 approval = null

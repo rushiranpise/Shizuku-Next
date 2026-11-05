@@ -1,12 +1,13 @@
 <!--
-    The pairing dialog, and nothing else.
+    The pairing dialog, and the two Settings rows that lead to it.
 
     Every accessibility service is a promise about what it will look at, and the promise is this
     declaration: a service that names no packages is registered for every app on the device, which
     is what a scanner calls a screen reader that can read a bank app, and it is the difference
     between this and the fork this flow came from. `com.android.settings` is where phones put
     "Pair with device" and `com.android.tv.settings` is where TVs put it; both are needed here
-    because this fork reads the dialog on phones as well as driving it on TV.
+    because this fork reads the dialog on phones and opens the rows that lead to it, as well as
+    driving the whole flow on TV.
 
     Keep in step with hostsPairingDialog() in AdbPairingAccessibilityService, which applies the
     same rule to the windows it walks: a device whose dialog is hosted by some other settings app

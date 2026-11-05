@@ -16,15 +16,37 @@
     <string name="home_wireless_adb_summary">Začne používat bezdrátové ladění.</string>
     <string name="home_usb_adb_title"><![CDATA[Spustit přes USB ladění]]></string>
     <string name="home_usb_adb_summary">Začne používat ladění USB.</string>
+    <string name="diagnostics_title">Diagnostika</string>
+    <string name="diagnostics_copy">Kopírovat diagnostiku</string>
+    <string name="diagnostics_copied">Diagnostika zkopírována</string>
+    <string name="diagnostics_service">Služba</string>
+    <string name="diagnostics_server_uid">UID serveru</string>
+    <string name="diagnostics_server_api">Server API</string>
+    <string name="diagnostics_server_context">Kontext serveru</string>
     <string name="diagnostics_wireless_debugging">Bezdrátové ladění</string>
+    <string name="diagnostics_adb_port">ADB port</string>
+    <string name="diagnostics_wifi">Wi-Fi</string>
+    <string name="diagnostics_local_network">Místní síť</string>
     <string name="diagnostics_battery">Optimalizace baterie</string>
+    <string name="diagnostics_app">Aplikace</string>
     <string name="diagnostics_android">Android</string>
     <string name="diagnostics_device">Zařízení</string>
+    <string name="diagnostics_default">Výchozí metoda</string>
     <string name="diagnostics_hiding">Skrývat</string>
     <string name="diagnostics_root">Root</string>
+    <string name="diagnostics_granted">uděleno</string>
+    <string name="diagnostics_missing">chybí</string>
+    <string name="diagnostics_not_required">není vyžadováno</string>
+    <string name="diagnostics_connected">připojeno</string>
+    <string name="diagnostics_not_connected">nepřipojeno</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
+    <string name="diagnostics_battery_optimized">optimalizováno</string>
+    <string name="diagnostics_battery_unrestricted">bez omezení</string>
+    <string name="diagnostics_available">k dispozici</string>
+    <string name="diagnostics_unavailable">nedostupné</string>
+    <string name="diagnostics_closed">zavřeno</string>
     <!-- Adb -->
     <string name="dialog_adb_port">Přístav</string>
     <string name="dialog_adb_invalid_port">Port je číslo od 1 do 65535.</string>
@@ -39,6 +61,7 @@
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
+    <string name="dialog_adb_pairing_accessibility_permission">Android blokuje tento přepínač pro aplikace nainstalované mimo obchod s aplikacemi. Povolte ^ 1 aplikaci zapnout službu usnadnění přístupu. Na seznamu přístupů je zobrazeno jako \"Ovládáno omezeným nastavením\".\n\nOtevřete informace o aplikaci a vyberte možnost \"Povolit omezená nastavení\" z menu, nebo to spusťte na počítači:\n\n^2\n\nFungují obě možnosti. Přepínač bude fungovat později.</string>
     <string name="dialog_adb_pairing_open_app_info">Informace o aplikaci</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Párování spusťte provedením následujících kroků:\n- Přejděte do sekce „Možnosti pro vývojáře“\n- Povolte „Ladění USB“ a „Bezdrátové ladění“\n- Klepněte na levou stranu sekce „Bezdrátové ladění“\n- Klepněte na „Spárovat zařízení s párovacím kódem“. Shizuku automaticky detekuje párovací kód.</string>
     <string name="adb_pairing_requires_multi_window">Nejprve prosím přejděte do režimu rozdělené obrazovky (více oken).</string>
@@ -121,8 +144,11 @@
     <string name="hiding_hidden_count">%1$d hidden</string>
     <string name="hiding_gate">Povoleno</string>
     <string name="hiding_gate_disabled">Zakázáno</string>
+    <string name="hiding_restart_on_open">Zavřít a znovu otevřít po spuštění</string>
+    <string name="hiding_restart_on_open_summary">Aplikace v seznamu jsou uzavřeny a znovu otevřeny při jejich spuštění, takže si přečtou skrytá nastavení. Aplikace, která byla upravována, ztratí to, co nebyla uloženo.</string>
     <string name="hiding_gate_kept">%1$d uloženo</string>
     <string name="hiding_filter_hidden">Hidden</string>
+    <string name="hiding_open_with_hiding">Otevřít se skrytým nastavením</string>
     <string name="hiding_filter_shown">Viditelné</string>
     <string name="hiding_filter_empty">Nic nenalezeno.</string>
     <string name="hiding_restore">Obnovit</string>
@@ -146,7 +172,25 @@
     <string name="force_dark_notification_text">Aplikace na seznamu síly tmavého režimu je otevřena</string>
     <string name="force_dark_notification_watching">Čekání na otevření aplikace v seznamu</string>
     <string name="tab_activities">Aktivity spouštěč</string>
+    <string name="tab_power">Napájení</string>
+    <string name="power_description">Restartovat nebo vypnout obrazovku bez použití tlačítek telefonu.</string>
+    <string name="power_needs_shizuku">Nejprve spusťte Shizuku pro použití těchto možností.</string>
+    <string name="power_reboot">Restartovat</string>
+    <string name="power_reboot_summary">Restartovat telefon.</string>
+    <string name="power_reboot_confirm">Telefon se nyní restartuje. Neuložená práce bude ztracena.</string>
+    <string name="power_recovery">Restartovat do recovery</string>
+    <string name="power_recovery_summary">Restartujte telefon do režimu recovery.</string>
+    <string name="power_recovery_confirm">Telefon se restartuje do režimu recovery. Pro navigaci použijte tlačítko hlasitosti a napájení.</string>
+    <string name="power_bootloader">Restartovat do Bootloaderu</string>
+    <string name="power_bootloader_summary">Pro připojení k počítači se restartujte do fastboot režimu.</string>
+    <string name="power_bootloader_confirm">Telefon se restartuje do bootloaderu a zůstane tam, dokud jej nerestartujete, obvykle z počítače.</string>
+    <string name="power_off">Vypnout</string>
+    <string name="power_off_summary">Vypnout telefon.</string>
+    <string name="power_off_confirm">Telefon se nyní vypne. Neuložená práce bude ztracena.</string>
+    <string name="power_screen_off">Vypnout obrazovku</string>
+    <string name="power_screen_off_summary">Vypněte obrazovku. Pokud je nastaven zámek obrazovky, telefon se také zamkne.</string>
     <string name="power_confirm_title">Jste si jisti?</string>
+    <string name="power_confirm">Pokračovat</string>
     <string name="activities_apps_count">%1$d aplikací</string>
     <string name="activities_count">%1$d aktivity</string>
     <string name="activities_launcher">Spouštěč</string>
@@ -163,6 +207,8 @@
     <string name="activities_copy">Kopírovat</string>
     <string name="activities_edit_as_intent">Upravit jako úmysl</string>
     <string name="activities_copied">Zkopírováno</string>
+    <string name="activities_apps_section">Aplikace</string>
+    <string name="activities_save">Uložit</string>
     <string name="tab_intent_builder">Tvůrce myšlenek</string>
     <string name="intent_builder_note">Vytvořte a pošlete úmysl. Můžete nastavit jeho akci, data, typ, komponentu, kategorie, doplňky a vlajky. Můžete také načíst záměr z URI, jako je \'intent:#Intent;action=android.intent. ction.VIEW;data=https://example.com;end. Toto je formát používaný v Launcheru a většině automatizačních nástrojů. Načítám jedno vyplnění polí, abyste ho mohli před odesláním zkontrolovat a upravit.</string>
     <string name="intent_uri">Intent URI</string>
@@ -347,14 +393,47 @@
     <string name="tools_stealth">Režim neviditelnosti</string>
     <string name="catalog_filter_sort">Seřadit</string>
     <string name="catalog_filter_updated">Aktualizováno</string>
+    <string name="catalog_sort_added">Nejnověji přidané</string>
+    <string name="catalog_latest_release">Aktuální verze: %1$s</string>
+    <string name="catalog_no_release">Žádná vydání</string>
+    <string name="catalog_no_apk">Žádné APK v tomto vydání</string>
+    <string name="catalog_apk_installed">%1$s nainstalováno</string>
+    <string name="catalog_install_failed">Instalace nemohla být spuštěna.</string>
+    <string name="catalog_view_github">Zobrazit na GitHubu</string>
     <string name="modules_repo_retry">Zkusit znovu</string>
+    <string name="modules_repo_error">Nelze načíst repozitáře.</string>
+    <string name="modules_repo_by_author">od %1$s</string>
+    <string name="modules_repo_latest_version">Nejnovější verze</string>
+    <string name="modules_repo_loading">Načítání…</string>
+    <string name="modules_repo_sort_stars_low_to_high">Hvězdy (od nejméně hvězd)</string>
+    <string name="modules_repo_sort_stars_high_to_low">Hvězdy (od nejvíce hvězd)</string>
+    <string name="modules_find_modules">Najít moduly</string>
+    <string name="modules_install_from_file">Instalovat ze souboru</string>
+    <string name="modules_install_title">Instalovat modul</string>
+    <string name="modules_settings">Moduly</string>
+    <string name="modules_allow_background_summary_short">Servisní skript běží nesledovaný</string>
+    <string name="modules_catalog_install">Instalovat</string>
+    <string name="modules_catalog_installing">Probíhá instalace</string>
+    <string name="modules_catalog_no_releases">Tento repozitář nemá žádné vydání.</string>
     <string name="modules_catalog_installed">Nainstalováno</string>
+    <string name="modules_card_line">Verze %1$s - %2$s</string>
+    <string name="modules_card_version">Verze %1$s</string>
+    <string name="modules_card_author">Autor: %1$s</string>
+    <string name="modules_card_id">ID: %1$s</string>
     <string name="modules_disabled">Zakázáno</string>
+    <string name="modules_error_set_enabled">Modul nelze zapnout nebo vypnout: adresář není zapisovatelný.</string>
+    <string name="modules_trust">Důvěřovat</string>
+    <string name="modules_untrust">Nedůvěřovat</string>
+    <string name="modules_full_trust">Plná důvěra</string>
+    <string name="modules_trust_confirm">Důvěřovat %1$s?</string>
     <string name="modules_update">Aktualizovat</string>
     <string name="modules_sort">Seřadit</string>
     <string name="modules_action_stop">Zastavit</string>
     <string name="modules_action_short">Akce</string>
+    <string name="modules_service_short">Služba</string>
     <string name="modules_service_running_short">Běh</string>
+    <string name="modules_install">Instalovat modul</string>
+    <string name="modules_installed">%1$s nainstalováno</string>
     <string name="modules_delete">Vymazat</string>
     <string name="tools_terminal">Terminálové aplikace</string>
     <string name="tools_terminal_summary">Spustit příkazy shell v jakékoliv terminálové aplikaci, pomocí rish</string>
@@ -528,6 +607,7 @@
       so the singular is read more often than the plural is.
     -->
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
+    <string name="contributor_area_app">Aplikace</string>
     <string name="contributor_area_server">Server</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they

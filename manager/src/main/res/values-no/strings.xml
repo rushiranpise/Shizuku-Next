@@ -184,6 +184,8 @@
     <string name="activities_copy">Kopier</string>
     <string name="activities_edit_as_intent">Rediger som hensikten</string>
     <string name="activities_copied">Kopiert</string>
+    <string name="activities_apps_section">Apper</string>
+    <string name="activities_save">Lagre</string>
     <string name="tab_intent_builder">Intent bygger</string>
     <string name="intent_builder_note">Bygg og send en hensikt. Du kan angi handling, data, type, komponent, kategorier, stativer og flagg. Du kan også laste opp et mål fra en URI, slik som intent:#Intent;action=android.intent. ction.VIEW;data=https://example.com;end. Dette er formatet som brukes av AktivitetsLauncher og de fleste automatiseringsverktøy. Laster inn én fylling i feltene, slik at du kan sjekke og redigere den før du sender.</string>
     <string name="intent_uri">Intent URI</string>

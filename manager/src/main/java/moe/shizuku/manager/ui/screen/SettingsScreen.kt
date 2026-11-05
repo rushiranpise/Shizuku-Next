@@ -3,6 +3,7 @@ package moe.shizuku.manager.ui.screen
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import androidx.activity.compose.BackHandler
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.clickable
@@ -23,6 +24,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.AdminPanelSettings
 import androidx.compose.material.icons.outlined.Bolt
@@ -49,6 +51,7 @@ import androidx.compose.material.icons.outlined.SystemUpdate
 import androidx.compose.material.icons.outlined.Terminal
 import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material.icons.outlined.Usb
+import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material.icons.outlined.VerifiedUser
 import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material.icons.outlined.Wifi
@@ -56,6 +59,7 @@ import androidx.compose.material.icons.outlined.WifiTethering
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
@@ -124,10 +128,45 @@ import rikka.shizuku.manager.ShizukuLocales
 /** The agent a system uid start goes through, checked for when it is not running yet. */
 private const val FOTA_AGENT_PACKAGE = "com.sdet.fotaagent"
 
+/** The settings categories. The tab lists these and opens one at a time. */
+private enum class SettingsSection(
+    @StringRes val titleRes: Int,
+    @StringRes val summaryRes: Int,
+    val icon: ImageVector
+) {
+    STARTUP(
+        R.string.settings_section_startup,
+        R.string.settings_section_startup_summary,
+        Icons.Outlined.PowerSettingsNew
+    ),
+    WIRELESS(
+        R.string.settings_section_wireless,
+        R.string.settings_section_wireless_summary,
+        Icons.Outlined.Wifi
+    ),
+    TOOLS(
+        R.string.settings_section_tools,
+        R.string.settings_section_tools_summary,
+        Icons.Outlined.Tune
+    ),
+    APPEARANCE(
+        R.string.settings_section_appearance,
+        R.string.settings_section_appearance_summary,
+        Icons.Outlined.Palette
+    )
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(bottomPadding: Dp, onOpenDetail: (Detail) -> Unit) {
+fun SettingsScreen(
+    bottomPadding: Dp,
+    onOpenDetail: (Detail) -> Unit,
+    onRunSetup: () -> Unit
+) {
     val context = LocalContext.current
+
+    // Null is the index. Anything else is one of the short category screens.
+    var section by rememberSaveable { mutableStateOf<SettingsSection?>(null) }
 
     var startOnBoot by remember { mutableStateOf(ShizukuSettings.getStartOnBoot(context)) }
     var watchdog by remember { mutableStateOf(ShizukuSettings.getWatchdog()) }
@@ -265,9 +304,26 @@ fun SettingsScreen(bottomPadding: Dp, onOpenDetail: (Detail) -> Unit) {
         }
     }
 
+    val currentSection = section
+
+    // Back leaves the category before it leaves the tab.
+    BackHandler(enabled = currentSection != null) { section = null }
+
     Column(modifier = Modifier.fillMaxSize()) {
         TopAppBar(
-            title = { Text(stringResource(R.string.tab_settings)) },
+            title = {
+                Text(
+                    if (currentSection == null) stringResource(R.string.tab_settings)
+                    else stringResource(currentSection.titleRes)
+                )
+            },
+            navigationIcon = {
+                if (currentSection != null) {
+                    IconButton(onClick = { section = null }) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
+                    }
+                }
+            },
             windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp)
         )
 
@@ -282,9 +338,31 @@ fun SettingsScreen(bottomPadding: Dp, onOpenDetail: (Detail) -> Unit) {
                 contentPadding = PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp, bottom = bottomPadding),
                 verticalArrangement = Arrangement.spacedBy(13.dp)
             ) {
-            item {
-                SettingsSectionHeader(R.string.settings_section_startup)
+            if (currentSection == null) {
+                item {
+                    SegmentedColumn(modifier = Modifier.fillMaxWidth()) {
+                        SettingsSection.entries.forEach { target ->
+                            item {
+                                SegmentedListItem(
+                                    centerSlots = true,
+                                    leadingContent = { SettingsIcon(target.icon) },
+                                    headlineContent = { Text(stringResource(target.titleRes)) },
+                                    supportingContent = { Text(stringResource(target.summaryRes)) },
+                                    trailingContent = {
+                                        Icon(
+                                            Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                                            contentDescription = null
+                                        )
+                                    },
+                                    onClick = { section = target }
+                                )
+                            }
+                        }
+                    }
+                }
             }
+
+            if (currentSection == SettingsSection.STARTUP) {
             item {
                 SegmentedColumn(modifier = Modifier.fillMaxWidth()) {
                     item {
@@ -570,10 +648,9 @@ fun SettingsScreen(bottomPadding: Dp, onOpenDetail: (Detail) -> Unit) {
                     }
                 }
             }
-
-            item {
-                SettingsSectionHeader(R.string.settings_section_wireless)
             }
+
+            if (currentSection == SettingsSection.WIRELESS) {
             item {
                 SegmentedColumn(modifier = Modifier.fillMaxWidth()) {
                     item {
@@ -676,10 +753,9 @@ fun SettingsScreen(bottomPadding: Dp, onOpenDetail: (Detail) -> Unit) {
                     }
                 }
             }
-
-            item {
-                SettingsSectionHeader(R.string.settings_section_tools)
             }
+
+            if (currentSection == SettingsSection.TOOLS) {
             item {
                 SegmentedColumn(modifier = Modifier.fillMaxWidth()) {
                     // Battery optimisation moved onto the permissions page: it answers the
@@ -695,6 +771,21 @@ fun SettingsScreen(bottomPadding: Dp, onOpenDetail: (Detail) -> Unit) {
                                 Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
                             },
                             onClick = { onOpenDetail(Detail.PERMISSIONS) }
+                        )
+                    }
+                    // The setup is not a permission and not a setting, but this is where
+                    // somebody goes looking for a thing they have already seen once: the same
+                    // pages, on demand, with the answers already filled in.
+                    item {
+                        SegmentedListItem(
+                            centerSlots = true,
+                            leadingContent = { SettingsIcon(Icons.Outlined.Tune) },
+                            headlineContent = { Text(stringResource(R.string.settings_run_setup)) },
+                            supportingContent = { Text(stringResource(R.string.settings_run_setup_summary)) },
+                            trailingContent = {
+                                Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
+                            },
+                            onClick = onRunSetup
                         )
                     }
                     item {
@@ -738,10 +829,9 @@ fun SettingsScreen(bottomPadding: Dp, onOpenDetail: (Detail) -> Unit) {
                     }
                 }
             }
-
-            item {
-                SettingsSectionHeader(R.string.settings_section_appearance)
             }
+
+            if (currentSection == SettingsSection.APPEARANCE) {
             item {
                 SegmentedColumn(modifier = Modifier.fillMaxWidth()) {
                     item {
@@ -819,10 +909,9 @@ fun SettingsScreen(bottomPadding: Dp, onOpenDetail: (Detail) -> Unit) {
                     }
                 }
             }
-
-            item {
-                SettingsSectionHeader(R.string.settings_section_about)
             }
+
+            if (currentSection == null) {
             item {
                 SegmentedColumn(modifier = Modifier.fillMaxWidth()) {
                     item {
@@ -973,6 +1062,7 @@ fun SettingsScreen(bottomPadding: Dp, onOpenDetail: (Detail) -> Unit) {
                         }
                     }
                 }
+            }
             }
             }
 

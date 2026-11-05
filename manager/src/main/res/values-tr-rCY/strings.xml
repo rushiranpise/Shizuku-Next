@@ -182,6 +182,8 @@
     <string name="activities_open">Açık</string>
     <string name="activities_copy">Kopyala</string>
     <string name="activities_copied">Kopyalandı</string>
+    <string name="activities_apps_section">Uygulamalar</string>
+    <string name="activities_save">Kaydet</string>
     <string name="tab_intent_builder">Intent oluşturucu</string>
     <string name="intent_builder_note">Bir intent oluşturup gönderin. Eylem, veri, tür, bileşen, kategoriler, ek veriler ve bayrakları ayarlayabilirsiniz. Ayrıca \"intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end\" gibi bir URI\'den intent yükleyebilirsiniz. Bu, Activity Launcher ve çoğu otomasyon aracının kullandığı formattır. Bir intent yüklemek, göndermeden önce alanları kontrol edip düzenleyebilmeniz için alanları otomatik olarak doldurur.</string>
     <string name="intent_uri">Intent URI</string>

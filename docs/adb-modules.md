@@ -203,6 +203,18 @@ an option is worse than one that says it cannot. A command runs as it is written
 working directory set for it and no environment beyond the shell's own, so use an absolute path or
 the `moduleDir` from `getModuleInfo()`.
 
+```javascript
+window.Shizuku.openSettings();
+// { ok: true }
+```
+
+This app's module settings hold the two switches a page most often has to send a person to - Full
+access and Allow background actions - so the page can send them straight there. It is navigation,
+not a command: nothing runs, so nothing is reviewed, and it is not behind the gate below - the page
+that most needs the person at these settings is the one whose module cannot run anything yet. The
+page closes for it; the module list arrives with the settings dialog already open on it, and the
+switches it flips take effect the next time the page asks for anything.
+
 ### The gate
 
 Shell methods answer only when all of these hold:
@@ -285,6 +297,7 @@ Everything above works as the format documents it. These are the differences wor
 | `stdin`, `cwd`, `env` in `execWithOptions` | refused by name | supported |
 | Output past the cap | first 64 KB kept, rest drained | last 64 KB kept, drained |
 | WebUI `window.Shizuku.download(...)` | not provided | provided |
+| WebUI `window.Shizuku.openSettings()` | provided - opens the module settings | not part of the format |
 | ReCommand, command suggestions, AI checker | not provided | provided |
 | Full Trust and the shell bridge | Full access plus either `usesShellBridge=true` or trust | the same rule |
 | WebUI internet, WebUI download gates | not applicable - a page has no network at all | trust bypasses them |

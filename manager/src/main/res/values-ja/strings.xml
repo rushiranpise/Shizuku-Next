@@ -229,6 +229,8 @@
     <string name="activities_copy">コピー</string>
     <string name="activities_edit_as_intent">意図として編集</string>
     <string name="activities_copied">コピーしました</string>
+    <string name="activities_apps_section">アプリ</string>
+    <string name="activities_save">保存</string>
     <string name="tab_intent_builder">インテントビルダ</string>
     <string name="intent_builder_note">インテントを構築して送信します。アクション、データ、タイプ、コンポーネント、カテゴリ、追加、フラグを設定できます。 Intent:#Intent;action=android.intentのような、URIからインテントを読み込むこともできます。 ction.VIEW;data=https://example.com;end. This is the format used by Activity Launcher, and most automation. フィールドに1つの約定を読み込んで、送信前に確認して編集することができます。</string>
     <string name="intent_uri">Intent URI</string>

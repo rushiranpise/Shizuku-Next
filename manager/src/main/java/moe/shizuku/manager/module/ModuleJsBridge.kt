@@ -1,5 +1,7 @@
 package moe.shizuku.manager.module
 
+import android.os.Handler
+import android.os.Looper
 import android.webkit.JavascriptInterface
 import kotlinx.coroutines.runBlocking
 
@@ -30,6 +32,7 @@ data class ModuleCommandRequest(
  */
 class ModuleJsBridge(
     private val module: AdbModule,
+    private val openSettings: () -> Unit,
     private val runCommand: suspend (String, Int) -> ModuleActionResult,
 ) {
 
@@ -60,6 +63,21 @@ class ModuleJsBridge(
             is ModuleWebUi.Options.Refused -> ModuleWebUi.refusedJson(options.reason)
             is ModuleWebUi.Options.Supported -> runCommandJson(command, options.timeoutSeconds)
         }
+
+    /**
+     * Opens this app's module settings, over the module list.
+     *
+     * This is navigation, not a command: there is nothing to run, so there is nothing to review,
+     * and no gate to be behind - the page that most needs the person at these settings is the one
+     * whose module cannot run anything yet, which is why Safe mode gets this too. The page cannot
+     * flip the switches itself; the most it can do is bring the person to the room where they can.
+     */
+    @JavascriptInterface
+    fun openSettings(): String {
+        // A JavascriptInterface method runs on the WebView's bridge thread; the screens do not.
+        Handler(Looper.getMainLooper()).post(openSettings)
+        return ModuleWebUi.ackJson()
+    }
 
     private fun runCommandJson(command: String, timeoutSeconds: Int): String {
         val mode = ModuleSettings.getAccessMode()
