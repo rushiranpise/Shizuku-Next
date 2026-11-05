@@ -589,10 +589,15 @@
     <string name="start_system_custom_copied">Command copied to the clipboard.</string>
     <string name="start_system_custom_copy_failed">The command is above, ready to copy by hand.</string>
     <string name="settings_section_startup">Startup</string>
+    <string name="settings_section_startup_summary">Boot start, watchdog and start method</string>
     <string name="settings_section_wireless">Wireless debugging</string>
+    <string name="settings_section_wireless_summary">Wireless debugging, TCP mode and the ADB port</string>
     <string name="settings_section_tools">Tools</string>
+    <string name="settings_section_tools_summary">Permissions, setup, terminal and intents</string>
     <string name="settings_section_appearance">Appearance</string>
+    <string name="settings_section_appearance_summary">Theme, colors and language</string>
     <string name="settings_section_about">About</string>
+    <string name="settings_section_about_summary">Version, updates, help and credits</string>
     <string name="settings_theme">Theme</string>
     <string name="settings_theme_system">Follow System</string>
     <string name="settings_theme_light">Light</string>
@@ -1173,6 +1178,20 @@
     <string name="app_info_no">No</string>
 
     <string name="tab_wifi_passwords">Wi-Fi passwords</string>
+
+    <string name="tab_accessibility">Accessibility</string>
+    <string name="accessibility_boot">Start on boot</string>
+    <string name="accessibility_boot_summary">Starts the keep-alive again after a restart.</string>
+    <string name="accessibility_empty">No accessibility services found.</string>
+    <string name="accessibility_gate_off">Keep-alive off</string>
+    <string name="accessibility_count">%1$d on</string>
+    <string name="accessibility_filter_off">Off</string>
+    <string name="accessibility_filter_on">On</string>
+    <string name="accessibility_no_match">No service matches your search.</string>
+    <string name="accessibility_write_failed">Could not change the service. Check that Shizuku is running.</string>
+    <string name="accessibility_notification_channel">Accessibility services</string>
+    <string name="accessibility_notification_title">Accessibility services kept on</string>
+    <string name="accessibility_notification_text">Shizuku-Next turns locked services back on when Android switches them off.</string>
     <string name="wifi_passwords_show">Show password</string>
     <string name="wifi_passwords_hide">Hide password</string>
     <string name="wifi_passwords_copy">Copy password</string>

@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.automirrored.outlined.ReceiptLong
+import androidx.compose.material.icons.outlined.AccessibilityNew
 import androidx.compose.material.icons.outlined.AdminPanelSettings
 import androidx.compose.material.icons.outlined.AspectRatio
 import androidx.compose.material.icons.outlined.Android
@@ -56,6 +57,7 @@ import androidx.lifecycle.compose.LifecycleEventEffect
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import moe.shizuku.manager.R
+import moe.shizuku.manager.accessibility.AccessibilityKeepAlive
 import moe.shizuku.manager.manage.ForceDark
 import moe.shizuku.manager.manage.Hiding
 import moe.shizuku.manager.manage.PackageTools
@@ -130,6 +132,7 @@ fun LabsScreen(bottomPadding: Dp, onOpenDetail: (Detail) -> Unit) {
         LabEntry(R.string.tab_log, Icons.AutoMirrored.Outlined.ReceiptLong, Detail.LOG),
         LabEntry(R.string.tab_device_info, Icons.Outlined.PhoneAndroid, Detail.DEVICE_INFO),
         LabEntry(R.string.tab_force_dark, Icons.Outlined.DarkMode, Detail.FORCE_DARK),
+        LabEntry(R.string.tab_accessibility, Icons.Outlined.AccessibilityNew, Detail.ACCESSIBILITY),
         LabEntry(R.string.tab_activities, Icons.Outlined.Widgets, Detail.ACTIVITIES),
         LabEntry(R.string.tab_power, Icons.Outlined.PowerSettingsNew, Detail.POWER),
         LabEntry(R.string.tab_display, Icons.Outlined.AspectRatio, Detail.DISPLAY),
@@ -270,6 +273,14 @@ private fun activeFeatures(context: Context): Set<Detail> = buildSet {
     // The other switch in the list, and the same question asked of it: on, and with apps to act
     // on.
     if (ForceDark.hasWorkToDo()) add(Detail.FORCE_DARK)
+
+    // The accessibility manager is doing something when it is armed and at least one service is
+    // locked to keep on; either one without the other is a setting, not a state.
+    if (AccessibilityKeepAlive.isEnabled(context) &&
+        AccessibilityKeepAlive.pinned(context).isNotEmpty()
+    ) {
+        add(Detail.ACCESSIBILITY)
+    }
 }
 
 /** One row of the list: what it is called, what is on it, and where it goes. */

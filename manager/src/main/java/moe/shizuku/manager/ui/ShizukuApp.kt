@@ -101,6 +101,7 @@ import kotlinx.coroutines.launch
 import moe.shizuku.manager.R
 import moe.shizuku.manager.ui.component.TelevisionFocusOutline
 import moe.shizuku.manager.ui.component.televisionFocusShape
+import moe.shizuku.manager.ui.screen.AccessibilityScreen
 import moe.shizuku.manager.ui.screen.AppsScreen
 import moe.shizuku.manager.ui.screen.ActivitiesScreen
 import moe.shizuku.manager.ui.screen.FilesScreen
@@ -182,6 +183,9 @@ enum class Detail(
     TERMINAL,
     INTENTS,
     PERMISSIONS,
+
+    /** Every accessibility service, with the switch the system screen owns and a keep-alive pin. */
+    ACCESSIBILITY,
 
     /** The community's module index, shown here only when there was no browser to open it in. */
     MORE_APPS;
@@ -400,6 +404,10 @@ fun ShizukuApp(onRunSetup: () -> Unit) {
                             Detail.TERMINAL -> TerminalScreen(onBack = { detail = null })
                             Detail.INTENTS -> IntentsScreen(onBack = { detail = null })
                             Detail.PERMISSIONS -> PermissionsScreen(onBack = { detail = null })
+                            Detail.ACCESSIBILITY -> AccessibilityScreen(
+                                bottomPadding = 0.dp,
+                                onBack = { detail = null }
+                            )
                         }
                     }
                 } else if (LocalTelevision.current) {
