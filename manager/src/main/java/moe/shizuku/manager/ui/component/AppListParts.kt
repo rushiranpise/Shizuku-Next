@@ -15,7 +15,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -69,7 +69,8 @@ fun appLabel(pm: PackageManager, pi: PackageInfo): String =
 /**
  * One filter, sized to its share of the row rather than to its label, with its label and how
  * many apps it holds centred together. A stock chip sizes to its text, which left the four
- * ragged on the left and hid the counts somewhere else entirely.
+ * ragged on the left and hid the counts somewhere else entirely. A translated label that
+ * needs more room wraps and grows the chip rather than being cut off.
  */
 @Composable
 fun AppFilterChip(
@@ -87,7 +88,7 @@ fun AppFilterChip(
 ) {
     Surface(
         modifier = modifier
-            .height(34.dp)
+            .heightIn(min = 34.dp)
             .clip(MaterialTheme.shapes.large)
             .selectable(selected = selected, enabled = enabled, role = Role.Tab, onClick = onClick),
         shape = MaterialTheme.shapes.large,
@@ -103,7 +104,7 @@ fun AppFilterChip(
     ) {
         Row(
             modifier = if (fill) {
-                Modifier.fillMaxSize().padding(horizontal = 6.dp)
+                Modifier.fillMaxWidth().padding(horizontal = 6.dp)
             } else {
                 Modifier.padding(horizontal = 12.dp)
             },
@@ -113,8 +114,7 @@ fun AppFilterChip(
             Text(
                 label,
                 style = MaterialTheme.typography.labelLarge,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
+                textAlign = TextAlign.Center,
                 color = if (selected) {
                     MaterialTheme.colorScheme.onSecondaryContainer
                 } else {

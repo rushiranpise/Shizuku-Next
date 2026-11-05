@@ -1,3 +1,5 @@
+@file:OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+
 package moe.shizuku.manager.ui.screen
 
 import android.content.Intent
@@ -13,6 +15,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -283,15 +286,14 @@ fun ManageScreen(
             }
         )
 
-        // Each chip is as wide as its own label needs and the row spans the width: the first
-        // sits against one edge, the last against the other, and what is left over is spent
-        // between them. It used to scroll, which meant the last filter was half off the screen
-        // on a phone and the row looked like it had more in it than it did.
-        Row(
+        // Each chip is as wide as its own label needs, and the row wraps when five translated
+        // labels no longer fit: none is pushed off the screen and none is cut short.
+        FlowRow(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 4.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             ManageFilter.entries.forEach { option ->
                 val count = when (option) {

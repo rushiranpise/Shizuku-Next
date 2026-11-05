@@ -223,7 +223,8 @@ fun AccessibilityScreen(bottomPadding: Dp, onBack: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 4.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             AppFilterChip(
                 modifier = Modifier.weight(1f),

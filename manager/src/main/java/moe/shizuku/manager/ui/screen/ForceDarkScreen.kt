@@ -259,7 +259,8 @@ fun ForceDarkScreen(bottomPadding: Dp, onBack: () -> Unit) {
                 .fillMaxWidth()
                 .alpha(contentAlpha)
                 .padding(horizontal = 16.dp, vertical = 4.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             AppFilterChip(
                 modifier = Modifier.weight(1f),

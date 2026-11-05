@@ -21,7 +21,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
@@ -1159,19 +1158,22 @@ private data class StatusFactEntry(
 @Composable
 private fun StatusFacts(vararg facts: StatusFactEntry) {
     Row(
-        // IntrinsicSize.Min is what gives the rules a height to fill: without it the
-        // divider measures against the row's (unbounded) constraint and disappears.
-        modifier = Modifier.fillMaxWidth().padding(top = 2.dp).height(IntrinsicSize.Min)
+        // The rules are a fixed height and centred, so the row can grow with a wrapped label
+        // instead of measuring a one-line intrinsic height and cutting the translation off.
+        modifier = Modifier.fillMaxWidth().padding(top = 2.dp)
     ) {
         facts.forEachIndexed { index, fact ->
             if (index > 0) {
                 VerticalDivider(
-                    modifier = Modifier.padding(horizontal = 10.dp),
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                        .height(48.dp)
+                        .padding(horizontal = 10.dp),
                     thickness = 1.dp,
                     color = LocalContentColor.current.copy(alpha = 0.25f)
                 )
             }
-            StatusFact(fact, Modifier.weight(1f).fillMaxHeight())
+            StatusFact(fact, Modifier.weight(1f))
         }
     }
 }
@@ -1186,9 +1188,7 @@ private fun StatusFact(fact: StatusFactEntry, modifier: Modifier = Modifier) {
         Text(
             stringResource(fact.label),
             style = MaterialTheme.typography.bodySmall,
-            color = LocalContentColor.current.copy(alpha = 0.7f),
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
+            color = LocalContentColor.current.copy(alpha = 0.7f)
         )
         Text(
             fact.value,
@@ -1236,7 +1236,8 @@ private fun DebuggingActionButtons(
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         DebuggingButton(stringResource(R.string.home_switch_dev_options), devOptions, onDevOptions)
         DebuggingButton(stringResource(R.string.home_switch_usb), usbDebugging, onUsbDebugging)
@@ -1251,11 +1252,13 @@ private fun DebuggingActionButtons(
 @Composable
 private fun RowScope.DebuggingButton(label: String, on: Boolean, onClick: () -> Unit) {
     Button(
-        // The height a two-line label needs, whatever this screen's width does to the text.
+        // The height a two-line label needs; a longer translation grows the button instead
+        // of being cut off.
         modifier = Modifier
             .weight(1f)
             .heightIn(min = 64.dp),
         onClick = onClick,
+        shape = CircleShape,
         contentPadding = PaddingValues(horizontal = 6.dp, vertical = 6.dp),
         // The theme's own roles rather than a fixed blue: with dynamic colour on, "on" is the
         // wallpaper's accent, and with it off it is the brand seed - the same pair the rest of the
@@ -1277,11 +1280,9 @@ private fun RowScope.DebuggingButton(label: String, on: Boolean, onClick: () -> 
         }
     ) {
         Text(
-            // Two lines always, and the break goes after the first word rather than into the
-            // string: a translation keeps its own words, and only where they split changes.
+            // The break goes after the first word rather than into the string: a translation
+            // keeps its own words, and what is left wraps instead of being cut off.
             label.replaceFirst(' ', '\n'),
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.labelLarge
         )
@@ -1297,7 +1298,8 @@ private val RestartBlue = Color(0xFF2563EB)
  *
  * The row is a set of equals: the pill shape and a minimum height are set here rather than
  * left to the button default, because a longer translation wraps and the default shape turns
- * into a rounded rectangle while its one-line neighbours stay pills.
+ * into a rounded rectangle while its one-line neighbours stay pills. The button grows when
+ * the label needs more room, so the translation is not cut off.
  */
 @Composable
 private fun ServerActionButtons(
@@ -1307,8 +1309,9 @@ private fun ServerActionButtons(
     onStop: () -> Unit,
     onRestart: () -> Unit
 ) {
-    // A wrapped label needs room for two lines. The minimum height keeps every button in the
-    // row the same size; the smaller horizontal padding leaves long words more width.
+    // The minimum keeps the row compact when the labels fit and lets a wrapped translation
+    // grow the button when it does not. The smaller horizontal padding leaves long words more
+    // width before they have to break.
     val buttonPadding = PaddingValues(horizontal = 8.dp, vertical = 6.dp)
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -1336,8 +1339,6 @@ private fun ServerActionButtons(
             } else {
                 Text(
                     text = stringResource(R.string.action_start),
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
                     textAlign = TextAlign.Center
                 )
             }
@@ -1360,8 +1361,6 @@ private fun ServerActionButtons(
         ) {
             Text(
                 text = stringResource(R.string.action_stop),
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Center
             )
         }
@@ -1384,8 +1383,6 @@ private fun ServerActionButtons(
         ) {
             Text(
                 text = stringResource(R.string.action_restart),
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Center
             )
         }
