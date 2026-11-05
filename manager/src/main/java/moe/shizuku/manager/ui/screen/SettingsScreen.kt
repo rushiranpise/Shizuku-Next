@@ -153,51 +153,7 @@ private enum class SettingsSection(
         R.string.settings_section_appearance,
         R.string.settings_section_appearance_summary,
         Icons.Outlined.Palette
-    ),
-    ABOUT(
-        R.string.settings_section_about,
-        R.string.settings_section_about_summary,
-        Icons.Outlined.Info
     )
-}
-
-/**
- * The settings index: one short row per category, each opening a screen of its own.
- *
- * The categories used to be headers in one list, which made the tab a long scroll before
- * anything could be found. This keeps the tab to five rows and each screen to what fits.
- */
-@Composable
-private fun SettingsHub(
-    bottomPadding: Dp,
-    onOpen: (SettingsSection) -> Unit
-) {
-    LazyColumn(
-        contentPadding = PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp, bottom = bottomPadding),
-        verticalArrangement = Arrangement.spacedBy(13.dp)
-    ) {
-        item {
-            SegmentedColumn(modifier = Modifier.fillMaxWidth()) {
-                SettingsSection.entries.forEach { section ->
-                    item {
-                        SegmentedListItem(
-                            centerSlots = true,
-                            leadingContent = { SettingsIcon(section.icon) },
-                            headlineContent = { Text(stringResource(section.titleRes)) },
-                            supportingContent = { Text(stringResource(section.summaryRes)) },
-                            trailingContent = {
-                                Icon(
-                                    Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                                    contentDescription = null
-                                )
-                            },
-                            onClick = { onOpen(section) }
-                        )
-                    }
-                }
-            }
-        }
-    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -376,18 +332,36 @@ fun SettingsScreen(
                 .fillMaxWidth()
                 .weight(1f)
         ) {
-            if (currentSection == null) {
-                SettingsHub(
-                    bottomPadding = bottomPadding,
-                    onOpen = { section = it }
-                )
-            } else {
             val listState = rememberLazyListState()
             LazyColumn(
                 state = listState,
                 contentPadding = PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp, bottom = bottomPadding),
                 verticalArrangement = Arrangement.spacedBy(13.dp)
             ) {
+            if (currentSection == null) {
+                item {
+                    SegmentedColumn(modifier = Modifier.fillMaxWidth()) {
+                        SettingsSection.entries.forEach { target ->
+                            item {
+                                SegmentedListItem(
+                                    centerSlots = true,
+                                    leadingContent = { SettingsIcon(target.icon) },
+                                    headlineContent = { Text(stringResource(target.titleRes)) },
+                                    supportingContent = { Text(stringResource(target.summaryRes)) },
+                                    trailingContent = {
+                                        Icon(
+                                            Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                                            contentDescription = null
+                                        )
+                                    },
+                                    onClick = { section = target }
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+
             if (currentSection == SettingsSection.STARTUP) {
             item {
                 SegmentedColumn(modifier = Modifier.fillMaxWidth()) {
@@ -937,7 +911,7 @@ fun SettingsScreen(
             }
             }
 
-            if (currentSection == SettingsSection.ABOUT) {
+            if (currentSection == null) {
             item {
                 SegmentedColumn(modifier = Modifier.fillMaxWidth()) {
                     item {
@@ -1097,7 +1071,6 @@ fun SettingsScreen(
                 bottomPadding = bottomPadding,
                 modifier = Modifier.align(Alignment.BottomEnd)
             )
-            }
         }
     }
 
