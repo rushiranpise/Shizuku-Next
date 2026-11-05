@@ -37,6 +37,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
@@ -1279,7 +1280,7 @@ private fun RowScope.DebuggingButton(
             .weight(1f)
             .heightIn(min = 64.dp),
         onClick = onClick,
-        shape = CircleShape,
+        shape = RoundedCornerShape(24.dp),
         contentPadding = PaddingValues(horizontal = 6.dp, vertical = 6.dp),
         // The theme's own roles rather than a fixed blue: with dynamic colour on, "on" is the
         // wallpaper's accent, and with it off it is the brand seed - the same pair the rest of the
@@ -1304,14 +1305,21 @@ private fun RowScope.DebuggingButton(
             icon = icon,
             // The break goes after the first word rather than into the string: a translation
             // keeps its own words, and what is left wraps instead of being cut off.
-            label = label.replaceFirst(' ', '\n')
+            label = label.replaceFirst(' ', '\n'),
+            // The second line starts under the first, as in the mock, rather than being
+            // centred under it.
+            textAlign = TextAlign.Start
         )
     }
 }
 
 /** A button's glyph and label, kept together and centred in the pill. */
 @Composable
-private fun ButtonIconLabel(icon: ImageVector, label: String) {
+private fun ButtonIconLabel(
+    icon: ImageVector,
+    label: String,
+    textAlign: TextAlign = TextAlign.Center
+) {
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
@@ -1324,7 +1332,7 @@ private fun ButtonIconLabel(icon: ImageVector, label: String) {
         Spacer(Modifier.width(6.dp))
         Text(
             text = label,
-            textAlign = TextAlign.Center
+            textAlign = textAlign
         )
     }
 }
