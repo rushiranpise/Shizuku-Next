@@ -52,7 +52,6 @@ import androidx.compose.material.icons.rounded.Numbers
 import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Stop
-import androidx.compose.material.icons.rounded.SwapHoriz
 import androidx.compose.material.icons.rounded.Usb
 import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.material.icons.rounded.MoreHoriz
@@ -1144,24 +1143,20 @@ private fun StatusFactsCard(
     }
     val facts = listOf(
         StatusFactEntry(
-            icon = Icons.Rounded.Computer,
             label = R.string.home_status_started_with,
             value = if (running) startedWithLabel(context, uid)
             else stringResource(R.string.status_value_none)
         ),
         StatusFactEntry(
-            icon = startMethodIcon(startMethodLabelRes),
             label = R.string.home_status_started_default,
             value = stringResource(startMethodLabelRes)
         ),
         StatusFactEntry(
-            icon = Icons.Rounded.SwapHoriz,
             label = R.string.home_status_transport_label,
             value = if (running) transportLabel(context, uid)
             else stringResource(R.string.status_value_none)
         ),
         StatusFactEntry(
-            icon = Icons.Rounded.Code,
             label = R.string.uid_label,
             value = if (uid < 0) stringResource(R.string.status_value_none) else uid.toString(),
             detail = uidName(context, uid)
@@ -1180,12 +1175,16 @@ private fun StatusFactsCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 4.dp, vertical = 14.dp),
-            verticalAlignment = Alignment.CenterVertically
+            // Top, not centre: the uid has a detail line under it, and centring the column
+            // lifted its label above the other three.
+            verticalAlignment = Alignment.Top
         ) {
             facts.forEachIndexed { index, fact ->
                 if (index > 0) {
                     VerticalDivider(
-                        modifier = Modifier.height(44.dp),
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                            .height(44.dp),
                         thickness = 1.dp,
                         color = MaterialTheme.colorScheme.outlineVariant
                     )
@@ -1199,14 +1198,6 @@ private fun StatusFactsCard(
             }
         }
     }
-}
-
-/** The method icon is chosen from the label the settings already resolved. */
-private fun startMethodIcon(@StringRes labelRes: Int): ImageVector = when (labelRes) {
-    R.string.start_method_usb -> Icons.Rounded.Usb
-    R.string.start_method_system -> Icons.Rounded.AdminPanelSettings
-    R.string.start_method_root -> Icons.Rounded.Numbers
-    else -> Icons.Rounded.Wifi
 }
 
 /**
@@ -1289,12 +1280,11 @@ private fun readSeccompStatus(): Int? {
 private fun readDeviceStatus(): Pair<Int?, Int?> = readSelinuxStatus() to readSeccompStatus()
 
 /**
- * One fact in the status row, with the icon that names its kind. Each takes an equal share
- * of the width so the rules land in even gaps, and long values ellipsise inside their share
- * rather than pushing the next one along.
+ * One fact in the status row. Each takes an equal share of the width so the rules land in
+ * even gaps, and long values ellipsise inside their share rather than pushing the next one
+ * along.
  */
 private data class StatusFactEntry(
-    val icon: ImageVector,
     @StringRes val label: Int,
     val value: String,
     /** A quieter line under the value, for what the value is called rather than what it is. */
@@ -1302,46 +1292,37 @@ private data class StatusFactEntry(
 )
 
 /**
- * One fact: its icon, then its label above its value. The label is set back so the eye reads
- * the value first, and both line up with the icon beside them.
+ * One fact: its label above its value. The label is set back so the eye reads the value first,
+ * and every column starts at the same place so the last one cannot drift away from the rest.
  */
 @Composable
 private fun StatusFact(fact: StatusFactEntry, modifier: Modifier = Modifier) {
-    Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
-        Icon(
-            fact.icon,
-            contentDescription = null,
-            modifier = Modifier.size(18.dp),
-            tint = LocalContentColor.current.copy(alpha = 0.7f)
+    Column(modifier = modifier) {
+        Text(
+            stringResource(fact.label),
+            style = MaterialTheme.typography.bodySmall,
+            color = LocalContentColor.current.copy(alpha = 0.7f),
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
         )
-        Spacer(modifier = Modifier.width(4.dp))
-        Column(modifier = Modifier.weight(1f)) {
+        Text(
+            fact.value,
+            // One step up from the label and no more: four facts share the width, so a
+            // bigger value just eats its own ellipsis. Two lines rather than one, because
+            // the method names are longer than a quarter of the width and "Start without
+            // Wi-Fi" clipped to "Start wi…" says less than it costs to wrap.
+            style = MaterialTheme.typography.bodyMedium,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
+        )
+        fact.detail?.let {
             Text(
-                stringResource(fact.label),
+                it,
                 style = MaterialTheme.typography.bodySmall,
                 color = LocalContentColor.current.copy(alpha = 0.7f),
-                maxLines = 2,
+                maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            Text(
-                fact.value,
-                // One step up from the label and no more: four facts share the width, so a
-                // bigger value just eats its own ellipsis. Two lines rather than one, because
-                // the method names are longer than a quarter of the width and "Start without
-                // Wi-Fi" clipped to "Start wi…" says less than it costs to wrap.
-                style = MaterialTheme.typography.bodyMedium,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
-            )
-            fact.detail?.let {
-                Text(
-                    it,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = LocalContentColor.current.copy(alpha = 0.7f),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
         }
     }
 }
