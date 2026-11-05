@@ -1,5 +1,3 @@
-@file:OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
-
 package moe.shizuku.manager.ui.screen
 
 import android.content.pm.ApplicationInfo
@@ -17,7 +15,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -418,18 +415,18 @@ fun AppsScreen(
         // A search field, not just a text field: Material 3 gives search boxes the fully
         // rounded shape and a quieter outline, so this reads as "search" at a glance
         // instead of as a box someone put a magnifier in.
-        // Same two rows as the app-ops and Labs lists: what kind of app it is on a row that
-        // wraps, because five translated labels do not fit on a phone, and Shizuku's own
-        // question on a row of its own. Granted and revoked are the only two answers to that
-        // one, so neither being chosen shows everything.
+        // Same two rows as the app-ops and Labs lists: what kind of app it is on one row,
+        // then Shizuku's own question on a row of its own. Each chip sizes to its label and
+        // count and the slack is shared out; a translation that needs more room wraps inside
+        // its chip instead of pushing the last filter onto a second line.
         // Filter first, search within it: the two answer different questions and the search
         // box alone cannot say "only what is granted".
-        FlowRow(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 4.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             ManageFilter.entries.forEach { option ->
                 val count = when (option) {
