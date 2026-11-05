@@ -78,7 +78,7 @@
     <string name="adb_error_stop_tcp">Could not stop ADB over TCP</string>
     <string name="adb_pair_required">Pair the device first.</string>
     <string name="enable">Enable</string>
-    <string name="auto_pair_instructions">Pair without typing a code:\n\n1. Developer options → Wireless debugging\n2. Pair device with pairing code\n\nShizuku reads the code and port straight from that dialog and starts itself. Keep the dialog open until pairing finishes.</string>
+    <string name="auto_pair_instructions">Pair without typing a code:\n\n1. Tap Developer options below\n\nShizuku opens Wireless debugging and the pairing dialog itself, reads the code and port, and starts. Keep the dialog open until pairing finishes.</string>
     <string name="auto_pair_manual">Manual</string>
     <string name="development_settings">Automatic</string>
     <string name="notification_settings">Notification settings</string>
@@ -989,7 +989,7 @@
     <string name="off">Off</string>
     <string name="dialog_cannot_open_browser_title">Can\'t start browser</string>
     <string name="toast_copied_to_clipboard">Copied to clipboard</string>
-    <string name="accessibility_service_description">Pairs wireless debugging without typing the code.\n\nShizuku reads the pairing code and port from the system\'s “Pair with device” screen, pairs, and starts itself. On TVs (e.g. Android 14+) it drives the whole flow and switches off once a code is found.</string>
+    <string name="accessibility_service_description">Pairs wireless debugging without taps or typing.\n\nShizuku opens the Wireless debugging screen, opens the system\'s “Pair with device” dialog, reads the pairing code and port, pairs, and starts itself. On TVs (e.g. Android 14+) it drives the whole flow and switches off once a code is found.</string>
 
     <!-- Messages for legacy -->
     <string name="dialog_legacy_not_support_title">%1$s does not support modern Shizuku</string>
