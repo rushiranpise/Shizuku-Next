@@ -257,7 +257,15 @@ fun ModulesScreen(
     // These take the screen rather than opening over the list: a page, a console and a catalog are
     // not dialogs.
     webUiFor?.let { module ->
-        ModuleWebUiScreen(module = module, active = active, onBack = { webUiFor = null })
+        // Settings belong to the module list, so the page closes for them: the list arrives with
+        // the settings dialog already open on it, one tap from the switches the page sent the
+        // person to.
+        ModuleWebUiScreen(
+            module = module,
+            active = active,
+            onBack = { webUiFor = null },
+            onOpenSettings = { webUiFor = null; tuneDialog = true }
+        )
         return
     }
 
