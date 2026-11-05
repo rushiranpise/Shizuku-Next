@@ -38,7 +38,7 @@
     <string name="diagnostics_device">Dispositivo</string>
     <string name="diagnostics_started_with">Iniciado por</string>
     <string name="diagnostics_default">Método por defecto</string>
-    <string name="diagnostics_hiding">Ocultar</string>
+    <string name="diagnostics_hiding">Ocultación</string>
     <string name="diagnostics_phantom">Matar proceso</string>
     <string name="diagnostics_root">Root</string>
     <string name="diagnostics_granted">permitido</string>
@@ -551,7 +551,7 @@
     <string name="modules_review_message">%1$s le pidió a Shizuku que ejecutara:</string>
     <string name="modules_review_approve">Ejecutarlo</string>
     <string name="modules_result_title">%1$s</string>
-    <string name="modules_result_exit">Código de fin %1$d</string>
+    <string name="modules_result_exit">Código de salida %1$d</string>
     <string name="modules_error_not_a_module">Este archivo no es un módulo: falta o es inutilizable su archivo module.prop.</string>
     <string name="modules_error_unsafe_path">Ese módulo intentó escribir fuera de su propio directorio, por lo que fue rechazado.</string>
     <string name="modules_error_too_many_entries">Ese módulo tiene más archivos de los que un módulo puede tener, por lo que fue rechazado.</string>
