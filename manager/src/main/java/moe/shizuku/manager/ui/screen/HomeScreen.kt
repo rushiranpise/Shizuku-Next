@@ -169,6 +169,18 @@ fun HomeScreen(bottomPadding: Dp) {
     var seccompRes by remember { mutableStateOf<Int?>(null) }
     var diagnostics by remember { mutableStateOf("") }
     val startStatus by StartStatusReporter.status.collectAsState()
+
+    // A wireless start with no pairing behind it fails at the handshake, and that failure is the
+    // only reliable way to learn the device is not paired: a pairing is a connection, not a flag.
+    // So it is not left in a card with a Pair button - the pairing flow opens itself, the same
+    // dialog that button opens, and the failure goes away with it. If the dialog cannot be shown,
+    // the card stays with its button, which is the way out that already existed.
+    LaunchedEffect(startStatus) {
+        if ((startStatus as? StartStatus.Failed)?.kind == StartFailureKind.PAIRING) {
+            runCatching { context.showAccessibilityDialog() }
+                .onSuccess { StartStatusReporter.clear() }
+        }
+    }
     val scope = rememberCoroutineScope()
 
     /**

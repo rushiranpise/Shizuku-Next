@@ -11,11 +11,18 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import moe.shizuku.manager.adb.AdbPairingService
 import moe.shizuku.manager.home.showAccessibilityDialog
 import moe.shizuku.manager.receiver.ShizukuReceiverStarter
 import moe.shizuku.manager.ui.ShizukuApp
+import moe.shizuku.manager.ui.screen.SetupScreen
+import moe.shizuku.manager.ui.theme.ShizukuTheme
 import moe.shizuku.manager.utils.AppLocale
+import moe.shizuku.manager.utils.EnvironmentUtils
 
 class MainActivity : ComponentActivity() {
 
@@ -62,9 +69,33 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         handleIntent(intent)
-        requestNotificationPermission()
+
+        // A fresh install meets the guided setup instead of the notification dialog, because
+        // that dialog is where the setup explains it: asked from here it arrived before anything
+        // had been drawn, with nothing to say why. Installs that already knew the app, and a TV
+        // with no keyboard-free way through a wizard, keep the dialog and go straight in.
+        val showSetup = !ShizukuSettings.isSetupDone(this) && !EnvironmentUtils.isTelevision()
+        if (!showSetup) {
+            requestNotificationPermission()
+        }
+
         setContent {
-            ShizukuApp()
+            var setup by rememberSaveable { mutableStateOf(showSetup) }
+            if (setup) {
+                ShizukuTheme {
+                    SetupScreen(
+                        onFinish = {
+                            // Skipping writes the same thing as finishing: the setup is not
+                            // asked again, and whatever was left undone is still on the home
+                            // screen, where it was before.
+                            ShizukuSettings.setSetupDone()
+                            setup = false
+                        }
+                    )
+                }
+            } else {
+                ShizukuApp(onRunSetup = { setup = true })
+            }
         }
     }
 

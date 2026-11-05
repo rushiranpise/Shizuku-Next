@@ -743,6 +743,29 @@
     <string name="permissions_accessibility">Accessibility service</string>
     <string name="permissions_accessibility_summary">Reads the pairing code automatically.</string>
     <string name="permissions_battery_summary">Stops Android from killing Shizuku in the background.</string>
+    <string name="permissions_pairing_service">Pairing service</string>
+    <string name="permissions_pairing_service_reason">Reads the pairing code.</string>
+    <string name="permissions_pairing_service_restricted">Allow restricted settings in App info.</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
+    <string name="setup_step">Step %1$d of %2$d</string>
+    <string name="setup_action_skip">Skip</string>
+    <string name="setup_action_continue">Continue</string>
+    <string name="setup_action_done">Done</string>
+    <string name="setup_welcome_title">Welcome to Shizuku-Next</string>
+    <string name="setup_welcome_body">Shizuku-Next starts and manages the Shizuku service, which lets apps use permissions that normally need adb or root. Everything here can be changed later in Settings.</string>
+    <string name="setup_start_title">How should Shizuku start?</string>
+    <string name="setup_start_body">This decides where the service gets its permissions. You can change it later in Settings, under Start method.</string>
+    <string name="setup_root_title">Root</string>
+    <string name="setup_root_body">One tap, no cable and no pairing. Needs a root manager that grants Shizuku access.</string>
+    <string name="setup_wireless_title">Wireless debugging</string>
+    <string name="setup_wireless_body">Works without root. Needs Developer options and a one-time pairing; after that it starts from the app.</string>
+    <string name="setup_permissions_title">Optional permissions</string>
+    <string name="setup_permissions_body">You can skip any of these and change them later in Settings.</string>
+    <string name="settings_run_setup">Run setup again</string>
+    <string name="settings_run_setup_summary">The welcome steps: how Shizuku starts and what it needs</string>
     <string name="settings_help">Help</string>
     <string name="settings_translate">Participate in translation</string>
     <string name="settings_translate_note">Translate the app on Crowdin.</string>

@@ -375,7 +375,7 @@ fun PermissionsScreen(onBack: () -> Unit) {
  * label for the paragraph rather than the answer for the row.
  */
 @Composable
-private fun PermissionRow(
+internal fun PermissionRow(
     icon: ImageVector,
     headline: String,
     reason: String,

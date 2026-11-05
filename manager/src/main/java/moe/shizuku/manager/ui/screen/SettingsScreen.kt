@@ -49,6 +49,7 @@ import androidx.compose.material.icons.outlined.SystemUpdate
 import androidx.compose.material.icons.outlined.Terminal
 import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material.icons.outlined.Usb
+import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material.icons.outlined.VerifiedUser
 import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material.icons.outlined.Wifi
@@ -126,7 +127,11 @@ private const val FOTA_AGENT_PACKAGE = "com.sdet.fotaagent"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(bottomPadding: Dp, onOpenDetail: (Detail) -> Unit) {
+fun SettingsScreen(
+    bottomPadding: Dp,
+    onOpenDetail: (Detail) -> Unit,
+    onRunSetup: () -> Unit
+) {
     val context = LocalContext.current
 
     var startOnBoot by remember { mutableStateOf(ShizukuSettings.getStartOnBoot(context)) }
@@ -695,6 +700,21 @@ fun SettingsScreen(bottomPadding: Dp, onOpenDetail: (Detail) -> Unit) {
                                 Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
                             },
                             onClick = { onOpenDetail(Detail.PERMISSIONS) }
+                        )
+                    }
+                    // The setup is not a permission and not a setting, but this is where
+                    // somebody goes looking for a thing they have already seen once: the same
+                    // pages, on demand, with the answers already filled in.
+                    item {
+                        SegmentedListItem(
+                            centerSlots = true,
+                            leadingContent = { SettingsIcon(Icons.Outlined.Tune) },
+                            headlineContent = { Text(stringResource(R.string.settings_run_setup)) },
+                            supportingContent = { Text(stringResource(R.string.settings_run_setup_summary)) },
+                            trailingContent = {
+                                Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
+                            },
+                            onClick = onRunSetup
                         )
                     }
                     item {

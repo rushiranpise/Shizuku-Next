@@ -252,7 +252,7 @@ private val tabs = listOf(
 )
 
 @Composable
-fun ShizukuApp() {
+fun ShizukuApp(onRunSetup: () -> Unit) {
     ShizukuTheme {
         // Detail screens are shown outside the Scaffold, so wrap everything in a
         // Surface otherwise LocalContentColor falls back to black and plain
@@ -412,14 +412,16 @@ fun ShizukuApp() {
                         onOpenDetail = {
                             tvReturn.detail = it
                             detail = it
-                        }
+                        },
+                        onRunSetup = onRunSetup
                     )
                 } else {
                     pages.SaveableStateProvider(TAB_PAGES) {
                         MainTabs(
                             pagerState = pagerState,
                             pill = pill,
-                            onOpenDetail = { detail = it }
+                            onOpenDetail = { detail = it },
+                            onRunSetup = onRunSetup
                         )
                     }
                 }
@@ -468,7 +470,8 @@ internal fun afterSettling(visited: List<Int>, page: Int): List<Int> = when {
 private fun MainTabs(
     pagerState: PagerState,
     pill: TabPill,
-    onOpenDetail: (Detail) -> Unit
+    onOpenDetail: (Detail) -> Unit,
+    onRunSetup: () -> Unit
 ) {
     val scope = rememberCoroutineScope()
 
@@ -564,7 +567,11 @@ private fun MainTabs(
                         onFullscreenChange = { modulesFullscreen = it }
                     )
                     3 -> LabsScreen(bottomPadding = bottomPadding, onOpenDetail = onOpenDetail)
-                    4 -> SettingsScreen(bottomPadding = bottomPadding, onOpenDetail = onOpenDetail)
+                    4 -> SettingsScreen(
+                        bottomPadding = bottomPadding,
+                        onOpenDetail = onOpenDetail,
+                        onRunSetup = onRunSetup
+                    )
                 }
             }
         }
@@ -793,7 +800,8 @@ private fun TelevisionTabs(
     pages: SaveableStateHolder,
     focusPageFirst: Boolean,
     returnFocus: TelevisionReturn,
-    onOpenDetail: (Detail) -> Unit
+    onOpenDetail: (Detail) -> Unit,
+    onRunSetup: () -> Unit
 ) {
     var grantedCount by remember { mutableIntStateOf(0) }
     val railItems = remember { List(tabs.size) { FocusRequester() } }
@@ -983,7 +991,11 @@ private fun TelevisionTabs(
                         onFullscreenChange = {}
                     )
                     3 -> LabsScreen(bottomPadding = 0.dp, onOpenDetail = onOpenDetail)
-                    4 -> SettingsScreen(bottomPadding = 0.dp, onOpenDetail = onOpenDetail)
+                    4 -> SettingsScreen(
+                        bottomPadding = 0.dp,
+                        onOpenDetail = onOpenDetail,
+                        onRunSetup = onRunSetup
+                    )
                 }
                 }
             }
