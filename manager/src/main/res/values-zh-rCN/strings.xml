@@ -513,6 +513,7 @@
     <string name="modules_review_title">运行此命令？</string>
     <string name="modules_review_message">%1$s 请求 Shizuku 运行：</string>
     <string name="modules_review_approve">运行</string>
+    <string name="modules_review_trust">信任 %1$s，不再询问</string>
     <string name="modules_result_title">%1$s</string>
     <string name="modules_result_exit">退出码 %1$d</string>
     <string name="modules_error_not_a_module">该文件不是模块：module.prop 缺失或不可用。</string>

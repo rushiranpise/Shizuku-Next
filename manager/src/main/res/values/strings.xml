@@ -549,6 +549,7 @@
     <string name="modules_review_title">Run this command?</string>
     <string name="modules_review_message">%1$s asked Shizuku to run:</string>
     <string name="modules_review_approve">Run it</string>
+    <string name="modules_review_trust">Trust %1$s, and stop asking</string>
     <string name="modules_result_title">%1$s</string>
     <string name="modules_result_exit">Exit code %1$d</string>
     <string name="modules_error_not_a_module">That file is not a module: its module.prop is missing or unusable.</string>
