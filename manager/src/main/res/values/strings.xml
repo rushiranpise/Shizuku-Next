@@ -989,6 +989,7 @@
     <string name="off">Off</string>
     <string name="dialog_cannot_open_browser_title">Can\'t start browser</string>
     <string name="toast_copied_to_clipboard">Copied to clipboard</string>
+    <string name="toast_press_back_again">Press back again to exit</string>
     <string name="accessibility_service_description">Pairs wireless debugging without taps or typing.\n\nShizuku opens the Wireless debugging screen, opens the system\'s “Pair with device” dialog, reads the pairing code and port, pairs, and starts itself. On TVs (e.g. Android 14+) it drives the whole flow and switches off once a code is found.</string>
 
     <!-- Messages for legacy -->
