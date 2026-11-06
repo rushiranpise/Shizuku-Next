@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
-import android.os.SystemClock
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
@@ -27,6 +26,7 @@ import moe.shizuku.manager.start.StartStatusReporter
 import moe.shizuku.manager.utils.Diag
 import moe.shizuku.manager.utils.EnvironmentUtils
 import java.net.ConnectException
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * Pairs wireless debugging without any taps or typing, by reading the code straight out of
@@ -95,8 +95,11 @@ class AdbPairingAccessibilityService : AccessibilityService() {
         Diag.info(TAG, "Connected, television: $isTelevision")
 
         if (isTelevision) {
-            val openedSettings = SystemClock.elapsedRealtime() - settingsOpenedAt < SETTINGS_OPENED_GRACE_MS
-            if (!openedSettings) {
+            // The app opens Developer options before the service can connect. Consume the
+            // mark on this connection so a slow connect still leaves that screen in front;
+            // once consumed, a later manual re-enable gets the usual MainActivity launch.
+            val settingsOpened = settingsOpenedByApp.getAndSet(false)
+            if (!settingsOpened) {
                 val intent = Intent(this, MainActivity::class.java).apply {
                     addFlags(
                         Intent.FLAG_ACTIVITY_NEW_TASK or
@@ -434,11 +437,13 @@ class AdbPairingAccessibilityService : AccessibilityService() {
         /** How long a TV user has to reach the pairing dialog before the service gives up. */
         private const val TV_TIMEOUT_MS = 3 * 60_000L
 
-        /** How recently the app must have opened Settings for a connect to count as its own. */
-        private const val SETTINGS_OPENED_GRACE_MS = 10_000L
-
-        @Volatile
-        private var settingsOpenedAt = -SETTINGS_OPENED_GRACE_MS
+        /**
+         * True when the app opened Settings and the next connection belongs to that launch.
+         *
+         * Consumed on connect, so it can neither expire while the system is still binding the
+         * service nor swallow a later manual re-enable.
+         */
+        private val settingsOpenedByApp = AtomicBoolean(false)
 
         /**
          * Called by the app just before it opens Developer options for automatic pairing, so a
@@ -446,7 +451,7 @@ class AdbPairingAccessibilityService : AccessibilityService() {
          */
         @JvmStatic
         fun noteSettingsOpened() {
-            settingsOpenedAt = SystemClock.elapsedRealtime()
+            settingsOpenedByApp.set(true)
         }
 
         /** How many times a touch on Settings is followed up, and how far apart. */
