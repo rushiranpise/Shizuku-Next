@@ -1,11 +1,14 @@
 package moe.shizuku.manager.service
 
+import android.app.KeyguardManager
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Icon
 import android.os.Build
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
+import android.widget.Toast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -13,6 +16,8 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import moe.shizuku.manager.MainActivity
+import moe.shizuku.manager.R
+import moe.shizuku.manager.ShizukuSettings
 import moe.shizuku.manager.manage.LabSwitch
 import moe.shizuku.manager.manage.SwitchIcon
 
@@ -39,6 +44,14 @@ abstract class LabTileService(private val switch: LabSwitch) : TileService() {
 
     override fun onClick() {
         super.onClick()
+
+        // A locked phone that can still reach the shade must not be able to switch anything.
+        // The check stays here rather than in LabSwitch because the app's own screens and the
+        // home screen widgets are not quick tiles and are already behind the lock.
+        if (ShizukuSettings.getSecureQuickTiles() && keyguardLocked()) {
+            Toast.makeText(this, R.string.lab_switch_locked, Toast.LENGTH_SHORT).show()
+            return
+        }
 
         scope.launch {
             val current = readState()
@@ -68,6 +81,10 @@ abstract class LabTileService(private val switch: LabSwitch) : TileService() {
     private fun refresh() {
         scope.launch { show(readState()) }
     }
+
+    /** Whether the keyguard is up, which is when a secured tile may not change anything. */
+    private fun keyguardLocked(): Boolean =
+        (getSystemService(Context.KEYGUARD_SERVICE) as? KeyguardManager)?.isKeyguardLocked == true
 
     /**
      * The state, waited for a moment when it cannot be read yet.

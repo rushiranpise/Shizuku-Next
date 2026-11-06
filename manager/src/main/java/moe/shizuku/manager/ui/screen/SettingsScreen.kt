@@ -39,6 +39,7 @@ import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.Link
+import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.MenuBook
 import androidx.compose.material.icons.outlined.MonitorHeart
 import androidx.compose.material.icons.outlined.NetworkCheck
@@ -196,6 +197,7 @@ fun SettingsScreen(
     }
 
     var legacyPairing by remember { mutableStateOf(ShizukuSettings.getLegacyPairing()) }
+    var secureQuickTiles by remember { mutableStateOf(ShizukuSettings.getSecureQuickTiles()) }
     var adbWithoutDeveloperOptions by remember {
         mutableStateOf(ShizukuSettings.getAdbWithoutDeveloperOptions())
     }
@@ -762,6 +764,21 @@ fun SettingsScreen(
             if (currentSection == SettingsSection.TOOLS) {
             item {
                 SegmentedColumn(modifier = Modifier.fillMaxWidth()) {
+                    item {
+                        SegmentedListItem(
+                            centerSlots = true,
+                            leadingContent = { SettingsIcon(Icons.Outlined.Lock) },
+                            headlineContent = { Text(stringResource(R.string.settings_secure_quick_tiles)) },
+                            supportingContent = {
+                                Text(stringResource(R.string.settings_secure_quick_tiles_summary))
+                            },
+                            switchState = secureQuickTiles,
+                            onSwitchChange = {
+                                ShizukuSettings.setSecureQuickTiles(it)
+                                secureQuickTiles = it
+                            }
+                        )
+                    }
                     // Battery optimisation moved onto the permissions page: it answers the
                     // same question as the rest of that page (may this app do its job?)
                     item {

@@ -46,6 +46,9 @@ public class ShizukuSettings {
         public static final String KEY_USE_SYSTEM_COLOR = "use_system_color";
         /** Whether the floating navigation bar stays visible when a page scrolls. */
         public static final String KEY_ALWAYS_SHOW_NAVIGATION_BAR = "always_show_navigation_bar";
+
+        /** Whether quick tiles refuse changes while the device is locked. */
+        public static final String KEY_SECURE_QUICK_TILES = "secure_quick_tiles";
         public static final String KEY_UPDATE_MODE = "update_mode";
         public static final String KEY_HELP = "help";
         public static final String KEY_REPORT_BUG = "report_bug";
@@ -581,6 +584,21 @@ public class ShizukuSettings {
 
     public static void setAlwaysShowNavigationBar(boolean enable) {
         getPreferences().edit().putBoolean(Keys.KEY_ALWAYS_SHOW_NAVIGATION_BAR, enable).apply();
+    }
+
+    /**
+     * Whether quick tiles refuse changes while the keyguard is up.
+     *
+     * Off by default, so an existing phone behaves the same after updating. The tiles still
+     * read and show their state while locked; only the change is held back until the phone is
+     * unlocked.
+     */
+    public static boolean getSecureQuickTiles() {
+        return getPreferences().getBoolean(Keys.KEY_SECURE_QUICK_TILES, false);
+    }
+
+    public static void setSecureQuickTiles(boolean enable) {
+        getPreferences().edit().putBoolean(Keys.KEY_SECURE_QUICK_TILES, enable).apply();
     }
 
     /**

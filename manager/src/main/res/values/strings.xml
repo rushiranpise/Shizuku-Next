@@ -679,6 +679,8 @@
     <string name="settings_use_system_color_summary">Follow the system palette</string>
     <string name="settings_always_show_navigation_bar">Always show navigation bar</string>
     <string name="settings_always_show_navigation_bar_summary">Keep the tab bar visible when you scroll down.</string>
+    <string name="settings_secure_quick_tiles">Secure quick tiles</string>
+    <string name="settings_secure_quick_tiles_summary">Block quick tile changes while the phone is locked.</string>
     <string name="settings_watchdog">Watchdog</string>
     <string name="settings_watchdog_summary">Restart Shizuku automatically if it crashes</string>
     <string name="settings_auto_disable_wireless_debugging">Disable wireless debugging</string>
@@ -1168,6 +1170,7 @@
     <string name="lab_switch_is_on">%1$s is on</string>
     <string name="lab_switch_is_off">%1$s is off</string>
     <string name="lab_switch_could_not_change">%1$s could not be changed</string>
+    <string name="lab_switch_locked">Unlock the phone to change this tile.</string>
 
     <string name="app_info_version">Version</string>
     <string name="app_info_uid">UID</string>
