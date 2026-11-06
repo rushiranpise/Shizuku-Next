@@ -22,6 +22,7 @@ import moe.shizuku.manager.ui.ShizukuApp
 import moe.shizuku.manager.ui.screen.SetupScreen
 import moe.shizuku.manager.ui.theme.ShizukuTheme
 import moe.shizuku.manager.utils.AppLocale
+import moe.shizuku.manager.utils.Diag
 import moe.shizuku.manager.utils.EnvironmentUtils
 
 class MainActivity : ComponentActivity() {
@@ -115,7 +116,12 @@ class MainActivity : ComponentActivity() {
         }
 
         if (intent.getBooleanExtra(AppConstants.EXTRA_SHOW_PAIRING_DIALOG, false)) {
-            showAccessibilityDialog()
+            // Asked for by the pairing accessibility service as it connects. A throw here would
+            // take the whole process down with it, service included, and Android then switches
+            // the service back off - which is how it looked on TV. The home screen guards the
+            // same call the same way.
+            runCatching { showAccessibilityDialog() }
+                .onFailure { Diag.warn(AppConstants.TAG, "Could not show the pairing dialog", it) }
         }
     }
 }

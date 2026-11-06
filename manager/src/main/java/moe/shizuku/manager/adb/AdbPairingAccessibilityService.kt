@@ -24,6 +24,7 @@ import moe.shizuku.manager.ShizukuSettings
 import moe.shizuku.manager.receiver.ShizukuReceiverStarter
 import moe.shizuku.manager.start.StartFailureKind
 import moe.shizuku.manager.start.StartStatusReporter
+import moe.shizuku.manager.utils.Diag
 import moe.shizuku.manager.utils.EnvironmentUtils
 import java.net.ConnectException
 
@@ -91,6 +92,8 @@ class AdbPairingAccessibilityService : AccessibilityService() {
         driveAttempts = 0
         lastDriveTarget = null
 
+        Diag.info(TAG, "Connected, television: $isTelevision")
+
         if (isTelevision) {
             val openedSettings = SystemClock.elapsedRealtime() - settingsOpenedAt < SETTINGS_OPENED_GRACE_MS
             if (!openedSettings) {
@@ -103,6 +106,7 @@ class AdbPairingAccessibilityService : AccessibilityService() {
                     putExtra(AppConstants.EXTRA_SHOW_PAIRING_DIALOG, true)
                 }
                 runCatching { startActivity(intent) }
+                    .onFailure { Diag.warn(TAG, "Could not bring Shizuku up", it) }
             }
 
             // Getting to the dialog with a remote takes longer than a tap or two on a phone.
@@ -417,6 +421,9 @@ class AdbPairingAccessibilityService : AccessibilityService() {
     override fun onInterrupt() {}
 
     override fun onUnbind(intent: Intent?): Boolean {
+        // Logged so the log can tell a service that was switched off (this line) from one whose
+        // process died (no line, and a crash entry instead).
+        Diag.info(TAG, "Unbound, paired: $paired")
         handler.removeCallbacksAndMessages(null)
         return super.onUnbind(intent)
     }
