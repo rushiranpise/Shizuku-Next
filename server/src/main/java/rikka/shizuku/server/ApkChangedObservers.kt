@@ -15,18 +15,25 @@ private val observers = Collections.synchronizedMap(HashMap<String, ApkChangedOb
 object ApkChangedObservers {
 
     @JvmStatic
-    fun start(apkPath: String, listener: ApkChangedListener) {
+    fun start(apkPath: String, listener: ApkChangedListener): Boolean {
         // inotify watchs inode, if the there are still processes holds the file, DELTE_SELF will not be triggered
         // so we need to watch the parent folder
 
-        val path = File(apkPath).parent!!
+        val path = File(apkPath).parent ?: return false
         synchronized(observers) {
-            val observer = observers.getOrPut(path) {
-                ApkChangedObserver(path).apply {
-                    startWatching()
-                }
+            val existing = observers[path]
+            if (existing != null) {
+                existing.addListener(listener)
+                return true
             }
+            if (!File(path).isDirectory) {
+                return false
+            }
+            val observer = ApkChangedObserver(path)
+            observers[path] = observer
+            observer.startWatching()
             observer.addListener(listener)
+            return true
         }
     }
 

@@ -46,6 +46,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
 import kotlin.collections.ArraysKt;
@@ -151,6 +152,13 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
 
     /** When each caller was last looked up because it did not match, for the rate limit. */
     private final Map<Integer, Long> managerRecheckedAt = new ConcurrentHashMap<>();
+
+    /** The listener on the manager's APK, kept so a moved watch leaves no stale listener behind. */
+    private final ApkChangedListener managerApkListener = () ->
+            mainHandler.postDelayed(this::onManagerApkChanged, MANAGER_APK_SETTLE_MS);
+
+    /** True while a watch that could not be registered is waiting to be retried. */
+    private final AtomicBoolean managerApkRetryPending = new AtomicBoolean();
 
     private static final long MANAGER_RECHECK_INTERVAL_MS = 2000;
 
@@ -262,16 +270,58 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
      * old APK goes before the package manager has finished recording the new one.
      */
     private void watchManagerApk(String sourceDir) {
-        ApkChangedObservers.start(sourceDir, () -> mainHandler.postDelayed(() -> {
+        if (!startManagerApkWatch(sourceDir)) {
+            retryManagerApkWatch();
+            return;
+        }
+        mainHandler.postDelayed(() -> {
             ApplicationInfo now = getManagerApplicationInfo();
             if (now == null) {
-                LOGGER.w("manager app is uninstalled in user 0, exiting...");
-                System.exit(ServerConstants.MANAGER_APP_NOT_FOUND);
+                exitManagerMissing();
+                return;
+            }
+            updateManagerAppId(now);
+            if (!sourceDir.equals(now.sourceDir) || !new File(sourceDir).exists()) {
+                watchManagerApk(now.sourceDir);
+            }
+        }, MANAGER_APK_SETTLE_MS);
+    }
+
+    private boolean startManagerApkWatch(String sourceDir) {
+        ApkChangedObservers.stop(managerApkListener);
+        return ApkChangedObservers.start(sourceDir, managerApkListener);
+    }
+
+    private void retryManagerApkWatch() {
+        if (!managerApkRetryPending.compareAndSet(false, true)) {
+            return;
+        }
+        LOGGER.w("manager APK is not ready to watch, retrying...");
+        mainHandler.postDelayed(() -> {
+            managerApkRetryPending.set(false);
+            ApplicationInfo now = getManagerApplicationInfo();
+            if (now == null) {
+                exitManagerMissing();
                 return;
             }
             updateManagerAppId(now);
             watchManagerApk(now.sourceDir);
-        }, MANAGER_APK_SETTLE_MS));
+        }, MANAGER_APK_SETTLE_MS);
+    }
+
+    private void onManagerApkChanged() {
+        ApplicationInfo now = getManagerApplicationInfo();
+        if (now == null) {
+            exitManagerMissing();
+            return;
+        }
+        updateManagerAppId(now);
+        watchManagerApk(now.sourceDir);
+    }
+
+    private void exitManagerMissing() {
+        LOGGER.w("manager app is uninstalled in user 0, exiting...");
+        System.exit(ServerConstants.MANAGER_APP_NOT_FOUND);
     }
 
     private static final long MANAGER_APK_SETTLE_MS = 1500;
@@ -310,7 +360,9 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
         if (ai == null) {
             return false;
         }
-        updateManagerAppId(ai);
+        if (updateManagerAppId(ai)) {
+            watchManagerApk(ai.sourceDir);
+        }
         return appId == managerAppId;
     }
 
