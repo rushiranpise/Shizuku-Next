@@ -1286,6 +1286,8 @@
 <string name="install_action">Install</string>
 <string name="install_running">Installing\u2026</string>
 <string name="install_done">Installed.</string>
+<string name="install_open">Open app</string>
+<string name="install_open_failed">Could not open the app.</string>
 
 <string name="install_options_heading">Install options</string>
 
@@ -1361,7 +1363,7 @@
 <string name="install_source_none">No spoofing</string>
 <string name="install_source_play_store">Google Play Store</string>
 <string name="install_source_shell">Shell</string>
-<string name="install_source_google_package_installer">Google Play Store</string>
+<string name="install_source_google_package_installer">Google Package Installer</string>
 <string name="install_source_aosp_package_installer">AOSP Package Installer</string>
 
 </resources>
