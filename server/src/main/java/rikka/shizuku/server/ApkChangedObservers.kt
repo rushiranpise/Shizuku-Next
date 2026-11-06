@@ -4,6 +4,7 @@ import android.os.FileObserver
 import android.util.Log
 import java.io.File
 import java.util.*
+import java.util.concurrent.CopyOnWriteArraySet
 
 interface ApkChangedListener {
     fun onApkChanged()
@@ -19,35 +20,36 @@ object ApkChangedObservers {
         // so we need to watch the parent folder
 
         val path = File(apkPath).parent!!
-        val observer = observers.getOrPut(path) {
-            ApkChangedObserver(path).apply {
-                startWatching()
+        synchronized(observers) {
+            val observer = observers.getOrPut(path) {
+                ApkChangedObserver(path).apply {
+                    startWatching()
+                }
             }
+            observer.addListener(listener)
         }
-        observer.addListener(listener)
     }
 
     @JvmStatic
     fun stop(listener: ApkChangedListener) {
-        val pathToRemove = mutableListOf<String>()
+        synchronized(observers) {
+            val iterator = observers.entries.iterator()
+            while (iterator.hasNext()) {
+                val observer = iterator.next().value
+                observer.removeListener(listener)
 
-        for ((path, observer) in observers) {
-            observer.removeListener(listener)
-
-            if (!observer.hasListeners()) {
-                pathToRemove.add(path)
+                if (!observer.hasListeners()) {
+                    iterator.remove()
+                    observer.stopWatching()
+                }
             }
-        }
-
-        for (path in pathToRemove) {
-            observers.remove(path)?.stopWatching()
         }
     }
 }
 
 class ApkChangedObserver(private val path: String) : FileObserver(path, DELETE) {
 
-    private val listeners = mutableSetOf<ApkChangedListener>()
+    private val listeners = CopyOnWriteArraySet<ApkChangedListener>()
 
     fun addListener(listener: ApkChangedListener): Boolean {
         return listeners.add(listener)
