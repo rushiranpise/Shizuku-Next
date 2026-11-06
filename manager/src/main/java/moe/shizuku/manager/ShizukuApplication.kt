@@ -108,10 +108,36 @@ class ShizukuApplication : Application() {
         thread(name = "activities-assistant-restore") { Activities.restorePending() }
     }
 
+    /**
+     * Writes an uncaught exception into the app's own log before the process dies.
+     *
+     * A crash otherwise reaches only logcat, which a TV without a computer attached cannot read -
+     * and a crash in this process is also what makes Android switch the pairing accessibility
+     * service back off the moment it is turned on, with nothing on screen to say why. The first
+     * frames go into the line, because the class and message alone rarely say where it was.
+     * The platform's own handler still runs afterwards, so the crash is reported as before.
+     */
+    private fun recordCrashes() {
+        val previous = Thread.getDefaultUncaughtExceptionHandler()
+        Thread.setDefaultUncaughtExceptionHandler { thread, error ->
+            runCatching {
+                val frames = generateSequence(error) { it.cause }
+                    .take(3)
+                    .joinToString(" | caused by ") { cause ->
+                        "${cause.javaClass.name}: ${cause.message} at " +
+                            cause.stackTrace.take(6).joinToString(" < ")
+                    }
+                Diag.error("Crash", "Uncaught on ${thread.name}: $frames")
+            }
+            previous?.uncaughtException(thread, error)
+        }
+    }
+
     override fun onCreate() {
         super.onCreate()
         application = this
         appContext = applicationContext
+        recordCrashes()
         init(this)
     }
 
