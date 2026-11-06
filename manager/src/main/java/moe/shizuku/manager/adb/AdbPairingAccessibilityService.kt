@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.os.SystemClock
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
@@ -36,8 +37,11 @@ import java.net.ConnectException
  * the taps, the typing, and the race against the pairing dialog's short lifetime, which is
  * what makes the notification flow fail when the code is entered too late.
  *
- * On TV the dialog cannot be driven by hand, so the service brings the app up and
- * drives the whole flow itself, then switches off again.
+ * On TV the user walks to the dialog with the remote and the service only reads it. When the
+ * service was switched on from the accessibility list, it brings the app back up so the user
+ * can carry on from the pairing dialog; when the app switched it on and opened Developer options
+ * itself, it stays out of the way, because bringing the app up then covered the very screen the
+ * user was about to use (which is what made it look broken on the Google TV Streamer).
  *
  * What it may look at is the settings app that hosts that dialog and nothing else: declared in
  * the service configuration, and applied again to the windows this walks, because an
@@ -88,20 +92,24 @@ class AdbPairingAccessibilityService : AccessibilityService() {
         lastDriveTarget = null
 
         if (isTelevision) {
-            val intent = Intent(this, MainActivity::class.java).apply {
-                addFlags(
-                    Intent.FLAG_ACTIVITY_NEW_TASK or
-                        Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                        Intent.FLAG_ACTIVITY_SINGLE_TOP
-                )
-                putExtra(AppConstants.EXTRA_SHOW_PAIRING_DIALOG, true)
+            val openedSettings = SystemClock.elapsedRealtime() - settingsOpenedAt < SETTINGS_OPENED_GRACE_MS
+            if (!openedSettings) {
+                val intent = Intent(this, MainActivity::class.java).apply {
+                    addFlags(
+                        Intent.FLAG_ACTIVITY_NEW_TASK or
+                            Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                            Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    )
+                    putExtra(AppConstants.EXTRA_SHOW_PAIRING_DIALOG, true)
+                }
+                runCatching { startActivity(intent) }
             }
-            runCatching { startActivity(intent) }
 
+            // Getting to the dialog with a remote takes longer than a tap or two on a phone.
             handler.postDelayed({
                 toast(getString(R.string.toast_pairing_timeout))
                 disableSelf()
-            }, 60_000)
+            }, TV_TIMEOUT_MS)
             return
         }
 
@@ -415,6 +423,24 @@ class AdbPairingAccessibilityService : AccessibilityService() {
 
     companion object {
         private const val TAG = "AdbPairingAccessibility"
+
+        /** How long a TV user has to reach the pairing dialog before the service gives up. */
+        private const val TV_TIMEOUT_MS = 3 * 60_000L
+
+        /** How recently the app must have opened Settings for a connect to count as its own. */
+        private const val SETTINGS_OPENED_GRACE_MS = 10_000L
+
+        @Volatile
+        private var settingsOpenedAt = -SETTINGS_OPENED_GRACE_MS
+
+        /**
+         * Called by the app just before it opens Developer options for automatic pairing, so a
+         * service that connects at the same moment leaves that screen in front.
+         */
+        @JvmStatic
+        fun noteSettingsOpened() {
+            settingsOpenedAt = SystemClock.elapsedRealtime()
+        }
 
         /** How many times a touch on Settings is followed up, and how far apart. */
         private const val READ_ATTEMPTS = 15
