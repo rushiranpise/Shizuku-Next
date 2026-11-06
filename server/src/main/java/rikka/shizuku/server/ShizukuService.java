@@ -45,6 +45,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
 import kotlin.collections.ArraysKt;
@@ -148,8 +149,8 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
      */
     private volatile int managerAppId;
 
-    /** When the manager was last looked up because a caller did not match, for the rate limit. */
-    private volatile long managerRecheckedAt = -MANAGER_RECHECK_INTERVAL_MS;
+    /** When each caller was last looked up because it did not match, for the rate limit. */
+    private final Map<Integer, Long> managerRecheckedAt = new ConcurrentHashMap<>();
 
     private static final long MANAGER_RECHECK_INTERVAL_MS = 2000;
 
@@ -275,12 +276,15 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
 
     private static final long MANAGER_APK_SETTLE_MS = 1500;
 
-    private void updateManagerAppId(ApplicationInfo ai) {
+    private boolean updateManagerAppId(ApplicationInfo ai) {
         int appId = UserHandleCompat.getAppId(ai.uid);
         if (appId != managerAppId) {
             LOGGER.i("manager app id changed from %d to %d", managerAppId, appId);
             managerAppId = appId;
+            managerRecheckedAt.clear();
+            return true;
         }
+        return false;
     }
 
     /**
@@ -297,10 +301,11 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
             return true;
         }
         long now = SystemClock.uptimeMillis();
-        if (now - managerRecheckedAt < MANAGER_RECHECK_INTERVAL_MS) {
+        Long recheckedAt = managerRecheckedAt.get(appId);
+        if (recheckedAt != null && now - recheckedAt < MANAGER_RECHECK_INTERVAL_MS) {
             return false;
         }
-        managerRecheckedAt = now;
+        managerRecheckedAt.put(appId, now);
         ApplicationInfo ai = getManagerApplicationInfo();
         if (ai == null) {
             return false;
