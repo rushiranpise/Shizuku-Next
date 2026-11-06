@@ -301,6 +301,11 @@
     <string name="permissions_accessibility">Служба специальных возможностей</string>
     <string name="permissions_accessibility_summary">Автоматически считывает код сопряжения.</string>
     <string name="permissions_battery_summary">Не позволяет Android завершать работу Shizuku в фоновом режиме.</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
+    <string name="setup_wireless_title">Беспроводная отладка</string>
     <string name="settings_help">Помощь</string>
     <string name="settings_report_bug">Сообщить об ошибке</string>
     <!--
@@ -584,6 +589,8 @@
     <string name="app_info_launcher">Запись в лаунчере</string>
     <string name="app_info_yes">Да</string>
     <string name="app_info_no">Нет</string>
+    <string name="accessibility_boot">Запускать при загрузке</string>
+    <string name="accessibility_filter_off">Выключено</string>
     <string name="wifi_passwords_connect">Подключиться</string>
     <string name="files_root_system">Система</string>
     <string name="files_sort">Сортировка</string>

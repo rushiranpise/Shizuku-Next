@@ -495,6 +495,12 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="permissions_accessibility">Kisegítő lehetőségek szolgáltatás</string>
     <string name="permissions_accessibility_summary">Automatikusan beolvassa a párosítási kódot.</string>
     <string name="permissions_battery_summary">Megakadályozza, hogy az Android leállítsa a Shizuku háttérbeli futását.</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
+    <string name="setup_root_title">Root</string>
+    <string name="setup_wireless_title">Vezeték nélküli hibakeresés</string>
     <string name="settings_help">Segítség</string>
     <string name="settings_translate">Közreműködés a fordításban</string>
     <string name="settings_report_bug">Hiba jelentése</string>
@@ -726,6 +732,10 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="app_info_installer">Telepítve innen</string>
     <string name="app_info_updated">Frissítve</string>
     <string name="tab_wifi_passwords">Wi-Fi jelszavak</string>
+    <string name="accessibility_boot">Indítás rendszerindításkor</string>
+    <string name="accessibility_filter_off">Ki</string>
+    <string name="accessibility_filter_on">Be</string>
+    <string name="accessibility_notification_channel">Kisegítő lehetőségek szolgáltatás</string>
     <string name="wifi_passwords_show">Jelszó megjelenítése</string>
     <string name="wifi_passwords_hide">Jelszó elrejtése</string>
     <string name="wifi_passwords_copy">Jelszó másolása</string>

@@ -513,7 +513,6 @@
     <string name="modules_review_title">运行此命令？</string>
     <string name="modules_review_message">%1$s 请求 Shizuku 运行：</string>
     <string name="modules_review_approve">运行</string>
-    <string name="modules_review_trust">信任 %1$s，不再询问</string>
     <string name="modules_result_title">%1$s</string>
     <string name="modules_result_exit">退出码 %1$d</string>
     <string name="modules_error_not_a_module">该文件不是模块：module.prop 缺失或不可用。</string>
@@ -703,6 +702,18 @@
     <string name="permissions_accessibility">无障碍服务</string>
     <string name="permissions_accessibility_summary">自动读取配对码。</string>
     <string name="permissions_battery_summary">防止 Android 在后台终止 Shizuku。</string>
+    <string name="permissions_pairing_service_restricted">在应用信息允许受限设置。</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
+    <string name="setup_action_continue">继续</string>
+    <string name="setup_start_body">这里决定服务在何处获取权限。您可以稍后在“设置”中“开始“方法中更改它。</string>
+    <string name="setup_root_title">Root</string>
+    <string name="setup_wireless_title">无线调试</string>
+    <string name="setup_wireless_body">不需要ROOT即可使用。需要启动开发者选项并进行一次性配对，及后就可以从APP中开始。</string>
+    <string name="setup_permissions_body">您可以跳过任何一项，之后再在“设置”中修改。</string>
+    <string name="settings_run_setup_summary">欢迎步骤：Shizuku如何启动以及其所需</string>
     <string name="settings_help">帮助</string>
     <string name="settings_translate">参与翻译</string>
     <string name="settings_translate_note">在 Crowdin 上翻译此应用。</string>
@@ -1078,6 +1089,12 @@
     <string name="app_info_yes">是</string>
     <string name="app_info_no">否</string>
     <string name="tab_wifi_passwords">Wi-Fi 密码</string>
+    <string name="accessibility_boot">开机自启</string>
+    <string name="accessibility_filter_off">关闭</string>
+    <string name="accessibility_filter_on">开启</string>
+    <string name="accessibility_no_match">没有符合你搜索条件的服务。</string>
+    <string name="accessibility_notification_channel">无障碍服务</string>
+    <string name="accessibility_notification_text">当安卓系统关闭这些锁定的服务时Shizuku-Next 会重新打开它们。</string>
     <string name="wifi_passwords_show">显示密码</string>
     <string name="wifi_passwords_hide">隐藏密码</string>
     <string name="wifi_passwords_copy">复制密码</string>

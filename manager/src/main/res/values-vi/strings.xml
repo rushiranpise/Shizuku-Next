@@ -6,6 +6,8 @@
       a change here reaches translators on the next push and not before.
     -->
     <!-- To translators: you can leave your here -->
+    <string name="home_status_adb_wireless">adb</string>
+    <string name="home_status_adb_usb">adb</string>
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Khởi chạy qua Gỡ lỗi không dây]]></string>
@@ -17,16 +19,37 @@
     <string name="home_support_body">Shizuku-Next miễn phí và không có quảng cáo. Một ly cà phê sẽ giúp nhà phát triển có thêm thời gian duy trì ứng dụng.</string>
     <string name="diagnostics_title">Chẩn đoán</string>
     <string name="diagnostics_copy">Sao chép chẩn đoán</string>
+    <string name="diagnostics_copied">Thông tin chẩn đoán đã được sao chép</string>
+    <string name="diagnostics_service">Dịch vụ</string>
+    <string name="diagnostics_server_uid">Uid máy chủ</string>
+    <string name="diagnostics_server_api">API máy chủ</string>
+    <string name="diagnostics_server_context">Ngữ cảnh máy chủ</string>
     <string name="diagnostics_wireless_debugging">Gỡ lỗi không dây</string>
+    <string name="diagnostics_adb_port">Cổng ADB</string>
+    <string name="diagnostics_wifi">Wi-Fi</string>
     <string name="diagnostics_local_network">Mạng nội bộ</string>
     <string name="diagnostics_battery">Tối ưu hóa pin</string>
+    <string name="diagnostics_app">Ứng dụng</string>
+    <string name="diagnostics_android">Android</string>
     <string name="diagnostics_device">Thiết bị</string>
+    <string name="diagnostics_started_with">Bắt đầu với</string>
     <string name="diagnostics_default">Phương thức mặc định</string>
+    <string name="diagnostics_hiding">Ẩn</string>
     <string name="diagnostics_phantom">Buộc Tắt tiến trình</string>
     <string name="diagnostics_root">Root</string>
+    <string name="diagnostics_granted">đã cấp quyền</string>
+    <string name="diagnostics_missing">mất tích</string>
+    <string name="diagnostics_not_required">không bắt buộc</string>
+    <string name="diagnostics_connected">đã kết nối</string>
+    <string name="diagnostics_not_connected">chưa kết nối</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
+    <string name="diagnostics_battery_optimized">đã tối ưu hóa</string>
+    <string name="diagnostics_battery_unrestricted">không hạn chế</string>
+    <string name="diagnostics_available">khả dụng</string>
+    <string name="diagnostics_unavailable">không khả dụng</string>
+    <string name="diagnostics_closed">đã đóng</string>
     <!-- Adb -->
     <string name="dialog_adb_port">Cổng</string>
     <string name="dialog_adb_invalid_port">Cổng là một số nguyên nằm trong khoảng từ 1 đến 65535.</string>
@@ -43,6 +66,7 @@
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Android chặn công tắc này đối với các ứng dụng được cài đặt bên ngoài cửa hàng ứng dụng. Cho phép ứng dụng ^1 app-op bật dịch vụ hỗ trợ tiếp cận. Danh sách hỗ trợ tiếp cận hiển thị mục này là \"Cài đặt bị hạn chế\".\n\nMở Thông tin ứng dụng và chọn \"Cho phép cài đặt bị hạn chế\" từ menu, hoặc chạy lệnh này trên máy tính:\n\n^2\n\nMột trong hai tùy chọn đều có tác dụng. Công tắc sẽ hoạt động sau đó.</string>
     <string name="dialog_adb_pairing_open_app_info">Thông tin ứng dụng</string>
+    <string name="dialog_adb_pairing_accessibility_enable">Tính năng ghép nối tự động sẽ đọc mã từ hộp thoại hệ thống thông qua dịch vụ hỗ trợ tiếp cận của Shizuku. Do đó, dịch vụ này cần được kích hoạt, nhưng chỉ trong khoảng thời gian cần thiết: dịch vụ sẽ tự động tắt ngay khi tìm thấy mã hoặc sau một phút để tiết kiệm pin. Thông thường, Shizuku sẽ tự kích hoạt dịch vụ này, nhưng thao tác đó yêu cầu quyền WRITE_SECURE_SETTINGS — một quyền mà ứng dụng mới cài đặt chưa được cấp.\n\nBạn có thể kích hoạt quyền này ở màn hình tiếp theo, tự nhập mã theo cách thủ công, hoặc cấp quyền này một lần duy nhất bằng lệnh sau:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Vui lòng bắt đầu ghép nối bằng cách thực hiện các bước sau:\n- Đi tới \"Tùy chọn nhà phát triển\"\n- Bật \"Gỡ lỗi USB\" và \"Gỡ lỗi không dây\"\n- Nhấn vào phần bên trái của \"Gỡ lỗi không dây\"\n- Nhấn \"Ghép nối thiết bị bằng mã ghép nối\". Shizuku sẽ tự động phát hiện mã ghép nối.</string>
     <string name="adb_pairing_requires_multi_window">Vui lòng vào chế độ chia đôi màn hình (đa cửa
         sổ) trước.</string>
@@ -54,6 +78,7 @@
     <string name="adb_pair_required">Vui lòng thực hiện bước ghép nối trước.</string>
     <string name="enable">Cho phép</string>
     <string name="auto_pair_instructions">Ghép nối mà không cần nhập mã:\n\n1. Tùy chọn nhà phát triển → Gỡ lỗi không dây\n2. Ghép nối thiết bị bằng mã ghép nối\n\nShizuku sẽ đọc mã và cổng trực tiếp từ hộp thoại đó rồi tự khởi chạy. Hãy giữ hộp thoại luôn mở cho đến khi quá trình ghép nối hoàn tất.</string>
+    <string name="auto_pair_manual">Thủ công</string>
     <string name="development_settings">Tùy chọn nhà phát triển</string>
     <string name="notification_settings">Tùy chọn thông báo</string>
     <string name="adb_pairing_tutorial_content_notification">Một thông báo từ Shizuku sẽ giúp bạn
@@ -86,33 +111,158 @@
     <!-- Home - Learn more -->
     <!-- Home - Adb permissions limited -->
     <!-- Home - Dialogs -->
+    <string name="home_dialog_reboot_required_title">Cần khởi động lại</string>
+    <string name="home_dialog_reboot_required_message">Cần khởi động lại thiết bị để Shizuku hoạt động bình thường. Vui lòng khởi động lại thiết bị của bạn để tiếp tục.</string>
+    <string name="home_dialog_duplicate_app_detected_title">Đã phát hiện ứng dụng trùng lặp</string>
     <string name="home_dialog_duplicate_app_detected_message">Một phiên bản khác của ứng dụng này đã được cài đặt trên thiết bị của bạn. Để tiếp tục, vui lòng gỡ cài đặt tất cả các phiên bản trùng lặp và khởi động lại thiết bị.</string>
     <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
     <string name="home_permission_owned_by">Các ứng dụng tìm kiếm Shizuku thông qua quyền hạn của nó, và Android báo rằng %1$s đang khai báo quyền này - một bản sao của Shizuku hoặc phần còn lại của nó. Các ứng dụng đó sẽ tiếp tục yêu cầu bản sao này cho đến khi nó được gỡ cài đặt và thiết bị được khởi động lại.</string>
     <string name="home_permission_not_registered">Các ứng dụng tìm kiếm Shizuku thông qua quyền hạn của nó, nhưng Android vẫn chưa ghi nhận quyền này, việc này có thể xảy ra sau khi cài đặt lại ứng dụng cho đến khi thiết bị được khởi động lại. Bản thân Shizuku không bị ảnh hưởng; nhưng các ứng dụng khác có thể không tìm thấy nó.</string>
+    <string name="home_dialog_button_exit">Thoát</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">Quyền của adb bị hạn chế</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Rất có thể nhà sản xuất thiết bị của bạn giới hạn quyền của adb.<p>Có thể có giải pháp cho hệ thống của bạn trong <b><a href="%1$s">tài liệu này</a></b>.]]></string>
     <string name="app_management_toggle_all">Chuyển đổi tất cả</string>
+    <string name="app_management_search_hint">Tìm kiếm ứng dụng</string>
+    <string name="app_management_sort">Sắp xếp</string>
+    <string name="apps_needs_shizuku">Khởi chạy Shizuku để xem các ứng dụng</string>
+    <string name="apps_empty">Không có ứng dụng để hiển thị</string>
+    <string name="apps_filter_empty">Không có ứng dụng nào trong bộ lọc này</string>
+    <string name="apps_filter_all">Tất cả</string>
+    <string name="apps_filter_granted">Đã cấp quyền</string>
+    <string name="apps_filter_revoked">Đã thu hồi</string>
+    <string name="apps_filter_hidden">Ẩn</string>
+    <string name="apps_no_match">Không có ứng dụng nào khớp với tìm kiếm của bạn</string>
+    <string name="app_management_sort_last_added">Đã được thêm gần đây</string>
+    <string name="app_management_sort_updated">Cập nhật</string>
+    <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="tab_home">Trang chủ</string>
+    <string name="tab_apps">Ứng Dụng</string>
+    <string name="tab_labs">Thử nghiệm</string>
+    <string name="lab_more_apps">Các ứng dụng khác</string>
+    <string name="tab_firewall">Tường lửa</string>
+    <string name="tab_autostart">Tự khởi động</string>
+    <string name="labs_filter_allowed">Cho phép</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hide_wireless_debugging">Ẩn gỡ lỗi không dây</string>
+    <string name="hiding_filter_hidden">Ẩn</string>
     <string name="hiding_signal_wireless_debugging">Mở gỡ lỗi không dây</string>
+    <string name="power_bootloader_confirm">Điện thoại sẽ khởi động lại vào chế độ bootloader và duy trì ở trạng thái đó cho đến khi bạn khởi động lại thiết bị, thường là thông qua máy tính.</string>
+    <string name="power_off">Tắt nguồn</string>
+    <string name="power_off_summary">Tắt điện thoại.</string>
+    <string name="power_off_confirm">Điện thoại sẽ tắt ngay bây giờ. Các công việc chưa lưu sẽ bị mất.</string>
+    <string name="power_screen_off">Tắt màn hình</string>
+    <string name="power_screen_off_summary">Tắt màn hình. Nếu đã thiết lập khóa màn hình, điện thoại cũng sẽ tự động khóa.</string>
+    <string name="power_confirm_title">Bạn có chắc không?</string>
+    <string name="power_confirm">Tiếp tục</string>
+    <string name="power_soft_reboot">Khởi động lại mềm</string>
+    <string name="power_soft_reboot_summary">Khởi động lại Android mà không khởi động lại nhân hệ thống. Yêu cầu quyền root.</string>
+    <string name="power_soft_reboot_confirm">Android sẽ khởi động lại. Tất cả các ứng dụng và giao diện hệ thống sẽ đóng rồi mở lại, nhưng bản thân điện thoại thì sẽ không khởi động lại. Sau đó, có thể bạn sẽ cần khởi chạy lại Shizuku.</string>
+    <string name="power_restart_system_ui">Khởi động lại UI</string>
+    <string name="power_restart_system_ui_summary">Khởi động lại thanh trạng thái, thanh điều hướng và bảng thông báo. Yêu cầu quyền root.</string>
+    <string name="power_needs_root">Cần có quyền root, nhưng thiết bị này chưa được root.</string>
+    <string name="power_needs_shizuku_rooted">Shizuku không chạy. Chỉ có tùy chọn khởi động lại mềm.</string>
+    <string name="power_failed">Không thể chạy %1$s</string>
+    <string name="tab_display">Hiển thị</string>
+    <string name="display_description">Thay đổi độ phân giải, mật độ và tốc độ làm mới của màn hình. Nếu màn hình trở nên khó sử dụng, hãy nhấn vào Đặt lại bên cạnh cài đặt.</string>
+    <string name="display_needs_shizuku">Hãy khởi chạy Shizuku để xem hoặc thay đổi các cài đặt này.</string>
+    <string name="display_resolution">Độ phân giải</string>
+    <string name="display_resolution_summary">Kích thước màn hình tính bằng pixel (chiều rộng x chiều cao). Thông số này thay đổi cách hệ thống hiển thị màn hình, chứ không phải kích thước vật lý của màn hình.</string>
+    <string name="display_density">Mật độ</string>
+    <string name="display_density_summary">Điều chỉnh kích thước các mục trên màn hình. Giá trị càng cao thì các mục càng nhỏ; giá trị càng thấp thì các mục càng lớn.</string>
+    <string name="display_min_refresh">Tần số quét tối thiểu</string>
+    <string name="display_min_refresh_summary">Tần số quét thấp nhất mà màn hình có thể sử dụng, tính bằng Hz. Hãy đặt thành tần số tối đa để duy trì màn hình ở mức tần số đó.</string>
+    <string name="display_max_refresh">Tần số quét tối đa</string>
+    <string name="display_max_refresh_summary">Tốc độ làm mới cao nhất mà màn hình có thể sử dụng, tính bằng Hz.</string>
+    <string name="display_current">Hiện tại: %1$s</string>
+    <string name="display_apply">Áp dụng</string>
+    <string name="display_reset">Đặt lại</string>
+    <string name="display_invalid">Giá trị không hợp lệ</string>
+    <string name="display_applied">%1$s đã áp dụng</string>
+    <string name="display_failed">Không thể thay đổi %1$s</string>
+    <string name="display_hz">%1$d Hz</string>
+    <string name="display_modes_missing">Không thể phát hiện các tốc độ làm mới được hỗ trợ. Vui lòng nhập giá trị theo cách thủ công.</string>
+    <string name="activities_apps_count">%1$d ứng dụng</string>
+    <string name="activities_launcher">Trình khởi chạy</string>
+    <string name="activities_exported">Đã xuất</string>
+    <string name="activities_not_exported">Chưa xuất</string>
+    <string name="activities_empty">Ứng dụng này không khai báo hoạt động nào.</string>
     <string name="activities_needs_shizuku">Shizuku hiện không chạy, và chỉ dịch vụ này mới có thể khởi chạy hoạt động nội bộ của ứng dụng.</string>
+    <string name="activities_refused">Không thể khởi chạy hoạt động này.</string>
+    <string name="activities_long_press">Nhấn giữ một hàng để xem tên đầy đủ.</string>
+    <string name="activities_detail_package">Gói</string>
+    <string name="activities_detail_activity">Hoạt động</string>
+    <string name="activities_detail_state">Trạng thái</string>
+    <string name="activities_open">Mở</string>
+    <string name="activities_copy">Sao chép</string>
+    <string name="activities_edit_as_intent">Chỉnh sửa theo ý định</string>
+    <string name="activities_copied">Đã sao chép</string>
+    <string name="activities_apps_section">Ứng Dụng</string>
     <string name="intent_start">Bắt đầu</string>
     <string name="tab_device_info">Thông tin thiết bị</string>
     <string name="device_current">Hiện tại</string>
+    <string name="device_charging">Đang sạc</string>
+    <string name="device_charged">Đã sạc đầy</string>
+    <string name="device_health_section">Sức khoẻ</string>
+    <string name="device_bsoh">Tình trạng pin</string>
+    <string name="device_cycles">Chu kỳ</string>
+    <string name="device_asoc">Trạng thái sạc</string>
+    <string name="device_first_use">Được sử dụng lần đầu</string>
+    <string name="device_max_temp">Nhiệt độ cao nhất được ghi nhận</string>
     <string name="device_max_current">Cao nhất hiện tại</string>
     <string name="device_health_source">Samsung lưu giữ các thông tin này trong dữ liệu dịch vụ pin và xuất chúng ra tệp nhật ký pin battery dump. Chúng không thuộc Android API tiêu chuẩn, vì vậy các thương hiệu sản xuất khác sẽ không có các thông số này.</string>
+    <string name="device_usage">Thời gian</string>
+    <string name="device_screen_on">Màn hình bật</string>
+    <string name="device_time_on_battery">Thời gian sử dụng</string>
+    <string name="device_screen_off">Tắt màn hình</string>
+    <string name="device_doze">Ngủ</string>
+    <string name="device_usage_note">Các bộ đếm này do chính nền tảng duy trì. Chúng được đặt lại mỗi khi pin được sạc đầy; đó là lý do tại sao một chiếc điện thoại vừa được sạc cách đây một giờ sẽ hiển thị đơn vị tính bằng giây, trong khi chiếc điện thoại đã rút sạc suốt cả ngày sẽ hiển thị đơn vị tính bằng giờ.</string>
+    <string name="device_drain">Điều gì đã sử dụng pin</string>
     <string name="device_drain_note">Được phân bổ theo thành phần, dựa trên thông tin nền tảng này hiển thị. Hệ thống ghi nhận số liệu của từng ứng dụng dưới dạng wake lock và thời gian chạy thay vì số miliampe giờ, vì vậy không có số liệu tự tạo nào cho từng ứng dụng ở đây.</string>
     <string name="device_max_charging_current">Dòng sạc tối đa</string>
+    <string name="device_max_charging_voltage">Điện áp sạc tối đa</string>
+    <string name="device_capacity_rated">Xếp hạng</string>
+    <string name="device_capacity_typical">Thông thường</string>
+    <string name="device_capacity">Dung lượng</string>
+    <string name="device_capacity_estimated">Ước tính</string>
+    <string name="device_capacity_learned">Được học gần đây nhất</string>
+    <string name="device_capacity_range">Phạm vi đã học</string>
+    <string name="device_capacity_note">Nền tảng này không báo cáo dung lượng thiết kế, hơn nữa thiết bị còn chặn quyền truy cập vào bộ đo mức pin ngay từ lớp vỏ ngoài, vì vậy không thể tính toán chính xác tỷ lệ phần trăm pin đầy. Những thông tin mà hệ thống thu thập được đã được trình bày ở trên.</string>
+    <string name="device_history">Lịch sử</string>
+    <string name="device_history_temperature">Nhiệt độ</string>
+    <string name="device_system">Hệ thống</string>
     <string name="device_model">Kiểu máy</string>
+    <string name="device_android">Android</string>
     <string name="device_kernel">Nhân</string>
+    <string name="device_abi">Kiến trúc</string>
+    <string name="device_cores">Số lõi CPU</string>
+    <string name="device_uptime">Thời gian chạy</string>
+    <string name="device_memory">Bộ nhớ</string>
+    <string name="device_storage">Bộ nhớ</string>
+    <string name="device_shizuku">Shizuku</string>
+    <string name="device_server">Máy chủ</string>
+    <string name="device_start_method">Bắt đầu bởi</string>
     <string name="device_transport">Phương thức kết nối</string>
     <string name="device_watchdog">Trình giám sát hệ thống</string>
+    <string name="device_app_in_front">Ứng dụng ở phía trước</string>
+    <string name="device_thermal">Nhiệt</string>
     <string name="device_thermal_note">Mọi cảm biến nhiệt độ mà nhân hiển thị, cảm biến nóng nhất được xếp đầu tiên. Một cảm biến không kết nối với thành phần nào sẽ báo cáo giá trị lính gác -273 và bị bỏ qua, tương tự đối với các mức ngắt nguồn điện vốn không phải là nhiệt độ. %d vùng đã được liệt kê.</string>
+    <string name="device_cpu">CPU</string>
+    <string name="device_load_average">Tải trung bình</string>
     <string name="device_cpu_note">Dữ liệu thống kê của nhân trong khung thời gian được chỉ định trong tệp nhật ký dump của nó. Mức tải là giá trị trung bình của một, năm và mười lăm phút; mỗi hàng là thời gian bộ xử lý mà tiến trình đó đã sử dụng, và các kernel worker xuất hiện vì chúng thực hiện công việc, không chỉ riêng các ứng dụng.</string>
+    <string name="tab_log">Nhật ký</string>
+    <string name="log_count">%1$d dòng, 24 giờ qua</string>
+    <string name="log_search_hint">Tìm trong nhật ký</string>
+    <string name="log_empty">Không có gì được ghi lại trong 24 giờ qua.</string>
+    <string name="log_filter_all">Tất cả</string>
+    <string name="log_filter_problems">Lỗi</string>
+    <string name="log_refresh">Lấy dữ liệu mới nhất từ ​​logcat</string>
+    <string name="log_save">Lưu</string>
+    <string name="log_clear">Xóa</string>
+    <string name="log_cleared">Đã xóa nhật ký</string>
     <string name="log_capture_start">Bắt đầu</string>
     <string name="log_capture_stop">Dừng</string>
+    <string name="log_capture_choose_hint">Tìm kiếm ứng dụng</string>
     <string name="log_capture_needs_shizuku">Việc ghi nhật ký hệ thống của thiết bị cần có Shizuku: đọc nhật ký của ứng dụng khác là một đặc quyền shell, và ứng dụng này mượn shell đó.</string>
     <string name="log_capture_stopped_size">Đã dừng ghi: vượt quá giới hạn kích thước tệp.</string>
     <string name="log_capture_stopped_time">Đã dừng ghi: vượt quá giới hạn thời gian.</string>
@@ -139,9 +289,27 @@
     <string name="status_running_short">Đang chạy</string>
     <string name="status_stopped_short">Đã dừng</string>
     <string name="action_start">Bắt đầu</string>
+    <string name="tools_modules">Mô-đun</string>
+    <string name="tab_modules">Mô-đun</string>
+    <string name="modules_catalog">Tìm các mô-đun</string>
+    <string name="catalog_apps_title">Thêm ứng dụng</string>
+    <string name="catalog_search">Tìm kiếm ứng dụng, chủ đề, ngôn ngữ\u2026</string>
+    <string name="catalog_filter_sort">Sắp xếp</string>
+    <string name="catalog_filter_category">Danh mục</string>
+    <string name="catalog_filter_updated">Cập nhật</string>
+    <string name="catalog_filter_all_categories">Tất cả danh mục</string>
+    <string name="catalog_updated_any">Mọi lúc</string>
+    <string name="catalog_updated_last_7">7 ngày qua</string>
+    <string name="catalog_updated_last_30">30 ngày qua</string>
+    <string name="catalog_updated_last_90">90 ngày qua</string>
+    <string name="catalog_sort_updated">Cập nhật gần đây</string>
     <string name="modules_repo_retry">Thử lại</string>
+    <string name="modules_find_modules">Tìm các mô-đun</string>
+    <string name="modules_settings">Mô-đun</string>
     <string name="modules_trust_confirm_message">Các lệnh của module này sẽ chạy mà không hiển thị trước cho bạn biết, bất kể chúng đến từ hành động, dịch vụ hay giao diện WebUI của chính nó. Mọi thứ khác vẫn giữ nguyên: module vẫn bị tắt bằng công tắc kích hoạt, và đầu ra của nó vẫn bị giới hạn cũng như tự động dừng theo thời gian thiết lập. Chỉ tin tưởng module mà bạn đã đọc và hiểu rõ.</string>
+    <string name="modules_sort">Sắp xếp</string>
     <string name="modules_action_stop">Dừng</string>
+    <string name="modules_service_short">Dịch vụ</string>
     <string name="modules_service_running_short">Đang chạy</string>
     <string name="modules_service_stop">Dừng dịch vụ</string>
     <string name="check_for_updates_now">Kiểm tra</string>
@@ -182,6 +350,7 @@
     <string name="settings_start_method_root_unavailable">Thiết bị này chưa root, vì vậy sẽ chuyển sang phương thức khởi chạy bằng gỡ lỗi không dây.</string>
     <string name="start_method_wireless_no_network">Không cần Wi-Fi</string>
     <string name="start_method_wireless">Không dây</string>
+    <string name="transport_adb">adb</string>
     <string name="settings_adb_without_developer_options_confirm_message">Shizuku sẽ tiếp tục hoạt động và khôi phục các cài đặt ADB sau khi khởi động lại. Bạn sẽ không thể mở Tùy chọn nhà phát triển để thay đổi cài đặt gỡ lỗi USB/không dây hoặc ghép nối thiết bị mới. Tắt Tùy chọn nhà phát triển?</string>
     <string name="settings_wait_for_wifi_summary">Quá trình tự động khởi động lại Shizuku sẽ chờ kết nối Wi-Fi không giới hạn dung lượng.</string>
     <string name="settings_unavailable_while_forcing_wireless">Không khả dụng khi tính năng Bắt đầu không cần Wi-Fi đang bật.</string>
@@ -212,6 +381,12 @@
     <string name="permissions_nearby_summary">Tìm cổng gỡ lỗi không dây trong mạng của bạn.</string>
     <string name="permissions_write_secure_settings_summary">Cho phép Shizuku bật tính năng gỡ lỗi không dây. Chỉ ADB mới có thể cấp quyền này.</string>
     <string name="permissions_battery_summary">Ngăn Android tự động tắt Shizuku khi chạy ngầm.</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
+    <string name="setup_action_continue">Tiếp tục</string>
+    <string name="setup_wireless_title">Mở gỡ lỗi không dây</string>
     <string name="settings_help">Giúp đỡ</string>
     <string name="settings_translate">Tham gia dịch thuật</string>
     <string name="settings_translate_note">Dịch ứng dụng trên Crowdin.</string>
@@ -227,6 +402,7 @@
     </plurals>
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
     <string name="contributor_area_app">Ứng dụng</string>
+    <string name="contributor_area_server">Máy chủ</string>
     <string name="contributor_area_i18n">Dịch thuật</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
@@ -331,8 +507,12 @@
     <string name="dialog_requesting_legacy_button_open_shizuku">Mở Shizuku</string>
     <string name="wadb_notification_attempt_now">Thử lại</string>
     <!-- Manage tab -->
+    <string name="manage_search_hint">Tìm kiếm ứng dụng</string>
+    <string name="manage_filter_all">Tất cả</string>
+    <string name="manage_filter_hidden">Ẩn</string>
     <string name="permissions_phantom_summary">Android 12 trở về sau có thể tự động dừng các tiến trình do một ứng dụng khởi chạy sau khi ứng dụng đó đóng. Điều này có thể làm dừng máy chủ sau khi khởi động máy. Cài đặt này ảnh hưởng đến toàn bộ thiết bị và có thể cần khởi động lại máy để áp dụng.</string>
     <string name="permissions_action_deny">Từ chối</string>
+    <string name="manage_status_hidden">Ẩn</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_op_background_note">Từ chối sẽ ngăn ứng dụng chạy ngầm.</string>
     <string name="app_op_any_background_note">Ngăn ứng dụng tự khởi chạy khi khởi động máy hoặc thông qua các thông báo quảng bá chạy ngầm.</string>
@@ -358,6 +538,7 @@
     <string name="app_bucket_default_note">Android tự quyết định mức độ ứng dụng có thể chạy.</string>
     <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
          screen. The per-app list is unaffected either way, which is what the off state says. -->
+    <string name="firewall_tile_label">Tường lửa</string>
     <!-- The three answers every switch outside the app can give. Unknown is its own word: a
          state that could not be read is not the same thing as a feature that is off. -->
     <!-- The switches in the shade and on the home screen that are not about one app. -->
@@ -371,6 +552,9 @@
     <string name="home_switch_wireless">Mở gỡ lỗi không dây</string>
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
+    <string name="app_info_updated">Cập nhật</string>
+    <string name="accessibility_boot">Bắt đầu khi khởi động</string>
+    <string name="files_sort">Sắp xếp</string>
     <string name="install_dexopt_default">Mặc định của nền tảng</string>
     <string name="install_location_auto">Tùy chọn nhà phát triển</string>
 </resources>

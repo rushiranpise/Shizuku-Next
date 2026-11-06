@@ -702,6 +702,13 @@
     <string name="permissions_accessibility">無障礙服務</string>
     <string name="permissions_accessibility_summary">自動讀取配對碼。</string>
     <string name="permissions_battery_summary">防止 Android 在背景終止 Shizuku。</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
+    <string name="setup_action_continue">繼續</string>
+    <string name="setup_root_title">Root</string>
+    <string name="setup_wireless_title">無線偵錯</string>
     <string name="settings_help">幫助</string>
     <string name="settings_translate">參與翻譯</string>
     <string name="settings_translate_note">在 Crowdin 上翻譯這個應用程式。</string>
@@ -1077,6 +1084,10 @@
     <string name="app_info_yes">是</string>
     <string name="app_info_no">否</string>
     <string name="tab_wifi_passwords">Wi-Fi 密碼</string>
+    <string name="accessibility_boot">開機時啟動</string>
+    <string name="accessibility_filter_off">關閉</string>
+    <string name="accessibility_filter_on">開啟</string>
+    <string name="accessibility_notification_channel">無障礙服務</string>
     <string name="wifi_passwords_show">顯示密碼</string>
     <string name="wifi_passwords_hide">隱藏密碼</string>
     <string name="wifi_passwords_copy">複製密碼</string>

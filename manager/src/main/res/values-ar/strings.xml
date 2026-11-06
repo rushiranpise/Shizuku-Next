@@ -68,16 +68,15 @@
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">يحظر Android تفعيل هذا الخيار للتطبيقات المثبتة من خارج متجر التطبيقات. اسمح بإذن ^1 لتفعيل خدمة تسهيل الاستخدام. ستظهر هذه الخدمة في قائمة تسهيل الاستخدام بالحالة \"يخضع لقيود الإعدادات\".\n\nافتح معلومات التطبيق واختر \"السماح بالإعدادات المقيّدة\" من القائمة، أو نفّذ هذا الأمر على جهاز كمبيوتر:\\n\\n^2\n\nكلا الخيارين يعمل. سيعمل المفتاح بعد ذلك.</string>
     <string name="dialog_adb_pairing_open_app_info"></string>
-    <string name="dialog_adb_pairing_accessibility_enable"></string>
+    <string name="dialog_adb_pairing_accessibility_enable">يقرأ الإقران التلقائي الرمز من نافذة النظام عبر خدمة إمكانية الوصول الخاصة بـ Shizuku، لذا يجب تفعيلها، وستعمل فقط للفترة المطلوبة: تقوم الخدمة بإيقاف نفسها تلقائياً بمجرد العثور على الرمز، أو بعد دقيقة واحدة لتوفير الطاقة. يقوم Shizuku عادةً بتفعيلها بنفسه، وهذا يتطلب صلاحية WRITE_SECURE_SETTINGS، والتي لم يتم منحها بعد I في حال كان التثبيت جديداً.\n\nقم بتفعيلها في الشاشة التالية، أو اكتب الرمز بنفسك ضمن خيار \"يدوي\"، أو امنح الصلاحية لمرة واحدة:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">يرجى بدء عملية الاقتران من خلال تنفيذ
 الخطوات التالية:\n- انتقل إلى \"خيارات المطور\"\n- قم بتمكين \"تصحيح أخطاء USB\" و\"تصحيح الأخطاء اللاسلكية\"\n- انقر على الجانب الأيسر من \"تصحيح الأخطاء اللاسلكية\"\n- انقر على\"إقران الجهاز برمز الاقتران\". سيكتشف Shizuku رمز الاقتران تلقائيًا.</string>
-    <string name="adb_pairing_requires_multi_window">الرجاء إدخال وضع تقسيم الشاشة متعدد النوافذ أولاً.</string>
-    <string name="adb_pairing_requires_multi_window_reason">يتطلب النظام أن يكون مربع حوار الاقتران
-مرئيًا دائمًا. استخدام وضع تقسيم الشاشة هو الطريقة الوحيدة لإظهار هذا التطبيق ومربع حوار النظام في آنٍ واحد.</string>
-    <string name="adb_error_key_store">غير قادر على إنشاء مفتاح لتصحيح الأخطاء اللاسلكية.\nقد يكون هذا بسبب تعطل آلية KeyStore لهذا الجهاز.</string>
-    <string name="adb_error_stop_tcp">فشل في إيقاف ADB عبر TCP</string>
-    <string name="adb_pair_required">يرجى المرور بخطوة الاقتران أولاً.</string>
-    <string name="enable">يُمكَِن</string>
+    <string name="adb_pairing_requires_multi_window">أولًا، أفتح وضع تقسيم الشاشة.</string>
+    <string name="adb_pairing_requires_multi_window_reason">يتطلب النظام أن تظل نافذة الإقران مرئية دائماً. استخدام وضع تقسيم الشاشة هو الطريقة الوحيدة لإظهار هذا التطبيق ونافذة النظام في نفس الوقت.</string>
+    <string name="adb_error_key_store">غير قادر على إنشاء مفتاح \"تصحيح الأخطاء اللاسلكية\". \nقد يكون هذا بسبب تعطل آلية KeyStore لهذا الجهاز.</string>
+    <string name="adb_error_stop_tcp">فشل إيقاف ADB عبر TCP</string>
+    <string name="adb_pair_required">يرجى إقران الجهاز أولاً.</string>
+    <string name="enable">تفعيل</string>
     <string name="auto_pair_instructions">الاقتران دون كتابة رمز:\\n\\n1. خيارات المطوّر ← تصحيح الأخطاء اللاسلكي\\n2. إقران الجهاز باستخدام رمز الاقتران\\n\\nيقرأ Shizuku الرمز والمنفذ مباشرةً من مربع الحوار ويبدأ تشغيل نفسه. اترك مربع الحوار مفتوحًا حتى يكتمل الاقتران.
 </string>
     <string name="auto_pair_manual">يدوي
@@ -279,6 +278,7 @@
     <string name="activities_apps_section">التطبيقات</string>
     <string name="activities_save">احفظ</string>
     <string name="activities_unsave">أحذف من قائمة الحفظ</string>
+    <string name="activities_gone">.</string>
     <string name="tab_intent_builder">منشئ الـ Intent</string>
     <string name="intent_builder_note">أنشئ وأرسل Intent. يمكنك تعيين الإجراء (Action)، البيانات (Data)، النوع (Type)، المكوّن (Component)، الفئات (Categories)، الإضافات (Extras)، والعلامات (Flags). يمكنك أيضًا تحميل Intent من معرّف URI، مثل
 intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
@@ -507,6 +507,8 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="status_value_none">-</string>
     <string name="status_running_short">يعمل</string>
     <string name="status_stopped_short">متوقف</string>
+    <string name="home_status_service_active"></string>
+    <string name="home_status_service_stopped"></string>
     <string name="action_start">البدء بالتشغيل</string>
     <string name="tools_stealth">وضع التخفي</string>
     <string name="tools_modules">وحدات</string>
@@ -586,6 +588,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="modules_install">تثبيت موديول</string>
     <string name="modules_installed">تم تثبيت %1$s</string>
     <string name="modules_access_full">وصول كامل للصلاحيات</string>
+    <string name="modules_access_full_summary">.</string>
     <string name="modules_allow_background">السماح بالتشغيل ف الخلفيه</string>
     <string name="modules_allow_background_summary">السماح لخدمات الاضافه بالعمل بدون مراقبه.</string>
     <string name="modules_row_summary">%1$s - %2$s</string>
@@ -599,6 +602,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="modules_review_title">تشغيل هذا الأمر؟</string>
     <string name="modules_review_message">%1$s يطلب السماح له بالبدء:</string>
     <string name="modules_review_approve">بدء التشغيل</string>
+    <string name="modules_review_trust">%1$s</string>
     <string name="modules_result_title">%1$s</string>
     <string name="modules_result_exit">رمز الخروج %1$d</string>
     <string name="modules_error_not_a_module">هذا الملف ليس باضافه ملف الخواص الخاص به (module.prop) مفقود او تالف.</string>
@@ -610,6 +614,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="tools_terminal">تطبيقات الاوامر النصيه</string>
     <string name="tools_terminal_summary">تشغيل الاوامر النصيه ف تطبيقات الاوامر النصيه باستخدام \"rish\"</string>
     <string name="tools_battery">تحسين البطارية</string>
+    <string name="intents_title"></string>
     <string name="about_package">الحزمة</string>
     <string name="check_for_updates_now">التحقق من توافر تحديثات</string>
     <string name="start_failed">تعذر بدء تشغيل Shizuku</string>
@@ -617,6 +622,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="action_open_wireless_debugging">تصحيح الأخطاء عن طريق الشبكه اللاسلكية</string>
     <string name="start_failed_unsupported">الجهاز لا يدعم التشغيل ف الخلفيه</string>
     <string name="start_failed_wifi_required">فشل البدء تاكد من اتصالك بشبكه لاسلكيه \"WI-FI\" و تشغيل تحسين الاخطاء عن طريق الشبكه اللاسلكيه. او حاول التشغيل عن طريق جهاز حاسوب باستخدام ادوات \"ADB\".</string>
+    <string name="start_failed_binder_went_away">.</string>
     <string name="start_failed_no_port">لم يتم العثور على منفذ \"التصحيح اللاسلكي\" تأكد من أن \"التصحيح اللاسلكي\" مفعل، وأن الانترنت متصل.</string>
     <string name="start_failed_no_port_no_permission">لم يتم العثور على منفذ التصحيح اللاسلكي، ولا يمكن لـ Shizuku تفعيل التصحيح اللاسلكي بدون صلاحية WRITE_SECURE_SETTINGS: <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. أو قم بتشغيل Shizuku عبر \"USB Debugging\" مرة واحدة لكي يمنح نفسه الصلاحية بعد ذلك.</string>
     <string name="start_failed_no_auth">\"التصحيح اللاسلكي\" غير مسموح على هذه الشبكة. أقرن الجهاز مرة اخرى.</string>
@@ -626,9 +632,54 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="start_failed_pairing_required">هذا الجهاز غير مقرن بـ \"التصحيح اللاسلكي\"، أقرنه مجددا.</string>
     <string name="start_failed_connection_lost">أُغلق اتصال ADB أثناء البدء. أعد المحاولة.</string>
     <string name="start_failed_usb_no_port">لم يتم فتح أي منفذ ADB محلي. يقوم نظام أندرويد بإغلاقه عند كل إعادة تشغيل، وإعادة فتحه تتطلب اتصالاً مؤقتاً. اتصل بشبكة الإنترنت وسيقوم Shizuku بإعادة فتحه عبر \"التصحيح اللاسلكي\"، أو قم بتشغيل <b>adb tcpip 5555</b> من الكمبيوتر، أو اختر <b>البدء بدون Wi-Fi</b> كطريقة تشغيل؛ لتبدأ عبر \"التصحيح اللاسلكي\" بدلاً من ذلك.</string>
+    <string name="start_failed_root_unavailable">.</string>
+    <string name="start_failed_system_needs_app">.</string>
+    <string name="start_failed_no_binder">.</string>
+    <string name="start_system_custom_intro">.</string>
+    <string name="start_system_custom_lookup">:</string>
+    <string name="start_system_custom_plain">:</string>
+    <string name="start_system_custom_copied">.</string>
+    <string name="start_system_custom_copy_failed">.</string>
+    <string name="settings_section_startup"></string>
+    <string name="settings_section_startup_summary"></string>
     <string name="settings_section_wireless">تصحيح الأخطاء عن طريق الشبكه اللاسلكية</string>
+    <string name="settings_section_wireless_summary"></string>
+    <string name="settings_section_tools"></string>
+    <string name="settings_section_tools_summary"></string>
+    <string name="settings_section_appearance"></string>
+    <string name="settings_section_appearance_summary"></string>
+    <string name="settings_section_about"></string>
+    <string name="settings_theme"></string>
+    <string name="settings_theme_system"></string>
+    <string name="settings_theme_light"></string>
+    <string name="settings_theme_dark"></string>
+    <string name="intents_description">.</string>
+    <string name="intents_require_token"></string>
+    <string name="intents_require_token_summary">.</string>
+    <string name="intents_token"></string>
+    <string name="intents_copy"></string>
+    <string name="intents_regenerate"></string>
     <string name="intents_start">البدء بالتشغيل</string>
+    <string name="intents_stop"></string>
+    <string name="intents_watchdog_on"></string>
+    <string name="intents_watchdog_off"></string>
+    <string name="intents_watchdog_toggle"></string>
+    <string name="intents_adb_command"></string>
+    <string name="intents_status_broadcast"></string>
+    <string name="intents_status_broadcast_extra">1 0</string>
+    <string name="labs_gate_stays_on"></string>
+    <string name="intents_values"></string>
     <string name="intents_package">الحزمة</string>
+    <string name="intents_action_for">%1$s</string>
+    <string name="home_battery_warning">.</string>
+    <string name="batch_selected_count">%1$d</string>
+    <string name="app_management_action_select_all"></string>
+    <string name="app_management_action_grant"></string>
+    <string name="app_management_action_revoke"></string>
+    <string name="app_management_batch_grant_title"></string>
+    <string name="app_management_batch_revoke_title"></string>
+    <string name="app_management_batch_message">%1$d؟(؟</string>
+    <string name="app_management_toggle_all_message">%1$d؟</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">أبلغ المستخدمون أن MIUI يكسر إطار عمل الوصول إلى التخزين، والذي تستخدمه وظيفة التصدير.</string>
     <string name="terminal_tutorial_miui_2">إذا كنت تستخدم MIUI، فقد تحتاج إلى استخراج الملف من مجلد
@@ -676,26 +727,89 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
         أن يكون Shizuku قد بدأ مرة واحدة بعد إعادة التشغيل)"</string>
     <string name="settings_tcp_mode_dialog_close_port">"سيتم إغلاق منفذ TCP فورًا. ستحتاج إلى اتصال
         Wi-Fi لإعادة تشغيل وضع TCP. هل تريد المتابعة؟"</string>
+    <string name="settings_tcp_mode_close_usb_off">.</string>
+    <string name="settings_tcp_mode_close_nothing">.</string>
     <string name="settings_restart_dialog_title">مطلوب إعادة التشغيل</string>
     <string name="settings_restart_dialog_message">يجب على Shizuku إعادة التشغيل لتطبيق هذا الإعداد.</string>
     <string name="settings_restart_dialog_message_wifi_required"><![CDATA[<br><br><b>يتطلب اتصالاً لاسلكياً. سيستمر شيزوكو بالعمل وينتظر اتصالاً لاسلكياً قبل إعادة التشغيل في الخلفية.</b>]]></string>
     <string name="settings_tcp_port">منفذ TCP</string>
     <string name="settings_auto_disable_usb_debugging">إيقاف تصحيح أخطاء USB
 </string>
+    <string name="settings_auto_disable_usb_debugging_summary"></string>
     <string name="settings_language">اللغة</string>
+    <string name="settings_language_system"></string>
     <string name="settings_black_night_theme">وضع السواد النقيّ</string>
     <string name="settings_black_night_theme_summary">استخدام خلفية سوداء بالكامل في الوضع الداكن
 </string>
+    <string name="settings_update_stable"></string>
+    <string name="settings_update_beta"></string>
+    <string name="settings_permissions"></string>
+    <string name="settings_permissions_summary"></string>
+    <string name="permissions_allowed"></string>
+    <string name="permissions_action_allow"></string>
     <string name="permissions_action_settings">الاعدادات</string>
+    <string name="permissions_open_settings_hint">.</string>
+    <string name="permissions_notifications"></string>
+    <string name="permissions_notifications_summary">.</string>
+    <string name="permissions_nearby"></string>
+    <string name="permissions_nearby_summary">.</string>
+    <string name="permissions_write_secure_settings"></string>
+    <string name="permissions_write_secure_settings_summary">.</string>
+    <string name="permissions_accessibility"></string>
+    <string name="permissions_accessibility_summary">.</string>
+    <string name="permissions_battery_summary">.</string>
+    <string name="permissions_pairing_service"></string>
+    <string name="permissions_pairing_service_reason">.</string>
+    <string name="permissions_pairing_service_restricted">.</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
+    <string name="setup_step">%1$d%2$d</string>
+    <string name="setup_action_skip"></string>
+    <string name="setup_action_continue">متابعة</string>
+    <string name="setup_action_done"></string>
+    <string name="setup_welcome_title"></string>
+    <string name="setup_welcome_body">.</string>
+    <string name="setup_start_title">؟</string>
+    <string name="setup_start_body">.</string>
+    <string name="setup_root_title"></string>
+    <string name="setup_root_body">.</string>
+    <string name="setup_wireless_title">تصحيح الأخطاء عن طريق الشبكه اللاسلكية</string>
+    <string name="setup_wireless_body">.</string>
+    <string name="setup_permissions_title"></string>
+    <string name="setup_permissions_body">.</string>
+    <string name="settings_run_setup"></string>
+    <string name="settings_run_setup_summary"></string>
     <string name="settings_help">مساعده</string>
+    <string name="settings_translate"></string>
+    <string name="settings_translate_note">.</string>
+    <string name="crowdin_url"></string>
     <string name="settings_report_bug">الإبلاغ عن خطأ</string>
+    <string name="settings_support_coffee"></string>
+    <string name="settings_support_coffee_note"></string>
+    <string name="settings_contributors"></string>
+    <string name="settings_contributors_hint"></string>
     <!--
       A plural, not a plain string: most of the people on this wall are here for a single commit,
       so the singular is read more often than the plural is.
     -->
+    <plurals name="contributor_commits">
+        <item quantity="zero">%1$d</item>
+        <item quantity="one">%1$d</item>
+        <item quantity="two">%1$d</item>
+        <item quantity="few">%1$d</item>
+        <item quantity="many">%1$d</item>
+        <item quantity="other">%1$d</item>
+    </plurals>
+    <string name="contributor_view_github"></string>
+    <string name="contributor_details_close"></string>
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
     <string name="contributor_area_app">تطبيق</string>
     <string name="contributor_area_server">الخادم</string>
+    <string name="contributor_area_adb"></string>
+    <string name="contributor_area_build"></string>
+    <string name="contributor_area_i18n"></string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
       worked in, and the languages they translated into. There is deliberately no string per
@@ -722,11 +836,14 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <!-- Toast -->
     <string name="toast_pairing_timeout">انتهت مهلة خدمة إقران شيزوكو.</string>
     <!-- Dark Mode Setting Override -->
+    <string name="dark_theme"></string>
     <string name="dark_theme_off">الوضع الفاتح دائمًا</string>
     <string name="dark_theme_on">الوضع الداكن دائمًا</string>
+    <string name="follow_system"></string>
     <!-- About -->
     <!-- Start/Stop -->
     <string name="start">البدء بالتشغيل</string>
+    <string name="action_stop"></string>
     <!-- Notification -->
     <string name="notification_channel_adb_pairing">اقتران التصحيح/العلاج اللاسلكي</string>
     <string name="notification_adb_pairing_input_paring_code">أدخل رمز الاقتران</string>
@@ -759,6 +876,40 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <!-- Shell -->
     <string name="shell_title">واجهة الأوامر (Shell)
 </string>
+    <string name="shell_expand"></string>
+    <string name="shell_collapse"></string>
+    <string name="shell_library"></string>
+    <string name="shell_library_hint"></string>
+    <string name="shell_library_empty">.</string>
+    <string name="shell_variables_title"></string>
+    <string name="shell_variables_pick_app"></string>
+    <string name="shell_history"></string>
+    <string name="shell_history_empty">.</string>
+    <string name="shell_history_clear"></string>
+    <string name="shell_history_run"></string>
+    <string name="shell_history_forget"></string>
+    <string name="shell_bookmarks"></string>
+    <string name="shell_bookmark_save"></string>
+    <string name="shell_bookmark_saved"></string>
+    <string name="shell_bookmark_deleted_name">%1$s</string>
+    <string name="shell_bookmark_run"></string>
+    <string name="shell_bookmark_rename"></string>
+    <string name="shell_bookmark_delete"></string>
+    <string name="shell_bookmark_name_hint"></string>
+    <string name="shell_bookmark_sort_newest"></string>
+    <string name="shell_bookmark_sort_name"></string>
+    <string name="shell_bookmark_empty">.</string>
+    <string name="shell_quick_battery"></string>
+    <string name="shell_quick_storage"></string>
+    <string name="shell_quick_device"></string>
+    <string name="shell_quick_apps"></string>
+    <string name="shell_quick_grant"></string>
+    <string name="shell_quick_revoke"></string>
+    <string name="shell_quick_app_ops"></string>
+    <string name="shell_run"></string>
+    <string name="shell_stop"></string>
+    <string name="shell_clear"></string>
+    <string name="shell_copy"></string>
     <!-- Watchdog -->
     <string name="watchdog_running">مراقب النظام يعمل</string>
     <string name="watchdog_turn_off">إيقاف التشغيل</string>
@@ -791,7 +942,10 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="manage_status_hidden">مخفي</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_open_info">معلومات التطبيق</string>
+    <string name="app_section_battery"></string>
+    <string name="app_grant_confirm_ok"></string>
     <string name="app_op_mode_default">تلقائي</string>
+    <string name="app_op_mode_allow"></string>
     <string name="app_op_mode_deny">منع</string>
     <string name="app_action_enable">يُمكَِن</string>
     <string name="app_bucket_default">تلقائي</string>
@@ -848,6 +1002,9 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="app_info_yes">نعم</string>
     <string name="app_info_no">لا</string>
     <string name="tab_wifi_passwords">كلمات مرور الواي فاي</string>
+    <string name="accessibility_boot">التشغيل تلقائيًا عند بدء تشغيل الجهاز
+</string>
+    <string name="accessibility_notification_channel">خدمات إمكانية الوصول</string>
     <string name="wifi_passwords_show">إظهار كلمة المرور</string>
     <string name="wifi_passwords_hide">إخفاء كلمة المرور</string>
     <string name="wifi_passwords_copy">نسخ كلمة المرور</string>

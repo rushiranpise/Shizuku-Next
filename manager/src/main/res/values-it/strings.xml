@@ -425,6 +425,8 @@
     <string name="status_value_none">-</string>
     <string name="status_running_short">In esecuzione</string>
     <string name="status_stopped_short">Arrestato</string>
+    <string name="home_status_service_active">Il servizio Shizuku è attivo</string>
+    <string name="home_status_service_stopped">Il servizio Shizuku non è in esecuzione</string>
     <string name="action_start">Avvia</string>
     <string name="tools_stealth">Modalità invisibile</string>
     <string name="tools_modules">Moduli</string>
@@ -477,7 +479,7 @@
     <string name="modules_error_set_enabled">Impossibile attivare o disattivare il modulo: la sua directory non è scrivibile.</string>
     <string name="modules_trust">Autorizza</string>
     <string name="modules_untrust">Revoca</string>
-    <string name="modules_full_trust">Fiducia totale</string>
+    <string name="modules_full_trust">Attendibilità totale</string>
     <string name="modules_trust_confirm">Autorizzare %1$s?</string>
     <string name="modules_trust_confirm_message">I suoi comandi vengono eseguiti senza essere prima mostrati, sia che provengano dalla sua azione, dal suo servizio o dalla sua WebUI. Tutto il resto resta invariato: il modulo si disattiva ancora con il suo interruttore e il suo output è ancora limitato e si interrompe comunque allo scadere del tempo. Autorizza solo un modulo che hai letto e compreso.</string>
     <string name="module_update_available">Aggiornamento disponibile</string>
@@ -517,6 +519,7 @@
     <string name="modules_review_title">Eseguire questo comando?</string>
     <string name="modules_review_message">%1$s ha chiesto a Shizuku di eseguire:</string>
     <string name="modules_review_approve">Eseguilo</string>
+    <string name="modules_review_trust">Rendi %1$s attendibile e non chiedere più</string>
     <string name="modules_result_title">%1$s</string>
     <string name="modules_result_exit">Codice di uscita %1$d</string>
     <string name="modules_error_not_a_module">Quel file non è un modulo: il suo module.prop non è presente o non è utilizzabile.</string>
@@ -556,9 +559,13 @@
     <string name="start_system_custom_copied">Comando copiato negli appunti.</string>
     <string name="start_system_custom_copy_failed">Il comando è sopra, pronto da copiare a mano.</string>
     <string name="settings_section_startup">Avvio</string>
+    <string name="settings_section_startup_summary">Avvio, watchdog e metodo di avvio</string>
     <string name="settings_section_wireless">Debug wireless</string>
+    <string name="settings_section_wireless_summary">Debug wireless, modalità TCP e porta ADB</string>
     <string name="settings_section_tools">Strumenti</string>
+    <string name="settings_section_tools_summary">Autorizzazioni, configurazione, terminale e intent</string>
     <string name="settings_section_appearance">Aspetto</string>
+    <string name="settings_section_appearance_summary">Tema, colori e lingua</string>
     <string name="settings_section_about">Informazioni</string>
     <string name="settings_theme">Tema</string>
     <string name="settings_theme_system">Segui il sistema</string>
@@ -709,6 +716,29 @@
     <string name="permissions_accessibility">Servizio di accessibilità</string>
     <string name="permissions_accessibility_summary">Legge automaticamente il codice di accoppiamento.</string>
     <string name="permissions_battery_summary">Impedisce ad Android di chiudere Shizuku in background.</string>
+    <string name="permissions_pairing_service">Servizio di accoppiamento</string>
+    <string name="permissions_pairing_service_reason">Legge il codice di accoppiamento.</string>
+    <string name="permissions_pairing_service_restricted">Consenti le impostazioni limitate nelle informazioni dell\'app.</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
+    <string name="setup_step">Passo %1$d di %2$d</string>
+    <string name="setup_action_skip">Salta</string>
+    <string name="setup_action_continue">Continua</string>
+    <string name="setup_action_done">Fatto</string>
+    <string name="setup_welcome_title">Benvenuto su Shizuku-Next</string>
+    <string name="setup_welcome_body">Shizuku-Next avvia e gestisce il servizio Shizuku, che consente alle applicazioni di utilizzare i permessi che normalmente necessitano di adb o root. Può essere modificato tutto in seguito nelle Impostazioni.</string>
+    <string name="setup_start_title">Come dovrebbe avviarsi Shizuku?</string>
+    <string name="setup_start_body">Determina dove il servizio ottiene le proprie autorizzazioni. Potrai modificarlo in seguito nelle Impostazioni, sotto Metodo di avvio.</string>
+    <string name="setup_root_title">Root</string>
+    <string name="setup_root_body">Un tocco, nessun cavo e accoppiamento. Richiede un gestore di root che conceda l\'accesso a Shizuku.</string>
+    <string name="setup_wireless_title">Debug wireless</string>
+    <string name="setup_wireless_body">Funziona senza root. Richiede le Opzioni sviluppatore e un accoppiamento una tantum; successivamente si avvia dall\'app.</string>
+    <string name="setup_permissions_title">Autorizzazioni facoltative</string>
+    <string name="setup_permissions_body">È possibile saltare qualsiasi di queste autorizzazioni e modificarle successivamente nelle Impostazioni.</string>
+    <string name="settings_run_setup">Esegui di nuovo la configurazione</string>
+    <string name="settings_run_setup_summary">Configurazione iniziale: come si avvia Shizuku e di cosa ha bisogno</string>
     <string name="settings_help">Aiuto</string>
     <string name="settings_translate">Partecipa alla traduzione</string>
     <string name="settings_translate_note">Traduci l\'app su Crowdin.</string>
@@ -912,6 +942,7 @@
     <string name="off">Disattivo</string>
     <string name="dialog_cannot_open_browser_title">Impossibile avviare il browser</string>
     <string name="toast_copied_to_clipboard">Copiato negli appunti</string>
+    <string name="toast_press_back_again">Premi di nuovo indietro per uscire</string>
     <string name="accessibility_service_description">Accoppia il debug wireless senza dover digitare il codice.\n\nShizuku legge il codice di accoppiamento e la porta dalla schermata di sistema “Accoppia con dispositivo”, esegue l\'accoppiamento e si avvia da solo. Sulle TV (ad esempio con Android 14 o versioni successive) gestisce l\'intera procedura e si disattiva una volta trovato il codice.</string>
     <!-- Messages for legacy -->
     <string name="dialog_legacy_not_support_title">%1$s non supporta il moderno Shizuku</string>
@@ -1085,6 +1116,19 @@
     <string name="app_info_yes">Sì</string>
     <string name="app_info_no">No</string>
     <string name="tab_wifi_passwords">Password Wi-Fi</string>
+    <string name="tab_accessibility">Accessibilità</string>
+    <string name="accessibility_boot">Avvia all\'accensione</string>
+    <string name="accessibility_boot_summary">Avvia di nuovo il keep-alive dopo un riavvio.</string>
+    <string name="accessibility_empty">Nessun servizio di accessibilità trovato.</string>
+    <string name="accessibility_gate_off">Keep-alive disattivato</string>
+    <string name="accessibility_count">%1$d attivi</string>
+    <string name="accessibility_filter_off">Disattivo</string>
+    <string name="accessibility_filter_on">Attivo</string>
+    <string name="accessibility_no_match">Nessun servizio corrisponde alla ricerca.</string>
+    <string name="accessibility_write_failed">Impossibile cambiare il servizio. Verifica che Shizuku sia in esecuzione.</string>
+    <string name="accessibility_notification_channel">Servizi di accessibilità</string>
+    <string name="accessibility_notification_title">Servizi di accessibilità mantenuti attivi</string>
+    <string name="accessibility_notification_text">Shizuku-Next riattiva i servizi bloccati quando Android li disattiva.</string>
     <string name="wifi_passwords_show">Mostra password</string>
     <string name="wifi_passwords_hide">Nascondi password</string>
     <string name="wifi_passwords_copy">Copia password</string>

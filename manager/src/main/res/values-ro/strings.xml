@@ -438,6 +438,8 @@
     <string name="status_value_none">-</string>
     <string name="status_running_short">Rulează</string>
     <string name="status_stopped_short">Oprit</string>
+    <string name="home_status_service_active">Serviciul Shizuku este activ</string>
+    <string name="home_status_service_stopped">Serviciul Shizuku nu rulează</string>
     <string name="action_start">Pornește</string>
     <string name="tools_stealth">Mod invizibil</string>
     <string name="tools_modules">Module</string>
@@ -530,6 +532,7 @@
     <string name="modules_review_title">Rulezi această comandă?</string>
     <string name="modules_review_message">%1$s a cerut lui Shizuku să ruleze:</string>
     <string name="modules_review_approve">Rulează</string>
+    <string name="modules_review_trust">Ai încredere în %1$s, și nu mai întreba</string>
     <string name="modules_result_title">%1$s</string>
     <string name="modules_result_exit">Cod ieșire %1$d</string>
     <string name="modules_error_not_a_module">Acest fișier nu este un modul: module.prop lipsește sau este inutilizabil.</string>
@@ -569,9 +572,13 @@
     <string name="start_system_custom_copied">Comanda a fost copiată în clipboard.</string>
     <string name="start_system_custom_copy_failed">Comanda este sus, gata să fie copiată manual.</string>
     <string name="settings_section_startup">Lansare</string>
+    <string name="settings_section_startup_summary">Pornirea sistemului de operare, watchdog și metoda de pornire</string>
     <string name="settings_section_wireless">Depanare fără fir</string>
+    <string name="settings_section_wireless_summary">Depanare fără fir, modul TCP și portul ADB</string>
     <string name="settings_section_tools">Unelte</string>
+    <string name="settings_section_tools_summary">Permisiuni, configurare, terminal și intenții</string>
     <string name="settings_section_appearance">Aspect</string>
+    <string name="settings_section_appearance_summary">Temă, culori și limbă</string>
     <string name="settings_section_about">Despre</string>
     <string name="settings_theme">Temă</string>
     <string name="settings_theme_system">Urmărește sistemul</string>
@@ -720,6 +727,29 @@
     <string name="permissions_accessibility">Serviciu de accesibilitate</string>
     <string name="permissions_accessibility_summary">Citește codul de împerechere automat.</string>
     <string name="permissions_battery_summary">Oprește Android să închidă Shizuku în fundal.</string>
+    <string name="permissions_pairing_service">Serviciul de împerechere</string>
+    <string name="permissions_pairing_service_reason">Citește codul de asociere.</string>
+    <string name="permissions_pairing_service_restricted">Permite setările restricționate în informațiile aplicației.</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
+    <string name="setup_step">Pasul %1$d din %2$d</string>
+    <string name="setup_action_skip">Omite</string>
+    <string name="setup_action_continue">Continuă</string>
+    <string name="setup_action_done">Finalizat</string>
+    <string name="setup_welcome_title">Bine ai venit la Shizuku-Next</string>
+    <string name="setup_welcome_body">Shizuku-Next lansează și gestionează serviciul Shizuku, care permite aplicațiilor să utilizeze permisiuni care, în mod normal, necesită adb sau acces root. Toate setările de aici pot fi modificate ulterior în Setări.</string>
+    <string name="setup_start_title">Cum ar trebui să pornească Shizuku?</string>
+    <string name="setup_start_body">Această opțiune stabilește de unde își obține serviciul permisiunile. O poți modifica ulterior în Setări, la secțiunea „Metoda de pornire”.</string>
+    <string name="setup_root_title">Rădăcină</string>
+    <string name="setup_root_body">O singură atingere, fără cablu și fără asociere. Este necesar un manager de drepturi de root care să îi acorde acces aplicației Shizuku.</string>
+    <string name="setup_wireless_title">Depanare fără fir</string>
+    <string name="setup_wireless_body">Funcționează fără drepturi de root. Necesită activarea opțiunilor pentru dezvoltatori și o asociere inițială; după aceea, se lansează direct din aplicație.</string>
+    <string name="setup_permissions_title">Permisiuni opționale</string>
+    <string name="setup_permissions_body">Poți omite oricare dintre acestea și să le schimbi mai târziu în Setări.</string>
+    <string name="settings_run_setup">Rulează configurarea din nou</string>
+    <string name="settings_run_setup_summary">Pașii de început: cum pornește Shizuku și de ce are nevoie</string>
     <string name="settings_help">Ajutor</string>
     <string name="settings_translate">Participă în traducere</string>
     <string name="settings_translate_note">Tradu aplicația pe Crowdin.</string>
@@ -924,6 +954,7 @@
     <string name="off">Dezactivat</string>
     <string name="dialog_cannot_open_browser_title">Nu se poate porni browser-ul</string>
     <string name="toast_copied_to_clipboard">Copiat în clipboard</string>
+    <string name="toast_press_back_again">Apasă înapoi din nou pentru a ieși</string>
     <string name="accessibility_service_description">Oferă asistență pentru asocierea dispozitivelor (de exemplu, televizoare cu Android 14+) unde nu se pot utiliza notificările sau ecranul divizat.\n\nPermite Shizuku să extragă codul de asociere din ecranul de asociere pentru depanarea wireless. Se va dezactiva automat odată ce codul de asociere este găsit.</string>
     <!-- Messages for legacy -->
     <string name="dialog_legacy_not_support_title">%1$s nu suportă Shizuku modern</string>
@@ -1097,6 +1128,19 @@
     <string name="app_info_yes">Da</string>
     <string name="app_info_no">Nu</string>
     <string name="tab_wifi_passwords">Parole Wi-Fi</string>
+    <string name="tab_accessibility">Accesibilitate</string>
+    <string name="accessibility_boot">Pornire automată</string>
+    <string name="accessibility_boot_summary">Repune în funcțiune mecanismul „menține pornit” după o repornire.</string>
+    <string name="accessibility_empty">Nu s-au găsit servicii de accesibilitate.</string>
+    <string name="accessibility_gate_off">Funcția Menține pornit este dezactivată</string>
+    <string name="accessibility_count">%1$d pornit</string>
+    <string name="accessibility_filter_off">Dezactivat</string>
+    <string name="accessibility_filter_on">Activat</string>
+    <string name="accessibility_no_match">Niciun serviciu nu corespunde căutării.</string>
+    <string name="accessibility_write_failed">Nu s-a putut schimba serviciul. Verifică dacă Shizuku rulează.</string>
+    <string name="accessibility_notification_channel">Servicii de accesibilitate</string>
+    <string name="accessibility_notification_title">Servicii de accesibilitate păstrate</string>
+    <string name="accessibility_notification_text">Shizuku-Next reactivează serviciile blocate atunci când Android le dezactivează.</string>
     <string name="wifi_passwords_show">Afișează parola</string>
     <string name="wifi_passwords_hide">Ascunde parola</string>
     <string name="wifi_passwords_copy">Copiază parola</string>

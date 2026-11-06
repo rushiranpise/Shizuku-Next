@@ -657,6 +657,13 @@
     <string name="permissions_accessibility">ユーザー補助サービス</string>
     <string name="permissions_accessibility_summary">ペアリングコードを自動的に読み込みます。</string>
     <string name="permissions_battery_summary">バックグラウンドで Android が Shizuku を停止するのを阻止します。</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
+    <string name="setup_action_continue">続行</string>
+    <string name="setup_root_title">Root</string>
+    <string name="setup_wireless_title">ワイヤレスデバッグ</string>
     <string name="settings_help">ヘルプ</string>
     <string name="settings_translate">翻訳に参加する</string>
     <string name="settings_translate_note">Crowdin でアプリを翻訳。</string>
@@ -1014,6 +1021,10 @@
     <string name="app_info_yes">はい</string>
     <string name="app_info_no">いいえ</string>
     <string name="tab_wifi_passwords">Wi-Fiパスワード</string>
+    <string name="accessibility_boot">起動時にスタート</string>
+    <string name="accessibility_filter_off">オフ</string>
+    <string name="accessibility_filter_on">オン</string>
+    <string name="accessibility_notification_channel">アクセシビリティサービス</string>
     <string name="wifi_passwords_show">パスワードを表示</string>
     <string name="wifi_passwords_hide">パスワードを非表示</string>
     <string name="wifi_passwords_copy">パスワードをコピー</string>

@@ -426,6 +426,7 @@
     <string name="status_value_none">Ninguno</string>
     <string name="status_running_short">En ejecución</string>
     <string name="status_stopped_short">Detenido</string>
+    <string name="home_status_service_active"></string>
     <string name="action_start">Iniciar</string>
     <string name="tools_stealth">Modo incógnito</string>
     <string name="tools_modules">Módulos</string>
@@ -718,6 +719,13 @@
     <string name="permissions_accessibility">Servicio de accesibilidad</string>
     <string name="permissions_accessibility_summary">Lee el código de emparejamiento automáticamente.</string>
     <string name="permissions_battery_summary">Previene que Android cierre el proceso de Skizuku en segundo plano.</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
+    <string name="setup_action_continue">Continuar</string>
+    <string name="setup_root_title">Root</string>
+    <string name="setup_wireless_title">Depuración inalámbrica</string>
     <string name="settings_help">Ayuda</string>
     <string name="settings_translate">Participa en la traducción</string>
     <string name="settings_translate_note">Traducir la aplicación en Crowdin.</string>
@@ -1107,6 +1115,10 @@
     <string name="app_info_yes">Si</string>
     <string name="app_info_no">No</string>
     <string name="tab_wifi_passwords">Contraseñas Wi-Fi</string>
+    <string name="accessibility_boot">Iniciar al arrancar</string>
+    <string name="accessibility_filter_off">Apagado</string>
+    <string name="accessibility_filter_on">Encendido</string>
+    <string name="accessibility_notification_channel">Servicio de accesibilidad</string>
     <string name="wifi_passwords_show">Mostrar contraseña</string>
     <string name="wifi_passwords_hide">Ocultar contraseña</string>
     <string name="wifi_passwords_copy">Copiar contraseña</string>

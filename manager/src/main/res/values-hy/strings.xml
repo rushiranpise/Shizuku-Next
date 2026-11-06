@@ -131,6 +131,10 @@
     <string name="settings_black_night_theme">Սև գիշերի տեսք</string>
     <string name="settings_black_night_theme_summary">Օգտագործել սև տեսքը եթե գիշերային ռեժիմը
         միացված է</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
     <string name="settings_help">Օգնություն</string>
     <!--
       A plural, not a plain string: most of the people on this wall are here for a single commit,
@@ -241,5 +245,6 @@
          because three share one row; the tile picker spells them out in full. -->
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
+    <string name="accessibility_boot">Սկսել boot-ից</string>
     <string name="install_location_auto">Ծրագրավորողի կարգավորումներ</string>
 </resources>

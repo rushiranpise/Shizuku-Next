@@ -258,8 +258,11 @@
     <string name="activities_copy">Kopyala</string>
     <string name="activities_edit_as_intent">İstek olarak düzenle</string>
     <string name="activities_copied">Kopyalandı</string>
+    <string name="activities_saved">Kaydedilen etkinlikler</string>
     <string name="activities_apps_section">Uygulamalar</string>
     <string name="activities_save">Kaydet</string>
+    <string name="activities_unsave">Kaydedilenlerden kaldır</string>
+    <string name="activities_gone">Bu etkinlik artık yüklü değil.</string>
     <string name="tab_intent_builder">Intent oluşturucu</string>
     <string name="intent_builder_note">Bir intent oluşturup gönderin. Eylem, veri, tür, bileşen, kategoriler, ek veriler ve bayrakları ayarlayabilirsiniz. Ayrıca \"intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end\" gibi bir URI\'den intent yükleyebilirsiniz. Bu, Activity Launcher ve çoğu otomasyon aracının kullandığı formattır. Bir intent yüklemek, göndermeden önce alanları kontrol edip düzenleyebilmeniz için alanları otomatik olarak doldurur.</string>
     <string name="intent_uri">İstek URI\'si</string>
@@ -733,6 +736,13 @@
     <string name="permissions_accessibility">Erişilebilirlik hizmeti</string>
     <string name="permissions_accessibility_summary">Eşleştirme kodunu otomatik olarak okur.</string>
     <string name="permissions_battery_summary">Android\'in Shizuku\'yu arka planda sonlandırmasını engeller.</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
+    <string name="setup_action_continue">Devam</string>
+    <string name="setup_root_title">Root</string>
+    <string name="setup_wireless_title">Kablosuz hata ayıklama</string>
     <string name="settings_help">Yardım</string>
     <string name="settings_translate">Çeviriye katkıda bulun</string>
     <string name="settings_translate_note">Crowdin\'de uygulamayı çevirin.</string>
@@ -1117,6 +1127,10 @@
     <string name="app_info_yes">Evet</string>
     <string name="app_info_no">Hayır</string>
     <string name="tab_wifi_passwords">Wi-Fi şifreleri</string>
+    <string name="accessibility_boot">Önyüklemede başla</string>
+    <string name="accessibility_filter_off">Kapalı</string>
+    <string name="accessibility_filter_on">Açık</string>
+    <string name="accessibility_notification_channel">Erişilebilirlik hizmetleri</string>
     <string name="wifi_passwords_show">Şifreyi göster</string>
     <string name="wifi_passwords_hide">Şifreyi gizle</string>
     <string name="wifi_passwords_copy">Şifreyi kopyala</string>
