@@ -131,6 +131,10 @@ private fun Context.pairingEnableMessage(television: Boolean): CharSequence {
     }
 }
 
+/**
+ * Explains the automated flow and opens Developer options once the accessibility service is
+ * ready. The manual path stays one tap away.
+ */
 private fun Context.showNavigateDialog() {
     val isTelevision = EnvironmentUtils.isTelevision() && EnvironmentUtils.isTlsSupported()
 
@@ -185,6 +189,12 @@ private fun Context.getEnabledAccessibilityServices(): List<String>? {
     return enabledServices?.split(":")
 }
 
+/**
+ * Writes the pairing service into the enabled-services setting.
+ *
+ * The app marks the connection before the write, so the service leaves Developer options in
+ * front, and clears the mark if the write did not take.
+ */
 private fun Context.enableAccessibilityService(): Boolean {
     if (isAccessibilityEnabled()) return true
 

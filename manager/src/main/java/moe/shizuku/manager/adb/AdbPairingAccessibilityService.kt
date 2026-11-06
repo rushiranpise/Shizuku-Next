@@ -84,6 +84,13 @@ class AdbPairingAccessibilityService : AccessibilityService() {
     private val isTelevision
         get() = EnvironmentUtils.isTelevision() && EnvironmentUtils.isTlsSupported()
 
+    /**
+     * Called when Android binds the service.
+     *
+     * On TV the app may have just enabled the service and opened Developer options. The
+     * one-shot mark keeps this connection from covering that screen; otherwise the pairing
+     * dialog is brought up and the longer remote timeout starts.
+     */
     override fun onServiceConnected() {
         super.onServiceConnected()
 
@@ -423,6 +430,10 @@ class AdbPairingAccessibilityService : AccessibilityService() {
 
     override fun onInterrupt() {}
 
+    /**
+     * Logs why the service is going away: this line means it was switched off, while a crash
+     * entry in the same log means the process died.
+     */
     override fun onUnbind(intent: Intent?): Boolean {
         // Logged so the log can tell a service that was switched off (this line) from one whose
         // process died (no line, and a crash entry instead).

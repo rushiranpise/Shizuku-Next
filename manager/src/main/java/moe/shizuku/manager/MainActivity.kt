@@ -106,6 +106,10 @@ class MainActivity : ComponentActivity() {
         handleIntent(intent)
     }
 
+    /**
+     * Handles the extras that start Shizuku or ask for the pairing dialog, including the request
+     * sent by the accessibility service when it connects.
+     */
     private fun handleIntent(intent: Intent?) {
         if (intent == null) return
 
