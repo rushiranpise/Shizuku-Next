@@ -53,6 +53,7 @@ import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material.icons.outlined.Usb
 import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material.icons.outlined.VerifiedUser
+import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material.icons.outlined.Wifi
 import androidx.compose.material.icons.outlined.WifiTethering
@@ -161,7 +162,10 @@ private enum class SettingsSection(
 fun SettingsScreen(
     bottomPadding: Dp,
     onOpenDetail: (Detail) -> Unit,
-    onRunSetup: () -> Unit
+    onRunSetup: () -> Unit,
+    showNavigationBarSetting: Boolean = false,
+    alwaysShowNavigationBar: Boolean = false,
+    onAlwaysShowNavigationBarChange: (Boolean) -> Unit = {}
 ) {
     val context = LocalContext.current
 
@@ -887,6 +891,20 @@ fun SettingsScreen(
                                     ThemeState.refresh()
                                 }
                         )
+                    }
+                    if (showNavigationBarSetting) {
+                        item {
+                            SegmentedListItem(
+                                centerSlots = true,
+                                leadingContent = { SettingsIcon(Icons.Outlined.Visibility) },
+                                headlineContent = { Text(stringResource(R.string.settings_always_show_navigation_bar)) },
+                                supportingContent = {
+                                    Text(stringResource(R.string.settings_always_show_navigation_bar_summary))
+                                },
+                                switchState = alwaysShowNavigationBar,
+                                onSwitchChange = onAlwaysShowNavigationBarChange
+                            )
+                        }
                     }
                     item {
                         SegmentedListItem(

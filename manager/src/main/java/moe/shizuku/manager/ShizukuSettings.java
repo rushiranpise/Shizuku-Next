@@ -44,6 +44,8 @@ public class ShizukuSettings {
         public static final String KEY_NIGHT_MODE = "night_mode";
         public static final String KEY_BLACK_NIGHT_THEME = "black_night_theme";
         public static final String KEY_USE_SYSTEM_COLOR = "use_system_color";
+        /** Whether the floating navigation bar stays visible when a page scrolls. */
+        public static final String KEY_ALWAYS_SHOW_NAVIGATION_BAR = "always_show_navigation_bar";
         public static final String KEY_UPDATE_MODE = "update_mode";
         public static final String KEY_HELP = "help";
         public static final String KEY_REPORT_BUG = "report_bug";
@@ -566,6 +568,19 @@ public class ShizukuSettings {
             defValue = AppCompatDelegate.MODE_NIGHT_YES;
         }
         return getPreferences().getInt(Keys.KEY_NIGHT_MODE, defValue);
+    }
+
+    /**
+     * Whether the floating navigation bar stays visible while a page scrolls.
+     *
+     * Off by default: the bar is meant to stay out of the way of long lists.
+     */
+    public static boolean getAlwaysShowNavigationBar() {
+        return getPreferences().getBoolean(Keys.KEY_ALWAYS_SHOW_NAVIGATION_BAR, false);
+    }
+
+    public static void setAlwaysShowNavigationBar(boolean enable) {
+        getPreferences().edit().putBoolean(Keys.KEY_ALWAYS_SHOW_NAVIGATION_BAR, enable).apply();
     }
 
     /**

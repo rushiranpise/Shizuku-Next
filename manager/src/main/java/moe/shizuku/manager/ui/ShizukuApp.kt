@@ -104,6 +104,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import moe.shizuku.manager.R
+import moe.shizuku.manager.ShizukuSettings
 import moe.shizuku.manager.ui.component.TelevisionFocusOutline
 import moe.shizuku.manager.ui.component.televisionFocusShape
 import moe.shizuku.manager.ui.screen.AccessibilityScreen
@@ -263,6 +264,9 @@ private val tabs = listOf(
 @Composable
 fun ShizukuApp(onRunSetup: () -> Unit) {
     ShizukuTheme {
+        var alwaysShowNavigationBar by remember {
+            mutableStateOf(ShizukuSettings.getAlwaysShowNavigationBar())
+        }
         // Detail screens are shown outside the Scaffold, so wrap everything in a
         // Surface otherwise LocalContentColor falls back to black and plain
         // Text becomes unreadable in dark themes.
@@ -433,6 +437,11 @@ fun ShizukuApp(onRunSetup: () -> Unit) {
                         MainTabs(
                             pagerState = pagerState,
                             pill = pill,
+                            alwaysShowNavigationBar = alwaysShowNavigationBar,
+                            onAlwaysShowNavigationBarChange = {
+                                ShizukuSettings.setAlwaysShowNavigationBar(it)
+                                alwaysShowNavigationBar = it
+                            },
                             onOpenDetail = { detail = it },
                             onRunSetup = onRunSetup
                         )
@@ -491,6 +500,8 @@ internal fun backAction(
 private fun MainTabs(
     pagerState: PagerState,
     pill: TabPill,
+    alwaysShowNavigationBar: Boolean,
+    onAlwaysShowNavigationBarChange: (Boolean) -> Unit,
     onOpenDetail: (Detail) -> Unit,
     onRunSetup: () -> Unit
 ) {
@@ -548,9 +559,13 @@ private fun MainTabs(
     // kept so the tab bar can show it without a second pass over the same packages.
     var grantedCount by remember { mutableIntStateOf(0) }
 
-    val scrollBehavior = FloatingToolbarDefaults.exitAlwaysScrollBehavior(
-        exitDirection = FloatingToolbarExitDirection.Bottom
-    )
+    val scrollBehavior = if (alwaysShowNavigationBar) {
+        null
+    } else {
+        FloatingToolbarDefaults.exitAlwaysScrollBehavior(
+            exitDirection = FloatingToolbarExitDirection.Bottom
+        )
+    }
     // The bar's height as a constant, rather than as something it reports back. Measuring it
     // and feeding that measurement into every page as bottom padding made the pages re-lay out
     // whenever the bar re-measured mid-animation — a scroll, a tab change — which is what read
@@ -562,7 +577,10 @@ private fun MainTabs(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .nestedScroll(scrollBehavior)
+            .then(
+                if (scrollBehavior != null) Modifier.nestedScroll(scrollBehavior)
+                else Modifier
+            )
     ) {
         CenteredContent {
             HorizontalPager(
@@ -602,7 +620,10 @@ private fun MainTabs(
                     4 -> SettingsScreen(
                         bottomPadding = bottomPadding,
                         onOpenDetail = onOpenDetail,
-                        onRunSetup = onRunSetup
+                        onRunSetup = onRunSetup,
+                        showNavigationBarSetting = true,
+                        alwaysShowNavigationBar = alwaysShowNavigationBar,
+                        onAlwaysShowNavigationBarChange = onAlwaysShowNavigationBarChange
                     )
                 }
             }
