@@ -7,6 +7,9 @@ import android.os.Build
 import android.os.ParcelFileDescriptor
 import java.io.File
 import java.io.FileOutputStream
+import java.util.Locale
+import java.util.zip.ZipEntry
+import java.util.zip.ZipFile
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import moe.shizuku.manager.files.PrivilegedFiles
@@ -83,18 +86,27 @@ object PackageInspect {
         // be a collision if two packages were ever looked at at once, and this is called from a
         // screen that can be left mid-read.
         val copy = File(context.cacheDir, "inspect-${System.nanoTime()}.apk")
+        val base = File(context.cacheDir, "inspect-${System.nanoTime()}-base.apk")
 
         try {
             copyThroughDescriptor(path, copy)
-            val info = manager.getPackageArchiveInfo(copy.absolutePath, flags)
+            // A split bundle is a zip of apks, not an apk itself. The platform cannot read one as
+            // a package, so the base module is taken out and read on its own.
+            val packageFile = if (isBundle(copy)) {
+                if (!extractBase(copy, base)) return@withContext null
+                base
+            } else {
+                copy
+            }
+            val info = manager.getPackageArchiveInfo(packageFile.absolutePath, flags)
                 ?: return@withContext null
 
             // The label lives in the package's own resources, so it is only readable once the
             // platform has been told where the package is - which is the copy, while it lasts.
             val application = info.applicationInfo
             if (application != null) {
-                application.sourceDir = copy.absolutePath
-                application.publicSourceDir = copy.absolutePath
+                application.sourceDir = packageFile.absolutePath
+                application.publicSourceDir = packageFile.absolutePath
             }
 
             Details(
@@ -110,10 +122,68 @@ object PackageInspect {
             Diag.warn(TAG, "reading ${path.substringAfterLast('/')} failed", t)
             null
         } finally {
-            // The copy exists to be parsed and nothing else; a cache full of other people's
+            // The copies exist to be parsed and nothing else; a cache full of other people's
             // packages is a cache that is never cleaned by anybody.
             runCatching { copy.delete() }
+            runCatching { base.delete() }
         }
+    }
+
+    /** Whether [file] is a zip holding apks rather than an apk itself. */
+    private fun isBundle(file: File): Boolean = runCatching {
+        ZipFile(file).use { zip ->
+            // An apk has its own manifest at the root. A bundle does not: its apks do.
+            if (zip.getEntry("AndroidManifest.xml") != null) return false
+
+            val entries = zip.entries()
+            var found = false
+            while (entries.hasMoreElements()) {
+                val entry = entries.nextElement()
+                if (!entry.isDirectory && entry.name.endsWith(".apk", ignoreCase = true)) {
+                    found = true
+                    break
+                }
+            }
+            found
+        }
+    }.getOrDefault(false)
+
+    /**
+     * Extracts the base module from [bundle] into [into].
+     *
+     * The names are the only map a bundle gives: the base is `base.apk` in an APKM, the package's
+     * own name in an XAPK, and `base-master.apk` in an APKS from bundletool. Config splits are
+     * deliberately skipped by the fallback, since one of them is not a package on its own.
+     */
+    private fun extractBase(bundle: File, into: File): Boolean {
+        ZipFile(bundle).use { zip ->
+            val entry = baseEntry(zip) ?: return false
+            zip.getInputStream(entry).use { input ->
+                FileOutputStream(into).use { output -> input.copyTo(output, COPY_CHUNK) }
+            }
+            return true
+        }
+    }
+
+    private fun baseEntry(zip: ZipFile): ZipEntry? {
+        val apks = ArrayList<ZipEntry>()
+        val entries = zip.entries()
+        while (entries.hasMoreElements()) {
+            val entry = entries.nextElement()
+            if (!entry.isDirectory && entry.name.endsWith(".apk", ignoreCase = true)) apks.add(entry)
+        }
+
+        fun name(entry: ZipEntry): String =
+            entry.name.substringAfterLast('/').lowercase(Locale.ROOT)
+
+        return apks.firstOrNull { name(it) == "base.apk" }
+            ?: apks.firstOrNull { name(it) == "base-master.apk" }
+            ?: apks.firstOrNull { name(it).startsWith("base-") }
+            ?: apks.firstOrNull {
+                val entryName = name(it)
+                !entryName.startsWith("config.") && !entryName.startsWith("split_")
+            }
+            ?: apks.firstOrNull()
     }
 
     /**

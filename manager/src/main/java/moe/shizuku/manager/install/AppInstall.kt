@@ -3,6 +3,7 @@ package moe.shizuku.manager.install
 import android.os.Build
 import android.os.ParcelFileDescriptor
 import java.io.InputStream
+import java.util.zip.ZipInputStream
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import moe.shizuku.manager.files.FileOperations
@@ -36,6 +37,9 @@ object AppInstall {
 
     /** The marker the archive probe answers with, so its exit code survives being printed. */
     private const val CODE = "code="
+
+    /** How many zip entries are read before an unnamed file is treated as a plain apk. */
+    private const val MAX_PROBE_ENTRIES = 256
 
     /**
      * The flags `pm install` takes, as the screen's switches.
@@ -336,8 +340,35 @@ object AppInstall {
      * unpacking is this app's own, through the same descriptors everything else uses, and the
      * result is left in the one directory both this app and the shell can be sure of.
      */
-    private fun isContainer(target: String): Boolean =
-        listOf(".apks", ".apkm", ".xapk").any { target.endsWith(it, ignoreCase = true) }
+    private fun isContainer(target: String): Boolean {
+        if (listOf(".apks", ".apkm", ".xapk").any { target.endsWith(it, ignoreCase = true) }) {
+            return true
+        }
+        // A picked file gets the provider's display name, which is not always the extension the
+        // file had. A plain apk is cheap to rule out; anything else is read far enough to see
+        // whether it holds apks of its own.
+        if (target.endsWith(".apk", ignoreCase = true)) return false
+
+        return runCatching {
+            var found = false
+            PrivilegedFiles.openRead(target).use { descriptor ->
+                ParcelFileDescriptor.AutoCloseInputStream(descriptor).use { input ->
+                    ZipInputStream(input).use { zip ->
+                        var entries = 0
+                        while (entries < MAX_PROBE_ENTRIES) {
+                            val entry = zip.nextEntry ?: break
+                            entries++
+                            if (!entry.isDirectory && entry.name.endsWith(".apk", ignoreCase = true)) {
+                                found = true
+                                break
+                            }
+                        }
+                    }
+                }
+            }
+            found
+        }.getOrDefault(false)
+    }
 
     private suspend fun unpackInto(target: String, into: String, onOutput: (String) -> Unit): List<String> {
         onOutput("unpacking ${name(target)}...\n")

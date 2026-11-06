@@ -1282,7 +1282,7 @@
 <string name="tab_install">App installer</string>
 <string name="install_no_file">No package chosen</string>
 <string name="install_choose">Choose</string>
-<string name="install_choose_hint">APK, APKS, or XAPK file</string>
+<string name="install_choose_hint">APK, APKS, APKM, or XAPK file</string>
 <string name="install_action">Install</string>
 <string name="install_running">Installing\u2026</string>
 <string name="install_done">Installed.</string>
