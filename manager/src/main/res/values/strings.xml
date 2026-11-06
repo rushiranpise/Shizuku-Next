@@ -16,6 +16,7 @@
     <string name="home_wireless_adb_title"><![CDATA[Start via Wireless debugging]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Starting with no network: the device is asked for wireless debugging over and over until it stays on. This can take up to two minutes before it starts or gives up.</string>
     <string name="home_usb_adb_needs_network">A USB start uses the classic ADB port, and reopening it needs a network. Connect to Wi-Fi once, or choose <b>Start without Wi-Fi</b> as the start method and start over wireless debugging instead.</string>
+    <string name="home_usb_adb_needs_computer">A USB start needs the classic ADB port. On this Android version, connect to a computer and start Shizuku with the ADB command in Other methods.</string>
     <string name="home_wireless_adb_summary">Starts using wireless debugging.</string>
     <string name="home_usb_adb_title"><![CDATA[Start via USB debugging]]></string>
     <string name="home_usb_adb_summary">Starts using USB debugging.</string>
@@ -687,6 +688,7 @@
     <string name="settings_auto_disable_wireless_debugging_summary">Turn off wireless debugging when Shizuku stops.</string>
     <string name="settings_start_method">Default start method</string>
     <string name="settings_start_method_root_unavailable">This device has no root, so starts fall back to wireless debugging.</string>
+    <string name="settings_start_method_root_unavailable_usb">This device has no root, so starts fall back to USB.</string>
     <string name="start_method_wireless_no_network">Without Wi-Fi</string>
     <string name="start_method_wireless">Wireless</string>
     <string name="start_method_usb">USB</string>
@@ -776,6 +778,8 @@
     <string name="setup_root_body">One tap, no cable and no pairing. Needs a root manager that grants Shizuku access.</string>
     <string name="setup_wireless_title">Wireless debugging</string>
     <string name="setup_wireless_body">Works without root. Needs Developer options and a one-time pairing; after that it starts from the app.</string>
+    <string name="setup_usb_title">USB debugging</string>
+    <string name="setup_usb_body">Works without root. Needs the classic ADB port; if it is not open, connect to a computer once to start Shizuku.</string>
     <string name="setup_permissions_title">Optional permissions</string>
     <string name="setup_permissions_body">You can skip any of these and change them later in Settings.</string>
     <string name="settings_run_setup">Run setup again</string>

@@ -178,8 +178,12 @@ fun SettingsScreen(
     var autoDisableUsb by remember { mutableStateOf(ShizukuSettings.getAutoDisableUsbDebugging()) }
     var autoDisableWireless by remember { mutableStateOf(ShizukuSettings.getAutoDisableWirelessDebugging()) }
     var startMethod by remember { mutableStateOf(ShizukuSettings.getStartMethod()) }
+    // Wireless debugging starts at Android 11. On older devices the wireless methods and the
+    // rows that only exist to manage wireless debugging are not offered at all.
+    val wirelessSupported = remember { StartMethodGuard.supportsWirelessDebugging() }
     var waitForWifi by remember { mutableStateOf(ShizukuSettings.getWaitForWifi()) }
     var forceWireless by remember { mutableStateOf(ShizukuSettings.getForceWirelessDebugging()) }
+    val forceWirelessActive = wirelessSupported && forceWireless
     var persistAdbPort by remember { mutableStateOf(ShizukuSettings.getPersistAdbPort()) }
     var tcpMode by remember { mutableStateOf(ShizukuSettings.getTcpMode()) }
     var tcpPort by remember { mutableStateOf(ShizukuSettings.getTcpPort().toString()) }
@@ -441,39 +445,41 @@ fun SettingsScreen(
                                 }
                         )
                     }
-                    item {
-                        SegmentedListItem(
-                            centerSlots = true,
-                            leadingContent = { SettingsIcon(Icons.Outlined.Wifi) },
-                            headlineContent = { Text(stringResource(R.string.settings_auto_disable_wireless_debugging)) },
-                            supportingContent = {
-                                Text(
-                                    stringResource(
-                                        when {
-                                            forceWireless ->
-                                                R.string.settings_unavailable_while_forcing_wireless
+                    if (wirelessSupported) {
+                        item {
+                            SegmentedListItem(
+                                centerSlots = true,
+                                leadingContent = { SettingsIcon(Icons.Outlined.Wifi) },
+                                headlineContent = { Text(stringResource(R.string.settings_auto_disable_wireless_debugging)) },
+                                supportingContent = {
+                                    Text(
+                                        stringResource(
+                                            when {
+                                                forceWirelessActive ->
+                                                    R.string.settings_unavailable_while_forcing_wireless
 
-                                            !writeSecureSettings ->
-                                                R.string.settings_needs_write_secure_settings
+                                                !writeSecureSettings ->
+                                                    R.string.settings_needs_write_secure_settings
 
-                                            else -> R.string.settings_auto_disable_wireless_debugging_summary
-                                        }
+                                                else -> R.string.settings_auto_disable_wireless_debugging_summary
+                                            }
+                                        )
                                     )
-                                )
-                            },
-                            // Turning wireless debugging off when Shizuku stops is the one
-                            // thing the experiment cannot survive, so this row is not offered
-                            // while it is on rather than flipped and then flipped back.
-                            switchState = autoDisableWireless && !forceWireless,
-                            switchEnabled =
-                                !forceWireless && (autoDisableWireless || writeSecureSettings),
-                            onSwitchChange =
-                                {
-                                    ShizukuSettings.getPreferences().edit()
-                                        .putBoolean(ShizukuSettings.Keys.KEY_AUTO_DISABLE_WIRELESS_DEBUGGING, it).apply()
-                                    autoDisableWireless = it
-                                }
-                        )
+                                },
+                                // Turning wireless debugging off when Shizuku stops is the one
+                                // thing the experiment cannot survive, so this row is not offered
+                                // while it is on rather than flipped and then flipped back.
+                                switchState = autoDisableWireless && !forceWirelessActive,
+                                switchEnabled =
+                                    !forceWirelessActive && (autoDisableWireless || writeSecureSettings),
+                                onSwitchChange =
+                                    {
+                                        ShizukuSettings.getPreferences().edit()
+                                            .putBoolean(ShizukuSettings.Keys.KEY_AUTO_DISABLE_WIRELESS_DEBUGGING, it).apply()
+                                        autoDisableWireless = it
+                                    }
+                            )
+                        }
                     }
                     item {
                         SegmentedListItem(
@@ -486,7 +492,13 @@ fun SettingsScreen(
                                 Text(
                                     stringResource(startMethodLabelRes(startMethod)) +
                                         if (rootMethodDropped) {
-                                            "\n" + stringResource(R.string.settings_start_method_root_unavailable)
+                                            "\n" + stringResource(
+                                                if (wirelessSupported) {
+                                                    R.string.settings_start_method_root_unavailable
+                                                } else {
+                                                    R.string.settings_start_method_root_unavailable_usb
+                                                }
+                                            )
                                         } else {
                                             ""
                                         }
@@ -536,15 +548,15 @@ fun SettingsScreen(
                             supportingContent = {
                                 Text(
                                     stringResource(
-                                        if (forceWireless) R.string.settings_unavailable_while_forcing_wireless
+                                        if (forceWirelessActive) R.string.settings_unavailable_while_forcing_wireless
                                         else R.string.settings_wait_for_wifi_summary
                                     )
                                 )
                             },
                             // Waiting for a network is what the experiment starts without,
                             // so asking for both at once is not a state worth offering.
-                            switchState = waitForWifi && !forceWireless,
-                            switchEnabled = !forceWireless,
+                            switchState = waitForWifi && !forceWirelessActive,
+                            switchEnabled = !forceWirelessActive,
                             onSwitchChange =
                                 {
                                     ShizukuSettings.setWaitForWifi(it)
@@ -552,6 +564,7 @@ fun SettingsScreen(
                                 }
                         )
                     }
+                    if (wirelessSupported) {
                     item {
                         // The experiment is a write to the settings provider, and a fresh
                         // install has no WRITE_SECURE_SETTINGS to make it with: switching it
@@ -631,6 +644,7 @@ fun SettingsScreen(
                                     }
                                 }
                         )
+                    }
                     }
                     item {
                         SegmentedListItem(
@@ -1319,7 +1333,11 @@ fun SettingsScreen(
         ChoiceDialog(
             title = stringResource(R.string.settings_start_method),
             options = buildList {
-                add(ShizukuSettings.StartMethod.WIRELESS.toString() to stringResource(R.string.start_method_wireless))
+                // Wireless debugging starts at Android 11, so the two wireless methods are
+                // offered only where the platform has something for them to connect to.
+                if (wirelessSupported) {
+                    add(ShizukuSettings.StartMethod.WIRELESS.toString() to stringResource(R.string.start_method_wireless))
+                }
                 add(ShizukuSettings.StartMethod.USB.toString() to stringResource(R.string.start_method_usb))
                 add(ShizukuSettings.StartMethod.SYSTEM.toString() to stringResource(R.string.start_method_system))
                 // Offered only where it can work the same rule the home screen's root
@@ -1331,7 +1349,7 @@ fun SettingsScreen(
                 // wireless start with that fight switched on. Turning the experiment off takes
                 // the default back to wireless debugging, so this cannot be chosen and then
                 // left meaning something else.
-                if (forceWireless) {
+                if (wirelessSupported && forceWireless) {
                     add(
                         ShizukuSettings.StartMethod.WIRELESS_NO_NETWORK.toString() to
                             stringResource(R.string.start_method_wireless_no_network)
@@ -1341,7 +1359,7 @@ fun SettingsScreen(
             selected = startMethod.toString(),
             onDismiss = { startMethodDialog = false },
             onSelect = {
-                val value = it.toIntOrNull() ?: ShizukuSettings.StartMethod.WIRELESS
+                val value = it.toIntOrNull() ?: ShizukuSettings.StartMethod.USB
                 ShizukuSettings.setStartMethod(value)
                 startMethod = value
                 startMethodDialog = false

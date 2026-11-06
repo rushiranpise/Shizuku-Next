@@ -160,6 +160,9 @@ fun HomeScreen(bottomPadding: Dp) {
     var updateAvailable by remember { mutableStateOf(false) }
     var rooted by remember { mutableStateOf(false) }
     var startMethod by remember { mutableStateOf(ShizukuSettings.getStartMethod()) }
+    // Wireless debugging is Android 11 and newer. Below that, the card would offer a start that
+    // has no wireless debugging toggle or TLS port to reach.
+    val wirelessSupported = remember { StartMethodGuard.supportsWirelessDebugging() }
     var developerOptionsOn by remember { mutableStateOf(context.isDeveloperOptionsEnabled()) }
     // The three platform switches, as they are set now. Read raw rather than through
     // isDeveloperOptionsEnabled(): that answers whether ADB needs developer options at all, and on
@@ -705,6 +708,7 @@ fun HomeScreen(bottomPadding: Dp) {
                     wirelessDebugging = wirelessDebugging,
                     onDevOptions = { toggleSwitch(LabSwitch.DEVELOPER_OPTIONS) { devOptions = it } },
                     onUsbDebugging = { toggleSwitch(LabSwitch.USB_DEBUGGING) { usbDebugging = it } },
+                    wirelessSupported = wirelessSupported,
                     onWirelessDebugging = {
                         toggleSwitch(LabSwitch.WIRELESS_DEBUGGING) { wirelessDebugging = it }
                     }
@@ -740,39 +744,44 @@ fun HomeScreen(bottomPadding: Dp) {
                     )
 
                     if (otherMethodsOpen) {
-                        ExpressiveCard(
-                            icon = Icons.Rounded.Wifi,
-                            title = stringResource(R.string.home_wireless_adb_title),
-                            // A start with the experiment on can spend two minutes asking before it
-                            // either starts or gives up, and a card that only spins for that long
-                            // reads as stuck.
-                            body = if (startStatus is StartStatus.Starting &&
-                                ShizukuSettings.getForceWirelessDebugging()
-                            ) {
-                                stringResource(R.string.home_wireless_adb_starting_without_wifi)
-                            } else {
-                                stringResource(R.string.home_wireless_adb_summary)
-                            },
-                            enabled = !running,
-                            onClick = {
-                                startWithLocalNetworkPermission(ShizukuSettings.StartMethod.WIRELESS) {
-                                    ShizukuReceiverStarter.start(
-                                        context,
-                                        userInitiated = true,
-                                        startMethod = ShizukuSettings.StartMethod.WIRELESS,
-                                        reason = "home-wireless"
-                                    )
+                        if (wirelessSupported) {
+                            ExpressiveCard(
+                                icon = Icons.Rounded.Wifi,
+                                title = stringResource(R.string.home_wireless_adb_title),
+                                // A start with the experiment on can spend two minutes asking before it
+                                // either starts or gives up, and a card that only spins for that long
+                                // reads as stuck.
+                                body = if (startStatus is StartStatus.Starting &&
+                                    ShizukuSettings.getForceWirelessDebugging()
+                                ) {
+                                    stringResource(R.string.home_wireless_adb_starting_without_wifi)
+                                } else {
+                                    stringResource(R.string.home_wireless_adb_summary)
+                                },
+                                enabled = !running,
+                                onClick = {
+                                    startWithLocalNetworkPermission(ShizukuSettings.StartMethod.WIRELESS) {
+                                        ShizukuReceiverStarter.start(
+                                            context,
+                                            userInitiated = true,
+                                            startMethod = ShizukuSettings.StartMethod.WIRELESS,
+                                            reason = "home-wireless"
+                                        )
+                                    }
                                 }
-                            }
-                        )
+                            )
+                        }
                         ExpressiveCard(
                             icon = Icons.Rounded.Usb,
                             title = stringResource(R.string.home_usb_adb_title),
-                            // A USB start needs the classic port, and with no network and no port
-                            // there is nothing it can do. It says so here rather than sliding over
-                            // to wireless: starting without a network is a method of its own, and
-                            // the card that does it is the one above this.
-                            body = if (!EnvironmentUtils.isWifiConnected() &&
+                            // A USB start needs the classic port. On Android 11 and newer with no
+                            // network and no port, the wireless card above is the other way; on
+                            // older versions there is no wireless method, so the ADB command is.
+                            body = if (!wirelessSupported &&
+                                EnvironmentUtils.getAdbTcpPort() <= 0
+                            ) {
+                                stringResource(R.string.home_usb_adb_needs_computer)
+                            } else if (!EnvironmentUtils.isWifiConnected() &&
                                 EnvironmentUtils.getAdbTcpPort() <= 0
                             ) {
                                 // The string marks the method's name with <b>, which Compose
@@ -1304,6 +1313,7 @@ private fun DebuggingActionButtons(
     devOptions: Boolean,
     usbDebugging: Boolean,
     wirelessDebugging: Boolean,
+    wirelessSupported: Boolean,
     onDevOptions: () -> Unit,
     onUsbDebugging: () -> Unit,
     onWirelessDebugging: () -> Unit
@@ -1325,12 +1335,14 @@ private fun DebuggingActionButtons(
             on = usbDebugging,
             onClick = onUsbDebugging
         )
-        DebuggingButton(
-            icon = Icons.Rounded.Wifi,
-            label = stringResource(R.string.home_switch_wireless),
-            on = wirelessDebugging,
-            onClick = onWirelessDebugging
-        )
+        if (wirelessSupported) {
+            DebuggingButton(
+                icon = Icons.Rounded.Wifi,
+                label = stringResource(R.string.home_switch_wireless),
+                on = wirelessDebugging,
+                onClick = onWirelessDebugging
+            )
+        }
     }
 }
 

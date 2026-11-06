@@ -31,6 +31,7 @@ import androidx.compose.material.icons.rounded.BatterySaver
 import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.Numbers
 import androidx.compose.material.icons.rounded.Notifications
+import androidx.compose.material.icons.rounded.Usb
 import androidx.compose.material.icons.rounded.Wifi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -57,6 +58,7 @@ import kotlinx.coroutines.launch
 import moe.shizuku.manager.R
 import moe.shizuku.manager.ShizukuSettings
 import moe.shizuku.manager.home.isAccessibilityEnabled
+import moe.shizuku.manager.start.StartMethodGuard
 import moe.shizuku.manager.start.hasPermission
 import moe.shizuku.manager.start.isPermissionPermanentlyDenied
 import moe.shizuku.manager.start.localNetworkPermission
@@ -95,12 +97,15 @@ fun SetupScreen(onFinish: () -> Unit) {
     // The chosen method, so the rest of the pages can tell whether wireless is even on the table.
     // Read from the setting rather than probed: asking for root here would put a superuser
     // prompt in the middle of a welcome screen, and the card says what root needs anyway.
+    val wirelessSupported = remember { StartMethodGuard.supportsWirelessDebugging() }
     var method by remember {
         mutableIntStateOf(
-            if (ShizukuSettings.getStartMethod() == ShizukuSettings.StartMethod.ROOT) {
-                ShizukuSettings.StartMethod.ROOT
-            } else {
-                ShizukuSettings.StartMethod.WIRELESS
+            when {
+                ShizukuSettings.getStartMethod() == ShizukuSettings.StartMethod.ROOT ->
+                    ShizukuSettings.StartMethod.ROOT
+
+                wirelessSupported -> ShizukuSettings.StartMethod.WIRELESS
+                else -> ShizukuSettings.StartMethod.USB
             }
         )
     }
@@ -192,6 +197,7 @@ fun SetupScreen(onFinish: () -> Unit) {
                     0 -> WelcomePage()
                     1 -> StartMethodPage(
                         method = method,
+                        wirelessSupported = wirelessSupported,
                         onMethod = { method = it }
                     )
 
@@ -284,12 +290,16 @@ private fun WelcomePage() {
 /**
  * The one fork that decides everything after it.
  *
- * Both cards stay tappable whatever the setting says, because the setting knows how the last
+ * The cards stay tappable whatever the setting says, because the setting knows how the last
  * start went, not what this device is: a phone that has just been rooted still reads as wireless
  * until a root start has worked once.
  */
 @Composable
-private fun StartMethodPage(method: Int, onMethod: (Int) -> Unit) {
+private fun StartMethodPage(
+    method: Int,
+    wirelessSupported: Boolean,
+    onMethod: (Int) -> Unit
+) {
     SetupPage {
         SetupTitle(stringResource(R.string.setup_start_title))
         SetupBody(stringResource(R.string.setup_start_body))
@@ -310,21 +320,41 @@ private fun StartMethodPage(method: Int, onMethod: (Int) -> Unit) {
             }
         )
 
-        ExpressiveCard(
-            icon = Icons.Rounded.Wifi,
-            title = stringResource(R.string.setup_wireless_title),
-            body = stringResource(R.string.setup_wireless_body),
-            onClick = { onMethod(ShizukuSettings.StartMethod.WIRELESS) },
-            trailing = {
-                if (method == ShizukuSettings.StartMethod.WIRELESS) {
-                    Icon(
-                        Icons.Rounded.CheckCircle,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary
-                    )
+        if (wirelessSupported) {
+            ExpressiveCard(
+                icon = Icons.Rounded.Wifi,
+                title = stringResource(R.string.setup_wireless_title),
+                body = stringResource(R.string.setup_wireless_body),
+                onClick = { onMethod(ShizukuSettings.StartMethod.WIRELESS) },
+                trailing = {
+                    if (method == ShizukuSettings.StartMethod.WIRELESS) {
+                        Icon(
+                            Icons.Rounded.CheckCircle,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
                 }
-            }
-        )
+            )
+        } else {
+            // Android 10 and older have no wireless debugging, so USB is the method that can
+            // start without root there.
+            ExpressiveCard(
+                icon = Icons.Rounded.Usb,
+                title = stringResource(R.string.setup_usb_title),
+                body = stringResource(R.string.setup_usb_body),
+                onClick = { onMethod(ShizukuSettings.StartMethod.USB) },
+                trailing = {
+                    if (method == ShizukuSettings.StartMethod.USB) {
+                        Icon(
+                            Icons.Rounded.CheckCircle,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
+            )
+        }
     }
 }
 

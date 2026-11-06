@@ -187,7 +187,18 @@ public class ShizukuSettings {
     public static int getStartMethod() {
         SharedPreferences prefs = getPreferences();
         if (prefs.contains(Keys.KEY_START_METHOD)) {
-            return prefs.getInt(Keys.KEY_START_METHOD, StartMethod.WIRELESS);
+            int method = prefs.getInt(Keys.KEY_START_METHOD, StartMethod.WIRELESS);
+            // Wireless debugging is Android 11 and newer. A setting carried over from a newer
+            // device, or stored before this check existed, would otherwise send every start to
+            // a method this Android version cannot run. Android never becomes older, so the
+            // stored choice can be moved to USB for good.
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R
+                    && (method == StartMethod.WIRELESS
+                    || method == StartMethod.WIRELESS_NO_NETWORK)) {
+                method = StartMethod.USB;
+                prefs.edit().putInt(Keys.KEY_START_METHOD, method).apply();
+            }
+            return method;
         }
 
         // Nothing chosen yet, on a phone that has just been set up: follow how the server was
@@ -200,7 +211,9 @@ public class ShizukuSettings {
         // watchdog kept starting over wireless. Frozen, the choice survives what a start does.
         @StartMethod int method = getLastLaunchMode() == LaunchMethod.ROOT
                 ? StartMethod.ROOT
-                : StartMethod.WIRELESS;
+                : Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
+                ? StartMethod.WIRELESS
+                : StartMethod.USB;
         prefs.edit().putInt(Keys.KEY_START_METHOD, method).apply();
         return method;
     }
