@@ -558,6 +558,12 @@
     <string name="permissions_accessibility">Служба додаткових можливостей</string>
     <string name="permissions_accessibility_summary">Автоматично читає код для парування.</string>
     <string name="permissions_battery_summary">Зупиняє Android вбивати Сідзуку у фоновому режимі.</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
+    <string name="setup_root_title">Root</string>
+    <string name="setup_wireless_title">Бездротове налагодження</string>
     <string name="settings_help">Допомога</string>
     <string name="settings_translate">Долучитися до перекладу</string>
     <string name="settings_translate_note">Перекладайте застосунок на Crowdin.</string>
@@ -938,6 +944,10 @@
     <string name="app_info_yes">Так</string>
     <string name="app_info_no">Ні</string>
     <string name="tab_wifi_passwords">Паролі Wi-Fi</string>
+    <string name="accessibility_boot">Запускати при завантаженні</string>
+    <string name="accessibility_filter_off">Вимк</string>
+    <string name="accessibility_filter_on">Увімк</string>
+    <string name="accessibility_notification_channel">Служба спеціальних можливостей</string>
     <string name="wifi_passwords_show">Показати пароль</string>
     <string name="wifi_passwords_hide">Приховати пароль</string>
     <string name="wifi_passwords_copy">Копіювати пароль</string>

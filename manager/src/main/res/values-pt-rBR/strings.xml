@@ -655,6 +655,12 @@
     <string name="permissions_accessibility">Serviço de acessibilidade</string>
     <string name="permissions_accessibility_summary">Lê o código de emparelhamento automaticamente.</string>
     <string name="permissions_battery_summary">Para o Android de matar Shizuku em segundo plano.</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
+    <string name="setup_root_title">raiz</string>
+    <string name="setup_wireless_title">Depuração sem fio</string>
     <string name="settings_help">Ajuda</string>
     <string name="settings_translate">Participe da tradução</string>
     <string name="settings_translate_note">Traduza o aplicativo no Crowdin.</string>
@@ -1033,6 +1039,10 @@
     <string name="app_info_yes">sim</string>
     <string name="app_info_no">Não</string>
     <string name="tab_wifi_passwords">Senhas de Wi-Fi</string>
+    <string name="accessibility_boot">Iniciar no arranque</string>
+    <string name="accessibility_filter_off">Desligado</string>
+    <string name="accessibility_filter_on">Ligado</string>
+    <string name="accessibility_notification_channel">Serviços de acessibilidade</string>
     <string name="wifi_passwords_show">Mostrar senha</string>
     <string name="wifi_passwords_hide">Ocultar senha</string>
     <string name="wifi_passwords_connect">Conectar</string>

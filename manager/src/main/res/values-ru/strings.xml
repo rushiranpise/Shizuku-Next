@@ -695,6 +695,12 @@
     <string name="permissions_accessibility">Служба специальных возможностей</string>
     <string name="permissions_accessibility_summary">Автоматически считывает код сопряжения.</string>
     <string name="permissions_battery_summary">Не даёт Android завершать Shizuku в фоне.</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
+    <string name="setup_action_continue">Продолжить</string>
+    <string name="setup_wireless_title">Отладка по Wi-Fi</string>
     <string name="settings_help">Справка</string>
     <string name="settings_translate">Участвовать в переводе</string>
     <string name="settings_translate_note">Переводите приложение на Crowdin.</string>
@@ -1065,6 +1071,10 @@
     <string name="app_info_yes">Да</string>
     <string name="app_info_no">Нет</string>
     <string name="tab_wifi_passwords">Пароли Wi-Fi</string>
+    <string name="accessibility_boot">Запуск при загрузке</string>
+    <string name="accessibility_filter_off">Выкл</string>
+    <string name="accessibility_filter_on">Вкл</string>
+    <string name="accessibility_notification_channel">Службы специальных возможностей</string>
     <string name="wifi_passwords_show">Показать пароль</string>
     <string name="wifi_passwords_hide">Скрыть пароль</string>
     <string name="wifi_passwords_copy">Копировать пароль</string>

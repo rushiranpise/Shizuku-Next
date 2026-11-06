@@ -604,6 +604,11 @@
     <string name="permissions_accessibility">Bedienungshilfe</string>
     <string name="permissions_accessibility_summary">Liest den Kopplungscode automatisch aus.</string>
     <string name="permissions_battery_summary">Verhindert, dass Android Shizuku im Hintergrund beendet.</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
+    <string name="setup_wireless_title">Debugging über WLAN</string>
     <string name="settings_help">Hilfe</string>
     <string name="settings_translate">Bei der Übersetzung mitwirken</string>
     <string name="settings_translate_note">Die App auf Crowdin übersetzen.</string>
@@ -956,6 +961,10 @@
     <string name="app_info_yes">Ja</string>
     <string name="app_info_no">Nein</string>
     <string name="tab_wifi_passwords">WLAN-Passwörter</string>
+    <string name="accessibility_boot">Beim Gerätestart starten</string>
+    <string name="accessibility_filter_off">Aus</string>
+    <string name="accessibility_filter_on">An</string>
+    <string name="accessibility_notification_channel">Bedienungshilfen</string>
     <string name="wifi_passwords_show">Passwort anzeigen</string>
     <string name="wifi_passwords_hide">Passwort ausblenden</string>
     <string name="wifi_passwords_copy">Passwort kopieren</string>

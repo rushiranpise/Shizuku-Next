@@ -310,6 +310,10 @@
     <string name="settings_black_night_theme">검은 테마</string>
     <string name="settings_black_night_theme_summary">어두운 테마가 사용될 때 검은 테마를 사용</string>
     <string name="permissions_action_settings">설정</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
     <string name="settings_help">돕다</string>
     <string name="settings_report_bug">버그 신고</string>
     <!--
@@ -429,6 +433,8 @@
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
     <string name="app_info_updated">업데이트순</string>
+    <string name="accessibility_boot">부팅 시 시작</string>
+    <string name="accessibility_notification_channel">접근성 서비스</string>
     <string name="files_root_app_data">데이터</string>
     <string name="files_sort">정렬</string>
     <string name="install_location_auto">자동</string>

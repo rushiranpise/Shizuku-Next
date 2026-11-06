@@ -91,6 +91,10 @@
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
     <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
+    <!--
       A plural, not a plain string: most of the people on this wall are here for a single commit,
       so the singular is read more often than the plural is.
     -->

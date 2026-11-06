@@ -503,6 +503,11 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
     <string name="settings_black_night_theme_summary">Gunakan tema hitam gelap jika mode malam
         diaktifkan</string>
     <string name="permissions_action_settings">Settings</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
+    <string name="setup_action_continue">Lanjutkan</string>
     <string name="settings_help">Membantu</string>
     <string name="settings_report_bug">Laporkan bug</string>
     <!--
@@ -635,6 +640,8 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
          answer: the state is on the control, but the control is not where the finger is. -->
     <string name="app_info_uid">UID</string>
     <string name="app_info_updated">Updated</string>
+    <string name="accessibility_boot">Mulai saat boot</string>
+    <string name="accessibility_notification_channel">Layanan aksesibilitas</string>
     <string name="files_root_app_data">Data</string>
     <string name="files_sort">Sort</string>
     <string name="install_location_auto">Pilihan pengembang</string>

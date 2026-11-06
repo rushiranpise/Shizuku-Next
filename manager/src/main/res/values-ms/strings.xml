@@ -133,6 +133,10 @@
     <string name="settings_black_night_theme">Tema malam hitam</string>
     <string name="settings_black_night_theme_summary">Gunakan tema hitam tulen jika mod malam
         didayakan</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
     <string name="settings_help">Tolong</string>
     <string name="settings_report_bug">Laporkan pepijat</string>
     <!--
@@ -242,5 +246,6 @@
          because three share one row; the tile picker spells them out in full. -->
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
+    <string name="accessibility_boot">Mulakan semasa but</string>
     <string name="install_location_auto">Pilihan pemaju</string>
 </resources>

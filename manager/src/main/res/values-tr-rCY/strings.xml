@@ -415,6 +415,12 @@
     <string name="permissions_accessibility">Erişilebilirlik hizmeti</string>
     <string name="permissions_accessibility_summary">Eşleştirme kodunu otomatik olarak okur.</string>
     <string name="permissions_battery_summary">Android\'in Shizuku\'yu arka planda sonlandırmasını engeller.</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
+    <string name="setup_root_title">Root</string>
+    <string name="setup_wireless_title">Kablosuz hata ayıklama</string>
     <string name="settings_help">Yardım</string>
     <string name="settings_report_bug">Bir hata bildirin</string>
     <!--
@@ -759,6 +765,10 @@
     <string name="app_info_launcher">Başlatıcı ögesi</string>
     <string name="app_info_yes">Evet</string>
     <string name="app_info_no">Hayır</string>
+    <string name="accessibility_boot">Önyüklemede başla</string>
+    <string name="accessibility_filter_off">Kapalı</string>
+    <string name="accessibility_filter_on">Açık</string>
+    <string name="accessibility_notification_channel">Erişilebilirlik hizmetleri</string>
     <string name="wifi_passwords_connect">Bağlan</string>
     <string name="files_root_system">Sistem</string>
     <string name="files_root_root">Root</string>

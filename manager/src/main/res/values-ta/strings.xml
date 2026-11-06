@@ -136,6 +136,10 @@
     <string name="settings_black_night_theme">கருப்பு இரவு தீம்</string>
     <string name="settings_black_night_theme_summary">இரவு முறை இயக்கப்பட்டிருந்தால், தூய கருப்பு
         கருப்பொருளைப் பயன்படுத்தவும்.</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
     <string name="settings_help">உதவி</string>
     <string name="settings_report_bug">பிழையைப் புகாரளிக்கவும்</string>
     <!--
@@ -248,5 +252,6 @@
          because three share one row; the tile picker spells them out in full. -->
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
+    <string name="accessibility_boot">துவக்கத்தில் தொடங்கு</string>
     <string name="install_location_auto">டெவலப்பர் விருப்பங்கள்</string>
 </resources>

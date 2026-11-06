@@ -557,6 +557,12 @@
     <string name="permissions_accessibility">Usługa ułatwień dostępu</string>
     <string name="permissions_accessibility_summary">Odczytuje kod parowania automatycznie.</string>
     <string name="permissions_battery_summary">Zatrzymuje Android zabijanie Shizuku w tle.</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
+    <string name="setup_root_title">Główny</string>
+    <string name="setup_wireless_title">Debugowanie bezprzewodowe</string>
     <string name="settings_help">Pomoc</string>
     <string name="settings_report_bug">Zgłoś błąd</string>
     <!--
@@ -905,6 +911,10 @@
     <string name="app_info_launcher">Wpis Launcher</string>
     <string name="app_info_yes">Tak</string>
     <string name="app_info_no">Nie</string>
+    <string name="accessibility_boot">Uruchamiaj przy starcie</string>
+    <string name="accessibility_filter_off">Wyłączony</string>
+    <string name="accessibility_filter_on">Włączone</string>
+    <string name="accessibility_notification_channel">Usługi w zakresie dostępności</string>
     <string name="wifi_passwords_connect">Połącz</string>
     <string name="files_root_app_data">Dane</string>
     <string name="files_root_system">System</string>

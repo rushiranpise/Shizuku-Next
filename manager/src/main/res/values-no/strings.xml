@@ -555,6 +555,12 @@
     <string name="permissions_accessibility">Tilgjengelighetstjeneste</string>
     <string name="permissions_accessibility_summary">Leser tilkoblingskoden automatisk.</string>
     <string name="permissions_battery_summary">Stopper Android fra å drepe Shizuku i bakgrunnen.</string>
+    <!--
+      The guided first run. Each page is one decision, and the sentences say what happens rather
+      than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
+    -->
+    <string name="setup_root_title">Rot</string>
+    <string name="setup_wireless_title">Trådløs feilsøking</string>
     <string name="settings_help">Hjelp</string>
     <string name="settings_report_bug">Rapporter en feil</string>
     <!--
@@ -900,6 +906,10 @@
     <string name="app_info_launcher">Visning av Launcher</string>
     <string name="app_info_yes">Ja</string>
     <string name="app_info_no">Nei</string>
+    <string name="accessibility_boot">Start på oppstart</string>
+    <string name="accessibility_filter_off">Av</string>
+    <string name="accessibility_filter_on">På</string>
+    <string name="accessibility_notification_channel">Tilgjengelighetstjenester</string>
     <string name="wifi_passwords_connect">Nettverk</string>
     <string name="files_root_app_data">Data</string>
     <string name="files_root_system">Systemadministrasjon</string>
