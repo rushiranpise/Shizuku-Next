@@ -287,11 +287,13 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
         }, MANAGER_APK_SETTLE_MS);
     }
 
+    /** Stops the old listener and arms [sourceDir], returning whether the folder was ready. */
     private boolean startManagerApkWatch(String sourceDir) {
         ApkChangedObservers.stop(managerApkListener);
         return ApkChangedObservers.start(sourceDir, managerApkListener);
     }
 
+    /** Retries a watch registration after the APK folder appears, without stacking retries. */
     private void retryManagerApkWatch() {
         if (!managerApkRetryPending.compareAndSet(false, true)) {
             return;
@@ -309,6 +311,7 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
         }, MANAGER_APK_SETTLE_MS);
     }
 
+    /** Handles a one-shot APK change: refreshes the id and watches the current APK. */
     private void onManagerApkChanged() {
         ApplicationInfo now = getManagerApplicationInfo();
         if (now == null) {
@@ -319,6 +322,7 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
         watchManagerApk(now.sourceDir);
     }
 
+    /** Leaves the server running only for an installed manager. */
     private void exitManagerMissing() {
         LOGGER.w("manager app is uninstalled in user 0, exiting...");
         System.exit(ServerConstants.MANAGER_APP_NOT_FOUND);
@@ -326,6 +330,11 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
 
     private static final long MANAGER_APK_SETTLE_MS = 1500;
 
+    /**
+     * Updates the stored manager app id from the package manager.
+     *
+     * Returns true when the id changed, so the caller can move the APK watch to the new path.
+     */
     private boolean updateManagerAppId(ApplicationInfo ai) {
         int appId = UserHandleCompat.getAppId(ai.uid);
         if (appId != managerAppId) {
@@ -341,9 +350,9 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
      * Whether a caller's uid is the manager's.
      *
      * A mismatch is checked against the package manager before it is believed, at most once per
-     * [MANAGER_RECHECK_INTERVAL_MS]: the APK watch is what normally notices a reinstall, and this
-     * is what still answers correctly when it did not. The rate limit is there because every call
-     * from a client app that is not the manager passes through here.
+     * caller per [MANAGER_RECHECK_INTERVAL_MS]: the APK watch is what normally notices a reinstall,
+     * and this is what still answers correctly when it did not. The rate limit is there because
+     * every call from a client app that is not the manager passes through here.
      */
     private boolean isManagerAppId(int callingUid) {
         int appId = UserHandleCompat.getAppId(callingUid);
