@@ -95,11 +95,11 @@ class AdbPairingAccessibilityService : AccessibilityService() {
         Diag.info(TAG, "Connected, television: $isTelevision")
 
         if (isTelevision) {
-            // The app opens Developer options before the service can connect. Consume the
-            // mark on this connection so a slow connect still leaves that screen in front;
-            // once consumed, a later manual re-enable gets the usual MainActivity launch.
-            val settingsOpened = settingsOpenedByApp.getAndSet(false)
-            if (!settingsOpened) {
+            // The app enabled the service and opened Developer options. Consume the mark on
+            // this connection so a slow connect still leaves that screen in front; once
+            // consumed, a later manual re-enable gets the usual MainActivity launch.
+            val appEnabledIt = serviceEnabledByApp.getAndSet(false)
+            if (!appEnabledIt) {
                 val intent = Intent(this, MainActivity::class.java).apply {
                     addFlags(
                         Intent.FLAG_ACTIVITY_NEW_TASK or
@@ -438,20 +438,27 @@ class AdbPairingAccessibilityService : AccessibilityService() {
         private const val TV_TIMEOUT_MS = 3 * 60_000L
 
         /**
-         * True when the app opened Settings and the next connection belongs to that launch.
+         * True when the app enabled the service itself and its first connection should leave
+         * Developer options in front.
          *
          * Consumed on connect, so it can neither expire while the system is still binding the
          * service nor swallow a later manual re-enable.
          */
-        private val settingsOpenedByApp = AtomicBoolean(false)
+        private val serviceEnabledByApp = AtomicBoolean(false)
 
         /**
-         * Called by the app just before it opens Developer options for automatic pairing, so a
-         * service that connects at the same moment leaves that screen in front.
+         * Called just before the app writes the enabled-services setting, so the connection
+         * that follows leaves the Developer options screen in front.
          */
         @JvmStatic
-        fun noteSettingsOpened() {
-            settingsOpenedByApp.set(true)
+        fun noteAppEnabledService() {
+            serviceEnabledByApp.set(true)
+        }
+
+        /** Clears a mark left behind when enabling the service did not stick. */
+        @JvmStatic
+        fun clearAppEnabledService() {
+            serviceEnabledByApp.set(false)
         }
 
         /** How many times a touch on Settings is followed up, and how far apart. */

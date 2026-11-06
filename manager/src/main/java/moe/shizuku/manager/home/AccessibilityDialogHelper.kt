@@ -154,9 +154,6 @@ private fun Context.showNavigateDialog() {
                 return@setPositiveButton
             }
             if (ensureAccessibilityService()) {
-                // Said before the launch: the service may connect while Settings is still
-                // opening, and on a TV it must not pull Shizuku back over it.
-                AdbPairingAccessibilityService.noteSettingsOpened()
                 SettingsPage.Developer.HighlightWirelessDebugging.launch(this)
             }
         }
@@ -200,11 +197,16 @@ private fun Context.enableAccessibilityService(): Boolean {
             enabledServices.joinToString(":") + ":$accessibilityServiceName"
         }
 
+    // This app is enabling the service, so the connection that follows belongs to this
+    // flow. Leave Developer options in front instead of pulling Shizuku back over it.
+    AdbPairingAccessibilityService.noteAppEnabledService()
     Settings.Secure.putString(
         contentResolver,
         Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES,
         newServices,
     )
 
-    return isAccessibilityEnabled()
+    return isAccessibilityEnabled().also { enabled ->
+        if (!enabled) AdbPairingAccessibilityService.clearAppEnabledService()
+    }
 }
