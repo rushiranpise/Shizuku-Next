@@ -99,6 +99,15 @@ private val Users = listOf(
     "all" to R.string.install_user_all
 )
 
+/** Common packages Android can be told installed an app. */
+private val InstallSources: List<Pair<Int, String?>> = listOf(
+    R.string.install_source_none to null,
+    R.string.install_source_play_store to "com.android.vending",
+    R.string.install_source_shell to "com.android.shell",
+    R.string.install_source_google_package_installer to "com.google.android.packageinstaller",
+    R.string.install_source_aosp_package_installer to "com.android.packageinstaller"
+)
+
 /**
  * Installing a package with the flags a terminal would need a cable for.
  *
@@ -125,6 +134,7 @@ fun InstallerScreen(path: String?, bottomPadding: Dp, onBack: () -> Unit) {
     // thing somebody does - and goes when the screen does.
     var staged by remember { mutableStateOf<String?>(null) }
     var options by remember { mutableStateOf(AppInstall.Options()) }
+    var sourceMenu by remember { mutableStateOf(false) }
     // The options as they were when the install was started, not as they are now: a switch moved
     // while the result is on screen must not rewrite what that install was told to do.
     var lastOptions by remember { mutableStateOf<AppInstall.Options?>(null) }
@@ -361,18 +371,42 @@ fun InstallerScreen(path: String?, bottomPadding: Dp, onBack: () -> Unit) {
             item {
                 SegmentedCard {
                     Column(modifier = Modifier.padding(16.dp)) {
-                        OutlinedTextField(
-                            value = options.installerPackage.orEmpty(),
-                            onValueChange = { entered ->
-                                options = options.copy(installerPackage = entered.ifBlank { null })
-                            },
-                            label = { Text(stringResource(R.string.install_spoof_source)) },
-                            supportingText = {
-                                Text(stringResource(R.string.install_spoof_source_desc))
-                            },
-                            singleLine = true,
-                            modifier = Modifier.fillMaxWidth().televisionTextInput(OutlinedTextFieldDefaults.shape)
-                        )
+                        Box(modifier = Modifier.fillMaxWidth()) {
+                            OutlinedTextField(
+                                value = options.installerPackage.orEmpty(),
+                                onValueChange = { entered ->
+                                    options = options.copy(installerPackage = entered.ifBlank { null })
+                                },
+                                label = { Text(stringResource(R.string.install_spoof_source)) },
+                                supportingText = {
+                                    Text(stringResource(R.string.install_spoof_source_desc))
+                                },
+                                trailingIcon = {
+                                    IconButton(onClick = { sourceMenu = true }) {
+                                        Icon(
+                                            Icons.Outlined.KeyboardArrowDown,
+                                            contentDescription = stringResource(R.string.install_source_presets)
+                                        )
+                                    }
+                                },
+                                singleLine = true,
+                                modifier = Modifier.fillMaxWidth().televisionTextInput(OutlinedTextFieldDefaults.shape)
+                            )
+                            DropdownMenu(
+                                expanded = sourceMenu,
+                                onDismissRequest = { sourceMenu = false }
+                            ) {
+                                InstallSources.forEach { (label, packageName) ->
+                                    DropdownMenuItem(
+                                        text = { Text(stringResource(label)) },
+                                        onClick = {
+                                            options = options.copy(installerPackage = packageName)
+                                            sourceMenu = false
+                                        }
+                                    )
+                                }
+                            }
+                        }
 
                         // Sits under the spoofed source because it is the same claim from the other
                         // end: which package the app is told installed it, and which URI it is

@@ -1357,5 +1357,11 @@
 
 <string name="install_spoof_source">Spoof install source</string>
 <string name="install_spoof_source_desc">The package Android is told installed this app.</string>
+<string name="install_source_presets">Common install sources</string>
+<string name="install_source_none">No spoofing</string>
+<string name="install_source_play_store">Google Play Store</string>
+<string name="install_source_shell">Shell</string>
+<string name="install_source_google_package_installer">Google Play Store</string>
+<string name="install_source_aosp_package_installer">AOSP Package Installer</string>
 
 </resources>
