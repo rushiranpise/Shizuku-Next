@@ -386,7 +386,7 @@
       than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
     -->
     <string name="setup_action_continue">Tiếp tục</string>
-    <string name="setup_wireless_title">Mở gỡ lỗi không dây</string>
+    <string name="setup_wireless_title">Gỡ lỗi không dây</string>
     <string name="settings_help">Giúp đỡ</string>
     <string name="settings_translate">Tham gia dịch thuật</string>
     <string name="settings_translate_note">Dịch ứng dụng trên Crowdin.</string>

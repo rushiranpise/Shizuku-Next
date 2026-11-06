@@ -572,7 +572,7 @@
     <string name="start_system_custom_copied">Comanda a fost copiată în clipboard.</string>
     <string name="start_system_custom_copy_failed">Comanda este sus, gata să fie copiată manual.</string>
     <string name="settings_section_startup">Lansare</string>
-    <string name="settings_section_startup_summary">Pornirea sistemului de operare, watchdog și metoda de pornire</string>
+    <string name="settings_section_startup_summary">Pornire la pornirea dispozitivului, watchdog și metoda de pornire</string>
     <string name="settings_section_wireless">Depanare fără fir</string>
     <string name="settings_section_wireless_summary">Depanare fără fir, modul TCP și portul ADB</string>
     <string name="settings_section_tools">Unelte</string>
@@ -742,7 +742,7 @@
     <string name="setup_welcome_body">Shizuku-Next lansează și gestionează serviciul Shizuku, care permite aplicațiilor să utilizeze permisiuni care, în mod normal, necesită adb sau acces root. Toate setările de aici pot fi modificate ulterior în Setări.</string>
     <string name="setup_start_title">Cum ar trebui să pornească Shizuku?</string>
     <string name="setup_start_body">Această opțiune stabilește de unde își obține serviciul permisiunile. O poți modifica ulterior în Setări, la secțiunea „Metoda de pornire”.</string>
-    <string name="setup_root_title">Rădăcină</string>
+    <string name="setup_root_title">Root</string>
     <string name="setup_root_body">O singură atingere, fără cablu și fără asociere. Este necesar un manager de drepturi de root care să îi acorde acces aplicației Shizuku.</string>
     <string name="setup_wireless_title">Depanare fără fir</string>
     <string name="setup_wireless_body">Funcționează fără drepturi de root. Necesită activarea opțiunilor pentru dezvoltatori și o asociere inițială; după aceea, se lansează direct din aplicație.</string>
@@ -1140,7 +1140,7 @@
     <string name="accessibility_write_failed">Nu s-a putut schimba serviciul. Verifică dacă Shizuku rulează.</string>
     <string name="accessibility_notification_channel">Servicii de accesibilitate</string>
     <string name="accessibility_notification_title">Servicii de accesibilitate păstrate</string>
-    <string name="accessibility_notification_text">Shizuku-Next reactivează serviciile blocate atunci când Android le dezactivează.</string>
+    <string name="accessibility_notification_text">Shizuku-Next reactivează serviciile alese pentru a fi menținute pornite atunci când Android le dezactivează.</string>
     <string name="wifi_passwords_show">Afișează parola</string>
     <string name="wifi_passwords_hide">Ascunde parola</string>
     <string name="wifi_passwords_copy">Copiază parola</string>
