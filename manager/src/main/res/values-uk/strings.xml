@@ -65,6 +65,9 @@
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Android блокує цей перемикач для застосунків, установлених не з магазину застосунків. Дозвольте операції із застосунком ^1 увімкнути службу спеціальних можливостей. У списку спеціальних можливостей для неї буде вказано «Керується обмеженим налаштуванням».\n\nВідкрийте інформацію про застосунок і виберіть у меню «Дозволити обмежені налаштування» або виконайте цю команду на комп’ютері:\n\n^2\n\nПідійде будь-який із варіантів. Після цього перемикач запрацює.</string>
+    <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
+         App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
+         command. -->
     <string name="dialog_adb_pairing_open_app_info">Про застосунок</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Щоб почати сполучення, виконайте такі дії:\n- Перейдіть до розділу «Параметри розробника»\n- Увімкніть «Налагодження USB» і «Бездротове налагодження»\n- Торкніться лівої частини пункту «Бездротове налагодження»\n- Торкніться «З’єднати пристрій за допомогою коду сполучення». Shizuku автоматично виявить код сполучення.</string>
     <string name="adb_pairing_requires_multi_window">Спершу ввійдіть в режим розділеного екрана.</string>
@@ -419,6 +422,7 @@
     <string name="settings_section_startup">Запуск</string>
     <string name="settings_section_wireless">Бездротове налагодження</string>
     <string name="settings_section_tools">Інструменти</string>
+    <string name="settings_backup_restore_action">Відновити</string>
     <string name="settings_section_appearance">Вигляд</string>
     <string name="settings_section_about">Про застосунок</string>
     <string name="settings_theme">Тема</string>
@@ -564,6 +568,7 @@
     -->
     <string name="setup_root_title">Root</string>
     <string name="setup_wireless_title">Бездротове налагодження</string>
+    <string name="setup_usb_title">Налагодження USB</string>
     <string name="settings_help">Допомога</string>
     <string name="settings_translate">Долучитися до перекладу</string>
     <string name="settings_translate_note">Перекладайте застосунок на Crowdin.</string>
@@ -1085,4 +1090,5 @@
     <string name="install_location_shared">Спільне сховище</string>
     <string name="install_spoof_source">Підробити джерело встановлення</string>
     <string name="install_spoof_source_desc">Пакет Android повідомляє, що цей застосунок встановлено.</string>
+    <string name="install_source_shell">Оболонка</string>
 </resources>
