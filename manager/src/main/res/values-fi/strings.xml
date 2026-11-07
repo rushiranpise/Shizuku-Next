@@ -70,6 +70,9 @@
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Android estää tämän kytkimen käytön sovelluksissa, jotka on asennettu sovellus-kaupan ulkopuolelta. Salli ^1-sovellukselle esteettömyys-palvelu käyttöönotto. Esteettömyysasetusten luettelossa tämä näkyy merkinnällä ”Rajoitetun asetuksen hallinnassa”. Avaa sovelluksen tiedot ja valitse valikosta ”Salli rajoitetut asetukset” tai suorita seuraava komento tieto-koneella: ^2 Kumpi tahansa tapa toimii. Tämän jälkeen kytkin on käytettävissä.</string>
+    <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
+         App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
+         command. -->
     <string name="dialog_adb_pairing_open_app_info">Sovelluksen tiedot</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Aloita pariliitos suorittamalla
         seuraavat vaiheet:\n- Siirry kohtaan \"Kehittäjäasetukset\"\n- Ota käyttöön
@@ -439,6 +442,7 @@
     <string name="settings_section_startup">Startup</string>
     <string name="settings_section_wireless">Langaton virheenkorjaus</string>
     <string name="settings_section_tools">Työkalut</string>
+    <string name="settings_backup_restore_action">Palauta</string>
     <string name="settings_section_appearance">Ulkoasu</string>
     <string name="settings_section_about">Tietoja</string>
     <string name="settings_theme">Teema</string>
@@ -589,8 +593,9 @@
       The guided first run. Each page is one decision, and the sentences say what happens rather
       than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
     -->
-    <string name="setup_root_title">Root</string>
+    <string name="setup_root_title">Juuri</string>
     <string name="setup_wireless_title">Langaton virheenkorjaus</string>
+    <string name="setup_usb_title">USB-vianetsintä</string>
     <string name="settings_help">Apua</string>
     <string name="settings_report_bug">Ilmoita bugi</string>
     <!--
@@ -956,4 +961,5 @@
     <string name="install_details_target">Target SDK</string>
     <string name="install_details_installed">Asennettu</string>
     <string name="install_location_auto">Kehittäjävaihtoehdot</string>
+    <string name="install_source_shell">Kuori</string>
 </resources>

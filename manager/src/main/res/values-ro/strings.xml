@@ -65,6 +65,9 @@
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Android blochează acest comutator pentru aplicațiile instalate din afara unui magazin de aplicații. Permite aplicației ^1 să activeze serviciul de accesibilitate. Lista de accesibilitate arată acest lucru ca \"Controlat de setarea restricționată\".\n\nDeschide Informații despre aplicație și selectează „Permite setări restricționate” din meniu sau rulează pe un computer:\n\n^2\n\nOricare opţiune funcţionează. Comutatorul va funcționa ulterior.</string>
+    <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
+         App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
+         command. -->
     <string name="dialog_adb_pairing_open_app_info">Informații aplicație</string>
     <string name="dialog_adb_pairing_accessibility_enable">Împerecherea automată citește codul din dialogul de sistem prin serviciul de accesibilitate Shizuku, așa că trebuie activat și numai atât timp cât este necesar: serviciul se oprește automat odată ce codul este găsit sau după un minut pentru a economisi energie. În mod normal, Shizuku o activează singur, iar acest lucru necesită permisiunea WRITE_SECURE_SETTINGS, care nu a fost încă acordată la o instalare nouă.\n\nActivează pe ecranul următor, introdu codul în secțiunea Manual sau acordă permisiunea o singură dată:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Începe procesul de asociere urmând pașii de mai jos:\n- Accesează „Opțiuni pentru dezvoltatori”\n- Activează „Depanare USB” și „Depanare wireless”\n- Atinge partea stângă a opțiunii „Depanare wireless”\n- Atinge „Asociază dispozitivul cu codul de asociere”. Shizuku va detecta automat codul de asociere.</string>
@@ -572,11 +575,12 @@
     <string name="start_system_custom_copied">Comanda a fost copiată în clipboard.</string>
     <string name="start_system_custom_copy_failed">Comanda este sus, gata să fie copiată manual.</string>
     <string name="settings_section_startup">Lansare</string>
-    <string name="settings_section_startup_summary">Pornire la pornirea dispozitivului, watchdog și metoda de pornire</string>
+    <string name="settings_section_startup_summary">Pornirea sistemului de operare, watchdog și metoda de pornire</string>
     <string name="settings_section_wireless">Depanare fără fir</string>
     <string name="settings_section_wireless_summary">Depanare fără fir, modul TCP și portul ADB</string>
     <string name="settings_section_tools">Unelte</string>
     <string name="settings_section_tools_summary">Permisiuni, configurare, terminal și intenții</string>
+    <string name="settings_backup_restore_action">Restaurează</string>
     <string name="settings_section_appearance">Aspect</string>
     <string name="settings_section_appearance_summary">Temă, culori și limbă</string>
     <string name="settings_section_about">Despre</string>
@@ -742,10 +746,11 @@
     <string name="setup_welcome_body">Shizuku-Next lansează și gestionează serviciul Shizuku, care permite aplicațiilor să utilizeze permisiuni care, în mod normal, necesită adb sau acces root. Toate setările de aici pot fi modificate ulterior în Setări.</string>
     <string name="setup_start_title">Cum ar trebui să pornească Shizuku?</string>
     <string name="setup_start_body">Această opțiune stabilește de unde își obține serviciul permisiunile. O poți modifica ulterior în Setări, la secțiunea „Metoda de pornire”.</string>
-    <string name="setup_root_title">Root</string>
+    <string name="setup_root_title">Rădăcină</string>
     <string name="setup_root_body">O singură atingere, fără cablu și fără asociere. Este necesar un manager de drepturi de root care să îi acorde acces aplicației Shizuku.</string>
     <string name="setup_wireless_title">Depanare fără fir</string>
     <string name="setup_wireless_body">Funcționează fără drepturi de root. Necesită activarea opțiunilor pentru dezvoltatori și o asociere inițială; după aceea, se lansează direct din aplicație.</string>
+    <string name="setup_usb_title">Depanare USB</string>
     <string name="setup_permissions_title">Permisiuni opționale</string>
     <string name="setup_permissions_body">Poți omite oricare dintre acestea și să le schimbi mai târziu în Setări.</string>
     <string name="settings_run_setup">Rulează configurarea din nou</string>
@@ -1140,7 +1145,7 @@
     <string name="accessibility_write_failed">Nu s-a putut schimba serviciul. Verifică dacă Shizuku rulează.</string>
     <string name="accessibility_notification_channel">Servicii de accesibilitate</string>
     <string name="accessibility_notification_title">Servicii de accesibilitate păstrate</string>
-    <string name="accessibility_notification_text">Shizuku-Next reactivează serviciile alese pentru a fi menținute pornite atunci când Android le dezactivează.</string>
+    <string name="accessibility_notification_text">Shizuku-Next reactivează serviciile blocate atunci când Android le dezactivează.</string>
     <string name="wifi_passwords_show">Afișează parola</string>
     <string name="wifi_passwords_hide">Ascunde parola</string>
     <string name="wifi_passwords_copy">Copiază parola</string>
@@ -1278,4 +1283,5 @@
     <string name="install_location_shared">Stocarea partajată</string>
     <string name="install_spoof_source">Înlocuiește sursa de instalare</string>
     <string name="install_spoof_source_desc">Pachetul Android este informat că a instalat această aplicație.</string>
+    <string name="install_source_shell">Terminal</string>
 </resources>

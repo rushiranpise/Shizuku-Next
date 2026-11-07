@@ -13,6 +13,7 @@
     <string name="home_wireless_adb_title"><![CDATA[Iniciar via depuração sem fio]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Começando sem rede: o dispositivo é solicitado pela depuração sem fio várias vezes até ficar ligado. Isto pode demorar até dois minutos antes de começar ou desistir.</string>
     <string name="home_usb_adb_needs_network">A inicialização via USB utiliza a porta ADB clássica, e para reabri-la é necessária uma conexão de rede. Conecte-se ao Wi-Fi uma vez ou escolha <b>Iniciar sem Wi-Fi</b> como método de inicialização e inicie a depuração sem fio.</string>
+    <string name="home_usb_adb_needs_computer"></string>
     <string name="home_wireless_adb_summary">Inicia o uso de depuração sem fio.</string>
     <string name="home_usb_adb_title"><![CDATA[Iniciar via depuração USB]]></string>
     <string name="home_usb_adb_summary">Inicia o uso da depuração USB.</string>
@@ -65,6 +66,9 @@
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">O Android bloqueia esse botão para aplicativos instalados fora de uma loja de aplicativos. Permita que o comando ^1 app-op ative o serviço de acessibilidade. A lista de acessibilidade exibe isso como “Controlado por configuração restrita”.\n\nAbra “Informações do aplicativo” e selecione “Permitir configurações restritas” no menu, ou execute este comando em um computador:\n\n^2\n\nQualquer uma das opções funciona. O botão passará a funcionar depois disso.</string>
+    <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
+         App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
+         command. -->
     <string name="dialog_adb_pairing_open_app_info">Informações do app</string>
     <string name="dialog_adb_pairing_accessibility_enable"></string>
     <string name="dialog_adb_pairing_accessibility_navigate">Para iniciar o emparelhamento, siga estas etapas:\n- Acesse “Opções do desenvolvedor”\n- Ative “Depuração por USB” e “Depuração sem fio”\n- Toque no lado esquerdo de “Depuração sem fio”\n- Toque em “Emparelhar dispositivo com código de emparelhamento”. O Shizuku detectará automaticamente o código de emparelhamento.</string>
@@ -500,6 +504,7 @@
     <string name="settings_section_startup">Startup</string>
     <string name="settings_section_wireless">Depuração sem fio</string>
     <string name="settings_section_tools">Ferramentas</string>
+    <string name="settings_backup_restore_action">RESTAURAR</string>
     <string name="settings_section_appearance">Aparência</string>
     <string name="settings_section_about">SOBRE</string>
     <string name="settings_theme">Tema</string>
@@ -659,8 +664,9 @@
       The guided first run. Each page is one decision, and the sentences say what happens rather
       than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
     -->
-    <string name="setup_root_title">Root</string>
+    <string name="setup_root_title">raiz</string>
     <string name="setup_wireless_title">Depuração sem fio</string>
+    <string name="setup_usb_title">Depuração USB</string>
     <string name="settings_help">Ajuda</string>
     <string name="settings_translate">Participe da tradução</string>
     <string name="settings_translate_note">Traduza o aplicativo no Crowdin.</string>
@@ -1077,4 +1083,5 @@
     <string name="install_details_target">Target SDK</string>
     <string name="install_details_installed">Instalado</string>
     <string name="install_location_auto">Opções do desenvolvedor</string>
+    <string name="install_source_shell">Shell</string>
 </resources>

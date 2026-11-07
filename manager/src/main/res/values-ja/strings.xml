@@ -12,7 +12,7 @@
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[ワイヤレスデバッグで開始]]></string>
     <string name="home_wireless_adb_starting_without_wifi">ネットワークがない状態から始まる:デバイスがオンのままになるまで無線デバッグを繰り返すよう求められます。 これは、開始またはあきらめる前に最大2分かかることがあります。</string>
-    <string name="home_usb_adb_needs_network">USBの起動は、古典的なADBポートを使用しており、再起動にはネットワークが必要です。 Wi-Fiに一度接続するか、開始方法として <b>起動</b> を選択し、無線デバッグを経由して開始します。</string>
+    <string name="home_usb_adb_needs_network">USBでの開始には古典的なADBポートが使用され、再起動にはネットワークが必要です。 Wi-Fiに一度接続するか、開始方法として <b>Wi-Fiなしで開始</b> を選択し、ワイヤレスデバッグを経由して開始してください。</string>
     <string name="home_wireless_adb_summary">ワイヤレスデバッグを使用して開始します。</string>
     <string name="home_usb_adb_title"><![CDATA[USBデバッグ経由で開始]]></string>
     <string name="home_usb_adb_summary">USBデバッグを使用して開始します。</string>
@@ -63,6 +63,9 @@
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
+    <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
+         App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
+         command. -->
     <string name="dialog_adb_pairing_open_app_info">アプリ情報</string>
     <string name="dialog_adb_pairing_accessibility_navigate">以下の手順に従ってペアリングを開始してください。\n・「開発者向けオプション」に移動します。\n・「USBデバッグ」と「ワイヤレスデバッグ」を有効にします。\n・「ワイヤレスデバッグ」の左側をタップします。\n・「ペアリングコードでデバイスをペアリング」をタップします。Shizukuはペアリングコードを自動的に検出します。</string>
     <string name="adb_pairing_requires_multi_window">最初に分割画面モードに入ってください。</string>
@@ -97,8 +100,8 @@
     <!-- Home - Learn more -->
     <!-- Home - Adb permissions limited -->
     <!-- Home - Dialogs -->
-    <string name="home_dialog_reboot_required_title">再起動が必要です</string>
-    <string name="home_dialog_reboot_required_message">シズクが正常に動作するには端末の再起動が必要です。続行するには端末を再起動してください。</string>
+    <string name="home_dialog_reboot_required_title">再起動が必要</string>
+    <string name="home_dialog_reboot_required_message">Shizukuが正常に動作するにはデバイスの再起動が必要です。続行するにはデバイスを再起動してください。</string>
     <string name="home_dialog_duplicate_app_detected_title">重複したアプリを検出しました</string>
     <string name="home_dialog_duplicate_app_detected_message">このアプリの別のバージョンがお使いのデバイスにインストールされています。続行するには、重複したバージョンをすべてアンインストールしてデバイスを再起動してください。</string>
     <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
@@ -109,7 +112,7 @@
     <string name="app_management_toggle_all">すべて切り替え</string>
     <string name="app_management_search_hint">アプリを検索</string>
     <string name="app_management_sort">並べ換え</string>
-    <string name="apps_needs_shizuku">アプリを表示するには、しずくを起動します</string>
+    <string name="apps_needs_shizuku">アプリを表示するには、Shizukuを起動します</string>
     <string name="apps_empty">表示するアプリがありません</string>
     <string name="apps_filter_empty">このフィルターにはアプリがありません</string>
     <string name="apps_filter_all">すべて</string>
@@ -154,9 +157,9 @@
     <string name="hiding_signal_private_dns">プライベート DNS</string>
     <string name="hiding_signal_vpn">VPN</string>
     <string name="hiding_vpn_client">非表示にする VPN クライアント</string>
-    <string name="tab_force_dark">強制的にダークモード</string>
+    <string name="tab_force_dark">ダークモードの強制</string>
     <string name="force_dark_gate">強制的にダークモード</string>
-    <string name="force_dark_gate_disabled">強制的にダークモードがオフです</string>
+    <string name="force_dark_gate_disabled">ダークモードの強制がオフです</string>
     <string name="force_dark_count">%1$d 強制的に</string>
     <string name="force_dark_filter_forced">強制的に</string>
     <string name="force_dark_filter_not">強制されていません</string>
@@ -224,7 +227,7 @@
     <string name="activities_long_press">行を長押しすると、名前全体が表示されます。</string>
     <string name="activities_detail_package">パッケージ ID</string>
     <string name="activities_detail_activity">アクティビティ</string>
-    <string name="activities_detail_state">都道府県：</string>
+    <string name="activities_detail_state">状態</string>
     <string name="activities_open">開く</string>
     <string name="activities_copy">コピー</string>
     <string name="activities_edit_as_intent">意図として編集</string>
@@ -385,7 +388,7 @@
     <string name="hiding_start_again">再度開始</string>
     <string name="hiding_notification_stopped_title">非表示を停止しました</string>
     <string name="hiding_notification_stopped_text">Shizukuが実行されていないため、非表示にしているアプリを検出できません。すべての非表示設定が復元されました。</string>
-    <string name="hiding_carries_session_wireless">非適用：しずくはワイヤレスデバッグを使用するので、隠すとしずくが止まります。</string>
+    <string name="hiding_carries_session_wireless">非適用：Shizukuはワイヤレスデバッグを使用するので、隠すとShizukuが止まります。</string>
     <string name="hiding_carries_session_usb">適用されません:ShizukuはUSBデバッグを使用しているので、隠すと静が停止します。</string>
     <string name="tab_settings">設定</string>
     <string name="home_status_transport_label">交通</string>
@@ -519,6 +522,7 @@
     <string name="settings_section_startup">起動</string>
     <string name="settings_section_wireless">ワイヤレスデバッグ</string>
     <string name="settings_section_tools">ツール</string>
+    <string name="settings_backup_restore_action">復元</string>
     <string name="settings_section_appearance">外観</string>
     <string name="settings_section_about">このアプリについて</string>
     <string name="settings_theme">テーマ</string>
@@ -664,6 +668,7 @@
     <string name="setup_action_continue">続行</string>
     <string name="setup_root_title">Root</string>
     <string name="setup_wireless_title">ワイヤレスデバッグ</string>
+    <string name="setup_usb_title">USBデバッグ</string>
     <string name="settings_help">ヘルプ</string>
     <string name="settings_translate">翻訳に参加する</string>
     <string name="settings_translate_note">Crowdin でアプリを翻訳。</string>
@@ -1152,4 +1157,5 @@
     <string name="install_location_shared">共有ストレージ</string>
     <string name="install_spoof_source">インストール元を偽装する</string>
     <string name="install_spoof_source_desc">パッケージのAndroidがこのアプリをインストールしたと伝えられます。</string>
+    <string name="install_source_shell">シェル</string>
 </resources>

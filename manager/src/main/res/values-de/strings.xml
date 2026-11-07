@@ -60,6 +60,9 @@
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Android sperrt diesen Schalter für Apps, die nicht aus einem App-Store installiert wurden. Lassen Sie die App-Op ^1 zu, um die Bedienungshilfe einzuschalten. In der Liste der Bedienungshilfen wird dies als „Gesteuert durch eingeschränkte Einstellung“ angezeigt.\n\nÖffnen Sie die App-Info und wählen Sie im Menü „Eingeschränkte Einstellungen zulassen“ aus oder führen Sie auf einem Computer Folgendes aus:\n\n^2\n\nBeide Möglichkeiten funktionieren. Danach lässt sich der Schalter bedienen.</string>
+    <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
+         App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
+         command. -->
     <string name="dialog_adb_pairing_open_app_info">App-Info</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Starten Sie die Kopplung mit den folgenden Schritten:\n- Öffnen Sie die „Entwickleroptionen“\n- Aktivieren Sie „USB-Debugging“ und „Debugging über WLAN“\n- Tippen Sie auf die linke Seite von „Debugging über WLAN“\n- Tippen Sie auf „Gerät über einen Kopplungscode koppeln“. Shizuku erkennt den Kopplungscode automatisch.</string>
     <string name="adb_pairing_requires_multi_window">Wechseln Sie zuerst in den Splitscreen-Modus.</string>
@@ -464,6 +467,7 @@
     <string name="start_system_custom_copy_failed">Der Befehl steht oben und kann von Hand kopiert werden.</string>
     <string name="settings_section_startup">Start</string>
     <string name="settings_section_wireless">Debugging über WLAN</string>
+    <string name="settings_backup_restore_action">Wiederherstellen</string>
     <string name="settings_section_appearance">Darstellung</string>
     <string name="settings_section_about">Über</string>
     <string name="settings_theme">Design</string>
@@ -609,6 +613,7 @@
       than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
     -->
     <string name="setup_wireless_title">Debugging über WLAN</string>
+    <string name="setup_usb_title">USB-Debugging</string>
     <string name="settings_help">Hilfe</string>
     <string name="settings_translate">Bei der Übersetzung mitwirken</string>
     <string name="settings_translate_note">Die App auf Crowdin übersetzen.</string>

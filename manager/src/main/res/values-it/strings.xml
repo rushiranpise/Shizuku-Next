@@ -65,6 +65,9 @@
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Android blocca questo interruttore per le app installate al di fuori di uno store di app. Consenti l\'app-op ^1 per attivare il servizio di accessibilità. L\'elenco dell\'accessibilità lo indica come \"Controllato da un\'impostazione con limitazioni\".\n\nApri Info app e scegli \"Consenti impostazioni con limitazioni\" dal menu, oppure esegui questo comando da un computer:\n\n^2\n\nVa bene una qualsiasi delle due opzioni. Dopo, l\'interruttore funzionerà.</string>
+    <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
+         App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
+         command. -->
     <string name="dialog_adb_pairing_open_app_info">Informazioni app</string>
     <string name="dialog_adb_pairing_accessibility_enable">L\'accoppiamento automatico legge il codice dalla finestra di sistema tramite il servizio di accessibilità di Shizuku, quindi deve essere attivo, ma solo per il tempo necessario: il servizio si disattiva da solo una volta trovato il codice, oppure dopo un minuto per risparmiare batteria. Di norma Shizuku lo attiva in autonomia, ma serve il permesso WRITE_SECURE_SETTINGS, che dopo una nuova installazione non è ancora stato concesso.\n\nAttivalo nella schermata successiva, digita tu il codice in Manuale, oppure concedi il permesso una volta:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Avvia l\'accoppiamento seguendo questi passaggi:\n- Vai su \"Opzioni sviluppatore\"\n- Attiva \"Debug USB\" e \"Debug wireless\"\n- Tocca la parte sinistra di \"Debug wireless\"\n- Tocca \"Accoppia dispositivo con codice di accoppiamento\". Shizuku rileverà automaticamente il codice di accoppiamento.</string>
@@ -564,6 +567,8 @@
     <string name="settings_section_wireless_summary">Debug wireless, modalità TCP e porta ADB</string>
     <string name="settings_section_tools">Strumenti</string>
     <string name="settings_section_tools_summary">Autorizzazioni, configurazione, terminale e intent</string>
+    <string name="settings_backup_exported">%1$d impostazioni salvate.</string>
+    <string name="settings_backup_restore_action">Ripristina</string>
     <string name="settings_section_appearance">Aspetto</string>
     <string name="settings_section_appearance_summary">Tema, colori e lingua</string>
     <string name="settings_section_about">Informazioni</string>
@@ -735,6 +740,7 @@
     <string name="setup_root_body">Un tocco, nessun cavo e accoppiamento. Richiede un gestore di root che conceda l\'accesso a Shizuku.</string>
     <string name="setup_wireless_title">Debug wireless</string>
     <string name="setup_wireless_body">Funziona senza root. Richiede le Opzioni sviluppatore e un accoppiamento una tantum; successivamente si avvia dall\'app.</string>
+    <string name="setup_usb_title">Debug USB</string>
     <string name="setup_permissions_title">Autorizzazioni facoltative</string>
     <string name="setup_permissions_body">È possibile saltare qualsiasi di queste autorizzazioni e modificarle successivamente nelle Impostazioni.</string>
     <string name="settings_run_setup">Esegui di nuovo la configurazione</string>
@@ -1041,6 +1047,7 @@
     <string name="app_action_uninstall_note">Rimuove le app ma conserva i suoi dati.</string>
     <string name="app_action_restore">Ripristina app di sistema</string>
     <string name="app_action_restore_note">Ripristina per questo utente un\'app di sistema rimossa.</string>
+    <string name="app_data_import_action">Importa</string>
     <string name="app_confirm_title">Sei sicuro?</string>
     <string name="app_confirm_disable">Disattivare %1$s? Rimarrà così finché non lo riattivi.</string>
     <string name="app_confirm_clear_data">Eliminare tutti i dati per %1$s? Questa operazione non può essere annullata.</string>
@@ -1266,4 +1273,5 @@
     <string name="install_location_shared">Memoria condivisa</string>
     <string name="install_spoof_source">Falsifica origine di installazione</string>
     <string name="install_spoof_source_desc">Il pacchetto che Android indica come installatore di questa app.</string>
+    <string name="install_source_shell">Shell</string>
 </resources>

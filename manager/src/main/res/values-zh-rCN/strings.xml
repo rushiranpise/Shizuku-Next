@@ -65,6 +65,9 @@
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Android 会拦截非应用商店安装的应用使用这个开关。请允许 ^1 应用操作来开启无障碍服务，无障碍列表里它会显示为“由受限设置控制”。\n\n打开应用信息，从菜单里选择“允许受限设置”，或者在电脑上运行：\n\n^2\n\n两种方式都行，之后这个开关就能用了。</string>
+    <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
+         App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
+         command. -->
     <string name="dialog_adb_pairing_open_app_info">应用信息</string>
     <string name="dialog_adb_pairing_accessibility_enable">自动配对要通过 Shizuku 的无障碍服务从系统对话框里读取配对码，所以需要开启它——而且只在需要的那一小会儿：找到配对码后或一分钟后，服务会自行关闭以省电。Shizuku 通常会自己开启它，这需要 WRITE_SECURE_SETTINGS 权限，而全新安装还没有这个权限。\n\n在下一屏开启它、在“手动”下自己输入配对码，或者授予一次权限：\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">请按照以下步骤开始配对：\n- 进入“开发者选项”\n- 启用“USB 调试”和“无线调试”\n- 点击“无线调试”左侧\n- 点击“使用配对码配对设备”。Shizuku 将自动检测配对码。</string>
@@ -513,7 +516,6 @@
     <string name="modules_review_title">运行此命令？</string>
     <string name="modules_review_message">%1$s 请求 Shizuku 运行：</string>
     <string name="modules_review_approve">运行</string>
-    <string name="modules_review_trust">信任 %1$s，不再询问</string>
     <string name="modules_result_title">%1$s</string>
     <string name="modules_result_exit">退出码 %1$d</string>
     <string name="modules_error_not_a_module">该文件不是模块：module.prop 缺失或不可用。</string>
@@ -555,6 +557,7 @@
     <string name="settings_section_startup">启动</string>
     <string name="settings_section_wireless">无线调试</string>
     <string name="settings_section_tools">工具</string>
+    <string name="settings_backup_restore_action">还原设置</string>
     <string name="settings_section_appearance">外观</string>
     <string name="settings_section_about">关于</string>
     <string name="settings_theme">主题</string>
@@ -713,6 +716,7 @@
     <string name="setup_root_title">Root</string>
     <string name="setup_wireless_title">无线调试</string>
     <string name="setup_wireless_body">不需要ROOT即可使用。需要启动开发者选项并进行一次性配对，及后就可以从APP中开始。</string>
+    <string name="setup_usb_title">USB 调试</string>
     <string name="setup_permissions_body">您可以跳过任何一项，之后再在“设置”中修改。</string>
     <string name="settings_run_setup_summary">欢迎步骤：Shizuku如何启动以及其所需</string>
     <string name="settings_help">帮助</string>
@@ -1233,4 +1237,5 @@
     <string name="install_location_shared">共享存储</string>
     <string name="install_spoof_source">伪装安装来源</string>
     <string name="install_spoof_source_desc">告诉 Android 是哪个包安装了这个应用。</string>
+    <string name="install_source_shell">终端</string>
 </resources>

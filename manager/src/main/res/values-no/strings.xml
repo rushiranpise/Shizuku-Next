@@ -44,6 +44,9 @@
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
+    <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
+         App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
+         command. -->
     <string name="dialog_adb_pairing_open_app_info">Info om app</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Start paringen ved å utføre følgende
         trinn:\n– Naviger til «Utvikleralternativer»\n– Aktiver «USB-feilsøking» og «Trådløs
@@ -410,6 +413,7 @@
     <string name="settings_section_startup">Startup</string>
     <string name="settings_section_wireless">Trådløs feilsøking</string>
     <string name="settings_section_tools">Verktøy</string>
+    <string name="settings_backup_restore_action">Gjenopprett</string>
     <string name="settings_section_appearance">Utseende</string>
     <string name="settings_section_about">Om</string>
     <string name="settings_theme">Tema</string>
@@ -559,8 +563,9 @@
       The guided first run. Each page is one decision, and the sentences say what happens rather
       than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
     -->
-    <string name="setup_root_title">Root</string>
+    <string name="setup_root_title">Rot</string>
     <string name="setup_wireless_title">Trådløs feilsøking</string>
+    <string name="setup_usb_title">USB feilsøking</string>
     <string name="settings_help">Hjelp</string>
     <string name="settings_report_bug">Rapporter en feil</string>
     <!--
@@ -925,4 +930,5 @@
     <string name="install_details_target">Target SDK</string>
     <string name="install_details_installed">Installert</string>
     <string name="install_location_auto">Utvikleralternativer</string>
+    <string name="install_source_shell">Skall</string>
 </resources>
