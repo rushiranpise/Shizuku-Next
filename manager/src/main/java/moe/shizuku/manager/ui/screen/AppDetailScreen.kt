@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -30,6 +32,7 @@ import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -60,6 +63,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import moe.shizuku.manager.R
+import moe.shizuku.manager.files.AppDataArchive
+import moe.shizuku.manager.files.FileOperations
 import moe.shizuku.manager.manage.AppDetail
 import moe.shizuku.manager.manage.AppOp
 import moe.shizuku.manager.manage.AppPermission
@@ -87,6 +92,12 @@ private class PendingConfirm(
     val name: String,
     @StringRes val done: Int,
     val action: () -> Boolean
+)
+
+/** An app-data archive being written or unpacked, with the last thing it touched. */
+private data class DataJob(
+    val export: Boolean,
+    val progress: FileOperations.Progress?
 )
 
 /**
@@ -121,6 +132,9 @@ fun AppDetailScreen(
     var opPicker by remember { mutableStateOf<AppOp?>(null) }
     var bucketPicker by remember { mutableStateOf(false) }
     var confirm by remember { mutableStateOf<PendingConfirm?>(null) }
+    var pendingImport by remember { mutableStateOf<Uri?>(null) }
+    var dataJob by remember { mutableStateOf<DataJob?>(null) }
+    var cancelData by remember { mutableStateOf(false) }
 
     LaunchedEffect(packageName, version) {
         loading = detail == null
@@ -155,6 +169,83 @@ fun AppDetailScreen(
     fun changePermission(permission: AppPermission, grant: Boolean) {
         runAction(if (grant) R.string.app_permission_granted else R.string.app_permission_revoked) {
             PackageTools.setPermission(context, packageName, permission.name, grant)
+        }
+    }
+
+    /**
+     * Runs one archive out of the way of the screen, and reports the result in the snackbar.
+     *
+     * The progress is kept in state rather than in a local: a large OBB takes long enough that
+     * the dialog has to be redrawn while the bytes are moving. The cancel flag is read by the
+     * archive code between chunks, so cancelling stops at a safe boundary rather than killing
+     * the coroutine in the middle of a zip entry.
+     */
+    fun startDataJob(export: Boolean, uri: Uri) {
+        if (busy) return
+        busy = true
+        cancelData = false
+        dataJob = DataJob(export, null)
+        scope.launch {
+            val outcome = if (export) {
+                AppDataArchive.export(
+                    context,
+                    packageName,
+                    uri,
+                    onProgress = { progress -> dataJob = dataJob?.copy(progress = progress) },
+                    cancelled = { cancelData }
+                )
+            } else {
+                AppDataArchive.import(
+                    context,
+                    packageName,
+                    uri,
+                    onProgress = { progress -> dataJob = dataJob?.copy(progress = progress) },
+                    cancelled = { cancelData }
+                )
+            }
+            busy = false
+            dataJob = null
+            cancelData = false
+
+            val message = when (outcome) {
+                is AppDataArchive.Outcome.Done -> context.getString(
+                    if (export) R.string.app_data_exported else R.string.app_data_imported
+                )
+                is AppDataArchive.Outcome.Failed -> context.getString(
+                    if (export) R.string.app_data_export_failed else R.string.app_data_import_failed,
+                    outcome.message
+                )
+                AppDataArchive.Outcome.Cancelled -> context.getString(R.string.app_data_cancelled)
+            }
+            snackbarHostState.showSnackbar(message)
+        }
+    }
+
+    val exportLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.CreateDocument("application/zip")
+    ) { uri ->
+        if (uri != null) startDataJob(export = true, uri)
+    }
+
+    val importLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.OpenDocument()
+    ) { uri ->
+        if (uri != null) pendingImport = uri
+    }
+
+    fun beginExport() {
+        if (busy) return
+        scope.launch {
+            busy = true
+            val sections = withContext(Dispatchers.IO) {
+                AppDataArchive.availableSections(packageName)
+            }
+            busy = false
+            if (sections.isEmpty()) {
+                snackbarHostState.showSnackbar(context.getString(R.string.app_data_none))
+            } else {
+                exportLauncher.launch(AppDataArchive.fileName(packageName))
+            }
         }
     }
 
@@ -459,6 +550,45 @@ fun AppDetailScreen(
                     }
                 }
 
+                // ---- app data ---------------------------------------------------------
+                if (!app.uninstalled) {
+                    item { SectionHeader(R.string.app_section_data) }
+                    if (!running) {
+                        item { NoteCard(R.string.app_data_needs_shizuku) }
+                    } else {
+                        item { NoteCard(R.string.app_data_note) }
+                        item {
+                            SegmentedColumn {
+                                item {
+                                    ActionRow(
+                                        label = R.string.app_data_export,
+                                        note = R.string.app_data_export_note,
+                                        enabled = !busy
+                                    ) {
+                                        beginExport()
+                                    }
+                                }
+                                item {
+                                    ActionRow(
+                                        label = R.string.app_data_import,
+                                        note = R.string.app_data_import_note,
+                                        enabled = !busy
+                                    ) {
+                                        importLauncher.launch(
+                                            arrayOf(
+                                                "application/zip",
+                                                "application/x-zip-compressed",
+                                                "application/octet-stream",
+                                                "*/*"
+                                            )
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
                 // ---- battery ----------------------------------------------------------
                 item { SectionHeader(R.string.app_section_battery) }
 
@@ -642,6 +772,65 @@ fun AppDetailScreen(
             },
             dismissButton = {
                 PillButtonQuiet(onClick = { confirm = null }) {
+                    Text(stringResource(android.R.string.cancel))
+                }
+            }
+        )
+    }
+
+    pendingImport?.let { uri ->
+        AlertDialog(
+            onDismissRequest = { pendingImport = null },
+            title = { Text(stringResource(R.string.app_data_import_title)) },
+            text = { Text(stringResource(R.string.app_data_import_message, label)) },
+            confirmButton = {
+                PillButton(onClick = {
+                    pendingImport = null
+                    startDataJob(export = false, uri)
+                }) { Text(stringResource(R.string.app_data_import_action)) }
+            },
+            dismissButton = {
+                PillButtonQuiet(onClick = { pendingImport = null }) {
+                    Text(stringResource(android.R.string.cancel))
+                }
+            }
+        )
+    }
+
+    dataJob?.let { job ->
+        AlertDialog(
+            onDismissRequest = {},
+            title = {
+                Text(
+                    stringResource(
+                        if (job.export) R.string.app_data_exporting else R.string.app_data_importing
+                    )
+                )
+            },
+            text = {
+                Column {
+                    Text(
+                        job.progress?.name?.takeIf { it.isNotEmpty() }
+                            ?: stringResource(R.string.app_data_preparing),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                    val fraction = job.progress?.fraction
+                    if (fraction == null) {
+                        LoadingIndicator()
+                    } else {
+                        LinearProgressIndicator(
+                            progress = { fraction },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(8.dp)
+                        )
+                    }
+                }
+            },
+            confirmButton = {
+                PillButton(onClick = { cancelData = true }) {
                     Text(stringResource(android.R.string.cancel))
                 }
             }
