@@ -11,7 +11,7 @@ import android.content.Context
  */
 object AccessibilityKeepAlive {
 
-    private const val FILE = "accessibility_keep_alive"
+    const val FILE = "accessibility_keep_alive"
     private const val KEY_ENABLED = "enabled"
     private const val KEY_AUTO_BOOT = "auto_boot"
     private const val KEY_PINNED = "pinned"

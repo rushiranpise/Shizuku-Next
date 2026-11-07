@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.clickable
@@ -47,7 +49,9 @@ import androidx.compose.material.icons.outlined.Numbers
 import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material.icons.outlined.PowerSettingsNew
 import androidx.compose.material.icons.outlined.PushPin
+import androidx.compose.material.icons.outlined.Restore
 import androidx.compose.material.icons.outlined.RocketLaunch
+import androidx.compose.material.icons.outlined.SaveAlt
 import androidx.compose.material.icons.outlined.SystemUpdate
 import androidx.compose.material.icons.outlined.Terminal
 import androidx.compose.material.icons.outlined.Translate
@@ -100,6 +104,7 @@ import moe.shizuku.manager.BuildConfig
 import moe.shizuku.manager.R
 import moe.shizuku.manager.ShizukuSettings
 import moe.shizuku.manager.settings.BugReportDialogActivity
+import moe.shizuku.manager.settings.SettingsBackup
 import moe.shizuku.manager.ui.Detail
 import moe.shizuku.manager.ui.televisionReturnFocus
 import moe.shizuku.manager.ui.component.ScrollToTopButton
@@ -262,7 +267,44 @@ fun SettingsScreen(
     var restartAction by remember { mutableStateOf<(() -> Unit)?>(null) }
     var restartWifiNote by remember { mutableStateOf(false) }
     var batteryPrompt by remember { mutableStateOf<(() -> Unit)?>(null) }
+    var restorePending by remember { mutableStateOf<SettingsBackup.Backup?>(null) }
     val scope = rememberCoroutineScope()
+
+    val exportLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.CreateDocument("application/json")
+    ) { uri ->
+        if (uri == null) return@rememberLauncherForActivityResult
+        scope.launch {
+            val count = withContext(Dispatchers.IO) { SettingsBackup.export(context, uri) }
+            Toast.makeText(
+                context,
+                if (count != null) {
+                    context.getString(R.string.settings_backup_exported, count)
+                } else {
+                    context.getString(R.string.settings_backup_export_failed)
+                },
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+
+    val restoreLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.OpenDocument()
+    ) { uri ->
+        if (uri == null) return@rememberLauncherForActivityResult
+        scope.launch {
+            val backup = withContext(Dispatchers.IO) { SettingsBackup.read(context, uri) }
+            if (backup == null) {
+                Toast.makeText(
+                    context,
+                    R.string.settings_backup_unreadable,
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                restorePending = backup
+            }
+        }
+    }
 
     var startMethodDialog by remember { mutableStateOf(false) }
     var tcpPortDialog by remember { mutableStateOf(false) }
@@ -864,6 +906,50 @@ fun SettingsScreen(
                     }
                 }
             }
+
+            item {
+                SettingsSectionHeader(titleRes = R.string.settings_backup_section)
+            }
+            item {
+                SegmentedColumn(modifier = Modifier.fillMaxWidth()) {
+                    item {
+                        SegmentedListItem(
+                            centerSlots = true,
+                            leadingContent = { SettingsIcon(Icons.Outlined.SaveAlt) },
+                            headlineContent = { Text(stringResource(R.string.settings_backup_export)) },
+                            supportingContent = {
+                                Text(stringResource(R.string.settings_backup_export_summary))
+                            },
+                            trailingContent = {
+                                Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
+                            },
+                            onClick = { exportLauncher.launch(SettingsBackup.fileName()) }
+                        )
+                    }
+                    item {
+                        SegmentedListItem(
+                            centerSlots = true,
+                            leadingContent = { SettingsIcon(Icons.Outlined.Restore) },
+                            headlineContent = { Text(stringResource(R.string.settings_backup_restore)) },
+                            supportingContent = {
+                                Text(stringResource(R.string.settings_backup_restore_summary))
+                            },
+                            trailingContent = {
+                                Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
+                            },
+                            onClick = {
+                                restoreLauncher.launch(
+                                    arrayOf(
+                                        "application/json",
+                                        "text/plain",
+                                        "application/octet-stream"
+                                    )
+                                )
+                            }
+                        )
+                    }
+                }
+            }
             }
 
             if (currentSection == SettingsSection.APPEARANCE) {
@@ -1237,6 +1323,63 @@ fun SettingsScreen(
             },
             dismissButton = {
                 PillButtonQuiet(onClick = { batteryPrompt = null }) {
+                    Text(stringResource(android.R.string.cancel))
+                }
+            }
+        )
+    }
+
+    restorePending?.let { backup ->
+        AlertDialog(
+            onDismissRequest = { restorePending = null },
+            title = { Text(stringResource(R.string.settings_backup_restore_title)) },
+            text = { Text(stringResource(R.string.settings_backup_restore_message, backup.count)) },
+            confirmButton = {
+                PillButton(onClick = {
+                    restorePending = null
+                    val oldLanguage = ShizukuSettings.getLanguageTag()
+                    val oldNightMode = ShizukuSettings.getNightMode()
+                    scope.launch {
+                        val count = withContext(Dispatchers.IO) {
+                            SettingsBackup.apply(context, backup)
+                        }
+                        if (count == null) {
+                            Toast.makeText(
+                                context,
+                                R.string.settings_backup_restore_failed,
+                                Toast.LENGTH_LONG
+                            ).show()
+                            return@launch
+                        }
+
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.settings_backup_restored, count),
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                        val newLanguage = ShizukuSettings.getLanguageTag()
+                        val newNightMode = ShizukuSettings.getNightMode()
+                        val languageChanged = oldLanguage != newLanguage
+                        val themeChanged = oldNightMode != newNightMode
+
+                        AppCompatDelegate.setDefaultNightMode(newNightMode)
+                        ThemeState.refresh()
+                        AppLocale.select(context, newLanguage)
+
+                        val activity = AppLocale.activityOf(context)
+                        val needsRecreate =
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                                !languageChanged && !themeChanged
+                            } else {
+                                !themeChanged
+                            }
+                        if (needsRecreate) activity?.recreate()
+                    }
+                }) { Text(stringResource(R.string.settings_backup_restore_action)) }
+            },
+            dismissButton = {
+                PillButtonQuiet(onClick = { restorePending = null }) {
                     Text(stringResource(android.R.string.cancel))
                 }
             }
