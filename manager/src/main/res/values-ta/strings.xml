@@ -33,6 +33,9 @@
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
+    <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
+         App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
+         command. -->
     <string name="dialog_adb_pairing_accessibility_navigate">பின்வரும் படிகளைச் செய்வதன் மூலம்
         இணைக்கத் தொடங்குங்கள்:\n- \"டெவலப்பர் விருப்பங்கள்\" என்பதற்குச் செல்லவும்\n- \"USB
         பிழைத்திருத்தம்\" மற்றும் \"வயர்லெஸ் பிழைத்திருத்தம்\" என்பதை இயக்கவும்\n- \"வயர்லெஸ்

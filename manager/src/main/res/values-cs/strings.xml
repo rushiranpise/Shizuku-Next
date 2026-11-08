@@ -13,6 +13,7 @@
     <string name="home_wireless_adb_title"><![CDATA[Spustit pomocí WiFi debuging]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Začíná bez sítě: zařízení je požádáno o bezdrátové ladění, dokud nezůstane zapnuto. To může trvat až dvě minuty, než začne nebo se vzdá.</string>
     <string name="home_usb_adb_needs_network">Spouštění USB používá klasický ADB port a opětovné otevření vyžaduje síť. Připojte se jednou k Wi-Fi nebo zvolte <b>Spustit bez Wi-Fi</b> jako způsob startu a místo toho spusťte bezdrátové ladění.</string>
+    <string name="home_usb_adb_needs_computer">Spouštění USB vyžaduje klasický ADB port. V této verzi Androidu se připojte k počítači a spusťte Shizuku pomocí ADB příkazu v jiných metodách.</string>
     <string name="home_wireless_adb_summary">Začne používat bezdrátové ladění.</string>
     <string name="home_usb_adb_title"><![CDATA[Spustit přes USB ladění]]></string>
     <string name="home_usb_adb_summary">Začne používat ladění USB.</string>
@@ -65,8 +66,12 @@
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Android blokuje tento přepínač pro aplikace nainstalované mimo obchod s aplikacemi. Povolte ^ 1 aplikaci zapnout službu usnadnění přístupu. Na seznamu přístupů je zobrazeno jako \"Ovládáno omezeným nastavením\".\n\nOtevřete informace o aplikaci a vyberte možnost \"Povolit omezená nastavení\" z menu, nebo to spusťte na počítači:\n\n^2\n\nFungují obě možnosti. Přepínač bude fungovat později.</string>
+    <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
+         App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
+         command. -->
+    <string name="dialog_adb_pairing_accessibility_permission_tv">Android blokuje tento přepínač pro aplikace nainstalované mimo obchod s aplikacemi a v televizi, Informace o aplikaci nemají žádnou možnost \"Povolit omezená nastavení\" pro její odblokování. Počítač připojený k této televizi přes ADB je potřeba jednou: buď udělte výše uvedené svolení. která umožňuje Shizuku zapnout službu sama, nebo odblokovat přepínač pomocí:\n\n^1</string>
     <string name="dialog_adb_pairing_open_app_info">Informace o aplikaci</string>
-    <string name="dialog_adb_pairing_accessibility_enable">Automatické párování čte kód ze systémového dialogu prostřednictvím Shizuku služby přístupnosti, takže musí být povoleno, a to tak dlouho, jak dlouho bude trvat: než služba se vypne po nalezení kódu nebo po minutě, aby ušetřila energii. Shizuku to normálně umožňuje samo o sobě, a to vyžaduje oprávnění WRITE_SECURE_SETTINGS, které ještě nebylo uděleno nové instalaci.\n\nPovolte to na další obrazovce, zadejte kód sám ručně nebo jednou udělte oprávnění:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
+    <string name="dialog_adb_pairing_accessibility_enable">Automatické párování čte kód ze systémového dialogu prostřednictvím Shizuku služby přístupnosti, takže musí být povoleno, a to tak dlouho, jak dlouho bude trvat: než služba se vypne po nalezení kódu nebo po minutě, aby ušetřila energii. Shizuku to normálně umožňuje samo o sobě, a to vyžaduje oprávnění WRITE_SECURE_SETTINGS, které ještě nebylo uděleno nové instalaci.\n\nPovolte to na další obrazovce, zadejte kód sám ručně nebo jednou udělte oprávnění:\n\nAdb shell pm udělí %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Párování spusťte provedením následujících kroků:\n- Přejděte do sekce „Možnosti pro vývojáře“\n- Povolte „Ladění USB“ a „Bezdrátové ladění“\n- Klepněte na levou stranu sekce „Bezdrátové ladění“\n- Klepněte na „Spárovat zařízení s párovacím kódem“. Shizuku automaticky detekuje párovací kód.</string>
     <string name="adb_pairing_requires_multi_window">Nejprve prosím přejděte do režimu rozdělené obrazovky (více oken).</string>
     <string name="adb_pairing_requires_multi_window_reason">Systém vyžaduje, aby byl dialog pro párování vždy viditelný. Použití režimu rozdělené obrazovky je jediný způsob, jak zajistit, aby tato aplikace a dialogové okno systému byly viditelné současně.</string>
@@ -537,13 +542,13 @@
     <string name="about_package">Balíček</string>
     <string name="check_for_updates_now">Zkontrolovat nyní</string>
     <string name="start_failed">Šizuku nelze spustit</string>
-    <string name="start_failed_write_secure_settings">Shizuku nemůže přepnout bezdrátové ladění bez oprávnění WRITE_SECURE_SETTINGS. Zapněte jej pod vývojářskými možnostmi &gt; Bezdrátové ladění, nebo udělte oprávnění s <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. Jakmile Shizuku spustíte, zachová si toto oprávnění samo, takže je to jednorázové.</string>
+    <string name="start_failed_write_secure_settings">Shizuku nemůže přepnout bezdrátové ladění bez oprávnění WRITE_SECURE_SETTINGS. Zapněte jej pod vývojářskými možnostmi &gt; Bezdrátové ladění, nebo udělte oprávnění s <b>pm s adb shell udělte %1$s android.permission.WRITE_SECURE_SETTINGS</b>. Jakmile Shizuku spustíte, zachová si toto oprávnění samo, takže je to jednorázové.</string>
     <string name="action_open_wireless_debugging">Bezdrátové ladění</string>
     <string name="start_failed_unsupported">Toto zařízení nemůže spustit na pozadí</string>
     <string name="start_failed_wifi_required">Připojte se k síti Wi-Fi, systém vypne bezdrátové ladění. Nebo spusťte z počítače pomocí příkazu ADB níže.</string>
     <string name="start_failed_binder_went_away">Služba byla spuštěna a pak znovu zastavena, takže ještě nic nemůže použít. To se stane, když je server sejmut s aplikací, kterou spustí, co dělá užitečné zatížení po jeho spuštění. Zkuste to znovu.</string>
     <string name="start_failed_no_port">Nebyl nalezen bezdrátový port pro ladění. Ujistěte se, že bezdrátové ladění je povoleno a že je připojeno Wi-Fi.</string>
-    <string name="start_failed_no_port_no_permission">Nebyl nalezen bezdrátový debugging port a Shizuku nemůže zapnout bezdrátové ladění bez WRITE_SECURE_SETTINGS: <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b> nebo spusťte Shizuku nad USB laděním, jakmile si poté udělí.</string>
+    <string name="start_failed_no_port_no_permission">Nebyl nalezen bezdrátový debugging port a Shizuku nemůže zapnout bezdrátové ladění bez WRITE_SECURE_SETTINGS: <b>Adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>nebo spusťte Shizuku nad USB laděním, jakmile si poté udělí.</string>
     <string name="start_failed_no_auth">Bezdrátové ladění není v této síti povoleno. Znovu spusťte zařízení.</string>
     <string name="action_dismiss">Odmítnout</string>
     <string name="action_connect_wifi">Připojit</string>
@@ -566,6 +571,19 @@
     <string name="settings_section_wireless_summary">Bezdrátové ladění, TCP režim a ADB port</string>
     <string name="settings_section_tools">Nástroje</string>
     <string name="settings_section_tools_summary">Oprávnění, nastavení, terminál a záměry</string>
+    <string name="settings_backup_section">Zálohování a obnovení</string>
+    <string name="settings_backup_export">Nastavení zálohování</string>
+    <string name="settings_backup_export_summary">Uložit nastavení aplikace a seznamy Labs do souboru JSON.</string>
+    <string name="settings_backup_restore">Obnovit nastavení</string>
+    <string name="settings_backup_restore_summary">Načíst nastavení aplikace a seznamy Labs z Json souboru.</string>
+    <string name="settings_backup_exported">%1$d nastavení uloženo.</string>
+    <string name="settings_backup_export_failed">Záloha se nepodařilo uložit.</string>
+    <string name="settings_backup_unreadable">Tento soubor není záloha nastavení Shizuku.</string>
+    <string name="settings_backup_restore_title">Obnovit nastavení?</string>
+    <string name="settings_backup_restore_message">Toto nahrazuje nastavení a seznamy %1$d.</string>
+    <string name="settings_backup_restore_action">Obnovit</string>
+    <string name="settings_backup_restored">Obnoveno %1$d nastavení. Restartujte Shizuku pro aplikování změn.</string>
+    <string name="settings_backup_restore_failed">Záloha se nepodařilo obnovit.</string>
     <string name="settings_section_appearance">Vzhled</string>
     <string name="settings_section_appearance_summary">Motivy, barvy a jazyk</string>
     <string name="settings_section_about">O aplikaci</string>
@@ -640,12 +658,17 @@
     <string name="settings_start_on_boot">Spustit při startu systému</string>
     <string name="settings_use_system_color">Použít barvu systémového motivu</string>
     <string name="settings_use_system_color_summary">Postupujte podle palety systému</string>
+    <string name="settings_always_show_navigation_bar">Vždy zobrazovat navigační lištu</string>
+    <string name="settings_always_show_navigation_bar_summary">Ponechat panel viditelný při posouvání dolů.</string>
+    <string name="settings_secure_quick_tiles">Zabezpečené dlaždice</string>
+    <string name="settings_secure_quick_tiles_summary">Blokovat změny dlaždic, když je telefon uzamčen.</string>
     <string name="settings_watchdog">Hlídací pes</string>
     <string name="settings_watchdog_summary">Automaticky restartovat Shizuku v případě pádu</string>
     <string name="settings_auto_disable_wireless_debugging">Zakázat bezdrátové ladění</string>
     <string name="settings_auto_disable_wireless_debugging_summary">Vypnout bezdrátové ladění při zastavení Shizuku.</string>
     <string name="settings_start_method">Výchozí metoda startu</string>
     <string name="settings_start_method_root_unavailable">Toto zařízení nemá root, takže se začíná vracet k bezdrátovému ladění.</string>
+    <string name="settings_start_method_root_unavailable_usb">Toto zařízení nemá root, takže se začíná vracet zpět na USB.</string>
     <string name="start_method_wireless_no_network">Bez Wi-Fi</string>
     <string name="start_method_wireless">Bezdrátové</string>
     <string name="start_method_usb">USB</string>
@@ -734,6 +757,8 @@
     <string name="setup_root_body">Jedním klepnutím, bez kabelu a bez párování. Potřebuje root manažera, který poskytne Shizuku přístup.</string>
     <string name="setup_wireless_title">Bezdrátové ladění</string>
     <string name="setup_wireless_body">Funguje bez rootu. Potřebuje možnosti vývojáře a jednorázové párování; poté startuje z aplikace.</string>
+    <string name="setup_usb_title">Ladění USB</string>
+    <string name="setup_usb_body">Funguje bez rootu. Potřebuje klasický ADB port; pokud není otevřený, připojte se jednou k počítači a spusťte Šizuku.</string>
     <string name="setup_permissions_title">Volitelná oprávnění</string>
     <string name="setup_permissions_body">Můžete některé z nich přeskočit a později je změnit v Nastavení.</string>
     <string name="settings_run_setup">Znovu spustit nastavení</string>
@@ -1042,6 +1067,25 @@
     <string name="app_action_uninstall_note">Odebere aplikaci, ale uchovává její data.</string>
     <string name="app_action_restore">Obnovit systémovou aplikaci</string>
     <string name="app_action_restore_note">Obnoví odstraněnou systémovou aplikaci pro tohoto uživatele.</string>
+    <string name="app_section_data">Data aplikace</string>
+    <string name="app_data_note">Exportuje OBB a Android/data. Interní data aplikace vyžadují root a nejsou zahrnuty.</string>
+    <string name="app_data_needs_shizuku">Spustit Shizuku pro export nebo import dat aplikace.</string>
+    <string name="app_data_export">Exportovat data aplikace</string>
+    <string name="app_data_export_note">Zastaví aplikaci a uloží OBB a externí data do ZIP souboru.</string>
+    <string name="app_data_import">Importovat data aplikace</string>
+    <string name="app_data_import_note">Zastaví aplikaci a nahradí OBB a externí data ze ZIP souboru.</string>
+    <string name="app_data_none">Tato aplikace nemá žádné OBB nebo externí data pro export.</string>
+    <string name="app_data_exporting">Exportování dat aplikace</string>
+    <string name="app_data_importing">Importování dat aplikace</string>
+    <string name="app_data_preparing">Připravuje se…</string>
+    <string name="app_data_exported">Exportovaná data aplikace.</string>
+    <string name="app_data_imported">Importovaná data aplikace. Spusťte aplikaci pro jejich použití.</string>
+    <string name="app_data_export_failed">Nepodařilo se exportovat data aplikace: %1$s</string>
+    <string name="app_data_import_failed">Nepodařilo se importovat data aplikace: %1$s</string>
+    <string name="app_data_cancelled">Zrušeno.</string>
+    <string name="app_data_import_title">Importovat data aplikace?</string>
+    <string name="app_data_import_message">Nahradit OBB a externí data pro %1$s z tohoto archivu? Části chybějící v archivu jsou ponechány samostatně.</string>
+    <string name="app_data_import_action">Importovat</string>
     <string name="app_confirm_title">Jste si jisti?</string>
     <string name="app_confirm_disable">Zakázat %1$s? Přestane běžet, dokud jej znovu nepovolíte.</string>
     <string name="app_confirm_clear_data">Odstranit všechna data pro %1$s? Tuto akci nelze vrátit zpět.</string>
@@ -1101,6 +1145,7 @@
     <string name="lab_switch_is_on">%1$s je zapnuto</string>
     <string name="lab_switch_is_off">%1$s je vypnuto</string>
     <string name="lab_switch_could_not_change">%1$s nelze změnit</string>
+    <string name="lab_switch_locked">Odemkněte telefon pro změnu této dlaždice.</string>
     <string name="app_info_version">Verze</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">Target SDK</string>
@@ -1214,6 +1259,8 @@
     <string name="install_action">Instalovat</string>
     <string name="install_running">Instalování\u2026</string>
     <string name="install_done">Nainstalováno.</string>
+    <string name="install_open">Otevřít aplikaci</string>
+    <string name="install_open_failed">Aplikaci nelze otevřít.</string>
     <string name="install_options_heading">Možnosti instalace</string>
     <string name="install_instant">Instalovat jako okamžitou aplikaci</string>
     <string name="install_instant_desc">Spustí bez instalace celé aplikace nebo její přidání do spouštěče.</string>
@@ -1267,4 +1314,10 @@
     <string name="install_location_shared">Sdílené úložiště</string>
     <string name="install_spoof_source">Maskovaný zdroj instalace</string>
     <string name="install_spoof_source_desc">Balíček Android je považován za autora instalace této aplikace.</string>
+    <string name="install_source_presets">Běžné instalační zdroje</string>
+    <string name="install_source_none">Žádné spoofování</string>
+    <string name="install_source_play_store">Obchod Google Play</string>
+    <string name="install_source_shell">Příkazová řádka</string>
+    <string name="install_source_google_package_installer">Instalátor Google balíčků</string>
+    <string name="install_source_aosp_package_installer">Instalátor AOSP balíčků</string>
 </resources>

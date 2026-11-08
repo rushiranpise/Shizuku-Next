@@ -65,6 +65,9 @@
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Android chặn công tắc này đối với các ứng dụng được cài đặt bên ngoài cửa hàng ứng dụng. Cho phép ứng dụng ^1 app-op bật dịch vụ hỗ trợ tiếp cận. Danh sách hỗ trợ tiếp cận hiển thị mục này là \"Cài đặt bị hạn chế\".\n\nMở Thông tin ứng dụng và chọn \"Cho phép cài đặt bị hạn chế\" từ menu, hoặc chạy lệnh này trên máy tính:\n\n^2\n\nMột trong hai tùy chọn đều có tác dụng. Công tắc sẽ hoạt động sau đó.</string>
+    <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
+         App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
+         command. -->
     <string name="dialog_adb_pairing_open_app_info">Thông tin ứng dụng</string>
     <string name="dialog_adb_pairing_accessibility_enable">Tính năng ghép nối tự động sẽ đọc mã từ hộp thoại hệ thống thông qua dịch vụ hỗ trợ tiếp cận của Shizuku. Do đó, dịch vụ này cần được kích hoạt, nhưng chỉ trong khoảng thời gian cần thiết: dịch vụ sẽ tự động tắt ngay khi tìm thấy mã hoặc sau một phút để tiết kiệm pin. Thông thường, Shizuku sẽ tự kích hoạt dịch vụ này, nhưng thao tác đó yêu cầu quyền WRITE_SECURE_SETTINGS — một quyền mà ứng dụng mới cài đặt chưa được cấp.\n\nBạn có thể kích hoạt quyền này ở màn hình tiếp theo, tự nhập mã theo cách thủ công, hoặc cấp quyền này một lần duy nhất bằng lệnh sau:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Vui lòng bắt đầu ghép nối bằng cách thực hiện các bước sau:\n- Đi tới \"Tùy chọn nhà phát triển\"\n- Bật \"Gỡ lỗi USB\" và \"Gỡ lỗi không dây\"\n- Nhấn vào phần bên trái của \"Gỡ lỗi không dây\"\n- Nhấn \"Ghép nối thiết bị bằng mã ghép nối\". Shizuku sẽ tự động phát hiện mã ghép nối.</string>
@@ -386,7 +389,7 @@
       than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
     -->
     <string name="setup_action_continue">Tiếp tục</string>
-    <string name="setup_wireless_title">Gỡ lỗi không dây</string>
+    <string name="setup_wireless_title">Mở gỡ lỗi không dây</string>
     <string name="settings_help">Giúp đỡ</string>
     <string name="settings_translate">Tham gia dịch thuật</string>
     <string name="settings_translate_note">Dịch ứng dụng trên Crowdin.</string>
