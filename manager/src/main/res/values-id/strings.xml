@@ -465,7 +465,7 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
     <string name="modules_settings">Modules</string>
     <string name="modules_disabled">Disabled</string>
     <string name="modules_sort">Sort</string>
-    <string name="modules_sort_z_to_a"></string>
+    <string name="modules_sort_z_to_a">Nama (Z-A)</string>
     <string name="modules_action_short">Aksi</string>
     <string name="modules_service_short">Layanan</string>
     <string name="modules_service_running_short">Running</string>
@@ -516,16 +516,8 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
     <string name="setup_action_continue">Lanjutkan</string>
     <string name="setup_usb_title">Debugging USB</string>
     <string name="settings_help">Membantu</string>
-    <string name="settings_translate"></string>
-    <string name="settings_translate_note">Aturan penerjemahan:
-Gunakan bahasa Indonesia yang baku, natural, dan mudah dipahami.
-Sesuaikan terjemahan dengan konteks aplikasi dan teknologi.
-Jangan menerjemahkan nama kode, Id, atau variabel seperti %1$s, %2$s, dan placeholder lainnya.
-Pertahankan format, simbol, tanda baca, dan susunan teks asli.
-Jangan menghapus atau menambahkan informasi.
-Gunakan istilah yang konsisten di seluruh aplikasi.
-Pastikan hasil terjemahan tidak kosong.
-Jangan menerjemahkan teks yang berupa kode program atau identifier.</string>
+    <string name="settings_translate">Ikut menerjemahkan</string>
+    <string name="settings_translate_note">Terjemahkan aplikasi ini di Crowdin.</string>
     <string name="settings_report_bug">Laporkan bug</string>
     <!--
       A plural, not a plain string: most of the people on this wall are here for a single commit,
