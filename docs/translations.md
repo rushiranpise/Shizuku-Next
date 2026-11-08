@@ -31,6 +31,7 @@ pull request is checked first, and it is left open when:
 
 - it changes any file other than `manager/src/main/res/values-*/strings.xml`
 - a file is not valid XML, or holds no strings at all
+- a translated string changes an ADB command from the source, or loses a format placeholder
 - a file is **90% or more the English text**, which means it was exported without
   *skip untranslated strings* and is not a translation
 

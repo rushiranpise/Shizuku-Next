@@ -70,7 +70,6 @@
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
     <string name="dialog_adb_pairing_open_app_info">Informações do app</string>
-    <string name="dialog_adb_pairing_accessibility_enable"></string>
     <string name="dialog_adb_pairing_accessibility_navigate">Para iniciar o emparelhamento, siga estas etapas:\n- Acesse “Opções do desenvolvedor”\n- Ative “Depuração por USB” e “Depuração sem fio”\n- Toque no lado esquerdo de “Depuração sem fio”\n- Toque em “Emparelhar dispositivo com código de emparelhamento”. O Shizuku detectará automaticamente o código de emparelhamento.</string>
     <string name="adb_pairing_requires_multi_window">Primeiro, abra o modo de tela dividida.</string>
     <string name="adb_pairing_requires_multi_window_reason">O sistema exige que a janela de emparelhamento permaneça sempre visível. Usar o modo de tela dividida é a única maneira de manter este aplicativo e a janela do sistema visíveis ao mesmo tempo.</string>
@@ -682,7 +681,7 @@
     -->
     <plurals name="contributor_commits">
         <item quantity="one">%1$d commit</item>
-        <item quantity="other">%1$d%1$d commits</item>
+        <item quantity="other">%1$d commits</item>
     </plurals>
     <string name="contributor_view_github">Ver no GitHub</string>
     <string name="contributor_details_close">Fechar</string>
