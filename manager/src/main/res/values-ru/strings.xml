@@ -65,6 +65,9 @@
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Android блокирует этот переключатель для приложений, установленных не из магазина приложений. Разрешите операцию ^1, чтобы включить службу специальных возможностей. В списке специальных возможностей это отображается как «Контролируется ограниченной настройкой».\n\nОткройте «О приложении» и выберите в меню «Разрешить ограниченные настройки» либо выполните на компьютере команду:\n\n^2\n\nПодойдёт любой из вариантов. После этого переключатель заработает.</string>
+    <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
+         App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
+         command. -->
     <string name="dialog_adb_pairing_open_app_info">О приложении</string>
     <string name="dialog_adb_pairing_accessibility_enable">Автосопряжение считывает код из системного диалога через службу специальных возможностей Shizuku, поэтому она должна быть включена, и лишь на время: служба отключается сама, когда код найден, или через минуту, чтобы не тратить заряд. Обычно Shizuku включает её сам, а для этого нужно разрешение WRITE_SECURE_SETTINGS, которое при свежей установке ещё не выдано.\n\nВключите её на следующем экране, введите код сами в разделе «Вручную» или один раз выдайте разрешение:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Начните сопряжение, выполнив следующие шаги:\n- Откройте «Параметры разработчика»\n- Включите «Отладку по USB» и «Беспроводную отладку»\n- Нажмите на левую часть пункта «Беспроводная отладка»\n- Нажмите «Сопряжение с устройством по коду». Shizuku автоматически определит код сопряжения.</string>
@@ -549,6 +552,7 @@
     <string name="settings_section_startup">Запуск</string>
     <string name="settings_section_wireless">Отладка по Wi-Fi</string>
     <string name="settings_section_tools">Инструменты</string>
+    <string name="settings_backup_restore_action">Восстановить</string>
     <string name="settings_section_appearance">Внешний вид</string>
     <string name="settings_section_about">О приложении</string>
     <string name="settings_theme">Тема</string>
@@ -701,6 +705,7 @@
     -->
     <string name="setup_action_continue">Продолжить</string>
     <string name="setup_wireless_title">Отладка по Wi-Fi</string>
+    <string name="setup_usb_title">Отладка по USB</string>
     <string name="settings_help">Справка</string>
     <string name="settings_translate">Участвовать в переводе</string>
     <string name="settings_translate_note">Переводите приложение на Crowdin.</string>
@@ -1204,4 +1209,5 @@
     <string name="install_location_shared">Общее хранилище</string>
     <string name="install_spoof_source">Подменять источник установки</string>
     <string name="install_spoof_source_desc">Пакет, который Android считает установившим это приложение.</string>
+    <string name="install_source_shell">Терминал</string>
 </resources>

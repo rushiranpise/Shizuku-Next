@@ -13,6 +13,7 @@
     <string name="home_wireless_adb_title"><![CDATA[Mulai melalui Debug Nirkabel]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Memulai tanpa jaringan: perangkat diminta mengaktifkan debugging nirkabel berulang kali hingga fitur tersebut menyala stabil. Proses ini bisa memakan waktu hingga dua menit sebelum dimulai atau berhenti mencoba.</string>
     <string name="home_usb_adb_needs_network">Menjalankan lewat USB menggunakan port ADB klasik, dan membukanya kembali membutuhkan jaringan. Hubungkan ke Wi-Fi sekali, atau pilih <b>Mulai tanpa Wi-Fi</b> sebagai metode mulai lalu jalankan lewat debugging nirkabel.</string>
+    <string name="home_usb_adb_needs_computer">A USB start needs the classic ADB port. On this Android version, connect to a computer and start Shizuku with the ADB command in Other methods.</string>
     <string name="home_wireless_adb_summary">Mulai menggunakan debugging nirkabel.</string>
     <string name="home_usb_adb_title"><![CDATA[Mulai lewat debugging USB]]></string>
     <string name="home_usb_adb_summary">Mulai menggunakan debugging USB.</string>
@@ -70,6 +71,9 @@
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Android blocks this switch for apps installed outside an app store. Allow the ^1 app-op to turn on the accessibility service. The accessibility list shows this as \"Controlled by Restricted Setting\".\n\nOpen App info and select \"Allow restricted settings\" from the menu, or run this on a computer:\n\n^2\n\nEither option works. The switch will work afterwards.</string>
+    <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
+         App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
+         command. -->
     <string name="dialog_adb_pairing_open_app_info">App info</string>
     <string name="dialog_adb_pairing_accessibility_enable"></string>
     <string name="dialog_adb_pairing_accessibility_navigate">Silakan mulai pemasangan dengan
@@ -461,9 +465,11 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
     <string name="modules_settings">Modules</string>
     <string name="modules_disabled">Disabled</string>
     <string name="modules_sort">Sort</string>
+    <string name="modules_sort_z_to_a">Nama (Z-A)</string>
     <string name="modules_action_short">Aksi</string>
     <string name="modules_service_short">Layanan</string>
     <string name="modules_service_running_short">Running</string>
+    <string name="settings_backup_restore_action">Memulihkan</string>
     <string name="intents_start">Mulai</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Pengguna telah melaporkan bahwa MIUI merusak Storage
@@ -508,7 +514,10 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
       than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
     -->
     <string name="setup_action_continue">Lanjutkan</string>
+    <string name="setup_usb_title">Debugging USB</string>
     <string name="settings_help">Membantu</string>
+    <string name="settings_translate">Ikut menerjemahkan</string>
+    <string name="settings_translate_note">Terjemahkan aplikasi ini di Crowdin.</string>
     <string name="settings_report_bug">Laporkan bug</string>
     <!--
       A plural, not a plain string: most of the people on this wall are here for a single commit,
@@ -645,4 +654,5 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
     <string name="files_root_app_data">Data</string>
     <string name="files_sort">Sort</string>
     <string name="install_location_auto">Pilihan pengembang</string>
+    <string name="install_source_shell">Shell</string>
 </resources>

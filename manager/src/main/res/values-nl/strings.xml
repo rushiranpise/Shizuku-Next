@@ -6,12 +6,51 @@
       a change here reaches translators on the next push and not before.
     -->
     <!-- To translators: you can leave your here -->
+    <string name="home_status_adb_wireless">adb</string>
+    <string name="home_status_adb_usb">adb</string>
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[Starten via draadloze foutopsporing]]></string>
+    <string name="home_wireless_adb_starting_without_wifi">Starting with no network: the device is asked for wireless debugging over and over until it stays on. This can take up to two minutes before it starts or gives up.</string>
+    <string name="home_usb_adb_needs_network">A USB start uses the classic ADB port, and reopening it needs a network. Connect to Wi-Fi once, or choose <b>Start without Wi-Fi</b> as the start method and start over wireless debugging instead.</string>
+    <string name="home_usb_adb_needs_computer">A USB start needs the classic ADB port. On this Android version, connect to a computer and start Shizuku with the ADB command in Other methods.</string>
+    <string name="home_wireless_adb_summary">Starts using wireless debugging.</string>
+    <string name="home_usb_adb_title"><![CDATA[Start via USB debugging]]></string>
+    <string name="home_usb_adb_summary">Starts using USB debugging.</string>
+    <string name="home_support_body">Shizuku-Next is free and has no ads. A coffee goes towards the time it takes to maintain.</string>
+    <string name="diagnostics_title">Diagnostics</string>
+    <string name="diagnostics_copy">Copy diagnostics</string>
+    <string name="diagnostics_copied">Diagnostics copied</string>
+    <string name="diagnostics_service">Service</string>
+    <string name="diagnostics_server_uid">Server uid</string>
+    <string name="diagnostics_server_api">Server API</string>
+    <string name="diagnostics_server_context">Server context</string>
+    <string name="diagnostics_wireless_debugging">Wireless debugging</string>
+    <string name="diagnostics_adb_port">ADB port</string>
+    <string name="diagnostics_wifi">Wi-Fi</string>
+    <string name="diagnostics_local_network">Local network</string>
+    <string name="diagnostics_battery">Battery optimization</string>
+    <string name="diagnostics_app">App</string>
+    <string name="diagnostics_android">Android</string>
+    <string name="diagnostics_device">Device</string>
+    <string name="diagnostics_started_with">Started with</string>
+    <string name="diagnostics_default">Default method</string>
+    <string name="diagnostics_hiding">Hiding</string>
+    <string name="diagnostics_phantom">Process killer</string>
+    <string name="diagnostics_root">Root</string>
+    <string name="diagnostics_granted">granted</string>
+    <string name="diagnostics_missing">missing</string>
+    <string name="diagnostics_not_required">not required</string>
+    <string name="diagnostics_connected">connected</string>
+    <string name="diagnostics_not_connected">not connected</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
+    <string name="diagnostics_battery_optimized">optimized</string>
+    <string name="diagnostics_battery_unrestricted">unrestricted</string>
+    <string name="diagnostics_available">available</string>
+    <string name="diagnostics_unavailable">unavailable</string>
+    <string name="diagnostics_closed">closed</string>
     <!-- Adb -->
     <string name="dialog_adb_port">Poort</string>
     <string name="dialog_adb_invalid_port">Poort is een geheel getal dat varieert van 1 tot 65535.</string>
@@ -31,6 +70,10 @@
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
+    <string name="dialog_adb_pairing_accessibility_permission">Android blocks this switch for apps installed outside an app store. Allow the ^1 app-op to turn on the accessibility service. The accessibility list shows this as \"Controlled by Restricted Setting\".\n\nOpen App info and select \"Allow restricted settings\" from the menu, or run this on a computer:\n\n^2\n\nEither option works. The switch will work afterwards.</string>
+    <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
+         App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
+         command. -->
     <string name="dialog_adb_pairing_accessibility_navigate">Begin met koppelen door de volgende
         stappen uit te voeren:\n- Ga naar \'Ontwikkelaarsopties\'\n- Schakel \'USB-foutopsporing\'
         en \'Draadloze foutopsporing\' in\n- Klik op de linkerkant van \'Draadloze
@@ -94,6 +137,7 @@
     <string name="log_capture_start">Starten</string>
     <string name="action_start">Starten</string>
     <string name="modules_repo_retry">Opnieuw</string>
+    <string name="modules_service_short">Service</string>
     <string name="intents_start">Starten</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Gebruikers hebben gemeld dat MIUI het Storage Access
@@ -115,6 +159,7 @@
     <string name="settings_start_on_boot">Starten bij het opstarten</string>
     <string name="settings_watchdog">Bewaker</string>
     <string name="settings_watchdog_summary">Shizuku automatisch opnieuw opstarten als het vastloopt</string>
+    <string name="transport_adb">adb</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
     <string name="settings_tcp_mode">TCP-modus</string>
@@ -142,6 +187,7 @@
       so the singular is read more often than the plural is.
     -->
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
+    <string name="contributor_area_app">App</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
       worked in, and the languages they translated into. There is deliberately no string per

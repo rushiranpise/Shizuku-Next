@@ -67,6 +67,9 @@
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">يحظر Android تفعيل هذا الخيار للتطبيقات المثبتة من خارج متجر التطبيقات. اسمح بإذن ^1 لتفعيل خدمة تسهيل الاستخدام. ستظهر هذه الخدمة في قائمة تسهيل الاستخدام بالحالة \"يخضع لقيود الإعدادات\".\n\nافتح معلومات التطبيق واختر \"السماح بالإعدادات المقيّدة\" من القائمة، أو نفّذ هذا الأمر على جهاز كمبيوتر:\\n\\n^2\n\nكلا الخيارين يعمل. سيعمل المفتاح بعد ذلك.</string>
+    <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
+         App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
+         command. -->
     <string name="dialog_adb_pairing_open_app_info"></string>
     <string name="dialog_adb_pairing_accessibility_enable">يقرأ الإقران التلقائي الرمز من نافذة النظام عبر خدمة إمكانية الوصول الخاصة بـ Shizuku، لذا يجب تفعيلها، وستعمل فقط للفترة المطلوبة: تقوم الخدمة بإيقاف نفسها تلقائياً بمجرد العثور على الرمز، أو بعد دقيقة واحدة لتوفير الطاقة. يقوم Shizuku عادةً بتفعيلها بنفسه، وهذا يتطلب صلاحية WRITE_SECURE_SETTINGS، والتي لم يتم منحها بعد I في حال كان التثبيت جديداً.\n\nقم بتفعيلها في الشاشة التالية، أو اكتب الرمز بنفسك ضمن خيار \"يدوي\"، أو امنح الصلاحية لمرة واحدة:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">يرجى بدء عملية الاقتران من خلال تنفيذ
@@ -646,6 +649,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="settings_section_wireless_summary"></string>
     <string name="settings_section_tools"></string>
     <string name="settings_section_tools_summary"></string>
+    <string name="settings_backup_restore_action">استرجاع</string>
     <string name="settings_section_appearance"></string>
     <string name="settings_section_appearance_summary"></string>
     <string name="settings_section_about"></string>
@@ -777,6 +781,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="setup_root_body">.</string>
     <string name="setup_wireless_title">تصحيح الأخطاء عن طريق الشبكه اللاسلكية</string>
     <string name="setup_wireless_body">.</string>
+    <string name="setup_usb_title">تصحيح أخطاء USB</string>
     <string name="setup_permissions_title"></string>
     <string name="setup_permissions_body">.</string>
     <string name="settings_run_setup"></string>
@@ -1142,4 +1147,6 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="install_location_shared">التخزين المشترك</string>
     <string name="install_spoof_source">تمويه مصدر التثبيت</string>
     <string name="install_spoof_source_desc">الحزمة التي سيُسجل في نظام أندرويد أنها من قامت بتثبيت هذا التطبيق.</string>
+    <string name="install_source_shell">واجهة الأوامر (Shell)
+</string>
 </resources>
