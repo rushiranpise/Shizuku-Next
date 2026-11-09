@@ -13,7 +13,6 @@
     <string name="home_wireless_adb_title"><![CDATA[Iniciar via depuração sem fio]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Começando sem rede: o dispositivo é solicitado pela depuração sem fio várias vezes até ficar ligado. Isto pode demorar até dois minutos antes de começar ou desistir.</string>
     <string name="home_usb_adb_needs_network">A inicialização via USB utiliza a porta ADB clássica, e para reabri-la é necessária uma conexão de rede. Conecte-se ao Wi-Fi uma vez ou escolha <b>Iniciar sem Wi-Fi</b> como método de inicialização e inicie a depuração sem fio.</string>
-    <string name="home_usb_adb_needs_computer">Uma inicialização por USB precisa da porta ADB clássica. Nesta versão do Android, conecte-se a um computador e inicie o Shizuku com o comando ADB em Outros métodos.</string>
     <string name="home_wireless_adb_summary">Inicia o uso de depuração sem fio.</string>
     <string name="home_usb_adb_title"><![CDATA[Iniciar via depuração USB]]></string>
     <string name="home_usb_adb_summary">Inicia o uso da depuração USB.</string>
@@ -198,10 +197,13 @@
     <string name="power_bootloader">Reinicie para o bootloader</string>
     <string name="power_bootloader_summary">Reinicie para o modo de fastboot para conectar a um computador.</string>
     <string name="power_bootloader_confirm">O celular irá reiniciar no bootloader e ficar até você reiniciar ele, geralmente de um computador.</string>
+    <string name="power_off">Desligar</string>
+    <string name="power_off_summary">Desligue seu celular</string>
     <string name="power_off_confirm">O celular desligará agora. Trabalho não salvo será perdido.</string>
     <string name="power_screen_off">Desligue a tela do celular</string>
     <string name="power_screen_off_summary">Desligue a tela do celular. Se uma senha estiver definida, o celular bloqueará também.</string>
     <string name="power_confirm_title">Você tem certeza?</string>
+    <string name="power_confirm">Continuar</string>
     <string name="power_soft_reboot">Reiniciamento suave</string>
     <string name="power_soft_reboot_summary"></string>
     <string name="power_soft_reboot_confirm">O Android reiniciará, todos os apps e a interface do sistema fechará e abrirá novamente, você pode precisar iniciar o shizuku novamente.</string>
@@ -218,6 +220,11 @@
     <string name="display_density">Densidade</string>
     <string name="display_density_summary">Controle o tamanho dos itens na tela. Valores maiores deixa eles menores; e vice-versa.</string>
     <string name="display_min_refresh">Taxa de atualização minima</string>
+    <string name="display_max_refresh">Taxa máxima de atualização</string>
+    <string name="display_current">Atual: %1$s</string>
+    <string name="display_apply">Aplicar</string>
+    <string name="display_reset">Redefinir</string>
+    <string name="display_invalid">Valor inválido</string>
     <string name="activities_apps_count">Apps %1$d</string>
     <string name="activities_count">Atividades %1$d</string>
     <string name="activities_launcher">Lançador</string>
@@ -234,6 +241,7 @@
     <string name="activities_copy">copiar</string>
     <string name="activities_edit_as_intent">Editar como intenção</string>
     <string name="activities_copied">Copiado</string>
+    <string name="activities_saved">Salvar atividades</string>
     <string name="activities_apps_section">Aplicativos</string>
     <string name="activities_save">Guardar</string>
     <string name="tab_intent_builder">Construtor de intuições</string>
@@ -274,6 +282,7 @@
     <string name="intent_flag_grant_write">Conceder escrita</string>
     <string name="tab_device_info">Informações do dispositivo</string>
     <string name="device_refresh">atualizar</string>
+    <string name="scroll_to_top">Voltar ao topo</string>
     <string name="device_battery">Bateria</string>
     <string name="device_status">SItuação</string>
     <string name="device_temperature">Temperatura</string>
@@ -417,6 +426,8 @@
     <string name="status_value_none">-</string>
     <string name="status_running_short">Executando</string>
     <string name="status_stopped_short">Parado</string>
+    <string name="home_status_service_active">Shizuku em execução</string>
+    <string name="home_status_service_stopped">Shizuku não está em execução</string>
     <string name="action_start">Iniciar</string>
     <string name="tools_stealth">Modo furtivo</string>
     <string name="tools_modules">Módulos</string>
@@ -461,9 +472,12 @@
     <string name="modules_action_short">Acão</string>
     <string name="modules_service_short">Serviço</string>
     <string name="modules_service_running_short">Executando</string>
-    <string name="modules_install">New</string>
+    <string name="modules_install">Instalar um módulo</string>
     <string name="modules_installed">%1$s instalado</string>
+    <string name="modules_access_full">Acesso total</string>
     <string name="modules_delete">excluir</string>
+    <string name="modules_delete_confirm">Excluir %1$s?</string>
+    <string name="modules_review_trust">Confiar em %1$s, e não perguntar novamente</string>
     <string name="modules_result_title">%1$s</string>
     <string name="modules_result_exit">Código de saída %1$d</string>
     <string name="modules_error_not_a_module">Esse arquivo não é um módulo: o arquivo module.prop está faltando ou está inutilizável.</string>
@@ -663,6 +677,7 @@
       The guided first run. Each page is one decision, and the sentences say what happens rather
       than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
     -->
+    <string name="setup_action_continue">Continuar</string>
     <string name="setup_root_title">raiz</string>
     <string name="setup_wireless_title">Depuração sem fio</string>
     <string name="setup_usb_title">Depuração USB</string>
@@ -679,10 +694,6 @@
       A plural, not a plain string: most of the people on this wall are here for a single commit,
       so the singular is read more often than the plural is.
     -->
-    <plurals name="contributor_commits">
-        <item quantity="one">%1$d commit</item>
-        <item quantity="other">%1$d commits</item>
-    </plurals>
     <string name="contributor_view_github">Ver no GitHub</string>
     <string name="contributor_details_close">Fechar</string>
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->

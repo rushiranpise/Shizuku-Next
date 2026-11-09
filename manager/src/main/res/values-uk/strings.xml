@@ -746,7 +746,6 @@
     <string name="shell_adb_host_devices">Цей список пристроїв під’єднаних до комп\'ютера. Це пристрій, тому немає нічого для списку: \'pm list packages\' це те, що встановлено на ньому.</string>
     <string name="shell_adb_host_install">Встановлення належить до комп’ютерної частини цієї команди. Тут ту саму дію виконує <b>pm install /path/to/app.apk</b>, запущена через Shizuku, як і будь-яка інша команда.</string>
     <string name="shell_adb_host_transfer">В одному кінці нам потрібен комп\'ютер. На пристрої файли будуть перенесені з <b>cp</b>, а шляхи до яких може дістатися цієї оболонки.</string>
-    <string name="shell_adb_host_generic">Ця половина adb працює на комп\'ютері, але не має нічого діяти зсередини пристрою. Замість цього запустіть команду з пристрою: <b>adb shell ps</b> та <b>ps</b> - те ж саме.</string>
     <string name="shell_adb_host_help">Це оболонка самого пристрою, а не adb на комп’ютері: команди виконуються від імені UID, під яким працює Shizuku, по одній за раз. Почніть із <b>pm list packages</b>, <b>dumpsys battery</b> або бібліотеки над полем введення.</string>
     <string name="shell_paste">Вставити команду</string>
     <string name="shell_paste_empty">Нічого в буфері обміну для вставки.</string>

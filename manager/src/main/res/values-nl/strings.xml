@@ -10,7 +10,7 @@
     <string name="home_status_adb_usb">adb</string>
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
-    <string name="home_wireless_adb_title"><![CDATA[Starten via draadloze foutopsporing]]></string>
+    <string name="home_wireless_adb_title"><![CDATA[Start via Wireless debugging]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Starting with no network: the device is asked for wireless debugging over and over until it stays on. This can take up to two minutes before it starts or gives up.</string>
     <string name="home_usb_adb_needs_network">A USB start uses the classic ADB port, and reopening it needs a network. Connect to Wi-Fi once, or choose <b>Start without Wi-Fi</b> as the start method and start over wireless debugging instead.</string>
     <string name="home_usb_adb_needs_computer">A USB start needs the classic ADB port. On this Android version, connect to a computer and start Shizuku with the ADB command in Other methods.</string>
@@ -52,20 +52,15 @@
     <string name="diagnostics_unavailable">unavailable</string>
     <string name="diagnostics_closed">closed</string>
     <!-- Adb -->
-    <string name="dialog_adb_port">Poort</string>
-    <string name="dialog_adb_invalid_port">Poort is een geheel getal dat varieert van 1 tot 65535.</string>
-    <string name="adb_pairing">Koppelen</string>
-    <string name="dialog_adb_pairing_title">Koppelen met apparaat</string>
-    <string name="dialog_adb_pairing_discovery">Zoeken naar koppelingsservice</string>
-    <string name="dialog_adb_pairing_paring_code">Koppelingscode</string>
-    <string name="paring_code_is_wrong">Koppelingscode is incorrect.</string>
-    <string name="cannot_connect_port">Kan geen verbinding maken met de draadloze
-        foutopsporingsservice.\n\nZorg ervoor dat Shizuku op de witte lijst staat in alle firewalls,
-        adblockers, VPN\'s of vergelijkbare apps die de netwerktoegang kunnen beperken.</string>
-    <string name="dialog_adb_pairing_message">Begin met koppelen door de volgende stappen uit te
-        voeren:\n- Navigeer naar \"Ontwikkelaarsopties\"\n- Schakel \"USB-foutopsporing\" en
-        \"Draadloze foutopsporing\" in\n- Klik op de linkerkant van \"Draadloze foutopsporing\"\n-
-        Tik op \"Apparaat koppelen met koppelingscode\"\n- Voer de koppelingscode in de melding in</string>
+    <string name="dialog_adb_port">Port</string>
+    <string name="dialog_adb_invalid_port">Enter a port number from 1 to 65535.</string>
+    <string name="adb_pairing">Pairing</string>
+    <string name="dialog_adb_pairing_title">Pair with device</string>
+    <string name="dialog_adb_pairing_discovery">Looking for pairing service</string>
+    <string name="dialog_adb_pairing_paring_code">Pairing code</string>
+    <string name="paring_code_is_wrong">The pairing code is incorrect.</string>
+    <string name="cannot_connect_port">Can\'t connect to wireless debugging service.\n\nPlease ensure that Shizuku is whitelisted in all firewall, ad-block, VPN, or similar apps that can restrict network access.</string>
+    <string name="dialog_adb_pairing_message">Please start pairing by performing the following steps:\n- Navigate to \"Developer Options\"\n- Enable \"USB debugging\" and \"Wireless debugging\"\n- Tap the left side of \"Wireless debugging\"\n- Tap \"Pair device with pairing code\"\n- Input the pairing code in the notification</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from

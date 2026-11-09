@@ -74,6 +74,7 @@
     <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
+    <string name="dialog_adb_pairing_accessibility_permission_tv">Android blocks this switch for apps installed outside an app store, and on a TV, App info has no \"Allow restricted settings\" option to unblock it. A computer connected to this TV over ADB is needed once: either grant the permission above, which lets Shizuku turn the service on by itself, or unblock the switch with:\n\n^1</string>
     <string name="dialog_adb_pairing_open_app_info">App info</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Silakan mulai pemasangan dengan
         melakukan langkah-langkah berikut:\n- Buka \"Opsi Pengembang\"\n- Aktifkan \"Debugging USB\"
@@ -464,7 +465,6 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
     <string name="modules_settings">Modules</string>
     <string name="modules_disabled">Disabled</string>
     <string name="modules_sort">Sort</string>
-    <string name="modules_sort_z_to_a">Nama (Z-A)</string>
     <string name="modules_action_short">Aksi</string>
     <string name="modules_service_short">Layanan</string>
     <string name="modules_service_running_short">Running</string>
@@ -515,8 +515,6 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
     <string name="setup_action_continue">Lanjutkan</string>
     <string name="setup_usb_title">Debugging USB</string>
     <string name="settings_help">Membantu</string>
-    <string name="settings_translate">Ikut menerjemahkan</string>
-    <string name="settings_translate_note">Terjemahkan aplikasi ini di Crowdin.</string>
     <string name="settings_report_bug">Laporkan bug</string>
     <!--
       A plural, not a plain string: most of the people on this wall are here for a single commit,

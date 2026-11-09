@@ -13,6 +13,7 @@
     <string name="home_wireless_adb_title"><![CDATA[البدء باستخدام "التصحيح اللاسلكي"]]></string>
     <string name="home_wireless_adb_starting_without_wifi">في حال عدم وجود شبكة: يتم توجيه طلبات متكررة للجهاز لتفعيل وضع \"تصحيح الأخطاء عبر الشبكة اللاسلكية\" إلى أن يستجيب. قد تستغرق هذه العملية ما يصل إلى دقيقتين قبل أن يبدأ الوضع في العمل أو يتوقف النظام عن المحاولة.</string>
     <string name="home_usb_adb_needs_network">يستخدم بدء التشغيل عبر USB منفذ ADB التقليدي، ويتطلب إعادة فتحه اتصالًا بالشبكة. اتصل بشبكة Wi-Fi مرة واحدة، أو اختر <b>البدء بدون Wi-Fi</b> كطريقة لبدء التشغيل، واستخدم تصحيح الأخطاء اللاسلكي بدلًا من ذلك.</string>
+    <string name="home_usb_adb_needs_computer">يحتاج البدء عبر USB إلى منفذ ADB الكلاسيكي. في هذا الإصدار من الأندرويد، قم بالاتصال بالحاسوب وبدء تشغيل Shizuku مع أمر ADB بطرق أخرى.</string>
     <string name="home_wireless_adb_summary">بدأ التشغيل باستخدام تصحيح الأخطاء اللاسلكي.</string>
     <string name="home_usb_adb_title"><![CDATA[بدء التشغيل عبر تصحيح أخطاء USB]]></string>
     <string name="home_usb_adb_summary">بدأ التشغيل عبر تصحيح أخطاء USB.</string>
@@ -28,7 +29,7 @@
     <string name="diagnostics_adb_port">منفذ \"ADB\"</string>
     <string name="diagnostics_wifi">واي فاي</string>
     <string name="diagnostics_local_network">الشبكة المحلية </string>
-    <string name="diagnostics_battery"></string>
+    <string name="diagnostics_battery">تحسين البطارية</string>
     <string name="diagnostics_app">تطبيق</string>
     <string name="diagnostics_android">اندرويد</string>
     <string name="diagnostics_device">الجهاز</string>
@@ -70,6 +71,7 @@
     <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
+    <string name="dialog_adb_pairing_accessibility_permission_tv">يمنع أندرويد هذا التبديل للتطبيقات المثبتة خارج متجر التطبيقات، وعلى التلفزيون، معلومات التطبيق ليس لديها خيار \"السماح بإعدادات مقيدة\" لإلغاء حظره. يحتاج جهاز كمبيوتر متصل بهذا التلفزيون عبر ADB مرة واحدة: إما منح الإذن أعلاه، الذي يتيح لشيزوكو تشغيل الخدمة بنفسه، أو إلغاء حظر التبديل مع:\n\n^1</string>
     <string name="dialog_adb_pairing_open_app_info"></string>
     <string name="dialog_adb_pairing_accessibility_enable">يقرأ الإقران التلقائي الرمز من نافذة النظام عبر خدمة إمكانية الوصول الخاصة بـ Shizuku، لذا يجب تفعيلها، وستعمل فقط للفترة المطلوبة: تقوم الخدمة بإيقاف نفسها تلقائياً بمجرد العثور على الرمز، أو بعد دقيقة واحدة لتوفير الطاقة. يقوم Shizuku عادةً بتفعيلها بنفسه، وهذا يتطلب صلاحية WRITE_SECURE_SETTINGS، والتي لم يتم منحها بعد I في حال كان التثبيت جديداً.\n\nقم بتفعيلها في الشاشة التالية، أو اكتب الرمز بنفسك ضمن خيار \"يدوي\"، أو امنح الصلاحية لمرة واحدة:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">يرجى بدء عملية الاقتران من خلال تنفيذ
@@ -144,7 +146,7 @@
     <string name="app_management_search_hint">البحث عن التطبيقات
 </string>
     <string name="app_management_sort">ترتيب</string>
-    <string name="apps_needs_shizuku">Start Shizuku to see apps</string>
+    <string name="apps_needs_shizuku">بدء تشغيل Shizuku لمشاهدة التطبيقات</string>
     <string name="apps_empty">لا توجد تطبيقات لعرضها
 </string>
     <string name="apps_filter_empty">لا توجد تطبيقات تطابق عامل التصفية ده
@@ -215,7 +217,7 @@
     <string name="force_dark_notification_watching">في انتظار فتح أي تطبيق من القائمة</string>
     <string name="tab_activities">فتح الأنشطة الداخلية للتطبيقات
 </string>
-    <string name="tab_power"></string>
+    <string name="tab_power">الطاقة</string>
     <string name="power_description">أعد تشغيل الهاتف أو أطفئ الشاشة دون استخدام أزرار الهاتف.</string>
     <string name="power_needs_shizuku">شغل شيزوكو أولا لإستخدام هذه الخيارات.</string>
     <string name="power_reboot">إعادة التشغيل</string>
@@ -281,7 +283,7 @@
     <string name="activities_apps_section">التطبيقات</string>
     <string name="activities_save">احفظ</string>
     <string name="activities_unsave">أحذف من قائمة الحفظ</string>
-    <string name="activities_gone">.</string>
+    <string name="activities_gone">لم يعد هذا النشاط مثبّتا.</string>
     <string name="tab_intent_builder">منشئ الـ Intent</string>
     <string name="intent_builder_note">أنشئ وأرسل Intent. يمكنك تعيين الإجراء (Action)، البيانات (Data)، النوع (Type)، المكوّن (Component)، الفئات (Categories)، الإضافات (Extras)، والعلامات (Flags). يمكنك أيضًا تحميل Intent من معرّف URI، مثل
 intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
@@ -353,7 +355,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="device_max_charging_current">أقصى تيار شحن</string>
     <string name="device_max_charging_voltage">أقصى جهد شحن</string>
     <string name="device_capacity_rated">السعة المُقدّرة</string>
-    <string name="device_capacity_typical">Fdd</string>
+    <string name="device_capacity_typical">نموذجي</string>
     <string name="device_capacity">السعة
 </string>
     <string name="device_capacity_estimated">تقديري
@@ -510,8 +512,8 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="status_value_none">-</string>
     <string name="status_running_short">يعمل</string>
     <string name="status_stopped_short">متوقف</string>
-    <string name="home_status_service_active"></string>
-    <string name="home_status_service_stopped"></string>
+    <string name="home_status_service_active">خدمة Shizuku نشطة</string>
+    <string name="home_status_service_stopped">خدمة Shizuku لا تعمل</string>
     <string name="action_start">البدء بالتشغيل</string>
     <string name="tools_stealth">وضع التخفي</string>
     <string name="tools_modules">وحدات</string>
@@ -534,8 +536,8 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="catalog_sort_added">آخر إضافة</string>
     <string name="catalog_latest_release">أحدث إصدار: %1$s</string>
     <string name="catalog_no_release">لا توجد إصدارات</string>
-    <string name="catalog_no_apk">Farj</string>
-    <string name="catalog_apk_installed">تم تثبيت %1$s</string>
+    <string name="catalog_no_apk">لا يوجد APK في هذا الإصدار</string>
+    <string name="catalog_apk_installed">%1$s مثبت</string>
     <string name="catalog_install_failed">تعذر بدء التثبيت.</string>
     <string name="catalog_view_github">عرض على GitHub</string>
     <string name="modules_repo_retry">أعد المحاولة</string>
@@ -547,11 +549,11 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="modules_repo_sort_stars_high_to_low">النجوم (العديد أولاً)</string>
     <string name="modules_find_modules">إيجاد الوحدات</string>
     <string name="modules_install_from_file">تثبيت بواسطة ملف ZIP</string>
-    <string name="modules_install_title">تثبيت موديول</string>
-    <string name="modules_settings">وحدات</string>
+    <string name="modules_install_title">تثبيت وحدة</string>
+    <string name="modules_settings">الوحدات</string>
     <string name="modules_settings_summary">ما الممكن للاضافه فعله، و ما مدي تأكدك من ما تريده</string>
-    <string name="modules_access_full_summary_short">الخدمات و جسر واجهه الانترنت</string>
-    <string name="modules_allow_background_summary_short">سكريبت يعمل بدون متابعه</string>
+    <string name="modules_access_full_summary_short">الخدمات و جسر واجهة الانترنت</string>
+    <string name="modules_allow_background_summary_short">سكريبت خدمة يعمل بدون مراقبة</string>
     <string name="modules_catalog_install">تثبيت</string>
     <string name="modules_catalog_installing">جاري التثبيت</string>
     <string name="modules_catalog_no_releases">لا توجد اصدارات متوفره علي هذا المصدر.</string>
@@ -588,11 +590,11 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="modules_none">لا توجد اضافات مثبته حاليا.</string>
     <string name="modules_search">بحث عن اضافات</string>
     <string name="modules_no_match">لا توجد اضافات مطابقه للبحث.</string>
-    <string name="modules_install">تثبيت موديول</string>
+    <string name="modules_install">تثبيت وحدة</string>
     <string name="modules_installed">تم تثبيت %1$s</string>
     <string name="modules_access_full">وصول كامل للصلاحيات</string>
-    <string name="modules_access_full_summary">.</string>
-    <string name="modules_allow_background">السماح بالتشغيل ف الخلفيه</string>
+    <string name="modules_access_full_summary">يتيح للوحدات تشغيل سكريبت الخدمة واستخدام طرفية WebUI. بدونه، تعمل الإجراءات فقط.</string>
+    <string name="modules_allow_background">السماح بالإجراءات في الخلفية</string>
     <string name="modules_allow_background_summary">السماح لخدمات الاضافه بالعمل بدون مراقبه.</string>
     <string name="modules_row_summary">%1$s - %2$s</string>
     <string name="modules_action_run">تشغيل الإجراء</string>
@@ -617,7 +619,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="tools_terminal">تطبيقات الاوامر النصيه</string>
     <string name="tools_terminal_summary">تشغيل الاوامر النصيه ف تطبيقات الاوامر النصيه باستخدام \"rish\"</string>
     <string name="tools_battery">تحسين البطارية</string>
-    <string name="intents_title"></string>
+    <string name="intents_title">النوايا</string>
     <string name="about_package">الحزمة</string>
     <string name="check_for_updates_now">التحقق من توافر تحديثات</string>
     <string name="start_failed">تعذر بدء تشغيل Shizuku</string>
@@ -635,44 +637,57 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="start_failed_pairing_required">هذا الجهاز غير مقرن بـ \"التصحيح اللاسلكي\"، أقرنه مجددا.</string>
     <string name="start_failed_connection_lost">أُغلق اتصال ADB أثناء البدء. أعد المحاولة.</string>
     <string name="start_failed_usb_no_port">لم يتم فتح أي منفذ ADB محلي. يقوم نظام أندرويد بإغلاقه عند كل إعادة تشغيل، وإعادة فتحه تتطلب اتصالاً مؤقتاً. اتصل بشبكة الإنترنت وسيقوم Shizuku بإعادة فتحه عبر \"التصحيح اللاسلكي\"، أو قم بتشغيل <b>adb tcpip 5555</b> من الكمبيوتر، أو اختر <b>البدء بدون Wi-Fi</b> كطريقة تشغيل؛ لتبدأ عبر \"التصحيح اللاسلكي\" بدلاً من ذلك.</string>
-    <string name="start_failed_root_unavailable">.</string>
-    <string name="start_failed_system_needs_app">.</string>
-    <string name="start_failed_no_binder">.</string>
+    <string name="start_failed_root_unavailable">لم يعد الروت متوفرًا على هذا الجهاز، لذلك لا يمكن لـ Shizuku البدء من خلال الروت. اختر طريقة بدء أخرى.</string>
+    <string name="start_failed_system_needs_app">يجب أن تبدأ طريقة بدء النظام من التطبيق.</string>
+    <string name="start_failed_system_no_exploit">هذا الجهاز لا يأتي مسبقا ب وكيل شركة Samsung FOTA (com.sdet.fotaagent) ، وهو المكون الوحيد الذي يمكن أن تستخدمه طريقة بدء النظام ، لذلك لا يوجد شيء يتصاعد معه. قم بتبديل طريقة بدء تشغيل النظام إلى أمر مخصص: سيريك التطبيق ما تريد تشغيله مع تصعيد الجهاز الخاص بك.</string>
+    <string name="start_failed_no_binder">لم تظهر الخدمة في غضون دقيقة. يحتفظ كلا النصفين بسجل: البداية تحت ShizukuServiceStarter والتسليم تحت BinderSender. قارئ تسجيل الدخول الذي تم فهرسته إلى هذين الاثنين يظهر ما إذا كان البداية قد وصلت إلى تفرع الخادم، وما إذا كان الخادم قد طلب في أي وقت من الأوقات البوصلة.</string>
     <string name="start_system_custom_intro">.</string>
     <string name="start_system_custom_lookup">:</string>
     <string name="start_system_custom_plain">:</string>
     <string name="start_system_custom_copied">.</string>
     <string name="start_system_custom_copy_failed">.</string>
-    <string name="settings_section_startup"></string>
-    <string name="settings_section_startup_summary"></string>
+    <string name="settings_section_startup">البداية</string>
+    <string name="settings_section_startup_summary">بدء التشغيل وأسلوب المراقبة والبدء</string>
     <string name="settings_section_wireless">تصحيح الأخطاء عن طريق الشبكه اللاسلكية</string>
-    <string name="settings_section_wireless_summary"></string>
-    <string name="settings_section_tools"></string>
-    <string name="settings_section_tools_summary"></string>
+    <string name="settings_section_wireless_summary">تصحيح أخطاء لاسلكي، وضع TCP ومنفذ ADB</string>
+    <string name="settings_section_tools">الأدوات</string>
+    <string name="settings_section_tools_summary">الأذونات و الإعداد و النسخ الاحتياطي و المحطة الطرفية و النوايا</string>
+    <string name="settings_backup_section">النسخ الاحتياطي والاستعادة</string>
+    <string name="settings_backup_export">إعدادات النسخ الاحتياطي</string>
+    <string name="settings_backup_export_summary">حفظ إعدادات التطبيق وقوائم المختبرات في ملف JSON.</string>
+    <string name="settings_backup_restore">إستعادة الإعدادات</string>
+    <string name="settings_backup_restore_summary">استبدال إعدادات التطبيق وقوائم المختبرات من ملف النسخ الاحتياطي.</string>
+    <string name="settings_backup_exported">إعدادات %1$d محفوظة.</string>
+    <string name="settings_backup_export_failed">تعذر حفظ النسخة الاحتياطية.</string>
+    <string name="settings_backup_unreadable">هذا الملف ليس نسخة احتياطية لإعدادات Shizuku.</string>
+    <string name="settings_backup_restore_title">إستعادة الإعدادات ؟</string>
+    <string name="settings_backup_restore_message">هذا يحل محل إعدادات و قوائم %1$d.</string>
     <string name="settings_backup_restore_action">استرجاع</string>
-    <string name="settings_section_appearance"></string>
-    <string name="settings_section_appearance_summary"></string>
-    <string name="settings_section_about"></string>
-    <string name="settings_theme"></string>
-    <string name="settings_theme_system"></string>
-    <string name="settings_theme_light"></string>
-    <string name="settings_theme_dark"></string>
-    <string name="intents_description">.</string>
-    <string name="intents_require_token"></string>
-    <string name="intents_require_token_summary">.</string>
-    <string name="intents_token"></string>
-    <string name="intents_copy"></string>
-    <string name="intents_regenerate"></string>
+    <string name="settings_backup_restored">استعادة إعدادات %1$d . أعد تشغيل Shizuku لتطبيق تغييرات البدء.</string>
+    <string name="settings_backup_restore_failed">تعذر استعادة النسخة الاحتياطية.</string>
+    <string name="settings_section_appearance">المظهر</string>
+    <string name="settings_section_appearance_summary">السمة والألوان واللكنة وشريط التنقل</string>
+    <string name="settings_section_about">حول</string>
+    <string name="settings_theme">السمة</string>
+    <string name="settings_theme_system">اتبع النظام</string>
+    <string name="settings_theme_light">فاتح</string>
+    <string name="settings_theme_dark">داكن</string>
+    <string name="intents_description">يمكن لتطبيقات التشغيل الآلي التحكم في Shizuku مع هذا البث. يجب تمرير رمز المصادقة في إضافة \"author\".</string>
+    <string name="intents_require_token">مطلوب رمز المصادقة</string>
+    <string name="intents_require_token_summary">بدء وإيقاف نقاط بحاجة إلى الرمز المميز أدناه. إيقاف هذا لإرساله بدون رمز مميز.</string>
+    <string name="intents_token">توكين المصادقة</string>
+    <string name="intents_copy">نسخ</string>
+    <string name="intents_regenerate">تجديد</string>
     <string name="intents_start">البدء بالتشغيل</string>
-    <string name="intents_stop"></string>
-    <string name="intents_watchdog_on"></string>
-    <string name="intents_watchdog_off"></string>
-    <string name="intents_watchdog_toggle"></string>
-    <string name="intents_adb_command"></string>
-    <string name="intents_status_broadcast"></string>
-    <string name="intents_status_broadcast_extra">1 0</string>
-    <string name="labs_gate_stays_on"></string>
-    <string name="intents_values"></string>
+    <string name="intents_stop">إيقاف</string>
+    <string name="intents_watchdog_on">مراقب النظام يعمل</string>
+    <string name="intents_watchdog_off">مراقب النظام مغلق</string>
+    <string name="intents_watchdog_toggle">تبديل المراقب</string>
+    <string name="intents_adb_command">البدء عبر الكمبيوتر</string>
+    <string name="intents_status_broadcast">حالة البث</string>
+    <string name="intents_status_broadcast_extra">الحالة الإضافية: 1 = يعمل، 0 = لايعمل</string>
+    <string name="labs_gate_stays_on">بعض التطبيقات لا يمكن تغييرها، لذلك تبقى القائمة تعمل</string>
+    <string name="intents_values">تطبيقات التشغيل الآلي</string>
     <string name="intents_package">الحزمة</string>
     <string name="intents_action_for">%1$s</string>
     <string name="home_battery_warning">.</string>
@@ -684,6 +699,9 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="app_management_batch_revoke_title"></string>
     <string name="app_management_batch_message">%1$d؟(؟</string>
     <string name="app_management_toggle_all_message">%1$d؟</string>
+    <string name="app_management_batch_granted">تم منح الوصول إلى تطبيقات %1$d</string>
+    <string name="app_management_batch_revoked">تم إلغاء الوصول من تطبيقات %1$d</string>
+    <string name="action_undo">تراجع</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">أبلغ المستخدمون أن MIUI يكسر إطار عمل الوصول إلى التخزين، والذي تستخدمه وظيفة التصدير.</string>
     <string name="terminal_tutorial_miui_2">إذا كنت تستخدم MIUI، فقد تحتاج إلى استخراج الملف من مجلد
@@ -698,6 +716,12 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
         كتابة المسار.\n\nوإلا، يمكنك إنشاء اسم مستعار لـ %2$s في ملف تكوين تطبيقك الطرفي %3$s .</string>
     <string name="terminal_tutorial_3">افتح shell باستخدام الأمر التالي:</string>
     <!-- Stealth -->
+    <string name="stealth_description">إخفاء Shizuku من التطبيقات التي ترفض التشغيل عند تثبيته. يتم تصدير نسخة تحمل اسم حزمة مختلف من أجل تثبيتها.</string>
+    <string name="stealth_warning_compatibility">قد لا تعمل بعض التطبيقات التي تستخدم Shizuku عندما يتم إخفاء Shizuku لأنها تحاول الكشف عما إذا كان Shizuku قد تم تثبيته.</string>
+    <string name="stealth_warning_compatibility_2">كعمل حولك، يمكنك مؤقتاً إلغاء إخفاء شيزوكو، الذي يقوم بتثبيت أشياء باسم الحزمة الأصلي. عند الانتهاء، يمكنك إعادة إخفاء شيزوكو.</string>
+    <string name="stealth_warning_compatibility_3">انقر فوق هذه البطاقة لنسخ كتلة كود برمجية يمكنك إرسالها إلى المطور حتى يعمل التحقق \"Shizuku المثبت\" عندما يتم إخفاء Shizuku.</string>
+    <string name="stealth_warning_detection">قد تظل بعض التطبيقات قادرة على الكشف عن شيزوكو حتى عندما تكون مخفية.</string>
+    <string name="stealth_info_reconfigure">سوف تحتاج إلى إعادة الإقران وإعادة تكوين Shizuku بعد تثبيت الإصدار المخفي.</string>
     <string name="stealth_info_rish">Rish users: re-export the files after installing the hidden version.</string>
     <string name="stealth_info_intents">Intent users: update your intents with the new package name.</string>
     <string name="stealth_info_update">You must update Shizuku through the app when using the hidden version because it has a different signature.</string>
@@ -710,67 +734,111 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="stealth_display_name">Display name (optional)</string>
     <string name="stealth_display_name_helper_text">Shown as the name of the copy in the launcher and the app list. Left empty, the copy keeps the name of this app.</string>
     <string name="stealth_error_display_name_too_long">Keep it to %1$d characters or fewer.</string>
-    <string name="stealth_uninstall_required">Uninstall required</string>
-    <string name="stealth_uninstall_message">The system will now prompt you to uninstall Shizuku. Then, install the clone.</string>
+    <string name="stealth_uninstall_required">إلغاء التثبيت مطلوب</string>
+    <string name="stealth_uninstall_message">سيطلبك النظام الآن إلغاء تثبيت Shizuku. ثم قم بتثبيت الاستنساخ.</string>
+    <string name="stealth_uninstall">إلغاء تثبيت</string>
+    <string name="stealth_hide">إخفاء</string>
+    <string name="stealth_unhide">إلغاء الاخفاء مع الاشياء</string>
+    <string name="stealth_stub_note">إلغاء الإخفاء يخلق أشياء صغيرة في اسم الحزمة الأصلي لـ Shizuku، بحيث يمكن للتطبيقات التي تبحث عنه أن تعمل باستمرار. هذه الأشياء توجه الطلبات إلى تطبيق Shizuku المخفي. ليست نسخة ثانية. إخفاء الحشيش.</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">التشغيل تلقائيًا عند بدء تشغيل الجهاز
 </string>
+    <string name="settings_use_system_color">استخدام لون سمة النظام</string>
+    <string name="settings_use_system_color_summary">اتبع لوحة النظام</string>
+    <string name="settings_always_show_navigation_bar">إظهار شريط التنقل دائماً</string>
+    <string name="settings_always_show_navigation_bar_summary">إبقاء شريط التبويب مرئي عند التمرير للأسفل.</string>
+    <string name="settings_secure_quick_tiles">مربعات سريعة آمنة</string>
+    <string name="settings_secure_quick_tiles_summary">منع التغييرات السريعة في المربعات عندما يكون الهاتف مقفلا.</string>
     <string name="settings_watchdog">مراقب النظام</string>
     <string name="settings_watchdog_summary">إعادة تشغيل Shizuku تلقائيًا في حالة تعطله</string>
     <string name="settings_auto_disable_wireless_debugging">إيقاف تصحيح الأخطاء اللاسلكي
 </string>
+    <string name="settings_auto_disable_wireless_debugging_summary">إيقاف التصحيح اللاسلكي عندما يتوقف شيزوكو.</string>
+    <string name="settings_start_method">طريقة البدء الافتراضية</string>
+    <string name="settings_start_method_root_unavailable">هذا الجهاز ليس لديه جذر، لذلك يبدأ في العودة إلى تصحيح الأخطاء اللاسلكية.</string>
+    <string name="settings_start_method_root_unavailable_usb">هذا الجهاز ليس لديه جذر، لذا يبدأ في العودة إلى USB.</string>
+    <string name="start_method_wireless_no_network">دون شبكة Wi-Fi</string>
+    <string name="start_method_wireless">لاسلكي</string>
+    <string name="start_method_usb">USB</string>
+    <string name="start_method_system">النظام</string>
+    <string name="start_method_root">الجذر (Root)</string>
     <string name="transport_adb">adb</string>
     <string name="settings_adb_without_developer_options">إيقاف خيارات المطوّر
 </string>
+    <string name="settings_adb_without_developer_options_summary">إيقاف تشغيل خيارات المطور ولكن الحفاظ على إعدادات ADB لاحتياجات Shizuku. سوف يستمر Shizuku في العمل، وسيتم استعادة هذه الإعدادات بعد كل إعادة تشغيل.</string>
+    <string name="start_failed_developer_options_off">خيارات المطور متوقفة بسبب تمكين ADB بدون خيارات المطور</string>
+    <string name="action_turn_on_developer_options">تشغيل خيارات المطور</string>
+    <string name="toast_developer_options_required">إيقاف تشغيل ADB دون خيارات المطور</string>
+    <string name="settings_adb_without_developer_options_confirm_title">إيقاف خيارات المطور؟</string>
+    <string name="settings_adb_without_developer_options_confirm_message">سيستمر Shizuku في العمل واستعادة إعدادات ADB بعد إعادة التشغيل. لن تتمكن من فتح خيارات المطور لتغيير إعدادات تصحيح أخطاء USB أو لاسلكي أو إقران جهاز جديد. هل تريد إيقاف خيارات المطور؟</string>
+    <string name="settings_adb_without_developer_options_confirm">إيقاف</string>
+    <string name="settings_adb_without_developer_options_failed">تعذر على Shizuku تغيير الإعدادات. منح WRITE_SECURE_SETTINGS في صفحة الأذونات أولاً.</string>
+    <string name="settings_wait_for_wifi">إنتظار Wi-Fi</string>
+    <string name="settings_wait_for_wifi_summary">إعادة تشغيل شيزوكو تلقائياً بانتظار اتصال Wi-Fi غير مقيد.</string>
+    <string name="settings_unavailable_while_forcing_wireless">غير متوفر أثناء عدم تشغيل الشبكة اللاسلكية Wi-Fi.</string>
+    <string name="settings_force_wireless_debugging">البدء بدون Wi-Fi (تجريبي)</string>
+    <string name="settings_force_wireless_debugging_summary">يحاول بدء تشغيل Shizuku بدون تصحيح أخطاء Wi-Fi أو USB. وهذا ايضا يوقف انتظار Wi-Fi و تصحيح أخطاء لاسلكية تلقائية.</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
+    <string name="settings_needs_write_secure_settings">يحتاج إلى إذن WRITE_SECURE_SETTINGS. ابدأ شيزوكو مرة واحدة لمنحه، ثم عد مرة أخرى.</string>
+    <string name="state_on">مفعل</string>
+    <string name="state_off">معطل</string>
+    <string name="settings_persist_adb_port">الحفاظ على منفذ ADB بعد إعادة التشغيل</string>
+    <string name="settings_persist_adb_port_summary">يبقي منفذ ADB مفتوحاً بعد كل إعادة تشغيل، حتى يمكن لـ Shizuku أن يبدأ بدون Wi-Fi أو نقطة ساخنة.</string>
     <string name="settings_persist_adb_port_ok">سيبقى ADB Port مفتوحًا بعد اعادة التشغيل</string>
     <string name="settings_persist_adb_port_refused">لم يسمح اندوريد بذلك، يجب تشغيل شيزوكو كـ \"روت\" أو \"مستخدم نظام\".</string>
+    <string name="settings_persist_adb_port_unavailable">ابدأ شيزوكو أولاً. لا يمكن تغيير هذا الإعداد إلا من خلال شيزوكو.</string>
+    <string name="settings_system_start_method">أسلوب بدء تشغيل النظام</string>
+    <string name="settings_system_start_method_exploit">سامسونج (وكيل FOTA)</string>
+    <string name="settings_system_start_method_custom">أمر مخصص</string>
+    <string name="home_system_title">البدء عبر UID للنظام</string>
+    <string name="home_adb_command_summary">بدء تشغيل شيزوكو من جهاز كمبيوتر عبر ADB. انقر لنسخ الأمر</string>
     <string name="settings_tcp_mode">وضع TCP</string>
     <string name="settings_tcp_mode_summary">"يسمح لـ Shizuku بإعادة التشغيل دون اتصال Wi-Fi. (يجب
         أن يكون Shizuku قد بدأ مرة واحدة بعد إعادة التشغيل)"</string>
     <string name="settings_tcp_mode_dialog_close_port">"سيتم إغلاق منفذ TCP فورًا. ستحتاج إلى اتصال
         Wi-Fi لإعادة تشغيل وضع TCP. هل تريد المتابعة؟"</string>
-    <string name="settings_tcp_mode_close_usb_off">.</string>
-    <string name="settings_tcp_mode_close_nothing">.</string>
+    <string name="settings_tcp_mode_close_wireless">غير مغلقة: التصحيح اللاسلكي قيد التشغيل. إغلاق المنفذ سوف يوقفه. المنفذ سوف يغلق عند إعادة تشغيل الهاتف.</string>
+    <string name="settings_tcp_mode_close_usb_off">غير مغلقة: تم إيقاف تصحيح أخطاء USB. قم بتشغيلها ثم حاول مرة أخرى.</string>
+    <string name="settings_tcp_mode_close_nothing">لا يوجد منفذ TCP مفتوح.</string>
     <string name="settings_restart_dialog_title">مطلوب إعادة التشغيل</string>
     <string name="settings_restart_dialog_message">يجب على Shizuku إعادة التشغيل لتطبيق هذا الإعداد.</string>
     <string name="settings_restart_dialog_message_wifi_required"><![CDATA[<br><br><b>يتطلب اتصالاً لاسلكياً. سيستمر شيزوكو بالعمل وينتظر اتصالاً لاسلكياً قبل إعادة التشغيل في الخلفية.</b>]]></string>
     <string name="settings_tcp_port">منفذ TCP</string>
     <string name="settings_auto_disable_usb_debugging">إيقاف تصحيح أخطاء USB
 </string>
-    <string name="settings_auto_disable_usb_debugging_summary"></string>
+    <string name="settings_auto_disable_usb_debugging_summary">تعطيل تصحيح أخطاء USB عند إيقاف Shizuku</string>
     <string name="settings_language">اللغة</string>
-    <string name="settings_language_system"></string>
+    <string name="settings_language_system">النظام الافتراضي</string>
     <string name="settings_black_night_theme">وضع السواد النقيّ</string>
     <string name="settings_black_night_theme_summary">استخدام خلفية سوداء بالكامل في الوضع الداكن
 </string>
-    <string name="settings_update_stable"></string>
-    <string name="settings_update_beta"></string>
-    <string name="settings_permissions"></string>
-    <string name="settings_permissions_summary"></string>
-    <string name="permissions_allowed"></string>
-    <string name="permissions_action_allow"></string>
+    <string name="settings_update_stable">مستقر</string>
+    <string name="settings_update_beta">اختباري</string>
+    <string name="settings_permissions">الأذونات</string>
+    <string name="settings_permissions_summary">ما يحتاجه شيزوكو وما هو مسموح له</string>
+    <string name="permissions_allowed">مسموح</string>
+    <string name="permissions_action_allow">السماح</string>
     <string name="permissions_action_settings">الاعدادات</string>
-    <string name="permissions_open_settings_hint">.</string>
-    <string name="permissions_notifications"></string>
-    <string name="permissions_notifications_summary">.</string>
-    <string name="permissions_nearby"></string>
-    <string name="permissions_nearby_summary">.</string>
-    <string name="permissions_write_secure_settings"></string>
-    <string name="permissions_write_secure_settings_summary">.</string>
-    <string name="permissions_accessibility"></string>
-    <string name="permissions_accessibility_summary">.</string>
-    <string name="permissions_battery_summary">.</string>
-    <string name="permissions_pairing_service"></string>
-    <string name="permissions_pairing_service_reason">.</string>
-    <string name="permissions_pairing_service_restricted">.</string>
+    <string name="permissions_open_settings_hint">لن يسأل أندرويد مرة أخرى. قم بتشغيله تحت معلومات التطبيق → الأذونات.</string>
+    <string name="permissions_notifications">الإشعارات</string>
+    <string name="permissions_notifications_summary">يظهر رمز الإقران, ابدأ التقدم و الأخطاء.</string>
+    <string name="permissions_nearby">الأجهزة القريبة</string>
+    <string name="permissions_nearby_summary">يجد منفذ التصحيح اللاسلكي على الشبكة الخاصة بك.</string>
+    <string name="permissions_write_secure_settings">كتابة الإعدادات الآمنة</string>
+    <string name="permissions_write_secure_settings_summary">دع شيزوكو يقوم بتشغيل تصحيح الأخطاء اللاسلكية. فقط ADB يمكنه منح هذه الصلاحية.</string>
+    <string name="permissions_accessibility">خدمة إمكانية الوصول</string>
+    <string name="permissions_accessibility_summary">يقرأ رمز الاقتران تلقائياً.</string>
+    <string name="permissions_battery_summary">منع أندرويد من قتل Shizuku في الخلفية.</string>
+    <string name="permissions_pairing_service">خدمة الاقتران</string>
+    <string name="permissions_pairing_service_reason">يقرأ رمز الاقتران.</string>
+    <string name="permissions_pairing_service_restricted">السماح للإعدادات المقيدة في معلومات التطبيق.</string>
     <!--
       The guided first run. Each page is one decision, and the sentences say what happens rather
       than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
     -->
-    <string name="setup_step">%1$d%2$d</string>
-    <string name="setup_action_skip"></string>
+    <string name="setup_step">الخطوة %1$d من %2$d</string>
+    <string name="setup_action_skip">تخطي</string>
     <string name="setup_action_continue">متابعة</string>
     <string name="setup_action_done"></string>
     <string name="setup_welcome_title"></string>
@@ -782,6 +850,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="setup_wireless_title">تصحيح الأخطاء عن طريق الشبكه اللاسلكية</string>
     <string name="setup_wireless_body">.</string>
     <string name="setup_usb_title">تصحيح أخطاء USB</string>
+    <string name="setup_usb_body">يعمل بدون جذر. يحتاج إلى منفذ ADB كلاسيكي؛ إذا لم يكن مفتوحا، قم بالاتصال بالحاسوب مرة واحدة لبدء تشغيل شيزوكو.</string>
     <string name="setup_permissions_title"></string>
     <string name="setup_permissions_body">.</string>
     <string name="settings_run_setup"></string>
@@ -808,19 +877,24 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
         <item quantity="other">%1$d</item>
     </plurals>
     <string name="contributor_view_github"></string>
-    <string name="contributor_details_close"></string>
+    <string name="contributor_details_close">إغلاق</string>
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
     <string name="contributor_area_app">تطبيق</string>
     <string name="contributor_area_server">الخادم</string>
-    <string name="contributor_area_adb"></string>
-    <string name="contributor_area_build"></string>
-    <string name="contributor_area_i18n"></string>
+    <string name="contributor_area_adb">ADB</string>
+    <string name="contributor_area_build">البناء</string>
+    <string name="contributor_area_i18n">الترجمات</string>
+    <string name="contributor_area_docs">الوثائق</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
       worked in, and the languages they translated into. There is deliberately no string per
       person: a new contributor is described the moment the generator sees them, and %1$s/%2$s are
       filled with the area names above and with language names the platform already localises.
     -->
+    <string name="contributor_summary_code">عمل على %1$s.</string>
+    <string name="contributor_summary_translations">ترجم التطبيق إلى %1$s.</string>
+    <string name="contributor_summary_code_translations">عمل على %1$s، وترجم التطبيق إلى %2$s.</string>
+    <string name="contributor_summary_default">المساهم</string>
     <string name="settings_legacy_pairing">الاقتران القديم</string>
     <string name="settings_legacy_pairing_summary">أدخل رمز الاقتران في مربع حوار بدلاً من الإشعار</string>
     <!-- Bug Report Dialog -->
@@ -833,22 +907,41 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="bug_report_dialog_issues">ابحث في جميع ^1 لمعرفة ما إذا تم الإبلاغ عن الخطأ الخاص
         بك بالفعل.</string>
     <string name="bug_report_dialog_link_issues">المشكلات القائمة</string>
+    <string name="bug_report_dialog_method">الرجاء تقديم مشكلة على ^1.</string>
+    <string name="bug_report_dialog_log_note">إذا كانت المشكلة تحتاج إلى سجل، شارك كل السجل أدناه وأرفقه.</string>
+    <string name="bug_report_dialog_share_log">مشاركة السجل</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">يرجى تعطيل تحسين البطارية لاستخدام هذه
         الميزة.</string>
     <string name="snackbar_action_fix">اصلاح</string>
+    <string name="snackbar_update_available">يتوفر تحديث جديد</string>
+    <string name="snackbar_action_update">تحديث</string>
     <!-- Updates -->
+    <string name="check_for_updates">تحقق من وجود تحديثات</string>
+    <string name="update_latest_installed">لديك بالفعل آخر إصدار</string>
+    <string name="update_check_failed">تعذر التحقق من وجود تحديثات</string>
+    <string name="update_check_offline">تعذر الوصول إلى GitHub. تحقق من اتصالك وحاول مرة أخرى.</string>
+    <string name="update_check_rate_limited">GitHub يتم التحقق من التحديث. حاول مرة أخرى لاحقاً.</string>
+    <string name="update_check_rate_limited_minutes">فحص التحديث GitHub يحد من المعدل. حاول مرة أخرى في حوالي %1$d دقيقة.</string>
+    <string name="update_check_http_error">تعذر التحقق من وجود تحديثات (HTTP %1$d)</string>
+    <string name="update_check_no_release">لا يوجد إصدار منشور لمقارنته بعد</string>
+    <string name="update_downloading">تحميل التحديث...</string>
+    <string name="update_download_failed">تعذر تحميل التحديث</string>
+    <string name="update_success">اكتمل التحديث</string>
+    <string name="update_failed">فشل التحديث</string>
     <!-- Toast -->
     <string name="toast_pairing_timeout">انتهت مهلة خدمة إقران شيزوكو.</string>
     <!-- Dark Mode Setting Override -->
-    <string name="dark_theme"></string>
+    <string name="dark_theme">السمة</string>
     <string name="dark_theme_off">الوضع الفاتح دائمًا</string>
     <string name="dark_theme_on">الوضع الداكن دائمًا</string>
-    <string name="follow_system"></string>
+    <string name="follow_system">اتبع النظام</string>
     <!-- About -->
     <!-- Start/Stop -->
     <string name="start">البدء بالتشغيل</string>
-    <string name="action_stop"></string>
+    <string name="action_stop">إيقاف</string>
+    <string name="action_restart">أعد التشغيل</string>
+    <string name="action_open_adb_port">فتح منفذ ADB</string>
     <!-- Notification -->
     <string name="notification_channel_adb_pairing">اقتران التصحيح/العلاج اللاسلكي</string>
     <string name="notification_adb_pairing_input_paring_code">أدخل رمز الاقتران</string>
@@ -860,6 +953,8 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="notification_adb_pairing_succeed_text">يمكنك بدء خدمة Shizuku الآن.</string>
     <string name="notification_adb_pairing_failed_title">فشل الاقتران</string>
     <string name="notification_adb_pairing_retry">أعد المحاولة</string>
+    <string name="notification_auth_missing_title">رمز المصادقة مطلوب</string>
+    <string name="notification_auth_invalid_title">رمز المصادقة غير صالح</string>
     <!-- Permission related, appears in system permission UI -->
     <string name="permission_label">الوصول إلى Shizuku</string>
     <string name="permission_description">اسمح للتطبيق باستخدام Shizuku.</string>
@@ -881,28 +976,29 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <!-- Shell -->
     <string name="shell_title">واجهة الأوامر (Shell)
 </string>
-    <string name="shell_expand"></string>
-    <string name="shell_collapse"></string>
-    <string name="shell_library"></string>
-    <string name="shell_library_hint"></string>
-    <string name="shell_library_empty">.</string>
-    <string name="shell_variables_title"></string>
-    <string name="shell_variables_pick_app"></string>
-    <string name="shell_history"></string>
-    <string name="shell_history_empty">.</string>
-    <string name="shell_history_clear"></string>
-    <string name="shell_history_run"></string>
-    <string name="shell_history_forget"></string>
-    <string name="shell_bookmarks"></string>
-    <string name="shell_bookmark_save"></string>
-    <string name="shell_bookmark_saved"></string>
-    <string name="shell_bookmark_deleted_name">%1$s</string>
-    <string name="shell_bookmark_run"></string>
-    <string name="shell_bookmark_rename"></string>
-    <string name="shell_bookmark_delete"></string>
-    <string name="shell_bookmark_name_hint"></string>
-    <string name="shell_bookmark_sort_newest"></string>
-    <string name="shell_bookmark_sort_name"></string>
+    <string name="shell_backend_root">الجذر (Root)</string>
+    <string name="shell_expand">توسيع</string>
+    <string name="shell_collapse">طي</string>
+    <string name="shell_library">المكتبة</string>
+    <string name="shell_library_hint">ابحث عن أوامر</string>
+    <string name="shell_library_empty">لا توجد أوامر مطابقة.</string>
+    <string name="shell_variables_title">املأ ذلك في</string>
+    <string name="shell_variables_pick_app">اختر تطبيقا</string>
+    <string name="shell_history">التاريخ</string>
+    <string name="shell_history_empty">لم يتم تشغيل أي شيء حتى الآن. الأوامر تظهر هنا بمجرد القيام بذلك، الأحدث أولاً.</string>
+    <string name="shell_history_clear">مسح</string>
+    <string name="shell_history_run">تشغيل هذا الأمر</string>
+    <string name="shell_history_forget">إزالة من السجل</string>
+    <string name="shell_bookmarks">حفظ</string>
+    <string name="shell_bookmark_save">حفظ هذا الأمر</string>
+    <string name="shell_bookmark_saved">حفظ</string>
+    <string name="shell_bookmark_deleted_name">تم حذف %1$s</string>
+    <string name="shell_bookmark_run">تشغيل</string>
+    <string name="shell_bookmark_rename">إعادة تسمية</string>
+    <string name="shell_bookmark_delete">حذف</string>
+    <string name="shell_bookmark_name_hint">الإسم</string>
+    <string name="shell_bookmark_sort_newest">الأحدث</string>
+    <string name="shell_bookmark_sort_name">الإسم</string>
     <string name="shell_bookmark_empty">.</string>
     <string name="shell_quick_battery"></string>
     <string name="shell_quick_storage"></string>
@@ -911,10 +1007,10 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="shell_quick_grant"></string>
     <string name="shell_quick_revoke"></string>
     <string name="shell_quick_app_ops"></string>
-    <string name="shell_run"></string>
-    <string name="shell_stop"></string>
-    <string name="shell_clear"></string>
-    <string name="shell_copy"></string>
+    <string name="shell_run">تشغيل</string>
+    <string name="shell_stop">إيقاف</string>
+    <string name="shell_clear">مسح</string>
+    <string name="shell_copy">نسخ</string>
     <!-- Watchdog -->
     <string name="watchdog_running">مراقب النظام يعمل</string>
     <string name="watchdog_turn_off">إيقاف التشغيل</string>
@@ -924,6 +1020,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="watchdog_shizuku_crashed_action_turn_off_alerts">إيقاف التنبيهات</string>
     <string name="watchdog_given_up_action_start">البدء بالتشغيل</string>
     <!-- Misc -->
+    <string name="off">معطل</string>
     <string name="dialog_cannot_open_browser_title">لا يمكن بدء المتصفح</string>
     <string name="toast_copied_to_clipboard">تم نسخها إلى الحافظة</string>
     <string name="accessibility_service_description">يوفر دعمًا للاقتران للأجهزة (مثل أجهزة
@@ -940,8 +1037,14 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <!-- Manage tab -->
     <string name="manage_search_hint">البحث عن التطبيقات</string>
     <string name="manage_filter_all">الكل</string>
+    <string name="manage_filter_user">المستخدم</string>
+    <string name="manage_filter_system">النظام</string>
     <string name="manage_filter_disabled">غير مفعل</string>
     <string name="manage_filter_hidden">مخفي</string>
+    <string name="manage_filter_empty">لا يوجد شيء في هذا الفلتر.</string>
+    <string name="manage_empty">لم يتم العثور على تطبيقات.</string>
+    <string name="manage_status_system">النظام</string>
+    <string name="manage_status_user">المستخدم</string>
     <string name="permissions_action_deny">منع</string>
     <string name="manage_status_disabled">غير مفعل</string>
     <string name="manage_status_hidden">مخفي</string>
@@ -949,8 +1052,9 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="app_open_info">معلومات التطبيق</string>
     <string name="app_section_battery"></string>
     <string name="app_grant_confirm_ok"></string>
+    <string name="app_op_pip">صورة في صورة</string>
     <string name="app_op_mode_default">تلقائي</string>
-    <string name="app_op_mode_allow"></string>
+    <string name="app_op_mode_allow">السماح</string>
     <string name="app_op_mode_deny">منع</string>
     <string name="app_action_enable">يُمكَِن</string>
     <string name="app_bucket_default">تلقائي</string>
@@ -973,7 +1077,10 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="firewall_tile_label">جدار الحمايه</string>
     <!-- The three answers every switch outside the app can give. Unknown is its own word: a
          state that could not be read is not the same thing as a feature that is off. -->
+    <string name="lab_state_on">مفعل</string>
+    <string name="lab_state_off">معطل</string>
     <!-- The switches in the shade and on the home screen that are not about one app. -->
+    <string name="lab_switch_service">خدمة شيزوكو</string>
     <string name="lab_switch_hiding">اخفاء</string>
     <string name="lab_switch_watchdog">مراقب النظام</string>
     <!-- The three platform settings themselves, and the hiding switches that are about the same
@@ -989,8 +1096,13 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="home_switch_dev_options">خيارات المطور</string>
     <string name="home_switch_usb">تصحيح أخطاء USB</string>
     <string name="home_switch_wireless">تصحيح الأخطاء عن طريق الشبكه اللاسلكية</string>
+    <string name="lab_widget_description">تشغيل هذه الميزة أو إيقافها.</string>
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
+    <string name="lab_switch_is_on">%1$s يعمل</string>
+    <string name="lab_switch_is_off">%1$s معطل</string>
+    <string name="lab_switch_could_not_change">%1$s لا يمكن تغييره</string>
+    <string name="lab_switch_locked">اتاحة الهاتف لتغيير هذه السلسلة.</string>
     <string name="app_info_version">الإصدار</string>
     <string name="app_info_uid">معرّف المستخدم (UID)</string>
     <string name="app_info_target_sdk">إصدار SDK المستهدف</string>
@@ -1007,9 +1119,20 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="app_info_yes">نعم</string>
     <string name="app_info_no">لا</string>
     <string name="tab_wifi_passwords">كلمات مرور الواي فاي</string>
+    <string name="tab_accessibility">إمكانية الوصول</string>
     <string name="accessibility_boot">التشغيل تلقائيًا عند بدء تشغيل الجهاز
 </string>
+    <string name="accessibility_boot_summary">يبدأ خدمة البقاء على قيد الحياة بعد إعادة التشغيل.</string>
+    <string name="accessibility_empty">لم يتم العثور على خدمات إمكانية الوصول.</string>
+    <string name="accessibility_gate_off">البقاء حيا معطلة</string>
+    <string name="accessibility_count">%1$d مفعل</string>
+    <string name="accessibility_filter_off">معطل</string>
+    <string name="accessibility_filter_on">مفعل</string>
+    <string name="accessibility_no_match">لا توجد خدمة تطابق بحثك.</string>
+    <string name="accessibility_write_failed">لا يمكن تغيير الخدمة. تحقق من أن شيزوكو يعمل.</string>
     <string name="accessibility_notification_channel">خدمات إمكانية الوصول</string>
+    <string name="accessibility_notification_title">خدمات إمكانية الوصول المحفوظة</string>
+    <string name="accessibility_notification_text">شيزوكو-التالي يقوم بتفعيل الخدمات المقفلة مرة أخرى عندما يقوم الأندرويد بتشغيلها.</string>
     <string name="wifi_passwords_show">إظهار كلمة المرور</string>
     <string name="wifi_passwords_hide">إخفاء كلمة المرور</string>
     <string name="wifi_passwords_copy">نسخ كلمة المرور</string>
@@ -1082,18 +1205,20 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="files_field_name">الإسم</string>
     <string name="files_dialog_delete_title">هل تريد حذف %1$d من العناصر؟</string>
     <string name="files_dialog_delete_message">سيؤدي هذا إلى حذفها نهائيًا؛ لا توجد سلة محذوفات هنا.</string>
-    <string name="files_working_copying">جاري النسخ</string>
-    <string name="files_working_moving">جاري النقل</string>
-    <string name="files_working_deleting">جاري الحذف</string>
-    <string name="files_working_compressing">جاري الضغط</string>
-    <string name="files_working_extracting">جاري الاستخراج</string>
+    <string name="files_working_copying">جارٍ النسخ</string>
+    <string name="files_working_moving">جارٍ النقل</string>
+    <string name="files_working_deleting">جارٍ الحذف</string>
+    <string name="files_working_compressing">جارٍ الضغط</string>
+    <string name="files_working_extracting">جارٍ الاستخراج</string>
     <string name="tab_install">مثبّت التطبيقات</string>
     <string name="install_no_file">لم يتم اختيار حزمة</string>
     <string name="install_choose">اختيار</string>
     <string name="install_choose_hint">ملف APK أو APKS أو XAPK</string>
     <string name="install_action">تثبيت</string>
-    <string name="install_running">جاري تثبيت \u2026</string>
+    <string name="install_running">جارٍ تثبيت\u2026</string>
     <string name="install_done">تم التثبيت.</string>
+    <string name="install_open">أفتح التطبيق</string>
+    <string name="install_open_failed">تعذر فتح التطبيق.</string>
     <string name="install_options_heading">خيارات التثبيت</string>
     <string name="install_instant">التثبيت كتطبيق فوري</string>
     <string name="install_instant_desc">تشغيل بدون تثبيت التطبيق بالكامل أو إضافته إلى المُشغّل (Launcher).</string>
@@ -1110,7 +1235,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="install_dexopt_everything">كل شئ (everything)</string>
     <string name="install_referrer">جهة الإحالة</string>
     <string name="install_referrer_desc">معرّف URI الذي يخبر التطبيق بمصدر التثبيت.</string>
-    <string name="install_details_reading">جاري قراءة الحزمة\u2026</string>
+    <string name="install_details_reading">جارٍ قراءة الحزمة\u2026</string>
     <string name="install_details_unreadable">هذا الملف ليس حزمة تطبيق صالحة.</string>
     <string name="install_details_version">الإصدار</string>
     <string name="install_details_target">إصدار SDK المستهدف</string>
@@ -1132,7 +1257,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="install_grant_all_desc">منح جميع الأذونات التي يطلبها التطبيق أثناء التثبيت.</string>
     <string name="install_allow_test">السماح بالحزم الاختبارية</string>
     <string name="install_allow_test_desc">السماح بالتطبيقات المصنفة كإصدارات اختبار أو تصحيح أخطاء (Debug).</string>
-    <string name="install_keep_running">عدم إنهاء التطبيق</string>
+    <string name="install_keep_running">لا تقم بإيقاف التطبيق</string>
     <string name="install_keep_running_desc">إبقاء التطبيق قيد التشغيل أثناء استبداله.</string>
     <string name="install_skip_verification">تخطي التحقق</string>
     <string name="install_skip_verification_desc">تخطي فحص التحقق من حزمة التطبيق.</string>
@@ -1147,6 +1272,11 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="install_location_shared">التخزين المشترك</string>
     <string name="install_spoof_source">تمويه مصدر التثبيت</string>
     <string name="install_spoof_source_desc">الحزمة التي سيُسجل في نظام أندرويد أنها من قامت بتثبيت هذا التطبيق.</string>
+    <string name="install_source_presets">مصادر تثبيت عامة</string>
+    <string name="install_source_none">لا يوجد تفريغ</string>
+    <string name="install_source_play_store">متجر Google Play</string>
     <string name="install_source_shell">واجهة الأوامر (Shell)
 </string>
+    <string name="install_source_google_package_installer">مثبت حزمة قوقل</string>
+    <string name="install_source_aosp_package_installer">مثبت حزمة AOSP</string>
 </resources>
