@@ -34,11 +34,7 @@
     <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
-    <string name="dialog_adb_pairing_accessibility_navigate">Mangyaring simulan ang pagpapares sa
-        pamamagitan ng pagsasagawa ng mga sumusunod na hakbang:\n- Mag-navigate sa \"Mga Pagpipilian
-        sa Developer\"\n- Paganahin ang \"USB debugging\" at \"Wireless debugging\"\n- I-tap ang
-        kaliwang bahagi ng \"Wireless debugging\"\n- I-tap ang \"Ipares ang device sa pagpapares ng
-        code.\" Awtomatikong makikita ng Shizuku ang code ng pagpapares.</string>
+    <string name="dialog_adb_pairing_accessibility_navigate">Simulan ang pagpapares sa pamamagitan ng pagsunod sa mga sumusunod na hakbang:\n- Magpunta sa \"Mga opsyon ng developer\"\n- I-tap ang \"Pag-debug ng USB\" at \"Wireless na pag-debug\"\n- I-tap ang kaliwang bahagi ng \"Wireless na pag-debug\"\n- I-tap ang \"Ipares ang device sa pagpapares ng code.\" Awtomatikong makikita ng Shizuku ang code ng pagpapares.</string>
     <string name="adb_pairing_requires_multi_window">Pumunta muna sa split-screen (multi-window)
         mode.</string>
     <string name="adb_pairing_requires_multi_window_reason">Kinakailangan ng system na laging
@@ -49,33 +45,22 @@
     <string name="adb_error_stop_tcp">Nabigo na pigilan ang ADB sa TCP</string>
     <string name="adb_pair_required">Sundin muna ang mga hakbang sa pagpapares.</string>
     <string name="enable">Paganahin</string>
+    <string name="auto_pair_instructions">Magpares nang Hindi nagta-type ng code:\n\n1. I-tap ang \'Mga opsyo ng developer\" sa ibaba\n\nAwtomatikong bubukasn ng Shizuku ang \"Wireless na pag-debug\" at ang dialog ng pagpares, pagbasa ng code at port at simulan ito. Panatilihing bukas ang dialog hanggang matapos ang pagpares.</string>
+    <string name="auto_pair_manual">Mano-mano</string>
     <string name="development_settings">Mga opsyon ng developer</string>
     <string name="notification_settings">Mga opsyon sa notipikasyon</string>
-    <string name="adb_pairing_tutorial_content_notification">Tutulungan ka ng isang notipikasyon
-        mula sa Shizuku na tapusin ang pagpapares.</string>
-    <string name="adb_pairing_tutorial_content_steps">Mag-navigate sa \"Developer Options\",
-        pagkatapos ay paganahin ang \"USB debugging\" at \"Wireless debugging\".</string>
-    <string name="adb_pairing_tutorial_content_enter_pairing_code">I-tap ang kaliwang bahagi ng
-        \"Wireless debugging\", pagkatapos ay i-tap ang \"Ipares ang device sa pagpapares ng code.\"
-        Ilagay ang code sa notification para makumpleto ang pagpapares.</string>
-    <string name="adb_pairing_tutorial_content_notification_blocked">Kailangan mong makisalamuha sa
-        isang notipikasyon mula sa Shizuku para makumpleto ang proseso sa pagpapares. Mangyaring
-        payagan ang Shizuku na magpadala ng mga notipikasyon.</string>
-    <string name="adb_pairing_tutorial_content_miui">Maaaring kailangan ng mga gumagamit ng MIUI na
-        gawing \"Android\" ang estilo ng notipikasyon sa \"Notification\" - \"Notification shade\"
-        sa system settings.</string>
-    <string name="adb_pairing_tutorial_content_miui_2">Kung hindi, maaaring hindi mo maipasok ang
-        code ng pagpapares mula sa notification.</string>
+    <string name="adb_pairing_tutorial_content_notification">Tutulungan ka ng isang notipikasyon mula sa Shizuku na tapusin ang pagpapares.</string>
+    <string name="adb_pairing_tutorial_content_steps">Magpunta sa \"Mga opsyon ng developer\", pagkatapos ay paganahin ang \"Pag-debug ng USB\" at \"Wireless na pag-debug\".</string>
+    <string name="adb_pairing_tutorial_content_enter_pairing_code">I-tap ang kaliwang bahagi ng \"Wireless na pag-debug\", pagkatapos ay i-tap ang \"Ipares ang device sa pagpapares ng code\". Ilagay ang code sa notification para makumpleto ang pagpapares.</string>
+    <string name="adb_pairing_tutorial_content_notification_blocked">Kailangan mong mag-interact sa notification mula sa Shizuku para makumpleto ang proseso sa pagpapares. Mangyaring payagan ang Shizuku na magpadala ng mga notipikasyon.</string>
+    <string name="adb_pairing_tutorial_content_miui">Maaaring kailangan ng mga gumagamit ng MIUI na gawing \"Android\" ang notification style sa \"Notification\" - \"Notification shade\" sa system settings.</string>
+    <string name="adb_pairing_tutorial_content_miui_2">Kung hindi, maaaring hindi mo mailalagay ang code ng pagpapares mula sa notification.</string>
     <string name="adb_pairing_tutorial_content_finish">Bumalik sa Shizuku at simulan ang Shizuku.</string>
-    <string name="adb_pairing_tutorial_content_network">Kailangang ma-access ng Shizuku ang lokal na
-        network. Ito ay kinokontrol ng pahintulot ng network.</string>
-    <string name="adb_pairing_tutorial_content_network_limation_not_foreground">Hindi pinapayagan ng
-        ilang system (gaya ng MIUI) ang mga app na i-access ang network kapag hindi nakikita ang mga
-        ito, kahit na gumagamit ang app ng serbisyo sa harapan. Mangyaring huwag paganahin ang mga
-        feature ng pag-optimize ng baterya para sa Shizuku sa mga naturang system.</string>
+    <string name="adb_pairing_tutorial_content_network">Kailangang ma-access ng Shizuku ang lokal na network. Ito ay kinokontrol ng pahintulot ng network.</string>
+    <string name="adb_pairing_tutorial_content_network_limation_not_foreground">Hindi pinapayagan ng ilang system (gaya ng MIUI) ang mga app na i-access ang network kapag hindi nakikita ang mga ito, kahit na gumagamit ang app ng foreground services. Mangyaring i-turn off ang \"Battery optimization\" para sa Shizuku sa mga naturang system.</string>
     <!-- Home - Root -->
     <string name="home_root_title"><![CDATA[Simulan (para sa mga device na may root)]]></string>
-    <string name="home_root_description"><![CDATA[Kung gumagamit ka ng Magisk, maaari mong subukan %1$s. Para sa mga gumagamit ng ugat, sa kalaunan ay papalitan nito ang Shizuku. Tandaan, kailangang magbago ng kaunti ang mga umiiral na application upang magamit ang %2$s.]]></string>
+    <string name="home_root_description"><![CDATA[Kung gumagamit ka ng Magisk, maaari mong subukan %1$s. Para sa mga gumagamit ng root, ay papalitan nito ang Shizuku. Tandaan, kailangang magbago ng kaunti ang mga app upang magamit ang %2$s.]]></string>
     <string name="home_root_button_start">Simulan</string>
     <!-- Home - Application management -->
     <plurals name="home_app_management_authorized_apps_count">
@@ -87,18 +72,127 @@
     <!-- Home - Learn more -->
     <!-- Home - Adb permissions limited -->
     <!-- Home - Dialogs -->
+    <string name="home_dialog_reboot_required_title">Kinakailangan ng reboot</string>
+    <string name="home_dialog_reboot_required_message">Kinakailangan ng reboot ng device para gumana ng maayos ang Shizuku. Para magpatuloy, paki-reboot ang iyong device.</string>
     <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">Limitado ang pahintulot ng adb</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Posibleng nilimitahan ng gumawa ng device mo ang kakayahan ng adb.<p>Maaaring may solusyon para sa sistema mo sa <b><a href="%1$s">dokumentong ito</a></b>.]]></string>
     <string name="app_management_toggle_all">I-toggle ang lahat</string>
+    <string name="app_management_search_hint">Maghanap ng mga app</string>
+    <string name="app_management_sort">I-sort</string>
+    <string name="apps_needs_shizuku">Simulan ang Shizuku para makita ang mga app</string>
+    <string name="apps_empty">Walang mga app na maipapakita</string>
+    <string name="apps_filter_empty">Walang mga app sa filter na ito</string>
+    <string name="apps_filter_all">Lahat</string>
+    <string name="apps_filter_granted">Pinayagan</string>
+    <string name="apps_filter_revoked">Hindi pinayagan</string>
+    <string name="apps_filter_hidden">Nakatago</string>
+    <string name="apps_no_match">Walang nahanap na mga app</string>
+    <string name="app_management_sort_last_added">Kamakailang idinagdag</string>
+    <string name="tab_apps">Mga app</string>
+    <string name="lab_more_apps">Ibang mga app</string>
+    <string name="labs_filter_allowed">Pinayagan</string>
+    <string name="labs_filter_blocked">Naka-block</string>
+    <string name="labs_blocked_count">%1$d na-block</string>
+    <string name="labs_blocked_empty">Walang na-block</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="tab_hiding">Tinatago</string>
+    <string name="tab_hide_developer_options">I-tagl ang mga opsyon ng developer</string>
+    <string name="tab_hide_usb_debugging">I-tago ang \"Pag-debug ng USB\"</string>
+    <string name="tab_hide_wireless_debugging">I-tago ang \"Wireless na pag-debug\"</string>
+    <string name="tab_hide_accessibility">I-tago ang accessibility</string>
+    <string name="tab_hide_private_dns">I-tago ang Privadong DNS</string>
+    <string name="tab_hide_vpn">I-tago ang VPN</string>
+    <string name="hiding_hidden_count">%1$d nakatago</string>
+    <string name="hiding_gate_disabled">Hindi pinapagana</string>
+    <string name="hiding_restart_on_open">Isara at buksan muli kapag inilunsad</string>
+    <string name="hiding_restart_on_open_summary">Ang mga app na nasa listahan ay awtomatikong isinasara at muling binubuksan tuwing inilulunsad ang mga ito upang mabasa ang mga nakatagong setting. Mawawala ang anumang pagbabagong hindi pa nase-save kapag isinara ang app.</string>
+    <string name="hiding_gate_kept">%1$d pinanatili</string>
+    <string name="hiding_filter_hidden">Nakatago</string>
+    <string name="hiding_filter_empty">Walang nakatago</string>
+    <string name="hiding_signal_developer_options">Mga opsyon ng developer</string>
+    <string name="hiding_signal_private_dns">Privadong DNS</string>
+    <string name="hiding_vpn_client">VPN client na itatago</string>
+    <string name="tab_force_dark">Ipilit ang dark mode</string>
+    <string name="force_dark_gate">Ipilit ang dark mode</string>
+    <string name="force_dark_gate_disabled">Naka-off ang ipilit ang dark mode</string>
+    <string name="force_dark_count">%1$d pinilit</string>
+    <string name="force_dark_filter_forced">Pinilit</string>
+    <string name="force_dark_filter_not">Hindi pinilit</string>
+    <string name="force_dark_empty">Walang pinilit na i-dark</string>
+    <string name="force_dark_system_theme">Palitan na lang ang system theme</string>
+    <string name="force_dark_notification_title">Naka-on ang ipilit ang dark mode</string>
+    <string name="display_apply">I-apply</string>
+    <string name="display_reset">I-reset</string>
+    <string name="display_modes_missing">Hindi madetect ang mga suportadong mga refresh rate. Maglagay ng value nang manu-mano</string>
+    <string name="activities_copy">Kopyahin</string>
+    <string name="activities_copied">Nakopya</string>
+    <string name="activities_apps_section">Mga app</string>
+    <string name="activities_save">I-save</string>
     <string name="intent_start">Simulan</string>
-    <string name="device_watchdog">Tagapagbantay</string>
+    <string name="device_watchdog">Watchdog</string>
+    <string name="log_filter_all">Lahat</string>
+    <string name="log_save">I-save</string>
+    <string name="log_tab_saved">Naka-save</string>
     <string name="log_capture_start">Simulan</string>
+    <string name="log_capture_stop">Itigil</string>
+    <string name="log_capture_choose_hint">Maghanap ng mga app</string>
+    <string name="tab_settings">Mga setting</string>
+    <string name="home_device_manager_version">Bersyon ng manager</string>
+    <string name="home_device_android_version">Bersyon ng Android</string>
+    <string name="home_device_kernel_version">Bersyon ng kernel</string>
+    <string name="selinux_disabled">Hindi pinapagana</string>
+    <string name="seccomp_disabled">Hindi pinapagana</string>
+    <string name="seccomp_strict">Strikto</string>
+    <string name="seccomp_filter">Naka-filter</string>
+    <string name="status_running_short">Gumagana</string>
+    <string name="status_stopped_short">Nakatigil</string>
+    <string name="home_status_service_active">Ang serbisyo ng Shizuku ay gumagana</string>
+    <string name="home_status_service_stopped">Ang serbisyo ng Shizuku ay nakatigil</string>
     <string name="action_start">Simulan</string>
-    <string name="modules_repo_retry">Subukan ulit</string>
+    <string name="tools_modules">Mga modyul</string>
+    <string name="tab_modules">Mga modyul</string>
+    <string name="modules_catalog">Maghanap ng mga modyul</string>
+    <string name="catalog_filter_sort">I-sort</string>
+    <string name="catalog_updated_any">Anumang oras</string>
+    <string name="catalog_updated_last_7">Nakaraang 7 araw</string>
+    <string name="catalog_updated_last_30">Nakaraang 30 araw</string>
+    <string name="catalog_updated_last_90">Nakaraang 90 araw</string>
+    <string name="catalog_view_github">Tignan sa GitHub</string>
+    <string name="modules_repo_retry">Subukan muli</string>
+    <string name="modules_repo_error">Hindi ma-load ang mga repository.</string>
+    <string name="modules_repo_by_author">ni %1$s</string>
+    <string name="modules_repo_latest_version">Pinakabagong bersyon</string>
+    <string name="modules_repo_loading">Naglo-load...</string>
+    <string name="modules_find_modules">Maghanap ng mga modyul</string>
+    <string name="modules_install_from_file">Mag-install mula sa file</string>
+    <string name="modules_install_title">Mag-install ng modyul</string>
+    <string name="modules_settings">Mga modyul</string>
+    <string name="modules_catalog_install">I-install</string>
+    <string name="modules_catalog_installing">Ini-install</string>
+    <string name="modules_catalog_no_releases">Ang repository na ito at walang mga release.</string>
+    <string name="modules_catalog_installed">Naka-install</string>
+    <string name="modules_disabled">Hindi pinapagana</string>
+    <string name="modules_sort">I-sort</string>
+    <string name="modules_action_stop">Itigil</string>
+    <string name="modules_service_running_short">Gumagana</string>
+    <string name="modules_summary">Magdagdag ng mga features sa Shizuku gamit ang mga modyul mula sa komunidad</string>
+    <string name="modules_none">Wala pang mga modyul.</string>
+    <string name="modules_install">Mag-install ng modyul</string>
+    <string name="modules_service_start">Simulan ang serbisyo</string>
+    <string name="modules_service_stop">Ihinto ang serbisyo</string>
+    <string name="modules_error_install_failed">Hindi ma-install ang modyul.</string>
+    <string name="start_failed">Hindi masimulan ang Shizuku</string>
+    <string name="action_connect_wifi">Mag-connect</string>
+    <string name="action_pair">Magpares</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_theme_system">I-follow ang system</string>
+    <string name="settings_theme_light">Maliwanag</string>
+    <string name="settings_theme_dark">Madilim</string>
+    <string name="intents_copy">Kopyahin</string>
     <string name="intents_start">Simulan</string>
+    <string name="intents_stop">Itigil</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Iniulat ng mga user na sinira ng MIUI ang Storage Access
         Framework, na ginagamit ng export function.</string>
@@ -115,6 +209,7 @@
         alias para sa %2$s sa iyong terminal app na %3$s configuration file.</string>
     <string name="terminal_tutorial_3">Magbukas ng shell gamit ang sumusunod na command:</string>
     <!-- Stealth -->
+    <string name="stealth_hide">Itago</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">Magsimula sa boot</string>
     <string name="settings_watchdog">Tagapagbantay</string>
@@ -133,24 +228,35 @@
     <string name="settings_black_night_theme">Itim na panggabing tema</string>
     <string name="settings_black_night_theme_summary">Gamitin ang purong itim na tema kung nakabukas
         ang panggabing mode</string>
+    <string name="permissions_action_settings">Mga setting</string>
     <!--
       The guided first run. Each page is one decision, and the sentences say what happens rather
       than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
     -->
     <string name="settings_help">Tulong</string>
+    <string name="settings_translate">Makilahok sa pagsasalin</string>
+    <string name="settings_translate_note">Isalin ang app sa Crowdin.</string>
     <string name="settings_report_bug">Mag-ulat ng isang bug</string>
+    <string name="settings_contributors">Mga kontribyutor</string>
     <!--
       A plural, not a plain string: most of the people on this wall are here for a single commit,
       so the singular is read more often than the plural is.
     -->
+    <string name="contributor_view_github">Tignan sa GitHub</string>
+    <string name="contributor_details_close">Isara</string>
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
+    <string name="contributor_area_i18n">Pagsasalin</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
       worked in, and the languages they translated into. There is deliberately no string per
       person: a new contributor is described the moment the generator sees them, and %1$s/%2$s are
       filled with the area names above and with language names the platform already localises.
     -->
-    <string name="settings_legacy_pairing">Pagpapares ng pamana</string>
+    <string name="contributor_summary_code">Nag-ambag sa %1$s.</string>
+    <string name="contributor_summary_translations">Isinalin ang app sa %1$s.</string>
+    <string name="contributor_summary_code_translations">Nag-ambag sa %1$s, at isinalin ang app sa %2$s.</string>
+    <string name="contributor_summary_default">Kontribyutor</string>
+    <string name="settings_legacy_pairing">Dating paraan ng pagpapares</string>
     <string name="settings_legacy_pairing_summary">Ipasok ang code ng pagpapares sa isang dialog sa
         halip na isang abiso</string>
     <!-- Bug Report Dialog -->
@@ -166,15 +272,19 @@
     <string name="snackbar_battery_optimization_settings">Mangyaring huwag paganahin ang
         pag-optimize ng baterya upang magamit ang tampok na ito.</string>
     <string name="snackbar_action_fix">Ayusin</string>
+    <string name="snackbar_update_available">May bagong bersyon na available</string>
     <!-- Updates -->
     <!-- Toast -->
     <string name="toast_pairing_timeout">Nag-time out ang serbisyo ng pagpapares ng Shizuku.</string>
     <!-- Dark Mode Setting Override -->
-    <string name="dark_theme_off">Laging magaan</string>
+    <string name="dark_theme">Tema</string>
+    <string name="dark_theme_off">Laging maliwanag</string>
     <string name="dark_theme_on">Laging madilim</string>
+    <string name="follow_system">I-follow ang system</string>
     <!-- About -->
     <!-- Start/Stop -->
     <string name="start">Simulan</string>
+    <string name="action_stop">Itigil</string>
     <!-- Notification -->
     <string name="notification_channel_adb_pairing">Pagpapares ng wireless na pag-debug</string>
     <string name="notification_adb_pairing_input_paring_code">Ilagay ang code ng pagpapares</string>
@@ -208,6 +318,13 @@
         WRITE_SECURE_SETTINGS para makapagsimula sa boot. Mag-tap upang malaman kung paano ito
         ibigay.</string>
     <!-- Shell -->
+    <string name="shell_search">Maghanap</string>
+    <string name="shell_more">Higit pa</string>
+    <string name="shell_save_output">I-save</string>
+    <string name="shell_bookmark_name_hint">Pangalan</string>
+    <string name="shell_bookmark_sort_name">Pangalan</string>
+    <string name="shell_stop">Ihinto</string>
+    <string name="shell_copy">Kopyahin</string>
     <!-- Watchdog -->
     <string name="watchdog_running">Tumatakbo ang Watchdog</string>
     <string name="watchdog_turn_off">I-off</string>
@@ -220,6 +337,7 @@
     <!-- Misc -->
     <string name="dialog_cannot_open_browser_title">Hindi mabuksan ang browser</string>
     <string name="toast_copied_to_clipboard">Kinopya sa clipboard</string>
+    <string name="toast_press_back_again">Pindutin muli ang back upang umalis</string>
     <string name="accessibility_service_description">Nagbibigay ng suporta sa pagpapares para sa mga
         aparato (hal., Mga TV na nagpapatakbo ng Android 14+) kung saan hindi magagamit ang mga
         abiso o split screen.\n\nPinapayagan ang Shizuku na kunin ang code ng pagpapares mula sa
@@ -234,7 +352,14 @@
     <string name="dialog_requesting_legacy_button_open_shizuku">Buksan ang Shizuku</string>
     <string name="wadb_notification_attempt_now">Subukan ulit</string>
     <!-- Manage tab -->
+    <string name="manage_search_hint">Maghanap ng mga app</string>
+    <string name="manage_filter_all">Lahat</string>
+    <string name="manage_filter_disabled">Hindi pinapagana</string>
+    <string name="manage_filter_hidden">Nakatago</string>
+    <string name="manage_empty">Walang mga apps.</string>
     <string name="permissions_action_deny">Tanggihan</string>
+    <string name="manage_status_disabled">Hindi pinapagana</string>
+    <string name="manage_status_hidden">Nakatago</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_op_mode_deny">Tanggihan</string>
     <string name="app_action_enable">Paganahin</string>
@@ -246,10 +371,20 @@
     <string name="lab_switch_watchdog">Tagapagbantay</string>
     <!-- The three platform settings themselves, and the hiding switches that are about the same
          three settings. Named apart so a shade with both in it does not ask which is which. -->
+    <string name="lab_switch_developer_options">Mga opsyon ng developer</string>
+    <string name="lab_switch_hide_developer_options">I-tagl ang mga opsyon ng developer</string>
+    <string name="lab_switch_hide_usb_debugging">I-tago ang \"Pag-debug ng USB\"</string>
+    <string name="lab_switch_hide_wireless_debugging">I-tago ang \"Wireless na pag-debug\"</string>
     <!-- The three debugging switches on the home screen, under the server's buttons. Short
          because three share one row; the tile picker spells them out in full. -->
+    <string name="home_switch_dev_options">Mga opsyon ng developer</string>
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
     <string name="accessibility_boot">Magsimula sa boot</string>
+    <string name="wifi_passwords_connect">Mag-connect</string>
+    <string name="files_sort">I-sort</string>
+    <string name="files_action_copy">Kopyahin</string>
+    <string name="files_field_name">Pangalan</string>
+    <string name="install_details_same">.</string>
     <string name="install_location_auto">Mga opsyon ng developer</string>
 </resources>

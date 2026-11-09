@@ -565,7 +565,7 @@
       The guided first run. Each page is one decision, and the sentences say what happens rather
       than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
     -->
-    <string name="setup_root_title">Root</string>
+    <string name="setup_root_title">Główny</string>
     <string name="setup_wireless_title">Debugowanie bezprzewodowe</string>
     <string name="setup_usb_title">Debugowanie za pomocą USB</string>
     <string name="settings_help">Pomoc</string>
