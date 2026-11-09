@@ -20,7 +20,9 @@ The check and the merge happen **in the same run** as the download, not in a wor
 own reacting to the pull request: GitHub starts no runs for events caused by `GITHUB_TOKEN`, and
 the pull request is opened with that token, so a separate workflow waits for an event that never
 arrives. That is why `merge` sits inside `crowdin.yml`, and why `translations-merge.yml` exists
-only for pull requests opened by somebody else.
+only for pull requests opened by somebody else. The automatic run also repairs rejected
+placeholder or command strings in `ci/repair-translations.py`; the check remains the final
+authority after that repair.
 
 So the loop is: change a string → push → Crowdin has it → a translator writes it →
 the next nightly opens a pull request → it merges itself. The two things that remain a
@@ -32,8 +34,16 @@ pull request is checked first, and it is left open when:
 - it changes any file other than `manager/src/main/res/values-*/strings.xml`
 - a file is not valid XML, or holds no strings at all
 - a translated string changes an ADB command from the source, or loses a format placeholder
+- a pull request empties a translated value that was non-empty on `master` (or adds a new empty
+  value), so a blank label cannot ship as a translation
 - a file is **90% or more the English text**, which means it was exported without
   *skip untranslated strings* and is not a translation
+
+For the automatic Crowdin pull requests, a string rejected for a changed placeholder or ADB
+command is repaired rather than left for a person: `ci/repair-translations.py` removes only that
+element from the locale file and deletes its translations from Crowdin. The app falls back to
+the English string, and the next export cannot bring the bad value back. A hand-made translation
+pull request still stops at the check, because there the bad string is not in Crowdin to remove.
 
 Keys that the source no longer has are reported and do not block: every locale carries a few
 from strings renamed upstream, Android ignores a translation with nothing to attach it to,

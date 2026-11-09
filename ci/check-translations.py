@@ -17,8 +17,9 @@ repository does not have, is not valid XML, holds no strings at all, holds an ap
 resource compiler refuses (see `translation_escapes.py`, which is the same rule and the
 script that repairs one), or is 90% or more the English text - the last one being how a
 language that was never translated gets exported looking translated. It also refuses a
-translation whose format placeholders differ from the source, or whose ADB command does not
-preserve the source command's executable, subcommand and arguments. Keys the source no
+translation whose format placeholders differ from the source, whose ADB command does not
+preserve the source command's executable, subcommand and arguments, or that empties a value
+that was non-empty on master. A new empty translation is refused too. Keys the source no
 longer has are reported and do not block: every locale carries a few from strings renamed
 upstream, Android ignores a translation with nothing to attach it to, and the next export
 drops them.
@@ -208,6 +209,10 @@ def main():
             continue
 
         translated_texts = texts_at(translated_ref, path)
+        try:
+            base_texts = texts_at(source_ref, path)
+        except (subprocess.CalledProcessError, ElementTree.ParseError):
+            base_texts = {}
 
         for key, source_value in source_texts.items():
             translated_value = translated_texts.get(key)
@@ -221,6 +226,17 @@ def main():
                     f" (source: {describe_placeholders(source_placeholders)};"
                     f" translation: {describe_placeholders(translated_placeholders)})"
                 )
+
+            # An empty value that was already empty on master is left alone: those are old
+            # gaps, not something this pull request introduced. A value this pull request
+            # emptied (or a new empty value) is refused, so a missing translation cannot
+            # silently ship as a blank label.
+            if (
+                source_value.strip()
+                and not translated_value.strip()
+                and (key not in base_texts or base_texts[key].strip())
+            ):
+                problems.append(f"{path}: {key}: translation is empty")
 
         for key, commands in source_commands.items():
             translated_value = translated_texts.get(key)
