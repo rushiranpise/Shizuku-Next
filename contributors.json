@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-02",
+  "generated": "2026-11-08",
   "contributors": [
     {
       "name": "Rikka",
@@ -17,7 +17,7 @@
       "name": "Rushi Ranpise",
       "login": "rushiranpise",
       "avatarUrl": "https://avatars.githubusercontent.com/u/37355997?v=4",
-      "commits": 512,
+      "commits": 553,
       "areas": [
         "APP",
         "I18N",
@@ -397,6 +397,18 @@
       ]
     },
     {
+      "name": "João Santos",
+      "login": "j0p3s",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/49688635?v=4",
+      "commits": 2,
+      "areas": [
+        "APP",
+        "SERVER",
+        "ADB"
+      ],
+      "languages": []
+    },
+    {
       "name": "Kr328",
       "login": "Kr328",
       "avatarUrl": "https://avatars.githubusercontent.com/u/39107975?v=4",
@@ -618,6 +630,18 @@
       ]
     },
     {
+      "name": "miui",
+      "login": "miuiadmin",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/33443359?v=4",
+      "commits": 2,
+      "areas": [
+        "APP",
+        "I18N",
+        "DOCS"
+      ],
+      "languages": []
+    },
+    {
       "name": "salehaliii",
       "login": null,
       "avatarUrl": null,
@@ -815,6 +839,20 @@
       ],
       "languages": [
         "zh-TW"
+      ]
+    },
+    {
+      "name": "Crowdin Bot",
+      "login": "crowdin-bot",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/58779643?v=4",
+      "commits": 1,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "af",
+        "ar",
+        "az"
       ]
     },
     {
