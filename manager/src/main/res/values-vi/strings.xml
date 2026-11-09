@@ -157,7 +157,6 @@
     <string name="hiding_gate_kept">%1$d được giữ nguyên</string>
     <string name="hiding_filter_hidden">Ẩn</string>
     <string name="hiding_open_with_hiding">Mở với cài đặt ẩn</string>
-    <string name="hiding_filter_shown"></string>
     <string name="hiding_filter_empty">Không có gì bị ẩn.</string>
     <string name="hiding_restore">Khôi phục</string>
     <string name="hiding_signal_usb_debugging">Gỡ lỗi USB</string>

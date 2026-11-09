@@ -71,7 +71,6 @@
          command. -->
     <string name="dialog_adb_pairing_accessibility_permission_tv">Android blokuje tento přepínač pro aplikace nainstalované mimo obchod s aplikacemi a v televizi, Informace o aplikaci nemají žádnou možnost \"Povolit omezená nastavení\" pro její odblokování. Počítač připojený k této televizi přes ADB je potřeba jednou: buď udělte výše uvedené svolení. která umožňuje Shizuku zapnout službu sama, nebo odblokovat přepínač pomocí:\n\n^1</string>
     <string name="dialog_adb_pairing_open_app_info">Informace o aplikaci</string>
-    <string name="dialog_adb_pairing_accessibility_enable">Automatické párování čte kód ze systémového dialogu prostřednictvím Shizuku služby přístupnosti, takže musí být povoleno, a to tak dlouho, jak dlouho bude trvat: než služba se vypne po nalezení kódu nebo po minutě, aby ušetřila energii. Shizuku to normálně umožňuje samo o sobě, a to vyžaduje oprávnění WRITE_SECURE_SETTINGS, které ještě nebylo uděleno nové instalaci.\n\nPovolte to na další obrazovce, zadejte kód sám ručně nebo jednou udělte oprávnění:\n\nAdb shell pm udělí %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Párování spusťte provedením následujících kroků:\n- Přejděte do sekce „Možnosti pro vývojáře“\n- Povolte „Ladění USB“ a „Bezdrátové ladění“\n- Klepněte na levou stranu sekce „Bezdrátové ladění“\n- Klepněte na „Spárovat zařízení s párovacím kódem“. Shizuku automaticky detekuje párovací kód.</string>
     <string name="adb_pairing_requires_multi_window">Nejprve prosím přejděte do režimu rozdělené obrazovky (více oken).</string>
     <string name="adb_pairing_requires_multi_window_reason">Systém vyžaduje, aby byl dialog pro párování vždy viditelný. Použití režimu rozdělené obrazovky je jediný způsob, jak zajistit, aby tato aplikace a dialogové okno systému byly viditelné současně.</string>
@@ -542,13 +541,11 @@
     <string name="about_package">Balíček</string>
     <string name="check_for_updates_now">Zkontrolovat nyní</string>
     <string name="start_failed">Šizuku nelze spustit</string>
-    <string name="start_failed_write_secure_settings">Shizuku nemůže přepnout bezdrátové ladění bez oprávnění WRITE_SECURE_SETTINGS. Zapněte jej pod vývojářskými možnostmi &gt; Bezdrátové ladění, nebo udělte oprávnění s <b>pm s adb shell udělte %1$s android.permission.WRITE_SECURE_SETTINGS</b>. Jakmile Shizuku spustíte, zachová si toto oprávnění samo, takže je to jednorázové.</string>
     <string name="action_open_wireless_debugging">Bezdrátové ladění</string>
     <string name="start_failed_unsupported">Toto zařízení nemůže spustit na pozadí</string>
     <string name="start_failed_wifi_required">Připojte se k síti Wi-Fi, systém vypne bezdrátové ladění. Nebo spusťte z počítače pomocí příkazu ADB níže.</string>
     <string name="start_failed_binder_went_away">Služba byla spuštěna a pak znovu zastavena, takže ještě nic nemůže použít. To se stane, když je server sejmut s aplikací, kterou spustí, co dělá užitečné zatížení po jeho spuštění. Zkuste to znovu.</string>
     <string name="start_failed_no_port">Nebyl nalezen bezdrátový port pro ladění. Ujistěte se, že bezdrátové ladění je povoleno a že je připojeno Wi-Fi.</string>
-    <string name="start_failed_no_port_no_permission">Nebyl nalezen bezdrátový debugging port a Shizuku nemůže zapnout bezdrátové ladění bez WRITE_SECURE_SETTINGS: <b>Adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>nebo spusťte Shizuku nad USB laděním, jakmile si poté udělí.</string>
     <string name="start_failed_no_auth">Bezdrátové ladění není v této síti povoleno. Znovu spusťte zařízení.</string>
     <string name="action_dismiss">Odmítnout</string>
     <string name="action_connect_wifi">Připojit</string>
