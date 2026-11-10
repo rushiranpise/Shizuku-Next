@@ -76,7 +76,6 @@
          command. -->
     <string name="dialog_adb_pairing_accessibility_permission_tv">Android blocks this switch for apps installed outside an app store, and on a TV, App info has no \"Allow restricted settings\" option to unblock it. A computer connected to this TV over ADB is needed once: either grant the permission above, which lets Shizuku turn the service on by itself, or unblock the switch with:\n\n^1</string>
     <string name="dialog_adb_pairing_open_app_info">App info</string>
-    <string name="dialog_adb_pairing_accessibility_enable"></string>
     <string name="dialog_adb_pairing_accessibility_navigate">Silakan mulai pemasangan dengan
         melakukan langkah-langkah berikut:\n- Buka \"Opsi Pengembang\"\n- Aktifkan \"Debugging USB\"
         dan \"Debugging Nirkabel\"\n- Ketuk sisi kiri \"Debugging Nirkabel\"\n- Ketuk \"Pasangkan
