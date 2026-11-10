@@ -488,6 +488,7 @@
     <string name="manage_status_disabled">Отключён</string>
     <string name="manage_status_suspended">Приостановлено</string>
     <string name="manage_status_hidden">Скрытые</string>
+    <string name="manage_selected_count">Выбрано: %1$d</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_detail_missing">Это приложение больше не установлено.</string>
     <string name="app_open_info">Информация о приложении</string>

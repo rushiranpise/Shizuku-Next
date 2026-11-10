@@ -805,6 +805,7 @@
     <string name="manage_status_disabled">Pois Käytöstä</string>
     <string name="manage_status_suspended">Keskeytetty</string>
     <string name="manage_status_hidden">Hidden</string>
+    <string name="manage_selected_count">%1$d valittu</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_detail_missing">Tätä sovellusta ei ole enää asennettu.</string>
     <string name="app_open_info">Sovelluksen tiedot</string>

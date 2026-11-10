@@ -134,6 +134,7 @@
     <string name="labs_filter_blocked">ブロック</string>
     <string name="labs_blocked_count">%1$d がブロックされました</string>
     <string name="labs_blocked_empty">何もブロックされていません。</string>
+    <string name="labs_bulk_apply">適用</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">非表示中</string>
     <string name="tab_hide_developer_options">開発者向けオプションを非表示</string>
@@ -888,6 +889,8 @@
     <string name="manage_status_disabled">無効</string>
     <string name="manage_status_suspended">サスペンド</string>
     <string name="manage_status_hidden">非表示</string>
+    <string name="manage_selected_count">%1$d件選択済み</string>
+    <string name="manage_bulk_apply">適用</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_detail_missing">このアプリはインストールされていません。</string>
     <string name="app_open_info">アプリ情報</string>

@@ -810,6 +810,7 @@
     <string name="manage_status_disabled">Вимкнено</string>
     <string name="manage_status_suspended">Призупинено</string>
     <string name="manage_status_hidden">Приховано</string>
+    <string name="manage_selected_count">Вибрано: %1$d</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_detail_missing">Цей застосунок більше не встановлено.</string>
     <string name="app_open_info">Про програму</string>

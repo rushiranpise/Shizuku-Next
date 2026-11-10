@@ -142,6 +142,7 @@
     <string name="labs_filter_blocked">Заблокировано</string>
     <string name="labs_blocked_count">Заблокировано: %1$d</string>
     <string name="labs_blocked_empty">Ничего не заблокировано.</string>
+    <string name="labs_bulk_apply">Применить</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Скрытие</string>
     <string name="tab_hide_developer_options">Разработчик</string>
@@ -934,6 +935,8 @@
     <string name="manage_status_disabled">disabled</string>
     <string name="manage_status_suspended">suspend</string>
     <string name="manage_status_hidden">hide</string>
+    <string name="manage_selected_count">Выбрано: %1$d</string>
+    <string name="manage_bulk_apply">Применить</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_detail_missing">Это приложение больше не установлено.</string>
     <string name="app_open_info">О приложении</string>

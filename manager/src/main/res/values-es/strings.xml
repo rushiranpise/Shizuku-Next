@@ -142,6 +142,8 @@
     <string name="labs_filter_blocked">Bloqueado</string>
     <string name="labs_blocked_count">%1$d Bloqueado</string>
     <string name="labs_blocked_empty">Nada esta bloqueado.</string>
+    <string name="labs_bulk_apply">Aplicar</string>
+    <string name="labs_bulk_done">Hecho</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Ocultar</string>
     <string name="tab_hide_developer_options">Ocultar opciones de desarrollador</string>
@@ -1017,6 +1019,9 @@
     <string name="manage_status_disabled">Deshabilitado</string>
     <string name="manage_status_suspended">Suspendido</string>
     <string name="manage_status_hidden">Ocultar</string>
+    <string name="manage_selected_count">%1$d seleccionado</string>
+    <string name="manage_bulk_apply">Aplicar</string>
+    <string name="manage_bulk_done_action">Hecho</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_detail_missing">La app ya no está instalada.</string>
     <string name="app_open_info">Información de la App</string>

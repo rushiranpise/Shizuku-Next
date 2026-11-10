@@ -634,6 +634,7 @@
     <string name="manage_status_disabled">Devre dışı</string>
     <string name="manage_status_suspended">Askıda</string>
     <string name="manage_status_hidden">Gizli</string>
+    <string name="manage_selected_count">%1$d seçildi</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_detail_missing">Bu uygulama artık yüklü değil.</string>
     <string name="app_open_info">Uygulama bilgileri</string>

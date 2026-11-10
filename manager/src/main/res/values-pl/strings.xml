@@ -779,6 +779,7 @@
     <string name="manage_status_disabled">Wyłączone</string>
     <string name="manage_status_suspended">Zawieszony</string>
     <string name="manage_status_hidden">Schowane</string>
+    <string name="manage_selected_count">%1$d zaznaczone</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_detail_missing">Ta aplikacja nie jest już zainstalowana.</string>
     <string name="app_open_info">Informacje o aplikacji</string>
