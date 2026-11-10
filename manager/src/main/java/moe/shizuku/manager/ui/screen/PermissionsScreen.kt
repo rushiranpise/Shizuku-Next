@@ -65,6 +65,7 @@ import moe.shizuku.manager.manage.HidingGrants
 import moe.shizuku.manager.start.hasPermission
 import moe.shizuku.manager.start.isPermissionPermanentlyDenied
 import moe.shizuku.manager.start.PhantomProcessKiller
+import moe.shizuku.manager.start.StartMethodGuard
 import moe.shizuku.manager.start.openAppSettings
 import moe.shizuku.manager.ui.component.SegmentedCard
 import moe.shizuku.manager.start.localHotspotPermission
@@ -95,9 +96,11 @@ fun PermissionsScreen(onBack: () -> Unit) {
         mutableStateOf(localNetworkPermission()?.let { context.hasPermission(it) } ?: true)
     }
     // Android 16 reports the hotspot through the nearby-devices row; Android 13 to 15 have no
-    // local-network permission and Android 17 separates the two, so only those versions need
-    // this row as well.
-    val hotspotPermission = localHotspotPermission()?.takeIf { it != localNetworkPermission() }
+    // local-network permission and Android 17 separates the two. The hotspot exists for the
+    // no-network start, so on Android 17, where that start is gone, the row goes with it.
+    val hotspotPermission = localHotspotPermission()
+        ?.takeIf { it != localNetworkPermission() }
+        ?.takeIf { StartMethodGuard.supportsStartingWithoutWifi() }
     var hotspot by remember {
         mutableStateOf(hotspotPermission?.let { context.hasPermission(it) } ?: true)
     }

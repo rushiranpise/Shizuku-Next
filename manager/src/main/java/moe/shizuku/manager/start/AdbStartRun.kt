@@ -275,7 +275,7 @@ class AdbStartRun(
             // what used to make a "USB" start depend on Wi-Fi and pairing.
             if (usbMethod && tcpPort <= 0) {
                 StartStatusReporter.failed(
-                    applicationContext.getString(R.string.start_failed_usb_no_port),
+                    applicationContext.usbStartNoPortMessage(),
                     // The card can open the port for the user.
                     StartFailureKind.PORT
                 )

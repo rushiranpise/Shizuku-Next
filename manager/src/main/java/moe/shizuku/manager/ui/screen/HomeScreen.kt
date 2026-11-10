@@ -786,6 +786,8 @@ fun HomeScreen(bottomPadding: Dp) {
                             // A USB start needs the classic port. On Android 11 and newer with no
                             // network and no port, the wireless card above is the other way; on
                             // older versions there is no wireless method, so the ADB command is.
+                            // Android 17 no longer offers the no-network method, so that version
+                            // gets the computer route instead of being sent to a hidden choice.
                             body = if (!wirelessSupported &&
                                 EnvironmentUtils.getAdbTcpPort() <= 0
                             ) {
@@ -793,9 +795,13 @@ fun HomeScreen(bottomPadding: Dp) {
                             } else if (!EnvironmentUtils.isWifiConnected() &&
                                 EnvironmentUtils.getAdbTcpPort() <= 0
                             ) {
-                                // The string marks the method's name with <b>, which Compose
-                                // does not parse: it was drawing the tags.
-                                stringResource(R.string.home_usb_adb_needs_network).stripHtmlTags()
+                                stringResource(
+                                    if (EnvironmentUtils.isAdbWifiOverhauled()) {
+                                        R.string.home_usb_adb_needs_network_no_option
+                                    } else {
+                                        R.string.home_usb_adb_needs_network
+                                    }
+                                ).stripHtmlTags()
                             } else {
                                 stringResource(R.string.home_usb_adb_summary).stripHtmlTags()
                             },

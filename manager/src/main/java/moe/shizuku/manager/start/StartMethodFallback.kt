@@ -38,6 +38,15 @@ object StartMethodGuard {
     fun supportsWirelessDebugging(sdkInt: Int = Build.VERSION.SDK_INT): Boolean =
         sdkInt >= Build.VERSION_CODES.R
 
+    /**
+     * Starting without a Wi-Fi network stops working on Android 17.
+     *
+     * That release refuses to keep adbd's wireless server up when no wireless network is
+     * connected, even with a local-only hotspot, which is the race the no-network start used.
+     */
+    fun supportsStartingWithoutWifi(sdkInt: Int = Build.VERSION.SDK_INT): Boolean =
+        sdkInt < 37
+
     private fun isWireless(@ShizukuSettings.StartMethod method: Int): Boolean =
         method == ShizukuSettings.StartMethod.WIRELESS ||
             method == ShizukuSettings.StartMethod.WIRELESS_NO_NETWORK
@@ -60,7 +69,9 @@ object StartMethodGuard {
 
         droppedRoot = configured == ShizukuSettings.StartMethod.ROOT
         val fallback =
-            if (droppedRoot && supportsWirelessDebugging()) {
+            if (supportsWirelessDebugging() &&
+                (droppedRoot || configured == ShizukuSettings.StartMethod.WIRELESS_NO_NETWORK)
+            ) {
                 ShizukuSettings.StartMethod.WIRELESS
             } else {
                 ShizukuSettings.StartMethod.USB
@@ -75,6 +86,10 @@ object StartMethodGuard {
                 droppedRoot ->
                     "Root is not available on this device; using USB for this start"
 
+                configured == ShizukuSettings.StartMethod.WIRELESS_NO_NETWORK &&
+                    !supportsStartingWithoutWifi() ->
+                    "Starting without Wi-Fi is unavailable on Android 17 or newer; using Wireless debugging for this start"
+
                 isWireless(configured) ->
                     "Wireless debugging needs Android 11 or newer; using USB for this start"
 
@@ -85,12 +100,15 @@ object StartMethodGuard {
     }
 
     /**
-     * True when this device can run [method]. Root needs root access, and the wireless methods
-     * need Android 11. USB and system have no version or privilege requirement of their own.
+     * True when this device can run [method]. Root needs root access, the wireless methods need
+     * Android 11, and starting without a network needs an older platform than Android 17. USB
+     * and system have no version or privilege requirement of their own.
      */
     fun isAvailable(@ShizukuSettings.StartMethod method: Int): Boolean = when (method) {
-        ShizukuSettings.StartMethod.WIRELESS,
-        ShizukuSettings.StartMethod.WIRELESS_NO_NETWORK -> supportsWirelessDebugging()
+        ShizukuSettings.StartMethod.WIRELESS -> supportsWirelessDebugging()
+
+        ShizukuSettings.StartMethod.WIRELESS_NO_NETWORK ->
+            supportsWirelessDebugging() && supportsStartingWithoutWifi()
 
         ShizukuSettings.StartMethod.ROOT ->
             runCatching { EnvironmentUtils.isRooted() }.getOrDefault(false)

@@ -16,6 +16,7 @@
     <string name="home_wireless_adb_title"><![CDATA[Start via Wireless debugging]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Starting with no network: the device is asked for wireless debugging over and over until it stays on. This can take up to two minutes before it starts or gives up.</string>
     <string name="home_usb_adb_needs_network">A USB start uses the classic ADB port, and reopening it needs a network. Connect to Wi-Fi once, or choose <b>Start without Wi-Fi</b> as the start method and start over wireless debugging instead.</string>
+    <string name="home_usb_adb_needs_network_no_option">A USB start uses the classic ADB port, and reopening it needs a network. Connect to Wi-Fi once, or start from a computer with the ADB command in Other methods.</string>
     <string name="home_usb_adb_needs_computer">A USB start needs the classic ADB port. On this Android version, connect to a computer and start Shizuku with the ADB command in Other methods.</string>
     <string name="home_wireless_adb_summary">Starts using wireless debugging.</string>
     <string name="home_usb_adb_title"><![CDATA[Start via USB debugging]]></string>
@@ -607,6 +608,7 @@
     <string name="start_failed_pairing_required">This device is not paired for wireless debugging. Pair it again.</string>
     <string name="start_failed_connection_lost">The ADB connection closed while starting. Try again.</string>
     <string name="start_failed_usb_no_port">No local ADB port is open Android clears it on every reboot, and reopening it needs a connection to borrow. Connect to Wi-Fi and Shizuku will reopen it over wireless debugging, run <b>adb tcpip 5555</b> from a computer, or choose <b>Start without Wi-Fi</b> as the start method to start over wireless debugging instead.</string>
+    <string name="start_failed_usb_no_port_no_option">No local ADB port is open. Android clears it on every reboot, and reopening it needs a network connection to borrow. Connect to Wi-Fi once, or run <b>adb tcpip 5555</b> from a computer.</string>
     <string name="start_failed_root_unavailable">Root is no longer available on this device, so Shizuku can\'t start over root. Pick another start method.</string>
     <string name="start_failed_system_needs_app">The system start method must be started from the app.</string>
     <string name="start_failed_system_no_exploit">This device does not ship the Samsung FOTA agent (com.sdet.fotaagent), which is the only component the system start method can use, so there is nothing to escalate with here. Switch the system start method to Custom command: the app will show you what to run with an escalation your device does have.</string>
