@@ -80,6 +80,13 @@ data class AppOp(
     val mode: OpMode
 )
 
+/** One curated app op that the batch editor can apply to selected apps. */
+data class AppOpChoice(
+    val name: String,
+    @StringRes val label: Int,
+    @StringRes val note: Int
+)
+
 /**
  * The app standby buckets, least to most restricted.
  *
@@ -171,27 +178,27 @@ data class AppDetail(
  * again, while denying the *op* underneath leaves the permission granted and makes the data
  * come back empty. That is the switch for an app that will not take no for an answer.
  */
-private val OPS = listOf(
-    Triple("RUN_IN_BACKGROUND", R.string.app_op_background, R.string.app_op_background_note),
+internal val APP_OPS = listOf(
+    AppOpChoice("RUN_IN_BACKGROUND", R.string.app_op_background, R.string.app_op_background_note),
     // The blunter half of the same question, and the one autostart managers reach for: it
     // denies background execution whether or not the app is on screen, which takes its boot
     // receivers with it. They are separate ops because the platform treats them that way, and
     // the pairing is worth keeping visible: denying one is a decision about how an app may run,
     // not a setting that quietly does the same thing twice.
-    Triple("RUN_ANY_IN_BACKGROUND", R.string.app_op_any_background, R.string.app_op_any_background_note),
-    Triple("START_FOREGROUND", R.string.app_op_foreground, R.string.app_op_foreground_note),
-    Triple("WAKE_LOCK", R.string.app_op_wake_lock, R.string.app_op_wake_lock_note),
-    Triple("POST_NOTIFICATION", R.string.app_op_notifications, R.string.app_op_notifications_note),
-    Triple("READ_CLIPBOARD", R.string.app_op_clipboard, R.string.app_op_clipboard_note),
-    Triple("SYSTEM_ALERT_WINDOW", R.string.app_op_overlay, R.string.app_op_overlay_note),
-    Triple("REQUEST_INSTALL_PACKAGES", R.string.app_op_install, R.string.app_op_install_note),
-    Triple("TOAST_WINDOW", R.string.app_op_toast, R.string.app_op_toast_note),
-    Triple("PROJECT_MEDIA", R.string.app_op_project_media, R.string.app_op_project_media_note),
-    Triple("RECORD_AUDIO", R.string.app_op_record_audio, R.string.app_op_record_audio_note),
-    Triple("CAMERA", R.string.app_op_camera, R.string.app_op_camera_note),
-    Triple("VIBRATE", R.string.app_op_vibrate, R.string.app_op_vibrate_note),
-    Triple("MOCK_LOCATION", R.string.app_op_mock_location, R.string.app_op_mock_location_note),
-    Triple("PICTURE_IN_PICTURE", R.string.app_op_pip, R.string.app_op_pip_note)
+    AppOpChoice("RUN_ANY_IN_BACKGROUND", R.string.app_op_any_background, R.string.app_op_any_background_note),
+    AppOpChoice("START_FOREGROUND", R.string.app_op_foreground, R.string.app_op_foreground_note),
+    AppOpChoice("WAKE_LOCK", R.string.app_op_wake_lock, R.string.app_op_wake_lock_note),
+    AppOpChoice("POST_NOTIFICATION", R.string.app_op_notifications, R.string.app_op_notifications_note),
+    AppOpChoice("READ_CLIPBOARD", R.string.app_op_clipboard, R.string.app_op_clipboard_note),
+    AppOpChoice("SYSTEM_ALERT_WINDOW", R.string.app_op_overlay, R.string.app_op_overlay_note),
+    AppOpChoice("REQUEST_INSTALL_PACKAGES", R.string.app_op_install, R.string.app_op_install_note),
+    AppOpChoice("TOAST_WINDOW", R.string.app_op_toast, R.string.app_op_toast_note),
+    AppOpChoice("PROJECT_MEDIA", R.string.app_op_project_media, R.string.app_op_project_media_note),
+    AppOpChoice("RECORD_AUDIO", R.string.app_op_record_audio, R.string.app_op_record_audio_note),
+    AppOpChoice("CAMERA", R.string.app_op_camera, R.string.app_op_camera_note),
+    AppOpChoice("VIBRATE", R.string.app_op_vibrate, R.string.app_op_vibrate_note),
+    AppOpChoice("MOCK_LOCATION", R.string.app_op_mock_location, R.string.app_op_mock_location_note),
+    AppOpChoice("PICTURE_IN_PICTURE", R.string.app_op_pip, R.string.app_op_pip_note)
 )
 
 /*
@@ -357,7 +364,7 @@ object PackageTools {
     /**
      * Every op the platform reports for this app, with the ones this app can describe first.
      *
-     * The list used to be the fourteen in [OPS], which meant an op that was not curated could not
+     * The list used to be the fourteen in [APP_OPS], which meant an op that was not curated could not
      * be seen or changed here at all - the complaint in issue #147, from somebody who kept a
      * second app open for the rest. What the platform reports is the honest list: the shell prints
      * every op the app has a mode for, which is the same set `appops set` will accept, so it is
@@ -375,12 +382,12 @@ object PackageTools {
         // The curated ones are always drawn, in the order they are written: an op the platform
         // did not print is shown in its default state rather than dropped, which is how this list
         // behaved before it followed the platform.
-        val described = OPS.map { (name, label, note) ->
+        val described = APP_OPS.map { choice ->
             AppOp(
-                name,
-                context.getString(label),
-                context.getString(note),
-                modes[name] ?: OpMode.DEFAULT
+                choice.name,
+                context.getString(choice.label),
+                context.getString(choice.note),
+                modes[choice.name] ?: OpMode.DEFAULT
             )
         }
 

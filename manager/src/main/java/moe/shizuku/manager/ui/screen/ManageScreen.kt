@@ -3,6 +3,7 @@ package moe.shizuku.manager.ui.screen
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.util.Log
+import android.widget.Toast
 import moe.shizuku.manager.ui.component.televisionTextInput
 import moe.shizuku.manager.AppConstants
 import android.content.pm.PackageInfo
@@ -12,23 +13,34 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Checklist
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.SelectAll
 import androidx.compose.material.icons.filled.Sort
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
@@ -37,6 +49,7 @@ import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import moe.shizuku.manager.ui.component.RefreshBox
@@ -48,6 +61,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -60,9 +74,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import moe.shizuku.manager.R
+import moe.shizuku.manager.manage.APP_OPS
+import moe.shizuku.manager.manage.AppOpChoice
 import moe.shizuku.manager.manage.InstalledPackages
+import moe.shizuku.manager.manage.OpMode
+import moe.shizuku.manager.manage.PackageTools
 import moe.shizuku.manager.ui.component.AppFilterChip
 import moe.shizuku.manager.ui.component.appLabel
 import moe.shizuku.manager.ui.component.packageLine
@@ -72,7 +91,10 @@ import moe.shizuku.manager.ui.component.AppRowLine
 import moe.shizuku.manager.ui.component.AppStatusChips
 import moe.shizuku.manager.ui.component.ScrollToTopButton
 import moe.shizuku.manager.ui.component.CenteredMessage
+import moe.shizuku.manager.ui.component.ChoiceRow
 import moe.shizuku.manager.ui.component.ChipEmphasis
+import moe.shizuku.manager.ui.component.PillButton
+import moe.shizuku.manager.ui.component.PillButtonQuiet
 import moe.shizuku.manager.ui.component.SegmentedCard
 import moe.shizuku.manager.ui.component.SegmentedListItem
 import moe.shizuku.manager.ui.component.StatusChip
@@ -135,6 +157,13 @@ fun ManageScreen(
     // Bumped whenever something changed, to re-read the list (a removed app belongs under
     // a different filter afterwards).
     var version by remember { mutableIntStateOf(0) }
+    // Selecting apps is its own mode: while it is open the rows pick apps instead of
+    // opening them, and the batch editor applies one app op to the whole set.
+    var selecting by remember { mutableStateOf(false) }
+    var selected by remember { mutableStateOf<Set<String>>(emptySet()) }
+    var bulkPicker by remember { mutableStateOf(false) }
+    var bulkBusy by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
 
     // Which version the list has been read for, so that opening this screen twice cannot read
     // it twice: the second read would put the cost back on a screen that already has an
@@ -225,6 +254,13 @@ fun ManageScreen(
         }
     }
 
+    if (selecting) {
+        BackHandler {
+            selecting = false
+            selected = emptySet()
+        }
+    }
+
     val open = openPackage
     if (open != null) {
         BackHandler { openPackage = null }
@@ -245,14 +281,62 @@ fun ManageScreen(
         refreshKey++
     }
 
+    // Applies the chosen op to every selected app, one verified shell write at a time.
+    // A failed package does not stop the rest, and the toast reports both counts.
+    fun applyBulk(choice: AppOpChoice, mode: OpMode) {
+        val targets = selected.toList()
+        if (targets.isEmpty()) return
+        bulkBusy = true
+        scope.launch {
+            val changed = withContext(Dispatchers.IO) {
+                targets.count { packageName ->
+                    runCatching {
+                        PackageTools.setOp(context, packageName, choice.name, mode)
+                    }.getOrDefault(false)
+                }
+            }
+            bulkBusy = false
+            selecting = false
+            selected = emptySet()
+            Toast.makeText(
+                context,
+                if (changed == targets.size) {
+                    context.getString(R.string.manage_bulk_done, changed)
+                } else {
+                    context.getString(
+                        R.string.manage_bulk_partial,
+                        changed,
+                        targets.size - changed
+                    )
+                },
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+
     Column(modifier = Modifier.fillMaxSize()) {
         TopAppBar(
-            title = { Text(stringResource(R.string.tab_manage)) },
+            title = {
+                Text(
+                    if (selecting) {
+                        stringResource(R.string.manage_selected_count, selected.size)
+                    } else {
+                        stringResource(R.string.tab_manage)
+                    }
+                )
+            },
             windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
             // Shown when this is opened from the Labs list rather than being the page: it is a
             // detail over the tabs then, with no bar underneath to go back to.
             navigationIcon = {
-                if (onBack != null) {
+                if (selecting) {
+                    IconButton(onClick = { selecting = false; selected = emptySet() }) {
+                        Icon(
+                            Icons.Filled.Close,
+                            contentDescription = stringResource(R.string.manage_selection_close)
+                        )
+                    }
+                } else if (onBack != null) {
                     IconButton(onClick = onBack) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
@@ -262,23 +346,58 @@ fun ManageScreen(
                 }
             },
             actions = {
-                TelevisionRefreshButton(refreshing, refresh)
-                IconButton(onClick = { sortMenu = true }) {
-                    Icon(Icons.Filled.Sort, contentDescription = null)
-                }
-                DropdownMenu(expanded = sortMenu, onDismissRequest = { sortMenu = false }) {
-                    DropdownMenuItem(
-                        text = { Text(stringResource(R.string.app_management_sort_alphabetical)) },
-                        onClick = { sortOrder = SortOrder.ALPHABETICAL; sortMenu = false }
-                    )
-                    DropdownMenuItem(
-                        text = { Text(stringResource(R.string.app_management_sort_last_added)) },
-                        onClick = { sortOrder = SortOrder.RECENTLY_INSTALLED; sortMenu = false }
-                    )
-                    DropdownMenuItem(
-                        text = { Text(stringResource(R.string.app_management_sort_updated)) },
-                        onClick = { sortOrder = SortOrder.RECENTLY_UPDATED; sortMenu = false }
-                    )
+                if (selecting) {
+                    // Select all is scoped to what is shown, so a search or filter is a way
+                    // to pick a subset instead of having to tap every row.
+                    val shownNames = shown.mapTo(HashSet()) { it.packageName }
+                    val allShownSelected = shownNames.isNotEmpty() &&
+                        selected.containsAll(shownNames)
+                    IconButton(
+                        onClick = {
+                            selected = if (allShownSelected) {
+                                selected - shownNames
+                            } else {
+                                selected + shownNames
+                            }
+                        },
+                        enabled = shownNames.isNotEmpty()
+                    ) {
+                        Icon(
+                            Icons.Filled.SelectAll,
+                            contentDescription = stringResource(
+                                if (allShownSelected) R.string.manage_clear_selection
+                                else R.string.manage_select_all
+                            )
+                        )
+                    }
+                } else {
+                    IconButton(
+                        onClick = { selecting = true },
+                        enabled = shown.isNotEmpty()
+                    ) {
+                        Icon(
+                            Icons.Filled.Checklist,
+                            contentDescription = stringResource(R.string.manage_select)
+                        )
+                    }
+                    TelevisionRefreshButton(refreshing, refresh)
+                    IconButton(onClick = { sortMenu = true }) {
+                        Icon(Icons.Filled.Sort, contentDescription = null)
+                    }
+                    DropdownMenu(expanded = sortMenu, onDismissRequest = { sortMenu = false }) {
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.app_management_sort_alphabetical)) },
+                            onClick = { sortOrder = SortOrder.ALPHABETICAL; sortMenu = false }
+                        )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.app_management_sort_last_added)) },
+                            onClick = { sortOrder = SortOrder.RECENTLY_INSTALLED; sortMenu = false }
+                        )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.app_management_sort_updated)) },
+                            onClick = { sortOrder = SortOrder.RECENTLY_UPDATED; sortMenu = false }
+                        )
+                    }
                 }
             }
         )
@@ -357,7 +476,12 @@ fun ManageScreen(
             LazyColumn(
                 state = listState,
                 modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(start = 16.dp, top = 4.dp, end = 16.dp, bottom = bottomPadding),
+                contentPadding = PaddingValues(
+                    start = 16.dp,
+                    top = 4.dp,
+                    end = 16.dp,
+                    bottom = bottomPadding + if (selecting) 88.dp else 0.dp
+                ),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(shown, key = { it.rowKey() }) { pi ->
@@ -365,7 +489,17 @@ fun ManageScreen(
 
                     SegmentedCard {
                         SegmentedListItem(
-                            onClick = { openPackage = pi.packageName },
+                            onClick = {
+                                if (selecting) {
+                                    selected = if (pi.packageName in selected) {
+                                        selected - pi.packageName
+                                    } else {
+                                        selected + pi.packageName
+                                    }
+                                } else {
+                                    openPackage = pi.packageName
+                                }
+                            },
                             leadingContent = {
                                 // A removed app has no icon to load the row keeps the
                                 // space so the labels stay aligned with the rest.
@@ -384,12 +518,24 @@ fun ManageScreen(
                                         hidden = pi.packageName in launcherless,
                                         removed = removed
                                     )
-                                    Icon(
-                                        Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                                        contentDescription = null,
-                                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                    if (!selecting) {
+                                        Icon(
+                                            Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                                            contentDescription = null,
+                                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                    }
+                                }
+                            },
+                            trailingContent = if (selecting) {
+                                {
+                                    Checkbox(
+                                        checked = pi.packageName in selected,
+                                        onCheckedChange = null
                                     )
                                 }
+                            } else {
+                                null
                             },
                             // Centred, so the chip and the arrow sit against the row rather than
                             // level with its first line, and the row's own padding keeps them off
@@ -438,6 +584,145 @@ fun ManageScreen(
                 bottomPadding = bottomPadding,
                 modifier = Modifier.align(Alignment.BottomEnd)
             )
+
+            if (selecting) {
+                Surface(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .fillMaxWidth(),
+                    tonalElevation = 4.dp
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 10.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = stringResource(R.string.manage_selected_count, selected.size),
+                            style = MaterialTheme.typography.bodyLarge,
+                            modifier = Modifier.weight(1f)
+                        )
+                        PillButton(
+                            onClick = { bulkPicker = true },
+                            enabled = selected.isNotEmpty() && !bulkBusy
+                        ) {
+                            Text(stringResource(R.string.manage_bulk_action))
+                        }
+                    }
+                }
+            }
         }
     }
+
+    if (bulkPicker) {
+        BulkOpDialog(
+            count = selected.size,
+            onDismiss = { bulkPicker = false },
+            onApply = { choice, mode ->
+                bulkPicker = false
+                applyBulk(choice, mode)
+            }
+        )
+    }
+
+    if (bulkBusy) {
+        AlertDialog(
+            onDismissRequest = {},
+            title = { Text(stringResource(R.string.manage_bulk_title)) },
+            text = {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    LoadingIndicator()
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Text(stringResource(R.string.manage_bulk_running, selected.size))
+                }
+            },
+            confirmButton = {}
+        )
+    }
 }
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun BulkOpDialog(
+    count: Int,
+    onDismiss: () -> Unit,
+    onApply: (AppOpChoice, OpMode) -> Unit
+) {
+    var selectedOp by remember { mutableStateOf<AppOpChoice?>(null) }
+    var selectedMode by remember { mutableStateOf<OpMode?>(null) }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.manage_bulk_title)) },
+        text = {
+            Column {
+                Text(
+                    text = stringResource(R.string.manage_bulk_note, count),
+                    style = MaterialTheme.typography.bodySmall
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(max = 300.dp)
+                ) {
+                    items(APP_OPS, key = { it.name }) { choice ->
+                        ChoiceRow(
+                            selected = selectedOp?.name == choice.name,
+                            label = stringResource(choice.label),
+                            supporting = stringResource(choice.note),
+                            onClick = { selectedOp = choice }
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.height(12.dp))
+                Text(
+                    text = stringResource(R.string.manage_bulk_mode),
+                    style = MaterialTheme.typography.labelLarge
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                FlowRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    OpMode.entries.forEach { mode ->
+                        FilterChip(
+                            selected = selectedMode == mode,
+                            onClick = { selectedMode = mode },
+                            label = { Text(opModeLabel(mode)) }
+                        )
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            PillButton(
+                onClick = {
+                    val choice = selectedOp
+                    val mode = selectedMode
+                    if (choice != null && mode != null) onApply(choice, mode)
+                },
+                enabled = selectedOp != null && selectedMode != null
+            ) {
+                Text(stringResource(R.string.manage_bulk_apply))
+            }
+        },
+        dismissButton = {
+            PillButtonQuiet(onClick = onDismiss) {
+                Text(stringResource(android.R.string.cancel))
+            }
+        }
+    )
+}
+
+@Composable
+private fun opModeLabel(mode: OpMode): String = stringResource(
+    when (mode) {
+        OpMode.DEFAULT -> R.string.app_op_mode_default
+        OpMode.ALLOW -> R.string.app_op_mode_allow
+        OpMode.IGNORE -> R.string.app_op_mode_ignore
+        OpMode.DENY -> R.string.app_op_mode_deny
+    }
+)

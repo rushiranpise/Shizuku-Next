@@ -1051,6 +1051,19 @@
     <string name="manage_status_disabled">Disabled</string>
     <string name="manage_status_suspended">Suspended</string>
     <string name="manage_status_hidden">Hidden</string>
+    <string name="manage_select">Select apps</string>
+    <string name="manage_select_all">Select all shown</string>
+    <string name="manage_clear_selection">Clear selection</string>
+    <string name="manage_selection_close">Close selection</string>
+    <string name="manage_selected_count">%1$d selected</string>
+    <string name="manage_bulk_action">Set app op</string>
+    <string name="manage_bulk_title">Set app op</string>
+    <string name="manage_bulk_note">Choose one app op and mode for the %1$d selected apps.</string>
+    <string name="manage_bulk_mode">Mode</string>
+    <string name="manage_bulk_apply">Apply</string>
+    <string name="manage_bulk_running">Changing %1$d apps...</string>
+    <string name="manage_bulk_done">Changed %1$d apps.</string>
+    <string name="manage_bulk_partial">Changed %1$d apps. %2$d could not be changed.</string>
 
     <!-- One app, and what it may do on the device -->
     <string name="app_detail_missing">This app is no longer installed.</string>
