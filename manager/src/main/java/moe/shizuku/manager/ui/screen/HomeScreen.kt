@@ -115,7 +115,9 @@ import moe.shizuku.manager.service.HidingWatchService
 import moe.shizuku.manager.start.isDeveloperOptionsEnabled
 import moe.shizuku.manager.start.isPermissionPermanentlyDenied
 import moe.shizuku.manager.start.restoreDeveloperOptions
+import moe.shizuku.manager.start.localHotspotPermission
 import moe.shizuku.manager.start.localNetworkPermission
+import moe.shizuku.manager.start.needsLocalHotspotPermissionFor
 import moe.shizuku.manager.start.needsLocalNetworkPermissionFor
 import moe.shizuku.manager.start.openAppSettings
 import moe.shizuku.manager.start.openAdbPortAndStart
@@ -213,21 +215,24 @@ fun HomeScreen(bottomPadding: Dp) {
         }
     }
 
-    // Android 16+ gates local-network discovery behind a runtime permission, and discovery is
-    // the first thing a wireless start does. Asking here on the path that needs it, when the
-    // user asks for a start is what keeps a fresh install from failing to find the port with
-    // only the pairing tutorial able to grant it.
-    var pendingLocalNetworkAction by remember { mutableStateOf<(() -> Unit)?>(null) }
-    val localNetworkLauncher = rememberLauncherForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { granted ->
-        val action = pendingLocalNetworkAction
-        pendingLocalNetworkAction = null
-        val permission = localNetworkPermission()
-        if (!granted && permission != null && context.isPermissionPermanentlyDenied(permission)) {
-            // The dialog will never come back, so the start would fail at discovery with
-            // nothing to explain it: say where the switch is and open it, rather than
-            // burning the start on a permission the user cannot grant from here.
+    // Two runtime permissions stand between a start and its first network operation: Android 16+
+    // gates local-network discovery, and Android 13+ gates the local-only hotspot a no-network
+    // (or forced-wireless) start may need. Asking here, on the path that needs them, keeps a
+    // fresh install from failing with only a denial in the log.
+    var pendingStartAction by remember { mutableStateOf<(() -> Unit)?>(null) }
+    val startPermissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { results ->
+        val action = pendingStartAction
+        pendingStartAction = null
+        val permanentlyDenied = results
+            .filterValues { !it }
+            .keys
+            .firstOrNull { context.isPermissionPermanentlyDenied(it) }
+        if (permanentlyDenied != null) {
+            // The dialog will never come back, so the start would fail at discovery or at the
+            // hotspot with nothing to explain it: say where the switch is and open it, rather
+            // than burning the start on a permission the user cannot grant from here.
             Toast.makeText(
                 context,
                 context.getString(R.string.permissions_open_settings_hint),
@@ -236,20 +241,24 @@ fun HomeScreen(bottomPadding: Dp) {
             context.openAppSettings()
             return@rememberLauncherForActivityResult
         }
-        // Otherwise carry on either way: a denial means discovery fails, which the failure
-        // card then explains, rather than the tap appearing to do nothing.
+        // Otherwise carry on either way: a denial means discovery or the hotspot fails, which
+        // the failure card then explains, rather than the tap appearing to do nothing.
         action?.invoke()
     }
 
-    fun startWithLocalNetworkPermission(
+    fun startWithRequiredPermissions(
         @ShizukuSettings.StartMethod method: Int,
         action: () -> Unit
     ) {
-        if (context.needsLocalNetworkPermissionFor(method)) {
-            pendingLocalNetworkAction = action
-            localNetworkPermission()?.let { localNetworkLauncher.launch(it) }
-        } else {
+        val missing = listOfNotNull(
+            localNetworkPermission()?.takeIf { context.needsLocalNetworkPermissionFor(method) },
+            localHotspotPermission()?.takeIf { context.needsLocalHotspotPermissionFor(method) }
+        ).distinct()
+        if (missing.isEmpty()) {
             action()
+        } else {
+            pendingStartAction = action
+            startPermissionLauncher.launch(missing.toTypedArray())
         }
     }
 
@@ -533,7 +542,7 @@ fun HomeScreen(bottomPadding: Dp) {
                                             // Connect instead.
                                             // Opening the port borrows the wireless
                                             // connection, so it discovers the port too.
-                                            startWithLocalNetworkPermission(ShizukuSettings.StartMethod.USB) {
+                                            startWithRequiredPermissions(ShizukuSettings.StartMethod.USB) {
                                                 scope.launch { openAdbPortAndStart(context) }
                                             }
                                         },
@@ -672,7 +681,7 @@ fun HomeScreen(bottomPadding: Dp) {
                     // Uses whichever method is set in Settings; never guesses from the
                     // last one that happened to work.
                     onStart = {
-                        startWithLocalNetworkPermission(ShizukuSettings.getStartMethod()) {
+                        startWithRequiredPermissions(ShizukuSettings.getStartMethod()) {
                             ShizukuReceiverStarter.start(context, userInitiated = true, reason = "home-start")
                         }
                     },
@@ -686,7 +695,7 @@ fun HomeScreen(bottomPadding: Dp) {
                     // A bounce: forceStart replaces the running server instead of
                     // being ignored as "already running".
                     onRestart = {
-                        startWithLocalNetworkPermission(ShizukuSettings.getStartMethod()) {
+                        startWithRequiredPermissions(ShizukuSettings.getStartMethod()) {
                             ShizukuReceiverStarter.start(
                                 context,
                                 forceStart = true,
@@ -760,7 +769,7 @@ fun HomeScreen(bottomPadding: Dp) {
                                 },
                                 enabled = !running,
                                 onClick = {
-                                    startWithLocalNetworkPermission(ShizukuSettings.StartMethod.WIRELESS) {
+                                    startWithRequiredPermissions(ShizukuSettings.StartMethod.WIRELESS) {
                                         ShizukuReceiverStarter.start(
                                             context,
                                             userInitiated = true,

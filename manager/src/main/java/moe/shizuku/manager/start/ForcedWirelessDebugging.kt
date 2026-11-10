@@ -81,7 +81,9 @@ object ForcedWirelessDebugging {
     /**
      * A refusal is usually temporary. The one that matters most is a request landing while
      * the previous reservation is still being torn down, which happens when one attempt
-     * replaces another, so ask again before believing it.
+     * replaces another, so ask again before believing it. A SecurityException is not one of
+     * those: the permission will not appear by asking again, so that refusal ends the attempts
+     * at once.
      */
     private const val HOTSPOT_ATTEMPTS = 3
     private const val HOTSPOT_RETRY_DELAY_MS = 1_500L
@@ -235,11 +237,15 @@ object ForcedWirelessDebugging {
 
         lastRefusal = null
         repeat(attempts) { attempt ->
-            val started = attemptHotspot(wifi, attempt, attempts)
-            if (started != null) {
-                reservation = started
+            val result = attemptHotspot(wifi, attempt, attempts)
+            if (result.reservation != null) {
+                reservation = result.reservation
                 log("local-only hotspot is up")
                 return true
+            }
+            if (!result.retryable) {
+                log("the local-only hotspot was refused; not asking again")
+                return false
             }
             if (attempt < attempts - 1) delay(HOTSPOT_RETRY_DELAY_MS)
         }
@@ -254,8 +260,11 @@ object ForcedWirelessDebugging {
         wifi: WifiManager,
         attempt: Int,
         attempts: Int
-    ): WifiManager.LocalOnlyHotspotReservation? {
+    ): HotspotAttempt {
         var reason: Int? = null
+        var answered = false
+        var threw = false
+        var retryable = true
         val started = withTimeoutOrNull(HOTSPOT_TIMEOUT_MS) {
             withContext(Dispatchers.Main) {
                 suspendCancellableCoroutine { cont ->
@@ -263,15 +272,18 @@ object ForcedWirelessDebugging {
                         wifi.startLocalOnlyHotspot(
                             object : WifiManager.LocalOnlyHotspotCallback() {
                                 override fun onStarted(res: WifiManager.LocalOnlyHotspotReservation) {
+                                    answered = true
                                     if (cont.isActive) cont.resume(res)
                                 }
 
                                 override fun onStopped() {
+                                    answered = true
                                     if (cont.isActive) cont.resume(null)
                                 }
 
                                 override fun onFailed(failure: Int) {
                                     reason = failure
+                                    answered = true
                                     if (cont.isActive) cont.resume(null)
                                 }
                             },
@@ -280,7 +292,10 @@ object ForcedWirelessDebugging {
                     } catch (e: Throwable) {
                         // SecurityException when the Wi-Fi permission is not granted, and
                         // anything else the platform throws at this: the start carries on
-                        // without the interface.
+                        // without the interface. A permission refusal will not change by
+                        // asking again, so it is the one that ends the attempts.
+                        threw = true
+                        retryable = e !is SecurityException
                         Diag.warn(AppConstants.TAG, "Could not start a local-only hotspot", e)
                         lastRefusal = "${e.javaClass.simpleName}: ${e.message}"
                         if (cont.isActive) cont.resume(null)
@@ -297,14 +312,20 @@ object ForcedWirelessDebugging {
             )
             // Silence would look the same as a refusal in the log, and the difference
             // matters: a call that never answers means the Wi-Fi stack was not ready yet.
-            started == null -> Diag.warn(
+            // Only a timeout gets this line; an immediate exception has its own reason.
+            started == null && !answered && !threw -> Diag.warn(
                 AppConstants.TAG,
                 "Local-only hotspot did not answer within ${HOTSPOT_TIMEOUT_MS / 1000}s " +
                     "(attempt ${attempt + 1} of $attempts)"
             ).also { lastRefusal = "no answer within ${HOTSPOT_TIMEOUT_MS / 1000}s" }
         }
-        return started
+        return HotspotAttempt(started, retryable)
     }
+
+    private class HotspotAttempt(
+        val reservation: WifiManager.LocalOnlyHotspotReservation?,
+        val retryable: Boolean
+    )
 
     private fun reasonName(reason: Int): String = when (reason) {
         WifiManager.LocalOnlyHotspotCallback.ERROR_NO_CHANNEL -> "no channel available"

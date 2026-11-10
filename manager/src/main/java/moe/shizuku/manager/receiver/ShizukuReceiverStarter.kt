@@ -68,15 +68,20 @@ object ShizukuReceiverStarter {
      *
      * [reason] names the entry point, for the log only.
      *
+     * [replaceInFlight] is for a start that has a reason to replace an attempt already under way
+     * without being a user's Restart, such as a pairing that just completed.
+     *
      * One start at a time: a request that arrives while another is under way joins it instead of
-     * queueing its own, unless it is a Restart somebody tapped. See [decideStart].
+     * queueing its own, unless somebody tapped a start or the pairing just completed. See
+     * [decideStart].
      */
     fun start(
         context: Context,
         forceStart: Boolean = false,
         userInitiated: Boolean = false,
         @ShizukuSettings.StartMethod startMethod: Int = ShizukuSettings.getStartMethod(),
-        reason: String = "unspecified"
+        reason: String = "unspecified",
+        replaceInFlight: Boolean = false
     ) {
         // Who asked, written down for every request: a server replaced out of the blue has no
         // other trace of what replaced it.
@@ -119,7 +124,8 @@ object ShizukuReceiverStarter {
             canStartLocked = canStartBeforeUnlock(
                 startMethod,
                 classicPortOpen = EnvironmentUtils.getAdbTcpPort() > 0
-            )
+            ),
+            replaceInFlight = replaceInFlight
         )
         when (decision) {
             StartDecision.IGNORE_RUNNING -> {
@@ -146,12 +152,13 @@ object ShizukuReceiverStarter {
         }
         val lockedStart = decision == StartDecision.START_LOCKED
 
-        // The one request that gets past a start in flight is a Restart somebody tapped, and it
-        // replaces the start by cancelling it: queued work is replaced by enqueueing over it, but a
-        // start running in the foreground service is not queued work and nothing below would touch
-        // it. Cancelled here, and the new start made once it has really ended - cancelling does not
-        // interrupt the blocking calls in an attempt, so "asked to stop" is not yet "will not send
-        // its starter", and the second starter is the one that kills the first one's server.
+        // A start somebody tapped, or one following a completed pairing, gets past a start in
+        // flight and replaces it by cancelling it: queued work is replaced by enqueueing over it,
+        // but a start running in the foreground service is not queued work and nothing below would
+        // touch it. Cancelled here, and the new start made once it has really ended - cancelling
+        // does not interrupt the blocking calls in an attempt, so "asked to stop" is not yet "will
+        // not send its starter", and the second starter is the one that kills the first one's
+        // server.
         if (decision == StartDecision.START && LockedBootStartService.isRunning()) {
             LockedBootStartService.cancelRun("replaced by a restart requested by $reason") {
                 start(

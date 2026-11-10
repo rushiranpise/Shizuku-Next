@@ -230,14 +230,28 @@ fun localHotspotPermission(): String? =
     if (Build.VERSION.SDK_INT >= 33) Manifest.permission.NEARBY_WIFI_DEVICES else null
 
 /**
+ * Whether a start over [method] is going to ask for the local-only hotspot, and so needs the
+ * permission above.
+ *
+ * A no-network start always asks for the hotspot. A plain wireless start asks for one only with
+ * the forced-wireless experiment on; every other method uses an existing interface or the classic
+ * ADB port, so it would be a prompt for something the start never touches.
+ */
+fun Context.needsLocalHotspotPermissionFor(@ShizukuSettings.StartMethod method: Int): Boolean {
+    val permission = localHotspotPermission() ?: return false
+    if (hasPermission(permission)) return false
+    return method == ShizukuSettings.StartMethod.WIRELESS_NO_NETWORK ||
+        (method == ShizukuSettings.StartMethod.WIRELESS &&
+            ShizukuSettings.getForceWirelessDebugging())
+}
+
+/**
  * Grants the hotspot's permission through the already running server.
  *
- * Asking for it is not enough: on Android 17 the request is made for the discovery permission
- * instead, so nothing ever asks for this one, and the hotspot is left unable to start. A runtime
- * permission cannot be given without a dialog either, and the dialog is not offered for a
- * permission the app has not asked for - but a running server *is* ADB (or root), so it can pass
- * this on the way `pm grant` does, which is how the hiding lists and WRITE_SECURE_SETTINGS already
- * get theirs.
+ * The home screen asks before a start that will use the hotspot, but starts from boot, the
+ * watchdog or a completed pairing have no activity to ask from. A running server *is* ADB (or
+ * root), so it can pass the permission on the way `pm grant` does, which is how the hiding lists
+ * and WRITE_SECURE_SETTINGS already get theirs.
  *
  * Safe to call whenever a server is seen running: it returns at once when the permission is there.
  */
