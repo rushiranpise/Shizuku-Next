@@ -767,6 +767,8 @@
     <string name="permissions_notifications_summary">Shows the pairing code, start progress and errors.</string>
     <string name="permissions_nearby">Nearby devices</string>
     <string name="permissions_nearby_summary">Finds the wireless debugging port on your network.</string>
+    <string name="permissions_hotspot">Local hotspot</string>
+    <string name="permissions_hotspot_summary">Lets Shizuku start without Wi-Fi by creating a local hotspot.</string>
     <string name="permissions_write_secure_settings">Write secure settings</string>
     <string name="permissions_write_secure_settings_summary">Lets Shizuku turn on wireless debugging. Only ADB can grant this permission.</string>
     <string name="permissions_accessibility">Accessibility service</string>

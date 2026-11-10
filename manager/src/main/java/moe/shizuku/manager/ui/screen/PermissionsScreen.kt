@@ -67,6 +67,7 @@ import moe.shizuku.manager.start.isPermissionPermanentlyDenied
 import moe.shizuku.manager.start.PhantomProcessKiller
 import moe.shizuku.manager.start.openAppSettings
 import moe.shizuku.manager.ui.component.SegmentedCard
+import moe.shizuku.manager.start.localHotspotPermission
 import moe.shizuku.manager.start.localNetworkPermission
 import moe.shizuku.manager.utils.SettingsHelper
 import moe.shizuku.manager.utils.SettingsPage
@@ -93,6 +94,13 @@ fun PermissionsScreen(onBack: () -> Unit) {
     var localNetwork by remember {
         mutableStateOf(localNetworkPermission()?.let { context.hasPermission(it) } ?: true)
     }
+    // Android 16 reports the hotspot through the nearby-devices row; Android 13 to 15 have no
+    // local-network permission and Android 17 separates the two, so only those versions need
+    // this row as well.
+    val hotspotPermission = localHotspotPermission()?.takeIf { it != localNetworkPermission() }
+    var hotspot by remember {
+        mutableStateOf(hotspotPermission?.let { context.hasPermission(it) } ?: true)
+    }
     var usageAccess by remember { mutableStateOf(HidingGrants.usageAccess()) }
     var dump by remember { mutableStateOf(HidingGrants.dump()) }
     // The one row on this page that is this app's own change to the device rather than a
@@ -107,6 +115,7 @@ fun PermissionsScreen(onBack: () -> Unit) {
         batteryIgnored = SettingsHelper.isIgnoringBatteryOptimizations(context)
         accessibility = context.isAccessibilityEnabled()
         localNetwork = localNetworkPermission()?.let { context.hasPermission(it) } ?: true
+        hotspot = hotspotPermission?.let { context.hasPermission(it) } ?: true
         usageAccess = HidingGrants.usageAccess()
         dump = HidingGrants.dump()
         processesSurvive = PhantomProcessKiller.isMonitorDisabled(context)
@@ -195,22 +204,44 @@ fun PermissionsScreen(onBack: () -> Unit) {
                 )
             }
 
-            item {
-                PermissionRow(
-                    icon = Icons.Rounded.Wifi,
-                    headline = stringResource(R.string.permissions_nearby),
-                    reason = stringResource(R.string.permissions_nearby_summary),
-                    granted = localNetwork,
-                    actionLabel = stringResource(
-                        if (localNetworkPermission() in stuckPermissions) R.string.permissions_action_settings
-                        else R.string.permissions_action_allow
-                    ),
-                    onAction = {
-                        localNetworkPermission()?.let { permission ->
+            // Android 13 to 15 have no local-network permission; their nearby-devices grant
+            // is the hotspot row below instead.
+            val discoveryPermission = localNetworkPermission()
+            if (discoveryPermission != null) {
+                item {
+                    PermissionRow(
+                        icon = Icons.Rounded.Wifi,
+                        headline = stringResource(R.string.permissions_nearby),
+                        reason = stringResource(R.string.permissions_nearby_summary),
+                        granted = localNetwork,
+                        actionLabel = stringResource(
+                            if (discoveryPermission in stuckPermissions) R.string.permissions_action_settings
+                            else R.string.permissions_action_allow
+                        ),
+                        onAction = {
+                            askFor(discoveryPermission) { permissionLauncher.launch(discoveryPermission) }
+                        }
+                    )
+                }
+            }
+
+            val permission = hotspotPermission
+            if (permission != null) {
+                item {
+                    PermissionRow(
+                        icon = Icons.Rounded.Wifi,
+                        headline = stringResource(R.string.permissions_hotspot),
+                        reason = stringResource(R.string.permissions_hotspot_summary),
+                        granted = hotspot,
+                        actionLabel = stringResource(
+                            if (permission in stuckPermissions) R.string.permissions_action_settings
+                            else R.string.permissions_action_allow
+                        ),
+                        onAction = {
                             askFor(permission) { permissionLauncher.launch(permission) }
                         }
-                    }
-                )
+                    )
+                }
             }
 
             item {
