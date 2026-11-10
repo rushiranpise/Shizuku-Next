@@ -3,7 +3,6 @@ package moe.shizuku.manager.ui.screen
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.util.Log
-import android.widget.Toast
 import moe.shizuku.manager.ui.component.televisionTextInput
 import moe.shizuku.manager.AppConstants
 import android.content.pm.PackageInfo
@@ -23,7 +22,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -43,6 +41,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.LoadingIndicator
@@ -122,6 +121,35 @@ enum class ManageFilter {
     HIDDEN
 }
 
+private data class BulkTarget(
+    val packageName: String,
+    val label: String
+)
+
+private data class BulkRequest(
+    val choice: AppOpChoice,
+    val mode: OpMode,
+    val targets: List<BulkTarget>
+)
+
+private data class BulkOutcome(
+    val packageName: String,
+    val label: String,
+    val changed: Boolean
+)
+
+private data class BulkReport(
+    val choice: AppOpChoice,
+    val mode: OpMode,
+    val outcomes: List<BulkOutcome>
+)
+
+private sealed interface BulkState {
+    data class Confirm(val request: BulkRequest) : BulkState
+    data class Running(val request: BulkRequest, val completed: Int) : BulkState
+    data class Finished(val report: BulkReport) : BulkState
+}
+
 /**
  * The Manage tab: every installed app, and behind each one the things that are normally
  * only reachable from a computer system permissions, app ops, run state and battery
@@ -162,7 +190,7 @@ fun ManageScreen(
     var selecting by remember { mutableStateOf(false) }
     var selected by remember { mutableStateOf<Set<String>>(emptySet()) }
     var bulkPicker by remember { mutableStateOf(false) }
-    var bulkBusy by remember { mutableStateOf(false) }
+    var bulkState by remember { mutableStateOf<BulkState?>(null) }
     val scope = rememberCoroutineScope()
 
     // Which version the list has been read for, so that opening this screen twice cannot read
@@ -281,36 +309,32 @@ fun ManageScreen(
         refreshKey++
     }
 
-    // Applies the chosen op to every selected app, one verified shell write at a time.
-    // A failed package does not stop the rest, and the toast reports both counts.
-    fun applyBulk(choice: AppOpChoice, mode: OpMode) {
-        val targets = selected.toList()
-        if (targets.isEmpty()) return
-        bulkBusy = true
+    // Runs the reviewed batch one verified write at a time, updating progress after each
+    // app and keeping every outcome for the result screen.
+    fun applyBulk(request: BulkRequest) {
+        if (request.targets.isEmpty()) return
+        bulkState = BulkState.Running(request, 0)
         scope.launch {
-            val changed = withContext(Dispatchers.IO) {
-                targets.count { packageName ->
+            val outcomes = mutableListOf<BulkOutcome>()
+            for (target in request.targets) {
+                val changed = withContext(Dispatchers.IO) {
                     runCatching {
-                        PackageTools.setOp(context, packageName, choice.name, mode)
+                        PackageTools.setOp(
+                            context,
+                            target.packageName,
+                            request.choice.name,
+                            request.mode
+                        )
                     }.getOrDefault(false)
                 }
+                outcomes += BulkOutcome(target.packageName, target.label, changed)
+                bulkState = BulkState.Running(request, outcomes.size)
             }
-            bulkBusy = false
             selecting = false
             selected = emptySet()
-            Toast.makeText(
-                context,
-                if (changed == targets.size) {
-                    context.getString(R.string.manage_bulk_done, changed)
-                } else {
-                    context.getString(
-                        R.string.manage_bulk_partial,
-                        changed,
-                        targets.size - changed
-                    )
-                },
-                Toast.LENGTH_LONG
-            ).show()
+            bulkState = BulkState.Finished(
+                BulkReport(request.choice, request.mode, outcomes)
+            )
         }
     }
 
@@ -605,7 +629,7 @@ fun ManageScreen(
                         )
                         PillButton(
                             onClick = { bulkPicker = true },
-                            enabled = selected.isNotEmpty() && !bulkBusy
+                            enabled = selected.isNotEmpty()
                         ) {
                             Text(stringResource(R.string.manage_bulk_action))
                         }
@@ -621,24 +645,34 @@ fun ManageScreen(
             onDismiss = { bulkPicker = false },
             onApply = { choice, mode ->
                 bulkPicker = false
-                applyBulk(choice, mode)
+                val targets = selected.map { packageName ->
+                    val info = apps.firstOrNull { it.packageName == packageName }
+                    BulkTarget(
+                        packageName = packageName,
+                        label = info?.let { appLabel(pm, it) } ?: packageName
+                    )
+                }.sortedBy { it.label.lowercase() }
+                if (targets.isNotEmpty()) {
+                    bulkState = BulkState.Confirm(BulkRequest(choice, mode, targets))
+                }
             }
         )
     }
 
-    if (bulkBusy) {
-        AlertDialog(
-            onDismissRequest = {},
-            title = { Text(stringResource(R.string.manage_bulk_title)) },
-            text = {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    LoadingIndicator()
-                    Spacer(modifier = Modifier.width(16.dp))
-                    Text(stringResource(R.string.manage_bulk_running, selected.size))
-                }
-            },
-            confirmButton = {}
+    when (val state = bulkState) {
+        is BulkState.Confirm -> BulkConfirmDialog(
+            request = state.request,
+            onDismiss = { bulkState = null },
+            onConfirm = { applyBulk(state.request) }
         )
+
+        is BulkState.Running -> BulkProgressDialog(state)
+        is BulkState.Finished -> BulkResultDialog(
+            report = state.report,
+            onDismiss = { bulkState = null }
+        )
+
+        null -> Unit
     }
 }
 
@@ -658,7 +692,12 @@ private fun BulkOpDialog(
         text = {
             Column {
                 Text(
-                    text = stringResource(R.string.manage_bulk_note, count),
+                    text = stringResource(R.string.manage_selected_count, count),
+                    style = MaterialTheme.typography.labelLarge
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = stringResource(R.string.manage_bulk_note),
                     style = MaterialTheme.typography.bodySmall
                 )
                 Spacer(modifier = Modifier.height(12.dp))
@@ -706,12 +745,236 @@ private fun BulkOpDialog(
                 },
                 enabled = selectedOp != null && selectedMode != null
             ) {
+                Text(stringResource(R.string.manage_bulk_review))
+            }
+        },
+        dismissButton = {
+            PillButtonQuiet(onClick = onDismiss) {
+                Text(stringResource(android.R.string.cancel))
+            }
+        }
+    )
+}
+
+@Composable
+private fun BulkConfirmDialog(
+    request: BulkRequest,
+    onDismiss: () -> Unit,
+    onConfirm: () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.manage_bulk_confirm_title)) },
+        text = {
+            Column {
+                Text(
+                    text = stringResource(
+                        R.string.manage_bulk_confirm_op,
+                        stringResource(request.choice.label)
+                    )
+                )
+                Text(
+                    text = stringResource(
+                        R.string.manage_bulk_confirm_mode,
+                        opModeLabel(request.mode)
+                    )
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = stringResource(
+                        R.string.manage_bulk_confirm_targets,
+                        request.targets.size
+                    ),
+                    style = MaterialTheme.typography.titleSmall
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = stringResource(R.string.manage_bulk_confirm_warning),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(max = 280.dp)
+                ) {
+                    items(request.targets, key = { it.packageName }) { target ->
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 6.dp)
+                        ) {
+                            Text(
+                                text = target.label,
+                                style = MaterialTheme.typography.bodyMedium,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                            Text(
+                                text = target.packageName,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            PillButton(onClick = onConfirm) {
                 Text(stringResource(R.string.manage_bulk_apply))
             }
         },
         dismissButton = {
             PillButtonQuiet(onClick = onDismiss) {
                 Text(stringResource(android.R.string.cancel))
+            }
+        }
+    )
+}
+
+@Composable
+private fun BulkProgressDialog(state: BulkState.Running) {
+    val total = state.request.targets.size
+    AlertDialog(
+        onDismissRequest = {},
+        title = { Text(stringResource(R.string.manage_bulk_progress_title)) },
+        text = {
+            Column {
+                Text(
+                    text = stringResource(
+                        R.string.manage_bulk_confirm_op,
+                        stringResource(state.request.choice.label)
+                    ),
+                    style = MaterialTheme.typography.bodySmall
+                )
+                Text(
+                    text = stringResource(
+                        R.string.manage_bulk_confirm_mode,
+                        opModeLabel(state.request.mode)
+                    ),
+                    style = MaterialTheme.typography.bodySmall
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+                LinearProgressIndicator(
+                    progress = {
+                        if (total == 0) 0f else state.completed.toFloat() / total
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(stringResource(R.string.manage_bulk_progress, state.completed, total))
+            }
+        },
+        confirmButton = {}
+    )
+}
+
+@Composable
+private fun BulkResultDialog(report: BulkReport, onDismiss: () -> Unit) {
+    val changed = report.outcomes.count { it.changed }
+    val failed = report.outcomes.size - changed
+    var failuresOnly by remember(report) { mutableStateOf(false) }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.manage_bulk_result_title)) },
+        text = {
+            Column {
+                Text(
+                    text = stringResource(R.string.manage_bulk_result_summary, changed, failed),
+                    style = MaterialTheme.typography.titleSmall
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = stringResource(
+                        R.string.manage_bulk_confirm_op,
+                        stringResource(report.choice.label)
+                    ),
+                    style = MaterialTheme.typography.bodySmall
+                )
+                Text(
+                    text = stringResource(
+                        R.string.manage_bulk_confirm_mode,
+                        opModeLabel(report.mode)
+                    ),
+                    style = MaterialTheme.typography.bodySmall
+                )
+                if (failed > 0) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    FilterChip(
+                        selected = failuresOnly,
+                        onClick = { failuresOnly = !failuresOnly },
+                        label = { Text(stringResource(R.string.manage_bulk_failures_only)) }
+                    )
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(max = 280.dp)
+                ) {
+                    val shown = if (failuresOnly) {
+                        report.outcomes.filterNot { it.changed }
+                    } else {
+                        report.outcomes
+                    }
+                    items(shown, key = { it.packageName }) { outcome ->
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 6.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    text = outcome.label,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                                Text(
+                                    text = outcome.packageName,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            }
+                            Text(
+                                text = stringResource(
+                                    if (outcome.changed) {
+                                        R.string.manage_bulk_result_changed
+                                    } else {
+                                        R.string.manage_bulk_result_failed
+                                    }
+                                ),
+                                style = MaterialTheme.typography.labelLarge,
+                                color = if (outcome.changed) {
+                                    MaterialTheme.colorScheme.primary
+                                } else {
+                                    MaterialTheme.colorScheme.error
+                                }
+                            )
+                        }
+                    }
+                }
+                if (failed > 0) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = stringResource(R.string.manage_bulk_result_failed_hint),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+        },
+        confirmButton = {
+            PillButton(onClick = onDismiss) {
+                Text(stringResource(R.string.manage_bulk_done_action))
             }
         }
     )

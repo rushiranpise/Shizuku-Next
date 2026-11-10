@@ -1058,12 +1058,24 @@
     <string name="manage_selected_count">%1$d selected</string>
     <string name="manage_bulk_action">Set app op</string>
     <string name="manage_bulk_title">Set app op</string>
-    <string name="manage_bulk_note">Choose one app op and mode for the %1$d selected apps.</string>
+    <string name="manage_bulk_note">Choose one app op and mode. You will review the apps before applying.</string>
     <string name="manage_bulk_mode">Mode</string>
+    <string name="manage_bulk_review">Review</string>
     <string name="manage_bulk_apply">Apply</string>
-    <string name="manage_bulk_running">Changing %1$d apps...</string>
-    <string name="manage_bulk_done">Changed %1$d apps.</string>
-    <string name="manage_bulk_partial">Changed %1$d apps. %2$d could not be changed.</string>
+    <string name="manage_bulk_confirm_title">Review batch change</string>
+    <string name="manage_bulk_confirm_op">App op: %1$s</string>
+    <string name="manage_bulk_confirm_mode">Mode: %1$s</string>
+    <string name="manage_bulk_confirm_targets">Apps: %1$d</string>
+    <string name="manage_bulk_confirm_warning">These changes are applied immediately. Some apps may reject the op.</string>
+    <string name="manage_bulk_progress_title">Applying app op</string>
+    <string name="manage_bulk_progress">Changing %1$d of %2$d...</string>
+    <string name="manage_bulk_result_title">Batch result</string>
+    <string name="manage_bulk_result_summary">Changed: %1$d, failed: %2$d.</string>
+    <string name="manage_bulk_result_changed">Changed</string>
+    <string name="manage_bulk_result_failed">Failed</string>
+    <string name="manage_bulk_result_failed_hint">Failed ops may not be supported by the app or may be blocked by Android.</string>
+    <string name="manage_bulk_failures_only">Failures only</string>
+    <string name="manage_bulk_done_action">Done</string>
 
     <!-- One app, and what it may do on the device -->
     <string name="app_detail_missing">This app is no longer installed.</string>
