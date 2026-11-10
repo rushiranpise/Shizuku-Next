@@ -154,6 +154,27 @@
     <string name="labs_filter_blocked">Blocked</string>
     <string name="labs_blocked_count">%1$d blocked</string>
     <string name="labs_blocked_empty">Nothing is blocked.</string>
+    <string name="labs_bulk_actions">Bulk actions</string>
+    <string name="labs_bulk_allow_all">Allow all shown</string>
+    <string name="labs_bulk_block_all">Block all shown</string>
+    <string name="labs_bulk_show_all">Show all in list</string>
+    <string name="labs_bulk_hide_all">Hide all in list</string>
+    <string name="labs_bulk_confirm_title">Bulk change</string>
+    <string name="labs_bulk_confirm_count">Apps to update: %1$d</string>
+    <string name="labs_bulk_confirm_state">New state: %1$s</string>
+    <string name="labs_bulk_confirm_pinned">Pinned skipped: %1$d</string>
+    <string name="labs_bulk_confirm_warning">Only the apps in this list are changed. Pinned apps are left alone.</string>
+    <string name="labs_bulk_progress_title">Updating apps</string>
+    <string name="labs_bulk_progress">Changing %1$d of %2$d...</string>
+    <string name="labs_bulk_result_title">Bulk update finished</string>
+    <string name="labs_bulk_result_summary">Changed: %1$d, failed: %2$d.</string>
+    <string name="labs_bulk_failed_hint">Some apps did not accept the change. Their state may not have changed.</string>
+    <string name="labs_bulk_apply">Apply</string>
+    <string name="labs_bulk_done">Done</string>
+    <string name="labs_pinned_note">Pinned apps are skipped by bulk changes.</string>
+    <string name="labs_pin_app">Pin app</string>
+    <string name="labs_unpin_app">Unpin app</string>
+    <string name="labs_clear_pins">Clear pinned apps</string>
 
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Hiding</string>
@@ -1059,6 +1080,9 @@
     <string name="manage_bulk_action">Set app op</string>
     <string name="manage_bulk_title">Set app op</string>
     <string name="manage_bulk_note">Choose one app op and mode. You will review the apps before applying.</string>
+    <string name="manage_bulk_pinned_note">Pinned apps are skipped by Select all shown.</string>
+    <string name="manage_pin_app">Pin app</string>
+    <string name="manage_unpin_app">Unpin app</string>
     <string name="manage_bulk_mode">Mode</string>
     <string name="manage_bulk_review">Review</string>
     <string name="manage_bulk_apply">Apply</string>

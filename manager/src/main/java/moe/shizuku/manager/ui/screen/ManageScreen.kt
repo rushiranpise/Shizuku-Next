@@ -33,6 +33,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.SelectAll
 import androidx.compose.material.icons.filled.Sort
+import androidx.compose.material.icons.outlined.PushPin
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenu
@@ -81,6 +82,7 @@ import moe.shizuku.manager.manage.AppOpChoice
 import moe.shizuku.manager.manage.InstalledPackages
 import moe.shizuku.manager.manage.OpMode
 import moe.shizuku.manager.manage.PackageTools
+import moe.shizuku.manager.manage.PinnedApps
 import moe.shizuku.manager.ui.component.AppFilterChip
 import moe.shizuku.manager.ui.component.appLabel
 import moe.shizuku.manager.ui.component.packageLine
@@ -189,6 +191,7 @@ fun ManageScreen(
     // opening them, and the batch editor applies one app op to the whole set.
     var selecting by remember { mutableStateOf(false) }
     var selected by remember { mutableStateOf<Set<String>>(emptySet()) }
+    var pinned by remember { mutableStateOf(PinnedApps.all()) }
     var bulkPicker by remember { mutableStateOf(false) }
     var bulkState by remember { mutableStateOf<BulkState?>(null) }
     val scope = rememberCoroutineScope()
@@ -373,18 +376,18 @@ fun ManageScreen(
                 if (selecting) {
                     // Select all is scoped to what is shown, so a search or filter is a way
                     // to pick a subset instead of having to tap every row.
-                    val shownNames = shown.mapTo(HashSet()) { it.packageName }
-                    val allShownSelected = shownNames.isNotEmpty() &&
-                        selected.containsAll(shownNames)
+                    val selectableNames = shown.mapTo(HashSet()) { it.packageName } - pinned
+                    val allShownSelected = selectableNames.isNotEmpty() &&
+                        selected.containsAll(selectableNames)
                     IconButton(
                         onClick = {
                             selected = if (allShownSelected) {
-                                selected - shownNames
+                                selected - selectableNames
                             } else {
-                                selected + shownNames
+                                selected + selectableNames
                             }
                         },
-                        enabled = shownNames.isNotEmpty()
+                        enabled = selectableNames.isNotEmpty()
                     ) {
                         Icon(
                             Icons.Filled.SelectAll,
@@ -542,6 +545,32 @@ fun ManageScreen(
                                         hidden = pi.packageName in launcherless,
                                         removed = removed
                                     )
+                                    IconButton(
+                                        onClick = {
+                                            val nowPinned = PinnedApps.toggle(pi.packageName)
+                                            pinned = if (nowPinned) {
+                                                pinned + pi.packageName
+                                            } else {
+                                                pinned - pi.packageName
+                                            }
+                                            if (nowPinned) {
+                                                selected = selected - pi.packageName
+                                            }
+                                        }
+                                    ) {
+                                        Icon(
+                                            Icons.Outlined.PushPin,
+                                            contentDescription = stringResource(
+                                                if (pi.packageName in pinned) R.string.manage_unpin_app
+                                                else R.string.manage_pin_app
+                                            ),
+                                            tint = if (pi.packageName in pinned) {
+                                                MaterialTheme.colorScheme.primary
+                                            } else {
+                                                MaterialTheme.colorScheme.onSurfaceVariant
+                                            }
+                                        )
+                                    }
                                     if (!selecting) {
                                         Icon(
                                             Icons.AutoMirrored.Filled.KeyboardArrowRight,
@@ -699,6 +728,11 @@ private fun BulkOpDialog(
                 Text(
                     text = stringResource(R.string.manage_bulk_note),
                     style = MaterialTheme.typography.bodySmall
+                )
+                Text(
+                    text = stringResource(R.string.manage_bulk_pinned_note),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 LazyColumn(
