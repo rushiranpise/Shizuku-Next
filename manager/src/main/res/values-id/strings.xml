@@ -76,6 +76,7 @@
          command. -->
     <string name="dialog_adb_pairing_accessibility_permission_tv">Android blocks this switch for apps installed outside an app store, and on a TV, App info has no \"Allow restricted settings\" option to unblock it. A computer connected to this TV over ADB is needed once: either grant the permission above, which lets Shizuku turn the service on by itself, or unblock the switch with:\n\n^1</string>
     <string name="dialog_adb_pairing_open_app_info">App info</string>
+    <string name="dialog_adb_pairing_accessibility_enable"></string>
     <string name="dialog_adb_pairing_accessibility_navigate">Silakan mulai pemasangan dengan
         melakukan langkah-langkah berikut:\n- Buka \"Opsi Pengembang\"\n- Aktifkan \"Debugging USB\"
         dan \"Debugging Nirkabel\"\n- Ketuk sisi kiri \"Debugging Nirkabel\"\n- Ketuk \"Pasangkan
@@ -165,6 +166,7 @@
     <string name="labs_filter_blocked">Di blokir</string>
     <string name="labs_blocked_count">%1$d di blokir</string>
     <string name="labs_blocked_empty">Tidak ada yang di blokir.</string>
+    <string name="labs_bulk_apply">Terapkan</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Tersembunyi</string>
     <string name="tab_hide_developer_options">Sembunyikan opsi pengembang</string>
@@ -618,6 +620,7 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
     <string name="permissions_action_deny">Tolak</string>
     <string name="manage_status_disabled">Disabled</string>
     <string name="manage_status_hidden">Hidden</string>
+    <string name="manage_bulk_apply">Terapkan</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_op_mode_default">Default</string>
     <string name="app_op_mode_deny">Tolak</string>

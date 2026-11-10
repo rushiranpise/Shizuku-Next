@@ -833,6 +833,7 @@
     <string name="manage_status_disabled">Deaktiviert</string>
     <string name="manage_status_suspended">Pausiert</string>
     <string name="manage_status_hidden">Ausgeblendet</string>
+    <string name="manage_selected_count">%1$d ausgewählt</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_detail_missing">Diese App ist nicht mehr installiert.</string>
     <string name="app_open_info">App-Info</string>

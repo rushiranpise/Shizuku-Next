@@ -96,6 +96,7 @@
     <string name="labs_filter_blocked">Naka-block</string>
     <string name="labs_blocked_count">%1$d na-block</string>
     <string name="labs_blocked_empty">Walang na-block</string>
+    <string name="labs_bulk_apply">I-apply</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Tinatago</string>
     <string name="tab_hide_developer_options">I-tagl ang mga opsyon ng developer</string>
@@ -360,6 +361,7 @@
     <string name="permissions_action_deny">Tanggihan</string>
     <string name="manage_status_disabled">Hindi pinapagana</string>
     <string name="manage_status_hidden">Nakatago</string>
+    <string name="manage_bulk_apply">I-apply</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_op_mode_deny">Tanggihan</string>
     <string name="app_action_enable">Paganahin</string>

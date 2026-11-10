@@ -143,6 +143,8 @@
     <string name="labs_filter_blocked">Blokované</string>
     <string name="labs_blocked_count">%1$d zablokováno</string>
     <string name="labs_blocked_empty">Nic není zablokováno.</string>
+    <string name="labs_bulk_apply">Použít</string>
+    <string name="labs_bulk_done">Hotovo</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Skrytí</string>
     <string name="tab_hide_developer_options">Skrýt možnosti vývojáře</string>
@@ -995,6 +997,9 @@
     <string name="manage_status_disabled">Zakázáno</string>
     <string name="manage_status_suspended">Pozastaveno</string>
     <string name="manage_status_hidden">Skryto</string>
+    <string name="manage_selected_count">%1$d vybráno</string>
+    <string name="manage_bulk_apply">Použít</string>
+    <string name="manage_bulk_done_action">Hotovo</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_detail_missing">Tato aplikace již není nainstalována.</string>
     <string name="app_open_info">Informace o aplikaci</string>

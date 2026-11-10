@@ -141,6 +141,7 @@
     <string name="labs_filter_blocked">Bị chặn</string>
     <string name="labs_blocked_count">%1$d bị chặn</string>
     <string name="labs_blocked_empty">Không có gì bị chặn.</string>
+    <string name="labs_bulk_apply">Áp dụng</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Ẩn</string>
     <string name="tab_hide_developer_options">Ẩn tùy chọn nhà phát triển</string>
@@ -222,8 +223,11 @@
     <string name="activities_copy">Sao chép</string>
     <string name="activities_edit_as_intent">Chỉnh sửa theo ý định</string>
     <string name="activities_copied">Đã sao chép</string>
+    <string name="activities_saved">Hoạt động đã lưu</string>
     <string name="activities_apps_section">Ứng Dụng</string>
     <string name="activities_save">Lưu</string>
+    <string name="intent_builder_note">Tạo và gửi một intent. Bạn có thể đặt hành động, dữ liệu, kiểu, thành phần, danh mục, extras và cờ cho nó. Bạn cũng có thể tải một intent từ URI, chẳng hạn như intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end. Đây là định dạng được Activity Launcher và hầu hết công cụ tự động hóa sử dụng. Khi tải một intent, các trường sẽ được điền sẵn để bạn kiểm tra và chỉnh sửa trước khi gửi.</string>
+    <string name="intent_uri">URI của Intent</string>
     <string name="intent_start">Bắt đầu</string>
     <string name="tab_device_info">Thông tin thiết bị</string>
     <string name="device_current">Hiện tại</string>
@@ -577,6 +581,7 @@
     <string name="permissions_phantom_summary">Android 12 trở về sau có thể tự động dừng các tiến trình do một ứng dụng khởi chạy sau khi ứng dụng đó đóng. Điều này có thể làm dừng máy chủ sau khi khởi động máy. Cài đặt này ảnh hưởng đến toàn bộ thiết bị và có thể cần khởi động lại máy để áp dụng.</string>
     <string name="permissions_action_deny">Từ chối</string>
     <string name="manage_status_hidden">Ẩn</string>
+    <string name="manage_bulk_apply">Áp dụng</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_permissions_note">Chỉ những quyền có bảo vệ liên quan đến phát triển hoặc những quyền nguy hiểm mới có thể được thay đổi thông qua adb; nền tảng từ chối những quyền khác bất kể Shizuku được tin tưởng đến đâu, vì vậy những hàng đó giữ công tắc tắt.</string>
     <string name="app_ops_needs_shizuku">Khởi động Shizuku để đọc và thay đổi các thao tác ứng dụng.</string>

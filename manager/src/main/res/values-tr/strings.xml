@@ -160,6 +160,7 @@
     <string name="labs_filter_blocked">Engellenen</string>
     <string name="labs_blocked_count">%1$d engellendi</string>
     <string name="labs_blocked_empty">Hiçbir şey engellenmemiş.</string>
+    <string name="labs_bulk_apply">Uygula</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Gizleme</string>
     <string name="tab_hide_developer_options">Geliştirici seçeneklerini gizle</string>
@@ -988,6 +989,8 @@
     <string name="manage_status_disabled">Devre dışı</string>
     <string name="manage_status_suspended">Askıda</string>
     <string name="manage_status_hidden">Gizli</string>
+    <string name="manage_selected_count">%1$d seçildi</string>
+    <string name="manage_bulk_apply">Uygula</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_detail_missing">Bu uygulama artık yüklü değil.</string>
     <string name="app_open_info">Uygulama bilgileri</string>

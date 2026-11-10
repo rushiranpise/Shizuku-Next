@@ -139,6 +139,7 @@
     <string name="labs_filter_blocked">已阻止</string>
     <string name="labs_blocked_count">已阻止 %1$d 个</string>
     <string name="labs_blocked_empty">没有已阻止的应用。</string>
+    <string name="labs_bulk_apply">应用</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">隐藏</string>
     <string name="tab_hide_developer_options">隐藏开发者选项</string>
@@ -950,6 +951,8 @@
     <string name="manage_status_disabled">已停用</string>
     <string name="manage_status_suspended">暂停</string>
     <string name="manage_status_hidden">已隐藏</string>
+    <string name="manage_selected_count">已选择 %1$d</string>
+    <string name="manage_bulk_apply">应用</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_detail_missing">此应用当前未安装。</string>
     <string name="app_open_info">应用信息</string>
