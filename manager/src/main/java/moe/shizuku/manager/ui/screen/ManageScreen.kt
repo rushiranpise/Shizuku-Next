@@ -260,7 +260,7 @@ fun ManageScreen(
 
     val shown = remember(
         apps, query, sortOrder, filter,
-        systemPackages, userPackages, disabledPackages, launcherless
+        systemPackages, userPackages, disabledPackages, launcherless, pinned
     ) {
         val byFilter = when (filter) {
             ManageFilter.ALL -> apps
@@ -278,11 +278,14 @@ fun ManageScreen(
                     it.packageName.contains(trimmed, ignoreCase = true)
             }
         }
-        when (sortOrder) {
-            SortOrder.RECENTLY_INSTALLED -> filtered.sortedByDescending { it.firstInstallTime }
-            SortOrder.RECENTLY_UPDATED -> filtered.sortedByDescending { it.lastUpdateTime }
-            SortOrder.ALPHABETICAL -> filtered.sortedBy { appLabel(pm, it).lowercase() }
+        val order = when (sortOrder) {
+            SortOrder.RECENTLY_INSTALLED -> compareByDescending<PackageInfo> { it.firstInstallTime }
+            SortOrder.RECENTLY_UPDATED -> compareByDescending<PackageInfo> { it.lastUpdateTime }
+            SortOrder.ALPHABETICAL -> compareBy { appLabel(pm, it).lowercase() }
         }
+        filtered.sortedWith(
+            compareBy<PackageInfo> { it.packageName !in pinned }.then(order)
+        )
     }
 
     if (selecting) {

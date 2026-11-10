@@ -385,7 +385,7 @@ fun LabsToggleScreen(
         }
     }
 
-    val shown = remember(apps, blocked, launcherless, systemPackages, userPackages, disabledPackages, query, filter, kind) {
+    val shown = remember(apps, blocked, launcherless, systemPackages, userPackages, disabledPackages, query, filter, kind, pinned) {
         val byKind = if (feature.userAppsOnly) {
             apps.filter { it.packageName in userPackages }
         } else when (kind) {
@@ -421,7 +421,11 @@ fun LabsToggleScreen(
         searched
             .map { app -> app to appLabel(pm, app).lowercase() }
             .sortedWith(
-                compareBy({ (app, _) -> app.packageName !in blocked }, { (_, label) -> label })
+                compareBy(
+                    { (app, _) -> app.packageName !in pinned },
+                    { (app, _) -> app.packageName !in blocked },
+                    { (_, label) -> label }
+                )
             )
             .map { (app, _) -> app }
     }
