@@ -138,7 +138,25 @@
     <string name="apps_filter_empty">No apps in this filter</string>
     <string name="apps_filter_all">All</string>
     <string name="apps_filter_granted">Granted</string>
+    <string name="apps_filter_temporary">Temporary</string>
     <string name="apps_filter_revoked">Revoked</string>
+
+    <!-- Temporary grants: a grant that ends with the process that asked for it. -->
+    <string name="temporary_empty">No temporary grants</string>
+    <string name="temporary_restart_needed">Restart Shizuku to enable temporary grants.</string>
+    <string name="temporary_restart">Restart Shizuku</string>
+    <string name="temporary_since">Since %1$s</string>
+    <string name="temporary_counts">%1$d shells · %2$d services · %3$d rish</string>
+    <string name="temporary_session">Session %1$d</string>
+    <string name="temporary_cmdline_title">Command</string>
+    <string name="temporary_unattributed">Still running</string>
+    <string name="temporary_kind_shell">shell</string>
+    <string name="temporary_kind_service">service</string>
+    <string name="temporary_kind_host">rish shell</string>
+    <string name="temporary_kind_host_name">rish</string>
+    <string name="temporary_kill">Stop</string>
+    <string name="temporary_kill_confirm_title">Stop privileged processes?</string>
+    <string name="temporary_kill_confirm_message">This stops the shells and services this temporary grant started. It is best-effort: a process that detached from its session or changed user may survive. The app itself is not stopped.</string>
     <string name="apps_filter_hidden">Hidden</string>
     <string name="apps_no_match">No apps match your search</string>
     <string name="app_management_sort_last_added">Recently added</string>
@@ -933,6 +951,7 @@
     <string name="permission_description">Allow the app to use Shizuku.</string>
     <string name="permission_warning_template"><![CDATA[Allow <b>%1$s</b> to %2$s?]]></string>
     <string name="grant_dialog_button_allow_always">Always allow</string>
+    <string name="grant_dialog_button_allow_once">Allow once</string>
     <string name="grant_dialog_button_deny">"Deny"</string>
 
     <!-- Starter -->

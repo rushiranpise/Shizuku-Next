@@ -42,8 +42,11 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -61,10 +64,13 @@ import rikka.shizuku.server.util.Android17Compat;
 import rikka.hidden.compat.UserManagerApis;
 import rikka.parcelablelist.ParcelableListSlice;
 import rikka.rish.RishConfig;
+import rikka.rish.RishService;
 import rikka.shizuku.ShizukuApiConstants;
 import rikka.shizuku.server.api.IContentProviderUtils;
+import rikka.shizuku.server.api.RemoteProcessHolder;
 import rikka.shizuku.server.util.HandlerUtil;
 import rikka.shizuku.server.util.InstalledPackagesCompat;
+import rikka.shizuku.server.util.ProcessUtils;
 import rikka.shizuku.server.util.UserHandleCompat;
 import rikka.shizuku.server.util.UsersCompat;
 
@@ -562,12 +568,25 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
 
         List<ClientRecord> records = clientManager.findClients(requestUid);
         List<String> packages = new ArrayList<>();
+        long now = System.currentTimeMillis();
         if (records.isEmpty()) {
             LOGGER.w("dispatchPermissionConfirmationResult: no client for uid %d was found", requestUid);
         } else {
             for (ClientRecord record : records) {
                 packages.add(record.packageName);
-                record.allowed = allowed;
+                if (onetime) {
+                    // "Once" belongs to the process that asked, not to every process of the
+                    // package: a second rish session must get its own prompt.
+                    if (record.pid == requestPid) {
+                        record.allowed = allowed;
+                        record.temporary = allowed;
+                        record.since = allowed ? now : 0;
+                    }
+                } else {
+                    record.allowed = allowed;
+                    record.temporary = false;
+                    record.since = 0;
+                }
                 if (record.pid == requestPid) {
                     record.dispatchRequestPermissionResult(requestCode, allowed);
                 }
@@ -653,6 +672,9 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
 
             List<ClientRecord> records = clientManager.findClients(uid);
             for (ClientRecord record : records) {
+                // A permanent decision replaces any temporary one on this process.
+                record.temporary = false;
+                record.since = 0;
                 if (allowed) {
                     record.allowed = true;
                 } else {
@@ -692,8 +714,10 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
         getUserServiceManager().removeUserServicesForPackage(packageName);
     }
 
-    private ParcelableListSlice<PackageInfo> getApplications(int userId) {
-        List<PackageInfo> list = new ArrayList<>();
+    private ParcelableListSlice<ManagerAppEntry> getApplications(int userId) {
+        Map<Integer, TemporaryData> temporary = buildTemporaryData();
+        List<ManagerAppEntry> list = new ArrayList<>();
+        Set<Integer> seen = new HashSet<>();
         List<Integer> users = new ArrayList<>();
         if (userId == -1) {
             users.addAll(UsersCompat.getUserIdsNoThrow());
@@ -715,18 +739,180 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
                     flags = entry.flags & ConfigManager.MASK_PERMISSION;
                 }
 
-                if (flags != 0) {
-                    list.add(pi);
-                } else if (pi.applicationInfo.metaData != null
+                boolean isClient = pi.applicationInfo.metaData != null
                         && pi.applicationInfo.metaData.getBoolean("moe.shizuku.client.V3_SUPPORT", false)
                         && pi.requestedPermissions != null
-                        && ArraysKt.contains(pi.requestedPermissions, PERMISSION)) {
-                    list.add(pi);
-                }
-            }
+                        && ArraysKt.contains(pi.requestedPermissions, PERMISSION);
 
+                if (flags == 0 && !isClient) {
+                    continue;
+                }
+
+                TemporaryData temp = temporary.get(uid);
+                list.add(new ManagerAppEntry(
+                        pi, uid, flags,
+                        temp != null, temp != null ? temp.since : 0,
+                        temp != null ? temp.shells : 0,
+                        temp != null ? temp.services : 0,
+                        temp != null ? temp.hosts : 0,
+                        temp != null ? temp.sessions : new ArrayList<>(),
+                        temp != null ? temp.entries : new ArrayList<>()
+                ));
+                seen.add(uid);
+            }
         }
+
+        // A uid whose package is gone but whose privileged resources are still running: keep it
+        // visible so the manager can stop them.
+        for (Map.Entry<Integer, TemporaryData> e : temporary.entrySet()) {
+            int uid = e.getKey();
+            if (seen.contains(uid)) continue;
+            if (userId != -1 && UserHandleCompat.getUserId(uid) != userId) continue;
+            TemporaryData temp = e.getValue();
+            list.add(new ManagerAppEntry(
+                    null, uid, 0, true, temp.since,
+                    temp.shells, temp.services, temp.hosts,
+                    temp.sessions, temp.entries
+            ));
+        }
+
         return new ParcelableListSlice<>(list);
+    }
+
+    /** The temporary state of one uid, folded into its app-list entry. */
+    private static final class TemporaryData {
+        long since;
+        int shells;
+        int services;
+        int hosts;
+        final ArrayList<Bundle> sessions = new ArrayList<>();
+        final ArrayList<Bundle> entries = new ArrayList<>();
+    }
+
+    /**
+     * The live temporary grants and the privileged resources they hold, keyed by uid.
+     *
+     * <p>An app is included when it has a live temporary holder or when a resource the server
+     * created for it is still running, so a daemon that outlived its holder stays visible and
+     * killable.
+     */
+    private Map<Integer, TemporaryData> buildTemporaryData() {
+        Map<Integer, TemporaryData> map = new LinkedHashMap<>();
+
+        for (ClientRecord record : clientManager.snapshotClients()) {
+            if (!record.temporary || !record.allowed) {
+                continue;
+            }
+            TemporaryData data = dataFor(map, record.uid);
+            Bundle session = new Bundle();
+            session.putInt(ServerConstants.KEY_TEMPORARY_PID, record.pid);
+            session.putLong(ServerConstants.KEY_TEMPORARY_SINCE, record.since);
+            session.putString(ServerConstants.KEY_TEMPORARY_CMDLINE, ProcessUtils.cmdline(record.pid));
+            data.sessions.add(session);
+            if (record.since > 0 && (data.since == 0 || record.since < data.since)) {
+                data.since = record.since;
+            }
+        }
+
+        for (RemoteProcessHolder holder : getRemoteProcesses()) {
+            if (!holder.isAliveQuiet() || !holder.isTemporary()) {
+                continue;
+            }
+            TemporaryData data = dataFor(map, holder.getUid());
+            data.shells++;
+            Bundle entry = new Bundle();
+            entry.putInt(ServerConstants.KEY_TEMPORARY_KIND, ServerConstants.TEMPORARY_KIND_SHELL);
+            entry.putInt(ServerConstants.KEY_TEMPORARY_PID, holder.getOwnerPid());
+            entry.putInt(ServerConstants.KEY_TEMPORARY_SESSION_PID, holder.getOwnerPid());
+            entry.putString(ServerConstants.KEY_TEMPORARY_LABEL, "shell");
+            data.entries.add(entry);
+        }
+
+        for (UserServiceRecord record : getUserServiceManager().snapshotRecords()) {
+            if (!record.isAlive() || record.uid < 0 || !record.temporary) {
+                continue;
+            }
+            TemporaryData data = dataFor(map, record.uid);
+            data.services++;
+            Bundle entry = new Bundle();
+            entry.putInt(ServerConstants.KEY_TEMPORARY_KIND, ServerConstants.TEMPORARY_KIND_SERVICE);
+            entry.putInt(ServerConstants.KEY_TEMPORARY_PID, record.pid);
+            entry.putInt(ServerConstants.KEY_TEMPORARY_SESSION_PID, record.ownerPid);
+            entry.putString(ServerConstants.KEY_TEMPORARY_LABEL,
+                    record.packageName != null ? record.packageName : "service");
+            data.entries.add(entry);
+        }
+
+        for (RishService.HostEntry entry : RishService.snapshotHosts()) {
+            if (!entry.host.isAlive() || !entry.temporary) {
+                continue;
+            }
+            TemporaryData data = dataFor(map, entry.uid);
+            data.hosts++;
+            Bundle item = new Bundle();
+            item.putInt(ServerConstants.KEY_TEMPORARY_KIND, ServerConstants.TEMPORARY_KIND_HOST);
+            item.putInt(ServerConstants.KEY_TEMPORARY_PID, entry.host.getPid());
+            item.putInt(ServerConstants.KEY_TEMPORARY_SESSION_PID, entry.callingPid);
+            item.putString(ServerConstants.KEY_TEMPORARY_LABEL, "rish");
+            data.entries.add(item);
+            if (entry.since > 0 && (data.since == 0 || entry.since < data.since)) {
+                data.since = entry.since;
+            }
+        }
+
+        return map;
+    }
+
+    private static TemporaryData dataFor(Map<Integer, TemporaryData> map, int uid) {
+        TemporaryData data = map.get(uid);
+        if (data == null) {
+            data = new TemporaryData();
+            map.put(uid, data);
+        }
+        return data;
+    }
+
+    /**
+     * Stops the privileged resources of a temporary grant. Best-effort by design: descendants
+     * that left the session, or that dropped to another uid, may not be reachable. The client
+     * holder is never killed and the package is never force-stopped.
+     */
+    private void killTemporaryResources(int uid, int sessionPid, int kind, int pid) {
+        if (kind == ServerConstants.TEMPORARY_KIND_ALL || kind == ServerConstants.TEMPORARY_KIND_SHELL) {
+            for (RemoteProcessHolder holder : getRemoteProcesses()) {
+                if (!holder.isTemporary() || holder.getUid() != uid) continue;
+                if (sessionPid != 0 && holder.getOwnerPid() != sessionPid) continue;
+                if (pid != 0 && holder.getOwnerPid() != pid) continue;
+                holder.destroy();
+            }
+        }
+
+        if (kind == ServerConstants.TEMPORARY_KIND_ALL || kind == ServerConstants.TEMPORARY_KIND_SERVICE) {
+            for (UserServiceRecord record : getUserServiceManager().snapshotRecords()) {
+                if (!record.temporary || record.uid != uid) continue;
+                if (sessionPid != 0 && record.ownerPid != sessionPid) continue;
+                if (pid != 0 && record.pid != pid) continue;
+                getUserServiceManager().killUserService(record);
+            }
+        }
+
+        if (kind == ServerConstants.TEMPORARY_KIND_ALL || kind == ServerConstants.TEMPORARY_KIND_HOST) {
+            for (RishService.HostEntry entry : RishService.snapshotHosts()) {
+                if (!entry.temporary || entry.uid != uid) continue;
+                if (sessionPid != 0 && entry.callingPid != sessionPid) continue;
+                if (pid != 0 && entry.host.getPid() != pid) continue;
+                ProcessUtils.killSession(entry.host.getPid());
+                entry.host.kill();
+            }
+        }
+
+        for (ClientRecord record : clientManager.findClients(uid)) {
+            if (!record.temporary) continue;
+            if (sessionPid != 0 && record.pid != sessionPid) continue;
+            record.allowed = false;
+            record.temporary = false;
+            record.since = 0;
+        }
     }
 
     @Override
@@ -735,9 +921,20 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
         if (code == ServerConstants.BINDER_TRANSACTION_getApplications) {
             data.enforceInterface(ShizukuApiConstants.BINDER_DESCRIPTOR);
             int userId = data.readInt();
-            ParcelableListSlice<PackageInfo> result = getApplications(userId);
+            ParcelableListSlice<ManagerAppEntry> result = getApplications(userId);
             reply.writeNoException();
             result.writeToParcel(reply, android.os.Parcelable.PARCELABLE_WRITE_RETURN_VALUE);
+            return true;
+        } else if (code == ServerConstants.BINDER_TRANSACTION_killTemporary) {
+            data.enforceInterface(ShizukuApiConstants.BINDER_DESCRIPTOR);
+            int uid = data.readInt();
+            int sessionPid = data.readInt();
+            int kind = data.readInt();
+            int pid = data.readInt();
+            if (isManagerAppId(Binder.getCallingUid())) {
+                killTemporaryResources(uid, sessionPid, kind, pid);
+            }
+            reply.writeNoException();
             return true;
         }
         return super.onTransact(code, data, reply, flags);

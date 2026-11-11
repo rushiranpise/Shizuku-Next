@@ -26,4 +26,20 @@ public class ServerConstants {
     }
 
     public static final int BINDER_TRANSACTION_getApplications = 10001;
+
+    /** Manager-only: stop the privileged resources of a temporary grant. */
+    public static final int BINDER_TRANSACTION_killTemporary = 10003;
+
+    // Bundle keys for the session/entry bundles inside ManagerAppEntry.
+    public static final String KEY_TEMPORARY_SINCE = "since";
+    public static final String KEY_TEMPORARY_CMDLINE = "cmdline";
+    public static final String KEY_TEMPORARY_PID = "pid";
+    public static final String KEY_TEMPORARY_SESSION_PID = "session_pid";
+    public static final String KEY_TEMPORARY_KIND = "kind";
+    public static final String KEY_TEMPORARY_LABEL = "label";
+
+    public static final int TEMPORARY_KIND_ALL = 0;
+    public static final int TEMPORARY_KIND_SHELL = 1;
+    public static final int TEMPORARY_KIND_SERVICE = 2;
+    public static final int TEMPORARY_KIND_HOST = 3;
 }

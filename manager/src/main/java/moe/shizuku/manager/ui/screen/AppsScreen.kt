@@ -78,7 +78,9 @@ import kotlinx.coroutines.withContext
 import moe.shizuku.manager.Helps
 import moe.shizuku.manager.R
 import moe.shizuku.manager.authorization.AuthorizationManager
+import moe.shizuku.manager.authorization.TemporaryApp
 import moe.shizuku.manager.manage.InstalledPackages
+import rikka.shizuku.server.ManagerAppEntry
 import moe.shizuku.manager.receiver.ShizukuReceiverStarter
 import moe.shizuku.manager.ui.component.AppFilterChip
 import moe.shizuku.manager.ui.component.AppIcon
@@ -92,7 +94,9 @@ import moe.shizuku.manager.ui.component.ChipEmphasis
 import moe.shizuku.manager.ui.component.SegmentedCard
 import moe.shizuku.manager.ui.component.StatusChip
 import moe.shizuku.manager.ui.component.stripHtmlTags
+import moe.shizuku.manager.service.WatchdogGuard
 import moe.shizuku.manager.utils.ShizukuStateMachine
+import rikka.shizuku.Shizuku
 
 enum class SortOrder {
     /** Most recently installed first: when the app first appeared on the device. */
@@ -115,12 +119,22 @@ enum class SortOrder {
 enum class AppFilter {
     ALL,
 
-    /** Shizuku's permission is granted to these. */
+    /** Shizuku's permission is granted to these, permanently. */
     GRANTED,
+
+    /** A grant that ends with the process that asked for it. */
+    TEMPORARY,
 
     /** It is not the apps you can still hand it to. */
     REVOKED
 }
+
+private data class DerivedApps(
+    val granted: Set<String>,
+    val launcherless: Set<String>,
+    val temporary: List<TemporaryApp>,
+    val supported: Boolean
+)
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
@@ -136,6 +150,8 @@ fun AppsScreen(
     val pm = context.packageManager
 
     var all by remember { mutableStateOf<List<PackageInfo>>(emptyList()) }
+    var entries by remember { mutableStateOf<List<ManagerAppEntry>>(emptyList()) }
+    var entriesByUid by remember { mutableStateOf<Map<Int, ManagerAppEntry>>(emptyMap()) }
     var query by remember { mutableStateOf("") }
     var sortOrder by remember { mutableStateOf(SortOrder.RECENTLY_INSTALLED) }
     var selected by remember { mutableStateOf(setOf<String>()) }
@@ -166,61 +182,73 @@ fun AppsScreen(
         onDispose { ShizukuStateMachine.removeListener(listener) }
     }
 
-    // Read once per version: either when this is the tab on screen, or once the app has
-    // settled after launch, so that the swipe towards it stays cheap and the first visit does
-    // not wait for the server to be asked about every package.
-    var loadedFor by remember { mutableStateOf<Pair<Boolean, Int>?>(null) }
+    // Re-read whenever this becomes the tab on screen, the server comes or goes, or a pull
+    // asks for it. A grant made in another app is only visible after one of those, which is
+    // why switching back to this tab is a refresh and not just a redraw.
     LaunchedEffect(running, active, warmUp, refreshKey) {
         if (!active && !warmUp) return@LaunchedEffect
-        // A pull starts from a list that is already on screen, so it is the one case that
-        // skips the guard: reading again is the whole point of the gesture. Every other
-        // trigger still waits until its version is the one that was read.
-        if (!refreshing && loadedFor == (running to version)) return@LaunchedEffect
 
         loading = true
         Log.d(AppConstants.TAG, "Apps: reading the authorised apps")
-        all = withContext(Dispatchers.IO) {
+        val loaded = withContext(Dispatchers.IO) {
             runCatching {
                 AuthorizationManager.getPackages(exclude = listOf(context.packageName))
             }.getOrDefault(emptyList())
         }
-        loadedFor = running to version
+        entries = loaded
+        all = loaded.mapNotNull { it.info }
+        entriesByUid = loaded.associateBy { it.uid }
         loading = false
         refreshing = false
     }
 
-    // Both sets are worked out once per loaded list, off the main thread: the granted one is
-    // a server round trip per app, and the chips want its size before anyone picks that
-    // filter. Recomputed when a toggle changes something (version), which is what keeps the
-    // counts honest.
+    // The granted set and the temporary view are worked out from the entries the server
+    // already returned, off the main thread. Recomputed when a toggle changes something
+    // (version) or a pull refreshes the list, which is what keeps the counts honest.
     var grantedNames by remember { mutableStateOf(emptySet<String>()) }
     var launcherless by remember { mutableStateOf(emptySet<String>()) }
-    var derivedFor by remember { mutableStateOf<Pair<Boolean, Int>?>(null) }
-    LaunchedEffect(all, version, active, warmUp) {
+    var temporaryApps by remember { mutableStateOf<List<TemporaryApp>>(emptyList()) }
+    var temporarySupported by remember { mutableStateOf(false) }
+    LaunchedEffect(all, entries, version, refreshKey, active, warmUp) {
         if ((!active && !warmUp) || all.isEmpty()) {
             grantedNames = emptySet()
             launcherless = emptySet()
+            temporaryApps = emptyList()
+            temporarySupported = false
             // Nothing is known yet, or there is no server to ask, so there is no number to
             // carry to the tab bar either.
             onGrantedCount(0)
             return@LaunchedEffect
         }
-        if (derivedFor == (running to version)) return@LaunchedEffect
-        val (granted, withoutLauncher) = withContext(Dispatchers.IO) {
+        val derived = withContext(Dispatchers.IO) {
+            val supported = runCatching { AuthorizationManager.supportsTemporary() }.getOrDefault(false)
             val granted = all.filter {
                 val uid = it.applicationInfo?.uid ?: return@filter false
-                runCatching { AuthorizationManager.granted(it.packageName, uid) }.getOrDefault(false)
+                val entry = entriesByUid[uid]
+                if (supported && entry != null) {
+                    AuthorizationManager.granted(entry)
+                } else {
+                    runCatching { AuthorizationManager.granted(it.packageName, uid) }.getOrDefault(false)
+                }
             }.map { it.packageName }.toSet()
 
             // An app with no launcher entry is what "hidden" means: it is in the list, but
             // never in the app drawer. The leanback category counts as an entry on TV.
             val withoutLauncher = InstalledPackages.launcherless(context, all)
 
-            granted to withoutLauncher
+            val temporary = if (supported) {
+                AuthorizationManager.temporaryApps(entries)
+            } else {
+                emptyList()
+            }
+
+            DerivedApps(granted, withoutLauncher, temporary, supported)
         }
-        grantedNames = granted
-        launcherless = withoutLauncher
-        onGrantedCount(granted.size)
+        grantedNames = derived.granted
+        launcherless = derived.launcherless
+        temporaryApps = derived.temporary
+        temporarySupported = derived.supported
+        onGrantedCount(derived.granted.size)
     }
 
     // What kind of app it is, which needs no server: the flags and the record are on the app
@@ -240,9 +268,18 @@ fun AppsScreen(
         }.map { it.packageName }.toSet()
     }
 
+    // The packages whose uid currently holds a temporary grant or a resource from one. They
+    // are neither Granted (nothing was persisted) nor Revoked (the grant is live), so the
+    // three chips stay mutually exclusive.
+    val temporaryNames = remember(all, temporaryApps) {
+        val uids = temporaryApps.map { it.uid }.toSet()
+        all.filter { it.applicationInfo?.uid?.let { uid -> uid in uids } == true }
+            .map { it.packageName }.toSet()
+    }
+
     val shown = remember(
         all, query, sortOrder, filter, kind,
-        userPackages, systemPackages, disabledPackages, launcherless, grantedNames
+        userPackages, systemPackages, disabledPackages, launcherless, grantedNames, temporaryNames
     ) {
         val q = query.trim()
         val byKind = when (kind) {
@@ -255,7 +292,12 @@ fun AppsScreen(
         val byFilter = when (filter) {
             AppFilter.ALL -> byKind
             AppFilter.GRANTED -> byKind.filter { it.packageName in grantedNames }
-            AppFilter.REVOKED -> byKind.filter { it.packageName !in grantedNames }
+            // The temporary list is hierarchical and comes from the server snapshot, so it is
+            // rendered separately rather than filtered out of this flat list.
+            AppFilter.TEMPORARY -> emptyList()
+            AppFilter.REVOKED -> byKind.filter {
+                it.packageName !in grantedNames && it.packageName !in temporaryNames
+            }
         }
         val filtered = if (q.isBlank()) {
             byFilter
@@ -337,7 +379,6 @@ fun AppsScreen(
         refreshing = true
         // The derived sets are worked out per list, so a re-read has to ask for
         // them again too: a pull is how you pick up a grant made elsewhere.
-        derivedFor = null
         refreshKey++
     }
 
@@ -472,8 +513,19 @@ fun AppsScreen(
             )
             AppFilterChip(
                 modifier = Modifier.weight(1f),
+                label = stringResource(R.string.apps_filter_temporary),
+                count = temporaryApps.size,
+                selected = filter == AppFilter.TEMPORARY,
+                onClick = {
+                    filter = if (filter == AppFilter.TEMPORARY) AppFilter.ALL else AppFilter.TEMPORARY
+                }
+            )
+            AppFilterChip(
+                modifier = Modifier.weight(1f),
                 label = stringResource(R.string.apps_filter_revoked),
-                count = all.size - grantedNames.size,
+                count = all.count {
+                    it.packageName !in grantedNames && it.packageName !in temporaryNames
+                },
                 selected = filter == AppFilter.REVOKED,
                 onClick = {
                     filter = if (filter == AppFilter.REVOKED) AppFilter.ALL else AppFilter.REVOKED
@@ -519,6 +571,38 @@ fun AppsScreen(
             contentPadding = PaddingValues(start = 16.dp, top = 4.dp, end = 16.dp, bottom = bottomPadding),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+            if (filter == AppFilter.TEMPORARY) {
+                item {
+                    TemporaryAppsList(
+                        apps = temporaryApps,
+                        packages = all,
+                        supported = temporarySupported,
+                        onKill = { uid, sessionPid, kind, pid ->
+                            scope.launch {
+                                withContext(Dispatchers.IO) {
+                                    AuthorizationManager.killTemporary(uid, sessionPid, kind, pid)
+                                }
+                                version++
+                                refreshKey++
+                            }
+                        },
+                        onRestart = {
+                            scope.launch {
+                                withContext(Dispatchers.IO) {
+                                    WatchdogGuard.expectDeath()
+                                    runCatching { Shizuku.exit() }
+                                    ShizukuReceiverStarter.start(
+                                        context,
+                                        forceStart = true,
+                                        userInitiated = true,
+                                        reason = "temporary-support"
+                                    )
+                                }
+                            }
+                        }
+                    )
+                }
+            }
             items(shown, key = { it.rowKey() }) { pi ->
                 val uid = pi.applicationInfo!!.uid
                 val granted = remember(pi.packageName, version) {
@@ -599,13 +683,15 @@ fun AppsScreen(
         // a blank page with a spinner over it; the list keeps its shape and the wait is
         // spent looking at where the content will be. A pull is not this case: the rows
         // already there stay, which is why the skeleton asks for an empty list as well.
-        if (loading && shown.isEmpty()) {
+        if (loading && shown.isEmpty() && filter != AppFilter.TEMPORARY) {
             CenteredMessage { LoadingIndicator() }
         }
 
         // Say why the page is empty: no server to ask, nothing matching the search, or
         // genuinely no apps a blank page explains nothing.
-        if (!loading && shown.isEmpty()) {
+        // The Temporary tab renders its own list from the server snapshot, so an empty flat
+        // list there is not an empty page.
+        if (!loading && shown.isEmpty() && filter != AppFilter.TEMPORARY) {
             CenteredMessage {
                 when {
                     !running -> {

@@ -113,6 +113,10 @@ class RequestPermissionActivity : AppActivity() {
                 setResult(uid, pid, requestCode, allowed = true, onetime = false)
                 dialog.dismiss()
             }
+            button2.setOnClickListener {
+                setResult(uid, pid, requestCode, allowed = true, onetime = true)
+                dialog.dismiss()
+            }
             button3.setOnClickListener {
                 setResult(uid, pid, requestCode, allowed = false, onetime = true)
                 dialog.dismiss()
