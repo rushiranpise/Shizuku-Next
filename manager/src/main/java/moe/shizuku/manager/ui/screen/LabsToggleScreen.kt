@@ -101,6 +101,7 @@ import moe.shizuku.manager.ui.component.ChoiceRow
 import moe.shizuku.manager.ui.component.ExpressiveSwitch
 import moe.shizuku.manager.ui.component.SegmentedCard
 import moe.shizuku.manager.ui.component.appLabel
+import moe.shizuku.manager.utils.Diag
 import moe.shizuku.manager.utils.ShizukuStateMachine
 
 /**
@@ -343,7 +344,8 @@ fun LabsToggleScreen(
                 }
             }
             if (!applied) {
-                Log.w(AppConstants.TAG, "${feature.name}: $packageName would not change")
+                Diag.warn(AppConstants.TAG, "${feature.name}: $packageName would not change")
+                Toast.makeText(context, R.string.app_action_failed, Toast.LENGTH_SHORT).show()
             }
             if (feature.signal != null) {
                 withContext(Dispatchers.IO) { HidingWatchService.refresh(context) }

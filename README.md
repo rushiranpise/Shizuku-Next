@@ -53,6 +53,10 @@ Get the latest build from [Releases](https://github.com/rushiranpise/Shizuku-Nex
 - Batch permission changes, searchable app lists, and device information.
 - Tasker and other automation support through intents and status broadcasts.
 
+### Firewall
+
+The firewall uses Android's OEM deny chain 3, which exists from Android 13. Open **Labs > Firewall**, turn the switch at the top on, then switch on the apps whose network access should be blocked. Android 12 and older do not have this chain, so the Firewall row is hidden there.
+
 ### Modules and compatibility
 - Experimental ADB module support, including module actions, services, and WebUI. [Writing a module](docs/adb-modules.md) covers the format: `module.prop`, the environment a script runs in, the WebUI bridge, trust, and how a module gets found.
 - Stealth mode and in-app updates.

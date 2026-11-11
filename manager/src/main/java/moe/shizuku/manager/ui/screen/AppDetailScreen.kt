@@ -649,7 +649,7 @@ fun AppDetailScreen(
                 if (!running) {
                     item { NoteCard(R.string.app_network_needs_shizuku) }
                 } else if (app.networkBlocked == null) {
-                    // The chain this uses is Android 11 and up, and its own description calls
+                    // The chain this uses is Android 13 and up, and its own description calls
                     // it one for debugging: saying so beats a switch that does nothing.
                     item { NoteCard(R.string.app_network_unsupported) }
                 } else {

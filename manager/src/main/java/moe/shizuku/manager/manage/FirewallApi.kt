@@ -1,7 +1,7 @@
 package moe.shizuku.manager.manage
 
 import android.os.IBinder
-import android.util.Log
+import moe.shizuku.manager.utils.Diag
 import rikka.shizuku.ShizukuBinderWrapper
 import rikka.shizuku.SystemServiceHelper
 
@@ -57,6 +57,17 @@ object FirewallApi {
 
     /** `ConnectivityManager.FIREWALL_RULE_DEFAULT`. */
     private const val RULE_DEFAULT = 0
+
+    /**
+     * Whether a write that reached the platform should be reported as applied.
+     *
+     * A successful write is not always readable: Android 13 added the setters and the OEM deny
+     * chain, but not the getters, so a rule can be set there with no way to ask it back. Unknown
+     * is not a refusal, and reporting it as one is what made the switch spring back after a rule
+     * that had in fact been applied. Only a definite opposite answer is a failure.
+     */
+    internal fun writeApplied(wrote: Boolean, requested: Boolean, observed: Boolean?): Boolean =
+        wrote && (observed == null || observed == requested)
 
     /**
      * Whether the chain is on, or null when the platform cannot be asked.
@@ -135,11 +146,11 @@ object FirewallApi {
                 .getMethod("asInterface", IBinder::class.java)
                 .invoke(null, ShizukuBinderWrapper(binder))
         }
-            .onFailure { Log.w(TAG, "the connectivity interface could not be reached", it) }
+            .onFailure { Diag.warn(TAG, "the connectivity interface could not be reached", it) }
             .getOrNull() ?: return null
 
         return runCatching { block(service) }
-            .onFailure { Log.w(TAG, "the connectivity interface refused the call", it) }
+            .onFailure { Diag.warn(TAG, "the connectivity interface refused the call", it) }
             .getOrNull()
     }
 }

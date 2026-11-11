@@ -58,6 +58,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import moe.shizuku.manager.R
 import moe.shizuku.manager.accessibility.AccessibilityKeepAlive
+import moe.shizuku.manager.manage.FirewallChain
 import moe.shizuku.manager.manage.ForceDark
 import moe.shizuku.manager.manage.Hiding
 import moe.shizuku.manager.manage.PackageTools
@@ -113,14 +114,20 @@ fun LabsScreen(bottomPadding: Dp, onOpenDetail: (Detail) -> Unit) {
         active = withContext(Dispatchers.IO) { activeFeatures(context) }
     }
     // Every feature there is, in no particular order. The order is worked out below.
-    val entries = listOf(
+    val entries = listOfNotNull(
         LabEntry(R.string.tab_manage, Icons.Outlined.AdminPanelSettings, Detail.APP_OPS),
         LabEntry(R.string.tab_shell, Icons.Outlined.Terminal, Detail.SHELL),
-        LabEntry(
-            AppToggleFeature.FIREWALL.titleRes,
-            AppToggleFeature.FIREWALL.icon,
-            Detail.FIREWALL
-        ),
+        // The chain this list writes arrived in Android 13; before that there is no firewall to
+        // offer, and a row whose switches cannot do anything is worse than no row.
+        if (FirewallChain.supportsFirewall()) {
+            LabEntry(
+                AppToggleFeature.FIREWALL.titleRes,
+                AppToggleFeature.FIREWALL.icon,
+                Detail.FIREWALL
+            )
+        } else {
+            null
+        },
         LabEntry(
             AppToggleFeature.AUTOSTART.titleRes,
             AppToggleFeature.AUTOSTART.icon,

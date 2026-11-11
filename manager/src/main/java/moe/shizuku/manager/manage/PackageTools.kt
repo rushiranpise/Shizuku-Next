@@ -11,6 +11,7 @@ import androidx.annotation.StringRes
 import java.security.MessageDigest
 import moe.shizuku.manager.R
 import moe.shizuku.manager.ShizukuSettings
+import moe.shizuku.manager.utils.Diag
 import moe.shizuku.manager.utils.ShizukuStateMachine
 import moe.shizuku.manager.utils.ShizukuSystemApis
 import moe.shizuku.manager.utils.UserHandleCompat
@@ -279,7 +280,7 @@ object PackageTools {
             ops = if (running) readOps(context, packageName) else emptyList(),
             bucket = if (running) readBucket(context, packageName) else null,
             batteryUnrestricted = running && isBatteryUnrestricted(context, packageName),
-            networkBlocked = if (running) readNetworkBlocked(context, packageName) else null
+            networkBlocked = if (running) readNetworkBlockedForDisplay(context, packageName) else null
         )
     }
 
@@ -587,6 +588,8 @@ object PackageTools {
      * `package:allow` on stdout.
      */
     fun readNetworkBlocked(context: Context, packageName: String): Boolean? {
+        if (!FirewallChain.supportsFirewall()) return null
+
         val answer = runShellCommand("cmd connectivity get-package-networking-enabled $packageName")
         when {
             answer?.endsWith(":deny") == true -> return true
@@ -597,6 +600,19 @@ object PackageTools {
         // fallback - so the platform is asked through the interface the command is a front end for.
         val uid = uidOf(context, packageName) ?: return null
         return FirewallApi.isBlocked(FirewallApi.blockedRule(uid))
+    }
+
+    /**
+     * The state the app's own page shows.
+     *
+     * Android 13 can set a rule but not read it back, so the platform's answer is null there.
+     * This app's record is then the only state available; it is not the platform's, but it is
+     * the state this app wrote and the switch can still change it.
+     */
+    fun readNetworkBlockedForDisplay(context: Context, packageName: String): Boolean? {
+        readNetworkBlocked(context, packageName)?.let { return it }
+        if (!FirewallChain.supportsFirewall()) return null
+        return packageName in readFirewallBlocked(context)
     }
 
     /**
@@ -619,6 +635,8 @@ object PackageTools {
      * why the row says what it is rather than pretending it is a documented feature.
      */
     fun setNetworkBlocked(context: Context, packageName: String, blocked: Boolean): Boolean {
+        if (!FirewallChain.supportsFirewall()) return false
+
         if (FirewallChain.isOn() != true) {
             FirewallChain.setOn(true)
         }
@@ -628,17 +646,35 @@ object PackageTools {
         // verb and leave the rule where it was, which is a switch that does nothing while the
         // command says it worked. What it did is read, and the same rule is set through the
         // interface behind the command whenever the answer is not the one that was asked for.
-        var applied = shellOk("cmd connectivity set-package-networking-enabled $value $packageName") &&
-            readNetworkBlocked(context, packageName) == blocked
+        val commandWrote =
+            shellOk("cmd connectivity set-package-networking-enabled $value $packageName")
+        val commandRead = readNetworkBlocked(context, packageName)
+        var applied = FirewallApi.writeApplied(commandWrote, blocked, commandRead)
+        Diag.info(
+            TAG,
+            "Firewall $packageName: block=$blocked command=$commandWrote read=$commandRead"
+        )
 
         // A ROM whose connectivity command has no such verb, or has one that does not take,
         // gets the same rule through the interface it is a front end for.
         if (!applied) {
-            val uid = uidOf(context, packageName) ?: return false
+            val uid = uidOf(context, packageName)
+            if (uid == null) {
+                Diag.warn(TAG, "Firewall $packageName: no uid for the rule")
+                return false
+            }
             if (FirewallApi.setBlocked(uid, blocked)) {
                 // Read through the channel that wrote it: the command may be the half that does
                 // not work here, and its answer would discard a rule the platform did take.
-                applied = FirewallApi.isBlocked(FirewallApi.blockedRule(uid)) == blocked
+                val observed = FirewallApi.isBlocked(FirewallApi.blockedRule(uid))
+                applied = FirewallApi.writeApplied(
+                    wrote = true,
+                    requested = blocked,
+                    observed = observed
+                )
+                Diag.info(TAG, "Firewall $packageName via the interface: read=$observed")
+            } else {
+                Diag.warn(TAG, "Firewall $packageName: the interface refused the rule")
             }
         }
 
@@ -751,10 +787,12 @@ object PackageTools {
         val recorded = readFirewallBlocked(context)
         if (recorded.isEmpty()) return 0
 
+        // Android 13 has no reader, so its record is the only evidence there is: the list is put
+        // back rather than assumed to have survived. Everywhere else a failed read still counts
+        // as blocked, because blocking it again would fail for the same reason.
+        val canRead = FirewallChain.canReadRule()
         val gone = toReapply(recorded, installedPackageNames()) { packageName ->
-            // A failed read counts as still blocked: blocking it again would fail for the same
-            // reason, and the next start asks again anyway.
-            readNetworkBlocked(context, packageName) != false
+            !canRead || readNetworkBlocked(context, packageName) != false
         }
         return gone.count { setNetworkBlocked(context, it, true) }
     }
