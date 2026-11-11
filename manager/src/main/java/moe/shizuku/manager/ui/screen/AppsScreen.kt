@@ -210,7 +210,7 @@ fun AppsScreen(
     var temporaryApps by remember { mutableStateOf<List<TemporaryApp>>(emptyList()) }
     var temporarySupported by remember { mutableStateOf(false) }
     LaunchedEffect(all, entries, version, refreshKey, active, warmUp) {
-        if ((!active && !warmUp) || all.isEmpty()) {
+        if (!active && !warmUp) {
             grantedNames = emptySet()
             launcherless = emptySet()
             temporaryApps = emptyList()
@@ -221,6 +221,8 @@ fun AppsScreen(
             return@LaunchedEffect
         }
         val derived = withContext(Dispatchers.IO) {
+            // Support is the server's answer, not a property of the app list: an empty list
+            // (e.g. only a uid with no package info) still has a server that can be asked.
             val supported = runCatching { AuthorizationManager.supportsTemporary() }.getOrDefault(false)
             val granted = all.filter {
                 val uid = it.applicationInfo?.uid ?: return@filter false
@@ -236,6 +238,9 @@ fun AppsScreen(
             // never in the app drawer. The leanback category counts as an entry on TV.
             val withoutLauncher = InstalledPackages.launcherless(context, all)
 
+            // The temporary view is per uid and comes from the entries, not the flattened
+            // package list: a uid whose package is gone (e.g. Termux/rish, which is not a
+            // native client) is still reported with a null info while its grant is live.
             val temporary = if (supported) {
                 AuthorizationManager.temporaryApps(entries)
             } else {
