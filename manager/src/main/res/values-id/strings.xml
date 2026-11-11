@@ -76,6 +76,7 @@
          command. -->
     <string name="dialog_adb_pairing_accessibility_permission_tv">Android blocks this switch for apps installed outside an app store, and on a TV, App info has no \"Allow restricted settings\" option to unblock it. A computer connected to this TV over ADB is needed once: either grant the permission above, which lets Shizuku turn the service on by itself, or unblock the switch with:\n\n^1</string>
     <string name="dialog_adb_pairing_open_app_info">App info</string>
+    <string name="dialog_adb_pairing_accessibility_enable">Automatic pairing reads the code out of the system dialog through Shizuku\'s accessibility service, so it has to be enabled, and only for as long as it takes: the service turns itself off once the code is found, or after a minute to save power. Shizuku normally enables it on its own, and that needs the WRITE_SECURE_SETTINGS permission, which a fresh install has not been granted yet.\n\nEnable it on the next screen, type the code yourself under Manual, or grant the permission once:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Silakan mulai pemasangan dengan
         melakukan langkah-langkah berikut:\n- Buka \"Opsi Pengembang\"\n- Aktifkan \"Debugging USB\"
         dan \"Debugging Nirkabel\"\n- Ketuk sisi kiri \"Debugging Nirkabel\"\n- Ketuk \"Pasangkan
@@ -165,7 +166,23 @@
     <string name="labs_filter_blocked">Di blokir</string>
     <string name="labs_blocked_count">%1$d di blokir</string>
     <string name="labs_blocked_empty">Tidak ada yang di blokir.</string>
+    <string name="labs_bulk_actions">Aksi sekaligus</string>
+    <string name="labs_bulk_allow_all">Izinkan semua terlihat</string>
+    <string name="labs_bulk_block_all">Blokir semua terlihat</string>
+    <string name="labs_bulk_show_all">Perlihatkan semua dalam daftar</string>
+    <string name="labs_bulk_hide_all">Sembunyikan semua dalam daftar</string>
+    <string name="labs_bulk_confirm_title">Perubahan sekaligus</string>
+    <string name="labs_bulk_confirm_count">Aplikasi untuk diperbarui: %1$d</string>
+    <string name="labs_bulk_confirm_state">Status baru: %1$s</string>
+    <string name="labs_bulk_confirm_warning">Hanya aplikasi dalam daftar ini yang diubah. Aplikasi yang disematkan akan dibiarkan.</string>
+    <string name="labs_bulk_progress_title">Memperbaharui aplikasi</string>
+    <string name="labs_bulk_progress">Mengubah %1$d dari %2$d...</string>
+    <string name="labs_bulk_result_title">Pembaharuan sekaligus telah selesai</string>
+    <string name="labs_bulk_result_summary">Diubah: %1$d, gagal: %2$d.</string>
+    <string name="labs_bulk_failed_hint">Beberapa aplikasi tidak menerima perubahan. Status aplikasi tersebut mungkin tidak berubah.</string>
     <string name="labs_bulk_apply">Terapkan</string>
+    <string name="labs_bulk_done">Selesai</string>
+    <string name="labs_pin_app">Sematan aplikasi</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Tersembunyi</string>
     <string name="tab_hide_developer_options">Sembunyikan opsi pengembang</string>
@@ -268,6 +285,8 @@
     <string name="activities_edit_as_intent">Sunting sesuai maksud</string>
     <string name="activities_copied">Disalin</string>
     <string name="activities_apps_section">Apps</string>
+    <string name="activities_save">Simpan</string>
+    <string name="activities_gone">Aktivitas ini tidak lagi terpasang.</string>
     <string name="tab_intent_builder">Pembuat Intent</string>
     <string name="intent_builder_note">Buat dan kirim intent. Anda dapat mengatur action, data, type, component, categories, extras, dan flags-nya. Anda juga dapat memuat intent dari URI, seperti intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end. Ini adalah format yang digunakan oleh Activity Launcher dan sebagian besar alat otomatisasi. Memuat intent dengan cara ini akan mengisi kolom-kolom yang ada, sehingga Anda dapat memeriksa dan menyuntingnya sebelum mengirim.</string>
     <string name="intent_uri">URI Intent</string>
@@ -451,6 +470,8 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
     <string name="status_value_none">-</string>
     <string name="status_running_short">Running</string>
     <string name="status_stopped_short">Stopped</string>
+    <string name="home_status_service_active">Layanan shizuku aktif</string>
+    <string name="home_status_service_stopped">Layanan shizuku tidak berjalan</string>
     <string name="action_start">Mulai</string>
     <string name="tools_stealth">Stealth mode</string>
     <string name="tools_modules">Modules</string>
@@ -461,14 +482,39 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
     <string name="catalog_filter_sort">Sort</string>
     <string name="catalog_filter_category">Category</string>
     <string name="catalog_filter_updated">Updated</string>
+    <string name="catalog_filter_all_categories">Semua kategori</string>
+    <string name="catalog_updated_any">Kapan pun</string>
+    <string name="catalog_updated_last_7">7 hari terakhir</string>
+    <string name="catalog_updated_last_30">30 hari terakhir</string>
+    <string name="catalog_updated_last_90">90 hari terakhir</string>
+    <string name="catalog_sort_updated">Baru-baru ini diperbarui</string>
+    <string name="catalog_sort_stars">Bintang terbanyak</string>
+    <string name="catalog_sort_name">Nama A-Z</string>
+    <string name="catalog_sort_released">Rilisan terbaru</string>
+    <string name="catalog_sort_added">Paling baru ditambahkan</string>
+    <string name="catalog_latest_release">Rilisan terbaru: %1$s</string>
+    <string name="catalog_no_release">Tanpa rilisan</string>
+    <string name="catalog_no_apk">Tidak ada APK dalam rilis ini</string>
+    <string name="catalog_apk_installed">Terinstal %1$s</string>
+    <string name="catalog_view_github">Lihat di GitHub</string>
     <string name="modules_repo_retry">Ulangi</string>
+    <string name="modules_repo_error">Tidak bisa memuat repositori.</string>
+    <string name="modules_repo_by_author">oleh %1$s</string>
+    <string name="modules_repo_latest_version">Versi terbaru</string>
+    <string name="modules_repo_loading">Memuat...</string>
+    <string name="modules_repo_sort_stars_low_to_high">Bintang (dari paling sedikit)</string>
+    <string name="modules_repo_sort_stars_high_to_low">Bintang (dari paling banyak)</string>
     <string name="modules_find_modules">Find modules</string>
+    <string name="modules_install_from_file">Instal dari file</string>
+    <string name="modules_install_title">Instal dari modul</string>
     <string name="modules_settings">Modules</string>
     <string name="modules_disabled">Disabled</string>
     <string name="modules_sort">Sort</string>
     <string name="modules_action_short">Aksi</string>
     <string name="modules_service_short">Layanan</string>
     <string name="modules_service_running_short">Running</string>
+    <string name="modules_install">Instal dari modul</string>
+    <string name="modules_installed">Terinstal %1$s</string>
     <string name="settings_backup_restore_action">Memulihkan</string>
     <string name="intents_start">Mulai</string>
     <!-- Terminal -->
@@ -619,7 +665,10 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
     <string name="permissions_action_deny">Tolak</string>
     <string name="manage_status_disabled">Disabled</string>
     <string name="manage_status_hidden">Hidden</string>
+    <string name="manage_pin_app">Sematan aplikasi</string>
     <string name="manage_bulk_apply">Terapkan</string>
+    <string name="manage_bulk_progress">Mengubah %1$d dari %2$d...</string>
+    <string name="manage_bulk_result_summary">Diubah: %1$d, gagal: %2$d.</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_op_mode_default">Default</string>
     <string name="app_op_mode_deny">Tolak</string>
