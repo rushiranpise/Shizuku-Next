@@ -933,6 +933,9 @@
     <string name="permission_description">Allow the app to use Shizuku.</string>
     <string name="permission_warning_template"><![CDATA[Allow <b>%1$s</b> to %2$s?]]></string>
     <string name="grant_dialog_button_allow_always">Always allow</string>
+    <string name="grant_auth_title">Confirm it\'s you</string>
+    <string name="grant_auth_subtitle">Authenticate to grant access to Shizuku.</string>
+    <string name="grant_auth_unavailable">Set up a screen lock or biometrics to confirm grants.</string>
     <string name="grant_dialog_button_deny">"Deny"</string>
 
     <!-- Starter -->

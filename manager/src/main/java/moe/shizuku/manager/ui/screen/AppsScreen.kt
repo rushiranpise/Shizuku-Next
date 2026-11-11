@@ -72,12 +72,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.fragment.app.FragmentActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import moe.shizuku.manager.Helps
 import moe.shizuku.manager.R
 import moe.shizuku.manager.authorization.AuthorizationManager
+import moe.shizuku.manager.authorization.GrantAuthenticator
 import moe.shizuku.manager.manage.InstalledPackages
 import moe.shizuku.manager.receiver.ShizukuReceiverStarter
 import moe.shizuku.manager.ui.component.AppFilterChip
@@ -133,6 +135,7 @@ fun AppsScreen(
     onGrantedCount: (Int) -> Unit = {}
 ) {
     val context = LocalContext.current
+    val activity = context as? FragmentActivity
     val pm = context.packageManager
 
     var all by remember { mutableStateOf<List<PackageInfo>>(emptyList()) }
@@ -284,6 +287,29 @@ fun AppsScreen(
     val snackbarHostState = remember { SnackbarHostState() }
 
     /**
+     * Changes one app's grant, asking for the device's authentication first when that grant is
+     * being created. Revoking needs no proof: it only takes access away.
+     */
+    fun updateGrant(pi: PackageInfo, grant: Boolean) {
+        if (!grant) {
+            val result = runCatching { AuthorizationManager.revoke(pi.packageName, pi.applicationInfo!!.uid) }
+            if (result.exceptionOrNull() is SecurityException) permissionLimited = true
+            version++
+            return
+        }
+
+        val host = activity ?: return
+        scope.launch {
+            if (!GrantAuthenticator.authenticate(host)) return@launch
+            val result = withContext(Dispatchers.IO) {
+                runCatching { AuthorizationManager.grant(pi.packageName, pi.applicationInfo!!.uid) }
+            }
+            if (result.exceptionOrNull() is SecurityException) permissionLimited = true
+            version++
+        }
+    }
+
+    /**
      * Applies a batch and offers to take it back.
      *
      * Flipping every listed app is one tap and one confirmation, which is a lot of
@@ -293,6 +319,8 @@ fun AppsScreen(
      */
     fun applyBatch(grant: Boolean, apps: List<PackageInfo>) {
         scope.launch {
+            val host = activity ?: return@launch
+            if (grant && !GrantAuthenticator.authenticate(host)) return@launch
             val limited = withContext(Dispatchers.IO) {
                 var limited = false
                 for (pi in apps) {
@@ -319,6 +347,8 @@ fun AppsScreen(
                 duration = SnackbarDuration.Short
             )
             if (result == SnackbarResult.ActionPerformed) {
+                // Turning a revoke back into a grant is a new grant, so it is authenticated too.
+                if (!grant && !GrantAuthenticator.authenticate(host)) return@launch
                 // Back the other way, over the same apps.
                 withContext(Dispatchers.IO) {
                     for (pi in apps) {
@@ -540,14 +570,7 @@ fun AppsScreen(
                             if (selectionMode) {
                                 selected = if (isSelected) selected - pi.packageName else selected + pi.packageName
                             } else {
-                                val result = runCatching {
-                                    if (granted) AuthorizationManager.revoke(pi.packageName, uid)
-                                    else AuthorizationManager.grant(pi.packageName, uid)
-                                }
-                                if (result.exceptionOrNull() is SecurityException) {
-                                    permissionLimited = true
-                                }
-                                version++
+                                updateGrant(pi, !granted)
                             }
                         },
                         onLongClick = {
@@ -574,16 +597,7 @@ fun AppsScreen(
                             } else {
                                 ExpressiveSwitch(
                                     checked = granted,
-                                    onCheckedChange = { checked ->
-                                        val result = runCatching {
-                                            if (checked) AuthorizationManager.grant(pi.packageName, uid)
-                                            else AuthorizationManager.revoke(pi.packageName, uid)
-                                        }
-                                        if (result.exceptionOrNull() is SecurityException) {
-                                            permissionLimited = true
-                                        }
-                                        version++
-                                    }
+                                    onCheckedChange = { checked -> updateGrant(pi, checked) }
                                 )
                             }
                         }

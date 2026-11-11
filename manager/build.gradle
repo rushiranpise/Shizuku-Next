@@ -227,6 +227,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.9.0"
     debugImplementation "androidx.compose.ui:ui-tooling"
 
+    implementation "androidx.biometric:biometric:1.1.0"
     implementation "androidx.browser:browser:1.8.0"
     implementation "androidx.core:core-ktx:1.16.0"
     implementation "androidx.fragment:fragment-ktx:1.8.7"

@@ -7,8 +7,10 @@ import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
 import kotlinx.coroutines.TimeoutCancellationException
@@ -110,8 +112,12 @@ class RequestPermissionActivity : AppActivity() {
 
         val binding = ConfirmationDialogBinding.inflate(layoutInflater).apply {
             button1.setOnClickListener {
-                setResult(uid, pid, requestCode, allowed = true, onetime = false)
-                dialog.dismiss()
+                lifecycleScope.launch {
+                    if (GrantAuthenticator.authenticate(this@RequestPermissionActivity)) {
+                        setResult(uid, pid, requestCode, allowed = true, onetime = false)
+                        dialog.dismiss()
+                    }
+                }
             }
             button3.setOnClickListener {
                 setResult(uid, pid, requestCode, allowed = false, onetime = true)
