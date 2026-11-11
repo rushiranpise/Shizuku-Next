@@ -1,8 +1,10 @@
 package moe.shizuku.manager.module
 
 import java.io.InputStream
+import java.net.URI
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -13,6 +15,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.Response
 
 /** A repository in the community's module index, as the index lists it. */
 @Serializable
@@ -97,6 +100,21 @@ object ModuleCatalog {
     /** The community index: repositories worth looking at, in the shape the index publishes. */
     const val INDEX_URL =
         "https://raw.githubusercontent.com/rushiranpise/shizuku-modules/main/data/repos.json"
+
+    /**
+     * Public GitHub proxies, tried only after a direct request fails.
+     *
+     * gh-proxy serves the REST API as well as files; the other two refuse API requests, so they
+     * are only used for raw files and release assets. No token or other credential is sent to
+     * any of them, and only public GitHub URLs are ever proxied.
+     */
+    private const val GH_PROXY = "https://gh-proxy.com/"
+    private val API_MIRRORS = listOf(GH_PROXY)
+    private val FILE_MIRRORS = listOf(
+        GH_PROXY,
+        "https://ghfast.top/",
+        "https://ghproxy.net/"
+    )
 
     /**
      * What a module is, as far as anything on the internet can tell: a repository whose owner put
@@ -251,35 +269,119 @@ object ModuleCatalog {
      */
     suspend fun <T> stream(url: String, consume: suspend (InputStream) -> T): T =
         withContext(Dispatchers.IO) {
-            val request = Request.Builder().url(url).header("User-Agent", USER_AGENT).build()
+            var failure: Exception? = null
 
-            client.newCall(request).execute().use { response ->
-                if (!response.isSuccessful) throw ModuleCatalogException(httpMessage(response.code))
+            for (candidate in candidateUrls(url)) {
+                val response = try {
+                    open(candidate)
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Exception) {
+                    failure = e
+                    if (!canTryAnother(e)) break
+                    continue
+                }
 
-                val body = response.body ?: throw ModuleCatalogException("The download came back empty.")
-                body.byteStream().use { stream -> consume(stream) }
+                return@withContext response.use { answer ->
+                    val body = answer.body
+                        ?: throw ModuleCatalogException("The download came back empty.")
+                    body.byteStream().use { stream -> consume(stream) }
+                }
             }
+
+            throw failure ?: ModuleCatalogException("The download could not be reached.")
         }
 
     /** The bytes of an asset. A module is a few hundred kilobytes at most, so it is held whole. */
     suspend fun download(url: String): ByteArray =
         withContext(Dispatchers.IO) {
-            val request = Request.Builder().url(url).header("User-Agent", USER_AGENT).build()
+            var failure: Exception? = null
 
-            client.newCall(request).execute().use { response ->
-                if (!response.isSuccessful) throw ModuleCatalogException(httpMessage(response.code))
-                response.body?.bytes() ?: throw ModuleCatalogException("The download came back empty.")
+            for (candidate in candidateUrls(url)) {
+                try {
+                    return@withContext open(candidate).use { response ->
+                        response.body?.bytes()
+                            ?: throw ModuleCatalogException("The download came back empty.")
+                    }
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Exception) {
+                    failure = e
+                    if (!canTryAnother(e)) break
+                }
             }
+
+            throw failure ?: ModuleCatalogException("The download could not be reached.")
         }
 
     private fun get(url: String): String {
-        val request = Request.Builder().url(url).header("User-Agent", USER_AGENT).build()
+        var failure: Exception? = null
 
-        client.newCall(request).execute().use { response ->
-            if (!response.isSuccessful) throw ModuleCatalogException(httpMessage(response.code))
-            return response.body?.string() ?: throw ModuleCatalogException("The answer came back empty.")
+        for (candidate in candidateUrls(url)) {
+            try {
+                return getOnce(candidate)
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                failure = e
+                if (!canTryAnother(e)) break
+            }
         }
+
+        throw failure ?: ModuleCatalogException("The request could not be reached.")
     }
+
+    private fun getOnce(url: String): String =
+        open(url).use { response ->
+            response.body?.string() ?: throw ModuleCatalogException("The answer came back empty.")
+        }
+
+    private fun open(url: String): Response {
+        val request = Request.Builder().url(url).header("User-Agent", USER_AGENT).build()
+        val response = client.newCall(request).execute()
+
+        if (!response.isSuccessful) {
+            val code = response.code
+            response.close()
+            throw HttpStatusException(code, httpMessage(code))
+        }
+
+        return response
+    }
+
+    /**
+     * The direct GitHub URL followed by its mirrors, for a public GitHub URL.
+     *
+     * The API and file mirrors are separate: ghfast and ghproxy.net serve raw files and release
+     * assets but refuse API requests, so an API call is never sent to them.
+     */
+    internal fun candidateUrls(url: String): List<String> {
+        if (!isGitHub(url)) return listOf(url)
+
+        val mirrors = if (isGitHubApi(url)) API_MIRRORS else FILE_MIRRORS
+        return listOf(url) + mirrors.map { mirror -> mirror + url }
+    }
+
+    private fun isGitHub(url: String): Boolean {
+        val host = runCatching { URI(url).host?.lowercase() }.getOrNull() ?: return false
+        return host == "api.github.com" ||
+            host == "github.com" ||
+            host == "codeload.github.com" ||
+            host.endsWith(".githubusercontent.com")
+    }
+
+    private fun isGitHubApi(url: String): Boolean =
+        runCatching { URI(url).host?.lowercase() }.getOrNull() == "api.github.com"
+
+    /**
+     * A 403 is both a rate limit and a refusal, and this app only asks for public resources, so
+     * trying a mirror is worthwhile. A 404 or a bad request will be the same everywhere.
+     */
+    private fun canTryAnother(e: Exception): Boolean =
+        e !is HttpStatusException || e.code !in setOf(400, 401, 404, 422)
+
+    private class HttpStatusException(val code: Int, message: String) :
+        ModuleCatalogException(message)
 
     /** How many repositories are checked at once: enough to be quick, few enough to be polite. */
     private const val MODULE_CHECKS_AT_ONCE = 6
@@ -296,10 +398,10 @@ object ModuleCatalog {
      * and for having asked too often without one, and only the second can happen here.
      */
     private fun httpMessage(code: Int): String = when (code) {
-        403, 429 -> "GitHub is rate limiting this device. Try again in a little while."
+        403, 429 -> "GitHub or its mirror is rate limiting this device. Try again in a little while."
         404 -> "That repository is not there any more."
         else -> "GitHub answered $code."
     }
 }
 
-class ModuleCatalogException(message: String) : Exception(message)
+open class ModuleCatalogException(message: String) : Exception(message)
