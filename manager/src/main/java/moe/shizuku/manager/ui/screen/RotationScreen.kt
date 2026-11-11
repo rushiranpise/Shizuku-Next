@@ -1,8 +1,9 @@
+@file:OptIn(androidx.compose.material3.ExperimentalMaterial3ExpressiveApi::class)
+
 package moe.shizuku.manager.ui.screen
 
 import android.content.pm.PackageInfo
 import android.widget.Toast
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,6 +23,10 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.Block
+import androidx.compose.material.icons.outlined.ScreenLockLandscape
+import androidx.compose.material.icons.outlined.ScreenLockPortrait
+import androidx.compose.material.icons.outlined.ScreenRotation
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -45,6 +50,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -74,6 +80,13 @@ import moe.shizuku.manager.ui.component.rowKey
 import moe.shizuku.manager.ui.component.televisionTextInput
 import moe.shizuku.manager.utils.Diag
 import moe.shizuku.manager.utils.ShizukuStateMachine
+
+private fun RotationMode.icon(): ImageVector = when (this) {
+    RotationMode.OFF -> Icons.Outlined.Block
+    RotationMode.AUTO -> Icons.Outlined.ScreenRotation
+    RotationMode.PORTRAIT -> Icons.Outlined.ScreenLockPortrait
+    RotationMode.LANDSCAPE -> Icons.Outlined.ScreenLockLandscape
+}
 
 /**
  * One rotation mode per app.
@@ -288,9 +301,9 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
                     val mode = modes[pi.packageName] ?: RotationMode.OFF
                     SegmentedCard {
                         ListItem(
-                            modifier = Modifier.clickable(enabled = running) { picking = pi },
+                            onClick = { picking = pi },
+                            enabled = running,
                             leadingContent = { AppIcon(pi) },
-                            headlineContent = { Text(appLabel(pm, pi)) },
                             supportingContent = {
                                 AppRowLine(pi.packageLine()) {
                                     AppStatusChips(pi, hidden = false)
@@ -298,10 +311,10 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
                             },
                             trailingContent = {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Text(
-                                        stringResource(mode.labelRes),
-                                        style = MaterialTheme.typography.labelLarge,
-                                        color = if (mode == RotationMode.OFF) {
+                                    Icon(
+                                        imageVector = mode.icon(),
+                                        contentDescription = stringResource(mode.labelRes),
+                                        tint = if (mode == RotationMode.OFF) {
                                             MaterialTheme.colorScheme.onSurfaceVariant
                                         } else {
                                             MaterialTheme.colorScheme.primary
@@ -315,8 +328,11 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
                                     )
                                 }
                             },
+                            verticalAlignment = Alignment.CenterVertically,
                             colors = ListItemDefaults.colors(containerColor = Color.Transparent)
-                        )
+                        ) {
+                            Text(appLabel(pm, pi))
+                        }
                     }
                 }
             }
