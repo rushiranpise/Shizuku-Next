@@ -29,8 +29,10 @@ class FirewallChainTest {
     }
 
     @Test
-    fun `the firewall needs Android 13`() {
-        assertFalse(FirewallChain.supportsFirewall(32))
+    fun `the firewall can be offered from Android 11`() {
+        assertFalse(FirewallChain.supportsFirewall(29))
+        assertTrue(FirewallChain.supportsFirewall(30))
+        assertTrue(FirewallChain.supportsFirewall(32))
         assertTrue(FirewallChain.supportsFirewall(33))
         assertTrue(FirewallChain.supportsFirewall(36))
     }

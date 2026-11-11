@@ -55,7 +55,7 @@ Get the latest build from [Releases](https://github.com/rushiranpise/Shizuku-Nex
 
 ### Firewall
 
-The firewall uses Android's OEM deny chain 3, which exists from Android 13. Open **Labs > Firewall**, turn the switch at the top on, then switch on the apps whose network access should be blocked. Android 12 and older do not have this chain, so the Firewall row is hidden there.
+The firewall uses Android's OEM deny chain 3. It can exist from Android 11, but some Android 11 and 12 ROMs do not expose it. The Firewall row appears only after the device answers that the chain is available. Open **Labs > Firewall**, turn the switch at the top on, then switch on the apps whose network access should be blocked.
 
 ### Modules and compatibility
 - Experimental ADB module support, including module actions, services, and WebUI. [Writing a module](docs/adb-modules.md) covers the format: `module.prop`, the environment a script runs in, the WebUI bridge, trust, and how a module gets found.

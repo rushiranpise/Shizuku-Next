@@ -25,14 +25,27 @@ import rikka.shizuku.Shizuku
 object FirewallChain {
 
     /**
-     * Whether this platform has the OEM deny chain at all.
+     * Whether this platform can have the OEM deny chain at all.
      *
-     * Android 13 added the chain and the calls that write it. Before that there is no such
-     * firewall to offer, so the list is left out rather than opening onto switches that cannot
-     * do anything.
+     * Chain 3 exists from Android 11, but not every Android 11 or 12 ROM exposes the command
+     * that writes it. [isAvailable] asks the running device before the list is offered; this
+     * only keeps the feature off platforms that cannot have it.
      */
     fun supportsFirewall(sdkInt: Int = Build.VERSION.SDK_INT): Boolean =
-        sdkInt >= Build.VERSION_CODES.TIRAMISU
+        sdkInt >= Build.VERSION_CODES.R
+
+    /**
+     * Whether this device actually exposes chain 3 right now.
+     *
+     * The command is the first answer, and the connectivity interface is the fallback for the
+     * ROMs where the command was trimmed. Only a real answer counts: if neither can say whether
+     * the chain exists, the list is not offered rather than opening onto switches that cannot
+     * do anything.
+     */
+    fun isAvailable(): Boolean {
+        if (!supportsFirewall() || !Shizuku.pingBinder()) return false
+        return isOn() != null
+    }
 
     /**
      * Whether a rule can be read back once it is set.

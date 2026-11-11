@@ -1,6 +1,7 @@
 package moe.shizuku.manager.ui.screen
 
 import android.content.Context
+import android.os.Build
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -109,17 +110,29 @@ fun LabsScreen(bottomPadding: Dp, onOpenDetail: (Detail) -> Unit) {
     // is about to be looked at.
     var refresh by remember { mutableIntStateOf(0) }
     var active by remember { mutableStateOf<Set<Detail>>(emptySet()) }
+    // Android 13 is known to have chain 3. Before that the row waits for a real answer from the
+    // device: some Android 11 and 12 ROMs expose the command, and some do not.
+    var firewallAvailable by remember {
+        mutableStateOf(
+            FirewallChain.supportsFirewall() &&
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+        )
+    }
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { refresh++ }
     LaunchedEffect(refresh) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            firewallAvailable = withContext(Dispatchers.IO) { FirewallChain.isAvailable() }
+        }
         active = withContext(Dispatchers.IO) { activeFeatures(context) }
     }
     // Every feature there is, in no particular order. The order is worked out below.
     val entries = listOfNotNull(
         LabEntry(R.string.tab_manage, Icons.Outlined.AdminPanelSettings, Detail.APP_OPS),
         LabEntry(R.string.tab_shell, Icons.Outlined.Terminal, Detail.SHELL),
-        // The chain this list writes arrived in Android 13; before that there is no firewall to
-        // offer, and a row whose switches cannot do anything is worse than no row.
-        if (FirewallChain.supportsFirewall()) {
+        // Chain 3 exists from Android 11, but not every older ROM exposes it. The row is shown
+        // only after the device answers, because a row whose switches cannot do anything is
+        // worse than no row.
+        if (firewallAvailable) {
             LabEntry(
                 AppToggleFeature.FIREWALL.titleRes,
                 AppToggleFeature.FIREWALL.icon,
