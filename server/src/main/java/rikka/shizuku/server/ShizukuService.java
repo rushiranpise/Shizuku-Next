@@ -731,13 +731,13 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
                 if (pi.applicationInfo == null) continue;
 
                 int uid = pi.applicationInfo.uid;
-                int flags = 0;
                 ShizukuConfig.PackageEntry entry = configManager.find(uid);
-                if (entry != null) {
-                    if (entry.packages != null && !entry.packages.contains(pi.packageName))
-                        continue;
-                    flags = entry.flags & ConfigManager.MASK_PERMISSION;
-                }
+                if (entry != null && entry.packages != null && !entry.packages.contains(pi.packageName))
+                    continue;
+                // Report the same effective flags as getFlagsForUidInternal(): a configured
+                // entry wins, but a uid with no entry whose permission was granted at the
+                // Android runtime level is still reported as allowed.
+                int flags = getFlagsForUidInternal(uid, ConfigManager.MASK_PERMISSION, true);
 
                 boolean isClient = pi.applicationInfo.metaData != null
                         && pi.applicationInfo.metaData.getBoolean("moe.shizuku.client.V3_SUPPORT", false)
