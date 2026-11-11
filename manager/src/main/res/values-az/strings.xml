@@ -8,26 +8,31 @@
     <!-- To translators: you can leave your here -->
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
-    <string name="home_wireless_adb_title"><![CDATA[Simsiz debaq ilə başladın]]></string>
+    <string name="home_wireless_adb_title"><![CDATA[Simsiz sazlama ilə başladın]]></string>
+    <string name="diagnostics_service">Servis</string>
+    <string name="diagnostics_server_uid">Server uid</string>
+    <string name="diagnostics_server_api">Server API</string>
+    <string name="diagnostics_server_context">Server konteksti</string>
+    <string name="diagnostics_wireless_debugging">Simsiz sazlama</string>
+    <string name="diagnostics_adb_port">ADB portu</string>
+    <string name="diagnostics_wifi">Wi-Fi</string>
+    <string name="diagnostics_local_network">Lokal şəbəkə</string>
+    <string name="diagnostics_battery">Batareya optimizasiyası</string>
+    <string name="diagnostics_app">Proqram</string>
+    <string name="diagnostics_android">Android</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
     <!-- Adb -->
     <string name="dialog_adb_port">Liman</string>
-    <string name="dialog_adb_invalid_port">Port 1 ilə 65535 arasında dəyişən tam ədəddir.</string>
-    <string name="adb_pairing">Cütləşmə</string>
+    <string name="dialog_adb_invalid_port">1 ilə 65535 arasında port rəqəmi seçin.</string>
+    <string name="adb_pairing">Cütləşdirmə</string>
     <string name="dialog_adb_pairing_title">Cihaz ilə cütləşdir</string>
     <string name="dialog_adb_pairing_discovery">Cütləşdirmə servisi axtarılır</string>
-    <string name="dialog_adb_pairing_paring_code">Cütləşmə kodu</string>
-    <string name="paring_code_is_wrong">Cütləşmə kodu yanlışdır</string>
-    <string name="cannot_connect_port">Simsiz sazlama xidmətinə qoşulmaq mümkün deyil.\n\nŞəbəkəyə
-        girişi məhdudlaşdıra bilən bütün firewall, reklam bloku, VPN və ya oxşar tətbiqlərdə
-        Shizuku-nun ağ siyahıya salındığından əmin olun.</string>
-    <string name="dialog_adb_pairing_message">Zəhmət olmasa, cütləşdirməyə aşağıdakı addımları
-        yerinə yetirməklə başlayın:\n- \"İnkişaf etdirici Seçimləri\"nə keçid edin\n- \"USB
-        debugging\" və \"Wireless debugging\"i aktiv edin\n- \"Simsiz debugging\" bölməsinin sol
-        tərəfinə toxunun\n- \"Cihazı cütləşdirmə kodu ilə qoş\" düyməsini basın\n- Bildirişdə
-        cütləşdirmə kodunu daxil edin</string>
+    <string name="dialog_adb_pairing_paring_code">Cütləşdirmə kodu</string>
+    <string name="paring_code_is_wrong">Cütləşdirmə kodu yanlışdır.</string>
+    <string name="cannot_connect_port">Simsiz sazlama xidmətinə qoşulmaq mümkün deyil.\n\nŞəbəkəyə girişi məhdudlaşdıra bilən bütün firewall, reklam bloku, VPN və ya oxşar tətbiqlərdə Shizuku-nun ağ siyahıya salındığından əmin olun.</string>
+    <string name="dialog_adb_pairing_message">Zəhmət olmasa, cütləşdirməyə aşağıdakı addımları yerinə yetirməklə başlayın:\n- \"Developer Seçimləri\"nə keçid edin\n- \"USB ilə sazlama\" və \"Simsiz sazlama\"nı aktiv edin\n-\"Simsiz sazlama\" bölməsinin sol tərəfinə toxunun\n- \"Cihazı cütləşdirmə kodu ilə qoş\" düyməsini basın\n- Bildirişdə cütləşdirmə kodunu daxil edin</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -35,47 +40,27 @@
     <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
-    <string name="dialog_adb_pairing_accessibility_navigate">Zəhmət olmasa, cütləşdirməyə aşağıdakı
-        addımları yerinə yetirməklə başlayın:\n- \"İnkişaf etdirici Seçimləri\"nə keçid edin\n-
-        \"USB debugging\" və \"Wireless debugging\"i aktiv edin\n- \"Simsiz debugging\" bölməsinin
-        sol tərəfinə toxunun\n- \"Cihazı cütləşdirmə kodu ilə qoş\" düyməsini bas. Shizuku
-        cütləşdirmə kodunu avtomatik aşkar edəcək.</string>
-    <string name="adb_pairing_requires_multi_window">Əvvəlcə bölünmüş ekran (çoxu pəncərə) rejiminə
-        daxil olun.</string>
-    <string name="adb_pairing_requires_multi_window_reason">Sistem cütləşdirmə dialoqunun həmişə
-        görünməsini tələb edir. Split ekran rejimindən istifadə bu tətbiqin və sistem dialoqunun
-        eyni vaxtda görünməsinə imkan verməyin yeganə yoludur.</string>
-    <string name="adb_error_key_store">Simsiz sazlama üçün açar yaratmaq mümkün deyil.\nBunun səbəbi
-        bu cihazın KeyStore mexanizminin xarab olması ola bilər.</string>
+    <string name="dialog_adb_pairing_accessibility_navigate">Zəhmət olmasa, cütləşdirməyə aşağıdakı addımları yerinə yetirməklə başlayın:\n- \"Developer Seçimləri\"nə keçid edin\n- \"USB ilə sazlama\" və \"Simsiz sazlama\"nı aktiv edin\n- \"Simsiz sazlama\" bölməsinin sol tərəfinə toxunun\n- \"Cihazı cütləşdirmə kodu ilə qoş\" düyməsini basın. Shizuku cütləşdirmə kodunu avtomatik aşkar edəcək.</string>
+    <string name="adb_pairing_requires_multi_window">Əvvəlcə bölünmüş ekran rejiminə daxil olun.</string>
+    <string name="adb_pairing_requires_multi_window_reason">Sistem cütləşdirmə dialoqunun həmişə görünməsini tələb edir. Bölünmüş ekran rejimindən istifadə bu tətbiqin və sistem dialoqunun eyni vaxtda görünməsinin yeganə yoludur.</string>
+    <string name="adb_error_key_store">Simsiz sazlama üçün açar yaratmaq mümkün deyil.\nBunun səbəbi bu cihazın KeyStore mexanizminin xarab olması ola bilər.</string>
     <string name="adb_error_stop_tcp">ADB-ni TCP üzərindən dayandırmaq uğursuz oldu</string>
-    <string name="adb_pair_required">Lütfən, əvvəlcə cütləşmə mərhələsini keçin.</string>
+    <string name="adb_pair_required">Əvvəlcə cihazı cütləşdirin.</string>
     <string name="enable">Aktiv et</string>
-    <string name="development_settings">Tərtibatçı seçimləri</string>
+    <string name="development_settings">Avtomatik</string>
     <string name="notification_settings">Bildiriş seçimləri</string>
-    <string name="adb_pairing_tutorial_content_notification">Shizukudan gələn bildiriş cütləşdirməni
-        tamamlamağınız üçün sizə kömək edə bilər</string>
-    <string name="adb_pairing_tutorial_content_steps">\"Developer Options\"a keçin, sonra \"USB
-        debugging\" və \"Wireless debugging\" funksiyalarını aktivləşdirin.</string>
-    <string name="adb_pairing_tutorial_content_enter_pairing_code">\"Simsiz sazlama\"nın sol
-        tərəfinə toxunun, sonra \"Cihazı cütləşdirmə kodu ilə cütləşdirin\" üzərinə toxunun.
-        Qoşulmanı tamamlamaq üçün bildirişdə kodu daxil edin.</string>
-    <string name="adb_pairing_tutorial_content_notification_blocked">Cütləşmə prosesi Shizukudan
-        gələn bildirişi görməyinizi tələb edir. Zəhmət olmasa, Shizuku-ya bildirişlər göndərməyə
-        icazə verin.</string>
-    <string name="adb_pairing_tutorial_content_miui">MIUI istifadəçiləri sistem parametrlərində
-        bildiriş tərzini \"Bildiriş\" - \"Bildiriş kölgəsi\"ndən \"Android\"ə keçirməli ola bilərlər</string>
-    <string name="adb_pairing_tutorial_content_miui_2">Əks halda, siz bildirişdəki cütləşdirmə
-        kodunu daxil edə bilməyəcəksiniz.</string>
-    <string name="adb_pairing_tutorial_content_finish">Şizukuya qayıdın və Şizukuya başlayın.</string>
-    <string name="adb_pairing_tutorial_content_network">Shizuku yerli şəbəkəyə daxil olmalıdır.
-        Şəbəkə icazəsi ilə idarə olunur.</string>
-    <string name="adb_pairing_tutorial_content_network_limation_not_foreground">Bəzi sistemlər
-        (məsələn, MIUI) proqramlar görünmədikdə, hətta proqram ön planda xidmətdən istifadə etsə
-        belə, onların şəbəkəyə daxil olmasına icazə vermir. Zəhmət olmasa belə sistemlərdə Shizuku
-        üçün batareyanın optimallaşdırılması funksiyalarını söndürün.</string>
+    <string name="adb_pairing_tutorial_content_notification">Shizukudan gələn bildiriş cütləşdirməni tamamlamağınız üçün sizə kömək edəcək.</string>
+    <string name="adb_pairing_tutorial_content_steps">\"Developer seçimləri\"nə keçin, sonra \"USB ilə sazlama\" və \"Simsiz sazlama\" funksiyalarını aktivləşdirin.</string>
+    <string name="adb_pairing_tutorial_content_enter_pairing_code">\"Simsiz sazlama\"nın sol tərəfinə toxunun, sonra \"Cihazı cütləşdirmə kodu ilə cütləşdirin\" seçiminin üzərinə toxunun. Qoşulmanı tamamlamaq üçün kodu bildirişə daxil edin.</string>
+    <string name="adb_pairing_tutorial_content_notification_blocked">Cütləşdirmə prosesi Shizukudan gələn bildirişi görməyinizi tələb edir. Zəhmət olmasa, Shizuku-ya bildirişlər göndərməyə icazə verin.</string>
+    <string name="adb_pairing_tutorial_content_miui">MIUI istifadəçiləri \"Bildiriş\" - \"Bildiriş kölgəsi\" sistem parametrində bildiriş stilini \"Android\"ə keçirməli ola bilərlər.</string>
+    <string name="adb_pairing_tutorial_content_miui_2">Əks halda, siz bildirişdəki cütləşdirmə kodunu daxil edə bilməyəcəksiniz.</string>
+    <string name="adb_pairing_tutorial_content_finish">Shizuku-ya qayıdın və Shizuku-nu başladın.</string>
+    <string name="adb_pairing_tutorial_content_network">Shizuku yerli şəbəkəyə daxil olmalıdır. Bu, şəbəkə icazəsi ilə idarə olunur.</string>
+    <string name="adb_pairing_tutorial_content_network_limation_not_foreground">Bəzi sistemlər (məsələn, MIUI) proqramlar görünmədikdə, hətta proqram ön plan xidmətindən istifadə etsə belə, onların şəbəkəyə daxil olmasına icazə vermir. Zəhmət olmasa belə sistemlərdə Shizuku üçün batareyanın optimallaşdırılması funksiyalarını söndürün.</string>
     <!-- Home - Root -->
-    <string name="home_root_title"><![CDATA[Başlat (root edilmiş cihazlar üçün)]]></string>
-    <string name="home_root_description"><![CDATA[Magisk istifadə edirsinizsə, cəhd edə bilərsiniz %1$s. Kök istifadəçiləri üçün o, nəticədə Shizuku-nu əvəz edəcək. Qeyd edək ki, %2$sistifadə etmək üçün mövcud proqramlar bir az dəyişməlidir.]]></string>
+    <string name="home_root_title"><![CDATA[Kök erişimi ilə başlat]]></string>
+    <string name="home_root_description"><![CDATA[Magisk istifadə edirsinizsə, %1$s yoxlaya bilərsiniz. Bu kök erişimli istifadəçilər üçün nəticədə Shizuku-nu əvəz edəcək. Qeyd edək ki, %2$sistifadə etmək üçün mövcud proqramlar bir az dəyişməlidir.]]></string>
     <string name="home_root_button_start">Başlat</string>
     <!-- Home - Application management -->
     <plurals name="home_app_management_authorized_apps_count">
@@ -99,6 +84,7 @@
     <string name="log_capture_start">Başlat</string>
     <string name="action_start">Başlat</string>
     <string name="modules_repo_retry">Yenidən cəhd edin</string>
+    <string name="modules_service_short">Servis</string>
     <string name="intents_start">Başlat</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">İstifadəçilər MIUI-nin ixrac funksiyası tərəfindən
@@ -148,6 +134,7 @@
       so the singular is read more often than the plural is.
     -->
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
+    <string name="contributor_area_app">Proqram</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
       worked in, and the languages they translated into. There is deliberately no string per

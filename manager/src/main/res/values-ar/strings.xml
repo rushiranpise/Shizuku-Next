@@ -178,6 +178,7 @@
     <string name="labs_blocked_count">تم حظر %1$d</string>
     <string name="labs_blocked_empty">لا شيء محظور.</string>
     <string name="labs_bulk_apply">تطبيق</string>
+    <string name="labs_bulk_done"></string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">إخفاء</string>
     <string name="tab_hide_developer_options">إخفاء خيارات المطور</string>
@@ -642,7 +643,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="start_failed_system_needs_app">يجب أن تبدأ طريقة بدء النظام من التطبيق.</string>
     <string name="start_failed_system_no_exploit">هذا الجهاز لا يأتي مسبقا ب وكيل شركة Samsung FOTA (com.sdet.fotaagent) ، وهو المكون الوحيد الذي يمكن أن تستخدمه طريقة بدء النظام ، لذلك لا يوجد شيء يتصاعد معه. قم بتبديل طريقة بدء تشغيل النظام إلى أمر مخصص: سيريك التطبيق ما تريد تشغيله مع تصعيد الجهاز الخاص بك.</string>
     <string name="start_failed_no_binder">لم تظهر الخدمة في غضون دقيقة. يحتفظ كلا النصفين بسجل: البداية تحت ShizukuServiceStarter والتسليم تحت BinderSender. قارئ تسجيل الدخول الذي تم فهرسته إلى هذين الاثنين يظهر ما إذا كان البداية قد وصلت إلى تفرع الخادم، وما إذا كان الخادم قد طلب في أي وقت من الأوقات البوصلة.</string>
-    <string name="start_system_custom_intro">.</string>
+    <string name="start_system_custom_intro">قم برفع مستوى الحماية قدر الإمكان، سواء عبر استغلال ثغرة خاصة بك، أو آلية أوتوماتيكية، أو «root shell»، ثم اجرِ هذا الأمر؛ إذ سيُشغّل الخدمة باسم uid الخاص بالنظام. وستنتظر التطبيق ظهورها.</string>
     <string name="start_system_custom_lookup">:</string>
     <string name="start_system_custom_plain">:</string>
     <string name="start_system_custom_copied">.</string>
@@ -793,6 +794,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="settings_system_start_method_exploit">سامسونج (وكيل FOTA)</string>
     <string name="settings_system_start_method_custom">أمر مخصص</string>
     <string name="home_system_title">البدء عبر UID للنظام</string>
+    <string name="home_system_summary">تشغيل شيزوكو كمستخدم للنظام (UID 1000) بدلاً من كمشرف: سامسونج فقط، من خلال وكيل FOTA التي يستخدمها مرسل الإصدار</string>
     <string name="home_adb_command_summary">بدء تشغيل شيزوكو من جهاز كمبيوتر عبر ADB. انقر لنسخ الأمر</string>
     <string name="settings_tcp_mode">وضع TCP</string>
     <string name="settings_tcp_mode_summary">"يسمح لـ Shizuku بإعادة التشغيل دون اتصال Wi-Fi. (يجب
@@ -826,6 +828,8 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="permissions_notifications_summary">يظهر رمز الإقران, ابدأ التقدم و الأخطاء.</string>
     <string name="permissions_nearby">الأجهزة القريبة</string>
     <string name="permissions_nearby_summary">يجد منفذ التصحيح اللاسلكي على الشبكة الخاصة بك.</string>
+    <string name="permissions_hotspot">نقطة اتصال محلية</string>
+    <string name="permissions_hotspot_summary">لنبدأ شيزوكو بدون شبكة Wi-Fi بإنشاء نقطة اتصال محلية.</string>
     <string name="permissions_write_secure_settings">كتابة الإعدادات الآمنة</string>
     <string name="permissions_write_secure_settings_summary">دع شيزوكو يقوم بتشغيل تصحيح الأخطاء اللاسلكية. فقط ADB يمكنه منح هذه الصلاحية.</string>
     <string name="permissions_accessibility">خدمة إمكانية الوصول</string>
@@ -955,10 +959,12 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="notification_adb_pairing_failed_title">فشل الاقتران</string>
     <string name="notification_adb_pairing_retry">أعد المحاولة</string>
     <string name="notification_auth_missing_title">رمز المصادقة مطلوب</string>
+    <string name="notification_auth_missing_message">أضف \"المصادقة\" الإضافية إلى نيتك. يمكنك العثور على الرمز المميز الخاص بك عن طريق الضغط على \"عرض النوايا\" في التطبيق.</string>
     <string name="notification_auth_invalid_title">رمز المصادقة غير صالح</string>
+    <string name="notification_auth_invalid_message">تأكد من تطابق الرمز المميز في نيتك مع الرمز الموضح تحت \"عرض النوايا\" في التطبيق.</string>
     <!-- Permission related, appears in system permission UI -->
-    <string name="permission_label">الوصول إلى Shizuku</string>
-    <string name="permission_description">اسمح للتطبيق باستخدام Shizuku.</string>
+    <string name="permission_label">الوصول إلى شيزوكو</string>
+    <string name="permission_description">اسمح للتطبيق باستخدام شيزوكو.</string>
     <string name="permission_warning_template"><![CDATA[هل تريد السماح لـ <b>%1$s</b> بـ %2$s؟]]></string>
     <string name="grant_dialog_button_allow_always">السماح في كل وقت</string>
     <string name="grant_dialog_button_deny">"منع"</string>
@@ -969,6 +975,9 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="wadb_notification_title">بدء شيزوكو…</string>
     <string name="wadb_notification_wifi_required">في انتظار اتصال Wi-Fi قبل المتابعة</string>
     <string name="wadb_notification_retry">في انتظار إعادة المحاولة</string>
+    <string name="wadb_notification_connecting">بدء تشغيل شيزوكو باستخدام ADB لاسلكي</string>
+    <string name="wadb_notification_waiting_for_unlock">افتح الجهاز للمتابعة</string>
+    <string name="wadb_notification_forcing_wireless">إبقاء تصحيح أخطاء لاسلكي قيد التشغيل</string>
     <string name="wadb_error_title">حدث خطأ أثناء بدء التشغيل</string>
     <string name="wadb_error_notify_dev">انقر هنا لإعلام المطور.</string>
     <string name="wadb_permission_error_notification_title">خطأ في الإذن</string>
@@ -977,7 +986,18 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <!-- Shell -->
     <string name="shell_title">واجهة الأوامر (Shell)
 </string>
+    <string name="shell_backend_shizuku">شيزوكو</string>
     <string name="shell_backend_root">الجذر (Root)</string>
+    <string name="shell_search">بحث</string>
+    <string name="shell_search_hint">ابحث</string>
+    <string name="shell_search_position">%1$d من %2$d</string>
+    <string name="shell_search_previous">المطابقة السابقة</string>
+    <string name="shell_search_next">المطابقة التالية</string>
+    <string name="shell_search_close">إغلاق البحث</string>
+    <string name="shell_more">المزيد</string>
+    <string name="shell_save_output">حفظ</string>
+    <string name="shell_output_saved">حفظ</string>
+    <string name="shell_output_save_failed">تعذر الحفظ</string>
     <string name="shell_expand">توسيع</string>
     <string name="shell_collapse">طي</string>
     <string name="shell_library">المكتبة</string>
@@ -1008,6 +1028,10 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="shell_quick_grant"></string>
     <string name="shell_quick_revoke"></string>
     <string name="shell_quick_app_ops"></string>
+    <string name="shell_quick_force_stop">إيقاف إجباري</string>
+    <string name="shell_adb_prefix_dropped">تشغيل على الجهاز: بادئة adb shell هي ما ستكتبه على جهاز كمبيوتر.</string>
+    <string name="shell_adb_host_devices">يسرد الأجهزة المتصلة بجهاز كمبيوتر. هذا هو الجهاز، لذلك لا يوجد شيء لإدراجه: `pm list packages` هو ما هو مثبت عليه.</string>
+    <string name="shell_adb_host_install">التثبيت ينتمي إلى جانب الكمبيوتر من هذا الأمر. هنا نفس المهمة هي <b>pm install /path/to/app.apk</b>، وتشغيل شيزوكو مثل أي أمر آخر.</string>
     <string name="shell_run">تشغيل</string>
     <string name="shell_stop">إيقاف</string>
     <string name="shell_clear">مسح</string>
@@ -1036,6 +1060,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="dialog_requesting_legacy_button_open_shizuku">افتح Shizuku</string>
     <string name="wadb_notification_attempt_now">أعد المحاولة</string>
     <!-- Manage tab -->
+    <string name="tab_manage">مدير التطبيقات</string>
     <string name="manage_search_hint">البحث عن التطبيقات</string>
     <string name="manage_filter_all">الكل</string>
     <string name="manage_filter_user">المستخدم</string>
@@ -1046,21 +1071,47 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="manage_empty">لم يتم العثور على تطبيقات.</string>
     <string name="manage_status_system">النظام</string>
     <string name="manage_status_user">المستخدم</string>
+    <string name="app_row_user">المستخدم %1$d</string>
+    <string name="permissions_phantom">عمليات الخلفية</string>
+    <string name="permissions_phantom_summary">قد يوقف أندرويد 12 وما بعده العمليات التي بدأها التطبيق بعد إغلاق التطبيق. يمكن أن يوقف هذا الخادم بعد بدء التشغيل. يؤثر هذا الإعداد على الجهاز بأكمله وقد يحتاج إلى إعادة تشغيل.</string>
     <string name="permissions_action_deny">منع</string>
+    <string name="permissions_phantom_failed">تعذر تغييره. Shizuku أو إذن WRITE_SECURE_SETTINGS مطلوب.</string>
+    <string name="manage_status_removed">تم إزالته، تم حفظ البيانات</string>
     <string name="manage_status_disabled">غير مفعل</string>
+    <string name="manage_status_suspended">معلق</string>
     <string name="manage_status_hidden">مخفي</string>
+    <string name="manage_select">تحديد التطبيقات</string>
+    <string name="manage_select_all">تحديد كل ما يظهر</string>
+    <string name="manage_clear_selection">مسح التحديد</string>
+    <string name="manage_selection_close">إغلاق التحديد</string>
     <string name="manage_selected_count">%1$d</string>
+    <string name="manage_bulk_note">اختر تطبيق واحد في الأسفل والوضع. ستراجع التطبيقات قبل تقديم الطلب.</string>
+    <string name="manage_bulk_pinned_note">التطبيقات المثبتة تبقى في الجزء العلوي ويتم تخطيها بواسطة تحديد كل ما هو معروض.</string>
+    <string name="manage_pin_app">دبس التطبيق</string>
+    <string name="manage_unpin_app">فك تدبيس التطبيق</string>
+    <string name="manage_bulk_mode">الوضع</string>
+    <string name="manage_bulk_review">مراجعة</string>
     <string name="manage_bulk_apply">تطبيق</string>
+    <string name="manage_bulk_done_action"></string>
     <!-- One app, and what it may do on the device -->
     <string name="app_open_info">معلومات التطبيق</string>
     <string name="app_section_battery"></string>
     <string name="app_grant_confirm_ok"></string>
+    <string name="app_op_camera">استخدام الكاميرا</string>
+    <string name="app_op_camera_note">ونفس الفكرة بالنسبة للكاميرا: الإذن يبقى، والصور لا تصل.</string>
+    <string name="app_op_vibrate">اهتزاز</string>
+    <string name="app_op_vibrate_note">رفض إيقافه باستخدام الاهتزاز.</string>
+    <string name="app_op_mock_location">الموقع الوهمي</string>
     <string name="app_op_pip">صورة في صورة</string>
     <string name="app_op_mode_default">تلقائي</string>
     <string name="app_op_mode_allow">السماح</string>
     <string name="app_op_mode_deny">منع</string>
+    <string name="app_action_force_stop">إيقاف إجباري</string>
     <string name="app_action_enable">يُمكَِن</string>
     <string name="app_bucket_default">تلقائي</string>
+    <string name="app_bucket_exempted">مستثنى</string>
+    <string name="app_bucket_exempted_note">يعفي النظام هذا التطبيق من وضع الاستعداد للتطبيق، وبالتالي فإن المجموعة أدناه ليست هي السارية.</string>
+    <string name="app_bucket_frequent">متكرر</string>
     <string name="app_bucket_frequent_note">يمكنه العمل بشكل متكرر، ولكن ليس بحرية.</string>
     <string name="app_bucket_rare">نادر</string>
     <string name="app_bucket_rare_note">يحصل على وقت قليل للعمل في الخلفية.</string>
@@ -1082,6 +1133,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
          state that could not be read is not the same thing as a feature that is off. -->
     <string name="lab_state_on">مفعل</string>
     <string name="lab_state_off">معطل</string>
+    <string name="lab_state_unavailable">غير متوفر</string>
     <!-- The switches in the shade and on the home screen that are not about one app. -->
     <string name="lab_switch_service">خدمة شيزوكو</string>
     <string name="lab_switch_hiding">اخفاء</string>

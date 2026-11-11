@@ -13,6 +13,8 @@
     <string name="home_wireless_adb_title"><![CDATA[Iniciar via depuração sem fio]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Começando sem rede: o dispositivo é solicitado pela depuração sem fio várias vezes até ficar ligado. Isto pode demorar até dois minutos antes de começar ou desistir.</string>
     <string name="home_usb_adb_needs_network">A inicialização via USB utiliza a porta ADB clássica, e para reabri-la é necessária uma conexão de rede. Conecte-se ao Wi-Fi uma vez ou escolha <b>Iniciar sem Wi-Fi</b> como método de inicialização e inicie a depuração sem fio.</string>
+    <string name="home_usb_adb_needs_network_no_option">A configuração inicial por USB usa a porta ADB clássica, e para reabri-la é preciso uma rede. Conecte-se ao Wi-Fi uma vez ou inicie pelo computador com o comando ADB em Outros métodos.</string>
+    <string name="home_usb_adb_needs_computer">A configuração inicial via USB requer a porta ADB tradicional. Nesta versão do Android, conecte-se a um computador e inicie o Shizuku usando o comando ADB na seção Outros métodos.</string>
     <string name="home_wireless_adb_summary">Inicia o uso de depuração sem fio.</string>
     <string name="home_usb_adb_title"><![CDATA[Iniciar via depuração USB]]></string>
     <string name="home_usb_adb_summary">Inicia o uso da depuração USB.</string>
@@ -68,7 +70,9 @@
     <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
+    <string name="dialog_adb_pairing_accessibility_permission_tv">O Android bloqueia essa opção para aplicativos instalados fora de uma loja de aplicativos e, em uma TV, as informações do aplicativo não têm a opção \"Permitir configurações restritas\" para desbloqueá-la. É preciso conectar um computador à TV via ADB uma única vez: conceda a permissão acima, que permite o Shizuku ativar o serviço sozinho, ou desbloqueie a opção com:\n\n^1</string>
     <string name="dialog_adb_pairing_open_app_info">Informações do app</string>
+    <string name="dialog_adb_pairing_accessibility_enable">O pareamento automático lê o código da caixa de diálogo do sistema pelo serviço de acessibilidade do Shizuku, então ele precisa estar ativado, e somente pelo tempo necessário: o serviço se desativa sozinho assim que o código é encontrado, ou após um minuto para economizar bateria. Normalmente, o Shizuku o ativa sozinho, e isso exige a permissão WRITE_SECURE_SETTINGS, que uma instalação nova ainda não recebeu.\n\nAtive-o na próxima tela, digite o código manualmente em Manual ou conceda a permissão uma vez:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Para iniciar o emparelhamento, siga estas etapas:\n- Acesse “Opções do desenvolvedor”\n- Ative “Depuração por USB” e “Depuração sem fio”\n- Toque no lado esquerdo de “Depuração sem fio”\n- Toque em “Emparelhar dispositivo com código de emparelhamento”. O Shizuku detectará automaticamente o código de emparelhamento.</string>
     <string name="adb_pairing_requires_multi_window">Primeiro, abra o modo de tela dividida.</string>
     <string name="adb_pairing_requires_multi_window_reason">O sistema exige que a janela de emparelhamento permaneça sempre visível. Usar o modo de tela dividida é a única maneira de manter este aplicativo e a janela do sistema visíveis ao mesmo tempo.</string>
@@ -146,7 +150,21 @@
     <string name="labs_filter_blocked">Bloqueado</string>
     <string name="labs_blocked_count">%1$d bloqueado</string>
     <string name="labs_blocked_empty">Nada está bloqueado.</string>
+    <string name="labs_bulk_actions">Ações em massa</string>
+    <string name="labs_bulk_confirm_title">Alteração em massa</string>
+    <string name="labs_bulk_confirm_count">Aplicativos para atualizar: %1$d</string>
+    <string name="labs_bulk_confirm_pinned">Ignorados fixados: %1$d</string>
+    <string name="labs_bulk_confirm_warning">Apenas os aplicativos desta lista são alterados. Aplicativos fixados são deixados sozinhos.</string>
+    <string name="labs_bulk_progress">Alterando %1$d de %2$d...</string>
+    <string name="labs_bulk_result_title">Atualização em massa concluída</string>
+    <string name="labs_bulk_result_summary">Alterado: %1$d, falhou: %2$d.</string>
+    <string name="labs_bulk_failed_hint">Alguns aplicativos não aceitaram a alteração. O estado deles pode não ter mudado.</string>
     <string name="labs_bulk_apply">Aplicar</string>
+    <string name="labs_bulk_done">Concluído</string>
+    <string name="labs_pinned_note">Aplicativos fixados permanecem no topo e ficam de fora das alterações em massa.</string>
+    <string name="labs_pin_app">Fixar aplicativo</string>
+    <string name="labs_unpin_app">Desafixar aplicativo</string>
+    <string name="labs_clear_pins">Limpar aplicativos fixados</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Ocultando</string>
     <string name="tab_hide_developer_options">Ocultar opções do desenvolvedor</string>
@@ -186,9 +204,9 @@
     <string name="force_dark_notification_text">Um aplicativo na lista de modos escuros está aberto</string>
     <string name="force_dark_notification_watching">Aguardando a abertura de um aplicativo na lista</string>
     <string name="tab_activities">Lançador de atividades</string>
-    <string name="tab_power">Poder</string>
+    <string name="tab_power">Energia</string>
     <string name="power_description">Reinicie ou desligue a tela sem usar os botões do telefone.</string>
-    <string name="power_needs_shizuku"></string>
+    <string name="power_needs_shizuku">Inicie o Shizuku primeiro para usar estas opções.</string>
     <string name="power_reboot">Reiniciar</string>
     <string name="power_reboot_summary">Reinicie o telefone.</string>
     <string name="power_reboot_confirm">O celular vai reiniciar agora, trabalho não salvo será perdido.</string>
@@ -206,14 +224,14 @@
     <string name="power_confirm_title">Você tem certeza?</string>
     <string name="power_confirm">Continuar</string>
     <string name="power_soft_reboot">Reiniciamento suave</string>
-    <string name="power_soft_reboot_summary"></string>
+    <string name="power_soft_reboot_summary">Reinicia o Android sem reiniciar o kernel. Requer root.</string>
     <string name="power_soft_reboot_confirm">O Android reiniciará, todos os apps e a interface do sistema fechará e abrirá novamente, você pode precisar iniciar o shizuku novamente.</string>
     <string name="power_restart_system_ui">Reiniciar a interface do sistema</string>
     <string name="power_restart_system_ui_summary">Reinicie a barra de status, barra de navegação e sombra da notificação. Requer root.</string>
     <string name="power_needs_root">Root é requerido, mas esse celular não tem root.</string>
     <string name="power_needs_shizuku_rooted">O shizuku não está executando, apenas o reiniciamento suave está disponível.</string>
     <string name="power_failed">Não pode rodar %1$s</string>
-    <string name="tab_display">Display</string>
+    <string name="tab_display">Tela</string>
     <string name="display_description">Mude a resolução, densidade e taxa de atualização da tela, se a tela ficar difícil de usar, aperte Resetar perto da configuração.</string>
     <string name="display_needs_shizuku">Inicie o shizuku para ver ou mudar essas configurações.</string>
     <string name="display_resolution">Resolução</string>
@@ -221,11 +239,17 @@
     <string name="display_density">Densidade</string>
     <string name="display_density_summary">Controle o tamanho dos itens na tela. Valores maiores deixa eles menores; e vice-versa.</string>
     <string name="display_min_refresh">Taxa de atualização minima</string>
+    <string name="display_min_refresh_summary">A menor taxa de atualização que a tela pode usar, em Hz. Defina a taxa máxima para manter a tela sempre nessa taxa.</string>
     <string name="display_max_refresh">Taxa máxima de atualização</string>
+    <string name="display_max_refresh_summary">A maior taxa de atualização que a tela pode usar, em Hz.</string>
     <string name="display_current">Atual: %1$s</string>
     <string name="display_apply">Aplicar</string>
     <string name="display_reset">Redefinir</string>
     <string name="display_invalid">Valor inválido</string>
+    <string name="display_applied">%1$s Aplicado</string>
+    <string name="display_failed">Não foi possível alterar %1$s</string>
+    <string name="display_hz">%1$d Hz</string>
+    <string name="display_modes_missing">Não foi possível detectar as taxas de atualização suportadas. Insira um valor manualmente.</string>
     <string name="activities_apps_count">Apps %1$d</string>
     <string name="activities_count">Atividades %1$d</string>
     <string name="activities_launcher">Lançador</string>
@@ -245,6 +269,8 @@
     <string name="activities_saved">Salvar atividades</string>
     <string name="activities_apps_section">Aplicativos</string>
     <string name="activities_save">Guardar</string>
+    <string name="activities_unsave">Remover dos salvos</string>
+    <string name="activities_gone">Esta atividade não está mais instalada.</string>
     <string name="tab_intent_builder">Construtor de intuições</string>
     <string name="intent_builder_note">Construa e envie uma intenção. Você pode definir sua ação, dados, tipo, componente, categorias, extras e bandeiras. Você também pode carregar a intenção de um URI, como intenção:#Intent;action=android.intent. ction.VIEW;data=https://example.com;end. Este é o formato usado pelo Launcher de Atividade e a maioria das ferramentas de automação. Carregar um preenchimento nos campos, assim você pode verificar e editá-lo antes de enviar.</string>
     <string name="intent_uri">Intent URI</string>
@@ -341,7 +367,7 @@
     <string name="device_hiding_held">Escondendo manobras</string>
     <string name="device_thermal">Térmica</string>
     <string name="device_thermal_note">Todo sensor térmico que o kernel expõe, mais quente primeiro. Um sensor sem nada anexado reporta o sentinela -273 e é deixado de fora, assim como os níveis de descanso de energia, que não são temperaturas. Zonas %d foram listadas.</string>
-    <string name="device_cpu">cpu</string>
+    <string name="device_cpu">CPU</string>
     <string name="device_load_average">Carga média</string>
     <string name="device_cpu_note">A contabilidade do kernel pela janela chamada de seu dump. A carga é a média de uma carga de cinco e quinze minutos; cada linha é o tempo do processador usado e os trabalhadores do kernel aparecem porque eles realizam o trabalho, não apenas aplicativos.</string>
     <string name="tab_log">Registro</string>
@@ -364,7 +390,7 @@
     <string name="log_capture_start">Iniciar</string>
     <string name="log_capture_stop">Interromper</string>
     <string name="log_capture_device">Todo o dispositivo</string>
-    <string name="log_capture_choose">App para gravar</string>
+    <string name="log_capture_choose">Aplicativo para gravar</string>
     <string name="log_capture_choose_hint">Pesquisar aplicativos</string>
     <string name="log_capture_running">Gravação %1$s · %2$d linhas · %3$s</string>
     <string name="log_capture_idle">Nada está sendo gravado.</string>
@@ -461,23 +487,60 @@
     <string name="modules_repo_latest_version">Versão mais recente</string>
     <string name="modules_repo_loading">Loading...</string>
     <string name="modules_repo_sort_stars_low_to_high"></string>
+    <string name="modules_repo_sort_stars_high_to_low">Estrelas (do maior para o menor)</string>
     <string name="modules_find_modules">Encontrar módulos</string>
+    <string name="modules_install_from_file">Instalar a partir de um arquivo</string>
     <string name="modules_install_title">New</string>
     <string name="modules_settings">Módulos</string>
+    <string name="modules_settings_summary">O que um módulo pode fazer e o nível de confiança que você quer ter</string>
+    <string name="modules_access_full_summary_short">Serviços e ponte de shell do WebUI</string>
+    <string name="modules_allow_background_summary_short">Um script de serviço em execução sem supervisão</string>
     <string name="modules_catalog_install"></string>
+    <string name="modules_catalog_installing">Instalação</string>
+    <string name="modules_catalog_no_releases">Este repositório não tem versões.</string>
     <string name="modules_catalog_installed">Instalado</string>
+    <string name="modules_card_line">Versão: %1$s - %2$s</string>
+    <string name="modules_card_version">Versão: %1$s</string>
+    <string name="modules_card_author">Autor: %1$s</string>
+    <string name="modules_card_id">ID: %1$s</string>
     <string name="modules_disabled">Desabilitado</string>
+    <string name="modules_error_set_enabled">Não foi possível ativar ou desativar o módulo: o diretório dele não é gravável.</string>
+    <string name="modules_trust">Confiar</string>
+    <string name="modules_untrust">Remover confiança</string>
+    <string name="modules_full_trust">Confiança total</string>
+    <string name="modules_trust_confirm">Confiar em %1$s?</string>
+    <string name="modules_trust_confirm_message">Os comandos dele são executados sem serem mostrados a você antes, venham eles da ação, do serviço ou do WebUI do módulo. Todo o resto permanece como está: o módulo continua desativado pelo próprio interruptor, e a saída dele continua limitada e parando no horário definido. Confie apenas em um módulo que você tenha lido e compreendido.</string>
+    <string name="module_update_available">Atualização disponível</string>
     <string name="modules_update">Atualização</string>
     <string name="modules_sort">Ordenar</string>
+    <string name="modules_sort_a_to_z">Nome (A-Z)</string>
+    <string name="modules_sort_z_to_a">Nome (Z-A)</string>
+    <string name="modules_sort_size_low_to_high">Tamanho (do menor para o maior)</string>
+    <string name="modules_sort_size_high_to_low">Tamanho (do maior para o menor)</string>
+    <string name="modules_sort_enabled_first">Ativados primeiro</string>
+    <string name="modules_sort_action_first">Com ação primeiro</string>
+    <string name="modules_sort_webui_first">Com WebUI primeiro</string>
     <string name="modules_action_stop">Interromper</string>
+    <string name="modules_web_ui_short">WebUI</string>
     <string name="modules_action_short">Acão</string>
     <string name="modules_service_short">Serviço</string>
     <string name="modules_service_running_short">Executando</string>
+    <string name="modules_summary">Adicione recursos ao Shizuku com módulos da comunidade</string>
+    <string name="modules_warning">Um módulo é um script de shell criado por outra pessoa. Ele é executado pelo Shizuku com o mesmo nível de acesso que o próprio Shizuku tem. Instale apenas módulos em que você confia e leia os comandos que eles pedem para executar.</string>
+    <string name="modules_none">Nenhum módulo instalado ainda.</string>
+    <string name="modules_search">Buscar módulos</string>
     <string name="modules_install">Instalar um módulo</string>
     <string name="modules_installed">%1$s instalado</string>
     <string name="modules_access_full">Acesso total</string>
+    <string name="modules_access_full_summary">Permita que os módulos executem scripts de serviço e usem a ponte de shell da WebUI. Sem isso, apenas as ações serão executadas.</string>
+    <string name="modules_allow_background">Permitir ações em segundo plano</string>
+    <string name="modules_allow_background_summary">Permite que o script de serviço de um módulo seja executado sem supervisão.</string>
+    <string name="modules_service_start">Iniciar serviço</string>
+    <string name="modules_service_stop">Parar serviço</string>
+    <string name="modules_web_ui">Abrir WebUI</string>
     <string name="modules_delete">excluir</string>
     <string name="modules_delete_confirm">Excluir %1$s?</string>
+    <string name="modules_delete_confirm_message">O módulo e tudo o que estiver no diretório dele serão removidos, incluindo os registros.</string>
     <string name="modules_review_trust">Confiar em %1$s, e não perguntar novamente</string>
     <string name="modules_result_title">%1$s</string>
     <string name="modules_result_exit">Código de saída %1$d</string>
@@ -499,6 +562,7 @@
     <string name="start_failed_wifi_required">Conecte-se a uma rede Wi-Fi o sistema desativa a depuração sem uma. Ou inicie um computador usando o comando ADB abaixo.</string>
     <string name="start_failed_binder_went_away">O serviço foi iniciado e então foi interrompido novamente, então nada pode ser usado ainda. Isso acontece quando o servidor é reduzido com o aplicativo que o início passou que é o que a carga faz depois de iniciá-la. Tente o início novamente.</string>
     <string name="start_failed_no_port">Nenhuma porta de depuração sem fio foi encontrada. Certifique-se de que a depuração sem fio está ativada e o Wi-Fi está conectado.</string>
+    <string name="start_failed_no_port_no_permission">Nenhuma porta de depuração por Wi-Fi foi encontrada, e o Shizuku não pode ativar a depuração por Wi-Fi sem WRITE_SECURE_SETTINGS: <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. Ou inicie o Shizuku pela depuração USB uma vez — ele concede a permissão a si mesmo depois.</string>
     <string name="start_failed_no_auth">Depuração sem fio não é permitida nesta rede. Emparelhe o dispositivo novamente.</string>
     <string name="action_dismiss">Descartar</string>
     <string name="action_connect_wifi">Conectar</string>
@@ -516,10 +580,21 @@
     <string name="start_system_custom_copied">Comando copiado para área de transferência.</string>
     <string name="start_system_custom_copy_failed">O comando está acima, pronto para copiar à mão.</string>
     <string name="settings_section_startup">Startup</string>
+    <string name="settings_section_startup_summary">Inicialização no boot, monitoramento e método de inicialização</string>
     <string name="settings_section_wireless">Depuração sem fio</string>
+    <string name="settings_section_wireless_summary">Depuração sem fio, modo TCP e porta ADB</string>
     <string name="settings_section_tools">Ferramentas</string>
+    <string name="settings_section_tools_summary">Permissões, configuração, backup, terminal e intents</string>
+    <string name="settings_backup_export_summary">Salve as configurações do aplicativo e as listas do Labs em um arquivo JSON.</string>
+    <string name="settings_backup_restore_summary">Substitui as configurações do aplicativo e as listas do Labs pelas informações de um arquivo de backup.</string>
+    <string name="settings_backup_exported">%1$d configurações salvas.</string>
+    <string name="settings_backup_export_failed">Não foi possível salvar o backup.</string>
+    <string name="settings_backup_restore_title">Restaurar as configurações?</string>
     <string name="settings_backup_restore_action">RESTAURAR</string>
+    <string name="settings_backup_restored">%1$d Configurações restauradas. Reinicie o Shizuku para aplicar as alterações de inicialização.</string>
+    <string name="settings_backup_restore_failed">Não foi possível restaurar o backup.</string>
     <string name="settings_section_appearance">Aparência</string>
+    <string name="settings_section_appearance_summary">Tema, cores, idioma e barra de navegação</string>
     <string name="settings_section_about">SOBRE</string>
     <string name="settings_theme">Tema</string>
     <string name="settings_theme_system">Seguir sistema</string>
@@ -539,6 +614,7 @@
     <string name="intents_adb_command">Comece através do Computador</string>
     <string name="intents_status_broadcast">Transmissão de status</string>
     <string name="intents_status_broadcast_extra">status extra: 1 = em execução, 0 = não está</string>
+    <string name="intents_values">Para aplicativos de automação</string>
     <string name="intents_package">Pacote</string>
     <string name="home_battery_warning">O Shizuku pode ser encerrado em segundo plano. Permita que ignore as otimizações de bateria.</string>
     <string name="batch_selected_count">%1$d selecionado</string>
@@ -590,6 +666,8 @@
     <string name="stealth_uninstall_message">O sistema agora irá solicitar que você desinstale o Shizuku. Em seguida, instale o clone.</string>
     <string name="stealth_uninstall">Desinstalar</string>
     <string name="stealth_hide">Esconder</string>
+    <string name="stealth_unhide">Reexibir com stub</string>
+    <string name="stealth_stub_note">A opção Reexibir cria um pequeno stub com o nome de pacote original do Shizuku, para que os aplicativos que o procuram continuem funcionando. O stub encaminha as solicitações para o aplicativo Shizuku oculto. Ele não é uma segunda cópia. A opção Ocultar remove o stub.</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">Iniciar no arranque</string>
     <string name="settings_use_system_color">Usar cor temática do sistema</string>
@@ -679,6 +757,7 @@
       than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
     -->
     <string name="setup_action_continue">Continuar</string>
+    <string name="setup_welcome_title">Bem-vindo ao Shizuku-Next</string>
     <string name="setup_root_title">raiz</string>
     <string name="setup_wireless_title">Depuração sem fio</string>
     <string name="setup_usb_title">Depuração USB</string>
@@ -918,8 +997,14 @@
     <string name="manage_status_disabled">Desabilitado</string>
     <string name="manage_status_suspended">Suspenso</string>
     <string name="manage_status_hidden">Hidden</string>
+    <string name="manage_select">Selecione aplicativos</string>
+    <string name="manage_select_all">Selecionar todos os exibidos</string>
     <string name="manage_selected_count">%1$d selecionado</string>
+    <string name="manage_pin_app">Fixar aplicativo</string>
+    <string name="manage_unpin_app">Desafixar aplicativo</string>
     <string name="manage_bulk_apply">Aplicar</string>
+    <string name="manage_bulk_progress">Alterando %1$d de %2$d...</string>
+    <string name="manage_bulk_result_summary">Alterado: %1$d, falhou: %2$d.</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_detail_missing">Este app não está mais instalado.</string>
     <string name="app_open_info">Informações do app</string>

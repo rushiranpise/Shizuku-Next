@@ -13,6 +13,7 @@
     <string name="home_wireless_adb_title"><![CDATA[Khởi chạy qua Gỡ lỗi không dây]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Khởi động khi không có mạng: thiết bị sẽ liên tục yêu cầu gỡ lỗi không dây cho đến khi dịch vụ được bật ổn định. Quá trình này có thể mất tới hai phút trước khi bắt đầu hoặc hủy bỏ.</string>
     <string name="home_usb_adb_needs_network">Khởi động qua USB sử dụng cổng ADB truyền thống, và việc mở lại sẽ cần kết nối mạng. Hãy kết nối Wi-Fi một lần, hoặc chọn <b>Bắt đầu không cần Wi-Fi</b> làm phương thức khởi chạy và bắt đầu lại qua gỡ lỗi không dây.</string>
+    <string name="home_usb_adb_needs_network_no_option">Khởi động qua USB dùng cổng ADB truyền thống, nên cần có mạng để mở lại cổng này. Hãy kết nối Wi-Fi một lần, hoặc dùng lệnh ADB trên máy tính tại phần Các phương pháp khởi chạy khác.</string>
     <string name="home_usb_adb_needs_computer">Để khởi chạy qua USB, bạn cần sử dụng cổng ADB truyền thống. Trên phiên bản Android này, hãy kết nối thiết bị với máy tính và khởi chạy Shizuku bằng lệnh ADB theo các phương thức khác được hướng dẫn.</string>
     <string name="home_wireless_adb_summary">Bắt đầu bằng cách sử dụng gỡ lỗi không dây.</string>
     <string name="home_usb_adb_title"><![CDATA[Khởi chạy qua gỡ lỗi USB]]></string>
@@ -164,6 +165,7 @@
     <string name="hiding_signal_wireless_debugging">Mở gỡ lỗi không dây</string>
     <string name="force_dark_gate_disabled">Buộc tắt chế độ tối</string>
     <string name="tab_activities">Trình khởi chạy hoạt động</string>
+    <string name="power_description">Tắt màn hình hoặc khởi động lại mà không sử dụng các nút của điện thoại.</string>
     <string name="power_needs_shizuku">Khởi động Shizuku trước để sử dụng các tùy chọn này.</string>
     <string name="power_reboot">Khởi động lại</string>
     <string name="power_reboot_summary">Khởi động lại điện thoại.</string>
@@ -298,8 +300,12 @@
     <string name="log_capture_stopped_time">Đã dừng ghi: vượt quá giới hạn thời gian.</string>
     <string name="log_capture_stopped_ended">Đã dừng ghi: luồng nhật ký hệ thống đã kết thúc.</string>
     <string name="log_session_running">đang ghi</string>
+    <string name="permissions_usage_access_summary">Cho phép hiển thị danh sách xem ứng dụng nào đang mở. Được cấp bởi Shizuku hoặc trong cài đặt quyền truy cập Sử dụng của Android.</string>
+    <string name="permissions_dump_summary">Cho phép danh sách ẩn cho biết khi nào ứng dụng bị đóng thay vì chỉ chạy ở chế độ nền. Được cấp bởi Shizuku.</string>
     <string name="home_other_methods">Các phương thức khởi chạy khác</string>
     <string name="home_hiding_active_note">Shizuku có thể bị dừng khi một ứng dụng ẩn được mở vì quá trình ẩn có thể ngắt kết nối gỡ lỗi. Shizuku sẽ tự khởi động lại khi ứng dụng đó đóng.</string>
+    <string name="hiding_notification_paused_title">Đã tạm dừng ẩn</string>
+    <string name="hiding_notification_paused_text">Cài đặt của bạn đã được khôi phục. Tiếp tục ẩn chúng cho các ứng dụng đã liệt kê của bạn.</string>
     <string name="hiding_notification_stopped_title">Đã dừng ẩn</string>
     <string name="hiding_notification_stopped_text">Shizuku hiện không chạy, do đó tính năng ẩn không thể phát hiện ứng dụng nào đang mở. Tất cả cài đặt ẩn đã được khôi phục.</string>
     <string name="hiding_carries_session_wireless">Không áp dụng: Shizuku sử dụng gỡ lỗi không dây, vì vậy việc ẩn tính năng này sẽ làm dừng Shizuku.</string>
@@ -318,6 +324,8 @@
     <string name="seccomp_filter">Filter</string>
     <string name="status_running_short">Đang chạy</string>
     <string name="status_stopped_short">Đã dừng</string>
+    <string name="home_status_service_active">Dịch vụ Shizuku đang hoạt động</string>
+    <string name="home_status_service_stopped">Dịch vụ Shizuku không chạy</string>
     <string name="action_start">Bắt đầu</string>
     <string name="tools_modules">Mô-đun</string>
     <string name="tab_modules">Mô-đun</string>
@@ -342,10 +350,18 @@
     <string name="modules_action_stop">Dừng</string>
     <string name="modules_service_short">Dịch vụ</string>
     <string name="modules_service_running_short">Đang chạy</string>
+    <string name="modules_summary">Thêm tính năng cho Shizuku bằng các mô-đun từ cộng đồng</string>
+    <string name="modules_warning">Một module là một script shell của người khác và nó chạy thông qua Shizuku với quyền truy cập mà Shizuku có. Chỉ cài đặt những gì bạn tin tưởng và đọc các lệnh mà nó yêu cầu chạy.</string>
+    <string name="modules_access_full_summary">Cho phép các mô-đun chạy các tập lệnh dịch vụ và sử dụng cầu nối shell của WebUI. Nếu không có nó, chỉ có các hành động mới chạy.</string>
     <string name="modules_service_start">Bắt đầu dịch vụ</string>
     <string name="modules_service_stop">Dừng dịch vụ</string>
+    <string name="modules_review_title">Chạy lệnh này?</string>
+    <string name="modules_error_unsafe_path">Mô-đun đó đã cố gắng ghi dữ liệu ra ngoài thư mục của nó, vì vậy đã bị từ chối.</string>
+    <string name="tools_terminal_summary">Chạy lệnh shell trong bất kỳ ứng dụng terminal nào, sử dụng rish</string>
+    <string name="tools_battery">Tối ưu hóa pin</string>
     <string name="check_for_updates_now">Kiểm tra</string>
     <string name="start_failed">Không thể khởi động Shizuku</string>
+    <string name="start_failed_write_secure_settings">Shizuku không thể tự bật gỡ lỗi không dây nếu không có quyền WRITE_SECURE_SETTINGS. Hãy tự bật tính năng này trong Tùy chọn nhà phát triển &gt; Gỡ lỗi không dây, hoặc cấp quyền bằng lệnh <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. Sau khi Shizuku đã chạy, ứng dụng sẽ tự giữ quyền này nên bạn chỉ cần thực hiện một lần duy nhất.</string>
     <string name="action_open_wireless_debugging">Mở gỡ lỗi không dây</string>
     <string name="start_failed_unsupported">Thiết bị này không thể khởi động trong nền</string>
     <string name="start_failed_wifi_required">Hãy kết nối với mạng Wi-Fi hệ thống sẽ tự động tắt tính năng gỡ lỗi không dây nếu không có Wi-Fi. Hoặc khởi chạy từ máy tính bằng lệnh ADB bên dưới.</string>
@@ -358,21 +374,29 @@
     <string name="start_failed_pairing_required">Thiết bị này chưa được ghép nối để gỡ lỗi không dây. Vui lòng ghép nối lại.</string>
     <string name="start_failed_connection_lost">Kết nối ADB đã bị đóng trong khi khởi động. Vui lòng thử lại.</string>
     <string name="start_failed_usb_no_port">Không có cổng ADB nội bộ nào được mở Android sẽ xóa cổng này sau mỗi lần khởi động lại, và việc mở lại cần một kết nối tạm thời. Hãy kết nối Wi-Fi để Shizuku mở lại cổng qua gỡ lỗi không dây, chạy lệnh <b>adb tcpip 5555</b> từ máy tính, hoặc chọn <b>Start without Wi-Fi</b> làm phương thức khởi chạy để bắt đầu lại qua gỡ lỗi không dây thay thế.</string>
+    <string name="start_failed_usb_no_port_no_option">Không có cổng ADB cục bộ nào đang mở. Android sẽ đóng cổng này sau mỗi lần khởi động lại và cần có kết nối Wi-Fi để mượn quyền mở lại. Hãy kết nối Wi-Fi một lần, hoặc chạy lệnh <b>adb tcpip 5555</b> từ máy tính.</string>
     <string name="start_failed_root_unavailable">Quyền Root không còn khả dụng trên thiết bị này, vì vậy Shizuku không thể khởi chạy thông qua root. Vui lòng chọn một phương thức khởi chạy khác.</string>
     <string name="start_failed_system_needs_app">Phương thức khởi động hệ thống phải được bắt đầu từ ứng dụng.</string>
     <string name="start_failed_system_no_exploit">Thiết bị này không có trình đại diện FOTA của Samsung (com.sdet.fotaagent), là thành phần duy nhất phương thức khởi động hệ thống có thể sử dụng, vì vậy không có gì để leo thang ở đây. Chuyển phương thức khởi động hệ thống sang Lệnh tùy chỉnh: ứng dụng sẽ cho bạn biết phải chạy gì với một mức leo thang mà thiết bị của bạn có.</string>
+    <string name="start_failed_no_binder">Dịch vụ không xuất hiện sau một phút. Cả hai tiến trình đều lưu nhật ký: phần khởi chạy nằm dưới thẻ ShizukuServiceStarter và phần bàn giao nằm dưới thẻ BinderSender. Trình đọc logcat được lọc theo hai thẻ này sẽ cho thấy phần khởi chạy đã tạo tiến trình máy chủ hay chưa, và máy chủ đã từng yêu cầu binder hay chưa.</string>
     <string name="start_system_custom_intro">Leo thang theo bất kỳ cách nào bạn có thể, lỗ hổng của riêng bạn, một quy trình tự động hoặc một root shell, và chạy lệnh này: nó khởi chạy dịch vụ với uid hệ thống. Ứng dụng đang đợi nó xuất hiện.</string>
     <string name="start_system_custom_lookup">Chạy cái này khi shell có thể hỏi trình quản lý gói. Nó phân giải tệp thực thi khi chạy, vì vậy một bản cập nhật di chuyển nó sẽ không làm hỏng lệnh:</string>
     <string name="start_system_custom_copied">Lệnh đã được sao chép vào bảng nhớ tạm.</string>
     <string name="settings_section_startup">Khởi động</string>
     <string name="settings_section_startup_summary">Khởi động, giám sát và phương pháp khởi động</string>
     <string name="settings_section_wireless">Gỡ lỗi không dây</string>
+    <string name="settings_section_wireless_summary">Gỡ lỗi không dây, chế độ TCP và cổng ADB</string>
+    <string name="settings_section_tools">Công cụ</string>
+    <string name="settings_section_tools_summary">Quyền, thiết lập, sao lưu, dòng lệnh và tác vụ</string>
+    <string name="settings_backup_unreadable">Tệp đó không phải là bản sao lưu cài đặt Shizuku.</string>
     <string name="settings_backup_restore_action">Khôi phục</string>
+    <string name="intents_description">Các ứng dụng tự động hóa có thể điều khiển Shizuku bằng những broadcast này. Mã xác thực phải được truyền vào phần extra \"auth\".</string>
     <string name="intents_require_token_summary">Các intent khởi chạy và dừng yêu cầu phải có token bên dưới. Hãy tắt tùy chọn này để gửi chúng mà không cần token.</string>
     <string name="intents_start">Bắt đầu</string>
     <string name="intents_stop">Dừng</string>
     <string name="intents_watchdog_off">Chế độ giám sát tắt</string>
     <string name="intents_adb_command">Khởi chạy qua máy tính</string>
+    <string name="home_battery_warning">Shizuku có thể bị buộc đóng trong nền. Cho phép nó bỏ qua tối ưu hóa pin.</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Người dùng đã báo cáo rằng MIUI làm hỏng Storage Access
         Framework, được sử dụng bởi chức năng xuất.</string>
@@ -386,8 +410,20 @@
     <string name="terminal_tutorial_2_description">Mẹo: Nếu thư mục gốc (~) của ứng dụng terminal nằm trong thư mục tệp riêng tư, việc đặt các tệp ở đó sẽ cho phép bạn chạy %1$s mà không cần nhập đường dẫn.\n\nNếu không, bạn có thể tạo một bí danh cho %2$s trong tệp cấu hình %3$s của ứng dụng terminal.</string>
     <string name="terminal_tutorial_3">Mở shell bằng lệnh sau:</string>
     <!-- Stealth -->
+    <string name="stealth_description">Ẩn Shizuku khỏi các ứng dụng từ chối chạy khi nó được cài đặt. Một bản sao có tên gói khác sẽ được xuất để bạn cài đặt.</string>
+    <string name="stealth_warning_compatibility">Một số ứng dụng sử dụng Shizuku có thể không hoạt động khi Shizuku bị ẩn vì chúng cố gắng phát hiện xem Shizuku đã được cài đặt hay chưa.</string>
+    <string name="stealth_warning_compatibility_2">Để khắc phục tạm thời, bạn có thể tạm thời bỏ ẩn Shizuku, cái này sẽ cài đặt một phần mềm nhỏ với tên gói ban đầu. Khi hoàn tất, bạn có thể ẩn Shizuku đi.</string>
+    <string name="stealth_warning_compatibility_3">Nhấn vào thẻ này để sao chép một đoạn mã bạn có thể gửi cho nhà phát triển để kiểm tra \"Shizuku đã cài đặt\" của họ hoạt động khi Shizuku bị ẩn.</string>
+    <string name="stealth_warning_detection">Một số ứng dụng vẫn có thể phát hiện Shizuku ngay cả khi bị ẩn.</string>
+    <string name="stealth_info_reconfigure">Bạn sẽ cần ghép nối lại và cài đặt cấu hình lại Shizuku sau khi cài đặt phiên bản ẩn.</string>
+    <string name="stealth_info_rish">Người dùng Rish: xuất lại tệp sau khi cài đặt phiên bản ẩn.</string>
+    <string name="stealth_info_update">Bạn phải cập nhật Shizuku thông qua ứng dụng khi sử dụng phiên bản ẩn vì nó có chữ ký khác.</string>
+    <string name="stealth_uninstall_message">Hệ thống sẽ yêu cầu bạn gỡ cài đặt Shizuku. Sau đó, cài đặt bản sao.</string>
+    <string name="stealth_stub_note">Ẩn đi sẽ tạo ra một đoạn mã nhỏ tại tên gói gốc của Shizuku để các ứng dụng tìm kiếm nó vẫn có thể hoạt động. Đoạn mã này sẽ chuyển tiếp các yêu cầu đến ứng dụng Shizuku đã ẩn. Đây không phải là bản sao thứ hai. Bỏ ẩn sẽ xóa đoạn mã này.</string>
     <!-- Settings -->
     <string name="settings_start_on_boot">Bắt đầu khi khởi động</string>
+    <string name="settings_use_system_color">Sử dụng màu chủ đề của hệ thống</string>
+    <string name="settings_use_system_color_summary">Dùng bảng màu của hệ thống</string>
     <string name="settings_watchdog">Trình giám sát</string>
     <string name="settings_watchdog_summary">Tự động khởi động lại Shizuku nếu nó bị sập</string>
     <string name="settings_auto_disable_wireless_debugging">Tự động tắt gỡ lỗi không dây</string>
@@ -404,6 +440,7 @@
     <string name="toast_developer_options_required">Tắt ADB mà không cần tùy chọn nhà phát triển</string>
     <string name="settings_adb_without_developer_options_confirm_title">Tắt tùy chọn nhà phát triển?</string>
     <string name="settings_adb_without_developer_options_confirm_message">Shizuku sẽ tiếp tục hoạt động và khôi phục các cài đặt ADB sau khi khởi động lại. Bạn sẽ không thể mở Tùy chọn nhà phát triển để thay đổi cài đặt gỡ lỗi USB/không dây hoặc ghép nối thiết bị mới. Tắt Tùy chọn nhà phát triển?</string>
+    <string name="settings_adb_without_developer_options_failed">Shizuku không thể thay đổi cài đặt. Trước tiên, hãy cấp quyền WRITE_SECURE_SETTINGS trên trang quyền.</string>
     <string name="settings_wait_for_wifi_summary">Quá trình tự động khởi động lại Shizuku sẽ chờ kết nối Wi-Fi không giới hạn dung lượng.</string>
     <string name="settings_unavailable_while_forcing_wireless">Không khả dụng khi tính năng Bắt đầu không cần Wi-Fi đang bật.</string>
     <string name="settings_force_wireless_debugging">Bắt đầu không cần Wi-Fi (thử nghiệm)</string>
@@ -414,6 +451,7 @@
     <string name="settings_persist_adb_port">Giữ cổng ADB sau khi khởi động lại</string>
     <string name="settings_persist_adb_port_summary">Giữ cổng ADB mở sau mỗi lần khởi động lại, để Shizuku có thể khởi động mà không cần Wi-Fi hoặc điểm phát sóng.</string>
     <string name="settings_persist_adb_port_ok">Cổng ADB sẽ vẫn mở sau khi khởi động lại</string>
+    <string name="settings_persist_adb_port_refused">Android đã từ chối yêu cầu này. Shizuku phải đang chạy với quyền root hoặc người dùng hệ thống.</string>
     <string name="settings_persist_adb_port_unavailable">Khởi chạy Shizuku trước. Cài đặt này chỉ có thể thay đổi thông qua Shizuku.</string>
     <string name="home_system_title">Khởi chạy qua System UID</string>
     <string name="home_system_summary">Chạy Shizuku dưới quyền người dùng hệ thống (UID 1000) thay vì adb: Chỉ dành cho Samsung, thông qua tác nhân FOTA đi kèm trong các bản dựng đó</string>
@@ -437,7 +475,9 @@
     <string name="settings_black_night_theme_summary">Sử dụng chủ đề đen tuyền nếu chế độ ban đêm
         được bật</string>
     <string name="settings_update_stable">Ổn định</string>
+    <string name="settings_permissions_summary">Những gì Shizuku cần và những gì được phép</string>
     <string name="permissions_nearby_summary">Tìm cổng gỡ lỗi không dây trong mạng của bạn.</string>
+    <string name="permissions_hotspot_summary">Cho phép Shizuku bắt đầu mà không cần Wi-Fi bằng cách tạo điểm phát sóng cục bộ.</string>
     <string name="permissions_write_secure_settings_summary">Cho phép Shizuku bật tính năng gỡ lỗi không dây. Chỉ ADB mới có thể cấp quyền này.</string>
     <string name="permissions_battery_summary">Ngăn Android tự động tắt Shizuku khi chạy ngầm.</string>
     <!--
@@ -445,9 +485,11 @@
       than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
     -->
     <string name="setup_action_continue">Tiếp tục</string>
+    <string name="setup_welcome_title">Chào mừng đến với Shizuku-Next</string>
     <string name="setup_welcome_body">Shizuku-Next khởi động và quản lý dịch vụ Shizuku, cho phép các ứng dụng sử dụng các quyền thường yêu cầu adb hoặc root. Mọi thứ ở đây có thể được thay đổi trong Cài đặt.</string>
     <string name="setup_start_title">Shizuku nên bắt đầu như thế nào?</string>
     <string name="setup_start_body">Thao tác này quyết định nguồn cấp quyền cho dịch vụ. Bạn có thể thay đổi trong Cài đặt, mục Phương thức khởi động.</string>
+    <string name="setup_root_body">Một lần nhấn, không cần cáp và không cần ghép nối. Cần một trình quản lý gốc cấp quyền truy cập cho Shizuku.</string>
     <string name="setup_wireless_title">Mở gỡ lỗi không dây</string>
     <string name="setup_wireless_body">Hoạt động không cần root. Yêu cầu tùy chọn nhà phát triển và ghép nối một lần; sau đó ứng dụng sẽ tự khởi động.</string>
     <string name="setup_usb_title">Gỡ lỗi USB</string>
@@ -498,6 +540,8 @@
     <string name="update_check_failed">Không thể kiểm tra cập nhật</string>
     <string name="update_check_offline">Không thể kết nối đến GitHub. Vui lòng kiểm tra kết nối &amp; thử lại.</string>
     <string name="update_check_rate_limited">GitHub đang giới hạn số lượng kiểm tra cập nhật. Vui lòng thử lại sau.</string>
+    <string name="update_check_no_release">Chưa có bản phát hành nào để so sánh</string>
+    <string name="update_success">Cập nhật hoàn tất</string>
     <!-- Toast -->
     <string name="toast_pairing_timeout">Dịch vụ ghép nối Shizuku đã hết thời gian chờ.</string>
     <!-- Dark Mode Setting Override -->
@@ -545,6 +589,11 @@
     <string name="shell_title">Shell</string>
     <string name="shell_backend_offline">Không có trình chạy lệnh nào đang hoạt động</string>
     <string name="shell_needs_a_backend">Hãy khởi chạy Shizuku, hoặc chọn Root trên thiết bị đã root: một trong hai phương thức này sẽ thực thi các lệnh. Quyền Root vẫn hoạt động ngay cả khi Shizuku đã dừng.</string>
+    <string name="shell_intro">Chạy dưới quyền uid mà Shizuku đang chạy (2000 qua adb, 0 với root), nên nó có thể truy cập mọi nơi mà uid đó được phép: /sdcard, /system, và dữ liệu ứng dụng khi có root. Nó mở tại thư mục /sdcard, chạy từng lệnh một; do không có tty hỗ trợ phía sau, các chương trình cần giao diện dòng lệnh (nano, dấu nhắc ssh) sẽ không chạy được ở đây.</string>
+    <string name="shell_root_granted">Root đã có sẵn: các lệnh được chạy với uid 0.</string>
+    <string name="shell_root_refused">Quyền truy cập root bị từ chối nên các lệnh sẽ sử dụng Shizuku. Cấp quyền truy cập root cho ứng dụng này để sử dụng Root.</string>
+    <string name="shell_library_hint">Tìm kiếm lệnh</string>
+    <string name="shell_bookmark_empty">Chưa lưu mục nào. Nhập lệnh và nhấn nút dấu trang để lưu lại.</string>
     <string name="shell_quick_force_stop">Buộc dừng</string>
     <string name="shell_adb_prefix_dropped">Đã chạy trên thiết bị: tiền tố adb shell là những gì bạn sẽ nhập trên máy tính.</string>
     <string name="shell_adb_host_devices">Lệnh đó liệt kê các thiết bị được kết nối với máy tính. Đây chính là thiết bị đó, vì vậy không có gì để liệt kê: `pm list packages` là những gì được cài đặt trên đó.</string>
@@ -552,6 +601,9 @@
     <string name="shell_adb_host_transfer">Lệnh đó cần có một máy tính ở một đầu kết nối. Trên thiết bị, các tệp được di chuyển bằng lệnh <b>cp</b>, và các đường dẫn là những nơi mà shell này có thể tiếp cận.</string>
     <string name="shell_adb_host_generic">Đó là một nửa của adb chạy trên máy tính, và nó không có gì để thực thi từ bên trong thiết bị. Thay vào đó, hãy chạy trực tiếp lệnh của thiết bị tại đây: <b>adb shell ps</b> và <b>ps</b> là cùng một thứ.</string>
     <string name="shell_adb_host_help">Đây là shell của chính thiết bị chứ không phải adb trên máy tính: các lệnh chạy dưới quyền uid mà Shizuku đang chạy, thực thi từng lệnh một. Bắt đầu với <b>pm list packages</b>, <b>dumpsys battery</b> hoặc Thư viện phía trên ô nhập liệu.</string>
+    <string name="shell_paste">Dán lệnh</string>
+    <string name="shell_su_needs_root">Chạy su riêng lẻ sẽ yêu cầu quyền root, nhưng không có lời nhắc nào trong terminal này. Hãy sử dụng Root backend, hoặc sử dụng su -c theo sau là lệnh.</string>
+    <string name="shell_exit_note">Không có shell để thoát vì mỗi lệnh chạy riêng biệt. Thư mục hiện tại và các biến môi trường của bạn được giữ nguyên.</string>
     <string name="shell_stop">Dừng</string>
     <!-- Watchdog -->
     <string name="watchdog_running">Tính năng giám sát đang hoạt động</string>
@@ -577,13 +629,17 @@
     <!-- Manage tab -->
     <string name="manage_search_hint">Tìm kiếm ứng dụng</string>
     <string name="manage_filter_all">Tất cả</string>
+    <string name="manage_filter_user">Người dùng</string>
     <string name="manage_filter_hidden">Ẩn</string>
+    <string name="manage_status_user">Người dùng</string>
     <string name="permissions_phantom_summary">Android 12 trở về sau có thể tự động dừng các tiến trình do một ứng dụng khởi chạy sau khi ứng dụng đó đóng. Điều này có thể làm dừng máy chủ sau khi khởi động máy. Cài đặt này ảnh hưởng đến toàn bộ thiết bị và có thể cần khởi động lại máy để áp dụng.</string>
     <string name="permissions_action_deny">Từ chối</string>
+    <string name="permissions_phantom_failed">Không thể thay đổi. Cần có Shizuku hoặc quyền WRITE_SECURE_SETTINGS.</string>
     <string name="manage_status_hidden">Ẩn</string>
     <string name="manage_bulk_apply">Áp dụng</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_permissions_note">Chỉ những quyền có bảo vệ liên quan đến phát triển hoặc những quyền nguy hiểm mới có thể được thay đổi thông qua adb; nền tảng từ chối những quyền khác bất kể Shizuku được tin tưởng đến đâu, vì vậy những hàng đó giữ công tắc tắt.</string>
+    <string name="app_action_failed">Android đã từ chối việc này. Không có gì thay đổi.</string>
     <string name="app_ops_needs_shizuku">Khởi động Shizuku để đọc và thay đổi các thao tác ứng dụng.</string>
     <string name="app_op_background_note">Từ chối sẽ ngăn ứng dụng chạy ngầm.</string>
     <string name="app_op_any_background_note">Ngăn ứng dụng tự khởi chạy khi khởi động máy hoặc thông qua các thông báo quảng bá chạy ngầm.</string>
@@ -596,6 +652,7 @@
     <string name="app_op_install_note">Từ chối sẽ ngăn ứng dụng cài đặt các tệp APK.</string>
     <string name="app_op_toast_note">Từ chối sẽ chặn các thông báo dạng bong bóng nhỏ xuất hiện trên ứng dụng khác.</string>
     <string name="app_op_project_media_note">Từ chối sẽ ngăn ứng dụng ghi màn hình hoặc truyền nội dung trên màn hình.</string>
+    <string name="app_op_camera">Sử dụng máy ảnh</string>
     <string name="app_op_vibrate_note">Từ chối sẽ ngăn ứng dụng sử dụng chức năng rung.</string>
     <string name="app_op_mock_location_note">Từ chối sẽ ngăn ứng dụng cung cấp vị trí giả lập cho các ứng dụng khác.</string>
     <string name="app_op_pip_note">Từ chối sẽ ngăn ứng dụng thu nhỏ thành một cửa sổ nổi nhỏ.</string>
@@ -606,9 +663,16 @@
     <string name="app_action_suspend_note">Vô hiệu hóa nó nhưng giữ lại dữ liệu.</string>
     <string name="app_action_enable">Cho phép</string>
     <string name="app_action_disable_note">Tắt nó cho đến khi bạn bật lại.</string>
+    <string name="app_action_uninstall">Gỡ cài đặt cho người dùng này</string>
+    <string name="app_action_restore_note">Khôi phục một ứng dụng hệ thống đã xóa cho Người dùng này.</string>
+    <string name="app_data_needs_shizuku">Khởi động Shizuku để xuất hoặc nhập dữ liệu ứng dụng.</string>
+    <string name="app_data_imported">Đã nhập dữ liệu ứng dụng. Khởi động ứng dụng để sử dụng.</string>
     <string name="app_confirm_disable">Vô hiệu hóa %1$s? Ứng dụng sẽ dừng chạy cho đến khi bạn bật lại.</string>
+    <string name="app_battery_needs_shizuku">Khởi động Shizuku để thay đổi cài đặt pin.</string>
     <string name="app_bucket_default">Mặc định</string>
     <string name="app_bucket_default_note">Android tự quyết định mức độ ứng dụng có thể chạy.</string>
+    <string name="app_battery_unrestricted_note">Cho phép duy trì hoạt động khi ở chế độ Ngủ, nhưng sẽ tốn nhiều pin hơn.</string>
+    <string name="app_network_needs_shizuku">Khởi động Shizuku để thay đổi những gì một ứng dụng có thể truy cập.</string>
     <string name="app_network_unsupported">Thiết bị này không cung cấp tường lửa cần thiết.</string>
     <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
          screen. The per-app list is unaffected either way, which is what the off state says. -->
@@ -626,6 +690,7 @@
     <string name="lab_switch_hide_wireless_debugging">Ẩn gỡ lỗi không dây</string>
     <!-- The three debugging switches on the home screen, under the server's buttons. Short
          because three share one row; the tile picker spells them out in full. -->
+    <string name="home_switch_dev_options">Tùy chọn nhà phát triển</string>
     <string name="home_switch_usb">Gỡ lỗi USB</string>
     <string name="home_switch_wireless">Mở gỡ lỗi không dây</string>
     <string name="lab_widget_description">Bật hoặc tắt tính năng này.</string>
@@ -634,11 +699,19 @@
     <string name="app_info_updated">Cập nhật</string>
     <string name="tab_wifi_passwords">Mật khẩu wifi đã lưu</string>
     <string name="accessibility_boot">Bắt đầu khi khởi động</string>
+    <string name="accessibility_write_failed">Không thể thay đổi dịch vụ. Kiểm tra xem Shizuku có đang chạy không.</string>
     <string name="accessibility_notification_text">Shizuku-Next bật lại các dịch vụ đã bị tắt khi Android tắt chúng.</string>
     <string name="wifi_passwords_show">Hiện mật khẩu</string>
     <string name="wifi_passwords_hide">Ẩn mật khẩu</string>
     <string name="wifi_passwords_copy">Sao chép mật khẩu</string>
     <string name="wifi_passwords_none">Không có mật khẩu</string>
+    <string name="wifi_passwords_empty">Không có mạng đã lưu.</string>
+    <string name="wifi_passwords_needs_shizuku">Shizuku không chạy, vì vậy không có shell nào để đọc các mạng đã lưu.</string>
+    <string name="wifi_passwords_failed">Dịch vụ Wi-Fi không phản hồi. Nhật ký đã ghi lại nội dung chi tiết.</string>
+    <string name="wifi_passwords_unsupported">Đọc mạng đã lưu yêu cầu Android 9 trở lên, đây là nơi có thể truy cập dịch vụ wifi ẩn.</string>
+    <string name="wifi_passwords_search_hint">Tìm kiếm mạng</string>
+    <string name="wifi_passwords_no_match">Không tìm thấy mạng đã lưu.</string>
+    <string name="wifi_passwords_all_actions">Tất cả các mạng</string>
     <string name="wifi_passwords_connected">Đã kết nối</string>
     <string name="wifi_passwords_connect">Kết nối với mạng này</string>
     <string name="wifi_passwords_wifi_off">Wi-Fi đã tắt. Hãy bật lên và thử lại.</string>
@@ -648,10 +721,28 @@
     <string name="wifi_passwords_forget_message">%1$s sẽ bị xóa, bao gồm cả mật khẩu đã lưu. Thao tác này không thể hoàn tác.</string>
     <string name="wifi_passwords_forget_all">Quên tất cả các mạng wifi đã lưu</string>
     <string name="wifi_passwords_forget_all_message">Tất cả các mạng đã lưu sẽ bị xóa, bao gồm cả mạng hiện tại. Thao tác này không thể hoàn tác.</string>
+    <string name="wifi_passwords_action_failed">Hành động thất bại. Kiểm tra nhật ký để biết chi tiết.</string>
     <string name="wifi_backup_export">Xuất mạng đã lưu</string>
     <string name="wifi_backup_import">Thêm wifi mới</string>
+    <string name="wifi_backup_export_message">Lưu mạng và mật khẩu của bạn vào một tệp. Bạn có thể bảo vệ tệp bằng mật khẩu. Nếu không có mật khẩu, tệp sẽ không mở được.</string>
+    <string name="wifi_backup_format_plain">Tệp văn bản</string>
+    <string name="wifi_backup_format_compressed">Tệp nén</string>
+    <string name="wifi_backup_password">Nhập mật khẩu</string>
+    <string name="wifi_backup_password_hint">Để trống để tạo tệp không được bảo vệ.</string>
+    <string name="wifi_backup_needs_android8">Tính năng bảo vệ mật khẩu yêu cầu Android 8 trở lên.</string>
+    <string name="wifi_backup_unreadable">Không thể đọc tệp hoặc mật khẩu sai. Kiểm tra nhật ký để biết chi tiết.</string>
     <string name="files_sort">Sắp xếp</string>
+    <string name="files_needs_shizuku">Shizuku không chạy nên không thể đọc tệp.</string>
+    <string name="files_action_compress">Nén hoặc giải nén</string>
+    <string name="files_dialog_compress">Tên tệp zip</string>
+    <string name="files_working_compressing">Đang nén</string>
+    <string name="install_ignore_dexopt_desc">Không sử dụng hồ sơ ứng dụng khi tối ưu hóa ứng dụng.</string>
     <string name="install_dexopt_default">Mặc định của nền tảng</string>
+    <string name="install_bypass_sdk_desc">Cho phép các ứng dụng nhắm mục tiêu phiên bản Android quá cũ cài đặt bình thường.</string>
+    <string name="install_user">Cài đặt cho</string>
+    <string name="install_user_current">Người dùng này</string>
+    <string name="install_user_all">Tất cả người dùng</string>
     <string name="install_location_auto">Tùy chọn nhà phát triển</string>
+    <string name="install_source_presets">Các nguồn cài đặt phổ biến</string>
     <string name="install_source_shell">Shell</string>
 </resources>

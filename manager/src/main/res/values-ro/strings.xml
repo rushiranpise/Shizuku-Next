@@ -13,6 +13,7 @@
     <string name="home_wireless_adb_title"><![CDATA[Pornește prin depanare fără fir]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Pornire fără rețea: dispozitivul este cerut pentru depanare fără fir din nou și din nou până când rămâne pornit. Acest lucru poate dura până la două minute înainte de a începe sau de a renunța.</string>
     <string name="home_usb_adb_needs_network">Un start USB folosește portul ADB clasic și redeschiderea acestuia necesită o rețea. Conectați-vă la Wi-Fi o singură dată sau alegeți <b>Porniți fără Wi-Fi</b> ca metodă de pornire și porniți prin depanare fără fir.</string>
+    <string name="home_usb_adb_needs_network_no_option">Pornirea prin USB utilizează portul ADB clasic, iar pentru a-l redeschide este necesară o conexiune la rețea. Conectează-te o dată la Wi-Fi sau pornește dispozitivul de pe un computer folosind comanda ADB descrisă în secțiunea „Alte metode”.</string>
     <string name="home_usb_adb_needs_computer">Pentru pornirea prin USB este necesar portul ADB clasic. Pe această versiune de Android, conectează-te la un computer și pornește Shizuku folosind comanda ADB descrisă în secțiunea „Alte metode”.</string>
     <string name="home_wireless_adb_summary">Începe să utilizezi depanarea fără fir.</string>
     <string name="home_usb_adb_title"><![CDATA[Pornește prin depanare USB]]></string>
@@ -37,7 +38,7 @@
     <string name="diagnostics_default">Metoda implicită</string>
     <string name="diagnostics_hiding">Ascuns</string>
     <string name="diagnostics_phantom">Oprire procese</string>
-    <string name="diagnostics_root">Rădăcină</string>
+    <string name="diagnostics_root">Root</string>
     <string name="diagnostics_granted">acordat</string>
     <string name="diagnostics_missing">lipsește</string>
     <string name="diagnostics_not_required">nu este necesar</string>
@@ -445,7 +446,7 @@
     <string name="home_status_started_default">Implicit</string>
     <string name="uid_label">UID</string>
     <string name="uid_name_format">(%1$s)</string>
-    <string name="uid_name_root">rădăcină</string>
+    <string name="uid_name_root">root</string>
     <string name="uid_name_system">sistem</string>
     <string name="uid_name_shell">terminal</string>
     <string name="home_device_manager_version">Versiune manager</string>
@@ -588,7 +589,8 @@
     <string name="start_failed_pairing_required">Acest dispozitiv nu este asociat pentru depanare wireless. Asociază-l din nou.</string>
     <string name="start_failed_connection_lost">Conexiunea ADB s-a închis la pornire. Încearcă din nou.</string>
     <string name="start_failed_usb_no_port">Nici un port ADB local nu este deschis Android la fiecare repornire și redeschiderea are nevoie de o conexiune pentru a împrumuta. Conectați-vă la Wi-Fi și Shizuku îl va redeschide prin depanare wireless, rulați <b>adb tcpip 5555</b> de pe un computer, sau alege <b>Pornește fără Wi-Fi</b> ca metodă de început pentru a porni prin depanare wireless.</string>
-    <string name="start_failed_root_unavailable">Accesul la rădăcină nu mai este disponibil pe acest dispozitiv, deci Shizuku nu poate porni. Alege o altă metodă de pornire.</string>
+    <string name="start_failed_usb_no_port_no_option">Nu este deschis niciun port ADB local. Android îl închide la fiecare repornire, iar redeschiderea acestuia necesită o conexiune la rețea pentru a o utiliza. Conectează-te o dată la Wi-Fi sau execută comanda <b>adb tcpip 5555</b> de pe un computer.</string>
+    <string name="start_failed_root_unavailable">Accesul la root nu mai este disponibil pe acest dispozitiv, deci Shizuku nu poate porni. Alege o altă metodă de pornire.</string>
     <string name="start_failed_system_needs_app">Metoda de pornire a sistemului trebuie să fie pornită din aplicație.</string>
     <string name="start_failed_system_no_exploit">Acest dispozitiv nu livrează agentul Samsung FOTA (com.sdet. otaagent), care este singura componentă pe care o poate folosi metoda de pornire a sistemului, astfel încât nu este nimic de mărit cu aici. Comutați metoda de pornire a sistemului la comandă personalizată: aplicația vă va arăta ce să rulați cu o escaladare pe care o are dispozitivul dvs.</string>
     <string name="start_failed_no_binder">Serviciul nu a apărut într-un minut. Ambele jumătăţi păstrează un log: porneşterii de la ShizukuServiceStarter şi predarea sub BinderSender. Un cititor de logcat filtrat la cele două arată dacă începătorul a ajuns până la forjarea serverului, și dacă serverul a cerut vreodată un lider.</string>
@@ -699,13 +701,13 @@
     <string name="settings_auto_disable_wireless_debugging">Dezactivează depanarea fără fir</string>
     <string name="settings_auto_disable_wireless_debugging_summary">Dezactivează depanarea wireless atunci când Shizuku se oprește.</string>
     <string name="settings_start_method">Metoda de pornire implicită</string>
-    <string name="settings_start_method_root_unavailable">Acest dispozitiv nu are acces la rădăcină, așa că revine la depanarea fără fir.</string>
+    <string name="settings_start_method_root_unavailable">Acest dispozitiv nu are acces la root, așa că revine la depanarea fără fir.</string>
     <string name="settings_start_method_root_unavailable_usb">Acest dispozitiv nu are acces root, așa că se trece la conexiunea USB.</string>
     <string name="start_method_wireless_no_network">Fără Wi-Fi</string>
     <string name="start_method_wireless">Wireless</string>
     <string name="start_method_usb">USB</string>
     <string name="start_method_system">Sistem</string>
-    <string name="start_method_root">Rădăcină</string>
+    <string name="start_method_root">Root</string>
     <string name="transport_adb">adb</string>
     <string name="settings_adb_without_developer_options">Dezactivează opțiunile pentru dezvoltatori</string>
     <string name="settings_adb_without_developer_options_summary">Oprește opțiunile dezvoltatorului dar menține setările ADB de care are nevoie Shizuku. Shizuku va continua să funcționeze, iar aceste setări vor fi restaurate după fiecare repornire.</string>
@@ -788,7 +790,7 @@
     <string name="setup_welcome_body">Shizuku-Next lansează și gestionează serviciul Shizuku, care permite aplicațiilor să utilizeze permisiuni care, în mod normal, necesită adb sau acces root. Toate setările de aici pot fi modificate ulterior în Setări.</string>
     <string name="setup_start_title">Cum ar trebui să pornească Shizuku?</string>
     <string name="setup_start_body">Această opțiune stabilește de unde își obține serviciul permisiunile. O poți modifica ulterior în Setări, la secțiunea „Metoda de pornire”.</string>
-    <string name="setup_root_title">Rădăcină</string>
+    <string name="setup_root_title">Root</string>
     <string name="setup_root_body">O singură atingere, fără cablu și fără asociere. Este necesar un manager de drepturi de root care să îi acorde acces aplicației Shizuku.</string>
     <string name="setup_wireless_title">Depanare fără fir</string>
     <string name="setup_wireless_body">Funcționează fără drepturi de root. Necesită activarea opțiunilor pentru dezvoltatori și o asociere inițială; după aceea, se lansează direct din aplicație.</string>
@@ -917,7 +919,7 @@
     <!-- Shell -->
     <string name="shell_title">Terminal</string>
     <string name="shell_backend_shizuku">Shizuku</string>
-    <string name="shell_backend_root">Rădăcină</string>
+    <string name="shell_backend_root">Root</string>
     <string name="shell_backend_shizuku_status">Shizuku, uid %1$d</string>
     <string name="shell_backend_root_status">Root, uid 0</string>
     <string name="shell_backend_offline">Niciun executant de comenzi nu este activ</string>
@@ -1279,7 +1281,7 @@
     <string name="files_root_app_obb">Obb</string>
     <string name="files_root_system">Sistem</string>
     <string name="files_root_tmp">Tmp</string>
-    <string name="files_root_root">Rădăcină</string>
+    <string name="files_root_root">Root</string>
     <string name="files_empty">Nimic din acest dosar.</string>
     <string name="files_all_hidden">Tot ce se află în acest dosar este ascuns.</string>
     <string name="files_sort">Sortează</string>
