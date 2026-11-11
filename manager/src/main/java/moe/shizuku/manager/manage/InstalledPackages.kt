@@ -51,6 +51,27 @@ object InstalledPackages {
     }
 
     /**
+     * The installed packages for every Android user, from the shell.
+     *
+     * A work profile can hold the same package name as the main user, so the rows are keyed by
+     * the uid as well as the name. The current user's list is the fallback when the shell is not
+     * up, because there is nothing else to ask.
+     */
+    fun allUsers(context: Context, flags: Int): List<PackageInfo> {
+        if (!ShizukuStateMachine.isRunning()) return all(context, flags)
+
+        val seen = mutableSetOf<String>()
+        val packages = mutableListOf<PackageInfo>()
+        ShizukuSystemApis.getUsers().forEach { user ->
+            ShizukuSystemApis.getInstalledPackagesAsShell(flags.toLong(), user.id).forEach { pi ->
+                val uid = pi.applicationInfo?.uid ?: return@forEach
+                if (seen.add("${pi.packageName}#$uid")) packages += pi
+            }
+        }
+        return packages.ifEmpty { all(context, flags) }
+    }
+
+    /**
      * One package, or null when neither side knows it.
      *
      * For the callers that already have a package name - the detail screens - and need its record

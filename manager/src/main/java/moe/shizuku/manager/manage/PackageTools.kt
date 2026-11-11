@@ -216,6 +216,9 @@ object PackageTools {
     /** Where the firewall list's own record of what it blocked is kept. */
     private const val PREF_FIREWALL_BLOCKED = "firewall_blocked_packages"
 
+    /** Where the apps that lose only mobile data are kept. */
+    private const val PREF_FIREWALL_MOBILE_ONLY = "firewall_mobile_only_packages"
+
     private val pm get() = moe.shizuku.manager.ShizukuApplication.application.packageManager
 
     // ---- reading -----------------------------------------------------------------
@@ -579,6 +582,55 @@ object PackageTools {
         return ran && isBatteryUnrestricted(context, packageName) == unrestricted
     }
 
+    /** Whether the metered deny chain exists on this platform. */
+    fun supportsMobileOnly(): Boolean =
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+
+    /** Apps this list should block only on metered networks. */
+    fun readFirewallMobileOnly(context: Context): Set<String> =
+        ShizukuSettings.getPreferences()
+            .getStringSet(PREF_FIREWALL_MOBILE_ONLY, emptySet())
+            .orEmpty()
+            .toSet()
+
+    /**
+     * Moves a blocked app between the all-network chain and the metered chain.
+     *
+     * The rule is cleared on the old chain before it is set on the new one, because a uid can be
+     * denied by both. If the new rule cannot be set, the old one is put back so the switch does
+     * not leave an app unblocked. An app that is not currently blocked only changes its preference.
+     */
+    fun setFirewallMobileOnly(context: Context, key: String, mobileOnly: Boolean): Boolean {
+        if (!supportsMobileOnly()) return false
+
+        val known = readFirewallMobileOnly(context)
+        if ((key in known) == mobileOnly) return true
+
+        val blocked = key in readFirewallBlocked(context) ||
+            readNetworkBlocked(context, key) == true
+        if (blocked) {
+            val packageName = FirewallKey.packageOf(key)
+            val userId = FirewallKey.userIdOf(key)
+            val uid = uidOf(context, packageName, userId) ?: return false
+            val oldChain = if (mobileOnly) FirewallApi.CHAIN else FirewallApi.CHAIN_METERED
+            val newChain = if (mobileOnly) FirewallApi.CHAIN_METERED else FirewallApi.CHAIN
+
+            if (!FirewallApi.setBlocked(uid, false, oldChain)) return false
+            if (!FirewallApi.setBlocked(uid, true, newChain)) {
+                FirewallApi.setBlocked(uid, true, oldChain)
+                return false
+            }
+        }
+
+        ShizukuSettings.getPreferences().edit()
+            .putStringSet(
+                PREF_FIREWALL_MOBILE_ONLY,
+                if (mobileOnly) known + key else known - key
+            )
+            .apply()
+        return true
+    }
+
     /**
      * Whether the platform's firewall is dropping this app's traffic.
      *
@@ -587,19 +639,29 @@ object PackageTools {
      * rather than what this app last asked for. The command answers `package:deny` or
      * `package:allow` on stdout.
      */
-    fun readNetworkBlocked(context: Context, packageName: String): Boolean? {
+    fun readNetworkBlocked(context: Context, key: String): Boolean? {
         if (!FirewallChain.supportsFirewall()) return null
 
-        val answer = runShellCommand("cmd connectivity get-package-networking-enabled $packageName")
-        when {
-            answer?.endsWith(":deny") == true -> return true
-            answer?.endsWith(":allow") == true -> return false
+        val packageName = FirewallKey.packageOf(key)
+        val userId = FirewallKey.userIdOf(key)
+        val chain = firewallChain(context, key)
+
+        // The command only knows this user's packages, so another profile is asked through the
+        // uid the firewall actually holds. The metered chain is not the command's either.
+        if (chain == FirewallApi.CHAIN && userId == UserHandleCompat.myUserId()) {
+            val answer = runShellCommand(
+                "cmd connectivity get-package-networking-enabled $packageName"
+            )
+            when {
+                answer?.endsWith(":deny") == true -> return true
+                answer?.endsWith(":allow") == true -> return false
+            }
         }
 
         // The command could not say - it is missing on some ROMs, which is the whole reason for the
         // fallback - so the platform is asked through the interface the command is a front end for.
-        val uid = uidOf(context, packageName) ?: return null
-        return FirewallApi.isBlocked(FirewallApi.blockedRule(uid))
+        val uid = uidOf(context, packageName, userId) ?: return null
+        return FirewallApi.isBlocked(FirewallApi.blockedRule(uid, chain))
     }
 
     /**
@@ -609,10 +671,10 @@ object PackageTools {
      * This app's record is then the only state available; it is not the platform's, but it is
      * the state this app wrote and the switch can still change it.
      */
-    fun readNetworkBlockedForDisplay(context: Context, packageName: String): Boolean? {
-        readNetworkBlocked(context, packageName)?.let { return it }
+    fun readNetworkBlockedForDisplay(context: Context, key: String): Boolean? {
+        readNetworkBlocked(context, key)?.let { return it }
         if (!FirewallChain.supportsFirewall()) return null
-        return packageName in readFirewallBlocked(context)
+        return key in readFirewallBlocked(context)
     }
 
     /**
@@ -621,9 +683,27 @@ object PackageTools {
      * Asked of the local package manager rather than the shell: for an installed app it is the same
      * number, and it costs nothing.
      */
-    private fun uidOf(context: Context, packageName: String): Int? = runCatching {
-        context.packageManager.getApplicationInfo(packageName, 0).uid
-    }.getOrNull()
+    private fun uidOf(
+        context: Context,
+        packageName: String,
+        userId: Int = UserHandleCompat.myUserId()
+    ): Int? {
+        if (userId == UserHandleCompat.myUserId()) {
+            return runCatching {
+                context.packageManager.getApplicationInfo(packageName, 0).uid
+            }.getOrNull()
+        }
+        return ShizukuSystemApis.getPackageInfoAsShell(packageName, 0L, userId)
+            ?.applicationInfo?.uid
+    }
+
+    /** The chain this app belongs to: the metered one when it is marked mobile-only. */
+    private fun firewallChain(context: Context, key: String): Int =
+        if (supportsMobileOnly() && key in readFirewallMobileOnly(context)) {
+            FirewallApi.CHAIN_METERED
+        } else {
+            FirewallApi.CHAIN
+        }
 
     /**
      * Blocks or allows this app's traffic with the platform's own firewall, no VPN involved.
@@ -634,53 +714,60 @@ object PackageTools {
      * business. Android's own description of the chain calls it one for debugging, which is
      * why the row says what it is rather than pretending it is a documented feature.
      */
-    fun setNetworkBlocked(context: Context, packageName: String, blocked: Boolean): Boolean {
+    fun setNetworkBlocked(context: Context, key: String, blocked: Boolean): Boolean {
         if (!FirewallChain.supportsFirewall()) return false
 
         if (FirewallChain.isOn() != true) {
             FirewallChain.setOn(true)
         }
 
-        val value = if (blocked) "false" else "true"
-        // The command is tried first, but its exit code is not the answer: a ROM can accept the
-        // verb and leave the rule where it was, which is a switch that does nothing while the
-        // command says it worked. What it did is read, and the same rule is set through the
-        // interface behind the command whenever the answer is not the one that was asked for.
-        val commandWrote =
-            shellOk("cmd connectivity set-package-networking-enabled $value $packageName")
-        val commandRead = readNetworkBlocked(context, packageName)
-        var applied = FirewallApi.writeApplied(commandWrote, blocked, commandRead)
-        Diag.info(
-            TAG,
-            "Firewall $packageName: block=$blocked command=$commandWrote read=$commandRead"
-        )
+        val packageName = FirewallKey.packageOf(key)
+        val userId = FirewallKey.userIdOf(key)
+        val chain = firewallChain(context, key)
+        val uid = uidOf(context, packageName, userId)
+        if (uid == null) {
+            Diag.warn(TAG, "Firewall $key: no uid for the rule")
+            return false
+        }
 
-        // A ROM whose connectivity command has no such verb, or has one that does not take,
-        // gets the same rule through the interface it is a front end for.
-        if (!applied) {
-            val uid = uidOf(context, packageName)
-            if (uid == null) {
-                Diag.warn(TAG, "Firewall $packageName: no uid for the rule")
-                return false
-            }
-            if (FirewallApi.setBlocked(uid, blocked)) {
-                // Read through the channel that wrote it: the command may be the half that does
-                // not work here, and its answer would discard a rule the platform did take.
-                val observed = FirewallApi.isBlocked(FirewallApi.blockedRule(uid))
-                applied = FirewallApi.writeApplied(
-                    wrote = true,
-                    requested = blocked,
-                    observed = observed
-                )
-                Diag.info(TAG, "Firewall $packageName via the interface: read=$observed")
-            } else {
-                Diag.warn(TAG, "Firewall $packageName: the interface refused the rule")
+        if (chain == FirewallApi.CHAIN && userId == UserHandleCompat.myUserId()) {
+            val value = if (blocked) "false" else "true"
+            // The command is tried first, but its exit code is not the answer: a ROM can accept
+            // the verb and leave the rule where it was. What it did is read, and the same rule is
+            // set through the interface behind the command when the answer is not the one asked
+            // for.
+            val commandWrote =
+                shellOk("cmd connectivity set-package-networking-enabled $value $packageName")
+            val commandRead = readNetworkBlocked(context, key)
+            val applied = FirewallApi.writeApplied(commandWrote, blocked, commandRead)
+            Diag.info(
+                TAG,
+                "Firewall $key: block=$blocked command=$commandWrote read=$commandRead"
+            )
+            if (applied) {
+                rememberFirewallBlocked(context, key, blocked)
+                return true
             }
         }
 
+        // A ROM whose connectivity command has no such verb, or has one that does not take, gets
+        // the same rule through the interface it is a front end for. Another user and the metered
+        // chain go straight there because the command has no way to name either.
+        if (!FirewallApi.setBlocked(uid, blocked, chain)) {
+            Diag.warn(TAG, "Firewall $key: the interface refused the rule")
+            return false
+        }
+        val observed = FirewallApi.isBlocked(FirewallApi.blockedRule(uid, chain))
+        val applied = FirewallApi.writeApplied(
+            wrote = true,
+            requested = blocked,
+            observed = observed
+        )
+        Diag.info(TAG, "Firewall $key via the interface: read=$observed")
+
         // Recorded only once the platform agreed, because this is what the Firewall list shows
         // and a list that says a package is blocked when it is not is worse than no list.
-        if (applied) rememberFirewallBlocked(context, packageName, blocked)
+        if (applied) rememberFirewallBlocked(context, key, blocked)
         return applied
     }
 
@@ -791,19 +878,27 @@ object PackageTools {
         // back rather than assumed to have survived. Everywhere else a failed read still counts
         // as blocked, because blocking it again would fail for the same reason.
         val canRead = FirewallChain.canReadRule()
-        val gone = toReapply(recorded, installedPackageNames()) { packageName ->
-            !canRead || readNetworkBlocked(context, packageName) != false
+        val gone = toReapply(recorded, installedFirewallKeys(context)) { key ->
+            !canRead || readNetworkBlocked(context, key) != false
         }
         return gone.count { setNetworkBlocked(context, it, true) }
     }
 
+    /** The firewall keys the device still has, including work profiles and clones. */
+    private fun installedFirewallKeys(context: Context): Set<String> =
+        InstalledPackages.allUsers(context, 0)
+            .mapNotNull { pi ->
+                pi.applicationInfo?.uid?.let { FirewallKey.fromUid(it, pi.packageName) }
+            }
+            .toSet()
+
     private fun rememberFirewallBlocked(
         context: Context,
-        packageName: String,
+        key: String,
         blocked: Boolean
     ) {
         val known = readFirewallBlocked(context).toMutableSet()
-        if (blocked) known.add(packageName) else known.remove(packageName)
+        if (blocked) known.add(key) else known.remove(key)
         ShizukuSettings.getPreferences().edit()
             .putStringSet(PREF_FIREWALL_BLOCKED, known)
             .apply()

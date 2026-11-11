@@ -22,6 +22,11 @@ class FirewallApiTest {
     }
 
     @Test
+    fun `the metered chain is the one the platform calls metered deny admin`() {
+        assertEquals(12, FirewallApi.CHAIN_METERED)
+    }
+
+    @Test
     fun `a rule is the deny or the allow the platform expects`() {
         assertEquals(1, FirewallApi.RULE_ALLOW)
         assertEquals(2, FirewallApi.RULE_DENY)

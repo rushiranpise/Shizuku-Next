@@ -1226,6 +1226,9 @@
     <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
          screen. The per-app list is unaffected either way, which is what the off state says. -->
     <string name="firewall_tile_label">Firewall</string>
+    <string name="firewall_mobile_only_on">Mobile data only</string>
+    <string name="firewall_mobile_only_off">All networks</string>
+    <string name="firewall_mobile_only_failed">Could not change the mobile data rule</string>
 
     <!-- The three answers every switch outside the app can give. Unknown is its own word: a
          state that could not be read is not the same thing as a feature that is off. -->

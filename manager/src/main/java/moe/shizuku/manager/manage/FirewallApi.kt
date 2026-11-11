@@ -1,5 +1,6 @@
 package moe.shizuku.manager.manage
 
+import android.os.Build
 import android.os.IBinder
 import moe.shizuku.manager.utils.Diag
 import rikka.shizuku.ShizukuBinderWrapper
@@ -35,6 +36,12 @@ object FirewallApi {
      * hidden class, so the value is pinned here and held to it by a test.
      */
     const val CHAIN = 9
+
+    /**
+     * `ConnectivityManager.FIREWALL_CHAIN_METERED_DENY_ADMIN`, the chain that drops traffic on
+     * metered networks. It is available from Android 13 and is what the mobile-only switch uses.
+     */
+    const val CHAIN_METERED = 12
 
     /** `ConnectivityManager.FIREWALL_RULE_ALLOW` and `FIREWALL_RULE_DENY`. */
     const val RULE_ALLOW = 1
@@ -101,32 +108,43 @@ object FirewallApi {
         true
     } == true
 
-    /** The rule set for [uid] on this chain, or null when the platform cannot be asked. */
-    fun blockedRule(uid: Int): Int? = withService { service ->
+    /** The rule set for [uid] on [chain], or null when the platform cannot be asked. */
+    fun blockedRule(uid: Int, chain: Int = CHAIN): Int? = withService { service ->
         service.javaClass
             .getMethod(
                 "getUidFirewallRule",
                 Int::class.javaPrimitiveType,
                 Int::class.javaPrimitiveType
             )
-            .invoke(service, CHAIN, uid) as Int
+            .invoke(service, chain, uid) as Int
     }
 
     /**
-     * Blocks or allows [uid] on this chain, answering whether the platform took the call.
+     * Blocks or allows [uid] on [chain], answering whether the platform took the call.
      *
      * The call is void, so the null `invoke` answers for it is not a refusal - see
-     * [setChainEnabled] for what reading it as one did.
+     * [setChainEnabled] for what reading it as one did. The metered chain has no per-uid setter
+     * before Android 15, so older releases use its deny-list call instead.
      */
-    fun setBlocked(uid: Int, blocked: Boolean): Boolean = withService { service ->
-        service.javaClass
-            .getMethod(
-                "setUidFirewallRule",
-                Int::class.javaPrimitiveType,
-                Int::class.javaPrimitiveType,
-                Int::class.javaPrimitiveType
-            )
-            .invoke(service, CHAIN, uid, ruleFor(blocked))
+    fun setBlocked(uid: Int, blocked: Boolean, chain: Int = CHAIN): Boolean = withService { service ->
+        if (chain == CHAIN_METERED && Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            service.javaClass
+                .getMethod(
+                    "updateMeteredNetworkDenyList",
+                    Int::class.javaPrimitiveType,
+                    Boolean::class.javaPrimitiveType
+                )
+                .invoke(service, uid, blocked)
+        } else {
+            service.javaClass
+                .getMethod(
+                    "setUidFirewallRule",
+                    Int::class.javaPrimitiveType,
+                    Int::class.javaPrimitiveType,
+                    Int::class.javaPrimitiveType
+                )
+                .invoke(service, chain, uid, ruleFor(blocked))
+        }
         true
     } == true
 
