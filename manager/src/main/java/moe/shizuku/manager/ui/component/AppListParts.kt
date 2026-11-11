@@ -69,8 +69,8 @@ fun appLabel(pm: PackageManager, pi: PackageInfo): String =
 /**
  * One filter, sized to its share of the row rather than to its label, with its label and how
  * many apps it holds centred together. A stock chip sizes to its text, which left the four
- * ragged on the left and hid the counts somewhere else entirely. A translated label that
- * needs more room wraps and grows the chip rather than being cut off.
+ * ragged on the left and hid the counts somewhere else entirely. A translated label or a wide
+ * font shrinks inside the chip rather than wrapping into a column of letters.
  */
 @Composable
 fun AppFilterChip(
@@ -111,15 +111,18 @@ fun AppFilterChip(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                label,
+            AutoSizeText(
+                text = label,
+                modifier = if (fill) Modifier.weight(1f) else Modifier,
                 style = MaterialTheme.typography.labelLarge,
                 textAlign = TextAlign.Center,
                 color = if (selected) {
                     MaterialTheme.colorScheme.onSecondaryContainer
                 } else {
                     MaterialTheme.colorScheme.onSurfaceVariant
-                }
+                },
+                maxLines = 1,
+                fillWidth = fill
             )
             // Only the filter in force carries its number: the four labels together read
             // as one row of names, and the count for the one you picked is the count you

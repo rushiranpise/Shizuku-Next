@@ -10,8 +10,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -240,7 +238,7 @@ private sealed interface BulkToggleState {
  */
 internal const val GateOffAlpha = 0.45f
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LabsToggleScreen(
     feature: AppToggleFeature,
@@ -736,15 +734,15 @@ fun LabsToggleScreen(
             }
         }
 
-        // Chips keep their own width and wrap as whole chips when a wide font makes the row
-        // too narrow. Squeezing the last one into the remains is what put one letter per line.
-        FlowRow(
+        // Every chip gets an equal slot and shrinks its label to fit. A wide font changes
+        // the text size, not the number of rows.
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .alpha(contentAlpha)
                 .padding(horizontal = 16.dp, vertical = 4.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+            verticalAlignment = Alignment.CenterVertically
         ) {
             // Not on a hiding list: everything on one is an app somebody installed, so there
             // is no second kind of app to tell it apart from.
@@ -757,6 +755,7 @@ fun LabsToggleScreen(
                     ManageFilter.HIDDEN -> launcherless.size
                 }
                 AppFilterChip(
+                    modifier = Modifier.weight(1f),
                     label = stringResource(
                         when (option) {
                             ManageFilter.ALL -> R.string.manage_filter_all
@@ -769,9 +768,6 @@ fun LabsToggleScreen(
                     count = count,
                     selected = kind == option,
                     enabled = gateOn,
-                    // Hugging its label rather than filling a slot: each chip keeps its
-                    // text whole when the row wraps.
-                    fill = false,
                     onClick = { kind = option }
                 )
             }

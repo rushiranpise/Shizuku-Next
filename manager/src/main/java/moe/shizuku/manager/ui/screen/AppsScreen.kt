@@ -10,8 +10,6 @@ import android.content.Intent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
@@ -124,11 +122,7 @@ enum class AppFilter {
     REVOKED
 }
 
-@OptIn(
-    ExperimentalMaterial3Api::class,
-    ExperimentalFoundationApi::class,
-    ExperimentalLayoutApi::class
-)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun AppsScreen(
     bottomPadding: Dp,
@@ -422,17 +416,16 @@ fun AppsScreen(
         // rounded shape and a quieter outline, so this reads as "search" at a glance
         // instead of as a box someone put a magnifier in.
         // Same two rows as the app-ops and Labs lists: what kind of app it is on one row,
-        // then Shizuku's own question on a row of its own. Each chip sizes to its label and
-        // count, and the row wraps whole chips onto another line when a wide font or a
-        // translation no longer fits.
+        // then Shizuku's own question on a row of its own. Every chip gets an equal slot and
+        // its label shrinks to fit, so a wide font never pushes the row onto a second line.
         // Filter first, search within it: the two answer different questions and the search
         // box alone cannot say "only what is granted".
-        FlowRow(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 4.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+            verticalAlignment = Alignment.CenterVertically
         ) {
             ManageFilter.entries.forEach { option ->
                 val count = when (option) {
@@ -443,6 +436,7 @@ fun AppsScreen(
                     ManageFilter.HIDDEN -> launcherless.size
                 }
                 AppFilterChip(
+                    modifier = Modifier.weight(1f),
                     label = stringResource(
                         when (option) {
                             ManageFilter.ALL -> R.string.manage_filter_all
@@ -454,7 +448,6 @@ fun AppsScreen(
                     ),
                     count = count,
                     selected = kind == option,
-                    fill = false,
                     onClick = { kind = option }
                 )
             }

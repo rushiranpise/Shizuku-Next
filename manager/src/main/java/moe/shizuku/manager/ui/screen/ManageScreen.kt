@@ -432,14 +432,14 @@ fun ManageScreen(
             }
         )
 
-        // Each chip keeps its own width. When a wide font no longer fits all five across,
-        // the whole last chip moves to the next line instead of collapsing to one letter.
-        FlowRow(
+        // Each chip gets an equal slot and shrinks its label to fit. A wide font changes the
+        // text size, not the number of rows.
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 4.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+            verticalAlignment = Alignment.CenterVertically
         ) {
             ManageFilter.entries.forEach { option ->
                 val count = when (option) {
@@ -450,6 +450,7 @@ fun ManageScreen(
                     ManageFilter.HIDDEN -> launcherless.size
                 }
                 AppFilterChip(
+                    modifier = Modifier.weight(1f),
                     label = stringResource(
                         when (option) {
                             ManageFilter.ALL -> R.string.manage_filter_all
@@ -461,7 +462,6 @@ fun ManageScreen(
                     ),
                     count = count,
                     selected = filter == option,
-                    fill = false,
                     onClick = { filter = option }
                 )
             }
