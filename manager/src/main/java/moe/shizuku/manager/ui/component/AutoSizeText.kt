@@ -5,16 +5,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 
@@ -22,8 +22,12 @@ import androidx.compose.ui.unit.sp
  * Text that shrinks to fit the width its parent gives it.
  *
  * The alternative is wrapping, which is what turns a one-word label into a column of
- * letters when the font is wide. The font size is found by measuring the text, not by
- * guessing from the font scale, so a custom system font is handled too.
+ * letters when the font is wide. The font size is reduced from the actual text layout
+ * feedback, not from a guess, so a custom system font and a large font scale are handled
+ * too. Existing line breaks are kept; only an extra line beyond [maxLines] shrinks it.
+ *
+ * [maxFontScale] caps how much a large system font can grow the label, so a fixed layout
+ * keeps the same number of lines instead of leaving each label at a different size.
  */
 @Composable
 fun AutoSizeText(
@@ -34,14 +38,21 @@ fun AutoSizeText(
     textAlign: TextAlign? = null,
     maxLines: Int = 1,
     minFontSize: TextUnit = 8.sp,
+    maxFontScale: Float = 1.2f,
     fillWidth: Boolean = true
 ) {
     BoxWithConstraints(modifier = modifier) {
         val density = LocalDensity.current
-        val measurer = rememberTextMeasurer()
         val widthPx = with(density) { maxWidth.toPx() }
-        val fittedSize = remember(text, style, maxLines, minFontSize, widthPx) {
-            fitFontSize(measurer, text, style, widthPx.toInt(), maxLines, minFontSize)
+        val fontScale = density.fontScale
+        val baseSize = if (style.fontSize != TextUnit.Unspecified) style.fontSize.value else 16f
+        val cappedBaseSize = if (fontScale > maxFontScale) {
+            baseSize * maxFontScale / fontScale
+        } else {
+            baseSize
+        }
+        var fittedSize by remember(text, style, maxLines, widthPx, maxFontScale, fontScale) {
+            mutableStateOf(cappedBaseSize.coerceAtLeast(minFontSize.value).sp)
         }
 
         Text(
@@ -52,48 +63,14 @@ fun AutoSizeText(
             textAlign = textAlign,
             maxLines = maxLines,
             softWrap = maxLines > 1,
-            overflow = TextOverflow.Clip
-        )
-    }
-}
-
-private fun fitFontSize(
-    measurer: androidx.compose.ui.text.TextMeasurer,
-    text: String,
-    style: TextStyle,
-    widthPx: Int,
-    maxLines: Int,
-    minFontSize: TextUnit
-): TextUnit {
-    val baseSize = if (style.fontSize != TextUnit.Unspecified) style.fontSize.value else 16f
-    if (widthPx <= 0 || baseSize <= 0f) return baseSize.sp
-
-    val floor = minFontSize.value.coerceAtMost(baseSize)
-    var low = floor
-    var high = baseSize
-    var best = floor
-
-    repeat(12) {
-        val size = (low + high) / 2f
-        val layout = measurer.measure(
-            text = AnnotatedString(text),
-            style = style.copy(fontSize = size.sp),
-            maxLines = if (maxLines == 1) 1 else Int.MAX_VALUE,
-            softWrap = maxLines > 1,
-            constraints = if (maxLines == 1) {
-                Constraints()
-            } else {
-                Constraints(maxWidth = widthPx)
+            overflow = TextOverflow.Clip,
+            onTextLayout = { layout ->
+                if (layout.hasVisualOverflow && fittedSize.value > minFontSize.value) {
+                    fittedSize = (fittedSize.value - 1f)
+                        .coerceAtLeast(minFontSize.value)
+                        .sp
+                }
             }
         )
-        val fits = layout.size.width <= widthPx && layout.lineCount <= maxLines
-        if (fits) {
-            best = size
-            low = size
-        } else {
-            high = size
-        }
     }
-
-    return best.sp
 }

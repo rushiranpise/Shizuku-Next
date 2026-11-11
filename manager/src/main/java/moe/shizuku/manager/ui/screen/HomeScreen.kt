@@ -1302,9 +1302,8 @@ private fun StatusFact(fact: StatusFactEntry, modifier: Modifier = Modifier) {
 /**
  * The three debugging switches, as three buttons under the server's own.
  *
- * Full names, one word to a line: three buttons that are otherwise a row of equals looked
- * unfinished when one wrapped and its neighbours did not, which is what happened on a wide
- * screen, where the longer two fit on a line and "USB debugging" was the only one broken.
+ * Two lines each, with the break after the first word. The label shrinks to keep those
+ * lines whole instead of adding a third line made of a stray "s" or the end of a word.
  */
 @Composable
 private fun DebuggingActionButtons(
@@ -1379,15 +1378,29 @@ private fun RowScope.DebuggingButton(
             null
         }
     ) {
-        ButtonIconLabel(
-            icon = icon,
-            // The break goes after the first word rather than into the string: a translation
-            // keeps its own words, and what is left wraps instead of being cut off.
-            label = label.replaceFirst(' ', '\n'),
-            // The second line starts under the first, as in the mock, rather than being
-            // centred under it.
-            textAlign = TextAlign.Start
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                icon,
+                contentDescription = null,
+                modifier = Modifier.size(18.dp)
+            )
+            Spacer(Modifier.width(6.dp))
+            AutoSizeText(
+                // The break goes after the first word rather than into the string: a
+                // translation keeps its own words, and the font shrinks only if one of
+                // those words still does not fit on its line.
+                text = label.replaceFirst(' ', '\n'),
+                modifier = Modifier.weight(1f),
+                // The second line starts under the first, as in the mock, rather than
+                // being centred under it.
+                textAlign = TextAlign.Start,
+                maxLines = 2
+            )
+        }
     }
 }
 
