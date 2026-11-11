@@ -921,7 +921,9 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
         if (code == ServerConstants.BINDER_TRANSACTION_getApplications) {
             data.enforceInterface(ShizukuApiConstants.BINDER_DESCRIPTOR);
             int userId = data.readInt();
-            ParcelableListSlice<ManagerAppEntry> result = getApplications(userId);
+            ParcelableListSlice<ManagerAppEntry> result = isManagerAppId(Binder.getCallingUid())
+                    ? getApplications(userId)
+                    : new ParcelableListSlice<>(new ArrayList<>());
             reply.writeNoException();
             result.writeToParcel(reply, android.os.Parcelable.PARCELABLE_WRITE_RETURN_VALUE);
             return true;
