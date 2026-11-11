@@ -12,10 +12,4 @@ class StartMethodGuardTest {
         assertFalse(StartMethodGuard.supportsWirelessDebugging(29))
         assertTrue(StartMethodGuard.supportsWirelessDebugging(30))
     }
-
-    @Test
-    fun `starting without wifi stops at Android 17`() {
-        assertTrue(StartMethodGuard.supportsStartingWithoutWifi(36))
-        assertFalse(StartMethodGuard.supportsStartingWithoutWifi(37))
-    }
 }

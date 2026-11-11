@@ -39,7 +39,7 @@ Get the latest build from [Releases](https://github.com/rushiranpise/Shizuku-Nex
 - Start through wireless debugging, USB debugging, root, or Samsung system UID where supported.
 - Automatically handles wireless-debugging pairing, including reading the pairing code on supported devices.
 - Optional start on boot, watchdog restarts, automatic recovery, and configurable restart timing.
-- TCP mode, USB-port recovery, and experimental startup without Wi-Fi.
+- TCP mode, USB-port recovery, and experimental startup without Wi-Fi on Android 11 to 16.
 - Optional mode to hide Developer options and ADB settings.
 - Clearer startup status, diagnostics, and failure logs.
 

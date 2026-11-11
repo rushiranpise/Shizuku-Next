@@ -744,7 +744,7 @@
     <string name="settings_wait_for_wifi_summary">Automatic Shizuku restarts wait for an unmetered Wi-Fi connection.</string>
     <string name="settings_unavailable_while_forcing_wireless">Unavailable while Start without Wi-Fi is on.</string>
     <string name="settings_force_wireless_debugging">Start without Wi-Fi (experimental)</string>
-    <string name="settings_force_wireless_debugging_summary">Tries to start Shizuku without Wi-Fi or USB debugging. This also turns off the Wi-Fi wait and automatic wireless debugging.</string>
+    <string name="settings_force_wireless_debugging_summary">Tries to start Shizuku without Wi-Fi or USB debugging. Supported on Android 11 to 16. This also turns off the Wi-Fi wait and automatic wireless debugging.</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
     <string name="settings_needs_write_secure_settings">Needs the WRITE_SECURE_SETTINGS permission. Start Shizuku once to grant it, then come back.</string>

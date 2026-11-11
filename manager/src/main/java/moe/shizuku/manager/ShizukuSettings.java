@@ -198,15 +198,6 @@ public class ShizukuSettings {
                 method = StartMethod.USB;
                 prefs.edit().putInt(Keys.KEY_START_METHOD, method).apply();
             }
-            // Android 17 refuses to keep adbd's wireless server running without a wireless
-            // network, which is the race the no-network start used. Move a stored choice back
-            // to ordinary wireless debugging rather than leave a default the settings screen
-            // no longer offers.
-            if (Build.VERSION.SDK_INT >= 37
-                    && method == StartMethod.WIRELESS_NO_NETWORK) {
-                method = StartMethod.WIRELESS;
-                prefs.edit().putInt(Keys.KEY_START_METHOD, method).apply();
-            }
             return method;
         }
 
@@ -228,9 +219,6 @@ public class ShizukuSettings {
     }
 
     public static void setStartMethod(@StartMethod int method) {
-        if (Build.VERSION.SDK_INT >= 37 && method == StartMethod.WIRELESS_NO_NETWORK) {
-            method = StartMethod.WIRELESS;
-        }
         getPreferences().edit().putInt(Keys.KEY_START_METHOD, method).apply();
     }
 
@@ -504,24 +492,10 @@ public class ShizukuSettings {
      * behaves as it did before.
      */
     public static boolean getForceWirelessDebugging() {
-        // Android 17 stopped wireless debugging from running without a wireless network, so the
-        // experiment behind this setting has nothing left to make work. Clear a value carried
-        // over from an older release rather than leave a hidden switch in effect.
-        if (Build.VERSION.SDK_INT >= 37) {
-            SharedPreferences prefs = getPreferences();
-            if (prefs.getBoolean(Keys.KEY_FORCE_WIRELESS_DEBUGGING, false)) {
-                prefs.edit().putBoolean(Keys.KEY_FORCE_WIRELESS_DEBUGGING, false).apply();
-            }
-            return false;
-        }
         return getPreferences().getBoolean(Keys.KEY_FORCE_WIRELESS_DEBUGGING, false);
     }
 
     public static void setForceWirelessDebugging(boolean enable) {
-        if (Build.VERSION.SDK_INT >= 37) {
-            getPreferences().edit().putBoolean(Keys.KEY_FORCE_WIRELESS_DEBUGGING, false).apply();
-            return;
-        }
         getPreferences().edit().putBoolean(Keys.KEY_FORCE_WIRELESS_DEBUGGING, enable).apply();
     }
 

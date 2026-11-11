@@ -46,11 +46,8 @@ sealed interface StartStatus {
  * invisible in the app. Both the starter and the worker report here and the home
  * screen shows the reason (and a fix action where one exists).
  */
-/** The no-port message, without recommending a method Android 17 no longer offers. */
-fun Context.usbStartNoPortMessage(): String = getString(
-    if (EnvironmentUtils.isAdbWifiOverhauled()) R.string.start_failed_usb_no_port_no_option
-    else R.string.start_failed_usb_no_port
-)
+/** The message shown when a USB start finds no classic ADB port. */
+fun Context.usbStartNoPortMessage(): String = getString(R.string.start_failed_usb_no_port)
 
 /** Display name of a start method, shared by the home and settings screens. */
 @StringRes

@@ -186,13 +186,9 @@ fun SettingsScreen(
     // Wireless debugging starts at Android 11. On older devices the wireless methods and the
     // rows that only exist to manage wireless debugging are not offered at all.
     val wirelessSupported = remember { StartMethodGuard.supportsWirelessDebugging() }
-    // Android 17 stopped wireless debugging from running without a wireless network, so the
-    // no-network start and the experiment behind it are not offered there at all.
-    val startWithoutWifiSupported = remember { StartMethodGuard.supportsStartingWithoutWifi() }
     var waitForWifi by remember { mutableStateOf(ShizukuSettings.getWaitForWifi()) }
     var forceWireless by remember { mutableStateOf(ShizukuSettings.getForceWirelessDebugging()) }
-    val forceWirelessActive =
-        wirelessSupported && startWithoutWifiSupported && forceWireless
+    val forceWirelessActive = wirelessSupported && forceWireless
     var persistAdbPort by remember { mutableStateOf(ShizukuSettings.getPersistAdbPort()) }
     var tcpMode by remember { mutableStateOf(ShizukuSettings.getTcpMode()) }
     var tcpPort by remember { mutableStateOf(ShizukuSettings.getTcpPort().toString()) }
@@ -610,7 +606,7 @@ fun SettingsScreen(
                                 }
                         )
                     }
-                    if (wirelessSupported && startWithoutWifiSupported) {
+                    if (wirelessSupported) {
                     item {
                         // The experiment is a write to the settings provider, and a fresh
                         // install has no WRITE_SECURE_SETTINGS to make it with: switching it
@@ -1496,7 +1492,7 @@ fun SettingsScreen(
                 // wireless start with that fight switched on. Turning the experiment off takes
                 // the default back to wireless debugging, so this cannot be chosen and then
                 // left meaning something else.
-                if (wirelessSupported && forceWireless && startWithoutWifiSupported) {
+                if (wirelessSupported && forceWireless) {
                     add(
                         ShizukuSettings.StartMethod.WIRELESS_NO_NETWORK.toString() to
                             stringResource(R.string.start_method_wireless_no_network)

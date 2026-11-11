@@ -97,10 +97,9 @@ fun PermissionsScreen(onBack: () -> Unit) {
     }
     // Android 16 reports the hotspot through the nearby-devices row; Android 13 to 15 have no
     // local-network permission and Android 17 separates the two. The hotspot exists for the
-    // no-network start, so on Android 17, where that start is gone, the row goes with it.
+    // no-network start, which stays available on every version.
     val hotspotPermission = localHotspotPermission()
         ?.takeIf { it != localNetworkPermission() }
-        ?.takeIf { StartMethodGuard.supportsStartingWithoutWifi() }
     var hotspot by remember {
         mutableStateOf(hotspotPermission?.let { context.hasPermission(it) } ?: true)
     }
