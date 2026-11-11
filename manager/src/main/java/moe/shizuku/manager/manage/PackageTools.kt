@@ -163,7 +163,13 @@ data class AppDetail(
      * Whether the platform is dropping this app's traffic. Null when nothing could be asked:
      * the chain is Android 11 and up, and the answer needs a running server.
      */
-    val networkBlocked: Boolean?
+    val networkBlocked: Boolean?,
+
+    /**
+     * Whether this app follows the user's rotation even when it asks for landscape. Null on a
+     * platform without the compat change, or when there is no shell to read it.
+     */
+    val rotationOverridden: Boolean?
 )
 
 /**
@@ -283,7 +289,12 @@ object PackageTools {
             ops = if (running) readOps(context, packageName) else emptyList(),
             bucket = if (running) readBucket(context, packageName) else null,
             batteryUnrestricted = running && isBatteryUnrestricted(context, packageName),
-            networkBlocked = if (running) readNetworkBlockedForDisplay(context, packageName) else null
+            networkBlocked = if (running) readNetworkBlockedForDisplay(context, packageName) else null,
+            rotationOverridden = if (running && RotationOverride.isSupported()) {
+                RotationOverride.isEnabled(packageName)
+            } else {
+                null
+            }
         )
     }
 

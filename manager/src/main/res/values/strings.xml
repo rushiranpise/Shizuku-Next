@@ -1123,6 +1123,10 @@
     <string name="app_section_permissions">System permissions</string>
     <string name="app_section_runtime">Runtime permissions</string>
     <string name="app_section_ops">App ops</string>
+    <string name="app_section_rotation">Rotation</string>
+    <string name="app_rotation_override">Allow rotation</string>
+    <string name="app_rotation_override_note">Follow the system rotation even when this app asks to stay in landscape. Changing this closes the app.</string>
+    <string name="app_rotation_changed">Rotation changed</string>
     <string name="app_section_actions">Actions</string>
     <string name="app_section_battery">Battery</string>
     <string name="app_section_info">Info</string>

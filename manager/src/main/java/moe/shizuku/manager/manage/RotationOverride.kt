@@ -33,10 +33,11 @@ object RotationOverride {
 
         val verb = if (enabled) "enable" else "disable"
         runShellCommand("am compat $verb $CHANGE $packageName")
-        return readEnabled(packageName) == enabled
+        return isEnabled(packageName) == enabled
     }
 
-    private fun readEnabled(packageName: String): Boolean? {
+    /** Whether [packageName] holds the override, or null when there is no shell to ask. */
+    fun isEnabled(packageName: String): Boolean? {
         val dump = runShellCommand("dumpsys platform_compat") ?: return null
         return packageName in parse(dump)
     }

@@ -70,6 +70,7 @@ import moe.shizuku.manager.manage.AppOp
 import moe.shizuku.manager.manage.AppPermission
 import moe.shizuku.manager.manage.OpMode
 import moe.shizuku.manager.manage.PackageTools
+import moe.shizuku.manager.manage.RotationOverride
 import moe.shizuku.manager.manage.PermissionKind
 import moe.shizuku.manager.manage.StandbyBucket
 import moe.shizuku.manager.ui.component.AppIcon
@@ -436,6 +437,45 @@ fun AppDetailScreen(
                                         centerSlots = true
                                     )
                                 }
+                            }
+                        }
+                    }
+                }
+
+                // ---- rotation ---------------------------------------------------------
+                // A compat change rather than an app op, so it has a section of its own. Null
+                // while Shizuku is down or on a platform without the change, and the whole
+                // section stays away rather than offering a switch that cannot work.
+                if (app.rotationOverridden != null) {
+                    item { SectionHeader(R.string.app_section_rotation) }
+                    item {
+                        SegmentedColumn {
+                            item {
+                                SegmentedListItem(
+                                    focusableOnTelevision = false,
+                                    headlineContent = {
+                                        Text(stringResource(R.string.app_rotation_override))
+                                    },
+                                    supportingContent = {
+                                        Text(stringResource(R.string.app_rotation_override_note))
+                                    },
+                                    trailingContent = {
+                                        ExpressiveSwitch(
+                                            focusableWhenDisabled = true,
+                                            checked = app.rotationOverridden == true,
+                                            enabled = running && !busy,
+                                            onCheckedChange = { checked ->
+                                                runAction(R.string.app_rotation_changed) {
+                                                    RotationOverride.setEnabled(
+                                                        packageName,
+                                                        checked
+                                                    )
+                                                }
+                                            }
+                                        )
+                                    },
+                                    centerSlots = true
+                                )
                             }
                         }
                     }
