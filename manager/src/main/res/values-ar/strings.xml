@@ -178,7 +178,6 @@
     <string name="labs_blocked_count">تم حظر %1$d</string>
     <string name="labs_blocked_empty">لا شيء محظور.</string>
     <string name="labs_bulk_apply">تطبيق</string>
-    <string name="labs_bulk_done"></string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">إخفاء</string>
     <string name="tab_hide_developer_options">إخفاء خيارات المطور</string>
@@ -1092,7 +1091,6 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="manage_bulk_mode">الوضع</string>
     <string name="manage_bulk_review">مراجعة</string>
     <string name="manage_bulk_apply">تطبيق</string>
-    <string name="manage_bulk_done_action"></string>
     <!-- One app, and what it may do on the device -->
     <string name="app_open_info">معلومات التطبيق</string>
     <string name="app_section_battery"></string>

@@ -13,7 +13,6 @@
     <string name="home_wireless_adb_title"><![CDATA[Mulai melalui Debug Nirkabel]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Memulai tanpa jaringan: perangkat diminta mengaktifkan debugging nirkabel berulang kali hingga fitur tersebut menyala stabil. Proses ini bisa memakan waktu hingga dua menit sebelum dimulai atau berhenti mencoba.</string>
     <string name="home_usb_adb_needs_network">Menjalankan lewat USB menggunakan port ADB klasik, dan membukanya kembali membutuhkan jaringan. Hubungkan ke Wi-Fi sekali, atau pilih <b>Mulai tanpa Wi-Fi</b> sebagai metode mulai lalu jalankan lewat debugging nirkabel.</string>
-    <string name="home_usb_adb_needs_network_no_option"></string>
     <string name="home_usb_adb_needs_computer">A USB start needs the classic ADB port. On this Android version, connect to a computer and start Shizuku with the ADB command in Other methods.</string>
     <string name="home_wireless_adb_summary">Mulai menggunakan debugging nirkabel.</string>
     <string name="home_usb_adb_title"><![CDATA[Mulai lewat debugging USB]]></string>
