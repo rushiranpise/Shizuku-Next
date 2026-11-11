@@ -17,7 +17,21 @@ import com.topjohnwu.superuser.Shell
 
 private val appContext = ShizukuApplication.appContext
 
+private const val DEVELOPMENT_SETTINGS_ENABLED = "development_settings_enabled"
+private const val ADB_WIFI_ENABLED = "adb_wifi_enabled"
+
 object EnvironmentUtils {
+
+    /**
+     * The two debug switches Android 17 redacts to 0 for third-party apps.
+     *
+     * A read of 0 there no longer means off, and neither does a read after this app has written
+     * the switch on. The other debugging switch, wireless debugging, is not redacted.
+     */
+    private val REDACTED_DEBUG_SETTINGS = setOf(
+        Settings.Global.ADB_ENABLED,
+        DEVELOPMENT_SETTINGS_ENABLED
+    )
 
     @JvmStatic
     fun isWatch(): Boolean {
@@ -108,6 +122,16 @@ object EnvironmentUtils {
         Settings.Global.getInt(appContext.contentResolver, Settings.Global.BOOT_COUNT, -1)
 
     /**
+     * Whether the platform's Developer options switch is on.
+     *
+     * This is the platform setting, not whether this app makes the screen reachable: the
+     * context helper `isDeveloperOptionsEnabled` answers that, including this app's own hiding
+     * setting. Android 17 redacts the raw value, so it reads as on there.
+     */
+    fun isDeveloperOptionsSwitchOn(): Boolean =
+        isDebugSwitchOn(DEVELOPMENT_SETTINGS_ENABLED)
+
+    /**
      * Whether USB debugging is on.
      *
      * Android 17 (SDK 37) redacts `Settings.Global.ADB_ENABLED` to 0 for third-party apps,
@@ -116,12 +140,7 @@ object EnvironmentUtils {
      * path refuse to run at all. On that platform the setting says nothing and the
      * toggle is assumed on, which is what the redaction is asking apps to do.
      */
-    fun isAdbEnabled(): Boolean {
-        if (Settings.Global.getInt(appContext.contentResolver, Settings.Global.ADB_ENABLED, 0) > 0) {
-            return true
-        }
-        return Build.VERSION.SDK_INT >= 37
-    }
+    fun isAdbEnabled(): Boolean = isDebugSwitchOn(Settings.Global.ADB_ENABLED)
 
     fun isUsbDebuggingEnabled(): Boolean = isAdbEnabled()
 
@@ -133,9 +152,30 @@ object EnvironmentUtils {
      * no API for reading it back. Zero is "not on", which is also what a phone that has never
      * touched the setting reports.
      */
-    fun isWirelessDebuggingEnabled(): Boolean = runCatching {
-        Settings.Global.getInt(appContext.contentResolver, "adb_wifi_enabled", 0) == 1
-    }.getOrDefault(false)
+    fun isWirelessDebuggingEnabled(): Boolean = isDebugSwitchOn(ADB_WIFI_ENABLED)
+
+    /**
+     * How a platform debugging switch reads when the raw setting is [rawOn].
+     *
+     * Android 17 redacts two of the three settings to 0, so on that platform a 0 means the value
+     * cannot be read rather than off. Those two read as on, which is the answer the redaction
+     * leaves available. Everything else keeps the raw value.
+     */
+    internal fun platformDebugSwitchOn(key: String, rawOn: Boolean, sdkInt: Int): Boolean =
+        rawOn || (sdkInt >= 37 && key in REDACTED_DEBUG_SETTINGS)
+
+    /** Whether [key] is one of the settings Android 17 redacts on this platform. */
+    internal fun isDebugSwitchReadRedacted(
+        key: String,
+        sdkInt: Int = Build.VERSION.SDK_INT
+    ): Boolean = sdkInt >= 37 && key in REDACTED_DEBUG_SETTINGS
+
+    private fun isDebugSwitchOn(key: String): Boolean {
+        val raw = runCatching {
+            Settings.Global.getInt(appContext.contentResolver, key, 0) != 0
+        }.getOrDefault(false)
+        return platformDebugSwitchOn(key, raw, Build.VERSION.SDK_INT)
+    }
 
     /**
      * Whether this platform will not run wireless debugging without a wireless network.

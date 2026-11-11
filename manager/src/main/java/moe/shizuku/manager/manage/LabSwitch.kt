@@ -23,12 +23,15 @@ import androidx.compose.material.icons.outlined.VpnKey
 import androidx.compose.material.icons.outlined.Wifi
 import androidx.compose.material.icons.outlined.WifiOff
 import androidx.compose.ui.graphics.vector.ImageVector
+import moe.shizuku.manager.AppConstants
 import moe.shizuku.manager.R
 import moe.shizuku.manager.ShizukuApplication
 import moe.shizuku.manager.ShizukuSettings
 import moe.shizuku.manager.receiver.ShizukuReceiverStarter
 import moe.shizuku.manager.service.HidingWatchService
 import moe.shizuku.manager.start.stopShizuku
+import moe.shizuku.manager.utils.Diag
+import moe.shizuku.manager.utils.EnvironmentUtils
 import moe.shizuku.manager.utils.ShizukuStateMachine
 import moe.shizuku.manager.utils.runShellCommand
 import rikka.shizuku.Shizuku
@@ -47,9 +50,10 @@ import rikka.shizuku.Shizuku
  * tile and a widget need. That is deliberate: a switch outside the app must do exactly what the
  * switch inside it does, and the way to make that true is to have one implementation.
  *
- * Nothing here remembers a state. Every read asks the thing that owns it: the platform for the
- * chain, this app's settings for the gates, the server for whether it is running. Anything else
- * would describe the last tap rather than the phone.
+ * Nothing here remembers a state, with one exception: a write to a setting Android 17 redacts is
+ * the only evidence there is, so that write is kept for this process. Every other read asks the
+ * thing that owns it: the platform for the chain, this app's settings for the gates, the server
+ * for whether it is running. Anything else would describe the last tap rather than the phone.
  */
 enum class LabSwitch(
     @StringRes val label: Int,
@@ -102,6 +106,16 @@ enum class LabSwitch(
 
     WATCHDOG(R.string.lab_switch_watchdog, Icons.Outlined.MonitorHeart);
 
+    /**
+     * The last write this process made to a redacted setting, or null before one.
+     *
+     * Android 17 will not read the two debug settings back, so the write is the only evidence
+     * there is. Keeping it makes the home buttons, tiles and widgets agree until the process ends;
+     * a new process starts from the redacted read again.
+     */
+    @Volatile
+    private var redactedWrite: Boolean? = null
+
     /** The one hiding setting this switch is, or null for every other kind of switch. */
     private val signal: Signal?
         get() = when (this) {
@@ -140,8 +154,16 @@ enum class LabSwitch(
 
         WATCHDOG -> ShizukuSettings.getWatchdog()
 
-        // The platform's own setting. Read without the server: the value is in the settings
-        // provider, which is readable by any app.
+        // The platform's own settings. Read through EnvironmentUtils for the two Android 17
+        // redacts; their raw value would read as off. Wireless debugging is not redacted.
+        DEVELOPER_OPTIONS -> readPlatformSwitch(
+            EnvironmentUtils.isDeveloperOptionsSwitchOn()
+        )
+        USB_DEBUGGING -> readPlatformSwitch(EnvironmentUtils.isUsbDebuggingEnabled())
+        WIRELESS_DEBUGGING -> readPlatformSwitch(
+            EnvironmentUtils.isWirelessDebuggingEnabled()
+        )
+
         else -> signal?.let { Hiding.isSignalEnabled(it) } ?: settingKey?.let { readGlobal(it) }
     }
 
@@ -196,8 +218,24 @@ enum class LabSwitch(
                     on
                 }
 
-                else -> settingKey?.let { writeGlobal(context, it, on) }
+                else -> settingKey?.let { key ->
+                    val result = writeGlobal(context, key, on)
+                    if (EnvironmentUtils.isDebugSwitchReadRedacted(key)) {
+                        redactedWrite = result
+                    }
+                    result
+                }
             }
+        }
+    }
+
+    /** Uses this process's last redacted write, if there is one, instead of the assumed read. */
+    private fun readPlatformSwitch(read: Boolean): Boolean {
+        val key = settingKey
+        return if (key != null && EnvironmentUtils.isDebugSwitchReadRedacted(key)) {
+            redactedWrite ?: read
+        } else {
+            read
         }
     }
 
@@ -215,13 +253,30 @@ enum class LabSwitch(
      * which is the point of a switch that turns debugging off. A phone that has never run the
      * server has no such grant, so the shell is tried as the fallback - and that one does need a
      * server.
+     *
+     * Android 17 redacts the two debug switches to 0, so no read on that platform can confirm an
+     * on write. There a direct write that did not throw is the answer; the shell fallback cannot
+     * be checked, so it is not used for those two.
      */
     private fun writeGlobal(context: Context, key: String, on: Boolean): Boolean? {
         val value = if (on) 1 else 0
+        val direct = runCatching {
+            Settings.Global.putInt(context.contentResolver, key, value)
+        }.isSuccess
 
-        runCatching { Settings.Global.putInt(context.contentResolver, key, value) }
+        if (EnvironmentUtils.isDebugSwitchReadRedacted(key)) return if (direct) on else null
+
         if (readGlobal(key) == on) return on
 
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Diag.warn(
+                AppConstants.TAG,
+                "Could not write the $key setting, and the shell fallback cannot run on the main thread"
+            )
+            return null
+        }
+
+        // The same fallback the Labs switches use: the server is shell, and shell writes these.
         runShellCommand("settings put global $key $value")
         return if (readGlobal(key) == on) on else null
     }

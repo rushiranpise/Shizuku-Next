@@ -166,13 +166,15 @@ fun HomeScreen(bottomPadding: Dp) {
     // has no wireless debugging toggle or TLS port to reach.
     val wirelessSupported = remember { StartMethodGuard.supportsWirelessDebugging() }
     var developerOptionsOn by remember { mutableStateOf(context.isDeveloperOptionsEnabled()) }
-    // The three platform switches, as they are set now. Read raw rather than through
-    // isDeveloperOptionsEnabled(): that answers whether ADB needs developer options at all, and on
-    // 17 it answers yes whatever the setting says. Read again on resume and after every tap, so
-    // the buttons show the platform's answer rather than the last thing this screen asked for.
-    var devOptions by remember { mutableStateOf(readGlobalSwitch(context, "development_settings_enabled")) }
-    var usbDebugging by remember { mutableStateOf(readGlobalSwitch(context, "adb_enabled")) }
-    var wirelessDebugging by remember { mutableStateOf(readGlobalSwitch(context, "adb_wifi_enabled")) }
+    // The three platform switches, read through the same objects the tiles and widgets use.
+    // Android 17 redacts two of them to 0, and those objects treat the redaction as on. Read again
+    // on resume and after every tap, so the buttons show the platform's answer rather than the last
+    // thing this screen asked for.
+    var devOptions by remember { mutableStateOf(LabSwitch.DEVELOPER_OPTIONS.isOn() ?: false) }
+    var usbDebugging by remember { mutableStateOf(LabSwitch.USB_DEBUGGING.isOn() ?: false) }
+    var wirelessDebugging by remember {
+        mutableStateOf(LabSwitch.WIRELESS_DEBUGGING.isOn() ?: false)
+    }
     var hidingActive by remember { mutableStateOf(false) }
     // Saved, so the section somebody opened is still open after a rotation.
     var otherMethodsOpen by rememberSaveable { mutableStateOf(false) }
@@ -272,6 +274,9 @@ fun HomeScreen(bottomPadding: Dp) {
         running = ShizukuStateMachine.isRunning()
         batteryIgnored = SettingsHelper.isIgnoringBatteryOptimizations(context)
         developerOptionsOn = context.isDeveloperOptionsEnabled()
+        devOptions = LabSwitch.DEVELOPER_OPTIONS.isOn() ?: false
+        usbDebugging = LabSwitch.USB_DEBUGGING.isOn() ?: false
+        wirelessDebugging = LabSwitch.WIRELESS_DEBUGGING.isOn() ?: false
         // Not the watch being up, which is a different question with two other answers: it is up
         // for force dark as well, and up for a list that a mode has been switched off around.
         // Only hiding that is armed and live makes the warning under it true.
@@ -354,11 +359,6 @@ fun HomeScreen(bottomPadding: Dp) {
         // Asked again every time the screen comes back: what clears this is the platform reading
         // the declaration, or a reboot, and a warning that outlives its cause is one nobody reads.
         permissionOwner = readPermissionOwnership(context)
-
-        // The three switches can be changed from Settings while this screen was away.
-        devOptions = readGlobalSwitch(context, "development_settings_enabled")
-        usbDebugging = readGlobalSwitch(context, "adb_enabled")
-        wirelessDebugging = readGlobalSwitch(context, "adb_wifi_enabled")
     }
 
     LaunchedEffect(Unit) {
@@ -1311,11 +1311,6 @@ private fun StatusFact(fact: StatusFactEntry, modifier: Modifier = Modifier) {
 }
 
 /** Restart's blue see the note where it is used. */
-/** A platform setting read as on or off; anything unreadable counts as off. */
-private fun readGlobalSwitch(context: Context, key: String): Boolean = runCatching {
-    android.provider.Settings.Global.getInt(context.contentResolver, key, 0) != 0
-}.getOrDefault(false)
-
 /**
  * The three debugging switches, as three buttons under the server's own.
  *
