@@ -20,10 +20,12 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -63,6 +65,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.draw.rotate
 import androidx.compose.material3.LocalContentColor
@@ -88,6 +91,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -102,6 +106,7 @@ import moe.shizuku.manager.Helps
 import moe.shizuku.manager.Manifest
 import moe.shizuku.manager.R
 import moe.shizuku.manager.ShizukuSettings
+import moe.shizuku.manager.adb.AdbRoot
 import moe.shizuku.manager.home.showAccessibilityDialog
 import moe.shizuku.manager.manage.Hiding
 import moe.shizuku.manager.manage.LabSwitch
@@ -175,6 +180,11 @@ fun HomeScreen(bottomPadding: Dp) {
     var wirelessDebugging by remember {
         mutableStateOf(LabSwitch.WIRELESS_DEBUGGING.isOn() ?: false)
     }
+    // adbd's own root state, read over an ADB connection rather than remembered. Null means it
+    // could not be read (or neither ADB toggle is on), which is drawn as an unlit button.
+    var adbRoot by remember { mutableStateOf<Boolean?>(null) }
+    var adbRootBusy by remember { mutableStateOf(false) }
+    val adbRootAvailable = usbDebugging || (wirelessSupported && wirelessDebugging)
     var hidingActive by remember { mutableStateOf(false) }
     // Saved, so the section somebody opened is still open after a rotation.
     var otherMethodsOpen by rememberSaveable { mutableStateOf(false) }
@@ -215,6 +225,76 @@ fun HomeScreen(bottomPadding: Dp) {
             show(now ?: false)
             switch.announce(context, now)
         }
+    }
+
+    /**
+     * Reads adbd's root state for the button.
+     *
+     * Nothing is asked when neither ADB toggle is on: there is no daemon the button could
+     * switch, and the button says so by being unavailable. The read itself is a local ADB
+     * connection and a one-line shell command, not the `adb` binary.
+     */
+    fun refreshAdbRoot(force: Boolean = false) {
+        if (!adbRootAvailable) {
+            adbRoot = null
+            return
+        }
+        scope.launch { adbRoot = AdbRoot.peek(force)?.let { it == AdbRoot.State.ROOT } }
+    }
+
+    /**
+     * Asks adbd to switch between root and shell, then shows what it came back as.
+     *
+     * The request restarts adbd, so the outcome is read after the restart rather than being
+     * assumed from the tap.
+     */
+    fun toggleAdbRoot() {
+        if (!adbRootAvailable || adbRootBusy) return
+        val root = adbRoot != true
+        adbRootBusy = true
+        scope.launch {
+            val result = withContext(Dispatchers.IO) { AdbRoot.setRoot(context, root) }
+            adbRootBusy = false
+            when (result) {
+                is AdbRoot.Result.Already -> {
+                    adbRoot = result.state == AdbRoot.State.ROOT
+                    Toast.makeText(
+                        context,
+                        if (root) R.string.adb_root_already_root else R.string.adb_root_already_shell,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is AdbRoot.Result.Changed -> {
+                    adbRoot = result.state == AdbRoot.State.ROOT
+                    Toast.makeText(
+                        context,
+                        if (root) R.string.adb_root_restarting_root
+                        else R.string.adb_root_restarting_shell,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                AdbRoot.Result.NoAdb -> {
+                    adbRoot = null
+                    Toast.makeText(context, R.string.adb_root_no_adb, Toast.LENGTH_SHORT).show()
+                }
+                is AdbRoot.Result.Failed -> {
+                    // A failure to confirm is not proof that nothing happened, so the button is
+                    // read once more rather than left describing the last tap.
+                    adbRoot = AdbRoot.peek(force = true)?.let { it == AdbRoot.State.ROOT }
+                    Toast.makeText(
+                        context,
+                        result.message ?: context.getString(R.string.adb_root_failed),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+    // Asked when a toggle changes, which includes the first composition. On resume the same
+    // question is asked again in case a computer changed adbd in the meantime.
+    LaunchedEffect(usbDebugging, wirelessDebugging, wirelessSupported) {
+        refreshAdbRoot()
     }
 
     // Two runtime permissions stand between a start and its first network operation: Android 16+
@@ -355,6 +435,7 @@ fun HomeScreen(bottomPadding: Dp) {
 
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
         scope.launch { refresh() }
+        refreshAdbRoot(force = true)
 
         // Asked again every time the screen comes back: what clears this is the platform reading
         // the declaration, or a reboot, and a warning that outlives its cause is one nobody reads.
@@ -715,12 +796,15 @@ fun HomeScreen(bottomPadding: Dp) {
                     devOptions = devOptions,
                     usbDebugging = usbDebugging,
                     wirelessDebugging = wirelessDebugging,
+                    adbRoot = adbRoot == true,
+                    adbRootEnabled = adbRootAvailable && !adbRootBusy,
                     onDevOptions = { toggleSwitch(LabSwitch.DEVELOPER_OPTIONS) { devOptions = it } },
                     onUsbDebugging = { toggleSwitch(LabSwitch.USB_DEBUGGING) { usbDebugging = it } },
                     wirelessSupported = wirelessSupported,
                     onWirelessDebugging = {
                         toggleSwitch(LabSwitch.WIRELESS_DEBUGGING) { wirelessDebugging = it }
-                    }
+                    },
+                    onAdbRoot = { toggleAdbRoot() }
                 )
             }
             item {
@@ -1312,66 +1396,95 @@ private fun StatusFact(fact: StatusFactEntry, modifier: Modifier = Modifier) {
 
 /** Restart's blue see the note where it is used. */
 /**
- * The three debugging switches, as three buttons under the server's own.
+ * The debugging switches, as buttons under the server's own.
  *
- * Full names, one word to a line: three buttons that are otherwise a row of equals looked
- * unfinished when one wrapped and its neighbours did not, which is what happened on a wide
- * screen, where the longer two fit on a line and "USB debugging" was the only one broken.
+ * Full names, one word to a line: buttons that are otherwise a row of equals looked unfinished
+ * when one wrapped and its neighbours did not, which is what happened on a wide screen, where
+ * the longer two fit on a line and "USB debugging" was the only one broken.
+ *
+ * The ADB root button joins them when ADB is on. Four of these do not fit side by side on a
+ * phone, so on a narrow screen they become a grid of two rather than a row of clipped labels.
  */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun DebuggingActionButtons(
     devOptions: Boolean,
     usbDebugging: Boolean,
     wirelessDebugging: Boolean,
+    adbRoot: Boolean,
+    adbRootEnabled: Boolean,
     wirelessSupported: Boolean,
     onDevOptions: () -> Unit,
     onUsbDebugging: () -> Unit,
-    onWirelessDebugging: () -> Unit
+    onWirelessDebugging: () -> Unit,
+    onAdbRoot: () -> Unit
 ) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        DebuggingButton(
-            icon = Icons.Rounded.Code,
-            label = stringResource(R.string.home_switch_dev_options),
-            on = devOptions,
-            onClick = onDevOptions
-        )
-        DebuggingButton(
-            icon = Icons.Rounded.Usb,
-            label = stringResource(R.string.home_switch_usb),
-            on = usbDebugging,
-            onClick = onUsbDebugging
-        )
-        if (wirelessSupported) {
+    BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+        val count = if (wirelessSupported) 4 else 3
+        val columns = if (count > 3 && maxWidth < 400.dp) 2 else count
+        val buttonWidth = (maxWidth - 8.dp * (columns - 1)) / columns
+
+        FlowRow(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            maxItemsInEachRow = columns
+        ) {
             DebuggingButton(
-                icon = Icons.Rounded.Wifi,
-                label = stringResource(R.string.home_switch_wireless),
-                on = wirelessDebugging,
-                onClick = onWirelessDebugging
+                modifier = Modifier.width(buttonWidth),
+                icon = Icons.Rounded.Code,
+                label = stringResource(R.string.home_switch_dev_options),
+                on = devOptions,
+                onClick = onDevOptions
+            )
+            DebuggingButton(
+                modifier = Modifier.width(buttonWidth),
+                icon = Icons.Rounded.Usb,
+                label = stringResource(R.string.home_switch_usb),
+                on = usbDebugging,
+                onClick = onUsbDebugging
+            )
+            if (wirelessSupported) {
+                DebuggingButton(
+                    modifier = Modifier.width(buttonWidth),
+                    icon = Icons.Rounded.Wifi,
+                    label = stringResource(R.string.home_switch_wireless),
+                    on = wirelessDebugging,
+                    onClick = onWirelessDebugging
+                )
+            }
+            DebuggingButton(
+                modifier = Modifier.width(buttonWidth),
+                // The hash a root shell's prompt uses, the same mark the root start card has.
+                icon = Icons.Rounded.Numbers,
+                label = stringResource(R.string.home_switch_adb_root),
+                on = adbRoot,
+                enabled = adbRootEnabled,
+                onClick = onAdbRoot
             )
         }
     }
 }
 
 @Composable
-private fun RowScope.DebuggingButton(
+private fun DebuggingButton(
+    modifier: Modifier = Modifier,
     icon: ImageVector,
     label: String,
     on: Boolean,
+    enabled: Boolean = true,
     onClick: () -> Unit
 ) {
     Button(
         // The height a two-line label needs; a longer translation grows the button instead
         // of being cut off.
-        modifier = Modifier
-            .weight(1f)
-            .heightIn(min = 64.dp),
+        modifier = modifier.heightIn(min = 64.dp),
         onClick = onClick,
+        enabled = enabled,
         shape = RoundedCornerShape(24.dp),
-        contentPadding = PaddingValues(horizontal = 6.dp, vertical = 6.dp),
+        // Tighter than the server's buttons: four of these share a row, and the label beside
+        // the icon is what was overflowing by a few characters.
+        contentPadding = PaddingValues(horizontal = 4.dp, vertical = 6.dp),
         // The theme's own roles rather than a fixed blue: with dynamic colour on, "on" is the
         // wallpaper's accent, and with it off it is the brand seed - the same pair the rest of the
         // screen is drawn in. Restart keeps its blue on purpose, because it is an action and not a
@@ -1392,13 +1505,23 @@ private fun RowScope.DebuggingButton(
         }
     ) {
         ButtonIconLabel(
+            // The group starts at the button's left edge rather than being centred: the labels
+            // are different lengths, and centring left the short "ADB root" icon sitting a few
+            // characters to the right of its neighbours.
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Start,
             icon = icon,
             // The break goes after the first word rather than into the string: a translation
             // keeps its own words, and what is left wraps instead of being cut off.
             label = label.replaceFirst(' ', '\n'),
             // The second line starts under the first, as in the mock, rather than being
             // centred under it.
-            textAlign = TextAlign.Start
+            textAlign = TextAlign.Start,
+            // A step down from the button default, with a smaller glyph and gap, is what fits
+            // the longest word in the four-button row without clipping it.
+            iconSize = 16.dp,
+            iconSpacing = 4.dp,
+            style = MaterialTheme.typography.labelMedium
         )
     }
 }
@@ -1408,21 +1531,28 @@ private fun RowScope.DebuggingButton(
 private fun ButtonIconLabel(
     icon: ImageVector,
     label: String,
-    textAlign: TextAlign = TextAlign.Center
+    textAlign: TextAlign = TextAlign.Center,
+    iconSize: Dp = 18.dp,
+    iconSpacing: Dp = 6.dp,
+    style: TextStyle? = null,
+    modifier: Modifier = Modifier,
+    horizontalArrangement: Arrangement.Horizontal = Arrangement.Center
 ) {
     Row(
-        horizontalArrangement = Arrangement.Center,
+        modifier = modifier,
+        horizontalArrangement = horizontalArrangement,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             icon,
             contentDescription = null,
-            modifier = Modifier.size(18.dp)
+            modifier = Modifier.size(iconSize)
         )
-        Spacer(Modifier.width(6.dp))
+        Spacer(Modifier.width(iconSpacing))
         Text(
             text = label,
-            textAlign = textAlign
+            textAlign = textAlign,
+            style = style ?: LocalTextStyle.current
         )
     }
 }

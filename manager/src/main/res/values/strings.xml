@@ -1252,6 +1252,14 @@
     <string name="home_switch_dev_options">Developer options</string>
     <string name="home_switch_usb">USB debugging</string>
     <string name="home_switch_wireless">Wireless debugging</string>
+    <!-- adbd's own root switch, beside the ADB toggles it works on. -->
+    <string name="home_switch_adb_root">ADB root</string>
+    <string name="adb_root_no_adb">No active ADB connection</string>
+    <string name="adb_root_restarting_root">Restarting adbd as root</string>
+    <string name="adb_root_restarting_shell">Restarting adbd as shell</string>
+    <string name="adb_root_already_root">adbd is already running as root</string>
+    <string name="adb_root_already_shell">adbd is already running as shell</string>
+    <string name="adb_root_failed">Could not change adbd root state</string>
     <string name="lab_widget_description">Switch this feature on or off.</string>
 
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
