@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import kotlinx.coroutines.suspendCancellableCoroutine
 import moe.shizuku.manager.R
+import moe.shizuku.manager.ShizukuSettings
 import kotlin.coroutines.resume
 
 /**
@@ -16,11 +17,13 @@ import kotlin.coroutines.resume
  * A grant is the one action here that lets another app borrow the shell, so it should not be
  * possible with only an unlocked phone. The tile gate already asks whether the phone is locked;
  * this asks the user to prove who they are. Android's biometric prompt is used through
- * androidx.biometric so the same path works below Android 10 as well.
+ * androidx.biometric so the same path works below Android 10 as well. The setting can turn
+ * the check off for people who do not want it.
  */
 object GrantAuthenticator {
 
     suspend fun authenticate(activity: FragmentActivity): Boolean {
+        if (!ShizukuSettings.getRequireGrantAuthentication()) return true
         if (activity.isFinishing) return false
 
         val allowed = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {

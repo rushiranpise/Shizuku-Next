@@ -49,6 +49,9 @@ public class ShizukuSettings {
 
         /** Whether quick tiles refuse changes while the device is locked. */
         public static final String KEY_SECURE_QUICK_TILES = "secure_quick_tiles";
+
+        /** Whether creating a grant has to be confirmed with device authentication. */
+        public static final String KEY_REQUIRE_GRANT_AUTHENTICATION = "require_grant_authentication";
         public static final String KEY_UPDATE_MODE = "update_mode";
         public static final String KEY_HELP = "help";
         public static final String KEY_REPORT_BUG = "report_bug";
@@ -612,6 +615,19 @@ public class ShizukuSettings {
 
     public static void setSecureQuickTiles(boolean enable) {
         getPreferences().edit().putBoolean(Keys.KEY_SECURE_QUICK_TILES, enable).apply();
+    }
+
+    /**
+     * Whether creating a grant has to be confirmed with the device's authentication.
+     *
+     * Off by default, so an existing phone behaves the same after updating. Revoking never asks.
+     */
+    public static boolean getRequireGrantAuthentication() {
+        return getPreferences().getBoolean(Keys.KEY_REQUIRE_GRANT_AUTHENTICATION, false);
+    }
+
+    public static void setRequireGrantAuthentication(boolean enable) {
+        getPreferences().edit().putBoolean(Keys.KEY_REQUIRE_GRANT_AUTHENTICATION, enable).apply();
     }
 
     /**

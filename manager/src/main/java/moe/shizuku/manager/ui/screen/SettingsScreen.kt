@@ -207,6 +207,9 @@ fun SettingsScreen(
 
     var legacyPairing by remember { mutableStateOf(ShizukuSettings.getLegacyPairing()) }
     var secureQuickTiles by remember { mutableStateOf(ShizukuSettings.getSecureQuickTiles()) }
+    var requireGrantAuthentication by remember {
+        mutableStateOf(ShizukuSettings.getRequireGrantAuthentication())
+    }
     var adbWithoutDeveloperOptions by remember {
         mutableStateOf(ShizukuSettings.getAdbWithoutDeveloperOptions())
     }
@@ -832,6 +835,21 @@ fun SettingsScreen(
                             onSwitchChange = {
                                 ShizukuSettings.setSecureQuickTiles(it)
                                 secureQuickTiles = it
+                            }
+                        )
+                    }
+                    item {
+                        SegmentedListItem(
+                            centerSlots = true,
+                            leadingContent = { SettingsIcon(Icons.Outlined.Lock) },
+                            headlineContent = { Text(stringResource(R.string.settings_require_grant_authentication)) },
+                            supportingContent = {
+                                Text(stringResource(R.string.settings_require_grant_authentication_summary))
+                            },
+                            switchState = requireGrantAuthentication,
+                            onSwitchChange = {
+                                ShizukuSettings.setRequireGrantAuthentication(it)
+                                requireGrantAuthentication = it
                             }
                         )
                     }

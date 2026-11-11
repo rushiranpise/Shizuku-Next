@@ -718,6 +718,8 @@
     <string name="settings_always_show_navigation_bar_summary">Keep the tab bar visible when you scroll down.</string>
     <string name="settings_secure_quick_tiles">Secure quick tiles</string>
     <string name="settings_secure_quick_tiles_summary">Block quick tile changes while the phone is locked.</string>
+    <string name="settings_require_grant_authentication">Confirm app grants</string>
+    <string name="settings_require_grant_authentication_summary">Ask for biometrics or screen lock before giving an app access to Shizuku.</string>
     <string name="settings_watchdog">Watchdog</string>
     <string name="settings_watchdog_summary">Restart Shizuku automatically if it crashes</string>
     <string name="settings_auto_disable_wireless_debugging">Disable wireless debugging</string>
