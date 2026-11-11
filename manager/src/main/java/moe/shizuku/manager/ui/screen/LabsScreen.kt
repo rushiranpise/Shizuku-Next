@@ -303,7 +303,7 @@ private fun activeFeatures(context: Context): Set<Detail> = buildSet {
     // on.
     if (ForceDark.hasWorkToDo()) add(Detail.FORCE_DARK)
 
-    // The rotation row has no gate of its own: it is doing something when any app has a mode.
+    // The rotation row is doing something when its switch is on and any app has a mode.
     if (RotationOverride.isSupported() && RotationOverride.hasWorkToDo()) {
         add(Detail.ROTATION)
     }

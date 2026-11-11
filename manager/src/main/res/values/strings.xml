@@ -180,6 +180,8 @@
     <!-- Per-app rotation override for apps that force landscape -->
     <string name="tab_rotation">Rotation</string>
     <string name="rotation_count">%1$d configured</string>
+    <string name="rotation_gate_off">Off, %1$d configured</string>
+    <string name="rotation_gate_disabled">Rotation is off</string>
     <string name="rotation_note">Auto follows the system rotation. Portrait and Landscape hold the display while the app is open and put it back when you leave.</string>
     <string name="rotation_filter_configured">Configured</string>
     <string name="rotation_empty">No apps have a rotation mode.</string>

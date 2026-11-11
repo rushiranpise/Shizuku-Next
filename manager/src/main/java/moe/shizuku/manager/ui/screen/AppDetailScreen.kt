@@ -129,6 +129,7 @@ fun AppDetailScreen(
     // Read rather than remembered, so a server that comes or goes while this screen is up
     // is picked up by the next recomposition instead of leaving the rows lying.
     val running = ShizukuStateMachine.isRunning()
+    val rotationOn = RotationOverride.isEnabled()
 
     val snackbarHostState = remember { SnackbarHostState() }
     var confirmGrant by remember { mutableStateOf<AppPermission?>(null) }
@@ -476,7 +477,12 @@ fun AppDetailScreen(
                                         Text(stringResource(R.string.rotation_mode_title))
                                     },
                                     supportingContent = {
-                                        Text(stringResource(rotationMode.noteRes))
+                                        Text(
+                                            stringResource(
+                                                if (rotationOn) rotationMode.noteRes
+                                                else R.string.rotation_gate_disabled
+                                            )
+                                        )
                                     },
                                     trailingContent = {
                                         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -498,7 +504,7 @@ fun AppDetailScreen(
                                         }
                                     },
                                     onClick = { rotationPicker = true },
-                                    enabled = running && !busy,
+                                    enabled = running && !busy && rotationOn,
                                     centerSlots = true
                                 )
                             }

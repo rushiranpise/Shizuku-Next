@@ -62,6 +62,7 @@ object RotationOverride {
 
     private const val CHANGE = "OVERRIDE_ANY_ORIENTATION_TO_USER"
     private const val PREF_MODES = "rotation_modes"
+    private const val PREF_ENABLED = "rotation_enabled"
     private const val PREF_BASE = "rotation_base"
     private const val PREF_APPLIED = "rotation_applied"
     private const val FIELD = "\u001f"
@@ -81,6 +82,12 @@ object RotationOverride {
     /** The forced display lock arrived with Android 16's rotation behaviour. */
     fun isSupported(): Boolean = Build.VERSION.SDK_INT >= 36
 
+    /**
+     * Whether the per-app rules are being applied. The modes stay saved while this is off, so
+     * switching it back on restores the list exactly as it was.
+     */
+    fun isEnabled(): Boolean = prefs().getBoolean(PREF_ENABLED, true)
+
     /** Every app with a mode other than Off. */
     fun modes(): Map<String, RotationMode> =
         prefs().getStringSet(PREF_MODES, emptySet()).orEmpty()
@@ -93,9 +100,37 @@ object RotationOverride {
 
     fun modeFor(packageName: String): RotationMode = modes()[packageName] ?: RotationMode.OFF
 
-    fun hasWorkToDo(): Boolean = modes().isNotEmpty()
+    fun hasWorkToDo(): Boolean = isEnabled() && modes().isNotEmpty()
 
-    fun hasForceWork(): Boolean = modes().values.any { it.forced }
+    fun hasForceWork(): Boolean = isEnabled() && modes().values.any { it.forced }
+
+    /**
+     * Turns the whole feature on or off.
+     *
+     * Off restores any display lock and removes the compat override from the Auto apps. On puts
+     * the override back; the watch applies the forced modes on its next pass. The saved modes are
+     * never touched, which is what lets the switch be flipped back without rebuilding the list.
+     */
+    fun setEnabled(enabled: Boolean): Boolean {
+        if (!isSupported() || !ShizukuStateMachine.isRunning()) return false
+
+        prefs().edit().putBoolean(PREF_ENABLED, enabled).apply()
+        val modes = modes()
+        if (enabled) {
+            var ok = true
+            for ((packageName, mode) in modes) {
+                if (mode == RotationMode.AUTO && !setCompat(packageName, true)) ok = false
+            }
+            return ok
+        }
+
+        restore()
+        var ok = true
+        for ((packageName, mode) in modes) {
+            if (mode == RotationMode.AUTO && !setCompat(packageName, false)) ok = false
+        }
+        return ok
+    }
 
     /**
      * Saves one app's mode and applies the compat half.
@@ -106,7 +141,7 @@ object RotationOverride {
      * be enabled.
      */
     fun setMode(packageName: String, mode: RotationMode): Boolean {
-        if (!isSupported()) return false
+        if (!isSupported() || !isEnabled()) return false
 
         if (mode == RotationMode.AUTO && !setCompat(packageName, true)) return false
         if (mode == RotationMode.OFF && !setCompat(packageName, false)) return false
@@ -123,6 +158,11 @@ object RotationOverride {
      * mode. Called from the watch every pass, so it has to be cheap when nothing changed.
      */
     fun applyFor(foreground: String?) {
+        if (!isEnabled()) {
+            restore()
+            return
+        }
+
         val packageName = foreground ?: run {
             restore()
             return

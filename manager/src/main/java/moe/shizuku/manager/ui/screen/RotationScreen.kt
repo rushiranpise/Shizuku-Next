@@ -49,6 +49,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
@@ -71,6 +72,7 @@ import moe.shizuku.manager.ui.component.AppRowLine
 import moe.shizuku.manager.ui.component.AppStatusChips
 import moe.shizuku.manager.ui.component.CenteredMessage
 import moe.shizuku.manager.ui.component.ChoiceRow
+import moe.shizuku.manager.ui.component.ExpressiveSwitch
 import moe.shizuku.manager.ui.component.PillButtonQuiet
 import moe.shizuku.manager.ui.component.ScrollToTopButton
 import moe.shizuku.manager.ui.component.SegmentedCard
@@ -110,6 +112,7 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
     var picking by remember { mutableStateOf<PackageInfo?>(null) }
     var version by remember { mutableIntStateOf(0) }
     var running by remember { mutableStateOf(ShizukuStateMachine.isRunning()) }
+    var gateOn by remember { mutableStateOf(RotationOverride.isEnabled()) }
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(version) {
@@ -126,6 +129,7 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
                 }
             }
         }
+        gateOn = withContext(Dispatchers.IO) { RotationOverride.isEnabled() }
         modes = withContext(Dispatchers.IO) { RotationOverride.modes() }
         running = ShizukuStateMachine.isRunning()
         loading = false
@@ -133,7 +137,7 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
 
     fun choose(packageName: String, mode: RotationMode) {
         picking = null
-        if (!running) return
+        if (!running || !gateOn) return
         scope.launch {
             val changed = withContext(Dispatchers.IO) {
                 runCatching { RotationOverride.setMode(packageName, mode) }
@@ -147,6 +151,27 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
             // without this would look applied and do nothing until the next service pass.
             withContext(Dispatchers.IO) { HidingWatchService.refresh(context) }
             modes = withContext(Dispatchers.IO) { RotationOverride.modes() }
+        }
+    }
+
+    /**
+     * Flips the whole feature. The modes stay on the list while it is off; only this switch
+     * decides whether the watch and the compat overrides are allowed to run.
+     */
+    fun setGate(checked: Boolean) {
+        if (!running) return
+        gateOn = checked
+        scope.launch {
+            val ok = withContext(Dispatchers.IO) {
+                runCatching { RotationOverride.setEnabled(checked) }.getOrDefault(false)
+            }
+            withContext(Dispatchers.IO) { HidingWatchService.refresh(context) }
+            modes = withContext(Dispatchers.IO) { RotationOverride.modes() }
+            gateOn = withContext(Dispatchers.IO) { RotationOverride.isEnabled() }
+            if (!ok) {
+                Diag.warn(AppConstants.TAG, "rotation: could not switch the feature $checked")
+                Toast.makeText(context, R.string.app_action_failed, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -213,7 +238,11 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
                 Column {
                     Text(stringResource(R.string.tab_rotation))
                     Text(
-                        text = stringResource(R.string.rotation_count, modes.size),
+                        text = if (!gateOn) {
+                            stringResource(R.string.rotation_gate_off, modes.size)
+                        } else {
+                            stringResource(R.string.rotation_count, modes.size)
+                        },
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -224,8 +253,18 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
                 IconButton(onClick = onBack) {
                     Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
                 }
+            },
+            actions = {
+                ExpressiveSwitch(
+                    checked = gateOn,
+                    onCheckedChange = { checked -> setGate(checked) },
+                    enabled = running,
+                    modifier = Modifier.padding(end = 16.dp)
+                )
             }
         )
+
+        val contentAlpha = if (gateOn) 1f else GateOffAlpha
 
         Text(
             text = stringResource(R.string.rotation_note),
@@ -237,6 +276,7 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .alpha(contentAlpha)
                 .padding(horizontal = 16.dp, vertical = 4.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
@@ -246,6 +286,7 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
                 label = stringResource(R.string.apps_filter_all),
                 count = apps.size,
                 selected = !showOnlyConfigured,
+                enabled = gateOn,
                 onClick = { showOnlyConfigured = false }
             )
             AppFilterChip(
@@ -253,6 +294,7 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
                 label = stringResource(R.string.rotation_filter_configured),
                 count = apps.count { it.packageName in modes },
                 selected = showOnlyConfigured,
+                enabled = gateOn,
                 onClick = { showOnlyConfigured = true }
             )
         }
@@ -262,8 +304,10 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
             onValueChange = { query = it },
             modifier = Modifier
                 .fillMaxWidth()
+                .alpha(contentAlpha)
                 .padding(horizontal = 16.dp, vertical = 8.dp)
                 .televisionTextInput(MaterialTheme.shapes.extraLarge),
+            enabled = gateOn,
             placeholder = { Text(stringResource(R.string.app_management_search_hint)) },
             leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
             trailingIcon = {
@@ -284,7 +328,7 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
             )
         )
 
-        Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
+        Box(modifier = Modifier.fillMaxWidth().weight(1f).alpha(contentAlpha)) {
             val listState = rememberLazyListState()
             LazyColumn(
                 state = listState,
@@ -302,7 +346,7 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
                     SegmentedCard {
                         ListItem(
                             onClick = { picking = pi },
-                            enabled = running,
+                            enabled = running && gateOn,
                             leadingContent = { AppIcon(pi) },
                             supportingContent = {
                                 AppRowLine(pi.packageLine()) {
