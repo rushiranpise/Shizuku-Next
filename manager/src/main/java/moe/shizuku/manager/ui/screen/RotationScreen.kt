@@ -2,22 +2,27 @@ package moe.shizuku.manager.ui.screen
 
 import android.content.pm.PackageInfo
 import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -51,13 +56,16 @@ import kotlinx.coroutines.withContext
 import moe.shizuku.manager.AppConstants
 import moe.shizuku.manager.R
 import moe.shizuku.manager.manage.InstalledPackages
+import moe.shizuku.manager.manage.RotationMode
 import moe.shizuku.manager.manage.RotationOverride
+import moe.shizuku.manager.service.HidingWatchService
 import moe.shizuku.manager.ui.component.AppFilterChip
 import moe.shizuku.manager.ui.component.AppIcon
 import moe.shizuku.manager.ui.component.AppRowLine
 import moe.shizuku.manager.ui.component.AppStatusChips
 import moe.shizuku.manager.ui.component.CenteredMessage
-import moe.shizuku.manager.ui.component.ExpressiveSwitch
+import moe.shizuku.manager.ui.component.ChoiceRow
+import moe.shizuku.manager.ui.component.PillButtonQuiet
 import moe.shizuku.manager.ui.component.ScrollToTopButton
 import moe.shizuku.manager.ui.component.SegmentedCard
 import moe.shizuku.manager.ui.component.appLabel
@@ -68,15 +76,12 @@ import moe.shizuku.manager.utils.Diag
 import moe.shizuku.manager.utils.ShizukuStateMachine
 
 /**
- * One switch per app, over the platform's own rotation override.
+ * One rotation mode per app.
  *
- * The feature exists for apps and games that hold the phone in landscape. Only apps with a
- * launcher are listed: that is the population somebody can sit in front of, and the list of every
- * package would bury them under services and overlays.
- *
- * Toggling closes the app. The compat change is read when an app starts, so leaving the old
- * process running would make the switch look like it did nothing until the app was reopened by
- * hand.
+ * Auto is the compat change from issue #210. It makes an app that requests landscape follow the
+ * system rotation, but an app targeting Android 16 can keep its own request, which is why the two
+ * forced modes exist. Those hold the display in portrait or landscape for as long as the app is
+ * in front and put it back when the app leaves.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -85,10 +90,11 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
     val pm = context.packageManager
 
     var apps by remember { mutableStateOf<List<PackageInfo>>(emptyList()) }
-    var overridden by remember { mutableStateOf<Set<String>>(emptySet()) }
+    var modes by remember { mutableStateOf<Map<String, RotationMode>>(emptyMap()) }
     var loading by remember { mutableStateOf(true) }
     var query by remember { mutableStateOf("") }
-    var showOnlyOverridden by remember { mutableStateOf(false) }
+    var showOnlyConfigured by remember { mutableStateOf(false) }
+    var picking by remember { mutableStateOf<PackageInfo?>(null) }
     var version by remember { mutableIntStateOf(0) }
     var running by remember { mutableStateOf(ShizukuStateMachine.isRunning()) }
     val scope = rememberCoroutineScope()
@@ -107,36 +113,33 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
                 }
             }
         }
-        overridden = withContext(Dispatchers.IO) { RotationOverride.enabledPackages() }
+        modes = withContext(Dispatchers.IO) { RotationOverride.modes() }
         running = ShizukuStateMachine.isRunning()
         loading = false
     }
 
-    /**
-     * Flips one app and reads the platform back.
-     *
-     * The switch moves with the tap so the row does not lag behind the finger, but the read is
-     * what settles it: a command the platform refuses leaves the row where it was rather than
-     * showing something that did not happen.
-     */
-    fun toggle(packageName: String, wanted: Boolean) {
-        overridden = if (wanted) overridden + packageName else overridden - packageName
+    fun choose(packageName: String, mode: RotationMode) {
+        picking = null
+        if (!running) return
         scope.launch {
-            val applied = withContext(Dispatchers.IO) {
-                runCatching { RotationOverride.setEnabled(packageName, wanted) }
+            val changed = withContext(Dispatchers.IO) {
+                runCatching { RotationOverride.setMode(packageName, mode) }
                     .getOrDefault(false)
             }
-            if (!applied) {
+            if (!changed) {
                 Diag.warn(AppConstants.TAG, "rotation: $packageName would not change")
                 Toast.makeText(context, R.string.app_action_failed, Toast.LENGTH_SHORT).show()
             }
-            overridden = withContext(Dispatchers.IO) { RotationOverride.enabledPackages() }
+            // Starting or stopping the watch is what makes a forced mode live. A mode saved
+            // without this would look applied and do nothing until the next service pass.
+            withContext(Dispatchers.IO) { HidingWatchService.refresh(context) }
+            modes = withContext(Dispatchers.IO) { RotationOverride.modes() }
         }
     }
 
-    val shown = remember(apps, overridden, query, showOnlyOverridden) {
-        val byState = if (showOnlyOverridden) {
-            apps.filter { it.packageName in overridden }
+    val shown = remember(apps, modes, query, showOnlyConfigured) {
+        val byState = if (showOnlyConfigured) {
+            apps.filter { it.packageName in modes }
         } else {
             apps
         }
@@ -149,17 +152,46 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
                     it.packageName.contains(trimmed, ignoreCase = true)
             }
         }
-        // What is already overridden first, then by name: the apps somebody opens this screen for
-        // are the ones already on the list, and the names are resolved once before the sort.
+        // The configured apps first, then by name: the app somebody opens this screen for is
+        // usually one already set, and the names are resolved once before the sort.
         searched
             .map { app -> app to appLabel(pm, app).lowercase() }
             .sortedWith(
                 compareBy(
-                    { (app, _) -> app.packageName !in overridden },
+                    { (app, _) -> app.packageName !in modes },
                     { (_, label) -> label }
                 )
             )
             .map { (app, _) -> app }
+    }
+
+    picking?.let { app ->
+        val current = modes[app.packageName] ?: RotationMode.OFF
+        AlertDialog(
+            onDismissRequest = { picking = null },
+            title = { Text(stringResource(R.string.rotation_mode_title)) },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    Text(
+                        appLabel(pm, app),
+                        style = MaterialTheme.typography.titleSmall
+                    )
+                    RotationMode.entries.forEach { option ->
+                        ChoiceRow(
+                            selected = current == option,
+                            label = stringResource(option.labelRes),
+                            supporting = stringResource(option.noteRes),
+                            onClick = { choose(app.packageName, option) }
+                        )
+                    }
+                }
+            },
+            confirmButton = {
+                PillButtonQuiet(onClick = { picking = null }) {
+                    Text(stringResource(android.R.string.cancel))
+                }
+            }
+        )
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -168,7 +200,7 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
                 Column {
                     Text(stringResource(R.string.tab_rotation))
                     Text(
-                        text = stringResource(R.string.rotation_count, overridden.size),
+                        text = stringResource(R.string.rotation_count, modes.size),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -200,15 +232,15 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
                 modifier = Modifier.weight(1f),
                 label = stringResource(R.string.apps_filter_all),
                 count = apps.size,
-                selected = !showOnlyOverridden,
-                onClick = { showOnlyOverridden = false }
+                selected = !showOnlyConfigured,
+                onClick = { showOnlyConfigured = false }
             )
             AppFilterChip(
                 modifier = Modifier.weight(1f),
-                label = stringResource(R.string.rotation_filter_rotated),
-                count = apps.count { it.packageName in overridden },
-                selected = showOnlyOverridden,
-                onClick = { showOnlyOverridden = true }
+                label = stringResource(R.string.rotation_filter_configured),
+                count = apps.count { it.packageName in modes },
+                selected = showOnlyConfigured,
+                onClick = { showOnlyConfigured = true }
             )
         }
 
@@ -253,20 +285,33 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(shown, key = { it.rowKey() }) { pi ->
-                    val isOverridden = pi.packageName in overridden
+                    val mode = modes[pi.packageName] ?: RotationMode.OFF
                     SegmentedCard {
                         ListItem(
+                            modifier = Modifier.clickable(enabled = running) { picking = pi },
                             leadingContent = { AppIcon(pi) },
                             headlineContent = { Text(appLabel(pm, pi)) },
                             supportingContent = {
                                 AppRowLine(pi.packageLine()) {
                                     AppStatusChips(pi, hidden = false)
-                                    ExpressiveSwitch(
-                                        checked = isOverridden,
-                                        enabled = running,
-                                        onCheckedChange = { checked ->
-                                            toggle(pi.packageName, checked)
+                                }
+                            },
+                            trailingContent = {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Text(
+                                        stringResource(mode.labelRes),
+                                        style = MaterialTheme.typography.labelLarge,
+                                        color = if (mode == RotationMode.OFF) {
+                                            MaterialTheme.colorScheme.onSurfaceVariant
+                                        } else {
+                                            MaterialTheme.colorScheme.primary
                                         }
+                                    )
+                                    Spacer(modifier = Modifier.width(4.dp))
+                                    Icon(
+                                        Icons.Filled.ChevronRight,
+                                        contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
                                 }
                             },
@@ -294,7 +339,7 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
                                 textAlign = TextAlign.Center
                             )
 
-                            showOnlyOverridden -> Text(
+                            showOnlyConfigured -> Text(
                                 text = stringResource(R.string.rotation_empty),
                                 style = MaterialTheme.typography.bodyMedium,
                                 textAlign = TextAlign.Center

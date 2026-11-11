@@ -166,10 +166,9 @@ data class AppDetail(
     val networkBlocked: Boolean?,
 
     /**
-     * Whether this app follows the user's rotation even when it asks for landscape. Null on a
-     * platform without the compat change, or when there is no shell to read it.
+     * The app's rotation mode. Null on a platform without the Android 16 rotation feature.
      */
-    val rotationOverridden: Boolean?
+    val rotationMode: RotationMode?
 )
 
 /**
@@ -290,8 +289,8 @@ object PackageTools {
             bucket = if (running) readBucket(context, packageName) else null,
             batteryUnrestricted = running && isBatteryUnrestricted(context, packageName),
             networkBlocked = if (running) readNetworkBlockedForDisplay(context, packageName) else null,
-            rotationOverridden = if (running && RotationOverride.isSupported()) {
-                RotationOverride.isEnabled(packageName)
+            rotationMode = if (RotationOverride.isSupported()) {
+                RotationOverride.modeFor(packageName)
             } else {
                 null
             }

@@ -179,11 +179,20 @@
 
     <!-- Per-app rotation override for apps that force landscape -->
     <string name="tab_rotation">Rotation</string>
-    <string name="rotation_count">%1$d rotated</string>
-    <string name="rotation_note">Apps that force landscape can follow the system rotation. Changing a switch closes that app so the new setting applies.</string>
-    <string name="rotation_filter_rotated">Rotated</string>
-    <string name="rotation_empty">No apps are set to rotate.</string>
+    <string name="rotation_count">%1$d configured</string>
+    <string name="rotation_note">Auto follows the system rotation. Portrait and Landscape hold the display while the app is open and put it back when you leave.</string>
+    <string name="rotation_filter_configured">Configured</string>
+    <string name="rotation_empty">No apps have a rotation mode.</string>
     <string name="rotation_needs_shizuku">Start Shizuku to change rotation.</string>
+    <string name="rotation_mode_title">Rotation mode</string>
+    <string name="rotation_mode_off">Off</string>
+    <string name="rotation_mode_off_note">Use the app\'s own orientation.</string>
+    <string name="rotation_mode_auto">Auto</string>
+    <string name="rotation_mode_auto_note">Follow the system rotation. Use Portrait or Landscape if the app ignores this.</string>
+    <string name="rotation_mode_portrait">Portrait</string>
+    <string name="rotation_mode_portrait_note">Force portrait while this app is open.</string>
+    <string name="rotation_mode_landscape">Landscape</string>
+    <string name="rotation_mode_landscape_note">Force landscape while this app is open.</string>
 
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Hiding</string>
@@ -454,6 +463,11 @@
 
     <string name="hiding_notification_idle_title">Hiding is on</string>
     <string name="hiding_notification_watching">Watching your listed apps.</string>
+
+    <string name="rotation_notification_title">Rotation is locked</string>
+    <string name="rotation_notification_text">Locked for %1$s.</string>
+    <string name="rotation_notification_watching_title">Rotation control is on</string>
+    <string name="rotation_notification_watching">Waiting for an app on the rotation list.</string>
 
     <string name="hiding_notification_paused_title">Hiding is paused</string>
     <string name="hiding_notification_paused_text">Your settings are restored. Resume hiding them for your listed apps.</string>
@@ -1124,8 +1138,6 @@
     <string name="app_section_runtime">Runtime permissions</string>
     <string name="app_section_ops">App ops</string>
     <string name="app_section_rotation">Rotation</string>
-    <string name="app_rotation_override">Allow rotation</string>
-    <string name="app_rotation_override_note">Follow the system rotation even when this app asks to stay in landscape. Changing this closes the app.</string>
     <string name="app_rotation_changed">Rotation changed</string>
     <string name="app_section_actions">Actions</string>
     <string name="app_section_battery">Battery</string>

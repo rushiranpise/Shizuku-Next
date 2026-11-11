@@ -70,6 +70,7 @@ import moe.shizuku.manager.manage.AppOp
 import moe.shizuku.manager.manage.AppPermission
 import moe.shizuku.manager.manage.OpMode
 import moe.shizuku.manager.manage.PackageTools
+import moe.shizuku.manager.manage.RotationMode
 import moe.shizuku.manager.manage.RotationOverride
 import moe.shizuku.manager.manage.PermissionKind
 import moe.shizuku.manager.manage.StandbyBucket
@@ -84,6 +85,7 @@ import moe.shizuku.manager.ui.component.SegmentedColumn
 import moe.shizuku.manager.ui.component.SegmentedListItem
 import moe.shizuku.manager.ui.component.StatusChip
 import moe.shizuku.manager.ui.component.statusChipMinWidth
+import moe.shizuku.manager.service.HidingWatchService
 import moe.shizuku.manager.utils.ShizukuStateMachine
 
 /** A destructive action waiting for a yes. */
@@ -131,6 +133,7 @@ fun AppDetailScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     var confirmGrant by remember { mutableStateOf<AppPermission?>(null) }
     var opPicker by remember { mutableStateOf<AppOp?>(null) }
+    var rotationPicker by remember { mutableStateOf(false) }
     var bucketPicker by remember { mutableStateOf(false) }
     var confirm by remember { mutableStateOf<PendingConfirm?>(null) }
     var pendingImport by remember { mutableStateOf<Uri?>(null) }
@@ -170,6 +173,22 @@ fun AppDetailScreen(
     fun changePermission(permission: AppPermission, grant: Boolean) {
         runAction(if (grant) R.string.app_permission_granted else R.string.app_permission_revoked) {
             PackageTools.setPermission(context, packageName, permission.name, grant)
+        }
+    }
+
+    /** Saves the mode, then makes sure the foreground watch is running or stopped to match it. */
+    fun changeRotationMode(mode: RotationMode) {
+        scope.launch {
+            busy = true
+            val changed = withContext(Dispatchers.IO) {
+                runCatching { RotationOverride.setMode(packageName, mode) }
+                    .getOrDefault(false)
+            }
+            withContext(Dispatchers.IO) { HidingWatchService.refresh(context) }
+            busy = false
+            version++
+            onChanged()
+            report(changed, R.string.app_rotation_changed)
         }
     }
 
@@ -443,37 +462,43 @@ fun AppDetailScreen(
                 }
 
                 // ---- rotation ---------------------------------------------------------
-                // A compat change rather than an app op, so it has a section of its own. Null
-                // while Shizuku is down or on a platform without the change, and the whole
-                // section stays away rather than offering a switch that cannot work.
-                if (app.rotationOverridden != null) {
+                // A rotation mode rather than an app op, so it has a section of its own. Null
+                // on a platform without the Android 16 feature, and the whole section stays
+                // away rather than offering a choice that cannot work.
+                val rotationMode = app.rotationMode
+                if (rotationMode != null) {
                     item { SectionHeader(R.string.app_section_rotation) }
                     item {
                         SegmentedColumn {
                             item {
                                 SegmentedListItem(
-                                    focusableOnTelevision = false,
                                     headlineContent = {
-                                        Text(stringResource(R.string.app_rotation_override))
+                                        Text(stringResource(R.string.rotation_mode_title))
                                     },
                                     supportingContent = {
-                                        Text(stringResource(R.string.app_rotation_override_note))
+                                        Text(stringResource(rotationMode.noteRes))
                                     },
                                     trailingContent = {
-                                        ExpressiveSwitch(
-                                            focusableWhenDisabled = true,
-                                            checked = app.rotationOverridden == true,
-                                            enabled = running && !busy,
-                                            onCheckedChange = { checked ->
-                                                runAction(R.string.app_rotation_changed) {
-                                                    RotationOverride.setEnabled(
-                                                        packageName,
-                                                        checked
-                                                    )
+                                        Row(verticalAlignment = Alignment.CenterVertically) {
+                                            Text(
+                                                stringResource(rotationMode.labelRes),
+                                                style = MaterialTheme.typography.labelLarge,
+                                                color = if (rotationMode == RotationMode.OFF) {
+                                                    MaterialTheme.colorScheme.onSurfaceVariant
+                                                } else {
+                                                    MaterialTheme.colorScheme.primary
                                                 }
-                                            }
-                                        )
+                                            )
+                                            Spacer(modifier = Modifier.width(4.dp))
+                                            Icon(
+                                                Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                                                contentDescription = null,
+                                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                            )
+                                        }
                                     },
+                                    onClick = { rotationPicker = true },
+                                    enabled = running && !busy,
                                     centerSlots = true
                                 )
                             }
@@ -785,6 +810,34 @@ fun AppDetailScreen(
             opPicker = null
             runAction(R.string.app_op_set) { PackageTools.setOp(context, packageName, op.name, mode) }
         }
+    }
+
+    if (rotationPicker) {
+        val current = loaded?.rotationMode ?: RotationMode.OFF
+        AlertDialog(
+            onDismissRequest = { rotationPicker = false },
+            title = { Text(stringResource(R.string.rotation_mode_title)) },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    RotationMode.entries.forEach { option ->
+                        ChoiceRow(
+                            selected = current == option,
+                            label = stringResource(option.labelRes),
+                            supporting = stringResource(option.noteRes),
+                            onClick = {
+                                rotationPicker = false
+                                changeRotationMode(option)
+                            }
+                        )
+                    }
+                }
+            },
+            confirmButton = {
+                PillButtonQuiet(onClick = { rotationPicker = false }) {
+                    Text(stringResource(android.R.string.cancel))
+                }
+            }
+        )
     }
 
     if (bucketPicker) {

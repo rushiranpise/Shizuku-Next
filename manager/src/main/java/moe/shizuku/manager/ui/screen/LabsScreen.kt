@@ -303,8 +303,8 @@ private fun activeFeatures(context: Context): Set<Detail> = buildSet {
     // on.
     if (ForceDark.hasWorkToDo()) add(Detail.FORCE_DARK)
 
-    // The rotation row has no gate: it is doing something when any app holds the override.
-    if (RotationOverride.isSupported() && RotationOverride.enabledPackages().isNotEmpty()) {
+    // The rotation row has no gate of its own: it is doing something when any app has a mode.
+    if (RotationOverride.isSupported() && RotationOverride.hasWorkToDo()) {
         add(Detail.ROTATION)
     }
 
