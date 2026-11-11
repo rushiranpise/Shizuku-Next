@@ -161,7 +161,7 @@ private sealed interface BulkState {
  * works with Shizuku stopped; only the rows that change something need the server, and
  * they say so instead of failing.
  */
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun ManageScreen(
     bottomPadding: Dp,
@@ -432,15 +432,14 @@ fun ManageScreen(
             }
         )
 
-        // The five filters share one row. Each chip is as wide as its label and count need,
-        // and the slack is spent between them. A translation that needs more room wraps
-        // inside its own chip, so the last filter is not pushed onto a line of its own.
-        Row(
+        // Each chip keeps its own width. When a wide font no longer fits all five across,
+        // the whole last chip moves to the next line instead of collapsing to one letter.
+        FlowRow(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 4.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             ManageFilter.entries.forEach { option ->
                 val count = when (option) {

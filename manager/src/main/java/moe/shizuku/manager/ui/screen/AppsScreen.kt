@@ -10,6 +10,8 @@ import android.content.Intent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
@@ -122,7 +124,11 @@ enum class AppFilter {
     REVOKED
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(
+    ExperimentalMaterial3Api::class,
+    ExperimentalFoundationApi::class,
+    ExperimentalLayoutApi::class
+)
 @Composable
 fun AppsScreen(
     bottomPadding: Dp,
@@ -417,16 +423,16 @@ fun AppsScreen(
         // instead of as a box someone put a magnifier in.
         // Same two rows as the app-ops and Labs lists: what kind of app it is on one row,
         // then Shizuku's own question on a row of its own. Each chip sizes to its label and
-        // count and the slack is shared out; a translation that needs more room wraps inside
-        // its chip instead of pushing the last filter onto a second line.
+        // count, and the row wraps whole chips onto another line when a wide font or a
+        // translation no longer fits.
         // Filter first, search within it: the two answer different questions and the search
         // box alone cannot say "only what is granted".
-        Row(
+        FlowRow(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 4.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             ManageFilter.entries.forEach { option ->
                 val count = when (option) {

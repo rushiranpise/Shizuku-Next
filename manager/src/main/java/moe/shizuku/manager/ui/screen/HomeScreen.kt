@@ -29,6 +29,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.height
@@ -60,6 +61,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
@@ -87,7 +89,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -1147,30 +1152,57 @@ private fun StatusFactsCard(
         contentColor = MaterialTheme.colorScheme.onSurface,
         shape = shape
     ) {
-        Row(
+        BoxWithConstraints(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 4.dp, vertical = 14.dp),
-            // Top, not centre: the uid has a detail line under it, and centring the column
-            // lifted its label above the other three.
-            verticalAlignment = Alignment.Top
+                .padding(horizontal = 4.dp, vertical = 14.dp)
         ) {
-            facts.forEachIndexed { index, fact ->
-                if (index > 0) {
-                    VerticalDivider(
-                        modifier = Modifier
-                            .align(Alignment.CenterVertically)
-                            .height(44.dp),
-                        thickness = 1.dp,
-                        color = MaterialTheme.colorScheme.outlineVariant
-                    )
+            val density = LocalDensity.current
+            val measurer = rememberTextMeasurer()
+            val labelStyle = MaterialTheme.typography.bodySmall
+            // Four equal columns stop being readable when the font is wide enough that a
+            // label such as "Transport" no longer fits in its quarter. Measure the labels
+            // instead of guessing from the font scale, then fall back to two columns.
+            val labelWidth = remember(facts, measurer, labelStyle, density) {
+                facts.maxOf { fact ->
+                    measurer.measure(
+                        AnnotatedString(context.getString(fact.label)),
+                        labelStyle
+                    ).size.width
+                }.let { with(density) { it.toDp() } }
+            }
+            val columns = if (labelWidth + 8.dp <= (maxWidth - 8.dp) / 4) 4 else 2
+
+            Column {
+                facts.chunked(columns).forEachIndexed { rowIndex, rowFacts ->
+                    if (rowIndex > 0) {
+                        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+                    }
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        // Top, not centre: the uid has a detail line under it, and centring
+                        // the column lifted its label above the others.
+                        verticalAlignment = Alignment.Top
+                    ) {
+                        rowFacts.forEachIndexed { index, fact ->
+                            if (index > 0) {
+                                VerticalDivider(
+                                    modifier = Modifier
+                                        .align(Alignment.CenterVertically)
+                                        .height(44.dp),
+                                    thickness = 1.dp,
+                                    color = MaterialTheme.colorScheme.outlineVariant
+                                )
+                            }
+                            StatusFact(
+                                fact,
+                                Modifier
+                                    .weight(1f)
+                                    .padding(horizontal = 4.dp)
+                            )
+                        }
+                    }
                 }
-                StatusFact(
-                    fact,
-                    Modifier
-                        .weight(1f)
-                        .padding(horizontal = 4.dp)
-                )
             }
         }
     }

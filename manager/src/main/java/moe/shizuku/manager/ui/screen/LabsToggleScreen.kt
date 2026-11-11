@@ -10,6 +10,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -238,7 +240,7 @@ private sealed interface BulkToggleState {
  */
 internal const val GateOffAlpha = 0.45f
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun LabsToggleScreen(
     feature: AppToggleFeature,
@@ -734,14 +736,15 @@ fun LabsToggleScreen(
             }
         }
 
-        // As wide as the row is: the first filter against one edge, the last against the other,
-        // and the slack shared out between them rather than scrolled past.
-        Row(
+        // Chips keep their own width and wrap as whole chips when a wide font makes the row
+        // too narrow. Squeezing the last one into the remains is what put one letter per line.
+        FlowRow(
             modifier = Modifier
                 .fillMaxWidth()
                 .alpha(contentAlpha)
                 .padding(horizontal = 16.dp, vertical = 4.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             // Not on a hiding list: everything on one is an app somebody installed, so there
             // is no second kind of app to tell it apart from.
@@ -766,8 +769,8 @@ fun LabsToggleScreen(
                     count = count,
                     selected = kind == option,
                     enabled = gateOn,
-                    // Hugging its label rather than filling a slot: a row that scrolls sizes
-                    // each chip to its own text.
+                    // Hugging its label rather than filling a slot: each chip keeps its
+                    // text whole when the row wraps.
                     fill = false,
                     onClick = { kind = option }
                 )
