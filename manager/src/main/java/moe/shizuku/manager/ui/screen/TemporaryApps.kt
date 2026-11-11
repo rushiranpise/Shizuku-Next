@@ -280,7 +280,7 @@ private fun TemporarySessionRow(
             },
             trailingContent = {
                 // Same rule one level down: an expanded session leaves the stops to its entries.
-                if (!expanded) {
+                if (!expanded || session.entries.isEmpty()) {
                     FilledIconButton(
                         onClick = {
                             requestKill { onKill(uid, session.pid, ServerConstants.TEMPORARY_KIND_ALL, 0) }
