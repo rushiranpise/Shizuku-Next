@@ -26,6 +26,7 @@ import androidx.compose.material.icons.outlined.AspectRatio
 import androidx.compose.material.icons.outlined.Android
 import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.outlined.PowerSettingsNew
+import androidx.compose.material.icons.outlined.ScreenRotation
 import androidx.compose.material.icons.outlined.Extension
 import androidx.compose.material.icons.outlined.FolderOpen
 import androidx.compose.material.icons.outlined.PhoneAndroid
@@ -63,6 +64,7 @@ import moe.shizuku.manager.manage.FirewallChain
 import moe.shizuku.manager.manage.ForceDark
 import moe.shizuku.manager.manage.Hiding
 import moe.shizuku.manager.manage.PackageTools
+import moe.shizuku.manager.manage.RotationOverride
 import moe.shizuku.manager.ui.Detail
 import moe.shizuku.manager.ui.component.FeaturePlateIcon
 import moe.shizuku.manager.ui.component.ScrollToTopButton
@@ -156,6 +158,13 @@ fun LabsScreen(bottomPadding: Dp, onOpenDetail: (Detail) -> Unit) {
         LabEntry(R.string.tab_activities, Icons.Outlined.Widgets, Detail.ACTIVITIES),
         LabEntry(R.string.tab_power, Icons.Outlined.PowerSettingsNew, Detail.POWER),
         LabEntry(R.string.tab_display, Icons.Outlined.AspectRatio, Detail.DISPLAY),
+        // The platform added this change with Android 16. On an older device the command has
+        // nothing to apply, so a row whose switches could only fail is not offered.
+        if (RotationOverride.isSupported()) {
+            LabEntry(R.string.tab_rotation, Icons.Outlined.ScreenRotation, Detail.ROTATION)
+        } else {
+            null
+        },
         LabEntry(R.string.tab_wifi_passwords, Icons.Outlined.Wifi, Detail.WIFI_PASSWORDS),
         LabEntry(R.string.tab_files, Icons.Outlined.FolderOpen, Detail.FILES),
         LabEntry(R.string.tab_install, Icons.Outlined.Android, Detail.INSTALL),
@@ -293,6 +302,11 @@ private fun activeFeatures(context: Context): Set<Detail> = buildSet {
     // The other switch in the list, and the same question asked of it: on, and with apps to act
     // on.
     if (ForceDark.hasWorkToDo()) add(Detail.FORCE_DARK)
+
+    // The rotation row has no gate: it is doing something when any app holds the override.
+    if (RotationOverride.isSupported() && RotationOverride.enabledPackages().isNotEmpty()) {
+        add(Detail.ROTATION)
+    }
 
     // The accessibility manager is doing something when it is armed and at least one service is
     // locked to keep on; either one without the other is a setting, not a state.

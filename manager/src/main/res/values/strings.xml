@@ -177,6 +177,14 @@
     <string name="labs_unpin_app">Unpin app</string>
     <string name="labs_clear_pins">Clear pinned apps</string>
 
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="tab_rotation">Rotation</string>
+    <string name="rotation_count">%1$d rotated</string>
+    <string name="rotation_note">Apps that force landscape can follow the system rotation. Changing a switch closes that app so the new setting applies.</string>
+    <string name="rotation_filter_rotated">Rotated</string>
+    <string name="rotation_empty">No apps are set to rotate.</string>
+    <string name="rotation_needs_shizuku">Start Shizuku to change rotation.</string>
+
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Hiding</string>
     <string name="tab_hide_developer_options">Hide developer options</string>

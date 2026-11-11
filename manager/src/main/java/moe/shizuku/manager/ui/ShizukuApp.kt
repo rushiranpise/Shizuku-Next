@@ -117,6 +117,7 @@ import moe.shizuku.manager.ui.screen.HomeScreen
 import moe.shizuku.manager.ui.screen.AppToggleFeature
 import moe.shizuku.manager.ui.screen.InstallerScreen
 import moe.shizuku.manager.ui.screen.PowerScreen
+import moe.shizuku.manager.ui.screen.RotationScreen
 import moe.shizuku.manager.ui.screen.IntentsScreen
 import moe.shizuku.manager.ui.screen.DeviceInfoScreen
 import moe.shizuku.manager.ui.screen.DisplayScreen
@@ -176,6 +177,9 @@ enum class Detail(
 
     /** Resolution, density and refresh rate, as the shell changes them. */
     DISPLAY,
+
+    /** Per-app override for apps that force themselves into landscape. */
+    ROTATION,
 
     /** The saved wifi networks and their keys, read as the shell. */
     WIFI_PASSWORDS,
@@ -386,6 +390,11 @@ fun ShizukuApp(onRunSetup: () -> Unit) {
 
 
                             Detail.DISPLAY -> DisplayScreen(
+                                bottomPadding = 0.dp,
+                                onBack = { detail = null }
+                            )
+
+                            Detail.ROTATION -> RotationScreen(
                                 bottomPadding = 0.dp,
                                 onBack = { detail = null }
                             )
