@@ -348,6 +348,7 @@ fun AppsScreen(
             }
             if (limited) permissionLimited = true
             version++
+            refreshKey++
             if (limited) return@launch
 
             val result = snackbarHostState.showSnackbar(
@@ -371,6 +372,7 @@ fun AppsScreen(
                     }
                 }
                 version++
+                refreshKey++
             }
         }
     }
@@ -633,6 +635,7 @@ fun AppsScreen(
                                     permissionLimited = true
                                 }
                                 version++
+                                refreshKey++
                             }
                         },
                         onLongClick = {
@@ -668,6 +671,7 @@ fun AppsScreen(
                                             permissionLimited = true
                                         }
                                         version++
+                                        refreshKey++
                                     }
                                 )
                             }
