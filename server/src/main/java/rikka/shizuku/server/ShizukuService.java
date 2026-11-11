@@ -567,9 +567,14 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
         } else {
             for (ClientRecord record : records) {
                 packages.add(record.packageName);
-                record.allowed = allowed;
                 if (record.pid == requestPid) {
+                    record.allowed = allowed;
                     record.dispatchRequestPermissionResult(requestCode, allowed);
+                } else if (!onetime) {
+                    // A permanent decision applies to every process of the app. A one-time
+                    // decision is only for the process that asked; another process of the
+                    // same UID must not silently inherit it.
+                    record.allowed = allowed;
                 }
             }
         }

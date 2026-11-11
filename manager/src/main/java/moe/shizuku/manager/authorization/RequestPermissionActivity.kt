@@ -119,6 +119,12 @@ class RequestPermissionActivity : AppActivity() {
                     }
                 }
             }
+            button2.setOnClickListener {
+                // This grant lasts only as long as the requesting process. It is not
+                // persisted and does not need the confirmation used for a permanent grant.
+                setResult(uid, pid, requestCode, allowed = true, onetime = true)
+                dialog.dismiss()
+            }
             button3.setOnClickListener {
                 setResult(uid, pid, requestCode, allowed = false, onetime = true)
                 dialog.dismiss()
