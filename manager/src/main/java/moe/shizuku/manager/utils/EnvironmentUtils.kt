@@ -99,6 +99,17 @@ object EnvironmentUtils {
         return runCatching { Shell.getShell().isRoot }.getOrDefault(false)
     }
 
+    /**
+     * Whether adbd is allowed to switch itself to root.
+     *
+     * This is a build property, not a root manager. userdebug and eng builds allow `adb root`;
+     * production user builds do not. The property is the one adbd reads, with Build.TYPE as a
+     * fallback for images where the property is not readable by an app.
+     */
+    fun isDebuggableBuild(): Boolean =
+        SystemProperties.getInt("ro.debuggable", 0) == 1 ||
+            Build.TYPE == "userdebug" || Build.TYPE == "eng"
+
     fun getAdbTcpPort(): Int {
         var port = SystemProperties.getInt("service.adb.tcp.port", -1)
         if (port == -1) port = SystemProperties.getInt("persist.adb.tcp.port", -1)

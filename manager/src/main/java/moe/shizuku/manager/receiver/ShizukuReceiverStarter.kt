@@ -12,9 +12,14 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.work.WorkManager
 import com.topjohnwu.superuser.Shell
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import moe.shizuku.manager.R
 import moe.shizuku.manager.AppConstants
 import moe.shizuku.manager.ShizukuSettings
+import moe.shizuku.manager.adb.AdbRoot
 import moe.shizuku.manager.start.StartFailureKind
 import moe.shizuku.manager.service.WatchdogGuard
 import moe.shizuku.manager.start.StartStatusReporter
@@ -42,6 +47,9 @@ object ShizukuReceiverStarter {
 
     const val NOTIFICATION_ID = 1447
     private const val CHANNEL_ID = "AdbStartWorker"
+
+    /** Root starts probe a shell and may wait for adbd to come back; never on the caller's thread. */
+    private val rootScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     enum class WorkerState {
         AWAITING_WIFI,
@@ -205,7 +213,7 @@ object ShizukuReceiverStarter {
         ShizukuSettings.setRunningStartMethod(method)
 
         when (method) {
-            ShizukuSettings.StartMethod.ROOT -> rootStart(context)
+            ShizukuSettings.StartMethod.ROOT -> rootStart(context, userInitiated, lockedStart)
             ShizukuSettings.StartMethod.SYSTEM -> systemStart(context)
             else -> adbStart(context, userInitiated, method, lockedStart)
         }
@@ -242,7 +250,8 @@ object ShizukuReceiverStarter {
         context: Context,
         userInitiated: Boolean,
         startMethod: Int,
-        lockedStart: Boolean = false
+        lockedStart: Boolean = false,
+        adbRoot: Boolean = false
     ) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R
             && !EnvironmentUtils.isTelevision()
@@ -329,7 +338,13 @@ object ShizukuReceiverStarter {
             return
         }
 
-        if (!AdbStartWorker.enqueue(context, startMethod = startMethod, immediate = immediate)) {
+        if (!AdbStartWorker.enqueue(
+                context,
+                startMethod = startMethod,
+                immediate = immediate,
+                adbRoot = adbRoot
+            )
+        ) {
             StartStatusReporter.failed(context.getString(R.string.start_failed))
             return
         }
@@ -448,32 +463,63 @@ object ShizukuReceiverStarter {
         nm.notify(NOTIFICATION_ID, buildNotification(context, msg, startMethod))
     }
 
-    private fun rootStart(context: Context) {
-        // Reached before the unlock too now, where a shell may not be ready at all: libsu is given
-        // one by the root manager, and a refusal there is a start that cannot be made rather than
-        // an exception out of a request nobody asked a question of.
-        val shell = runCatching { Shell.getShell() }.getOrElse {
-            Diag.warn(AppConstants.TAG, "No root shell to start with", it)
-            StartStatusReporter.failed(context.getString(R.string.start_failed_root_unavailable))
-            ShizukuStateMachine.markStartFailed()
-            return
-        }
-        if (!shell.isRoot) {
-            // [start] has already dropped root when the device doesn't have it, so reaching
-            // here means it was revoked in between. Say so instead of returning silently:
-            // the card would otherwise sit on "starting" for a start that never happened.
-            Diag.warn(AppConstants.TAG, "Root was revoked before the start could use it")
-            Shell.getCachedShell()?.close()
-            StartStatusReporter.failed(context.getString(R.string.start_failed_root_unavailable))
-            ShizukuStateMachine.markStartFailed()
-            return
-        }
+    /**
+     * Starts the server as uid 0, with a root manager or with adbd's own root switch.
+     *
+     * The root shell is tried first so a device with Magisk, KernelSU, Sui or a ROM root
+     * manager keeps exactly the start it has today. When there is no root shell, a debuggable
+     * build can still give adbd uid 0; the server is then started over USB and adbd is put back
+     * to the shell user afterwards. A production build has neither path and says so.
+     */
+    private fun rootStart(
+        context: Context,
+        userInitiated: Boolean,
+        lockedStart: Boolean
+    ) {
+        rootScope.launch {
+            // Reached before the unlock too, where a shell may not be ready at all: libsu is given
+            // one by the root manager, and a refusal there is a start that cannot be made rather
+            // than an exception out of a request nobody asked a question of.
+            val shell = runCatching { Shell.getShell() }.getOrNull()
+            if (shell?.isRoot == true) {
+                try {
+                    ShizukuStateMachine.set(ShizukuStateMachine.State.STARTING)
+                    Shell.cmd(Starter.internalCommand).exec()
+                } catch (e: Exception) {
+                    Diag.error(AppConstants.TAG, "Failed to start Shizuku with root", e)
+                    ShizukuStateMachine.markStartFailed()
+                }
+                return@launch
+            }
 
-        try {
-            ShizukuStateMachine.set(ShizukuStateMachine.State.STARTING)
-            Shell.cmd(Starter.internalCommand).exec()
-        } catch (e: Exception) {
-            Diag.error(AppConstants.TAG, "Failed to start Shizuku with root", e)
+            // A shell built while root was away is plain and is reused by libsu. Drop it before
+            // asking adbd, for the same reason [EnvironmentUtils.isRooted] does.
+            Shell.getCachedShell()?.let { runCatching { it.close() } }
+
+            if (lockedStart) {
+                Diag.warn(
+                    AppConstants.TAG,
+                    "No root shell before the unlock; the unlocked start can try adb root"
+                )
+                StartStatusReporter.failed(context.getString(R.string.start_failed_root_unavailable))
+                ShizukuStateMachine.markStartFailed()
+                return@launch
+            }
+
+            if (AdbRoot.isSupported()) {
+                Diag.info(AppConstants.TAG, "No root shell; starting adbd as root over USB")
+                adbStart(
+                    context,
+                    userInitiated,
+                    ShizukuSettings.StartMethod.USB,
+                    lockedStart = false,
+                    adbRoot = true
+                )
+                return@launch
+            }
+
+            Diag.warn(AppConstants.TAG, "No root shell and adb root is not available")
+            StartStatusReporter.failed(context.getString(R.string.start_failed_root_unavailable))
             ShizukuStateMachine.markStartFailed()
         }
     }

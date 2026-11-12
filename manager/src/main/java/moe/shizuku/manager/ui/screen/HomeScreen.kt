@@ -5,7 +5,6 @@ package moe.shizuku.manager.ui.screen
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.Intent
 import android.os.Build
 import java.io.File
 import moe.shizuku.manager.ui.component.PillButton
@@ -102,6 +101,7 @@ import moe.shizuku.manager.Helps
 import moe.shizuku.manager.Manifest
 import moe.shizuku.manager.R
 import moe.shizuku.manager.ShizukuSettings
+import moe.shizuku.manager.adb.AdbRoot
 import moe.shizuku.manager.home.showAccessibilityDialog
 import moe.shizuku.manager.manage.Hiding
 import moe.shizuku.manager.manage.LabSwitch
@@ -124,7 +124,6 @@ import moe.shizuku.manager.start.openAdbPortAndStart
 import moe.shizuku.manager.start.StartMethodGuard
 import moe.shizuku.manager.start.startMethodLabelRes
 import moe.shizuku.manager.starter.Starter
-import moe.shizuku.manager.starter.StarterActivity
 import moe.shizuku.manager.ui.component.AutoSizeText
 import moe.shizuku.manager.ui.component.ExpressiveCard
 import moe.shizuku.manager.ui.component.SegmentedColumn
@@ -162,6 +161,9 @@ fun HomeScreen(bottomPadding: Dp) {
     var permissionWarningDismissed by remember { mutableStateOf<PermissionOwnership?>(null) }
     var updateAvailable by remember { mutableStateOf(false) }
     var rooted by remember { mutableStateOf(false) }
+    // Debuggable builds can give adbd root without a root manager. The Root card, the
+    // configured Root method and the Root option in Settings all follow this answer.
+    var adbRootSupported by remember { mutableStateOf(false) }
     var startMethod by remember { mutableStateOf(ShizukuSettings.getStartMethod()) }
     // Wireless debugging is Android 11 and newer. Below that, the card would offer a start that
     // has no wireless debugging toggle or TLS port to reach.
@@ -318,6 +320,7 @@ fun HomeScreen(bottomPadding: Dp) {
             // resolved here so the card cannot describe a root that is no longer there.
             startMethod = StartMethodGuard.resolve()
             rooted = runCatching { EnvironmentUtils.isRooted() }.getOrDefault(false)
+            adbRootSupported = AdbRoot.isSupported()
             val (selinux, seccomp) = readDeviceStatus()
             selinuxRes = selinux
             seccompRes = seccomp
@@ -808,7 +811,7 @@ fun HomeScreen(bottomPadding: Dp) {
                                 )
                             }
                         )
-                        if (rooted) {
+                        if (rooted || adbRootSupported) {
                             val rootDescription = stringResource(
                                 R.string.home_root_description,
                                 "<b><a href=\"${Helps.SUI.get()}\">Sui</a></b>",
@@ -827,9 +830,11 @@ fun HomeScreen(bottomPadding: Dp) {
                                 body = rootDescription,
                                 enabled = !running,
                                 onClick = {
-                                    context.startActivity(
-                                        Intent(context, StarterActivity::class.java)
-                                            .putExtra(StarterActivity.EXTRA_IS_ROOT, true)
+                                    ShizukuReceiverStarter.start(
+                                        context,
+                                        userInitiated = true,
+                                        startMethod = ShizukuSettings.StartMethod.ROOT,
+                                        reason = "home-root"
                                     )
                                 }
                             )

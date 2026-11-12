@@ -100,7 +100,7 @@
 
     <!-- Home - Root -->
     <string name="home_root_title"><![CDATA[Start via root]]></string>
-    <string name="home_root_description"><![CDATA[If you are using Magisk, you can try %1$s. For root users, it will eventually replace Shizuku. Note, existing applications need to change a little to use %2$s.]]></string>
+    <string name="home_root_description"><![CDATA[If you are using Magisk, you can try %1$s. On a debuggable build, Shizuku can also start with ADB root. For root users, it will eventually replace Shizuku. Note, existing applications need to change a little to use %2$s.]]></string>
     <string name="home_root_button_start">Start</string>
 
     <!-- Home - Application management -->
@@ -634,6 +634,7 @@
     <string name="start_failed_usb_no_port">No local ADB port is open Android clears it on every reboot, and reopening it needs a connection to borrow. Connect to Wi-Fi and Shizuku will reopen it over wireless debugging, run <b>adb tcpip 5555</b> from a computer, or choose <b>Start without Wi-Fi</b> as the start method to start over wireless debugging instead.</string>
     <string name="start_failed_usb_no_port_no_option">No local ADB port is open. Android clears it on every reboot, and reopening it needs a network connection to borrow. Connect to Wi-Fi once, or run <b>adb tcpip 5555</b> from a computer.</string>
     <string name="start_failed_root_unavailable">Root is no longer available on this device, so Shizuku can\'t start over root. Pick another start method.</string>
+    <string name="start_failed_adb_root">ADB root is not available. Enable USB debugging on a debuggable build, or pick another start method.</string>
     <string name="start_failed_system_needs_app">The system start method must be started from the app.</string>
     <string name="start_failed_system_no_exploit">This device does not ship the Samsung FOTA agent (com.sdet.fotaagent), which is the only component the system start method can use, so there is nothing to escalate with here. Switch the system start method to Custom command: the app will show you what to run with an escalation your device does have.</string>
     <string name="start_failed_no_binder">The service did not appear within a minute. Both halves keep a log: the starter under ShizukuServiceStarter and the hand-over under BinderSender. A logcat reader filtered to those two shows whether the starter got as far as forking the server, and whether the server ever asked for the binder.</string>

@@ -17,14 +17,18 @@ import java.util.concurrent.atomic.AtomicInteger
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import moe.shizuku.manager.AppConstants
 import moe.shizuku.manager.R
 import moe.shizuku.manager.ShizukuSettings
+import moe.shizuku.manager.adb.AdbRoot
+import moe.shizuku.manager.adb.AdbRootUnavailableException
 import moe.shizuku.manager.adb.StartProgress
 import moe.shizuku.manager.adb.WirelessPortHunt
 import moe.shizuku.manager.adb.AdbPairingRequiredException
@@ -66,7 +70,16 @@ class AdbStartRun(
      * unlock makes anyway. So the attempt gives up at the first refusal rather than spending
      * minutes on it, says why in the log and nowhere else, and does not retry: see [execute].
      */
-    private val lockedStart: Boolean = false
+    private val lockedStart: Boolean = false,
+
+    /**
+     * Whether this attempt has to make adbd root before sending the starter.
+     *
+     * Only the Root start method asks for this, and only as a fallback when no root shell
+     * is available. The caller has already chosen the USB transport, so the classic port
+     * is the one that is rooted and the one the server is sent over.
+     */
+    private val adbRoot: Boolean = false
 ) {
 
     /** What the host provides; the rest of the attempt does not care which host it is. */
@@ -152,6 +165,9 @@ class AdbStartRun(
         // The search for a wireless port, once there is one; see where it is made. Held here so
         // that every way out of the attempt ends it.
         var hunt: WirelessPortHunt? = null
+        // The classic port adbd was rooted on, when this is the Root fallback. Set before the
+        // command is sent so a refusal still gets an unroot attempt in the `finally`.
+        var rootedPort: Int? = null
         try {
             notify(WorkerState.RUNNING)
 
@@ -514,6 +530,18 @@ class AdbStartRun(
             // Not before - the `tcpip` request above is what the asking had to last until.
             if (port == wanted) searchHunt.close()
 
+            if (adbRoot) {
+                notify(WorkerState.CONNECTING)
+                // Set before the request: a timeout can mean the command took even though the
+                // read-back did not confirm it, and adbd must not be left root because of that.
+                rootedPort = port
+                if (!AdbRoot.setRoot(port, true)) {
+                    throw AdbRootUnavailableException(
+                        "adbd did not become root on port $port"
+                    )
+                }
+            }
+
             notify(WorkerState.CONNECTING)
             // A start that was replaced while it looked for the port stops here. Cancelling the
             // work does not interrupt the blocking calls below, so without this it went on to
@@ -546,6 +574,10 @@ class AdbStartRun(
             // the restarts it makes, but the watchdog is a setting and this has to hold without it.
             val startedPort = port
             settleScope.launch {
+                // The root fallback has already unrooted adbd, and a second start from here
+                // would replace the root server with a shell-uid one. The watchdog still
+                // covers a server that really dies.
+                if (adbRoot) return@launch
                 delay(START_SETTLE_MS)
                 if (Shizuku.pingBinder()) return@launch
                 // A ping that fails right after RUNNING can be momentary, so it is asked twice
@@ -603,6 +635,10 @@ class AdbStartRun(
                     applicationContext.getString(R.string.start_failed_pairing_required) to
                         StartFailureKind.PAIRING
 
+                is AdbRootUnavailableException ->
+                    applicationContext.getString(R.string.start_failed_adb_root) to
+                        StartFailureKind.GENERIC
+
                 is TimeoutException ->
                     // Without WRITE_SECURE_SETTINGS the toggle above couldn't be switched
                     // on, so the honest reason is the permission, not the network.
@@ -651,18 +687,30 @@ class AdbStartRun(
                 TimeoutException::class,
                 // The app already shows this with a Pair action; a bug-report
                 // notification would just be noise.
-                AdbPairingRequiredException::class
+                AdbPairingRequiredException::class,
+                AdbRootUnavailableException::class
             )
             if (ignored.none { it.isInstance(e) }) showErrorNotification(applicationContext, e)
 
             // The poll no longer ends a start, so a failure says so itself.
             if (ShizukuStateMachine.markStartFailed() == ShizukuStateMachine.State.RUNNING) {
                 return Outcome.SUCCESS
-            } else {
-                notify(WorkerState.AWAITING_RETRY)
-                return Outcome.RETRY
             }
+            // Root was refused or adbd never came back as root. Retrying the same build
+            // will not change that, so say so once instead of leaving work on a backoff.
+            if (e is AdbRootUnavailableException) return Outcome.FAILURE
+            notify(WorkerState.AWAITING_RETRY)
+            return Outcome.RETRY
         } finally {
+            rootedPort?.let { port ->
+                // Unroot even when the attempt was cancelled or the start failed: the server
+                // being gone does not make an adbd left as root acceptable.
+                withContext(NonCancellable) {
+                    if (!AdbRoot.setRoot(port, false)) {
+                        Diag.warn(AppConstants.TAG, "adbd is still root after the start")
+                    }
+                }
+            }
             hunt?.close()
         }
     }

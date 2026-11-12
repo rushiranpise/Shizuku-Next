@@ -4,6 +4,7 @@ import android.os.Build
 import android.util.Log
 import moe.shizuku.manager.AppConstants
 import moe.shizuku.manager.ShizukuSettings
+import moe.shizuku.manager.adb.AdbRoot
 import moe.shizuku.manager.utils.EnvironmentUtils
 
 /**
@@ -13,16 +14,19 @@ import moe.shizuku.manager.utils.EnvironmentUtils
  * no longer grants it, root switched off in the manager while the stored setting stays as it was.
  * Shizuku would then try to escalate on every start (boot, the watchdog, the Start button), find
  * nothing to escalate with, and quietly do nothing: the app looks configured but never starts.
+ * A debuggable build is the exception: its adbd can be rooted without a root manager, which is
+ * what the Root start method falls back to.
  *
  * Wireless debugging is the other method that can be missing. It arrived with Android 11, and a
  * stored wireless choice on an older device has nothing to connect to. That start falls back to
  * USB, which is the method older devices can use.
  *
  * So a stored Root falls back to Wireless debugging, or to USB before Android 11, while the
- * device has no root. [droppedRoot] says so, so the settings screen can explain the fallback. The
- * setting itself is left alone: root can come back - root switched back on, a reflash, an OTA
- * reverted - and the next start after that has to use it again without the user having to re-pick
- * Root. A stored wireless method is migrated when it is read, because Android never becomes older.
+ * device has neither a root manager nor a debuggable adbd. [droppedRoot] says so, so the settings
+ * screen can explain the fallback. The setting itself is left alone: root can come back - root
+ * switched back on, a reflash, an OTA reverted - and the next start after that has to use it again
+ * without the user having to re-pick Root. A stored wireless method is migrated when it is read,
+ * because Android never becomes older.
  */
 object StartMethodGuard {
 
@@ -96,7 +100,8 @@ object StartMethodGuard {
         ShizukuSettings.StartMethod.WIRELESS_NO_NETWORK -> supportsWirelessDebugging()
 
         ShizukuSettings.StartMethod.ROOT ->
-            runCatching { EnvironmentUtils.isRooted() }.getOrDefault(false)
+            runCatching { EnvironmentUtils.isRooted() }.getOrDefault(false) ||
+                AdbRoot.isSupported()
 
         else -> true
     }
