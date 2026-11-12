@@ -731,9 +731,6 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
                 if (pi.applicationInfo == null) continue;
 
                 int uid = pi.applicationInfo.uid;
-                ShizukuConfig.PackageEntry entry = configManager.find(uid);
-                if (entry != null && entry.packages != null && !entry.packages.contains(pi.packageName))
-                    continue;
                 // Report the same effective flags as getFlagsForUidInternal(): a configured
                 // entry wins, but a uid with no entry whose permission was granted at the
                 // Android runtime level is still reported as allowed.
