@@ -747,7 +747,7 @@
     <string name="settings_watchdog">Watchdog</string>
     <string name="settings_watchdog_summary">Restart Shizuku automatically if it crashes</string>
     <string name="settings_auto_disable_wireless_debugging">Disable wireless debugging</string>
-    <string name="settings_auto_disable_wireless_debugging_summary">Turn off wireless debugging when Shizuku stops.</string>
+    <string name="settings_auto_disable_wireless_debugging_summary">Turn off wireless debugging after a TCP start or when Shizuku stops.</string>
     <string name="settings_start_method">Default start method</string>
     <string name="settings_start_method_root_unavailable">This device has no root, so starts fall back to wireless debugging.</string>
     <string name="settings_start_method_root_unavailable_usb">This device has no root, so starts fall back to USB.</string>
