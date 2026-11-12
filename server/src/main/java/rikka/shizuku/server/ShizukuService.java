@@ -829,18 +829,23 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
         }
 
         for (UserServiceRecord record : getUserServiceManager().snapshotRecords()) {
-            if (!record.isAlive() || record.uid < 0 || !record.temporary) {
+            if (!record.isAlive()) {
                 continue;
             }
-            TemporaryData data = dataFor(map, record.uid);
-            data.services++;
-            Bundle entry = new Bundle();
-            entry.putInt(ServerConstants.KEY_TEMPORARY_KIND, ServerConstants.TEMPORARY_KIND_SERVICE);
-            entry.putInt(ServerConstants.KEY_TEMPORARY_PID, record.pid);
-            entry.putInt(ServerConstants.KEY_TEMPORARY_SESSION_PID, record.ownerPid);
-            entry.putString(ServerConstants.KEY_TEMPORARY_LABEL,
-                    record.packageName != null ? record.packageName : "service");
-            data.entries.add(entry);
+            for (UserServiceRecord.Association association : record.snapshotAssociations()) {
+                if (!association.temporary) {
+                    continue;
+                }
+                TemporaryData data = dataFor(map, association.uid);
+                data.services++;
+                Bundle entry = new Bundle();
+                entry.putInt(ServerConstants.KEY_TEMPORARY_KIND, ServerConstants.TEMPORARY_KIND_SERVICE);
+                entry.putInt(ServerConstants.KEY_TEMPORARY_PID, record.pid);
+                entry.putInt(ServerConstants.KEY_TEMPORARY_SESSION_PID, association.pid);
+                entry.putString(ServerConstants.KEY_TEMPORARY_LABEL,
+                        record.packageName != null ? record.packageName : "service");
+                data.entries.add(entry);
+            }
         }
 
         for (RishService.HostEntry entry : RishService.snapshotHosts()) {
@@ -889,10 +894,9 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
 
         if (kind == ServerConstants.TEMPORARY_KIND_ALL || kind == ServerConstants.TEMPORARY_KIND_SERVICE) {
             for (UserServiceRecord record : getUserServiceManager().snapshotRecords()) {
-                if (!record.temporary || record.uid != uid) continue;
-                if (sessionPid != 0 && record.ownerPid != sessionPid) continue;
-                if (pid != 0 && record.pid != pid) continue;
-                getUserServiceManager().killUserService(record);
+                if (record.removeTemporaryAssociations(uid, sessionPid, pid)) {
+                    getUserServiceManager().killUserService(record);
+                }
             }
         }
 
