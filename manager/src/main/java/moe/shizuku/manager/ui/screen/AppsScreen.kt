@@ -36,6 +36,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
@@ -79,6 +80,7 @@ import kotlinx.coroutines.withContext
 import moe.shizuku.manager.Helps
 import moe.shizuku.manager.R
 import moe.shizuku.manager.authorization.AuthorizationManager
+import moe.shizuku.manager.authorization.ClientProcessInfo
 import moe.shizuku.manager.authorization.GrantAuthenticator
 import moe.shizuku.manager.manage.InstalledPackages
 import moe.shizuku.manager.receiver.ShizukuReceiverStarter
@@ -88,6 +90,7 @@ import moe.shizuku.manager.ui.component.packageLine
 import moe.shizuku.manager.ui.component.rowKey
 import moe.shizuku.manager.ui.component.AppRowLine
 import moe.shizuku.manager.ui.component.AppStatusChips
+import moe.shizuku.manager.ui.component.ProcessCountChip
 import moe.shizuku.manager.ui.component.ScrollToTopButton
 import moe.shizuku.manager.ui.component.CenteredMessage
 import moe.shizuku.manager.ui.component.ChipEmphasis
@@ -159,6 +162,12 @@ fun AppsScreen(
     var refreshing by remember { mutableStateOf(false) }
     var refreshKey by remember { mutableIntStateOf(0) }
 
+    // Attached client processes, per app uid. These are read with the app list and expanded
+    // inline, so this screen does not need a separate temporary-grants tab or filter.
+    var clientProcessesByUid by remember { mutableStateOf<Map<Int, List<ClientProcessInfo>>>(emptyMap()) }
+    var expandedProcessUid by remember { mutableStateOf<Int?>(null) }
+    var pendingStopProcess by remember { mutableStateOf<ClientProcessInfo?>(null) }
+
     // The list comes from the server, so it has to be re-read when that comes or goes
     // (and the answer while it is down is "there is nothing to list", not an empty page).
     DisposableEffect(Unit) {
@@ -182,11 +191,21 @@ fun AppsScreen(
 
         loading = true
         Log.d(AppConstants.TAG, "Apps: reading the authorised apps")
-        all = withContext(Dispatchers.IO) {
+        val loaded = withContext(Dispatchers.IO) {
             runCatching {
                 AuthorizationManager.getPackages(exclude = listOf(context.packageName))
             }.getOrDefault(emptyList())
         }
+        all = loaded
+        clientProcessesByUid = withContext(Dispatchers.IO) {
+            val uids = loaded.mapNotNull { it.applicationInfo?.uid }.distinct().toIntArray()
+            if (uids.isEmpty()) {
+                emptyMap()
+            } else {
+                AuthorizationManager.getClientProcesses(uids).groupBy { it.uid }
+            }
+        }
+        expandedProcessUid = null
         loadedFor = running to version
         loading = false
         refreshing = false
@@ -285,6 +304,29 @@ fun AppsScreen(
     // Remembered for the whole screen rather than per batch, so a second batch replaces
     // the first offer to undo instead of stacking snackbars.
     val snackbarHostState = remember { SnackbarHostState() }
+
+    fun toggleProcesses(uid: Int) {
+        expandedProcessUid = if (expandedProcessUid == uid) null else uid
+    }
+
+    fun stopProcess(process: ClientProcessInfo) {
+        pendingStopProcess = null
+        scope.launch {
+            val stopped = withContext(Dispatchers.IO) {
+                AuthorizationManager.stopClientProcess(process.uid, process.pid)
+            }
+            if (!stopped) {
+                snackbarHostState.showSnackbar(context.getString(R.string.apps_process_stop_failed))
+                return@launch
+            }
+
+            val remaining = clientProcessesByUid[process.uid].orEmpty()
+                .filterNot { it.pid == process.pid }
+            clientProcessesByUid = clientProcessesByUid + (process.uid to remaining)
+            if (remaining.none { it.allowed }) expandedProcessUid = null
+            version++
+        }
+    }
 
     /**
      * Changes one app's grant, asking for the device's authentication first when that grant is
@@ -554,6 +596,7 @@ fun AppsScreen(
                     runCatching { AuthorizationManager.granted(pi.packageName, uid) }.getOrDefault(false)
                 }
                 val isSelected = pi.packageName in selected
+                val processes = clientProcessesByUid[uid].orEmpty().filter { it.allowed }
 
                 SegmentedCard(
                     // A selected row tints its card, so a multi-select pass reads at a
@@ -564,46 +607,64 @@ fun AppsScreen(
                         MaterialTheme.colorScheme.surfaceContainerHigh
                     }
                 ) {
-                ListItem(
-                    modifier = Modifier.combinedClickable(
-                        onClick = {
-                            if (selectionMode) {
-                                selected = if (isSelected) selected - pi.packageName else selected + pi.packageName
-                            } else {
-                                updateGrant(pi, !granted)
-                            }
-                        },
-                        onLongClick = {
-                            selected = if (isSelected) selected - pi.packageName else selected + pi.packageName
-                        }
-                    ),
-                    leadingContent = { AppIcon(pi) },
-                    headlineContent = {
-                        Text(
-                            runCatching { pi.applicationInfo!!.loadLabel(pm).toString() }
-                                .getOrDefault(pi.packageName)
+                    Column {
+                        ListItem(
+                            modifier = Modifier.combinedClickable(
+                                onClick = {
+                                    if (selectionMode) {
+                                        selected = if (isSelected) selected - pi.packageName else selected + pi.packageName
+                                    } else {
+                                        updateGrant(pi, !granted)
+                                    }
+                                },
+                                onLongClick = {
+                                    selected = if (isSelected) selected - pi.packageName else selected + pi.packageName
+                                }
+                            ),
+                            leadingContent = { AppIcon(pi) },
+                            headlineContent = {
+                                Text(
+                                    runCatching { pi.applicationInfo!!.loadLabel(pm).toString() }
+                                        .getOrDefault(pi.packageName)
+                                )
+                            },
+                            // The name has the whole first line now, so a long one no longer wraps to
+                            // make room for the chip and the switch: they moved to the line under it,
+                            // with the package name giving way instead.
+                            supportingContent = {
+                                AppRowLine(pi.packageLine()) {
+                                    // The process count comes first when there is one, then the
+                                    // same chips every app list carries.
+                                    if (!selectionMode && processes.isNotEmpty()) {
+                                        ProcessCountChip(
+                                            count = processes.size,
+                                            expanded = expandedProcessUid == uid,
+                                            onClick = { toggleProcesses(uid) }
+                                        )
+                                    }
+                                    AppStatusChips(pi, hidden = pi.packageName in launcherless)
+                                    if (selectionMode) {
+                                        Checkbox(checked = isSelected, onCheckedChange = null)
+                                    } else {
+                                        ExpressiveSwitch(
+                                            checked = granted,
+                                            onCheckedChange = { checked -> updateGrant(pi, checked) }
+                                        )
+                                    }
+                                }
+                            },
+                            colors = ListItemDefaults.colors(containerColor = Color.Transparent)
                         )
-                    },
-                    // The name has the whole first line now, so a long one no longer wraps to
-                    // make room for the chip and the switch: they moved to the line under it,
-                    // with the package name giving way instead.
-                    supportingContent = {
-                        AppRowLine(pi.packageLine()) {
-                            // The same chips every app list carries, worked out in one place:
-                            // what kind of app it is, and what is worth knowing about it.
-                            AppStatusChips(pi, hidden = pi.packageName in launcherless)
-                            if (selectionMode) {
-                                Checkbox(checked = isSelected, onCheckedChange = null)
-                            } else {
-                                ExpressiveSwitch(
-                                    checked = granted,
-                                    onCheckedChange = { checked -> updateGrant(pi, checked) }
+                        if (expandedProcessUid == uid && processes.isNotEmpty()) {
+                            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+                            processes.forEach { process ->
+                                ClientProcessRow(
+                                    process = process,
+                                    onStop = { pendingStopProcess = process }
                                 )
                             }
                         }
-                    },
-                    colors = ListItemDefaults.colors(containerColor = Color.Transparent)
-                )
+                    }
                 }
             }
         }
@@ -760,6 +821,27 @@ fun AppsScreen(
             },
             dismissButton = {
                 PillButtonQuiet(onClick = { pendingBatch = null }) {
+                    Text(stringResource(android.R.string.cancel))
+                }
+            }
+        )
+    }
+
+    pendingStopProcess?.let { process ->
+        val label = all.firstOrNull { it.applicationInfo?.uid == process.uid }
+            ?.let { runCatching { it.applicationInfo?.loadLabel(pm)?.toString() }.getOrNull() }
+            ?: process.packageName.ifBlank { "uid ${process.uid}" }
+        AlertDialog(
+            onDismissRequest = { pendingStopProcess = null },
+            title = { Text(stringResource(R.string.apps_process_stop_title)) },
+            text = { Text(stringResource(R.string.apps_process_stop_message, process.pid, label)) },
+            confirmButton = {
+                PillButton(onClick = { stopProcess(process) }) {
+                    Text(stringResource(R.string.apps_process_stop))
+                }
+            },
+            dismissButton = {
+                PillButtonQuiet(onClick = { pendingStopProcess = null }) {
                     Text(stringResource(android.R.string.cancel))
                 }
             }

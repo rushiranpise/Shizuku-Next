@@ -26,4 +26,12 @@ public class ServerConstants {
     }
 
     public static final int BINDER_TRANSACTION_getApplications = 10001;
+    public static final int BINDER_TRANSACTION_getClientProcesses = 10002;
+    public static final int BINDER_TRANSACTION_stopClientProcess = 10003;
+
+    public static final String KEY_CLIENT_PROCESS_UID = "client_process_uid";
+    public static final String KEY_CLIENT_PROCESS_PID = "client_process_pid";
+    public static final String KEY_CLIENT_PROCESS_PACKAGE = "client_process_package";
+    public static final String KEY_CLIENT_PROCESS_API_VERSION = "client_process_api_version";
+    public static final String KEY_CLIENT_PROCESS_ALLOWED = "client_process_allowed";
 }

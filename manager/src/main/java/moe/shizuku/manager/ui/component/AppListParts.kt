@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,6 +38,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -317,6 +319,34 @@ fun StatusChip(
             .background(container)
             .padding(horizontal = ChipPadding, vertical = 3.dp)
     )
+}
+
+/**
+ * The process count on an app's supporting line. It toggles the process rows below the app,
+ * so no chevron has to be added beside the switch and shift the row's layout.
+ */
+@Composable
+fun ProcessCountChip(
+    count: Int,
+    expanded: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .clip(MaterialTheme.shapes.small)
+            .background(MaterialTheme.colorScheme.secondaryContainer)
+            .clickable(onClick = onClick)
+            .padding(horizontal = 8.dp, vertical = 3.dp)
+    ) {
+        Text(
+            text = if (expanded) stringResource(R.string.apps_processes_hide_short)
+            else pluralStringResource(R.plurals.apps_processes_count, count, count),
+            style = MaterialTheme.typography.labelSmall,
+            maxLines = 1,
+            color = MaterialTheme.colorScheme.onSecondaryContainer
+        )
+    }
 }
 
 /**

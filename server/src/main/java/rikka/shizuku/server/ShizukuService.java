@@ -734,6 +734,40 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
         return new ParcelableListSlice<>(list);
     }
 
+    /**
+     * The processes the manager may show under an app. These are the processes that actually
+     * attached to the service, not every process the package happens to have running.
+     */
+    private ParcelableListSlice<Bundle> getClientProcesses(int[] uids) {
+        List<Bundle> list = new ArrayList<>();
+        for (int uid : uids) {
+            for (ClientRecord record : clientManager.findClients(uid)) {
+                Bundle process = new Bundle();
+                process.putInt(ServerConstants.KEY_CLIENT_PROCESS_UID, record.uid);
+                process.putInt(ServerConstants.KEY_CLIENT_PROCESS_PID, record.pid);
+                process.putString(ServerConstants.KEY_CLIENT_PROCESS_PACKAGE, record.packageName);
+                process.putInt(ServerConstants.KEY_CLIENT_PROCESS_API_VERSION, record.apiVersion);
+                process.putBoolean(ServerConstants.KEY_CLIENT_PROCESS_ALLOWED, record.allowed);
+                list.add(process);
+            }
+        }
+        return new ParcelableListSlice<>(list);
+    }
+
+    /** Stops one attached client process. The app itself is not force-stopped. */
+    private boolean stopClientProcess(int uid, int pid) {
+        ClientRecord record = clientManager.findClient(uid, pid);
+        if (record == null || pid == Process.myPid()) return false;
+
+        try {
+            Process.killProcess(pid);
+            return true;
+        } catch (Throwable tr) {
+            LOGGER.w(tr, "Could not stop client process %d for uid %d", pid, uid);
+            return false;
+        }
+    }
+
     @Override
     public boolean onTransact(int code, Parcel data, Parcel reply, int flags) throws RemoteException {
         //LOGGER.d("transact: code=%d, calling uid=%d", code, Binder.getCallingUid());
@@ -743,6 +777,28 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
             ParcelableListSlice<PackageInfo> result = getApplications(userId);
             reply.writeNoException();
             result.writeToParcel(reply, android.os.Parcelable.PARCELABLE_WRITE_RETURN_VALUE);
+            return true;
+        }
+        if (code == ServerConstants.BINDER_TRANSACTION_getClientProcesses) {
+            data.enforceInterface(ShizukuApiConstants.BINDER_DESCRIPTOR);
+            int count = data.readInt();
+            int[] uids = new int[count];
+            data.readIntArray(uids);
+            ParcelableListSlice<Bundle> result = isManagerAppId(Binder.getCallingUid())
+                    ? getClientProcesses(uids)
+                    : new ParcelableListSlice<>(new ArrayList<>());
+            reply.writeNoException();
+            result.writeToParcel(reply, android.os.Parcelable.PARCELABLE_WRITE_RETURN_VALUE);
+            return true;
+        }
+        if (code == ServerConstants.BINDER_TRANSACTION_stopClientProcess) {
+            data.enforceInterface(ShizukuApiConstants.BINDER_DESCRIPTOR);
+            int uid = data.readInt();
+            int pid = data.readInt();
+            boolean stopped = isManagerAppId(Binder.getCallingUid())
+                    && stopClientProcess(uid, pid);
+            reply.writeNoException();
+            reply.writeInt(stopped ? 1 : 0);
             return true;
         }
         return super.onTransact(code, data, reply, flags);

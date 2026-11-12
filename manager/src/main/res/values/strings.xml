@@ -144,6 +144,23 @@
     <string name="app_management_sort_last_added">Recently added</string>
     <string name="app_management_sort_updated">Updated</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_processes_show">Show %1$d process(es)</string>
+    <string name="apps_processes_hide">Hide %1$d process(es)</string>
+    <string name="apps_process_pid">PID %1$d</string>
+    <string name="apps_process_api">API %1$d</string>
+    <string name="apps_process_allowed">Allowed</string>
+    <string name="apps_process_not_allowed">Not allowed</string>
+    <string name="apps_process_stop">Stop process</string>
+    <string name="apps_process_stop_title">Stop process?</string>
+    <string name="apps_process_stop_message">Stop PID %1$d for %2$s? The app may start it again.</string>
+    <string name="apps_process_stop_failed">Could not stop the process.</string>
+    <string name="apps_processes_title">Attached processes (%1$d)</string>
+    <plurals name="apps_processes_count">
+        <item quantity="one">%1$d process</item>
+        <item quantity="other">%1$d processes</item>
+    </plurals>
+    <string name="apps_processes_hide_short">Hide</string>
+    <string name="apps_processes_empty">No attached processes.</string>
     <string name="tab_home">Home</string>
     <string name="tab_apps">Apps</string>
     <string name="tab_shell">Shell</string>
