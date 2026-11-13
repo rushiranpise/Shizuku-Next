@@ -36,7 +36,7 @@ Get the latest build from [Releases](https://github.com/rushiranpise/Shizuku-Nex
 ## Features
 
 ### Starting and reliability
-- Start through wireless debugging, USB debugging, root, or Samsung system UID where supported.
+- Start through wireless debugging, USB debugging, root, or the Samsung FOTA-agent system UID path where supported.
 - Automatically handles wireless-debugging pairing, including reading the pairing code on supported devices.
 - Optional start on boot, watchdog restarts, automatic recovery, and configurable restart timing.
 - TCP mode, USB-port recovery, and experimental startup without Wi-Fi on Android 11 to 16.
@@ -63,7 +63,7 @@ The firewall uses Android's OEM deny chain 3. It can exist from Android 11, but 
 - Android TV and VR-friendly UI support.
 - MediaTek compatibility fixes and improvements for some devices.
 
-Some features are experimental or device-dependent. Root, Samsung system-UID, and no-Wi-Fi startup methods are not available on every device. Only install modules and scripts you trust.
+Some features are experimental or device-dependent. Root, Samsung FOTA-agent system-UID, and no-Wi-Fi startup methods are not available on every device. Only install modules and scripts you trust.
 
 ## Requirements
 
@@ -71,7 +71,7 @@ Some features are experimental or device-dependent. Root, Samsung system-UID, an
 - **Wireless debugging:** Android 11 or newer; supported Android TVs are also compatible.
 - **USB/PC start:** A computer with ADB.
 - **Root start:** A rooted device with working root access.
-- **System UID start:** Supported Samsung devices only.
+- **System UID start:** Samsung devices that ship the FOTA agent (`com.sdet.fotaagent`). For SMTShell on older One UI, use the Custom command system start.
 - **Start on boot:** Supported start methods only.
 
 See the [wiki](https://github.com/thedjchi/Shizuku/wiki) for setup and troubleshooting guidance.
