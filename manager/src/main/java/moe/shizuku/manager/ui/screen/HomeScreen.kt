@@ -170,7 +170,7 @@ fun HomeScreen(bottomPadding: Dp) {
     val wirelessSupported = remember { StartMethodGuard.supportsWirelessDebugging() }
     var developerOptionsOn by remember { mutableStateOf(context.isDeveloperOptionsEnabled()) }
     // The three platform switches, read through the same objects the tiles and widgets use.
-    // Android 17 redacts two of them to 0, and those objects treat the redaction as on. Read again
+    // Android 17 redacts them to 0, and those objects treat the redaction as on. Read again
     // on resume and after every tap, so the buttons show the platform's answer rather than the last
     // thing this screen asked for.
     var devOptions by remember { mutableStateOf(LabSwitch.DEVELOPER_OPTIONS.isOn() ?: false) }

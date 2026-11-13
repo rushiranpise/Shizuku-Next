@@ -109,7 +109,7 @@ enum class LabSwitch(
     /**
      * The last write this process made to a redacted setting, or null before one.
      *
-     * Android 17 will not read the two debug settings back, so the write is the only evidence
+     * Android 17 will not read the redacted debug settings back, so the write is the only evidence
      * there is. Keeping it makes the home buttons, tiles and widgets agree until the process ends;
      * a new process starts from the redacted read again.
      */
@@ -154,8 +154,8 @@ enum class LabSwitch(
 
         WATCHDOG -> ShizukuSettings.getWatchdog()
 
-        // The platform's own settings. Read through EnvironmentUtils for the two Android 17
-        // redacts; their raw value would read as off. Wireless debugging is not redacted.
+        // The platform's own settings. Read through EnvironmentUtils for the three Android 17
+        // redacts; their raw value would read as off.
         DEVELOPER_OPTIONS -> readPlatformSwitch(
             EnvironmentUtils.isDeveloperOptionsSwitchOn()
         )
@@ -254,9 +254,9 @@ enum class LabSwitch(
      * server has no such grant, so the shell is tried as the fallback - and that one does need a
      * server.
      *
-     * Android 17 redacts the two debug switches to 0, so no read on that platform can confirm an
-     * on write. There a direct write that did not throw is the answer; the shell fallback cannot
-     * be checked, so it is not used for those two.
+     * Android 17 redacts the debug switches to 0, so no read on that platform can confirm an on
+     * write. There a direct write that did not throw is the answer; the shell fallback cannot be
+     * checked, so it is not used for those settings.
      */
     private fun writeGlobal(context: Context, key: String, on: Boolean): Boolean? {
         val value = if (on) 1 else 0

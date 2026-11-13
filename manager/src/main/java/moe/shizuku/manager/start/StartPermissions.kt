@@ -20,12 +20,10 @@ import rikka.shizuku.Shizuku
 import moe.shizuku.manager.AppConstants
 import moe.shizuku.manager.ShizukuApplication
 import moe.shizuku.manager.ShizukuSettings
+import moe.shizuku.manager.utils.DebugSwitchState
 import moe.shizuku.manager.utils.EnvironmentUtils
 import moe.shizuku.manager.utils.runShellCommand
 import moe.shizuku.manager.utils.Diag
-
-/** The global setting Android keeps wireless debugging in. */
-private const val ADB_WIFI_ENABLED = "adb_wifi_enabled"
 
 /**
  * The permission the OS gates local-network discovery behind, or null where there is none.
@@ -106,9 +104,6 @@ fun Context.hasWriteSecureSettings(): Boolean =
 fun Context.canWriteSecureSettings(): Boolean =
     hasWriteSecureSettings() || Shizuku.pingBinder()
 
-fun Context.isWirelessDebuggingEnabled(): Boolean =
-    Settings.Global.getInt(contentResolver, ADB_WIFI_ENABLED, 0) == 1
-
 /**
  * Whether [startMethod] is going to need a secure setting written before it can work.
  *
@@ -117,18 +112,21 @@ fun Context.isWirelessDebuggingEnabled(): Boolean =
  * sort, and neither does a wireless start where the toggle is already on so those
  * shouldn't be held up for a permission they won't use.
  *
+ * Only a toggle that is definitely off is refused here. Android 17 QPR3 hides
+ * `adb_wifi_enabled` from apps, so a zero there is unknown rather than off; refusing that
+ * case was what stopped a fresh install before it could even look for a port (issue #224).
+ * Unknown starts go ahead, and the start's own timeout reports the missing permission when
+ * discovery finds nothing.
+ *
  * Starting without a network is a wireless start too, and the one this question matters
  * most for: with the toggle off there is no other way for it to come on, because the
  * Settings switch cannot be reached without a network and the write is what a device that
- * is offline needs. Left out of this check, an install that turned the experiment on
- * before Shizuku had ever started asked a settings provider that refuses every write and
- * retried every half minute forever, with nothing anywhere saying why - which is the one
- * state the experiment can never get itself out of.
+ * is offline needs.
  */
 fun Context.needsWriteSecureSettingsFor(@ShizukuSettings.StartMethod startMethod: Int): Boolean =
     (startMethod == ShizukuSettings.StartMethod.WIRELESS ||
         startMethod == ShizukuSettings.StartMethod.WIRELESS_NO_NETWORK) &&
-        !isWirelessDebuggingEnabled()
+        EnvironmentUtils.wirelessDebuggingState() == DebugSwitchState.OFF
 
 /**
  * Writes a global setting, and shrugs when the app isn't allowed to.
@@ -149,14 +147,41 @@ fun Context.writeGlobalLongSetting(key: String, value: Long): Boolean =
  * Writes global setting [key] as [value], directly where the app may and through the server where
  * it may not, answering whether it is now what was asked for.
  *
- * The read back is what decides, not the absence of an exception: a provider that refuses the
- * write and one that silently keeps the old value look the same from here.
+ * The read back decides for a setting that is readable. Android 17 hides some of them from
+ * apps, and there the absence of a SecurityException is the evidence; a redacted 0 must not
+ * be mistaken for a successful write of 0.
  *
  * The shell write is skipped on the main thread: it blocks on the server answering, and a server
  * that has stopped answering should be a failed write rather than an ANR.
  */
 private fun Context.writeGlobal(key: String, value: String, direct: () -> Unit): Boolean {
-    runCatching { direct() }
+    val directWritten = runCatching { direct() }.isSuccess
+
+    if (EnvironmentUtils.isDebugSwitchReadRedacted(key)) {
+        if (directWritten) return true
+
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Diag.warn(
+                AppConstants.TAG,
+                "Could not write the $key setting, and the shell fallback cannot run on the main thread"
+            )
+            return false
+        }
+
+        // The marker is needed because `settings put` prints nothing on success, and the value
+        // cannot be read back on a redacted platform.
+        val shellWritten = runCatching {
+            runShellCommand("settings put global $key $value && echo ok")
+        }.getOrNull()?.trim() == "ok"
+        if (!shellWritten) {
+            Diag.warn(
+                AppConstants.TAG,
+                "Could not write the $key setting (WRITE_SECURE_SETTINGS missing?)"
+            )
+        }
+        return shellWritten
+    }
+
     if (readGlobalSetting(key) == value) return true
 
     if (Looper.myLooper() == Looper.getMainLooper()) {
