@@ -63,6 +63,8 @@ object SettingsBackup {
         "last_adb_transport",
         "manually_stopped",
         "mode",
+        "persist_adb_port_auto",
+        "persist_adb_port_refused_build",
         "running_start_method",
         "server_ran_since_boot",
         "setup_done"

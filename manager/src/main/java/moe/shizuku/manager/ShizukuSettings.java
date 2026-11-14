@@ -71,8 +71,18 @@ public class ShizukuSettings {
         public static final String KEY_FORCE_WIRELESS_DEBUGGING = "force_wireless_debugging";
         public static final String KEY_PERSIST_ADB_PORT = "persist_adb_port";
 
+        /** Whether the persistent ADB port was written by the no-network fallback, not by the user. */
+        public static final String KEY_PERSIST_ADB_PORT_AUTO = "persist_adb_port_auto";
+
+        /** The user switched the persistent ADB port off, so the fallback must not turn it back on. */
+        public static final String KEY_PERSIST_ADB_PORT_DECLINED = "persist_adb_port_declined";
+
+        /** The build fingerprint on which the platform refused the persistent ADB port. */
+        public static final String KEY_PERSIST_ADB_PORT_REFUSED_BUILD = "persist_adb_port_refused_build";
+
         /** The build fingerprint on which a local-only hotspot was seen to take the Wi-Fi client down. */
         public static final String KEY_HOTSPOT_DISPLACES_WIFI_BUILD = "hotspot_displaces_wifi_build";
+
         public static final String KEY_SYSTEM_START_METHOD = "system_start_method";
 
         /** Whether the start and stop intents have to carry the auth token. */
@@ -518,6 +528,40 @@ public class ShizukuSettings {
 
     public static void setPersistAdbPort(boolean enable) {
         getPreferences().edit().putBoolean(Keys.KEY_PERSIST_ADB_PORT, enable).apply();
+    }
+
+    /**
+     * Whether the persistent ADB port was written by the no-network fallback rather than by the
+     * user, so the fallback knows it may take it back when the start no longer needs it.
+     */
+    public static boolean getPersistAdbPortAuto() {
+        return getPreferences().getBoolean(Keys.KEY_PERSIST_ADB_PORT_AUTO, false);
+    }
+
+    public static void setPersistAdbPortAuto(boolean auto) {
+        getPreferences().edit().putBoolean(Keys.KEY_PERSIST_ADB_PORT_AUTO, auto).apply();
+    }
+
+    /** Whether the user switched the persistent ADB port off; the fallback then leaves it off. */
+    public static boolean getPersistAdbPortDeclined() {
+        return getPreferences().getBoolean(Keys.KEY_PERSIST_ADB_PORT_DECLINED, false);
+    }
+
+    public static void setPersistAdbPortDeclined(boolean declined) {
+        getPreferences().edit().putBoolean(Keys.KEY_PERSIST_ADB_PORT_DECLINED, declined).apply();
+    }
+
+    /**
+     * The build fingerprint on which the platform refused the persistent ADB port, or null. Kept
+     * per build so an OTA, which can change the policy, gets asked again.
+     */
+    @Nullable
+    public static String getPersistAdbPortRefusedBuild() {
+        return getPreferences().getString(Keys.KEY_PERSIST_ADB_PORT_REFUSED_BUILD, null);
+    }
+
+    public static void setPersistAdbPortRefusedBuild(@Nullable String fingerprint) {
+        getPreferences().edit().putString(Keys.KEY_PERSIST_ADB_PORT_REFUSED_BUILD, fingerprint).apply();
     }
 
     /**
