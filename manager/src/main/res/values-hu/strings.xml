@@ -133,6 +133,8 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="app_management_sort_last_added">Legutóbb hozzáadva</string>
     <string name="app_management_sort_updated">Frissítve</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_process_allowed">Engedélyezve</string>
+    <string name="apps_processes_hide_short">Elrejtés</string>
     <string name="tab_home">Kezdőlap</string>
     <string name="tab_apps">Alkalmazások</string>
     <string name="tab_shell">Shell</string>
@@ -144,6 +146,8 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="labs_filter_blocked">Blokkolt</string>
     <string name="labs_blocked_count">%1$d blokkolva</string>
     <string name="labs_blocked_empty">Semmi sincs blokkolva.</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="rotation_mode_off">Ki</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Elrejtés</string>
     <string name="tab_hide_developer_options">Fejlesztői beállítások elrejtése</string>

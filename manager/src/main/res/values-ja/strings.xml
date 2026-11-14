@@ -123,6 +123,8 @@
     <string name="app_management_sort_last_added">最近追加した項目</string>
     <string name="app_management_sort_updated">更新日時</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_process_allowed">許可済み</string>
+    <string name="apps_processes_hide_short">非表示</string>
     <string name="tab_home">ホーム</string>
     <string name="tab_apps">アプリ</string>
     <string name="tab_shell">シェル</string>
@@ -135,6 +137,8 @@
     <string name="labs_blocked_count">%1$d がブロックされました</string>
     <string name="labs_blocked_empty">何もブロックされていません。</string>
     <string name="labs_bulk_apply">適用</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="rotation_mode_off">オフ</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">非表示中</string>
     <string name="tab_hide_developer_options">開発者向けオプションを非表示</string>

@@ -72,6 +72,7 @@
          command. -->
     <string name="dialog_adb_pairing_accessibility_permission_tv">Android blokuje tento přepínač pro aplikace nainstalované mimo obchod s aplikacemi a v televizi, Informace o aplikaci nemají žádnou možnost \"Povolit omezená nastavení\" pro její odblokování. Počítač připojený k této televizi přes ADB je potřeba jednou: buď udělte výše uvedené svolení. která umožňuje Shizuku zapnout službu sama, nebo odblokovat přepínač pomocí:\n\n^1</string>
     <string name="dialog_adb_pairing_open_app_info">Informace o aplikaci</string>
+    <string name="dialog_adb_pairing_accessibility_enable">Funkce automatického párování načítá kód z dialogového okna systému prostřednictvím služby usnadnění přístupu aplikace Shizuku, takže musí být tato služba zapnutá, a to pouze po dobu nezbytně nutnou: služba se sama vypne, jakmile kód najde, nebo po uplynutí jedné minuty z důvodu úspory energie. Shizuku ji obvykle zapíná sama, k čemuž potřebuje oprávnění WRITE_SECURE_SETTINGS, které u čerstvé instalace ještě nebylo uděleno.\n\nZapněte ji na další obrazovce, zadejte kód ručně v části „Manual“ nebo oprávnění udělejte jednorázově:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Párování spusťte provedením následujících kroků:\n- Přejděte do sekce „Možnosti pro vývojáře“\n- Povolte „Ladění USB“ a „Bezdrátové ladění“\n- Klepněte na levou stranu sekce „Bezdrátové ladění“\n- Klepněte na „Spárovat zařízení s párovacím kódem“. Shizuku automaticky detekuje párovací kód.</string>
     <string name="adb_pairing_requires_multi_window">Nejprve prosím přejděte do režimu rozdělené obrazovky (více oken).</string>
     <string name="adb_pairing_requires_multi_window_reason">Systém vyžaduje, aby byl dialog pro párování vždy viditelný. Použití režimu rozdělené obrazovky je jediný způsob, jak zajistit, aby tato aplikace a dialogové okno systému byly viditelné současně.</string>
@@ -131,8 +132,27 @@
     <string name="apps_filter_hidden">Skryto</string>
     <string name="apps_no_match">Žádné aplikace neodpovídají vašemu hledání</string>
     <string name="app_management_sort_last_added">Nedávno přidané</string>
-    <string name="app_management_sort_updated">Aktualizováno</string>
+    <string name="app_management_sort_updated">Aktualizované</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_processes_show">Zobrazit %1$d proces(y)</string>
+    <string name="apps_processes_hide">Skrýt %1$d proces(y)</string>
+    <string name="apps_process_pid">PID %1$d</string>
+    <string name="apps_process_api">API %1$d</string>
+    <string name="apps_process_allowed">Povoleno</string>
+    <string name="apps_process_not_allowed">Není povoleno</string>
+    <string name="apps_process_stop">Zastavit proces</string>
+    <string name="apps_process_stop_title">Zastavit proces?</string>
+    <string name="apps_process_stop_message">Zastavit PID %1$d pro %2$s? Aplikace jej může znovu spustit.</string>
+    <string name="apps_process_stop_failed">Nelze zastavit proces.</string>
+    <string name="apps_processes_title">Připojené procesy (%1$d)</string>
+    <plurals name="apps_processes_count">
+        <item quantity="one">%1$d proces</item>
+        <item quantity="few">%1$d procesy</item>
+        <item quantity="many">%1$d procesů</item>
+        <item quantity="other">%1$d procesů</item>
+    </plurals>
+    <string name="apps_processes_hide_short">Skrýt</string>
+    <string name="apps_processes_empty">Žádné připojené procesy.</string>
     <string name="tab_home">Domů</string>
     <string name="tab_apps">Aplikace</string>
     <string name="tab_shell">Příkazová řádka</string>
@@ -165,6 +185,24 @@
     <string name="labs_pin_app">Připnout aplikaci</string>
     <string name="labs_unpin_app">Odepnout aplikaci</string>
     <string name="labs_clear_pins">Vymazat připnuté aplikace</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="tab_rotation">Otočení</string>
+    <string name="rotation_count">%1$d nastaveno</string>
+    <string name="rotation_gate_off">Vypnuto, %1$d nastaveno</string>
+    <string name="rotation_gate_disabled">Otáčení je vypnuto</string>
+    <string name="rotation_note">Automaticky sledovat otáčení systému. Na výšku a na šířku podržte displej, když je aplikace otevřena a vraťte ji zpět, když odejdete.</string>
+    <string name="rotation_filter_configured">Nastaveno</string>
+    <string name="rotation_empty">Žádná aplikace nemá režim otáčení.</string>
+    <string name="rotation_needs_shizuku">Spustit Shizuku pro změnu otáčení.</string>
+    <string name="rotation_mode_title">Režim otáčení</string>
+    <string name="rotation_mode_off">Vypnuto</string>
+    <string name="rotation_mode_off_note">Použít vlastní orientaci aplikace.</string>
+    <string name="rotation_mode_auto">Automaticky</string>
+    <string name="rotation_mode_auto_note">Postupujte podle otáčení systému. Použijte režim na výšku nebo na šířku, pokud to aplikace ignoruje.</string>
+    <string name="rotation_mode_portrait">Na výšku</string>
+    <string name="rotation_mode_portrait_note">Vynutit režim na výšku, když je tato aplikace otevřena.</string>
+    <string name="rotation_mode_landscape">Na šířku</string>
+    <string name="rotation_mode_landscape_note">Vynutit režim na šířku, když je tato aplikace otevřena.</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Skrytí</string>
     <string name="tab_hide_developer_options">Skrýt možnosti vývojáře</string>
@@ -225,7 +263,7 @@
     <string name="power_confirm">Pokračovat</string>
     <string name="power_soft_reboot">Rychlý restart</string>
     <string name="power_soft_reboot_summary">Restartovat Android bez restartování jádra. Vyžaduje root.</string>
-    <string name="power_soft_reboot_confirm">Android se restartuje. Všechny aplikace a systémové uživatelské rozhraní budou zavřeny a znovu otevřeny, ale telefon se nerestartuje. Potom možná budete muset spustit Šizuku.</string>
+    <string name="power_soft_reboot_confirm">Android se restartuje. Všechny aplikace a systémové uživatelské rozhraní budou zavřeny a znovu otevřeny, ale telefon se nerestartuje. Potom možná budete muset spustit Shizuku.</string>
     <string name="power_restart_system_ui">Restartovat System UI</string>
     <string name="power_restart_system_ui_summary">Restartujte stavovou lištu, navigační lištu a stín oznámení. Vyžaduje root.</string>
     <string name="power_needs_root">Root je vyžadován, ale toto zařízení není rootnuté.</string>
@@ -332,8 +370,8 @@
     <string name="device_usage">Čas</string>
     <string name="device_screen_on">Obrazovka zapnuta</string>
     <string name="device_time_on_battery">Na baterii</string>
-    <string name="device_screen_off">Vypnout obrazovku</string>
-    <string name="device_doze">Doze</string>
+    <string name="device_screen_off">Vypnutá obrazovka</string>
+    <string name="device_doze">Hibernace</string>
     <string name="device_usage_note">Čítače udržované samotnou platformou. Resetují pokaždé, když je baterie nabitá do plného nabití, a proto telefon nabitý před hodinou čte sekundy zde a telefon, který byl vypnutý celý den čtou.</string>
     <string name="device_drain">Co použilo baterii</string>
     <string name="device_drain_note">Atributováno komponentou, což je to, co tato platforma vytiskne. Uchovává údaje pro každou aplikaci jako zamykací a běžící časy místo jako milionové hodiny, takže zde nejsou vynalezena žádná čísla pro každou aplikaci.</string>
@@ -420,14 +458,18 @@
     <string name="hiding_notification_text">Klepnutím je obnovíte.</string>
     <string name="hiding_notification_idle_title">Skrývání je zapnuto</string>
     <string name="hiding_notification_watching">Sledování vašich vyjmenovaných aplikací.</string>
+    <string name="rotation_notification_title">Otáčení je uzamčeno</string>
+    <string name="rotation_notification_text">Uzamčeno pro %1$s.</string>
+    <string name="rotation_notification_watching_title">Ovládání otáčení je zapnuto</string>
+    <string name="rotation_notification_watching">Čekání na aplikaci na seznamu otáčení.</string>
     <string name="hiding_notification_paused_title">Skrývání je pozastaveno</string>
     <string name="hiding_notification_paused_text">Vaše nastavení jsou obnovena. Pokračujte v jejich skrývání pro zobrazené aplikace.</string>
     <string name="hiding_resume">Pokračovat</string>
     <string name="hiding_start_again">Začít znovu</string>
     <string name="hiding_notification_stopped_title">Skrývání zastaveno</string>
     <string name="hiding_notification_stopped_text">Shizuku není spuštěn, takže skrytí nemůže zjistit, která aplikace je otevřená. Všechna skrytá nastavení byla obnovena.</string>
-    <string name="hiding_carries_session_wireless">Není použito: Shizuku používá bezdrátové ladění, takže jeho skrytí by zastavilo Šizuku.</string>
-    <string name="hiding_carries_session_usb">Není použito: Shizuku používá ladění USB, takže jeho skrytí by zastavilo Šizuku.</string>
+    <string name="hiding_carries_session_wireless">Není použito: Shizuku používá bezdrátové ladění, takže jeho skrytí by zastavilo Shizuku.</string>
+    <string name="hiding_carries_session_usb">Není použito: Shizuku používá ladění USB, takže jeho skrytí by zastavilo Shizuku.</string>
     <string name="tab_settings">Nastavení</string>
     <string name="home_status_transport_label">Přenos</string>
     <string name="home_status_started_with">Aktuální</string>
@@ -464,7 +506,7 @@
     <string name="catalog_search">Hledat aplikace, témata, jazyky\u2026</string>
     <string name="catalog_filter_sort">Seřadit</string>
     <string name="catalog_filter_category">Kategorie</string>
-    <string name="catalog_filter_updated">Aktualizováno</string>
+    <string name="catalog_filter_updated">Aktualizované</string>
     <string name="catalog_filter_all_categories">Všechny kategorie</string>
     <string name="catalog_updated_any">Kdykoliv</string>
     <string name="catalog_updated_last_7">Posledních 7 dní</string>
@@ -562,12 +604,14 @@
     <string name="intents_title">Zásady</string>
     <string name="about_package">Balíček</string>
     <string name="check_for_updates_now">Zkontrolovat nyní</string>
-    <string name="start_failed">Šizuku nelze spustit</string>
+    <string name="start_failed">Shizuku nelze spustit</string>
+    <string name="start_failed_write_secure_settings">Aplikace Shizuku nemůže zapnout bezdrátové ladění bez oprávnění WRITE_SECURE_SETTINGS. Zapněte jej sami v nabídce Možnosti pro vývojáře &gt; Bezdrátové ladění, nebo oprávnění udělte pomocí příkazu <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. Jakmile je aplikace Shizuku spuštěna, toto oprávnění si uchovává sama, takže se jedná o jednorázový úkon.</string>
     <string name="action_open_wireless_debugging">Bezdrátové ladění</string>
     <string name="start_failed_unsupported">Toto zařízení nemůže spustit na pozadí</string>
     <string name="start_failed_wifi_required">Připojte se k síti Wi-Fi, systém vypne bezdrátové ladění. Nebo spusťte z počítače pomocí příkazu ADB níže.</string>
     <string name="start_failed_binder_went_away">Služba byla spuštěna a pak znovu zastavena, takže ještě nic nemůže použít. To se stane, když je server sejmut s aplikací, kterou spustí, co dělá užitečné zatížení po jeho spuštění. Zkuste to znovu.</string>
     <string name="start_failed_no_port">Nebyl nalezen bezdrátový port pro ladění. Ujistěte se, že bezdrátové ladění je povoleno a že je připojeno Wi-Fi.</string>
+    <string name="start_failed_no_port_no_permission">Nebyl nalezen žádný port pro bezdrátové ladění a Shizuku nemůže bez oprávnění WRITE_SECURE_SETTINGS zapnout bezdrátové ladění: <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. Nebo spusťte Shizuku přes ladění USB, jakmile si toto oprávnění následně samo udělí.</string>
     <string name="start_failed_no_auth">Bezdrátové ladění není v této síti povoleno. Znovu spusťte zařízení.</string>
     <string name="action_dismiss">Odmítnout</string>
     <string name="action_connect_wifi">Připojit</string>
@@ -577,6 +621,7 @@
     <string name="start_failed_usb_no_port">Žádný lokální ADB port není otevřený Android jej vyčistí při každém restartu a k jeho znovuotevření potřebuje připojení k půjčce. Připojení k Wi-Fi a Shizuku jej znovu otevře přes bezdrátové ladění, spusťte <b>adb tcpip 5555</b> z počítače, nebo zvolte <b>Spustit bez Wi-Fi</b> jako způsob startu pro spuštění přes bezdrátové ladění.</string>
     <string name="start_failed_usb_no_port_no_option">Žádný lokální ADB port není otevřen. Android jej vymaže při každém restartu a opětovné otevření vyžaduje připojení k síti. Připojte se k Wi-Fi jednou, nebo spusťte <b>adb tcpip 5555</b> z počítače.</string>
     <string name="start_failed_root_unavailable">Root již není na tomto zařízení k dispozici, takže Shizuku nemůže začínat přes root. Vyberte jinou metodu spuštění.</string>
+    <string name="start_failed_adb_root">ADB root není dostupný. Povolte ladění USB na sestavení nebo vyberte jinou metodu spuštění.</string>
     <string name="start_failed_system_needs_app">Metoda startu systému musí být spuštěna z aplikace.</string>
     <string name="start_failed_system_no_exploit">Toto zařízení neodesílá agenta Samsung FOTA (com.sdet. otaagent), který je jedinou komponentou, kterou systém může použít jako startovací metodu, takže zde není nic co eskalovat. Přepněte metodu startu systému na vlastní příkaz: aplikace vám ukáže, co má běžet s eskalací, kterou vaše zařízení má.</string>
     <string name="start_failed_no_binder">Služba se neobjevila během minuty. Obě poloviny vedou log: startér pod ShizukuServiceStarter a předání pod BinderSender. Čtečka logcat filtrovaná do těchto dvou ukazuje, zda se startér dostal až k vytvoření serveru, a zda server někdy požádal o binder.</string>
@@ -629,7 +674,7 @@
     <string name="intents_values">Pro automatizační aplikace</string>
     <string name="intents_package">Balíček</string>
     <string name="intents_action_for">%1$s akce</string>
-    <string name="home_battery_warning">Šizuku může být ukončeno na pozadí. Umožňuje ignorovat optimalizaci baterie.</string>
+    <string name="home_battery_warning">Shizuku může být ukončeno na pozadí. Umožňuje ignorovat optimalizaci baterie.</string>
     <string name="batch_selected_count">%1$d vybráno</string>
     <string name="app_management_action_select_all">Vybrat vše</string>
     <string name="app_management_action_grant">Udělit</string>
@@ -651,8 +696,8 @@
     <string name="terminal_tutorial_3">Otevřete shell pomocí následujícího příkazu:</string>
     <!-- Stealth -->
     <string name="stealth_description">Skrýt Shizuku v aplikacích, které odmítají spustit, když je nainstalován. Pro instalaci se exportuje klon s jiným názvem balíčku.</string>
-    <string name="stealth_warning_compatibility">Některé aplikace, které používají Šizuku, nemusí fungovat, když je Šizuku skrytý, protože se snaží zjistit, zda je Šizuku nainstalován.</string>
-    <string name="stealth_warning_compatibility_2">Jako řešení můžete dočasně odkrýt Šizuku, který nainstaluje stub s původním názvem balíčku. Po dokončení můžete Shizuku znovu skrýt.</string>
+    <string name="stealth_warning_compatibility">Některé aplikace, které používají Shizuku, nemusí fungovat, když je Shizuku skrytý, protože se snaží zjistit, zda je Shizuku nainstalován.</string>
+    <string name="stealth_warning_compatibility_2">Jako řešení můžete dočasně odkrýt Shizuku, který nainstaluje stub s původním názvem balíčku. Po dokončení můžete Shizuku znovu skrýt.</string>
     <string name="stealth_warning_compatibility_3">Klepnutím na tuto kartu zkopírujete snippet, který můžete odeslat vývojáři, aby jejich kontrola \"Shizuku nainstalována\" fungovala, když je Shizuku skrytý.</string>
     <string name="stealth_warning_detection">Některé aplikace mohou stále detekovat Shizuku, i když jsou skryté.</string>
     <string name="stealth_info_reconfigure">Po instalaci skryté verze budete muset opravit a znovu nakonfigurovat Shizuku.</string>
@@ -669,7 +714,7 @@
     <string name="stealth_display_name_helper_text">Zobrazeno jako název kopie v launcheru a seznamu aplikací. Ponechte prázdné, kopie udržuje název této aplikace.</string>
     <string name="stealth_error_display_name_too_long">Dodržte limit na %1$d nebo méně.</string>
     <string name="stealth_uninstall_required">Vyžadována odinstalace</string>
-    <string name="stealth_uninstall_message">Systém vás nyní vyzve k odinstalaci Šizuku. Poté nainstalujte klon.</string>
+    <string name="stealth_uninstall_message">Systém vás nyní vyzve k odinstalaci Shizuku. Poté nainstalujte klon.</string>
     <string name="stealth_uninstall">Odinstalovat</string>
     <string name="stealth_hide">Skrýt</string>
     <string name="stealth_unhide">Odkrýt se stubem</string>
@@ -682,6 +727,8 @@
     <string name="settings_always_show_navigation_bar_summary">Ponechat panel viditelný při posouvání dolů.</string>
     <string name="settings_secure_quick_tiles">Zabezpečené dlaždice</string>
     <string name="settings_secure_quick_tiles_summary">Blokovat změny dlaždic, když je telefon uzamčen.</string>
+    <string name="settings_require_grant_authentication">Potvrdit granty aplikace</string>
+    <string name="settings_require_grant_authentication_summary">Před udělením přístupu k aplikaci Shizuku požádat o biometriku nebo zámek obrazovky.</string>
     <string name="settings_watchdog">Hlídací pes</string>
     <string name="settings_watchdog_summary">Automaticky restartovat Shizuku v případě pádu</string>
     <string name="settings_auto_disable_wireless_debugging">Zakázat bezdrátové ladění</string>
@@ -718,7 +765,7 @@
     <string name="settings_persist_adb_port_summary">Udržuje ADB port otevřený po každém restartu, takže Shizuku může začít bez Wi-Fi nebo hotspotu.</string>
     <string name="settings_persist_adb_port_ok">ADB port zůstane otevřen po restartu</string>
     <string name="settings_persist_adb_port_refused">Android to odmítl. Shizuku musí být spuštěn jako root nebo jako uživatel systému.</string>
-    <string name="settings_persist_adb_port_unavailable">Nejprve spusťte Šizuku. Toto nastavení lze změnit pouze přes Šizuku.</string>
+    <string name="settings_persist_adb_port_unavailable">Nejprve spusťte Shizuku. Toto nastavení lze změnit pouze přes Shizuku.</string>
     <string name="settings_system_start_method">Metoda startu systému</string>
     <string name="settings_system_start_method_exploit">Samsung (FOTA agent)</string>
     <string name="settings_system_start_method_custom">Vlastní příkaz</string>
@@ -759,7 +806,7 @@
     <string name="permissions_write_secure_settings_summary">Umožňuje Shizuku zapnout bezdrátové ladění. Pouze ADB může udělit toto oprávnění.</string>
     <string name="permissions_accessibility">Služba přístupnosti</string>
     <string name="permissions_accessibility_summary">Automaticky čte párovací kód.</string>
-    <string name="permissions_battery_summary">Zastaví Android od zabíjení Šizuku na pozadí.</string>
+    <string name="permissions_battery_summary">Zastaví Android od zabíjení Shizuku na pozadí.</string>
     <string name="permissions_pairing_service">Párování</string>
     <string name="permissions_pairing_service_reason">Čte párovací kód.</string>
     <string name="permissions_pairing_service_restricted">Povolit omezená nastavení v informacích o aplikaci.</string>
@@ -780,7 +827,7 @@
     <string name="setup_wireless_title">Bezdrátové ladění</string>
     <string name="setup_wireless_body">Funguje bez rootu. Potřebuje možnosti vývojáře a jednorázové párování; poté startuje z aplikace.</string>
     <string name="setup_usb_title">Ladění USB</string>
-    <string name="setup_usb_body">Funguje bez rootu. Potřebuje klasický ADB port; pokud není otevřený, připojte se jednou k počítači a spusťte Šizuku.</string>
+    <string name="setup_usb_body">Funguje bez rootu. Potřebuje klasický ADB port; pokud není otevřený, připojte se jednou k počítači a spusťte Shizuku.</string>
     <string name="setup_permissions_title">Volitelná oprávnění</string>
     <string name="setup_permissions_body">Můžete některé z nich přeskočit a později je změnit v Nastavení.</string>
     <string name="settings_run_setup">Znovu spustit nastavení</string>
@@ -887,6 +934,10 @@
     <string name="permission_description">povolí aplikaci používat systémová rozhraní API s vyššími oprávněními (Shizuku).</string>
     <string name="permission_warning_template"><![CDATA[Povolit aplikaci </b>%1$s</b> %2$s\?]]></string>
     <string name="grant_dialog_button_allow_always">Povolit vždy</string>
+    <string name="grant_dialog_button_allow_once">Povolit jednou</string>
+    <string name="grant_auth_title">Potvrďte, že jste to vy</string>
+    <string name="grant_auth_subtitle">Ověřit pro udělení přístupu Shizuku.</string>
+    <string name="grant_auth_unavailable">Nastavte zámek obrazovky nebo biometriku pro potvrzení grantů.</string>
     <string name="grant_dialog_button_deny">"Zakázat"</string>
     <!-- Starter -->
     <string name="starter">Spouštěč</string>
@@ -895,7 +946,7 @@
     <string name="wadb_notification_title">Startování Shizuku…</string>
     <string name="wadb_notification_wifi_required">Čekání na připojení k Wi-Fi před pokračováním</string>
     <string name="wadb_notification_retry">Čekání na opakování</string>
-    <string name="wadb_notification_connecting">Spouštění Šizuku s bezdrátovým ADB</string>
+    <string name="wadb_notification_connecting">Spouštění Shizuku s bezdrátovým ADB</string>
     <string name="wadb_notification_waiting_for_unlock">Chcete-li pokračovat, odemkněte zařízení</string>
     <string name="wadb_notification_forcing_wireless">Ponechat bezdrátové ladění zapnuto</string>
     <string name="wadb_error_title">Chyba při startu při startu</string>
@@ -906,7 +957,7 @@
     <string name="shell_title">Příkazová řádka</string>
     <string name="shell_backend_shizuku">Shizuku</string>
     <string name="shell_backend_root">Root</string>
-    <string name="shell_backend_shizuku_status">Šizuku, uid %1$d</string>
+    <string name="shell_backend_shizuku_status">Shizuku, uid %1$d</string>
     <string name="shell_backend_root_status">Root, uid 0</string>
     <string name="shell_backend_offline">Žádný běh příkazu není aktivní</string>
     <string name="shell_needs_a_backend">Spustit Shizuku, nebo vybrat Root na rootovaném zařízení: jeden ze dvou běží na příkazy. Root funguje s Shizuku zastaven.</string>
@@ -1052,10 +1103,12 @@
     <string name="app_section_permissions">Systémová oprávnění</string>
     <string name="app_section_runtime">Oprávnění běhu</string>
     <string name="app_section_ops">Operace aplikací</string>
+    <string name="app_section_rotation">Otočení</string>
+    <string name="app_rotation_changed">Otočení změněno</string>
     <string name="app_section_actions">Akce</string>
     <string name="app_section_battery">Baterie</string>
     <string name="app_section_info">Info</string>
-    <string name="app_permissions_note">Prostřednictvím adb lze změnit pouze oprávnění, jejichž ochrana zahrnuje vývoj, nebo nebezpečné. platforma odmítne zbytek, ale důvěryhodný Šizuku je, takže tyto řádky ponechávají vypnuté.</string>
+    <string name="app_permissions_note">Prostřednictvím adb lze změnit pouze oprávnění, jejichž ochrana zahrnuje vývoj, nebo nebezpečné. platforma odmítne zbytek, ale důvěryhodný Shizuku je, takže tyto řádky ponechávají vypnuté.</string>
     <string name="app_permissions_none">Tato aplikace nemá systémová oprávnění.</string>
     <string name="app_permission_locked">%1$snelze změnit prostřednictvím ADB</string>
     <string name="app_permission_granted">Oprávnění uděleno</string>
@@ -1156,7 +1209,7 @@
     <string name="app_bucket_never">Nikdy</string>
     <string name="app_bucket_never_note">Nelze spustit na pozadí.</string>
     <string name="app_battery_unrestricted">Ignorovat optimalizaci baterie</string>
-    <string name="app_battery_unrestricted_note">It was very close to Doze, but use more battery.</string>
+    <string name="app_battery_unrestricted_note">Ponechá aktivní během hibernace, ale využije více baterie.</string>
     <string name="app_section_network">Síť</string>
     <string name="app_network_needs_shizuku">Spusťte Shizuku pro změnu toho, čeho může aplikace dosáhnout.</string>
     <string name="app_network_unsupported">Toto zařízení nenabízí firewall to potřebuje.</string>
@@ -1165,6 +1218,9 @@
     <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
          screen. The per-app list is unaffected either way, which is what the off state says. -->
     <string name="firewall_tile_label">Firewall</string>
+    <string name="firewall_mobile_only_on">Pouze mobilní data</string>
+    <string name="firewall_mobile_only_off">Všechny sítě</string>
+    <string name="firewall_mobile_only_failed">Nelze změnit pravidlo pro mobilní data</string>
     <!-- The three answers every switch outside the app can give. Unknown is its own word: a
          state that could not be read is not the same thing as a feature that is off. -->
     <string name="lab_state_on">Zapnuto</string>
@@ -1203,7 +1259,7 @@
     <string name="app_info_signature">Podpis</string>
     <string name="app_info_installer">Nainstalováno z</string>
     <string name="app_info_installed">Nainstalováno</string>
-    <string name="app_info_updated">Aktualizováno</string>
+    <string name="app_info_updated">Aktualizované</string>
     <string name="app_info_debuggable">Laditelné ladění</string>
     <string name="app_info_backup">Zálohování povoleno</string>
     <string name="app_info_launcher">Položka spouštěče</string>

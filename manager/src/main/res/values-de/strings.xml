@@ -123,12 +123,16 @@
     <string name="app_management_sort_last_added">Zuletzt hinzugefügt</string>
     <string name="app_management_sort_updated">Aktualisiert</string>
     <string name="app_management_sort_alphabetical">A–Z</string>
+    <string name="apps_process_allowed">Zugelassen</string>
+    <string name="apps_processes_hide_short">Verbergen</string>
     <string name="tab_home">Startseite</string>
     <string name="lab_more_apps">Weitere Apps</string>
     <string name="labs_filter_allowed">Zugelassen</string>
     <string name="labs_filter_blocked">Blockiert</string>
     <string name="labs_blocked_count">%1$d blockiert</string>
     <string name="labs_blocked_empty">Nichts blockiert.</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="rotation_mode_off">Aus</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Verbergen</string>
     <string name="tab_hide_developer_options">Entwickleroptionen verbergen</string>
@@ -932,6 +936,7 @@
     <string name="app_network_block_note">Das System verwirft den Datenverkehr der App.</string>
     <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
          screen. The per-app list is unaffected either way, which is what the off state says. -->
+    <string name="firewall_mobile_only_off">Alle Netzwerke</string>
     <!-- The three answers every switch outside the app can give. Unknown is its own word: a
          state that could not be read is not the same thing as a feature that is off. -->
     <string name="lab_state_on">An</string>

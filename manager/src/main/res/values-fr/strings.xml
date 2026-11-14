@@ -138,6 +138,7 @@
     <string name="app_management_dialog_adb_is_limited_title">La permission de adb est limitée</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Il est fortement possible que le fabricant de votre appareil limite la permission de adb.<p>Il pourrait avoir une solution pour votre système dans <b><a href="%1$s">ce document</a></b>.]]></string>
     <string name="app_management_toggle_all">Basculer tout</string>
+    <!-- Per-app rotation override for apps that force landscape -->
     <!-- Hiding: what apps can read about this device -->
     <string name="hiding_signal_accessibility">Services d\'accessibilité</string>
     <string name="hiding_signal_private_dns">DNS privé</string>
@@ -158,6 +159,17 @@
     <string name="tab_power">Alimentation</string>
     <string name="power_description">Redémarrer ou éteindre l\'écran sans utiliser les boutons du téléphone.</string>
     <string name="power_needs_shizuku">Lancez Shizuku d\'abord pour utiliser ces options.</string>
+    <string name="power_reboot">Redémarrage</string>
+    <string name="power_reboot_summary">Redémarrer le téléphone.</string>
+    <string name="power_reboot_confirm">Ce téléphone va redémarrer dés maintenant. Tout travail qui n\'est pas sauvegarder va être perdu.</string>
+    <string name="power_recovery">Redémarrer en mode récuperation</string>
+    <string name="power_recovery_summary">Redémarrer votre téléphone en mode récuperation.</string>
+    <string name="power_recovery_confirm">Votre téléphone va redémarrer là maintenant en mode récuperation. Pour naviguer utiliser les bouttons du volume et d\'alimentation.</string>
+    <string name="display_min_refresh">Le minimal de la dalle de rafraichissement</string>
+    <string name="display_min_refresh_summary">Le dalle de rafraichissement la plus basse que l\'ecran peut utiliser, en Hz.</string>
+    <string name="display_max_refresh">Le maximal de la dalle de rafraichissement</string>
+    <string name="display_max_refresh_summary">Le dalle de rafraichissement la plus élevée que l\'ecran peut utiliser, en Hz.</string>
+    <string name="display_invalid">Valeur invalide</string>
     <string name="intent_start">Démarrer</string>
     <string name="device_watchdog">Chien de garde</string>
     <string name="log_capture_start">Démarrer</string>
@@ -321,5 +333,10 @@
          answer: the state is on the control, but the control is not where the finger is. -->
     <string name="accessibility_boot">Démarrez au démarrage</string>
     <string name="accessibility_notification_channel">Services d\'accessibilité</string>
+    <string name="install_details_same">Même version que l\'application installée.</string>
+    <string name="install_option_unsupported">Pas supporté sur cette version d\'android</string>
+    <string name="install_failed">Échec: %1$s</string>
+    <string name="install_could_not_read">Impossible de lire ce fichier.</string>
+    <string name="install_replace">Remplacer l\'application installée</string>
     <string name="install_location_auto">Options pour les développeurs</string>
 </resources>

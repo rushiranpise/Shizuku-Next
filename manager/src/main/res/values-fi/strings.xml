@@ -151,6 +151,8 @@
     <string name="app_management_sort_last_added">Äskettäin lisätty</string>
     <string name="app_management_sort_updated">Päivitetty</string>
     <string name="app_management_sort_alphabetical">AZ</string>
+    <string name="apps_process_allowed">Sallittu</string>
+    <string name="apps_processes_hide_short">Piilota</string>
     <string name="tab_home">Koti</string>
     <string name="tab_apps">Sovellukset</string>
     <string name="tab_shell">Kuori</string>
@@ -162,6 +164,8 @@
     <string name="labs_filter_blocked">Estetty</string>
     <string name="labs_blocked_count">%1$d estetty</string>
     <string name="labs_blocked_empty">Mitään ei ole estetty.</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="rotation_mode_off">Pois</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Piilotus</string>
     <string name="tab_hide_developer_options">Piilota kehittäjän asetukset</string>
