@@ -133,11 +133,12 @@ import moe.shizuku.manager.ui.component.stripHtmlTags
 import moe.shizuku.manager.utils.CustomTabsHelper
 import moe.shizuku.manager.utils.EnvironmentUtils
 import moe.shizuku.manager.utils.PermissionOwnership
+import moe.shizuku.manager.utils.SelinuxMode
 import moe.shizuku.manager.utils.SettingsHelper
 import moe.shizuku.manager.utils.SettingsPage
 import moe.shizuku.manager.utils.ShizukuStateMachine
 import moe.shizuku.manager.utils.permissionOwnership
-import moe.shizuku.manager.utils.runShellCommand
+import moe.shizuku.manager.utils.readSelinuxMode
 import moe.shizuku.manager.utils.UpdateHelper
 import rikka.core.util.ClipboardUtils
 import rikka.shizuku.Shizuku
@@ -1197,39 +1198,13 @@ private fun kernelVersion(): String = System.getProperty("os.version").orEmpty()
 /** The Android release beside its API level, which is the pair that names it: "16 (SDK 36)". */
 private fun androidVersion(): String = "${Build.VERSION.RELEASE} (SDK ${Build.VERSION.SDK_INT})"
 
-/**
- * The kernel's SELinux state, worked out the way KernelSU's manager works it out:
- * ask `getenforce` as an ordinary app, and treat a refusal as the answer selinuxfs is
- * world-readable on disk but denied to app domains, and a permissive policy would have
- * allowed the read. That is what makes this work with no root, no server and no KSU.
- */
+/** The kernel's SELinux state for the device card; see [readSelinuxMode]. */
 @StringRes
-private fun readSelinuxStatus(): Int? {
-    // With a server running, read the switch itself rather than infer it.
-    val raw = runShellCommand("cat /sys/fs/selinux/enforce")
-        ?: runCatching { File("/sys/fs/selinux/enforce").readText().trim() }.getOrNull()
-
-    when (raw) {
-        "1" -> return R.string.selinux_enforcing
-        "0" -> return R.string.selinux_permissive
-    }
-
-    val (stdout, stderr) = runCatching {
-        val process = ProcessBuilder("/system/bin/sh", "-c", "getenforce").start()
-        val out = process.inputStream.bufferedReader().use { it.readText() }.trim()
-        val err = process.errorStream.bufferedReader().use { it.readText() }.trim()
-        process.waitFor()
-        out to err
-    }.getOrNull() ?: return null
-
-    return when {
-        stdout.equals("Enforcing", true) -> R.string.selinux_enforcing
-        stdout.equals("Permissive", true) -> R.string.selinux_permissive
-        stdout.equals("Disabled", true) -> R.string.selinux_disabled
-        // Refused: only an enforcing policy says no here.
-        stderr.contains("Permission denied") -> R.string.selinux_enforcing
-        else -> null
-    }
+private fun readSelinuxStatus(): Int? = when (readSelinuxMode()) {
+    SelinuxMode.ENFORCING -> R.string.selinux_enforcing
+    SelinuxMode.PERMISSIVE -> R.string.selinux_permissive
+    SelinuxMode.DISABLED -> R.string.selinux_disabled
+    null -> null
 }
 
 /** Seccomp mode for this process, from our own /proc entry. */
