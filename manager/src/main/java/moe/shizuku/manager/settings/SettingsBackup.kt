@@ -56,6 +56,7 @@ object SettingsBackup {
         "hiding_paused",
         "hiding_since",
         "hiding_vpn_client",
+        "hotspot_displaces_wifi_build",
         "lastPromptedVersion",
         "last_adb_port",
         "last_adb_port_boot",

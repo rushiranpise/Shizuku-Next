@@ -5,12 +5,15 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.wifi.WifiManager
 import android.os.Build
+import android.provider.Settings
+import androidx.annotation.RequiresApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import moe.shizuku.manager.AppConstants
+import moe.shizuku.manager.ShizukuSettings
 import moe.shizuku.manager.manage.WifiControl
 import moe.shizuku.manager.utils.Diag
 
@@ -19,15 +22,17 @@ import moe.shizuku.manager.utils.Diag
  *
  * A local-only hotspot is a second use of the one radio. Where the radio can do both at once
  * nothing here matters, but a head unit such as the FYT 7870 (Android 13, one `wlan0`) tears the
- * Wi-Fi client down to bring the hotspot up: the phone it was about to join disappears, the car
- * loses its internet for as long as the hotspot is held, and the framework still refuses wireless
- * debugging ("Not connected to any wireless network") because a hotspot is not a network the
- * device is connected to. The one thing that makes wireless debugging work there is the Wi-Fi the
- * hotspot just removed.
+ * Wi-Fi client down to bring the hotspot up: the phone it was about to join disappears and the car
+ * loses its internet for as long as the hotspot is held. And the hotspot buys nothing there: the
+ * framework starts adbd's wireless server only once it has checked the Wi-Fi network the device is
+ * connected to ("Not connected to any wireless network. Not enabling adbwifi."), and a hotspot is
+ * not one. The one thing that makes wireless debugging work on such a device is the Wi-Fi the
+ * hotspot would remove.
  *
- * So on a device where the hotspot displaces the client, the start gives the client the first go,
- * keeps the hotspot to short phases that alternate with Wi-Fi getting its chance back, and puts
- * Wi-Fi back if the platform does not. Nothing here changes a device whose radio does both.
+ * So on a device where the hotspot displaces the client and Wi-Fi is wanted, the forced start does
+ * not raise a hotspot at all; it waits for Wi-Fi (see [ForcedWirelessDebugging]), and the classic
+ * port that outlives a reboot (see [AdbPortPersistence]) is what starts it without a network.
+ * Nothing here changes a device whose radio does both.
  */
 object ClientWifi {
 
@@ -35,6 +40,9 @@ object ClientWifi {
 
     /** How long the platform is given to bring the client back by itself once the hotspot is closed. */
     private const val RESTORE_GRACE_MS = 15_000L
+
+    /** `Settings.Global.WIFI_ON`, the toggle as the platform keeps it across the radio's own states. */
+    private const val WIFI_ON = "wifi_on"
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
@@ -44,6 +52,26 @@ object ClientWifi {
     /** Whether the Wi-Fi client is switched on, or null when the platform would not say. */
     fun isEnabled(context: Context): Boolean? =
         runCatching { wifi(context)?.isWifiEnabled }.getOrNull()
+
+    /**
+     * Whether the user wants Wi-Fi on, or null when nothing can be read.
+     *
+     * Not the same question as [isEnabled]: right after a boot the radio is still coming up when a
+     * start begins, and while a hotspot holds the radio the client reads as off although the toggle
+     * is on. The toggle is what decides whether a hotspot would be taking something from the user.
+     */
+    fun wantsWifi(context: Context): Boolean? {
+        val radio = runCatching {
+            wifi(context)?.wifiState?.let {
+                it == WifiManager.WIFI_STATE_ENABLED || it == WifiManager.WIFI_STATE_ENABLING
+            }
+        }.getOrNull()
+        val toggle = runCatching {
+            Settings.Global.getInt(context.applicationContext.contentResolver, WIFI_ON, -1)
+                .takeIf { it >= 0 }
+        }.getOrNull()
+        return wifiWanted(radio, toggle)
+    }
 
     /**
      * Whether the client is joined to a network. The connectivity service is asked rather than the
@@ -61,12 +89,26 @@ object ClientWifi {
 
     /**
      * Whether bringing a hotspot up takes the Wi-Fi client down, or null when that cannot be
-     * known. The platform answers from Android 12 on; before it the answer is "unknown", which
-     * leaves the start as it always was.
+     * known.
+     *
+     * What this build was seen to do comes first: a platform can report that its radio does both
+     * and still drop the client, and a start on such a device has already paid for finding out
+     * once (see [rememberDisplacement]). Otherwise the platform answers from Android 11 on; before
+     * it the answer is "unknown", which leaves the start as it always was.
      */
     fun hotspotDisplacesClient(context: Context): Boolean? {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return null
-        return runCatching { wifi(context)?.isStaApConcurrencySupported?.not() }.getOrNull()
+        if (ShizukuSettings.getHotspotDisplacesWifiBuild() == Build.FINGERPRINT) return true
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) return null
+        return staApConcurrency(context)?.not()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    private fun staApConcurrency(context: Context): Boolean? =
+        runCatching { wifi(context)?.isStaApConcurrencySupported }.getOrNull()
+
+    /** Records that a hotspot took the client down on this build, whatever the platform says. */
+    fun rememberDisplacement() {
+        ShizukuSettings.setHotspotDisplacesWifiBuild(Build.FINGERPRINT)
     }
 
     /** Waits up to [timeoutMs] for the client to join a network; true as soon as it has. */
@@ -122,21 +164,31 @@ object ClientWifi {
 }
 
 /**
- * Whether a forced start should wait for the Wi-Fi client before it raises a hotspot: only when
- * Wi-Fi is on and the hotspot would take it down. An unknown answer is "no", so a device that
- * cannot say is treated as it always was.
+ * Whether the user wants Wi-Fi, from the radio's state ([radioOnOrComingOn]: enabled or enabling)
+ * and the platform's toggle ([wifiOnSetting], `Settings.Global.WIFI_ON`: 1 is on, 2 is on in
+ * airplane mode, 0 and 3 are off). Either one saying "on" is enough, because each can lag the
+ * other: the radio is still coming up after a boot, and a hotspot holding the radio reads as a
+ * client that is off while the toggle stays on. Null when neither could be read.
  */
-internal fun shouldWaitForClientWifi(wifiOn: Boolean?, hotspotDisplacesClient: Boolean?): Boolean =
-    wifiOn == true && hotspotDisplacesClient == true
+internal fun wifiWanted(radioOnOrComingOn: Boolean?, wifiOnSetting: Int?): Boolean? = when {
+    radioOnOrComingOn == true -> true
+    wifiOnSetting == 1 || wifiOnSetting == 2 -> true
+    radioOnOrComingOn == false || wifiOnSetting != null -> false
+    else -> null
+}
 
 /**
- * Whether a hotspot that has been up for [hotspotAgeMs] without a port should be given up so that
- * Wi-Fi can have another go: Wi-Fi was on before the hotspot, is off now, and the phase is over.
- * A hotspot that left Wi-Fi on is never cut short.
+ * Whether a forced start should leave the hotspot out and wait for Wi-Fi instead: only when Wi-Fi
+ * is wanted and the hotspot would take it down. An unknown answer is "no", so a device that cannot
+ * say is treated as it always was.
  */
-internal fun shouldGiveUpHotspotForWifi(
-    wifiWasOn: Boolean,
-    wifiOnNow: Boolean?,
-    hotspotAgeMs: Long,
-    phaseMs: Long
-): Boolean = wifiWasOn && wifiOnNow == false && hotspotAgeMs >= phaseMs
+internal fun shouldAvoidHotspot(wantsWifi: Boolean?, hotspotDisplacesClient: Boolean?): Boolean =
+    wantsWifi == true && hotspotDisplacesClient == true
+
+/**
+ * Whether a hotspot that has just come up was seen to take the client down: the client was on
+ * (not merely coming up, which reads as off for a while by itself) before the hotspot, and is off
+ * now. An unknown reading on either side is "no", so a guess never marks a device.
+ */
+internal fun displacementObserved(wifiEnabledBefore: Boolean?, wifiEnabledNow: Boolean?): Boolean =
+    wifiEnabledBefore == true && wifiEnabledNow == false

@@ -70,6 +70,9 @@ public class ShizukuSettings {
         public static final String KEY_WAIT_FOR_WIFI = "wait_for_wifi";
         public static final String KEY_FORCE_WIRELESS_DEBUGGING = "force_wireless_debugging";
         public static final String KEY_PERSIST_ADB_PORT = "persist_adb_port";
+
+        /** The build fingerprint on which a local-only hotspot was seen to take the Wi-Fi client down. */
+        public static final String KEY_HOTSPOT_DISPLACES_WIFI_BUILD = "hotspot_displaces_wifi_build";
         public static final String KEY_SYSTEM_START_METHOD = "system_start_method";
 
         /** Whether the start and stop intents have to carry the auth token. */
@@ -515,6 +518,19 @@ public class ShizukuSettings {
 
     public static void setPersistAdbPort(boolean enable) {
         getPreferences().edit().putBoolean(Keys.KEY_PERSIST_ADB_PORT, enable).apply();
+    }
+
+    /**
+     * The build fingerprint on which a local-only hotspot was seen to take the Wi-Fi client down,
+     * or null. A platform can say its radio does both and still not do it; what was seen wins.
+     */
+    @Nullable
+    public static String getHotspotDisplacesWifiBuild() {
+        return getPreferences().getString(Keys.KEY_HOTSPOT_DISPLACES_WIFI_BUILD, null);
+    }
+
+    public static void setHotspotDisplacesWifiBuild(@Nullable String fingerprint) {
+        getPreferences().edit().putString(Keys.KEY_HOTSPOT_DISPLACES_WIFI_BUILD, fingerprint).apply();
     }
 
     /**

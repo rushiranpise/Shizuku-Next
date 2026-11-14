@@ -1,11 +1,14 @@
 package moe.shizuku.manager.start
 
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * When a forced start lets Wi-Fi go first, and when a hotspot is given up for it.
+ * When a forced start leaves the hotspot out and waits for Wi-Fi, and when a hotspot is seen to
+ * take Wi-Fi down.
  *
  * Both exist for a radio that cannot be a client and a hotspot at once (the FYT 7870 head unit),
  * and both must stay out of the way of a phone whose radio can: that is the phone the forced start
@@ -14,50 +17,72 @@ import org.junit.Test
 class ClientWifiTest {
 
     @Test
-    fun `wifi goes first only when it is on and the hotspot would take it down`() {
-        assertTrue(shouldWaitForClientWifi(wifiOn = true, hotspotDisplacesClient = true))
+    fun `the hotspot is left out only when wifi is wanted and the hotspot would take it down`() {
+        assertTrue(shouldAvoidHotspot(wantsWifi = true, hotspotDisplacesClient = true))
     }
 
     @Test
     fun `a radio that does both is left to the hotspot`() {
-        assertFalse(shouldWaitForClientWifi(wifiOn = true, hotspotDisplacesClient = false))
+        assertFalse(shouldAvoidHotspot(wantsWifi = true, hotspotDisplacesClient = false))
     }
 
     @Test
-    fun `wifi that is off has nothing to wait for`() {
-        assertFalse(shouldWaitForClientWifi(wifiOn = false, hotspotDisplacesClient = true))
+    fun `a platform that cannot say whether its radio does both is left as it was`() {
+        assertFalse(shouldAvoidHotspot(wantsWifi = true, hotspotDisplacesClient = null))
     }
 
     @Test
-    fun `a platform that cannot say behaves as it always did`() {
-        assertFalse(shouldWaitForClientWifi(wifiOn = null, hotspotDisplacesClient = true))
-        assertFalse(shouldWaitForClientWifi(wifiOn = true, hotspotDisplacesClient = null))
-        assertFalse(shouldWaitForClientWifi(wifiOn = null, hotspotDisplacesClient = null))
+    fun `wifi the user has off is nothing a hotspot takes away`() {
+        assertFalse(shouldAvoidHotspot(wantsWifi = false, hotspotDisplacesClient = true))
+        assertFalse(shouldAvoidHotspot(wantsWifi = null, hotspotDisplacesClient = true))
     }
 
     @Test
-    fun `a hotspot that took wifi down is given up once its phase is over`() {
-        assertTrue(shouldGiveUpHotspotForWifi(true, false, hotspotAgeMs = 30_000, phaseMs = 30_000))
-        assertTrue(shouldGiveUpHotspotForWifi(true, false, hotspotAgeMs = 45_000, phaseMs = 30_000))
+    fun `a radio coming up after a boot counts as wifi wanted`() {
+        assertEquals(true, wifiWanted(radioOnOrComingOn = true, wifiOnSetting = null))
     }
 
     @Test
-    fun `not before its phase is over`() {
-        assertFalse(shouldGiveUpHotspotForWifi(true, false, hotspotAgeMs = 29_999, phaseMs = 30_000))
+    fun `the toggle counts while a hotspot holds the radio`() {
+        // The client reads as off under a hotspot, the toggle stays on.
+        assertEquals(true, wifiWanted(radioOnOrComingOn = false, wifiOnSetting = 1))
+        // On in airplane mode.
+        assertEquals(true, wifiWanted(radioOnOrComingOn = false, wifiOnSetting = 2))
     }
 
     @Test
-    fun `a hotspot that left wifi on is never cut short`() {
-        assertFalse(shouldGiveUpHotspotForWifi(true, true, hotspotAgeMs = 120_000, phaseMs = 30_000))
+    fun `wifi switched off is not wanted`() {
+        assertEquals(false, wifiWanted(radioOnOrComingOn = false, wifiOnSetting = 0))
+        // Off because airplane mode is on.
+        assertEquals(false, wifiWanted(radioOnOrComingOn = false, wifiOnSetting = 3))
+        assertEquals(false, wifiWanted(radioOnOrComingOn = false, wifiOnSetting = null))
+        assertEquals(false, wifiWanted(radioOnOrComingOn = null, wifiOnSetting = 0))
     }
 
     @Test
-    fun `wifi that was off before the hotspot is not the hotspot's doing`() {
-        assertFalse(shouldGiveUpHotspotForWifi(false, false, hotspotAgeMs = 120_000, phaseMs = 30_000))
+    fun `nothing readable is no answer`() {
+        assertNull(wifiWanted(radioOnOrComingOn = null, wifiOnSetting = null))
     }
 
     @Test
-    fun `an unreadable wifi state does not end a hotspot`() {
-        assertFalse(shouldGiveUpHotspotForWifi(true, null, hotspotAgeMs = 120_000, phaseMs = 30_000))
+    fun `a client that was on and is off after the hotspot was taken down by it`() {
+        assertTrue(displacementObserved(wifiEnabledBefore = true, wifiEnabledNow = false))
+    }
+
+    @Test
+    fun `a client that stays on was not taken down`() {
+        assertFalse(displacementObserved(wifiEnabledBefore = true, wifiEnabledNow = true))
+    }
+
+    @Test
+    fun `a client that was only coming up never marks the device`() {
+        // Still enabling reads as off by itself; that is not the hotspot's doing.
+        assertFalse(displacementObserved(wifiEnabledBefore = false, wifiEnabledNow = false))
+    }
+
+    @Test
+    fun `an unknown reading never marks the device`() {
+        assertFalse(displacementObserved(wifiEnabledBefore = null, wifiEnabledNow = false))
+        assertFalse(displacementObserved(wifiEnabledBefore = true, wifiEnabledNow = null))
     }
 }
