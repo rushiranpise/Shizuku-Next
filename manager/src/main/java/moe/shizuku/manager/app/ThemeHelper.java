@@ -47,9 +47,9 @@ public class ThemeHelper {
     }
 
     public static void applySnackbarTheme(Context context, Snackbar snackbar) {
-        snackbar.setBackgroundTint(resolveColor(context, R.attr.colorPrimaryContainer))
-            .setTextColor(resolveColor(context, R.attr.colorOnSurface))
-            .setActionTextColor(resolveColor(context, R.attr.colorPrimary));
+        snackbar.setBackgroundTint(resolveColor(context, com.google.android.material.R.attr.colorPrimaryContainer))
+            .setTextColor(resolveColor(context, com.google.android.material.R.attr.colorOnSurface))
+            .setActionTextColor(resolveColor(context, android.R.attr.colorPrimary));
     }
 
     private static int resolveColor(Context context, int color) {

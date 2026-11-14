@@ -12,9 +12,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -24,20 +26,26 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.AccessibilityNew
 import androidx.compose.material.icons.outlined.DeveloperMode
 import androidx.compose.material.icons.outlined.Dns
 import androidx.compose.material.icons.outlined.OpenInNew
+import androidx.compose.material.icons.outlined.PushPin
 import androidx.compose.material.icons.outlined.RestartAlt
 import androidx.compose.material.icons.outlined.Shield
+import androidx.compose.material.icons.outlined.SignalCellularAlt
 import androidx.compose.material.icons.outlined.Usb
 import androidx.compose.material.icons.outlined.VpnKey
 import androidx.compose.material.icons.outlined.WifiOff
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.LoadingIndicator
@@ -70,16 +78,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import moe.shizuku.manager.ui.component.televisionTextInput
+import moe.shizuku.manager.ui.component.PillButton
 import moe.shizuku.manager.ui.component.PillButtonQuiet
 import moe.shizuku.manager.AppConstants
 import moe.shizuku.manager.R
 import moe.shizuku.manager.manage.AutoStartGate
 import moe.shizuku.manager.manage.BlockedGates
+import moe.shizuku.manager.manage.FirewallKey
 import moe.shizuku.manager.manage.Hiding
 import moe.shizuku.manager.manage.HidingGrants
 import moe.shizuku.manager.manage.InstalledPackages
 import moe.shizuku.manager.manage.PackageTools
+import moe.shizuku.manager.manage.PinnedApps
 import moe.shizuku.manager.manage.Signal
+import moe.shizuku.manager.manage.firewallKey
 import moe.shizuku.manager.service.HidingWatchService
 import moe.shizuku.manager.ui.component.AppFilterChip
 import moe.shizuku.manager.ui.component.AppIcon
@@ -92,7 +104,10 @@ import moe.shizuku.manager.ui.component.ChoiceRow
 import moe.shizuku.manager.ui.component.ExpressiveSwitch
 import moe.shizuku.manager.ui.component.SegmentedCard
 import moe.shizuku.manager.ui.component.appLabel
+import moe.shizuku.manager.ui.component.packageLine
+import moe.shizuku.manager.utils.Diag
 import moe.shizuku.manager.utils.ShizukuStateMachine
+import moe.shizuku.manager.utils.UserHandleCompat
 
 /**
  * One switch per app, over one state, with the filters that make such a list usable: everything,
@@ -196,6 +211,24 @@ enum class AppToggleFeature(
  */
 private enum class ToggleFilter { ALL, ALLOWED, BLOCKED }
 
+/** What one bulk change will write, and how many pinned apps it leaves alone. */
+private data class BulkToggleRequest(
+    val block: Boolean,
+    val packages: List<String>,
+    val pinnedSkipped: Int
+)
+
+private sealed interface BulkToggleState {
+    data class Confirm(val request: BulkToggleRequest) : BulkToggleState
+    data class Running(
+        val request: BulkToggleRequest,
+        val completed: Int,
+        val failed: Int
+    ) : BulkToggleState
+
+    data class Finished(val request: BulkToggleRequest, val failed: Int) : BulkToggleState
+}
+
 /**
  * How much of itself a list keeps while its mode is switched off.
  *
@@ -217,6 +250,7 @@ fun LabsToggleScreen(
 
     var apps by remember { mutableStateOf<List<PackageInfo>>(emptyList()) }
     var blocked by remember { mutableStateOf<Set<String>>(emptySet()) }
+    var mobileOnly by remember { mutableStateOf<Set<String>>(emptySet()) }
     var loading by remember { mutableStateOf(true) }
     var query by remember { mutableStateOf("") }
     var filter by remember { mutableStateOf(ToggleFilter.ALL) }
@@ -240,7 +274,14 @@ fun LabsToggleScreen(
         }
         ?: stringResource(R.string.hiding_vpn_client_none)
     var pickingVpn by remember { mutableStateOf(false) }
+    var pinned by remember { mutableStateOf(PinnedApps.all()) }
+    var bulkMenu by remember { mutableStateOf(false) }
+    var bulkToggle by remember { mutableStateOf<BulkToggleState?>(null) }
     val scope = rememberCoroutineScope()
+
+    /** The key one row's state is kept under: a package, or a package under another user. */
+    fun slotKey(pi: PackageInfo): String =
+        if (feature == AppToggleFeature.FIREWALL) pi.firewallKey() else pi.packageName
 
     /** What putting one app on or off this list writes, whichever kind of list it is. */
     suspend fun writeBlocked(packageName: String, shouldBlock: Boolean): Boolean = when {
@@ -256,9 +297,20 @@ fun LabsToggleScreen(
         Log.d(AppConstants.TAG, "${feature.name}: reading the apps and their state")
 
         apps = withContext(Dispatchers.IO) {
-            InstalledPackages.all(context, 0)
+            if (feature == AppToggleFeature.FIREWALL) {
+                InstalledPackages.allUsers(context, 0)
+            } else {
+                InstalledPackages.all(context, 0)
+            }
         }
         blocked = withContext(Dispatchers.IO) { readBlocked(feature, context) }
+        mobileOnly = withContext(Dispatchers.IO) {
+            if (feature == AppToggleFeature.FIREWALL) {
+                PackageTools.readFirewallMobileOnly(context)
+            } else {
+                emptySet()
+            }
+        }
         running = ShizukuStateMachine.isRunning()
         // Opening a list is as good a reason as any to make sure the watch is up: it may have
         // stood itself down while Shizuku was away, and a list that does nothing would look
@@ -313,7 +365,8 @@ fun LabsToggleScreen(
                 }
             }
             if (!applied) {
-                Log.w(AppConstants.TAG, "${feature.name}: $packageName would not change")
+                Diag.warn(AppConstants.TAG, "${feature.name}: $packageName would not change")
+                Toast.makeText(context, R.string.app_action_failed, Toast.LENGTH_SHORT).show()
             }
             if (feature.signal != null) {
                 withContext(Dispatchers.IO) { HidingWatchService.refresh(context) }
@@ -355,7 +408,7 @@ fun LabsToggleScreen(
         }
     }
 
-    val shown = remember(apps, blocked, launcherless, systemPackages, userPackages, disabledPackages, query, filter, kind) {
+    val shown = remember(apps, blocked, launcherless, systemPackages, userPackages, disabledPackages, query, filter, kind, pinned) {
         val byKind = if (feature.userAppsOnly) {
             apps.filter { it.packageName in userPackages }
         } else when (kind) {
@@ -367,8 +420,8 @@ fun LabsToggleScreen(
         }
         val byState = when (filter) {
             ToggleFilter.ALL -> byKind
-            ToggleFilter.BLOCKED -> byKind.filter { it.packageName in blocked }
-            ToggleFilter.ALLOWED -> byKind.filter { it.packageName !in blocked }
+            ToggleFilter.BLOCKED -> byKind.filter { slotKey(it) in blocked }
+            ToggleFilter.ALLOWED -> byKind.filter { slotKey(it) !in blocked }
         }
         val trimmed = query.trim()
         val searched = if (trimmed.isBlank()) {
@@ -391,7 +444,11 @@ fun LabsToggleScreen(
         searched
             .map { app -> app to appLabel(pm, app).lowercase() }
             .sortedWith(
-                compareBy({ (app, _) -> app.packageName !in blocked }, { (_, label) -> label })
+                compareBy(
+                    { (app, _) -> app.packageName !in pinned },
+                    { (app, _) -> slotKey(app) !in blocked },
+                    { (_, label) -> label }
+                )
             )
             .map { (app, _) -> app }
     }
@@ -491,6 +548,56 @@ fun LabsToggleScreen(
         }
     }
 
+    // Bulk actions act on what is on screen, so a search or a state filter is a way to choose
+    // a subset. Pinned apps are deliberately left out: a pin is the answer to "do not change
+    // this one when I change everything else".
+    fun beginBulk(block: Boolean) {
+        val packages = shown.map { slotKey(it) }.filterNot { it in pinned }
+        if (packages.isEmpty()) return
+        bulkMenu = false
+        bulkToggle = BulkToggleState.Confirm(
+            BulkToggleRequest(
+                block = block,
+                packages = packages,
+                pinnedSkipped = shown.count { it.packageName in pinned }
+            )
+        )
+    }
+
+    fun applyBulk(request: BulkToggleRequest) {
+        bulkToggle = BulkToggleState.Running(request, 0, 0)
+        scope.launch {
+            var failed = 0
+            // A list whose gate is off is being kept rather than applied. The whole kept set can
+            // be written once, so a bulk edit there is as cheap as one row's switch.
+            if (feature.signal == null && !BlockedGates.isEnabled(feature.name)) {
+                val kept = BlockedGates.kept(feature.name)
+                BlockedGates.setKept(
+                    feature.name,
+                    if (request.block) kept + request.packages else kept - request.packages
+                )
+                bulkToggle = BulkToggleState.Running(request, request.packages.size, 0)
+            } else {
+                request.packages.forEachIndexed { index, packageName ->
+                    val applied = withContext(Dispatchers.IO) {
+                        runCatching { writeBlocked(packageName, request.block) }
+                            .getOrDefault(false)
+                    }
+                    if (!applied) {
+                        failed++
+                        Log.w(AppConstants.TAG, "${feature.name}: bulk $packageName would not change")
+                    }
+                    bulkToggle = BulkToggleState.Running(request, index + 1, failed)
+                }
+                if (feature.signal != null) {
+                    withContext(Dispatchers.IO) { HidingWatchService.refresh(context) }
+                }
+            }
+            blocked = withContext(Dispatchers.IO) { readBlocked(feature, context) }
+            bulkToggle = BulkToggleState.Finished(request, failed)
+        }
+    }
+
     Column(modifier = Modifier.fillMaxSize()) {
         TopAppBar(
             title = {
@@ -532,8 +639,61 @@ fun LabsToggleScreen(
                     onCheckedChange = { checked -> setGate(checked) },
                     // Inset the way the title is, rather than hard against the edge: the bar has no
                     // padding of its own, so a switch put in it lands on the glass.
-                    modifier = Modifier.padding(end = 16.dp)
+                    modifier = Modifier.padding(start = 4.dp)
                 )
+                Box(modifier = Modifier.padding(end = 8.dp)) {
+                    IconButton(
+                        onClick = { bulkMenu = true },
+                        enabled = shown.isNotEmpty() || pinned.isNotEmpty()
+                    ) {
+                        Icon(
+                            Icons.Filled.MoreVert,
+                            contentDescription = stringResource(R.string.labs_bulk_actions)
+                        )
+                    }
+                    DropdownMenu(
+                        expanded = bulkMenu,
+                        onDismissRequest = { bulkMenu = false }
+                    ) {
+                        val canBulk = gateOn && !carriesSession &&
+                            (!feature.needsShell || running) &&
+                            shown.any { it.packageName !in pinned }
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    stringResource(
+                                        if (feature.signal == null) R.string.labs_bulk_allow_all
+                                        else R.string.labs_bulk_show_all
+                                    )
+                                )
+                            },
+                            onClick = { beginBulk(false) },
+                            enabled = canBulk
+                        )
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    stringResource(
+                                        if (feature.signal == null) R.string.labs_bulk_block_all
+                                        else R.string.labs_bulk_hide_all
+                                    )
+                                )
+                            },
+                            onClick = { beginBulk(true) },
+                            enabled = canBulk
+                        )
+                        if (pinned.isNotEmpty()) {
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.labs_clear_pins)) },
+                                onClick = {
+                                    PinnedApps.clear()
+                                    pinned = emptySet()
+                                    bulkMenu = false
+                                }
+                            )
+                        }
+                    }
+                }
             }
         )
 
@@ -574,14 +734,15 @@ fun LabsToggleScreen(
             }
         }
 
-        // As wide as the row is: the first filter against one edge, the last against the other,
-        // and the slack shared out between them rather than scrolled past.
+        // Every chip gets an equal slot and shrinks its label to fit. A wide font changes
+        // the text size, not the number of rows.
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .alpha(contentAlpha)
                 .padding(horizontal = 16.dp, vertical = 4.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             // Not on a hiding list: everything on one is an app somebody installed, so there
             // is no second kind of app to tell it apart from.
@@ -594,6 +755,7 @@ fun LabsToggleScreen(
                     ManageFilter.HIDDEN -> launcherless.size
                 }
                 AppFilterChip(
+                    modifier = Modifier.weight(1f),
                     label = stringResource(
                         when (option) {
                             ManageFilter.ALL -> R.string.manage_filter_all
@@ -606,9 +768,6 @@ fun LabsToggleScreen(
                     count = count,
                     selected = kind == option,
                     enabled = gateOn,
-                    // Hugging its label rather than filling a slot: a row that scrolls sizes
-                    // each chip to its own text.
-                    fill = false,
                     onClick = { kind = option }
                 )
             }
@@ -625,7 +784,7 @@ fun LabsToggleScreen(
             AppFilterChip(
                 modifier = Modifier.weight(1f),
                 label = stringResource(feature.offLabelRes),
-                count = apps.count { it.packageName !in blocked },
+                count = apps.count { slotKey(it) !in blocked },
                 selected = filter == ToggleFilter.ALLOWED,
                 enabled = gateOn,
                 // Tapping the chosen one again lets go of it: with no filter the list shows
@@ -637,7 +796,7 @@ fun LabsToggleScreen(
             AppFilterChip(
                 modifier = Modifier.weight(1f),
                 label = stringResource(feature.onLabelRes),
-                count = apps.count { it.packageName in blocked },
+                count = apps.count { slotKey(it) in blocked },
                 selected = filter == ToggleFilter.BLOCKED,
                 enabled = gateOn,
                 onClick = {
@@ -711,14 +870,28 @@ fun LabsToggleScreen(
                     }
                 }
 
+                if (pinned.isNotEmpty()) {
+                    item {
+                        Text(
+                            text = stringResource(R.string.labs_pinned_note),
+                            modifier = Modifier
+                                .padding(horizontal = 4.dp)
+                                .padding(bottom = 4.dp),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+
                 items(shown, key = { it.rowKey() }) { pi ->
-                    val isBlocked = pi.packageName in blocked
+                    val slot = slotKey(pi)
+                    val isBlocked = slot in blocked
                     SegmentedCard {
                         ListItem(
                             leadingContent = { AppIcon(pi) },
                             headlineContent = { Text(appLabel(pm, pi)) },
                             supportingContent = {
-                                AppRowLine(pi.packageName) {
+                                AppRowLine(pi.packageLine()) {
                                     // Hiding an app while it is starting is the only way that works
                                     // for a check made during startup, so the list can open an app
                                     // the way the watch cannot: hide first, then launch. Offered only
@@ -751,7 +924,83 @@ fun LabsToggleScreen(
 
                                     // The chips the other app lists carry, so an app says the
                                     // same things about itself wherever it is listed.
-                                    AppStatusChips(pi, hidden = pi.packageName in launcherless)
+                                    AppStatusChips(
+                                        pi,
+                                        hidden = FirewallKey.userIdOf(slot) ==
+                                            UserHandleCompat.myUserId() &&
+                                            pi.packageName in launcherless
+                                    )
+                                    if (feature == AppToggleFeature.FIREWALL &&
+                                        PackageTools.supportsMobileOnly()
+                                    ) {
+                                        val isMobileOnly = slot in mobileOnly
+                                        IconButton(
+                                            enabled = gateOn && (!feature.needsShell || running),
+                                            onClick = {
+                                                scope.launch {
+                                                    val changed = withContext(Dispatchers.IO) {
+                                                        PackageTools.setFirewallMobileOnly(
+                                                            context,
+                                                            slot,
+                                                            !isMobileOnly
+                                                        )
+                                                    }
+                                                    if (!changed) {
+                                                        Toast.makeText(
+                                                            context,
+                                                            R.string.firewall_mobile_only_failed,
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
+                                                    }
+                                                    mobileOnly = withContext(Dispatchers.IO) {
+                                                        PackageTools.readFirewallMobileOnly(context)
+                                                    }
+                                                    blocked = withContext(Dispatchers.IO) {
+                                                        readBlocked(feature, context)
+                                                    }
+                                                }
+                                            }
+                                        ) {
+                                            Icon(
+                                                Icons.Outlined.SignalCellularAlt,
+                                                contentDescription = stringResource(
+                                                    if (isMobileOnly) {
+                                                        R.string.firewall_mobile_only_on
+                                                    } else {
+                                                        R.string.firewall_mobile_only_off
+                                                    }
+                                                ),
+                                                tint = if (isMobileOnly) {
+                                                    MaterialTheme.colorScheme.primary
+                                                } else {
+                                                    MaterialTheme.colorScheme.onSurfaceVariant
+                                                }
+                                            )
+                                        }
+                                    }
+                                    IconButton(
+                                        onClick = {
+                                            val nowPinned = PinnedApps.toggle(pi.packageName)
+                                            pinned = if (nowPinned) {
+                                                pinned + pi.packageName
+                                            } else {
+                                                pinned - pi.packageName
+                                            }
+                                        }
+                                    ) {
+                                        Icon(
+                                            Icons.Outlined.PushPin,
+                                            contentDescription = stringResource(
+                                                if (pi.packageName in pinned) R.string.labs_unpin_app
+                                                else R.string.labs_pin_app
+                                            ),
+                                            tint = if (pi.packageName in pinned) {
+                                                MaterialTheme.colorScheme.primary
+                                            } else {
+                                                MaterialTheme.colorScheme.onSurfaceVariant
+                                            }
+                                        )
+                                    }
                                     ExpressiveSwitch(
                                         checked = isBlocked,
                                         // The gate off means the list is not being applied, and a
@@ -760,9 +1009,8 @@ fun LabsToggleScreen(
                                         enabled = (!feature.needsShell || running) &&
                                             !carriesSession && gateOn,
                                         onCheckedChange = { checked ->
-                                            blocked = if (checked) blocked + pi.packageName
-                                            else blocked - pi.packageName
-                                            toggle(pi.packageName, checked)
+                                            blocked = if (checked) blocked + slot else blocked - slot
+                                            toggle(slot, checked)
                                         }
                                     )
                                 }
@@ -820,6 +1068,157 @@ fun LabsToggleScreen(
             )
         }
     }
+
+    when (val state = bulkToggle) {
+        is BulkToggleState.Confirm -> BulkConfirmDialog(
+            feature = feature,
+            request = state.request,
+            onDismiss = { bulkToggle = null },
+            onConfirm = { applyBulk(state.request) }
+        )
+
+        is BulkToggleState.Running -> BulkProgressDialog(feature, state)
+        is BulkToggleState.Finished -> BulkResultDialog(
+            feature = feature,
+            state = state,
+            onDismiss = { bulkToggle = null }
+        )
+
+        null -> Unit
+    }
+}
+
+@Composable
+private fun BulkConfirmDialog(
+    feature: AppToggleFeature,
+    request: BulkToggleRequest,
+    onDismiss: () -> Unit,
+    onConfirm: () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.labs_bulk_confirm_title)) },
+        text = {
+            Column {
+                Text(stringResource(R.string.labs_bulk_confirm_count, request.packages.size))
+                Text(
+                    stringResource(
+                        R.string.labs_bulk_confirm_state,
+                        stringResource(if (request.block) feature.onLabelRes else feature.offLabelRes)
+                    )
+                )
+                if (request.pinnedSkipped > 0) {
+                    Text(
+                        stringResource(
+                            R.string.labs_bulk_confirm_pinned,
+                            request.pinnedSkipped
+                        )
+                    )
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = stringResource(R.string.labs_bulk_confirm_warning),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        },
+        confirmButton = {
+            PillButton(onClick = onConfirm) {
+                Text(stringResource(R.string.labs_bulk_apply))
+            }
+        },
+        dismissButton = {
+            PillButtonQuiet(onClick = onDismiss) {
+                Text(stringResource(android.R.string.cancel))
+            }
+        }
+    )
+}
+
+@Composable
+private fun BulkProgressDialog(feature: AppToggleFeature, state: BulkToggleState.Running) {
+    val total = state.request.packages.size
+    AlertDialog(
+        onDismissRequest = {},
+        title = { Text(stringResource(R.string.labs_bulk_progress_title)) },
+        text = {
+            Column {
+                Text(
+                    stringResource(
+                        R.string.labs_bulk_confirm_state,
+                        stringResource(
+                            if (state.request.block) feature.onLabelRes else feature.offLabelRes
+                        )
+                    ),
+                    style = MaterialTheme.typography.bodySmall
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+                LinearProgressIndicator(
+                    progress = {
+                        if (total == 0) 0f else state.completed.toFloat() / total
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(stringResource(R.string.labs_bulk_progress, state.completed, total))
+            }
+        },
+        confirmButton = {}
+    )
+}
+
+@Composable
+private fun BulkResultDialog(
+    feature: AppToggleFeature,
+    state: BulkToggleState.Finished,
+    onDismiss: () -> Unit
+) {
+    val changed = state.request.packages.size - state.failed
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.labs_bulk_result_title)) },
+        text = {
+            Column {
+                Text(
+                    stringResource(R.string.labs_bulk_result_summary, changed, state.failed),
+                    style = MaterialTheme.typography.titleSmall
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    stringResource(
+                        R.string.labs_bulk_confirm_state,
+                        stringResource(
+                            if (state.request.block) feature.onLabelRes else feature.offLabelRes
+                        )
+                    ),
+                    style = MaterialTheme.typography.bodySmall
+                )
+                if (state.request.pinnedSkipped > 0) {
+                    Text(
+                        stringResource(
+                            R.string.labs_bulk_confirm_pinned,
+                            state.request.pinnedSkipped
+                        ),
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+                if (state.failed > 0) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        stringResource(R.string.labs_bulk_failed_hint),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+        },
+        confirmButton = {
+            PillButton(onClick = onDismiss) {
+                Text(stringResource(R.string.labs_bulk_done))
+            }
+        }
+    )
 }
 
 /** The state this feature is about: which apps are blocked, according to its own source. */

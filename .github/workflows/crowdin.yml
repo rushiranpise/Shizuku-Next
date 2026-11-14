@@ -120,6 +120,33 @@ jobs:
           gh pr diff "$number" --name-only | sed '/^$/d' > changed.txt
           git fetch --depth=1 origin l10n
 
+      # A translation that changes a placeholder or an ADB command is left open by the check
+      # below, so the next sync would download the same bad value again. Remove only those
+      # rejected elements from the branch and delete their translations from Crowdin first.
+      # The app then falls back to the English string, and the next export cannot bring the
+      # bad value back. The token is only used for this clean-up; it never reaches a log.
+      - name: Remove translations the check refuses
+        if: steps.pr.outputs.skip != 'true'
+        env:
+          CROWDIN_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+          CROWDIN_PROJECT_ID: '935085'
+        run: |
+          set -euo pipefail
+
+          git checkout -B l10n origin/l10n
+          python3 ci/repair-translations.py changed.txt origin/l10n origin/master
+
+          if git diff --quiet; then
+            echo "the export has no translation the check refuses"
+            exit 0
+          fi
+
+          git -c user.name='github-actions[bot]' \
+              -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+              commit -am 'fix(i18n): remove translations the check refuses'
+          git push origin l10n
+          git fetch --depth=1 origin l10n
+
       # The export writes what the translator typed, and a translator is not thinking about the
       # resource compiler: an Italian sentence arrives holding `nell'app`, aapt2 refuses a bare
       # apostrophe wherever it is not inside a quoted region, and master's Build App goes red on a

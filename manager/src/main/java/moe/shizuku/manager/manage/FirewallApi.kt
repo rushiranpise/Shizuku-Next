@@ -1,7 +1,8 @@
 package moe.shizuku.manager.manage
 
+import android.os.Build
 import android.os.IBinder
-import android.util.Log
+import moe.shizuku.manager.utils.Diag
 import rikka.shizuku.ShizukuBinderWrapper
 import rikka.shizuku.SystemServiceHelper
 
@@ -36,6 +37,12 @@ object FirewallApi {
      */
     const val CHAIN = 9
 
+    /**
+     * `ConnectivityManager.FIREWALL_CHAIN_METERED_DENY_ADMIN`, the chain that drops traffic on
+     * metered networks. It is available from Android 13 and is what the mobile-only switch uses.
+     */
+    const val CHAIN_METERED = 12
+
     /** `ConnectivityManager.FIREWALL_RULE_ALLOW` and `FIREWALL_RULE_DENY`. */
     const val RULE_ALLOW = 1
     const val RULE_DENY = 2
@@ -57,6 +64,17 @@ object FirewallApi {
 
     /** `ConnectivityManager.FIREWALL_RULE_DEFAULT`. */
     private const val RULE_DEFAULT = 0
+
+    /**
+     * Whether a write that reached the platform should be reported as applied.
+     *
+     * A successful write is not always readable: Android 13 added the setters and the OEM deny
+     * chain, but not the getters, so a rule can be set there with no way to ask it back. Unknown
+     * is not a refusal, and reporting it as one is what made the switch spring back after a rule
+     * that had in fact been applied. Only a definite opposite answer is a failure.
+     */
+    internal fun writeApplied(wrote: Boolean, requested: Boolean, observed: Boolean?): Boolean =
+        wrote && (observed == null || observed == requested)
 
     /**
      * Whether the chain is on, or null when the platform cannot be asked.
@@ -90,32 +108,43 @@ object FirewallApi {
         true
     } == true
 
-    /** The rule set for [uid] on this chain, or null when the platform cannot be asked. */
-    fun blockedRule(uid: Int): Int? = withService { service ->
+    /** The rule set for [uid] on [chain], or null when the platform cannot be asked. */
+    fun blockedRule(uid: Int, chain: Int = CHAIN): Int? = withService { service ->
         service.javaClass
             .getMethod(
                 "getUidFirewallRule",
                 Int::class.javaPrimitiveType,
                 Int::class.javaPrimitiveType
             )
-            .invoke(service, CHAIN, uid) as Int
+            .invoke(service, chain, uid) as Int
     }
 
     /**
-     * Blocks or allows [uid] on this chain, answering whether the platform took the call.
+     * Blocks or allows [uid] on [chain], answering whether the platform took the call.
      *
      * The call is void, so the null `invoke` answers for it is not a refusal - see
-     * [setChainEnabled] for what reading it as one did.
+     * [setChainEnabled] for what reading it as one did. The metered chain has no per-uid setter
+     * before Android 15, so older releases use its deny-list call instead.
      */
-    fun setBlocked(uid: Int, blocked: Boolean): Boolean = withService { service ->
-        service.javaClass
-            .getMethod(
-                "setUidFirewallRule",
-                Int::class.javaPrimitiveType,
-                Int::class.javaPrimitiveType,
-                Int::class.javaPrimitiveType
-            )
-            .invoke(service, CHAIN, uid, ruleFor(blocked))
+    fun setBlocked(uid: Int, blocked: Boolean, chain: Int = CHAIN): Boolean = withService { service ->
+        if (chain == CHAIN_METERED && Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            service.javaClass
+                .getMethod(
+                    "updateMeteredNetworkDenyList",
+                    Int::class.javaPrimitiveType,
+                    Boolean::class.javaPrimitiveType
+                )
+                .invoke(service, uid, blocked)
+        } else {
+            service.javaClass
+                .getMethod(
+                    "setUidFirewallRule",
+                    Int::class.javaPrimitiveType,
+                    Int::class.javaPrimitiveType,
+                    Int::class.javaPrimitiveType
+                )
+                .invoke(service, chain, uid, ruleFor(blocked))
+        }
         true
     } == true
 
@@ -135,11 +164,11 @@ object FirewallApi {
                 .getMethod("asInterface", IBinder::class.java)
                 .invoke(null, ShizukuBinderWrapper(binder))
         }
-            .onFailure { Log.w(TAG, "the connectivity interface could not be reached", it) }
+            .onFailure { Diag.warn(TAG, "the connectivity interface could not be reached", it) }
             .getOrNull() ?: return null
 
         return runCatching { block(service) }
-            .onFailure { Log.w(TAG, "the connectivity interface refused the call", it) }
+            .onFailure { Diag.warn(TAG, "the connectivity interface refused the call", it) }
             .getOrNull()
     }
 }

@@ -31,6 +31,25 @@ class StartRequestDecisionTest {
     }
 
     @Test
+    fun `a start somebody tapped replaces it without a restart`() {
+        assertEquals(
+            StartDecision.START,
+            decideStart(binderAlive = false, forceStart = false, userInitiated = true, startInFlight = true)
+        )
+    }
+
+    @Test
+    fun `a completed pairing replaces it`() {
+        assertEquals(
+            StartDecision.START,
+            decideStart(
+                binderAlive = false, forceStart = false, userInitiated = false,
+                startInFlight = true, replaceInFlight = true
+            )
+        )
+    }
+
+    @Test
     fun `a running server ignores a plain start`() {
         assertEquals(
             StartDecision.IGNORE_RUNNING,

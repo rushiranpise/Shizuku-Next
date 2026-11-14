@@ -3,6 +3,7 @@ package moe.shizuku.manager.authorization
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.os.Bundle
 import android.os.Parcel
 import moe.shizuku.manager.BuildConfig
 import moe.shizuku.manager.Manifest
@@ -12,6 +13,15 @@ import rikka.shizuku.server.ServerConstants
 import rikka.parcelablelist.ParcelableListSlice
 import rikka.shizuku.Shizuku
 import java.util.*
+
+/** One process that attached to the Shizuku service. */
+data class ClientProcessInfo(
+    val uid: Int,
+    val pid: Int,
+    val packageName: String,
+    val apiVersion: Int,
+    val allowed: Boolean
+)
 
 object AuthorizationManager {
 
@@ -61,6 +71,71 @@ object AuthorizationManager {
             packages.addAll(getApplications(-1))
         }
         return packages
+    }
+
+    /**
+     * The processes of [uids] that are attached to the service right now.
+     *
+     * This is the list behind the expandable rows in the Apps screen. It is not a list of
+     * every process the app has running, and it does not persist anything.
+     */
+    fun getClientProcesses(uids: IntArray): List<ClientProcessInfo> {
+        if (uids.isEmpty() || Shizuku.getBinder() == null) return emptyList()
+
+        val data = Parcel.obtain()
+        val reply = Parcel.obtain()
+        return try {
+            data.writeInterfaceToken("moe.shizuku.server.IShizukuService")
+            data.writeInt(uids.size)
+            data.writeIntArray(uids)
+            Shizuku.getBinder()!!.transact(
+                ServerConstants.BINDER_TRANSACTION_getClientProcesses, data, reply, 0
+            )
+            reply.readException()
+            @Suppress("UNCHECKED_CAST")
+            val slice = ParcelableListSlice.CREATOR.createFromParcel(reply) as ParcelableListSlice<Bundle>
+            slice.list.orEmpty().mapNotNull { bundle ->
+                val pid = bundle.getInt(ServerConstants.KEY_CLIENT_PROCESS_PID, 0)
+                if (pid <= 0) return@mapNotNull null
+                ClientProcessInfo(
+                    uid = bundle.getInt(ServerConstants.KEY_CLIENT_PROCESS_UID, 0),
+                    pid = pid,
+                    packageName = bundle.getString(ServerConstants.KEY_CLIENT_PROCESS_PACKAGE) ?: "",
+                    apiVersion = bundle.getInt(ServerConstants.KEY_CLIENT_PROCESS_API_VERSION, 0),
+                    allowed = bundle.getBoolean(ServerConstants.KEY_CLIENT_PROCESS_ALLOWED, false)
+                )
+            }
+        } catch (e: Throwable) {
+            LOGGER.w(e, "getClientProcesses")
+            emptyList()
+        } finally {
+            reply.recycle()
+            data.recycle()
+        }
+    }
+
+    /** Stops one attached client process. The app itself is not force-stopped. */
+    fun stopClientProcess(uid: Int, pid: Int): Boolean {
+        if (pid <= 0 || Shizuku.getBinder() == null) return false
+
+        val data = Parcel.obtain()
+        val reply = Parcel.obtain()
+        return try {
+            data.writeInterfaceToken("moe.shizuku.server.IShizukuService")
+            data.writeInt(uid)
+            data.writeInt(pid)
+            Shizuku.getBinder()!!.transact(
+                ServerConstants.BINDER_TRANSACTION_stopClientProcess, data, reply, 0
+            )
+            reply.readException()
+            reply.readInt() == 1
+        } catch (e: Throwable) {
+            LOGGER.w(e, "stopClientProcess")
+            false
+        } finally {
+            reply.recycle()
+            data.recycle()
+        }
     }
 
     fun granted(packageName: String, uid: Int): Boolean {

@@ -16,6 +16,7 @@
     <string name="home_wireless_adb_title"><![CDATA[Start via Wireless debugging]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Starting with no network: the device is asked for wireless debugging over and over until it stays on. This can take up to two minutes before it starts or gives up.</string>
     <string name="home_usb_adb_needs_network">A USB start uses the classic ADB port, and reopening it needs a network. Connect to Wi-Fi once, or choose <b>Start without Wi-Fi</b> as the start method and start over wireless debugging instead.</string>
+    <string name="home_usb_adb_needs_network_no_option">A USB start uses the classic ADB port, and reopening it needs a network. Connect to Wi-Fi once, or start from a computer with the ADB command in Other methods.</string>
     <string name="home_usb_adb_needs_computer">A USB start needs the classic ADB port. On this Android version, connect to a computer and start Shizuku with the ADB command in Other methods.</string>
     <string name="home_wireless_adb_summary">Starts using wireless debugging.</string>
     <string name="home_usb_adb_title"><![CDATA[Start via USB debugging]]></string>
@@ -99,7 +100,7 @@
 
     <!-- Home - Root -->
     <string name="home_root_title"><![CDATA[Start via root]]></string>
-    <string name="home_root_description"><![CDATA[If you are using Magisk, you can try %1$s. For root users, it will eventually replace Shizuku. Note, existing applications need to change a little to use %2$s.]]></string>
+    <string name="home_root_description"><![CDATA[If you are using Magisk, you can try %1$s. On a debuggable build, Shizuku can also start with ADB root. For root users, it will eventually replace Shizuku. Note, existing applications need to change a little to use %2$s.]]></string>
     <string name="home_root_button_start">Start</string>
 
     <!-- Home - Application management -->
@@ -143,6 +144,23 @@
     <string name="app_management_sort_last_added">Recently added</string>
     <string name="app_management_sort_updated">Updated</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_processes_show">Show %1$d process(es)</string>
+    <string name="apps_processes_hide">Hide %1$d process(es)</string>
+    <string name="apps_process_pid">PID %1$d</string>
+    <string name="apps_process_api">API %1$d</string>
+    <string name="apps_process_allowed">Allowed</string>
+    <string name="apps_process_not_allowed">Not allowed</string>
+    <string name="apps_process_stop">Stop process</string>
+    <string name="apps_process_stop_title">Stop process?</string>
+    <string name="apps_process_stop_message">Stop PID %1$d for %2$s? The app may start it again.</string>
+    <string name="apps_process_stop_failed">Could not stop the process.</string>
+    <string name="apps_processes_title">Attached processes (%1$d)</string>
+    <plurals name="apps_processes_count">
+        <item quantity="one">%1$d process</item>
+        <item quantity="other">%1$d processes</item>
+    </plurals>
+    <string name="apps_processes_hide_short">Hide</string>
+    <string name="apps_processes_empty">No attached processes.</string>
     <string name="tab_home">Home</string>
     <string name="tab_apps">Apps</string>
     <string name="tab_shell">Shell</string>
@@ -154,6 +172,46 @@
     <string name="labs_filter_blocked">Blocked</string>
     <string name="labs_blocked_count">%1$d blocked</string>
     <string name="labs_blocked_empty">Nothing is blocked.</string>
+    <string name="labs_bulk_actions">Bulk actions</string>
+    <string name="labs_bulk_allow_all">Allow all shown</string>
+    <string name="labs_bulk_block_all">Block all shown</string>
+    <string name="labs_bulk_show_all">Show all in list</string>
+    <string name="labs_bulk_hide_all">Hide all in list</string>
+    <string name="labs_bulk_confirm_title">Bulk change</string>
+    <string name="labs_bulk_confirm_count">Apps to update: %1$d</string>
+    <string name="labs_bulk_confirm_state">New state: %1$s</string>
+    <string name="labs_bulk_confirm_pinned">Pinned skipped: %1$d</string>
+    <string name="labs_bulk_confirm_warning">Only the apps in this list are changed. Pinned apps are left alone.</string>
+    <string name="labs_bulk_progress_title">Updating apps</string>
+    <string name="labs_bulk_progress">Changing %1$d of %2$d...</string>
+    <string name="labs_bulk_result_title">Bulk update finished</string>
+    <string name="labs_bulk_result_summary">Changed: %1$d, failed: %2$d.</string>
+    <string name="labs_bulk_failed_hint">Some apps did not accept the change. Their state may not have changed.</string>
+    <string name="labs_bulk_apply">Apply</string>
+    <string name="labs_bulk_done">Done</string>
+    <string name="labs_pinned_note">Pinned apps stay at the top and are skipped by bulk changes.</string>
+    <string name="labs_pin_app">Pin app</string>
+    <string name="labs_unpin_app">Unpin app</string>
+    <string name="labs_clear_pins">Clear pinned apps</string>
+
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="tab_rotation">Rotation</string>
+    <string name="rotation_count">%1$d configured</string>
+    <string name="rotation_gate_off">Off, %1$d configured</string>
+    <string name="rotation_gate_disabled">Rotation is off</string>
+    <string name="rotation_note">Auto follows the system rotation. Portrait and Landscape hold the display while the app is open and put it back when you leave.</string>
+    <string name="rotation_filter_configured">Configured</string>
+    <string name="rotation_empty">No apps have a rotation mode.</string>
+    <string name="rotation_needs_shizuku">Start Shizuku to change rotation.</string>
+    <string name="rotation_mode_title">Rotation mode</string>
+    <string name="rotation_mode_off">Off</string>
+    <string name="rotation_mode_off_note">Use the app\'s own orientation.</string>
+    <string name="rotation_mode_auto">Auto</string>
+    <string name="rotation_mode_auto_note">Follow the system rotation. Use Portrait or Landscape if the app ignores this.</string>
+    <string name="rotation_mode_portrait">Portrait</string>
+    <string name="rotation_mode_portrait_note">Force portrait while this app is open.</string>
+    <string name="rotation_mode_landscape">Landscape</string>
+    <string name="rotation_mode_landscape_note">Force landscape while this app is open.</string>
 
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Hiding</string>
@@ -425,6 +483,11 @@
     <string name="hiding_notification_idle_title">Hiding is on</string>
     <string name="hiding_notification_watching">Watching your listed apps.</string>
 
+    <string name="rotation_notification_title">Rotation is locked</string>
+    <string name="rotation_notification_text">Locked for %1$s.</string>
+    <string name="rotation_notification_watching_title">Rotation control is on</string>
+    <string name="rotation_notification_watching">Waiting for an app on the rotation list.</string>
+
     <string name="hiding_notification_paused_title">Hiding is paused</string>
     <string name="hiding_notification_paused_text">Your settings are restored. Resume hiding them for your listed apps.</string>
 
@@ -586,7 +649,9 @@
     <string name="start_failed_pairing_required">This device is not paired for wireless debugging. Pair it again.</string>
     <string name="start_failed_connection_lost">The ADB connection closed while starting. Try again.</string>
     <string name="start_failed_usb_no_port">No local ADB port is open Android clears it on every reboot, and reopening it needs a connection to borrow. Connect to Wi-Fi and Shizuku will reopen it over wireless debugging, run <b>adb tcpip 5555</b> from a computer, or choose <b>Start without Wi-Fi</b> as the start method to start over wireless debugging instead.</string>
+    <string name="start_failed_usb_no_port_no_option">No local ADB port is open. Android clears it on every reboot, and reopening it needs a network connection to borrow. Connect to Wi-Fi once, or run <b>adb tcpip 5555</b> from a computer.</string>
     <string name="start_failed_root_unavailable">Root is no longer available on this device, so Shizuku can\'t start over root. Pick another start method.</string>
+    <string name="start_failed_adb_root">ADB root is not available. Enable USB debugging on a debuggable build, or pick another start method.</string>
     <string name="start_failed_system_needs_app">The system start method must be started from the app.</string>
     <string name="start_failed_system_no_exploit">This device does not ship the Samsung FOTA agent (com.sdet.fotaagent), which is the only component the system start method can use, so there is nothing to escalate with here. Switch the system start method to Custom command: the app will show you what to run with an escalation your device does have.</string>
     <string name="start_failed_no_binder">The service did not appear within a minute. Both halves keep a log: the starter under ShizukuServiceStarter and the hand-over under BinderSender. A logcat reader filtered to those two shows whether the starter got as far as forking the server, and whether the server ever asked for the binder.</string>
@@ -695,10 +760,12 @@
     <string name="settings_always_show_navigation_bar_summary">Keep the tab bar visible when you scroll down.</string>
     <string name="settings_secure_quick_tiles">Secure quick tiles</string>
     <string name="settings_secure_quick_tiles_summary">Block quick tile changes while the phone is locked.</string>
+    <string name="settings_require_grant_authentication">Confirm app grants</string>
+    <string name="settings_require_grant_authentication_summary">Ask for biometrics or screen lock before giving an app access to Shizuku.</string>
     <string name="settings_watchdog">Watchdog</string>
     <string name="settings_watchdog_summary">Restart Shizuku automatically if it crashes</string>
     <string name="settings_auto_disable_wireless_debugging">Disable wireless debugging</string>
-    <string name="settings_auto_disable_wireless_debugging_summary">Turn off wireless debugging when Shizuku stops.</string>
+    <string name="settings_auto_disable_wireless_debugging_summary">Turn off wireless debugging after a TCP start or when Shizuku stops.</string>
     <string name="settings_start_method">Default start method</string>
     <string name="settings_start_method_root_unavailable">This device has no root, so starts fall back to wireless debugging.</string>
     <string name="settings_start_method_root_unavailable_usb">This device has no root, so starts fall back to USB.</string>
@@ -721,7 +788,7 @@
     <string name="settings_wait_for_wifi_summary">Automatic Shizuku restarts wait for an unmetered Wi-Fi connection.</string>
     <string name="settings_unavailable_while_forcing_wireless">Unavailable while Start without Wi-Fi is on.</string>
     <string name="settings_force_wireless_debugging">Start without Wi-Fi (experimental)</string>
-    <string name="settings_force_wireless_debugging_summary">Tries to start Shizuku without Wi-Fi or USB debugging. This also turns off the Wi-Fi wait and automatic wireless debugging.</string>
+    <string name="settings_force_wireless_debugging_summary">Tries to start Shizuku without Wi-Fi or USB debugging. Supported on Android 11 to 16. This also turns off the Wi-Fi wait and automatic wireless debugging.</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
     <string name="settings_needs_write_secure_settings">Needs the WRITE_SECURE_SETTINGS permission. Start Shizuku once to grant it, then come back.</string>
@@ -767,6 +834,8 @@
     <string name="permissions_notifications_summary">Shows the pairing code, start progress and errors.</string>
     <string name="permissions_nearby">Nearby devices</string>
     <string name="permissions_nearby_summary">Finds the wireless debugging port on your network.</string>
+    <string name="permissions_hotspot">Local hotspot</string>
+    <string name="permissions_hotspot_summary">Lets Shizuku start without Wi-Fi by creating a local hotspot.</string>
     <string name="permissions_write_secure_settings">Write secure settings</string>
     <string name="permissions_write_secure_settings_summary">Lets Shizuku turn on wireless debugging. Only ADB can grant this permission.</string>
     <string name="permissions_accessibility">Accessibility service</string>
@@ -908,6 +977,10 @@
     <string name="permission_description">Allow the app to use Shizuku.</string>
     <string name="permission_warning_template"><![CDATA[Allow <b>%1$s</b> to %2$s?]]></string>
     <string name="grant_dialog_button_allow_always">Always allow</string>
+    <string name="grant_dialog_button_allow_once">Allow once</string>
+    <string name="grant_auth_title">Confirm it\'s you</string>
+    <string name="grant_auth_subtitle">Authenticate to grant access to Shizuku.</string>
+    <string name="grant_auth_unavailable">Set up a screen lock or biometrics to confirm grants.</string>
     <string name="grant_dialog_button_deny">"Deny"</string>
 
     <!-- Starter -->
@@ -1049,6 +1122,34 @@
     <string name="manage_status_disabled">Disabled</string>
     <string name="manage_status_suspended">Suspended</string>
     <string name="manage_status_hidden">Hidden</string>
+    <string name="manage_select">Select apps</string>
+    <string name="manage_select_all">Select all shown</string>
+    <string name="manage_clear_selection">Clear selection</string>
+    <string name="manage_selection_close">Close selection</string>
+    <string name="manage_selected_count">%1$d selected</string>
+    <string name="manage_bulk_action">Set app op</string>
+    <string name="manage_bulk_title">Set app op</string>
+    <string name="manage_bulk_note">Choose one app op and mode. You will review the apps before applying.</string>
+    <string name="manage_bulk_pinned_note">Pinned apps stay at the top and are skipped by Select all shown.</string>
+    <string name="manage_pin_app">Pin app</string>
+    <string name="manage_unpin_app">Unpin app</string>
+    <string name="manage_bulk_mode">Mode</string>
+    <string name="manage_bulk_review">Review</string>
+    <string name="manage_bulk_apply">Apply</string>
+    <string name="manage_bulk_confirm_title">Review batch change</string>
+    <string name="manage_bulk_confirm_op">App op: %1$s</string>
+    <string name="manage_bulk_confirm_mode">Mode: %1$s</string>
+    <string name="manage_bulk_confirm_targets">Apps: %1$d</string>
+    <string name="manage_bulk_confirm_warning">These changes are applied immediately. Some apps may reject the op.</string>
+    <string name="manage_bulk_progress_title">Applying app op</string>
+    <string name="manage_bulk_progress">Changing %1$d of %2$d...</string>
+    <string name="manage_bulk_result_title">Batch result</string>
+    <string name="manage_bulk_result_summary">Changed: %1$d, failed: %2$d.</string>
+    <string name="manage_bulk_result_changed">Changed</string>
+    <string name="manage_bulk_result_failed">Failed</string>
+    <string name="manage_bulk_result_failed_hint">Failed ops may not be supported by the app or may be blocked by Android.</string>
+    <string name="manage_bulk_failures_only">Failures only</string>
+    <string name="manage_bulk_done_action">Done</string>
 
     <!-- One app, and what it may do on the device -->
     <string name="app_detail_missing">This app is no longer installed.</string>
@@ -1056,6 +1157,8 @@
     <string name="app_section_permissions">System permissions</string>
     <string name="app_section_runtime">Runtime permissions</string>
     <string name="app_section_ops">App ops</string>
+    <string name="app_section_rotation">Rotation</string>
+    <string name="app_rotation_changed">Rotation changed</string>
     <string name="app_section_actions">Actions</string>
     <string name="app_section_battery">Battery</string>
     <string name="app_section_info">Info</string>
@@ -1173,6 +1276,9 @@
     <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
          screen. The per-app list is unaffected either way, which is what the off state says. -->
     <string name="firewall_tile_label">Firewall</string>
+    <string name="firewall_mobile_only_on">Mobile data only</string>
+    <string name="firewall_mobile_only_off">All networks</string>
+    <string name="firewall_mobile_only_failed">Could not change the mobile data rule</string>
 
     <!-- The three answers every switch outside the app can give. Unknown is its own word: a
          state that could not be read is not the same thing as a feature that is off. -->

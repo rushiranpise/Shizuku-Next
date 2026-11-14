@@ -30,7 +30,8 @@ class AdbStartWorker(context: Context, params: WorkerParameters) :
 
     override suspend fun doWork(): Result {
         requestedMethod = inputData.getInt(KEY_START_METHOD, ShizukuSettings.StartMethod.WIRELESS)
-        return when (AdbStartRun(applicationContext, this).execute(requestedMethod)) {
+        val adbRoot = inputData.getBoolean(KEY_ADB_ROOT, false)
+        return when (AdbStartRun(applicationContext, this, adbRoot = adbRoot).execute(requestedMethod)) {
             AdbStartRun.Outcome.SUCCESS -> Result.success()
             AdbStartRun.Outcome.RETRY -> Result.retry()
             AdbStartRun.Outcome.FAILURE -> Result.failure()
@@ -83,6 +84,7 @@ class AdbStartWorker(context: Context, params: WorkerParameters) :
 
     companion object {
         const val KEY_START_METHOD = "start_method"
+        const val KEY_ADB_ROOT = "adb_root"
 
         /**
          * The unique name the queued start goes under. Named once because three places cancel it:
@@ -100,7 +102,8 @@ class AdbStartWorker(context: Context, params: WorkerParameters) :
         fun enqueue(
             context: Context,
             startMethod: Int = ShizukuSettings.StartMethod.WIRELESS,
-            immediate: Boolean = false
+            immediate: Boolean = false,
+            adbRoot: Boolean = false
         ): Boolean {
             val usbMethod = startMethod == ShizukuSettings.StartMethod.USB
             val cb = Constraints.Builder()
@@ -119,7 +122,10 @@ class AdbStartWorker(context: Context, params: WorkerParameters) :
                 cb.setRequiredNetworkType(NetworkType.UNMETERED)
             val constraints = cb.build()
 
-            val inputData = workDataOf(KEY_START_METHOD to startMethod)
+            val inputData = workDataOf(
+                KEY_START_METHOD to startMethod,
+                KEY_ADB_ROOT to adbRoot
+            )
 
             val request = OneTimeWorkRequestBuilder<AdbStartWorker>()
                 .setConstraints(constraints)

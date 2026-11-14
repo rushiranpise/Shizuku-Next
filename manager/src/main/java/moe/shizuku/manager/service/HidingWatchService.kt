@@ -30,6 +30,7 @@ import moe.shizuku.manager.ShizukuSettings
 import moe.shizuku.manager.manage.ForceDark
 import moe.shizuku.manager.manage.Hiding
 import moe.shizuku.manager.manage.HidingGrants
+import moe.shizuku.manager.manage.RotationOverride
 import moe.shizuku.manager.manage.Signal
 import moe.shizuku.manager.receiver.HidingRestoreReceiver
 import moe.shizuku.manager.receiver.ShizukuReceiverStarter
@@ -88,11 +89,14 @@ class HidingWatchService : Service() {
          */
         fun refresh(context: Context) {
             val intent = Intent(context, HidingWatchService::class.java)
-            if (!Hiding.hasWorkToDo() && !ForceDark.hasWorkToDo()) {
-                // Neither feature has an app left to act for, so nothing has a reason to stay
-                // hidden or forced dark - and nothing for a watch to watch.
+            if (!Hiding.hasWorkToDo() && !ForceDark.hasWorkToDo() &&
+                !RotationOverride.hasForceWork()
+            ) {
+                // No feature has an app left to act for, so nothing has a reason to stay
+                // hidden, forced dark or rotation-locked - and nothing for a watch to watch.
                 Hiding.restoreAll()
                 ForceDark.restore()
+                RotationOverride.restore()
                 runCatching { context.stopService(intent) }
                 return
             }
@@ -206,6 +210,9 @@ class HidingWatchService : Service() {
     override fun onDestroy() {
         running.set(false)
         holding.set(null)
+        // The display lock is device-wide, so a watch that goes away must put it back. If the
+        // shell is already gone, restore keeps its saved base and the next watch tries again.
+        runCatching { RotationOverride.restore() }
         scope.cancel()
         super.onDestroy()
     }
@@ -214,10 +221,13 @@ class HidingWatchService : Service() {
         var paused = false
 
         while (scope.isActive) {
-            if (!Hiding.hasWorkToDo() && !ForceDark.hasWorkToDo()) {
+            if (!Hiding.hasWorkToDo() && !ForceDark.hasWorkToDo() &&
+                !RotationOverride.hasForceWork()
+            ) {
                 holding.set(null)
                 Hiding.restoreAll()
                 ForceDark.restore()
+                RotationOverride.restore()
                 notify(notification(hidingFor = null, paused = false))
                 stopSelf()
                 return
@@ -232,16 +242,26 @@ class HidingWatchService : Service() {
             // transport Shizuku is using.
             if (!Hiding.canWatch()) {
                 Hiding.restoreAll()
+                RotationOverride.restore()
                 notify(notification(hidingFor = null, paused = false, unavailable = true))
                 stopSelf()
                 return
             }
 
-            // Force dark is a rule of its own, and keeps to it whether or not hiding is paused:
-            // the pause is about the settings somebody asked to have back right now, and an app
-            // on this list is still an app that cannot see in the dark either way.
+            // Rotation and force dark are rules of their own, and keep to them whether or not
+            // hiding is paused. Both need the same answer about the app in front, so it is asked
+            // once here rather than twice.
+            val foreground = runCatching { Hiding.foregroundPackage() }
+                .onFailure { Diag.warn(TAG, "the foreground read failed", it) }
+                .getOrNull()
+
             runCatching {
-                if (ForceDark.hasWorkToDo()) ForceDark.applyFor(Hiding.foregroundPackage())
+                if (RotationOverride.hasForceWork()) RotationOverride.applyFor(foreground)
+                else RotationOverride.restore()
+            }.onFailure { Diag.warn(TAG, "the rotation pass failed", it) }
+
+            runCatching {
+                if (ForceDark.hasWorkToDo()) ForceDark.applyFor(foreground)
                 else ForceDark.restore()
             }.onFailure { Diag.warn(TAG, "the force dark pass failed", it) }
 
@@ -409,32 +429,35 @@ class HidingWatchService : Service() {
         // says the settings are hidden while they are not would have the user looking for a
         // problem that is not there.
         if (hidingFor == null) {
-            // Two features, one notification, because it is the same fact either way: something is
-            // being held for an app that is open, and this is how the user gets it back. Which of
-            // the two is being said, though, and not assumed: this used hiding's words whenever
-            // nothing was hidden yet, which was untrue for as long as the service was up only for
-            // force dark - and it is up for force dark whenever that list is armed, whether or not
-            // an app on it is in front.
+            // Three features, one notification, because it is the same fact either way: something
+            // is being held for an app that is open, and this is how the user gets it back. Which
+            // of the three is being said, though, and not assumed: the service is up whenever any
+            // of their lists has an app on it, whether or not one of those apps is in front.
             //
-            // Neither armed reaches here only on the way to stopping, where the notification is
-            // taken down with the service a moment later.
+            // None of them armed reaches here only on the way to stopping, where the notification
+            // is taken down with the service a moment later.
             val hiding = Hiding.isActive()
+            val rotating = RotationOverride.applied()
+            val rotationWaiting = RotationOverride.hasForceWork()
+            val title = when {
+                hiding -> R.string.hiding_notification_idle_title
+                rotating != null -> R.string.rotation_notification_title
+                rotationWaiting -> R.string.rotation_notification_watching_title
+                else -> R.string.force_dark_notification_title
+            }
+            val text = when {
+                hiding -> getString(R.string.hiding_notification_watching)
+                rotating != null -> getString(
+                    R.string.rotation_notification_text,
+                    rotating.packageName
+                )
+                rotationWaiting -> getString(R.string.rotation_notification_watching)
+                forcingDark -> getString(R.string.force_dark_notification_text)
+                else -> getString(R.string.force_dark_notification_watching)
+            }
             builder
-                .setContentTitle(
-                    getString(
-                        if (hiding) R.string.hiding_notification_idle_title
-                        else R.string.force_dark_notification_title
-                    )
-                )
-                .setContentText(
-                    getString(
-                        when {
-                            hiding -> R.string.hiding_notification_watching
-                            forcingDark -> R.string.force_dark_notification_text
-                            else -> R.string.force_dark_notification_watching
-                        }
-                    )
-                )
+                .setContentTitle(getString(title))
+                .setContentText(text)
             return builder.build()
         }
 

@@ -28,7 +28,9 @@ import moe.shizuku.manager.start.ForcedWirelessDebugging
 import moe.shizuku.manager.start.StartTransport
 import moe.shizuku.manager.start.WirelessPortLog
 import moe.shizuku.manager.start.writeGlobalSetting
+import moe.shizuku.manager.utils.DebugSwitchState
 import moe.shizuku.manager.utils.Diag
+import moe.shizuku.manager.utils.EnvironmentUtils
 
 /**
  * Everything that has to be going on for a wireless (TLS) port to be found, for as long as one is
@@ -162,16 +164,20 @@ class WirelessPortHunt(
         }
         val watcher = object : ContentObserver(null) {
             override fun onChange(selfChange: Boolean) {
-                when (Settings.Global.getInt(cr, "adb_wifi_enabled", 0)) {
+                when (EnvironmentUtils.wirelessDebuggingState()) {
                     // Reading 0 is the framework refusing the setting again, which is precisely the
                     // state the experiment is asking it out of, so it must not end the attempt:
                     // closing here killed the whole thing about a second in, before the hotspot was
                     // up or the writes had a chance, and the result was a start that only ever said
                     // it was waiting.
-                    0 -> if (awaitingAuth && !forced) {
+                    DebugSwitchState.OFF -> if (awaitingAuth && !forced) {
                         fail(SecurityException("Network is not authorized for wireless debugging"))
                     } else handleAuth()
-                    1 -> startDiscovery()
+                    DebugSwitchState.ON -> startDiscovery()
+                    // Android 17 QPR3 hides the setting, so 0 no longer says the framework
+                    // turned it off. Keep the search alive instead of treating a redacted read
+                    // as an authorization failure.
+                    DebugSwitchState.UNKNOWN -> if (!forced) startDiscovery()
                 }
             }
         }

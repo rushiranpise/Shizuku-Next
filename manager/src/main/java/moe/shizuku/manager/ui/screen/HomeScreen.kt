@@ -5,7 +5,6 @@ package moe.shizuku.manager.ui.screen
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.Intent
 import android.os.Build
 import java.io.File
 import moe.shizuku.manager.ui.component.PillButton
@@ -102,6 +101,7 @@ import moe.shizuku.manager.Helps
 import moe.shizuku.manager.Manifest
 import moe.shizuku.manager.R
 import moe.shizuku.manager.ShizukuSettings
+import moe.shizuku.manager.adb.AdbRoot
 import moe.shizuku.manager.home.showAccessibilityDialog
 import moe.shizuku.manager.manage.Hiding
 import moe.shizuku.manager.manage.LabSwitch
@@ -115,14 +115,16 @@ import moe.shizuku.manager.service.HidingWatchService
 import moe.shizuku.manager.start.isDeveloperOptionsEnabled
 import moe.shizuku.manager.start.isPermissionPermanentlyDenied
 import moe.shizuku.manager.start.restoreDeveloperOptions
+import moe.shizuku.manager.start.localHotspotPermission
 import moe.shizuku.manager.start.localNetworkPermission
+import moe.shizuku.manager.start.needsLocalHotspotPermissionFor
 import moe.shizuku.manager.start.needsLocalNetworkPermissionFor
 import moe.shizuku.manager.start.openAppSettings
 import moe.shizuku.manager.start.openAdbPortAndStart
 import moe.shizuku.manager.start.StartMethodGuard
 import moe.shizuku.manager.start.startMethodLabelRes
 import moe.shizuku.manager.starter.Starter
-import moe.shizuku.manager.starter.StarterActivity
+import moe.shizuku.manager.ui.component.AutoSizeText
 import moe.shizuku.manager.ui.component.ExpressiveCard
 import moe.shizuku.manager.ui.component.SegmentedColumn
 import moe.shizuku.manager.ui.theme.LocalAmoledTheme
@@ -159,18 +161,23 @@ fun HomeScreen(bottomPadding: Dp) {
     var permissionWarningDismissed by remember { mutableStateOf<PermissionOwnership?>(null) }
     var updateAvailable by remember { mutableStateOf(false) }
     var rooted by remember { mutableStateOf(false) }
+    // Debuggable builds can give adbd root without a root manager. The Root card, the
+    // configured Root method and the Root option in Settings all follow this answer.
+    var adbRootSupported by remember { mutableStateOf(false) }
     var startMethod by remember { mutableStateOf(ShizukuSettings.getStartMethod()) }
     // Wireless debugging is Android 11 and newer. Below that, the card would offer a start that
     // has no wireless debugging toggle or TLS port to reach.
     val wirelessSupported = remember { StartMethodGuard.supportsWirelessDebugging() }
     var developerOptionsOn by remember { mutableStateOf(context.isDeveloperOptionsEnabled()) }
-    // The three platform switches, as they are set now. Read raw rather than through
-    // isDeveloperOptionsEnabled(): that answers whether ADB needs developer options at all, and on
-    // 17 it answers yes whatever the setting says. Read again on resume and after every tap, so
-    // the buttons show the platform's answer rather than the last thing this screen asked for.
-    var devOptions by remember { mutableStateOf(readGlobalSwitch(context, "development_settings_enabled")) }
-    var usbDebugging by remember { mutableStateOf(readGlobalSwitch(context, "adb_enabled")) }
-    var wirelessDebugging by remember { mutableStateOf(readGlobalSwitch(context, "adb_wifi_enabled")) }
+    // The three platform switches, read through the same objects the tiles and widgets use.
+    // Android 17 redacts them to 0, and those objects treat the redaction as on. Read again
+    // on resume and after every tap, so the buttons show the platform's answer rather than the last
+    // thing this screen asked for.
+    var devOptions by remember { mutableStateOf(LabSwitch.DEVELOPER_OPTIONS.isOn() ?: false) }
+    var usbDebugging by remember { mutableStateOf(LabSwitch.USB_DEBUGGING.isOn() ?: false) }
+    var wirelessDebugging by remember {
+        mutableStateOf(LabSwitch.WIRELESS_DEBUGGING.isOn() ?: false)
+    }
     var hidingActive by remember { mutableStateOf(false) }
     // Saved, so the section somebody opened is still open after a rotation.
     var otherMethodsOpen by rememberSaveable { mutableStateOf(false) }
@@ -213,21 +220,24 @@ fun HomeScreen(bottomPadding: Dp) {
         }
     }
 
-    // Android 16+ gates local-network discovery behind a runtime permission, and discovery is
-    // the first thing a wireless start does. Asking here on the path that needs it, when the
-    // user asks for a start is what keeps a fresh install from failing to find the port with
-    // only the pairing tutorial able to grant it.
-    var pendingLocalNetworkAction by remember { mutableStateOf<(() -> Unit)?>(null) }
-    val localNetworkLauncher = rememberLauncherForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { granted ->
-        val action = pendingLocalNetworkAction
-        pendingLocalNetworkAction = null
-        val permission = localNetworkPermission()
-        if (!granted && permission != null && context.isPermissionPermanentlyDenied(permission)) {
-            // The dialog will never come back, so the start would fail at discovery with
-            // nothing to explain it: say where the switch is and open it, rather than
-            // burning the start on a permission the user cannot grant from here.
+    // Two runtime permissions stand between a start and its first network operation: Android 16+
+    // gates local-network discovery, and Android 13+ gates the local-only hotspot a no-network
+    // (or forced-wireless) start may need. Asking here, on the path that needs them, keeps a
+    // fresh install from failing with only a denial in the log.
+    var pendingStartAction by remember { mutableStateOf<(() -> Unit)?>(null) }
+    val startPermissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { results ->
+        val action = pendingStartAction
+        pendingStartAction = null
+        val permanentlyDenied = results
+            .filterValues { !it }
+            .keys
+            .firstOrNull { context.isPermissionPermanentlyDenied(it) }
+        if (permanentlyDenied != null) {
+            // The dialog will never come back, so the start would fail at discovery or at the
+            // hotspot with nothing to explain it: say where the switch is and open it, rather
+            // than burning the start on a permission the user cannot grant from here.
             Toast.makeText(
                 context,
                 context.getString(R.string.permissions_open_settings_hint),
@@ -236,20 +246,24 @@ fun HomeScreen(bottomPadding: Dp) {
             context.openAppSettings()
             return@rememberLauncherForActivityResult
         }
-        // Otherwise carry on either way: a denial means discovery fails, which the failure
-        // card then explains, rather than the tap appearing to do nothing.
+        // Otherwise carry on either way: a denial means discovery or the hotspot fails, which
+        // the failure card then explains, rather than the tap appearing to do nothing.
         action?.invoke()
     }
 
-    fun startWithLocalNetworkPermission(
+    fun startWithRequiredPermissions(
         @ShizukuSettings.StartMethod method: Int,
         action: () -> Unit
     ) {
-        if (context.needsLocalNetworkPermissionFor(method)) {
-            pendingLocalNetworkAction = action
-            localNetworkPermission()?.let { localNetworkLauncher.launch(it) }
-        } else {
+        val missing = listOfNotNull(
+            localNetworkPermission()?.takeIf { context.needsLocalNetworkPermissionFor(method) },
+            localHotspotPermission()?.takeIf { context.needsLocalHotspotPermissionFor(method) }
+        ).distinct()
+        if (missing.isEmpty()) {
             action()
+        } else {
+            pendingStartAction = action
+            startPermissionLauncher.launch(missing.toTypedArray())
         }
     }
 
@@ -263,6 +277,9 @@ fun HomeScreen(bottomPadding: Dp) {
         running = ShizukuStateMachine.isRunning()
         batteryIgnored = SettingsHelper.isIgnoringBatteryOptimizations(context)
         developerOptionsOn = context.isDeveloperOptionsEnabled()
+        devOptions = LabSwitch.DEVELOPER_OPTIONS.isOn() ?: false
+        usbDebugging = LabSwitch.USB_DEBUGGING.isOn() ?: false
+        wirelessDebugging = LabSwitch.WIRELESS_DEBUGGING.isOn() ?: false
         // Not the watch being up, which is a different question with two other answers: it is up
         // for force dark as well, and up for a list that a mode has been switched off around.
         // Only hiding that is armed and live makes the warning under it true.
@@ -303,6 +320,7 @@ fun HomeScreen(bottomPadding: Dp) {
             // resolved here so the card cannot describe a root that is no longer there.
             startMethod = StartMethodGuard.resolve()
             rooted = runCatching { EnvironmentUtils.isRooted() }.getOrDefault(false)
+            adbRootSupported = AdbRoot.isSupported()
             val (selinux, seccomp) = readDeviceStatus()
             selinuxRes = selinux
             seccompRes = seccomp
@@ -345,11 +363,6 @@ fun HomeScreen(bottomPadding: Dp) {
         // Asked again every time the screen comes back: what clears this is the platform reading
         // the declaration, or a reboot, and a warning that outlives its cause is one nobody reads.
         permissionOwner = readPermissionOwnership(context)
-
-        // The three switches can be changed from Settings while this screen was away.
-        devOptions = readGlobalSwitch(context, "development_settings_enabled")
-        usbDebugging = readGlobalSwitch(context, "adb_enabled")
-        wirelessDebugging = readGlobalSwitch(context, "adb_wifi_enabled")
     }
 
     LaunchedEffect(Unit) {
@@ -533,7 +546,7 @@ fun HomeScreen(bottomPadding: Dp) {
                                             // Connect instead.
                                             // Opening the port borrows the wireless
                                             // connection, so it discovers the port too.
-                                            startWithLocalNetworkPermission(ShizukuSettings.StartMethod.USB) {
+                                            startWithRequiredPermissions(ShizukuSettings.StartMethod.USB) {
                                                 scope.launch { openAdbPortAndStart(context) }
                                             }
                                         },
@@ -672,7 +685,7 @@ fun HomeScreen(bottomPadding: Dp) {
                     // Uses whichever method is set in Settings; never guesses from the
                     // last one that happened to work.
                     onStart = {
-                        startWithLocalNetworkPermission(ShizukuSettings.getStartMethod()) {
+                        startWithRequiredPermissions(ShizukuSettings.getStartMethod()) {
                             ShizukuReceiverStarter.start(context, userInitiated = true, reason = "home-start")
                         }
                     },
@@ -686,7 +699,7 @@ fun HomeScreen(bottomPadding: Dp) {
                     // A bounce: forceStart replaces the running server instead of
                     // being ignored as "already running".
                     onRestart = {
-                        startWithLocalNetworkPermission(ShizukuSettings.getStartMethod()) {
+                        startWithRequiredPermissions(ShizukuSettings.getStartMethod()) {
                             ShizukuReceiverStarter.start(
                                 context,
                                 forceStart = true,
@@ -760,7 +773,7 @@ fun HomeScreen(bottomPadding: Dp) {
                                 },
                                 enabled = !running,
                                 onClick = {
-                                    startWithLocalNetworkPermission(ShizukuSettings.StartMethod.WIRELESS) {
+                                    startWithRequiredPermissions(ShizukuSettings.StartMethod.WIRELESS) {
                                         ShizukuReceiverStarter.start(
                                             context,
                                             userInitiated = true,
@@ -784,8 +797,6 @@ fun HomeScreen(bottomPadding: Dp) {
                             } else if (!EnvironmentUtils.isWifiConnected() &&
                                 EnvironmentUtils.getAdbTcpPort() <= 0
                             ) {
-                                // The string marks the method's name with <b>, which Compose
-                                // does not parse: it was drawing the tags.
                                 stringResource(R.string.home_usb_adb_needs_network).stripHtmlTags()
                             } else {
                                 stringResource(R.string.home_usb_adb_summary).stripHtmlTags()
@@ -800,7 +811,7 @@ fun HomeScreen(bottomPadding: Dp) {
                                 )
                             }
                         )
-                        if (rooted) {
+                        if (rooted || adbRootSupported) {
                             val rootDescription = stringResource(
                                 R.string.home_root_description,
                                 "<b><a href=\"${Helps.SUI.get()}\">Sui</a></b>",
@@ -819,9 +830,11 @@ fun HomeScreen(bottomPadding: Dp) {
                                 body = rootDescription,
                                 enabled = !running,
                                 onClick = {
-                                    context.startActivity(
-                                        Intent(context, StarterActivity::class.java)
-                                            .putExtra(StarterActivity.EXTRA_IS_ROOT, true)
+                                    ShizukuReceiverStarter.start(
+                                        context,
+                                        userInitiated = true,
+                                        startMethod = ShizukuSettings.StartMethod.ROOT,
+                                        reason = "home-root"
                                     )
                                 }
                             )
@@ -1263,50 +1276,39 @@ private fun StatusFact(fact: StatusFactEntry, modifier: Modifier = Modifier) {
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            stringResource(fact.label),
+        AutoSizeText(
+            text = stringResource(fact.label),
             style = MaterialTheme.typography.bodySmall,
             color = LocalContentColor.current.copy(alpha = 0.7f),
             textAlign = TextAlign.Center,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis
+            maxLines = 1
         )
-        Text(
-            fact.value,
-            // One step up from the label and no more: four facts share the width, so a
-            // bigger value just eats its own ellipsis. Two lines rather than one, because
-            // the method names are longer than a quarter of the width and "Start without
-            // Wi-Fi" clipped to "Start wi…" says less than it costs to wrap.
+        AutoSizeText(
+            text = fact.value,
+            // One step up from the label and no more: four facts share the width. The value
+            // may use two lines, but its font shrinks first so the row keeps its shape.
             style = MaterialTheme.typography.bodyMedium,
             textAlign = TextAlign.Center,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis
+            maxLines = 2
         )
         fact.detail?.let {
-            Text(
-                it,
+            AutoSizeText(
+                text = it,
                 style = MaterialTheme.typography.bodySmall,
                 color = LocalContentColor.current.copy(alpha = 0.7f),
                 textAlign = TextAlign.Center,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                maxLines = 1
             )
         }
     }
 }
 
 /** Restart's blue see the note where it is used. */
-/** A platform setting read as on or off; anything unreadable counts as off. */
-private fun readGlobalSwitch(context: Context, key: String): Boolean = runCatching {
-    android.provider.Settings.Global.getInt(context.contentResolver, key, 0) != 0
-}.getOrDefault(false)
-
 /**
  * The three debugging switches, as three buttons under the server's own.
  *
- * Full names, one word to a line: three buttons that are otherwise a row of equals looked
- * unfinished when one wrapped and its neighbours did not, which is what happened on a wide
- * screen, where the longer two fit on a line and "USB debugging" was the only one broken.
+ * Two lines each, with the break after the first word. The label shrinks to keep those
+ * lines whole instead of adding a third line made of a stray "s" or the end of a word.
  */
 @Composable
 private fun DebuggingActionButtons(
@@ -1381,15 +1383,29 @@ private fun RowScope.DebuggingButton(
             null
         }
     ) {
-        ButtonIconLabel(
-            icon = icon,
-            // The break goes after the first word rather than into the string: a translation
-            // keeps its own words, and what is left wraps instead of being cut off.
-            label = label.replaceFirst(' ', '\n'),
-            // The second line starts under the first, as in the mock, rather than being
-            // centred under it.
-            textAlign = TextAlign.Start
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                icon,
+                contentDescription = null,
+                modifier = Modifier.size(18.dp)
+            )
+            Spacer(Modifier.width(6.dp))
+            AutoSizeText(
+                // The break goes after the first word rather than into the string: a
+                // translation keeps its own words, and the font shrinks only if one of
+                // those words still does not fit on its line.
+                text = label.replaceFirst(' ', '\n'),
+                modifier = Modifier.weight(1f),
+                // The second line starts under the first, as in the mock, rather than
+                // being centred under it.
+                textAlign = TextAlign.Start,
+                maxLines = 2
+            )
+        }
     }
 }
 

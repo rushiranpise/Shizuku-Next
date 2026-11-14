@@ -1,6 +1,7 @@
 package moe.shizuku.manager.ui.screen
 
 import android.content.Context
+import android.os.Build
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +26,7 @@ import androidx.compose.material.icons.outlined.AspectRatio
 import androidx.compose.material.icons.outlined.Android
 import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.outlined.PowerSettingsNew
+import androidx.compose.material.icons.outlined.ScreenRotation
 import androidx.compose.material.icons.outlined.Extension
 import androidx.compose.material.icons.outlined.FolderOpen
 import androidx.compose.material.icons.outlined.PhoneAndroid
@@ -58,9 +60,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import moe.shizuku.manager.R
 import moe.shizuku.manager.accessibility.AccessibilityKeepAlive
+import moe.shizuku.manager.manage.FirewallChain
 import moe.shizuku.manager.manage.ForceDark
 import moe.shizuku.manager.manage.Hiding
 import moe.shizuku.manager.manage.PackageTools
+import moe.shizuku.manager.manage.RotationOverride
 import moe.shizuku.manager.ui.Detail
 import moe.shizuku.manager.ui.component.FeaturePlateIcon
 import moe.shizuku.manager.ui.component.ScrollToTopButton
@@ -108,19 +112,37 @@ fun LabsScreen(bottomPadding: Dp, onOpenDetail: (Detail) -> Unit) {
     // is about to be looked at.
     var refresh by remember { mutableIntStateOf(0) }
     var active by remember { mutableStateOf<Set<Detail>>(emptySet()) }
+    // Android 13 is known to have chain 3. Before that the row waits for a real answer from the
+    // device: some Android 11 and 12 ROMs expose the command, and some do not.
+    var firewallAvailable by remember {
+        mutableStateOf(
+            FirewallChain.supportsFirewall() &&
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+        )
+    }
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { refresh++ }
     LaunchedEffect(refresh) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            firewallAvailable = withContext(Dispatchers.IO) { FirewallChain.isAvailable() }
+        }
         active = withContext(Dispatchers.IO) { activeFeatures(context) }
     }
     // Every feature there is, in no particular order. The order is worked out below.
-    val entries = listOf(
+    val entries = listOfNotNull(
         LabEntry(R.string.tab_manage, Icons.Outlined.AdminPanelSettings, Detail.APP_OPS),
         LabEntry(R.string.tab_shell, Icons.Outlined.Terminal, Detail.SHELL),
-        LabEntry(
-            AppToggleFeature.FIREWALL.titleRes,
-            AppToggleFeature.FIREWALL.icon,
-            Detail.FIREWALL
-        ),
+        // Chain 3 exists from Android 11, but not every older ROM exposes it. The row is shown
+        // only after the device answers, because a row whose switches cannot do anything is
+        // worse than no row.
+        if (firewallAvailable) {
+            LabEntry(
+                AppToggleFeature.FIREWALL.titleRes,
+                AppToggleFeature.FIREWALL.icon,
+                Detail.FIREWALL
+            )
+        } else {
+            null
+        },
         LabEntry(
             AppToggleFeature.AUTOSTART.titleRes,
             AppToggleFeature.AUTOSTART.icon,
@@ -136,6 +158,13 @@ fun LabsScreen(bottomPadding: Dp, onOpenDetail: (Detail) -> Unit) {
         LabEntry(R.string.tab_activities, Icons.Outlined.Widgets, Detail.ACTIVITIES),
         LabEntry(R.string.tab_power, Icons.Outlined.PowerSettingsNew, Detail.POWER),
         LabEntry(R.string.tab_display, Icons.Outlined.AspectRatio, Detail.DISPLAY),
+        // The platform added this change with Android 16. On an older device the command has
+        // nothing to apply, so a row whose switches could only fail is not offered.
+        if (RotationOverride.isSupported()) {
+            LabEntry(R.string.tab_rotation, Icons.Outlined.ScreenRotation, Detail.ROTATION)
+        } else {
+            null
+        },
         LabEntry(R.string.tab_wifi_passwords, Icons.Outlined.Wifi, Detail.WIFI_PASSWORDS),
         LabEntry(R.string.tab_files, Icons.Outlined.FolderOpen, Detail.FILES),
         LabEntry(R.string.tab_install, Icons.Outlined.Android, Detail.INSTALL),
@@ -273,6 +302,11 @@ private fun activeFeatures(context: Context): Set<Detail> = buildSet {
     // The other switch in the list, and the same question asked of it: on, and with apps to act
     // on.
     if (ForceDark.hasWorkToDo()) add(Detail.FORCE_DARK)
+
+    // The rotation row is doing something when its switch is on and any app has a mode.
+    if (RotationOverride.isSupported() && RotationOverride.hasWorkToDo()) {
+        add(Detail.ROTATION)
+    }
 
     // The accessibility manager is doing something when it is armed and at least one service is
     // locked to keep on; either one without the other is a setting, not a state.

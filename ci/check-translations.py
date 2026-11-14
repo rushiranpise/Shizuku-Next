@@ -16,7 +16,10 @@ A file is refused when it is not a locale file, would create a locale folder the
 repository does not have, is not valid XML, holds no strings at all, holds an apostrophe the
 resource compiler refuses (see `translation_escapes.py`, which is the same rule and the
 script that repairs one), or is 90% or more the English text - the last one being how a
-language that was never translated gets exported looking translated. Keys the source no
+language that was never translated gets exported looking translated. It also refuses a
+translation whose format placeholders differ from the source, whose ADB command does not
+preserve the source command's executable, subcommand and arguments, or that empties a value
+that was non-empty on master. A new empty translation is refused too. Keys the source no
 longer has are reported and do not block: every locale carries a few from strings renamed
 upstream, Android ignores a translation with nothing to attach it to, and the next export
 drops them.
@@ -34,6 +37,7 @@ import re
 import subprocess
 import sys
 import xml.etree.ElementTree as ElementTree
+from collections import Counter
 
 # The apostrophe rule lives in the script that repairs it - this file is run as
 # `python3 ci/check-translations.py`, so the directory holding it is already the first entry
@@ -50,6 +54,21 @@ LOCALE_PATH = re.compile(r"^manager/src/main/res/values(-[A-Za-z0-9+]+)+/strings
 SAME_AS_SOURCE = 0.9
 SMALLEST_FILE = 20
 
+# Android format placeholders. `%%` is a literal percent sign and is not a placeholder.
+PLACEHOLDER = re.compile(r"%(?:\d+\$)?[-#+0,(]*\d*(?:\.\d+)?[a-zA-Z%]")
+
+# Commands in the source are meant to be copied. The surrounding sentence is translated,
+# but the executable, subcommand and arguments have to survive unchanged.
+ADB_COMMAND_START = re.compile(
+    r"^adb\s+(?:"
+    r"shell\s+(?:pm|settings|appops|ps|am|cmd|dumpsys|input|getprop|setprop|svc|wm|logcat|id|sh)\b"
+    r"|tcpip\b|pair\b|connect\b|disconnect\b|devices\b|install\b|uninstall\b"
+    r"|push\b|pull\b|forward\b|reverse\b|start-server\b|kill-server\b|wait-for-device\b"
+    r"|root\b|unroot\b|remount\b|reboot\b|sideload\b|bugreport\b"
+    r")"
+)
+ADB_COMMAND_CANDIDATE = re.compile(r"(?:^|\\n|[^\w\\])(adb\s+[^\n\\<]+)")
+
 
 def show(rev, path):
     return subprocess.check_output(["git", "show", f"{rev}:{path}"])
@@ -58,6 +77,68 @@ def show(rev, path):
 def strings_at(rev, path):
     root = ElementTree.fromstring(show(rev, path))
     return {element.get("name"): (element.text or "") for element in root.findall("string")}
+
+
+def full_text(element):
+    return "".join(element.itertext())
+
+
+def texts_at(rev, path):
+    root = ElementTree.fromstring(show(rev, path))
+    texts = {
+        element.get("name"): full_text(element)
+        for element in root.findall("string")
+    }
+    for plural in root.findall("plurals"):
+        name = plural.get("name")
+        for item in plural.findall("item"):
+            texts[f"{name}[{item.get('quantity')}]"] = full_text(item)
+    return texts
+
+
+def commands_at(rev, path):
+    root = ElementTree.fromstring(show(rev, path))
+    commands = {}
+    for element in root.findall("string"):
+        found = []
+
+        def add(value):
+            value = " ".join(value.strip().rstrip(".,;:!?").split())
+            if ADB_COMMAND_START.match(value) and value not in found:
+                found.append(value)
+
+        has_code = False
+        for child in element.iter():
+            if child.tag in ("b", "code"):
+                has_code = True
+                add(full_text(child))
+        if not has_code:
+            for match in ADB_COMMAND_CANDIDATE.finditer(full_text(element)):
+                add(match.group(1))
+        if found:
+            commands[element.get("name")] = found
+    return commands
+
+
+def format_placeholders(text):
+    return Counter(
+        placeholder
+        for placeholder in PLACEHOLDER.findall(text)
+        if placeholder != "%%"
+    )
+
+
+def describe_placeholders(placeholders):
+    if not placeholders:
+        return "none"
+    return ", ".join(
+        f"{count} x {placeholder}"
+        for placeholder, count in sorted(placeholders.items())
+    )
+
+
+def normalize_text(text):
+    return " ".join(text.split())
 
 
 def main():
@@ -99,7 +180,11 @@ def main():
         return 1
 
     source = strings_at(source_ref, "manager/src/main/res/values/strings.xml")
+    source_texts = texts_at(source_ref, "manager/src/main/res/values/strings.xml")
+    source_commands = commands_at(source_ref, "manager/src/main/res/values/strings.xml")
     print(f"source has {len(source)} strings")
+    if source_commands:
+        print(f"source has {len(source_commands)} string(s) with ADB commands")
 
     for path in paths:
         try:
@@ -122,6 +207,52 @@ def main():
                 f" - python3 ci/translation_escapes.py escapes them"
             )
             continue
+
+        translated_texts = texts_at(translated_ref, path)
+        try:
+            base_texts = texts_at(source_ref, path)
+        except (subprocess.CalledProcessError, ElementTree.ParseError):
+            base_texts = {}
+
+        for key, source_value in source_texts.items():
+            translated_value = translated_texts.get(key)
+            if translated_value is None:
+                continue
+            source_placeholders = format_placeholders(source_value)
+            translated_placeholders = format_placeholders(translated_value)
+            if source_placeholders != translated_placeholders:
+                problems.append(
+                    f"{path}: {key}: format placeholders differ from the source"
+                    f" (source: {describe_placeholders(source_placeholders)};"
+                    f" translation: {describe_placeholders(translated_placeholders)})"
+                )
+
+            # An empty value that was already empty on master is left alone: those are old
+            # gaps, not something this pull request introduced. A value this pull request
+            # emptied (or a new empty value) is refused, so a missing translation cannot
+            # silently ship as a blank label.
+            if (
+                source_value.strip()
+                and not translated_value.strip()
+                and (key not in base_texts or base_texts[key].strip())
+            ):
+                problems.append(f"{path}: {key}: translation is empty")
+
+        for key, commands in source_commands.items():
+            translated_value = translated_texts.get(key)
+            if translated_value is None:
+                continue
+            normalized_translation = normalize_text(translated_value)
+            missing = [
+                command
+                for command in commands
+                if command not in normalized_translation
+            ]
+            if missing:
+                problems.append(
+                    f"{path}: {key}: ADB command is not preserved"
+                    f" (expected {missing[0]!r})"
+                )
 
         shared = [key for key in translated if key in source]
         same = sum(1 for key in shared if translated[key] == source[key])

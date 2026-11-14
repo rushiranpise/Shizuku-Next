@@ -11,6 +11,7 @@ import androidx.annotation.StringRes
 import java.security.MessageDigest
 import moe.shizuku.manager.R
 import moe.shizuku.manager.ShizukuSettings
+import moe.shizuku.manager.utils.Diag
 import moe.shizuku.manager.utils.ShizukuStateMachine
 import moe.shizuku.manager.utils.ShizukuSystemApis
 import moe.shizuku.manager.utils.UserHandleCompat
@@ -78,6 +79,13 @@ data class AppOp(
     /** What it does, for the ops worth a sentence; null for the rest. */
     val note: String?,
     val mode: OpMode
+)
+
+/** One curated app op that the batch editor can apply to selected apps. */
+data class AppOpChoice(
+    val name: String,
+    @StringRes val label: Int,
+    @StringRes val note: Int
 )
 
 /**
@@ -155,7 +163,12 @@ data class AppDetail(
      * Whether the platform is dropping this app's traffic. Null when nothing could be asked:
      * the chain is Android 11 and up, and the answer needs a running server.
      */
-    val networkBlocked: Boolean?
+    val networkBlocked: Boolean?,
+
+    /**
+     * The app's rotation mode. Null on a platform without the Android 16 rotation feature.
+     */
+    val rotationMode: RotationMode?
 )
 
 /**
@@ -171,27 +184,27 @@ data class AppDetail(
  * again, while denying the *op* underneath leaves the permission granted and makes the data
  * come back empty. That is the switch for an app that will not take no for an answer.
  */
-private val OPS = listOf(
-    Triple("RUN_IN_BACKGROUND", R.string.app_op_background, R.string.app_op_background_note),
+internal val APP_OPS = listOf(
+    AppOpChoice("RUN_IN_BACKGROUND", R.string.app_op_background, R.string.app_op_background_note),
     // The blunter half of the same question, and the one autostart managers reach for: it
     // denies background execution whether or not the app is on screen, which takes its boot
     // receivers with it. They are separate ops because the platform treats them that way, and
     // the pairing is worth keeping visible: denying one is a decision about how an app may run,
     // not a setting that quietly does the same thing twice.
-    Triple("RUN_ANY_IN_BACKGROUND", R.string.app_op_any_background, R.string.app_op_any_background_note),
-    Triple("START_FOREGROUND", R.string.app_op_foreground, R.string.app_op_foreground_note),
-    Triple("WAKE_LOCK", R.string.app_op_wake_lock, R.string.app_op_wake_lock_note),
-    Triple("POST_NOTIFICATION", R.string.app_op_notifications, R.string.app_op_notifications_note),
-    Triple("READ_CLIPBOARD", R.string.app_op_clipboard, R.string.app_op_clipboard_note),
-    Triple("SYSTEM_ALERT_WINDOW", R.string.app_op_overlay, R.string.app_op_overlay_note),
-    Triple("REQUEST_INSTALL_PACKAGES", R.string.app_op_install, R.string.app_op_install_note),
-    Triple("TOAST_WINDOW", R.string.app_op_toast, R.string.app_op_toast_note),
-    Triple("PROJECT_MEDIA", R.string.app_op_project_media, R.string.app_op_project_media_note),
-    Triple("RECORD_AUDIO", R.string.app_op_record_audio, R.string.app_op_record_audio_note),
-    Triple("CAMERA", R.string.app_op_camera, R.string.app_op_camera_note),
-    Triple("VIBRATE", R.string.app_op_vibrate, R.string.app_op_vibrate_note),
-    Triple("MOCK_LOCATION", R.string.app_op_mock_location, R.string.app_op_mock_location_note),
-    Triple("PICTURE_IN_PICTURE", R.string.app_op_pip, R.string.app_op_pip_note)
+    AppOpChoice("RUN_ANY_IN_BACKGROUND", R.string.app_op_any_background, R.string.app_op_any_background_note),
+    AppOpChoice("START_FOREGROUND", R.string.app_op_foreground, R.string.app_op_foreground_note),
+    AppOpChoice("WAKE_LOCK", R.string.app_op_wake_lock, R.string.app_op_wake_lock_note),
+    AppOpChoice("POST_NOTIFICATION", R.string.app_op_notifications, R.string.app_op_notifications_note),
+    AppOpChoice("READ_CLIPBOARD", R.string.app_op_clipboard, R.string.app_op_clipboard_note),
+    AppOpChoice("SYSTEM_ALERT_WINDOW", R.string.app_op_overlay, R.string.app_op_overlay_note),
+    AppOpChoice("REQUEST_INSTALL_PACKAGES", R.string.app_op_install, R.string.app_op_install_note),
+    AppOpChoice("TOAST_WINDOW", R.string.app_op_toast, R.string.app_op_toast_note),
+    AppOpChoice("PROJECT_MEDIA", R.string.app_op_project_media, R.string.app_op_project_media_note),
+    AppOpChoice("RECORD_AUDIO", R.string.app_op_record_audio, R.string.app_op_record_audio_note),
+    AppOpChoice("CAMERA", R.string.app_op_camera, R.string.app_op_camera_note),
+    AppOpChoice("VIBRATE", R.string.app_op_vibrate, R.string.app_op_vibrate_note),
+    AppOpChoice("MOCK_LOCATION", R.string.app_op_mock_location, R.string.app_op_mock_location_note),
+    AppOpChoice("PICTURE_IN_PICTURE", R.string.app_op_pip, R.string.app_op_pip_note)
 )
 
 /*
@@ -207,6 +220,9 @@ object PackageTools {
 
     /** Where the firewall list's own record of what it blocked is kept. */
     private const val PREF_FIREWALL_BLOCKED = "firewall_blocked_packages"
+
+    /** Where the apps that lose only mobile data are kept. */
+    private const val PREF_FIREWALL_MOBILE_ONLY = "firewall_mobile_only_packages"
 
     private val pm get() = moe.shizuku.manager.ShizukuApplication.application.packageManager
 
@@ -272,7 +288,12 @@ object PackageTools {
             ops = if (running) readOps(context, packageName) else emptyList(),
             bucket = if (running) readBucket(context, packageName) else null,
             batteryUnrestricted = running && isBatteryUnrestricted(context, packageName),
-            networkBlocked = if (running) readNetworkBlocked(context, packageName) else null
+            networkBlocked = if (running) readNetworkBlockedForDisplay(context, packageName) else null,
+            rotationMode = if (RotationOverride.isSupported()) {
+                RotationOverride.modeFor(packageName)
+            } else {
+                null
+            }
         )
     }
 
@@ -357,7 +378,7 @@ object PackageTools {
     /**
      * Every op the platform reports for this app, with the ones this app can describe first.
      *
-     * The list used to be the fourteen in [OPS], which meant an op that was not curated could not
+     * The list used to be the fourteen in [APP_OPS], which meant an op that was not curated could not
      * be seen or changed here at all - the complaint in issue #147, from somebody who kept a
      * second app open for the rest. What the platform reports is the honest list: the shell prints
      * every op the app has a mode for, which is the same set `appops set` will accept, so it is
@@ -375,12 +396,12 @@ object PackageTools {
         // The curated ones are always drawn, in the order they are written: an op the platform
         // did not print is shown in its default state rather than dropped, which is how this list
         // behaved before it followed the platform.
-        val described = OPS.map { (name, label, note) ->
+        val described = APP_OPS.map { choice ->
             AppOp(
-                name,
-                context.getString(label),
-                context.getString(note),
-                modes[name] ?: OpMode.DEFAULT
+                choice.name,
+                context.getString(choice.label),
+                context.getString(choice.note),
+                modes[choice.name] ?: OpMode.DEFAULT
             )
         }
 
@@ -571,6 +592,55 @@ object PackageTools {
         return ran && isBatteryUnrestricted(context, packageName) == unrestricted
     }
 
+    /** Whether the metered deny chain exists on this platform. */
+    fun supportsMobileOnly(): Boolean =
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+
+    /** Apps this list should block only on metered networks. */
+    fun readFirewallMobileOnly(context: Context): Set<String> =
+        ShizukuSettings.getPreferences()
+            .getStringSet(PREF_FIREWALL_MOBILE_ONLY, emptySet())
+            .orEmpty()
+            .toSet()
+
+    /**
+     * Moves a blocked app between the all-network chain and the metered chain.
+     *
+     * The rule is cleared on the old chain before it is set on the new one, because a uid can be
+     * denied by both. If the new rule cannot be set, the old one is put back so the switch does
+     * not leave an app unblocked. An app that is not currently blocked only changes its preference.
+     */
+    fun setFirewallMobileOnly(context: Context, key: String, mobileOnly: Boolean): Boolean {
+        if (!supportsMobileOnly()) return false
+
+        val known = readFirewallMobileOnly(context)
+        if ((key in known) == mobileOnly) return true
+
+        val blocked = key in readFirewallBlocked(context) ||
+            readNetworkBlocked(context, key) == true
+        if (blocked) {
+            val packageName = FirewallKey.packageOf(key)
+            val userId = FirewallKey.userIdOf(key)
+            val uid = uidOf(context, packageName, userId) ?: return false
+            val oldChain = if (mobileOnly) FirewallApi.CHAIN else FirewallApi.CHAIN_METERED
+            val newChain = if (mobileOnly) FirewallApi.CHAIN_METERED else FirewallApi.CHAIN
+
+            if (!FirewallApi.setBlocked(uid, false, oldChain)) return false
+            if (!FirewallApi.setBlocked(uid, true, newChain)) {
+                FirewallApi.setBlocked(uid, true, oldChain)
+                return false
+            }
+        }
+
+        ShizukuSettings.getPreferences().edit()
+            .putStringSet(
+                PREF_FIREWALL_MOBILE_ONLY,
+                if (mobileOnly) known + key else known - key
+            )
+            .apply()
+        return true
+    }
+
     /**
      * Whether the platform's firewall is dropping this app's traffic.
      *
@@ -579,17 +649,42 @@ object PackageTools {
      * rather than what this app last asked for. The command answers `package:deny` or
      * `package:allow` on stdout.
      */
-    fun readNetworkBlocked(context: Context, packageName: String): Boolean? {
-        val answer = runShellCommand("cmd connectivity get-package-networking-enabled $packageName")
-        when {
-            answer?.endsWith(":deny") == true -> return true
-            answer?.endsWith(":allow") == true -> return false
+    fun readNetworkBlocked(context: Context, key: String): Boolean? {
+        if (!FirewallChain.supportsFirewall()) return null
+
+        val packageName = FirewallKey.packageOf(key)
+        val userId = FirewallKey.userIdOf(key)
+        val chain = firewallChain(context, key)
+
+        // The command only knows this user's packages, so another profile is asked through the
+        // uid the firewall actually holds. The metered chain is not the command's either.
+        if (chain == FirewallApi.CHAIN && userId == UserHandleCompat.myUserId()) {
+            val answer = runShellCommand(
+                "cmd connectivity get-package-networking-enabled $packageName"
+            )
+            when {
+                answer?.endsWith(":deny") == true -> return true
+                answer?.endsWith(":allow") == true -> return false
+            }
         }
 
         // The command could not say - it is missing on some ROMs, which is the whole reason for the
         // fallback - so the platform is asked through the interface the command is a front end for.
-        val uid = uidOf(context, packageName) ?: return null
-        return FirewallApi.isBlocked(FirewallApi.blockedRule(uid))
+        val uid = uidOf(context, packageName, userId) ?: return null
+        return FirewallApi.isBlocked(FirewallApi.blockedRule(uid, chain))
+    }
+
+    /**
+     * The state the app's own page shows.
+     *
+     * Android 13 can set a rule but not read it back, so the platform's answer is null there.
+     * This app's record is then the only state available; it is not the platform's, but it is
+     * the state this app wrote and the switch can still change it.
+     */
+    fun readNetworkBlockedForDisplay(context: Context, key: String): Boolean? {
+        readNetworkBlocked(context, key)?.let { return it }
+        if (!FirewallChain.supportsFirewall()) return null
+        return key in readFirewallBlocked(context)
     }
 
     /**
@@ -598,9 +693,27 @@ object PackageTools {
      * Asked of the local package manager rather than the shell: for an installed app it is the same
      * number, and it costs nothing.
      */
-    private fun uidOf(context: Context, packageName: String): Int? = runCatching {
-        context.packageManager.getApplicationInfo(packageName, 0).uid
-    }.getOrNull()
+    private fun uidOf(
+        context: Context,
+        packageName: String,
+        userId: Int = UserHandleCompat.myUserId()
+    ): Int? {
+        if (userId == UserHandleCompat.myUserId()) {
+            return runCatching {
+                context.packageManager.getApplicationInfo(packageName, 0).uid
+            }.getOrNull()
+        }
+        return ShizukuSystemApis.getPackageInfoAsShell(packageName, 0L, userId)
+            ?.applicationInfo?.uid
+    }
+
+    /** The chain this app belongs to: the metered one when it is marked mobile-only. */
+    private fun firewallChain(context: Context, key: String): Int =
+        if (supportsMobileOnly() && key in readFirewallMobileOnly(context)) {
+            FirewallApi.CHAIN_METERED
+        } else {
+            FirewallApi.CHAIN
+        }
 
     /**
      * Blocks or allows this app's traffic with the platform's own firewall, no VPN involved.
@@ -611,33 +724,60 @@ object PackageTools {
      * business. Android's own description of the chain calls it one for debugging, which is
      * why the row says what it is rather than pretending it is a documented feature.
      */
-    fun setNetworkBlocked(context: Context, packageName: String, blocked: Boolean): Boolean {
+    fun setNetworkBlocked(context: Context, key: String, blocked: Boolean): Boolean {
+        if (!FirewallChain.supportsFirewall()) return false
+
         if (FirewallChain.isOn() != true) {
             FirewallChain.setOn(true)
         }
 
-        val value = if (blocked) "false" else "true"
-        // The command is tried first, but its exit code is not the answer: a ROM can accept the
-        // verb and leave the rule where it was, which is a switch that does nothing while the
-        // command says it worked. What it did is read, and the same rule is set through the
-        // interface behind the command whenever the answer is not the one that was asked for.
-        var applied = shellOk("cmd connectivity set-package-networking-enabled $value $packageName") &&
-            readNetworkBlocked(context, packageName) == blocked
+        val packageName = FirewallKey.packageOf(key)
+        val userId = FirewallKey.userIdOf(key)
+        val chain = firewallChain(context, key)
+        val uid = uidOf(context, packageName, userId)
+        if (uid == null) {
+            Diag.warn(TAG, "Firewall $key: no uid for the rule")
+            return false
+        }
 
-        // A ROM whose connectivity command has no such verb, or has one that does not take,
-        // gets the same rule through the interface it is a front end for.
-        if (!applied) {
-            val uid = uidOf(context, packageName) ?: return false
-            if (FirewallApi.setBlocked(uid, blocked)) {
-                // Read through the channel that wrote it: the command may be the half that does
-                // not work here, and its answer would discard a rule the platform did take.
-                applied = FirewallApi.isBlocked(FirewallApi.blockedRule(uid)) == blocked
+        if (chain == FirewallApi.CHAIN && userId == UserHandleCompat.myUserId()) {
+            val value = if (blocked) "false" else "true"
+            // The command is tried first, but its exit code is not the answer: a ROM can accept
+            // the verb and leave the rule where it was. What it did is read, and the same rule is
+            // set through the interface behind the command when the answer is not the one asked
+            // for.
+            val commandWrote =
+                shellOk("cmd connectivity set-package-networking-enabled $value $packageName")
+            val commandRead = readNetworkBlocked(context, key)
+            val applied = FirewallApi.writeApplied(commandWrote, blocked, commandRead)
+            Diag.info(
+                TAG,
+                "Firewall $key: block=$blocked command=$commandWrote read=$commandRead"
+            )
+            if (applied) {
+                rememberFirewallBlocked(context, key, blocked)
+                return true
             }
         }
 
+        // A ROM whose connectivity command has no such verb, or has one that does not take, gets
+        // the same rule through the interface it is a front end for. Another user and the metered
+        // chain go straight there because the command has no way to name either.
+        if (!FirewallApi.setBlocked(uid, blocked, chain)) {
+            Diag.warn(TAG, "Firewall $key: the interface refused the rule")
+            return false
+        }
+        val observed = FirewallApi.isBlocked(FirewallApi.blockedRule(uid, chain))
+        val applied = FirewallApi.writeApplied(
+            wrote = true,
+            requested = blocked,
+            observed = observed
+        )
+        Diag.info(TAG, "Firewall $key via the interface: read=$observed")
+
         // Recorded only once the platform agreed, because this is what the Firewall list shows
         // and a list that says a package is blocked when it is not is worse than no list.
-        if (applied) rememberFirewallBlocked(context, packageName, blocked)
+        if (applied) rememberFirewallBlocked(context, key, blocked)
         return applied
     }
 
@@ -744,21 +884,31 @@ object PackageTools {
         val recorded = readFirewallBlocked(context)
         if (recorded.isEmpty()) return 0
 
-        val gone = toReapply(recorded, installedPackageNames()) { packageName ->
-            // A failed read counts as still blocked: blocking it again would fail for the same
-            // reason, and the next start asks again anyway.
-            readNetworkBlocked(context, packageName) != false
+        // Android 13 has no reader, so its record is the only evidence there is: the list is put
+        // back rather than assumed to have survived. Everywhere else a failed read still counts
+        // as blocked, because blocking it again would fail for the same reason.
+        val canRead = FirewallChain.canReadRule()
+        val gone = toReapply(recorded, installedFirewallKeys(context)) { key ->
+            !canRead || readNetworkBlocked(context, key) != false
         }
         return gone.count { setNetworkBlocked(context, it, true) }
     }
 
+    /** The firewall keys the device still has, including work profiles and clones. */
+    private fun installedFirewallKeys(context: Context): Set<String> =
+        InstalledPackages.allUsers(context, 0)
+            .mapNotNull { pi ->
+                pi.applicationInfo?.uid?.let { FirewallKey.fromUid(it, pi.packageName) }
+            }
+            .toSet()
+
     private fun rememberFirewallBlocked(
         context: Context,
-        packageName: String,
+        key: String,
         blocked: Boolean
     ) {
         val known = readFirewallBlocked(context).toMutableSet()
-        if (blocked) known.add(packageName) else known.remove(packageName)
+        if (blocked) known.add(key) else known.remove(key)
         ShizukuSettings.getPreferences().edit()
             .putStringSet(PREF_FIREWALL_BLOCKED, known)
             .apply()

@@ -36,10 +36,10 @@ Get the latest build from [Releases](https://github.com/rushiranpise/Shizuku-Nex
 ## Features
 
 ### Starting and reliability
-- Start through wireless debugging, USB debugging, root, or Samsung system UID where supported.
+- Start through wireless debugging, USB debugging, root, or the Samsung FOTA-agent system UID path where supported.
 - Automatically handles wireless-debugging pairing, including reading the pairing code on supported devices.
 - Optional start on boot, watchdog restarts, automatic recovery, and configurable restart timing.
-- TCP mode, USB-port recovery, and experimental startup without Wi-Fi.
+- TCP mode, USB-port recovery, and experimental startup without Wi-Fi on Android 11 to 16.
 - Optional mode to hide Developer options and ADB settings.
 - Clearer startup status, diagnostics, and failure logs.
 
@@ -53,13 +53,17 @@ Get the latest build from [Releases](https://github.com/rushiranpise/Shizuku-Nex
 - Batch permission changes, searchable app lists, and device information.
 - Tasker and other automation support through intents and status broadcasts.
 
+### Firewall
+
+The firewall uses Android's OEM deny chain 3. It can exist from Android 11, but some Android 11 and 12 ROMs do not expose it. The Firewall row appears only after the device answers that the chain is available. Open **Labs > Firewall**, turn the switch at the top on, then switch on the apps whose network access should be blocked. Work profile and cloned apps appear as their own rows, keyed by user. On Android 13 and newer, the cellular icon beside a blocked app blocks it only on mobile data instead of on every network.
+
 ### Modules and compatibility
 - Experimental ADB module support, including module actions, services, and WebUI. [Writing a module](docs/adb-modules.md) covers the format: `module.prop`, the environment a script runs in, the WebUI bridge, trust, and how a module gets found.
 - Stealth mode and in-app updates.
 - Android TV and VR-friendly UI support.
 - MediaTek compatibility fixes and improvements for some devices.
 
-Some features are experimental or device-dependent. Root, Samsung system-UID, and no-Wi-Fi startup methods are not available on every device. Only install modules and scripts you trust.
+Some features are experimental or device-dependent. Root, Samsung FOTA-agent system-UID, and no-Wi-Fi startup methods are not available on every device. Only install modules and scripts you trust.
 
 ## Requirements
 
@@ -67,7 +71,7 @@ Some features are experimental or device-dependent. Root, Samsung system-UID, an
 - **Wireless debugging:** Android 11 or newer; supported Android TVs are also compatible.
 - **USB/PC start:** A computer with ADB.
 - **Root start:** A rooted device with working root access.
-- **System UID start:** Supported Samsung devices only.
+- **System UID start:** Samsung devices that ship the FOTA agent (`com.sdet.fotaagent`). For SMTShell on older One UI, use the Custom command system start.
 - **Start on boot:** Supported start methods only.
 
 See the [wiki](https://github.com/thedjchi/Shizuku/wiki) for setup and troubleshooting guidance.

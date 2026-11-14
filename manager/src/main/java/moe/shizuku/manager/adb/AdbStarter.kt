@@ -179,6 +179,24 @@ object AdbStarter {
             ShizukuSettings.setLastAdbTransport(
                 if (viaTcp) ShizukuSettings.ADB_TRANSPORT_TCP else ShizukuSettings.ADB_TRANSPORT_TLS
             )
+            // The auto-disable setting was only honored on a deliberate stop. A start after a
+            // reboot never stops anything, so it never ran there. Once the server has been sent
+            // over the classic port, wireless debugging is no longer carrying the start; honor
+            // the setting here too. The no-network experiment is excluded for the same reason
+            // the stop path excludes it: it needs the toggle to survive.
+            if (viaTcp && ShizukuSettings.getAutoDisableWirelessDebugging() &&
+                !ShizukuSettings.getForceWirelessDebugging()
+            ) {
+                val disabled = context.writeGlobalSetting("adb_wifi_enabled", 0)
+                Diag.info(
+                    TAG,
+                    if (disabled) {
+                        "Disabled wireless debugging after the TCP start"
+                    } else {
+                        "Could not disable wireless debugging after the TCP start"
+                    }
+                )
+            }
             // And the port itself: a wireless one is random per boot, so this is the only thing that
             // lets the next start reach adbd without searching for it.
             ShizukuSettings.setLastAdbPort(activePort)

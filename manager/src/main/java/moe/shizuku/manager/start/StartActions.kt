@@ -64,7 +64,7 @@ suspend fun openAdbPortAndStart(context: Context) {
         return
     }
 
-    val message = context.getString(R.string.start_failed_usb_no_port)
+    val message = context.usbStartNoPortMessage()
     when {
         result.exceptionOrNull() is AdbPairingRequiredException ->
             StartStatusReporter.failed(

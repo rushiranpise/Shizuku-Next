@@ -7,8 +7,10 @@ import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
 import kotlinx.coroutines.TimeoutCancellationException
@@ -110,7 +112,17 @@ class RequestPermissionActivity : AppActivity() {
 
         val binding = ConfirmationDialogBinding.inflate(layoutInflater).apply {
             button1.setOnClickListener {
-                setResult(uid, pid, requestCode, allowed = true, onetime = false)
+                lifecycleScope.launch {
+                    if (GrantAuthenticator.authenticate(this@RequestPermissionActivity)) {
+                        setResult(uid, pid, requestCode, allowed = true, onetime = false)
+                        dialog.dismiss()
+                    }
+                }
+            }
+            button2.setOnClickListener {
+                // This grant lasts only as long as the requesting process. It is not
+                // persisted and does not need the confirmation used for a permanent grant.
+                setResult(uid, pid, requestCode, allowed = true, onetime = true)
                 dialog.dismiss()
             }
             button3.setOnClickListener {

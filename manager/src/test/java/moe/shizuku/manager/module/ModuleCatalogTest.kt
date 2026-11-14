@@ -66,4 +66,36 @@ class ModuleCatalogTest {
         assertTrue(ModuleCatalog.MODULE_TOPICS.all { topic -> topic == topic.lowercase() })
         assertTrue(ModuleCatalog.MODULE_TOPICS.none { topic -> topic.contains(' ') })
     }
+
+    @Test
+    fun `GitHub API calls add only an API capable mirror`() {
+        val url = "https://api.github.com/search/repositories?q=shizuku&per_page=1"
+
+        assertEquals(
+            listOf(url, "https://gh-proxy.com/$url"),
+            ModuleCatalog.candidateUrls(url)
+        )
+    }
+
+    @Test
+    fun `GitHub files add the file mirrors`() {
+        val url = "https://raw.githubusercontent.com/author/module/main/module.prop"
+
+        assertEquals(
+            listOf(
+                url,
+                "https://gh-proxy.com/$url",
+                "https://ghfast.top/$url",
+                "https://ghproxy.net/$url"
+            ),
+            ModuleCatalog.candidateUrls(url)
+        )
+    }
+
+    @Test
+    fun `non GitHub URLs are left alone`() {
+        val url = "https://example.com/module.prop"
+
+        assertEquals(listOf(url), ModuleCatalog.candidateUrls(url))
+    }
 }

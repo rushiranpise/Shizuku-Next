@@ -1,5 +1,6 @@
 package moe.shizuku.manager.manage
 
+import android.os.Build
 import moe.shizuku.manager.utils.runShellCommand
 import rikka.shizuku.Shizuku
 
@@ -24,6 +25,38 @@ import rikka.shizuku.Shizuku
 object FirewallChain {
 
     /**
+     * Whether this platform can have the OEM deny chain at all.
+     *
+     * Chain 3 exists from Android 11, but not every Android 11 or 12 ROM exposes the command
+     * that writes it. [isAvailable] asks the running device before the list is offered; this
+     * only keeps the feature off platforms that cannot have it.
+     */
+    fun supportsFirewall(sdkInt: Int = Build.VERSION.SDK_INT): Boolean =
+        sdkInt >= Build.VERSION_CODES.R
+
+    /**
+     * Whether this device actually exposes chain 3 right now.
+     *
+     * The command is the first answer, and the connectivity interface is the fallback for the
+     * ROMs where the command was trimmed. Only a real answer counts: if neither can say whether
+     * the chain exists, the list is not offered rather than opening onto switches that cannot
+     * do anything.
+     */
+    fun isAvailable(): Boolean {
+        if (!supportsFirewall() || !Shizuku.pingBinder()) return false
+        return isOn() != null
+    }
+
+    /**
+     * Whether a rule can be read back once it is set.
+     *
+     * Android 14 added the getters. Android 13 can write a rule but has no way to ask what it
+     * holds, so its writes have to be trusted rather than checked.
+     */
+    fun canReadRule(sdkInt: Int = Build.VERSION.SDK_INT): Boolean =
+        sdkInt >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
+
+    /**
      * What `cmd connectivity get-chain3-enabled` answered, or null when it said neither thing.
      *
      * Answered as itself rather than as "off": a ROM that does not have the verb, and a server
@@ -45,7 +78,7 @@ object FirewallChain {
         // The binder, not the state machine: a tile or a widget runs in a process of its own, and
         // one that has just started has not been told anything yet. The binder is the truth about
         // whether a command can be run right now, and the state machine catches up to it.
-        if (!Shizuku.pingBinder()) return null
+        if (!supportsFirewall() || !Shizuku.pingBinder()) return null
 
         parse(runShellCommand("cmd connectivity get-chain3-enabled"))?.let { return it }
 
@@ -63,13 +96,14 @@ object FirewallChain {
      * for, since a ROM with the verb can still be one where the verb does nothing.
      */
     fun setOn(on: Boolean): Boolean {
-        if (!Shizuku.pingBinder()) return false
+        if (!supportsFirewall() || !Shizuku.pingBinder()) return false
 
         runShellCommand("cmd connectivity set-chain3-enabled ${if (on) "true" else "false"}")
         if (isOn() == on) return true
 
         if (!FirewallApi.setChainEnabled(on)) return false
-        return isOn() == on
+        // Android 13 can write the chain but cannot read it back; the write is the answer there.
+        return FirewallApi.writeApplied(wrote = true, requested = on, observed = isOn())
     }
 
     /** Switches the chain to the other state, answering the new one, or null when it could not. */

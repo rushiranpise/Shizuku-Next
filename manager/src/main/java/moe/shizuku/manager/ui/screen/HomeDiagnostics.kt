@@ -34,7 +34,6 @@ import moe.shizuku.manager.ShizukuSettings
 import moe.shizuku.manager.start.PhantomProcessKiller
 import moe.shizuku.manager.start.hasPermission
 import moe.shizuku.manager.start.hasWriteSecureSettings
-import moe.shizuku.manager.start.isWirelessDebuggingEnabled
 import moe.shizuku.manager.start.localNetworkPermission
 import moe.shizuku.manager.start.runningStartMethodLabelRes
 import moe.shizuku.manager.start.startMethodLabelRes
@@ -134,7 +133,7 @@ internal fun buildDiagnostics(
         appendLine("${context.getString(R.string.diagnostics_write_secure)}: ${yesNo(context.hasWriteSecureSettings())}")
         appendLine(
             "${context.getString(R.string.diagnostics_wireless_debugging)}: " +
-                onOff(context.isWirelessDebuggingEnabled())
+                onOff(EnvironmentUtils.isWirelessDebuggingEnabled())
         )
         appendLine(
             "${context.getString(R.string.diagnostics_adb_port)}: " +

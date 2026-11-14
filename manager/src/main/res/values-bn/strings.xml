@@ -51,6 +51,9 @@
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
+    <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
+         App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
+         command. -->
     <string name="dialog_adb_pairing_open_app_info">অ্যাপের তথ্য</string>
     <!-- Home - Root -->
     <!-- Home - Application management -->
@@ -140,4 +143,5 @@
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
     <string name="app_info_updated">আপডেটেড</string>
+    <string name="install_source_shell">শেল</string>
 </resources>

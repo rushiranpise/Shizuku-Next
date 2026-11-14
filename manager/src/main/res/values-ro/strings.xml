@@ -13,6 +13,8 @@
     <string name="home_wireless_adb_title"><![CDATA[Pornește prin depanare fără fir]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Pornire fără rețea: dispozitivul este cerut pentru depanare fără fir din nou și din nou până când rămâne pornit. Acest lucru poate dura până la două minute înainte de a începe sau de a renunța.</string>
     <string name="home_usb_adb_needs_network">Un start USB folosește portul ADB clasic și redeschiderea acestuia necesită o rețea. Conectați-vă la Wi-Fi o singură dată sau alegeți <b>Porniți fără Wi-Fi</b> ca metodă de pornire și porniți prin depanare fără fir.</string>
+    <string name="home_usb_adb_needs_network_no_option">Pornirea prin USB utilizează portul ADB clasic, iar pentru a-l redeschide este necesară o conexiune la rețea. Conectează-te o dată la Wi-Fi sau pornește dispozitivul de pe un computer folosind comanda ADB descrisă în secțiunea „Alte metode”.</string>
+    <string name="home_usb_adb_needs_computer">Pentru pornirea prin USB este necesar portul ADB clasic. Pe această versiune de Android, conectează-te la un computer și pornește Shizuku folosind comanda ADB descrisă în secțiunea „Alte metode”.</string>
     <string name="home_wireless_adb_summary">Începe să utilizezi depanarea fără fir.</string>
     <string name="home_usb_adb_title"><![CDATA[Pornește prin depanare USB]]></string>
     <string name="home_usb_adb_summary">Pornește folosind depanarea USB.</string>
@@ -36,7 +38,7 @@
     <string name="diagnostics_default">Metoda implicită</string>
     <string name="diagnostics_hiding">Ascuns</string>
     <string name="diagnostics_phantom">Oprire procese</string>
-    <string name="diagnostics_root">Rădăcină</string>
+    <string name="diagnostics_root">Root</string>
     <string name="diagnostics_granted">acordat</string>
     <string name="diagnostics_missing">lipsește</string>
     <string name="diagnostics_not_required">nu este necesar</string>
@@ -65,6 +67,10 @@
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
     <string name="dialog_adb_pairing_accessibility_permission">Android blochează acest comutator pentru aplicațiile instalate din afara unui magazin de aplicații. Permite aplicației ^1 să activeze serviciul de accesibilitate. Lista de accesibilitate arată acest lucru ca \"Controlat de setarea restricționată\".\n\nDeschide Informații despre aplicație și selectează „Permite setări restricționate” din meniu sau rulează pe un computer:\n\n^2\n\nOricare opţiune funcţionează. Comutatorul va funcționa ulterior.</string>
+    <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
+         App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
+         command. -->
+    <string name="dialog_adb_pairing_accessibility_permission_tv">Android blochează această opțiune pentru aplicațiile instalate din afara unui magazin de aplicații, iar pe un televizor, secțiunea „Informații despre aplicație” nu conține opțiunea „Permite setări restricționate” pentru a o debloca. Este necesar un computer conectat la acest televizor prin ADB o singură dată: fie pentru a acorda permisiunea de mai sus, care permite aplicației Shizuku să activeze singură serviciul, fie pentru a debloca comutatorul cu:\n\n^1</string>
     <string name="dialog_adb_pairing_open_app_info">Informații aplicație</string>
     <string name="dialog_adb_pairing_accessibility_enable">Împerecherea automată citește codul din dialogul de sistem prin serviciul de accesibilitate Shizuku, așa că trebuie activat și numai atât timp cât este necesar: serviciul se oprește automat odată ce codul este găsit sau după un minut pentru a economisi energie. În mod normal, Shizuku o activează singur, iar acest lucru necesită permisiunea WRITE_SECURE_SETTINGS, care nu a fost încă acordată la o instalare nouă.\n\nActivează pe ecranul următor, introdu codul în secțiunea Manual sau acordă permisiunea o singură dată:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Începe procesul de asociere urmând pașii de mai jos:\n- Accesează „Opțiuni pentru dezvoltatori”\n- Activează „Depanare USB” și „Depanare wireless”\n- Atinge partea stângă a opțiunii „Depanare wireless”\n- Atinge „Asociază dispozitivul cu codul de asociere”. Shizuku va detecta automat codul de asociere.</string>
@@ -150,6 +156,27 @@
     <string name="labs_filter_blocked">Blocat</string>
     <string name="labs_blocked_count">%1$d blocat</string>
     <string name="labs_blocked_empty">Nimic nu este blocat.</string>
+    <string name="labs_bulk_actions">Acțiuni în bloc</string>
+    <string name="labs_bulk_allow_all">Permite toate afișate</string>
+    <string name="labs_bulk_block_all">Blochează toate afișate</string>
+    <string name="labs_bulk_show_all">Afișează toate în listă</string>
+    <string name="labs_bulk_hide_all">Ascunde toate în listă</string>
+    <string name="labs_bulk_confirm_title">Schimbare în bloc</string>
+    <string name="labs_bulk_confirm_count">Aplicații de actualizat: %1$d</string>
+    <string name="labs_bulk_confirm_state">Stare nouă: %1$s</string>
+    <string name="labs_bulk_confirm_pinned">Fixat omis: %1$d</string>
+    <string name="labs_bulk_confirm_warning">Numai aplicațiile din această listă sunt modificate. Aplicațiile fixate sunt lăsate singure.</string>
+    <string name="labs_bulk_progress_title">Actualizare aplicații</string>
+    <string name="labs_bulk_progress">Se modifică %1$d din %2$d...</string>
+    <string name="labs_bulk_result_title">Actualizare în grup terminată</string>
+    <string name="labs_bulk_result_summary">Schimbat: %1$d, eșuat: %2$d.</string>
+    <string name="labs_bulk_failed_hint">Unele aplicații nu au acceptat modificarea. Este posibil ca starea lor să nu se fi schimbat.</string>
+    <string name="labs_bulk_apply">Aplică</string>
+    <string name="labs_bulk_done">Finalizat</string>
+    <string name="labs_pinned_note">Aplicațiile fixate rămân în partea de sus și sunt omise de modificările în bloc.</string>
+    <string name="labs_pin_app">Fixează aplicația</string>
+    <string name="labs_unpin_app">Anulează fixarea aplicației</string>
+    <string name="labs_clear_pins">Șterge aplicațiile fixate</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Ascuns</string>
     <string name="tab_hide_developer_options">Ascunde opțiunile dezvoltatorului</string>
@@ -419,7 +446,7 @@
     <string name="home_status_started_default">Implicit</string>
     <string name="uid_label">UID</string>
     <string name="uid_name_format">(%1$s)</string>
-    <string name="uid_name_root">rădăcină</string>
+    <string name="uid_name_root">root</string>
     <string name="uid_name_system">sistem</string>
     <string name="uid_name_shell">terminal</string>
     <string name="home_device_manager_version">Versiune manager</string>
@@ -562,7 +589,8 @@
     <string name="start_failed_pairing_required">Acest dispozitiv nu este asociat pentru depanare wireless. Asociază-l din nou.</string>
     <string name="start_failed_connection_lost">Conexiunea ADB s-a închis la pornire. Încearcă din nou.</string>
     <string name="start_failed_usb_no_port">Nici un port ADB local nu este deschis Android la fiecare repornire și redeschiderea are nevoie de o conexiune pentru a împrumuta. Conectați-vă la Wi-Fi și Shizuku îl va redeschide prin depanare wireless, rulați <b>adb tcpip 5555</b> de pe un computer, sau alege <b>Pornește fără Wi-Fi</b> ca metodă de început pentru a porni prin depanare wireless.</string>
-    <string name="start_failed_root_unavailable">Accesul la rădăcină nu mai este disponibil pe acest dispozitiv, deci Shizuku nu poate porni. Alege o altă metodă de pornire.</string>
+    <string name="start_failed_usb_no_port_no_option">Nu este deschis niciun port ADB local. Android îl închide la fiecare repornire, iar redeschiderea acestuia necesită o conexiune la rețea pentru a o utiliza. Conectează-te o dată la Wi-Fi sau execută comanda <b>adb tcpip 5555</b> de pe un computer.</string>
+    <string name="start_failed_root_unavailable">Accesul la root nu mai este disponibil pe acest dispozitiv, deci Shizuku nu poate porni. Alege o altă metodă de pornire.</string>
     <string name="start_failed_system_needs_app">Metoda de pornire a sistemului trebuie să fie pornită din aplicație.</string>
     <string name="start_failed_system_no_exploit">Acest dispozitiv nu livrează agentul Samsung FOTA (com.sdet. otaagent), care este singura componentă pe care o poate folosi metoda de pornire a sistemului, astfel încât nu este nimic de mărit cu aici. Comutați metoda de pornire a sistemului la comandă personalizată: aplicația vă va arăta ce să rulați cu o escaladare pe care o are dispozitivul dvs.</string>
     <string name="start_failed_no_binder">Serviciul nu a apărut într-un minut. Ambele jumătăţi păstrează un log: porneşterii de la ShizukuServiceStarter şi predarea sub BinderSender. Un cititor de logcat filtrat la cele două arată dacă începătorul a ajuns până la forjarea serverului, și dacă serverul a cerut vreodată un lider.</string>
@@ -572,11 +600,24 @@
     <string name="start_system_custom_copied">Comanda a fost copiată în clipboard.</string>
     <string name="start_system_custom_copy_failed">Comanda este sus, gata să fie copiată manual.</string>
     <string name="settings_section_startup">Lansare</string>
-    <string name="settings_section_startup_summary">Pornire la pornirea dispozitivului, watchdog și metoda de pornire</string>
+    <string name="settings_section_startup_summary">Pornirea sistemului de operare, watchdog și metoda de pornire</string>
     <string name="settings_section_wireless">Depanare fără fir</string>
     <string name="settings_section_wireless_summary">Depanare fără fir, modul TCP și portul ADB</string>
     <string name="settings_section_tools">Unelte</string>
     <string name="settings_section_tools_summary">Permisiuni, configurare, terminal și intenții</string>
+    <string name="settings_backup_section">Copie de rezervă și restaurare</string>
+    <string name="settings_backup_export">Setări copie de rezervă</string>
+    <string name="settings_backup_export_summary">Salvează setările aplicației și listele de laboratoare într-un fișier JSON.</string>
+    <string name="settings_backup_restore">Restaurare setări</string>
+    <string name="settings_backup_restore_summary">Restaurează setările aplicației și listele din secțiunea „Laboratoare” dintr-un fișier de rezervă.</string>
+    <string name="settings_backup_exported">S-au salvat %1$d setări.</string>
+    <string name="settings_backup_export_failed">Nu s-a putut salva copia de rezervă.</string>
+    <string name="settings_backup_unreadable">Acest fișier nu este o copie de rezervă a setărilor Shizuku.</string>
+    <string name="settings_backup_restore_title">Restabilești setările?</string>
+    <string name="settings_backup_restore_message">Aceasta înlocuiește %1$d setări și liste.</string>
+    <string name="settings_backup_restore_action">Restaurează</string>
+    <string name="settings_backup_restored">S-au restabilit %1$d setări. Repornește Shizuku pentru a aplica modificările.</string>
+    <string name="settings_backup_restore_failed">Nu s-a putut restaura copia de rezervă.</string>
     <string name="settings_section_appearance">Aspect</string>
     <string name="settings_section_appearance_summary">Temă, culori și limbă</string>
     <string name="settings_section_about">Despre</string>
@@ -651,17 +692,22 @@
     <string name="settings_start_on_boot">Pornire automată</string>
     <string name="settings_use_system_color">Folosește culoarea temei de sistem</string>
     <string name="settings_use_system_color_summary">Urmează paleta sistemului</string>
+    <string name="settings_always_show_navigation_bar">Arată întotdeauna bara de navigare</string>
+    <string name="settings_always_show_navigation_bar_summary">Menține bara filelor vizibilă atunci când derulezi în jos.</string>
+    <string name="settings_secure_quick_tiles">Securizează dalele rapide</string>
+    <string name="settings_secure_quick_tiles_summary">Blochează schimbarea setărilor rapide atunci când telefonul este blocat.</string>
     <string name="settings_watchdog">Watchdog</string>
     <string name="settings_watchdog_summary">Repornește automat Shizuku dacă se blochează</string>
     <string name="settings_auto_disable_wireless_debugging">Dezactivează depanarea fără fir</string>
     <string name="settings_auto_disable_wireless_debugging_summary">Dezactivează depanarea wireless atunci când Shizuku se oprește.</string>
     <string name="settings_start_method">Metoda de pornire implicită</string>
-    <string name="settings_start_method_root_unavailable">Acest dispozitiv nu are acces la rădăcină, așa că revine la depanarea fără fir.</string>
+    <string name="settings_start_method_root_unavailable">Acest dispozitiv nu are acces la root, așa că revine la depanarea fără fir.</string>
+    <string name="settings_start_method_root_unavailable_usb">Acest dispozitiv nu are acces root, așa că se trece la conexiunea USB.</string>
     <string name="start_method_wireless_no_network">Fără Wi-Fi</string>
     <string name="start_method_wireless">Wireless</string>
     <string name="start_method_usb">USB</string>
     <string name="start_method_system">Sistem</string>
-    <string name="start_method_root">Rădăcină</string>
+    <string name="start_method_root">Root</string>
     <string name="transport_adb">adb</string>
     <string name="settings_adb_without_developer_options">Dezactivează opțiunile pentru dezvoltatori</string>
     <string name="settings_adb_without_developer_options_summary">Oprește opțiunile dezvoltatorului dar menține setările ADB de care are nevoie Shizuku. Shizuku va continua să funcționeze, iar aceste setări vor fi restaurate după fiecare repornire.</string>
@@ -722,6 +768,8 @@
     <string name="permissions_notifications_summary">Afișează codul de asociere, progresul de pornire și erorile.</string>
     <string name="permissions_nearby">Dispozitive în apropiere</string>
     <string name="permissions_nearby_summary">Găsește portul de depanare wireless în rețeaua ta.</string>
+    <string name="permissions_hotspot">Punct de acces local</string>
+    <string name="permissions_hotspot_summary">Pornește Shizuku fără Wi-Fi, creând un punct de acces local.</string>
     <string name="permissions_write_secure_settings">Scrie setări securizate</string>
     <string name="permissions_write_secure_settings_summary">Permite Shizuku să activeze depanarea wireless. Doar ADB poate acorda această permisiune.</string>
     <string name="permissions_accessibility">Serviciu de accesibilitate</string>
@@ -746,6 +794,8 @@
     <string name="setup_root_body">O singură atingere, fără cablu și fără asociere. Este necesar un manager de drepturi de root care să îi acorde acces aplicației Shizuku.</string>
     <string name="setup_wireless_title">Depanare fără fir</string>
     <string name="setup_wireless_body">Funcționează fără drepturi de root. Necesită activarea opțiunilor pentru dezvoltatori și o asociere inițială; după aceea, se lansează direct din aplicație.</string>
+    <string name="setup_usb_title">Depanare USB</string>
+    <string name="setup_usb_body">Funcționează fără root. Necesită un port ADB clasic; dacă nu este deschis, conectează-te la un computer o dată pentru a porni Shizuku.</string>
     <string name="setup_permissions_title">Permisiuni opționale</string>
     <string name="setup_permissions_body">Poți omite oricare dintre acestea și să le schimbi mai târziu în Setări.</string>
     <string name="settings_run_setup">Rulează configurarea din nou</string>
@@ -869,7 +919,7 @@
     <!-- Shell -->
     <string name="shell_title">Terminal</string>
     <string name="shell_backend_shizuku">Shizuku</string>
-    <string name="shell_backend_root">Rădăcină</string>
+    <string name="shell_backend_root">Root</string>
     <string name="shell_backend_shizuku_status">Shizuku, uid %1$d</string>
     <string name="shell_backend_root_status">Root, uid 0</string>
     <string name="shell_backend_offline">Niciun executant de comenzi nu este activ</string>
@@ -984,6 +1034,34 @@
     <string name="manage_status_disabled">Dezactivat</string>
     <string name="manage_status_suspended">Suspendat</string>
     <string name="manage_status_hidden">Ascuns</string>
+    <string name="manage_select">Selectează aplicațiile</string>
+    <string name="manage_select_all">Selectează toate afișate</string>
+    <string name="manage_clear_selection">Șterge selecția</string>
+    <string name="manage_selection_close">Închide selecția</string>
+    <string name="manage_selected_count">%1$d selectat</string>
+    <string name="manage_bulk_action">Setează operațiuni aplicație</string>
+    <string name="manage_bulk_title">Setează operațiuni aplicație</string>
+    <string name="manage_bulk_note">Alegeți o operațiune și un mod al aplicației. Vei revizui aplicațiile înainte de aplicare.</string>
+    <string name="manage_bulk_pinned_note">Aplicațiile fixate rămân în partea de sus și sunt omise de opțiunea „Selectează tot ce este afișat”.</string>
+    <string name="manage_pin_app">Fixează aplicația</string>
+    <string name="manage_unpin_app">Anulează fixarea aplicației</string>
+    <string name="manage_bulk_mode">Mod</string>
+    <string name="manage_bulk_review">Revizuiește</string>
+    <string name="manage_bulk_apply">Aplică</string>
+    <string name="manage_bulk_confirm_title">Revizuiește modificarea în lot</string>
+    <string name="manage_bulk_confirm_op">Operațiune aplicație: %1$s</string>
+    <string name="manage_bulk_confirm_mode">Mod: %1$s</string>
+    <string name="manage_bulk_confirm_targets">Aplicații: %1$d</string>
+    <string name="manage_bulk_confirm_warning">Aceste modificări sunt aplicate imediat. Unele aplicații pot respinge operațiunea.</string>
+    <string name="manage_bulk_progress_title">Aplicare operațiuni aplicații</string>
+    <string name="manage_bulk_progress">Se modifică %1$d din %2$d...</string>
+    <string name="manage_bulk_result_title">Rezultatul lotului</string>
+    <string name="manage_bulk_result_summary">Schimbat: %1$d, eșuat: %2$d.</string>
+    <string name="manage_bulk_result_changed">Modificat</string>
+    <string name="manage_bulk_result_failed">Eșuat</string>
+    <string name="manage_bulk_result_failed_hint">Este posibil ca operațiunile eșuate să nu fie acceptate de aplicație sau să fie blocate de sistemul de operare Android.</string>
+    <string name="manage_bulk_failures_only">Doar eșuările</string>
+    <string name="manage_bulk_done_action">Finalizat</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_detail_missing">Această aplicație nu mai este instalată.</string>
     <string name="app_open_info">Informații aplicație</string>
@@ -1053,6 +1131,25 @@
     <string name="app_action_uninstall_note">Elimină aplicația, dar păstrează datele.</string>
     <string name="app_action_restore">Restaurează aplicația de sistem</string>
     <string name="app_action_restore_note">Restaurează o aplicație de sistem ștearsă pentru acest utilizator.</string>
+    <string name="app_section_data">Date aplicație</string>
+    <string name="app_data_note">Exportă OBB și Android/data. Datele interne ale aplicațiilor au nevoie de root și nu sunt incluse.</string>
+    <string name="app_data_needs_shizuku">Pornește Shizuku pentru a exporta sau importa datele aplicației.</string>
+    <string name="app_data_export">Exportă datele aplicației</string>
+    <string name="app_data_export_note">Stochează aplicația și salvează datele OBB și externe într-un fișier ZIP.</string>
+    <string name="app_data_import">Importă datele aplicației</string>
+    <string name="app_data_import_note">Oprește aplicația și înlocuiește datele OBB și externe dintr-un fișier ZIP.</string>
+    <string name="app_data_none">Această aplicație nu are date OBB sau externe de exportat.</string>
+    <string name="app_data_exporting">Se exportă datele aplicației</string>
+    <string name="app_data_importing">Se importă datele aplicației</string>
+    <string name="app_data_preparing">Se pregătește...</string>
+    <string name="app_data_exported">Date aplicație exportate.</string>
+    <string name="app_data_imported">Date aplicație importate. Pornește aplicația pentru a o folosi.</string>
+    <string name="app_data_export_failed">Nu s-au putut exporta datele aplicației: %1$s</string>
+    <string name="app_data_import_failed">Nu s-au putut importa datele aplicației: %1$s</string>
+    <string name="app_data_cancelled">Anulat.</string>
+    <string name="app_data_import_title">Import date aplicație?</string>
+    <string name="app_data_import_message">Dorești să înlocuiești datele OBB și externe pentru %1$s din această arhivă? Secțiunile care lipsesc din arhivă rămân neschimbate.</string>
+    <string name="app_data_import_action">Importă</string>
     <string name="app_confirm_title">Ești sigur?</string>
     <string name="app_confirm_disable">Dezactivezi %1$s? Se oprește rularea până când o activezi din nou.</string>
     <string name="app_confirm_clear_data">Ștergi toate datele pentru %1$s? Acest lucru nu poate fi anulat.</string>
@@ -1112,6 +1209,7 @@
     <string name="lab_switch_is_on">%1$s este pornit</string>
     <string name="lab_switch_is_off">%1$s este oprit</string>
     <string name="lab_switch_could_not_change">%1$s nu a putut fi modificat</string>
+    <string name="lab_switch_locked">Deblochează telefonul pentru a schimba această dală.</string>
     <string name="app_info_version">Versiune</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">Target SDK</string>
@@ -1140,7 +1238,7 @@
     <string name="accessibility_write_failed">Nu s-a putut schimba serviciul. Verifică dacă Shizuku rulează.</string>
     <string name="accessibility_notification_channel">Servicii de accesibilitate</string>
     <string name="accessibility_notification_title">Servicii de accesibilitate păstrate</string>
-    <string name="accessibility_notification_text">Shizuku-Next reactivează serviciile alese pentru a fi menținute pornite atunci când Android le dezactivează.</string>
+    <string name="accessibility_notification_text">Shizuku-Next reactivează serviciile blocate atunci când Android le dezactivează.</string>
     <string name="wifi_passwords_show">Afișează parola</string>
     <string name="wifi_passwords_hide">Ascunde parola</string>
     <string name="wifi_passwords_copy">Copiază parola</string>
@@ -1183,7 +1281,7 @@
     <string name="files_root_app_obb">Obb</string>
     <string name="files_root_system">Sistem</string>
     <string name="files_root_tmp">Tmp</string>
-    <string name="files_root_root">Rădăcină</string>
+    <string name="files_root_root">Root</string>
     <string name="files_empty">Nimic din acest dosar.</string>
     <string name="files_all_hidden">Tot ce se află în acest dosar este ascuns.</string>
     <string name="files_sort">Sortează</string>
@@ -1225,6 +1323,8 @@
     <string name="install_action">Instalează</string>
     <string name="install_running">Se instalează\u2026</string>
     <string name="install_done">Instalat.</string>
+    <string name="install_open">Deschide aplicația</string>
+    <string name="install_open_failed">Nu s-a putut deschide aplicația.</string>
     <string name="install_options_heading">Opțiuni de instalare</string>
     <string name="install_instant">Instalează ca aplicație instantanee</string>
     <string name="install_instant_desc">Rulează fără să instalezi întreaga aplicație sau să o adaugi în lansator.</string>
@@ -1278,4 +1378,10 @@
     <string name="install_location_shared">Stocarea partajată</string>
     <string name="install_spoof_source">Înlocuiește sursa de instalare</string>
     <string name="install_spoof_source_desc">Pachetul Android este informat că a instalat această aplicație.</string>
+    <string name="install_source_presets">Surse comune de instalare</string>
+    <string name="install_source_none">Fără falsificare</string>
+    <string name="install_source_play_store">Magazin Google Play</string>
+    <string name="install_source_shell">Terminal</string>
+    <string name="install_source_google_package_installer">Instalator de pachete Google</string>
+    <string name="install_source_aosp_package_installer">Instalator de pachete AOSP</string>
 </resources>

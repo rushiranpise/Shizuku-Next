@@ -404,9 +404,13 @@ class AdbPairingAccessibilityService : AccessibilityService() {
         StartStatusReporter.clear()
         toast(getString(R.string.notification_adb_pairing_succeed_text))
         // Not userInitiated: nobody tapped for this one, it is the pairing finishing by itself.
-        // Wi-Fi is necessarily up - pairing runs over it - so this changes nothing today; it just
-        // keeps the flag meaning what its name says.
-        ShizukuReceiverStarter.start(this, reason = "pairing-accessibility")
+        // A completed pairing is still a reason to replace an attempt already under way: that
+        // attempt may have been searching since before the phone was paired.
+        ShizukuReceiverStarter.start(
+            this,
+            reason = "pairing-accessibility",
+            replaceInFlight = true
+        )
 
         paired = true
         pairing = false

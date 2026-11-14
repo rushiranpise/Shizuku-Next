@@ -19,7 +19,10 @@ import androidx.core.view.isVisible
 import moe.shizuku.manager.AppConstants
 import moe.shizuku.manager.app.AppBarActivity
 import moe.shizuku.manager.databinding.AdbPairingTutorialActivityBinding
+import moe.shizuku.manager.ShizukuSettings
+import moe.shizuku.manager.start.localHotspotPermission
 import moe.shizuku.manager.start.localNetworkPermission
+import moe.shizuku.manager.start.needsLocalHotspotPermissionFor
 import moe.shizuku.manager.utils.SettingsHelper
 import moe.shizuku.manager.utils.SettingsPage
 import rikka.compatibility.DeviceCompatibility
@@ -96,20 +99,29 @@ class AdbPairingTutorialActivity : AppBarActivity() {
         }
     }
 
-    private val localNetworkPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-            // Start pairing whether or not the grant succeeded; a denial simply means
+    private val startPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+            // Start pairing whether or not the grants succeeded; a denial simply means
             // discovery/connect will fail and the service surfaces the error.
             doStartPairingService()
         }
 
     private fun startPairingService() {
-        // Shared with the permissions page, which can grant it before pairing is reached.
-        val permission = localNetworkPermission()
-        if (permission != null && checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
-            localNetworkPermissionLauncher.launch(permission)
-        } else {
+        // Shared with the permissions page, which can grant them before pairing is reached.
+        // Pairing always discovers over the local network; the hotspot is needed only for a
+        // following no-network (or forced-wireless) start, and asking here means that start does
+        // not have to wait for an activity later.
+        val method = ShizukuSettings.getStartMethod()
+        val missing = listOfNotNull(
+            localNetworkPermission()?.takeIf {
+                checkSelfPermission(it) != PackageManager.PERMISSION_GRANTED
+            },
+            localHotspotPermission()?.takeIf { needsLocalHotspotPermissionFor(method) }
+        ).distinct()
+        if (missing.isEmpty()) {
             doStartPairingService()
+        } else {
+            startPermissionLauncher.launch(missing.toTypedArray())
         }
     }
 

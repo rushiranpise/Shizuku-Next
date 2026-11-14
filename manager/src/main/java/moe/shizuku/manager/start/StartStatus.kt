@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import moe.shizuku.manager.R
 import moe.shizuku.manager.ShizukuSettings
+import moe.shizuku.manager.utils.EnvironmentUtils
 
 /** What the user can do about a failed start, if anything. */
 enum class StartFailureKind {
@@ -45,6 +46,9 @@ sealed interface StartStatus {
  * invisible in the app. Both the starter and the worker report here and the home
  * screen shows the reason (and a fix action where one exists).
  */
+/** The message shown when a USB start finds no classic ADB port. */
+fun Context.usbStartNoPortMessage(): String = getString(R.string.start_failed_usb_no_port)
+
 /** Display name of a start method, shared by the home and settings screens. */
 @StringRes
 fun startMethodLabelRes(@ShizukuSettings.StartMethod method: Int): Int = when (method) {

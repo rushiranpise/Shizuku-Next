@@ -1,7 +1,9 @@
 package moe.shizuku.manager.manage
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
@@ -17,6 +19,11 @@ class FirewallApiTest {
     @Test
     fun `the chain is the third OEM deny chain, which is the one the shell command names`() {
         assertEquals(9, FirewallApi.CHAIN)
+    }
+
+    @Test
+    fun `the metered chain is the one the platform calls metered deny admin`() {
+        assertEquals(12, FirewallApi.CHAIN_METERED)
     }
 
     @Test
@@ -40,5 +47,25 @@ class FirewallApiTest {
         // way, since a switch that guessed would say the wrong thing either up or down.
         assertNull(FirewallApi.isBlocked(3))
         assertNull(FirewallApi.isBlocked(null))
+    }
+
+    @Test
+    fun `a write the platform cannot read back is still applied`() {
+        // Android 13 can set a rule but has no getter. The write is the answer there.
+        assertTrue(FirewallApi.writeApplied(wrote = true, requested = true, observed = null))
+        assertTrue(FirewallApi.writeApplied(wrote = true, requested = false, observed = null))
+
+        // A write that did not reach the platform is not a change, even when nothing contradicts it.
+        assertFalse(FirewallApi.writeApplied(wrote = false, requested = true, observed = null))
+        assertFalse(FirewallApi.writeApplied(wrote = false, requested = false, observed = null))
+    }
+
+    @Test
+    fun `a write the platform contradicts is not applied`() {
+        assertTrue(FirewallApi.writeApplied(wrote = true, requested = true, observed = true))
+        assertTrue(FirewallApi.writeApplied(wrote = true, requested = false, observed = false))
+
+        assertFalse(FirewallApi.writeApplied(wrote = true, requested = true, observed = false))
+        assertFalse(FirewallApi.writeApplied(wrote = true, requested = false, observed = true))
     }
 }

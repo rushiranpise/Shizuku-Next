@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,6 +38,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -69,8 +71,8 @@ fun appLabel(pm: PackageManager, pi: PackageInfo): String =
 /**
  * One filter, sized to its share of the row rather than to its label, with its label and how
  * many apps it holds centred together. A stock chip sizes to its text, which left the four
- * ragged on the left and hid the counts somewhere else entirely. A translated label that
- * needs more room wraps and grows the chip rather than being cut off.
+ * ragged on the left and hid the counts somewhere else entirely. A translated label or a wide
+ * font shrinks inside the chip rather than wrapping into a column of letters.
  */
 @Composable
 fun AppFilterChip(
@@ -111,15 +113,18 @@ fun AppFilterChip(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                label,
+            AutoSizeText(
+                text = label,
+                modifier = if (fill) Modifier.weight(1f) else Modifier,
                 style = MaterialTheme.typography.labelLarge,
                 textAlign = TextAlign.Center,
                 color = if (selected) {
                     MaterialTheme.colorScheme.onSecondaryContainer
                 } else {
                     MaterialTheme.colorScheme.onSurfaceVariant
-                }
+                },
+                maxLines = 1,
+                fillWidth = fill
             )
             // Only the filter in force carries its number: the four labels together read
             // as one row of names, and the count for the one you picked is the count you
@@ -314,6 +319,34 @@ fun StatusChip(
             .background(container)
             .padding(horizontal = ChipPadding, vertical = 3.dp)
     )
+}
+
+/**
+ * The process count on an app's supporting line. It toggles the process rows below the app,
+ * so no chevron has to be added beside the switch and shift the row's layout.
+ */
+@Composable
+fun ProcessCountChip(
+    count: Int,
+    expanded: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .clip(MaterialTheme.shapes.small)
+            .background(MaterialTheme.colorScheme.secondaryContainer)
+            .clickable(onClick = onClick)
+            .padding(horizontal = 8.dp, vertical = 3.dp)
+    ) {
+        Text(
+            text = if (expanded) stringResource(R.string.apps_processes_hide_short)
+            else pluralStringResource(R.plurals.apps_processes_count, count, count),
+            style = MaterialTheme.typography.labelSmall,
+            maxLines = 1,
+            color = MaterialTheme.colorScheme.onSecondaryContainer
+        )
+    }
 }
 
 /**

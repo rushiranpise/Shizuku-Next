@@ -39,6 +39,9 @@
     <!-- Needed to receive mDNS multicast for wireless ADB service discovery. -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Permanent grants are confirmed with the device's own biometric or credential prompt. -->
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <!--
     The two grants the hiding watch needs, both declared so they can be given at all.
     A permission an app has not declared cannot be granted to it, which is why the same
