@@ -118,7 +118,6 @@ import moe.shizuku.manager.receiver.ShizukuReceiverStarter
 import moe.shizuku.manager.start.StartMethodGuard
 import moe.shizuku.manager.start.canWriteSecureSettings
 import moe.shizuku.manager.start.AdbPortPersistence
-import moe.shizuku.manager.start.shouldClearAutoPort
 import moe.shizuku.manager.start.applyAdbWithoutDeveloperOptions
 import moe.shizuku.manager.start.restoreDeveloperOptions
 import moe.shizuku.manager.start.startMethodLabelRes
@@ -203,14 +202,19 @@ fun SettingsScreen(
         }
     }
     var tcpMode by remember { mutableStateOf(ShizukuSettings.getTcpMode()) }
-    // A persistent ADB port the no-network fallback wrote goes once the start no longer needs it:
-    // another start method, or TCP mode off. Through the server, so only while it runs; otherwise
-    // the next start that gets through does the same (see AdbPortPersistence.reconcile).
-    LaunchedEffect(startMethod, tcpMode) {
-        val withoutNetwork = startMethod == ShizukuSettings.StartMethod.WIRELESS_NO_NETWORK
-        if (!shouldClearAutoPort(ShizukuSettings.getPersistAdbPortAuto(), withoutNetwork, tcpMode)) {
-            return@LaunchedEffect
+    // Whether this device's start without Wi-Fi rests on the classic port (a radio that drops Wi-Fi
+    // for a hotspot, or SELinux not enforced); off the main thread, it reads selinuxfs.
+    val classicPortFallback by produceState(initialValue = false) {
+        value = withContext(Dispatchers.IO) {
+            runCatching { AdbPortPersistence.needsClassicPortFallback(context) }.getOrDefault(false)
         }
+    }
+    // The persistent ADB port follows the start method and TCP mode as they change: written where
+    // the start without Wi-Fi needs it (switching to that method while the server runs must not wait
+    // for the next start with a network), taken back when the fallback wrote it and the start no
+    // longer needs it. Through the server, so only while it runs; otherwise the next start that gets
+    // through does the same. Sends nothing on a device the fallback is not for.
+    LaunchedEffect(startMethod, tcpMode) {
         if (!ShizukuStateMachine.isRunning()) return@LaunchedEffect
         withContext(Dispatchers.IO) {
             runCatching { AdbPortPersistence.reconcile(context.applicationContext, startMethod) }
@@ -688,7 +692,10 @@ fun SettingsScreen(
                                         // it, and the row below refuses to switch it off while this
                                         // is on. Everywhere else the hotspot route still works and
                                         // the two settings stay the user's to choose.
-                                        if (EnvironmentUtils.isAdbWifiOverhauled()) {
+                                        // The same on a device whose start without Wi-Fi
+                                        // rests on the classic port (a head unit whose radio
+                                        // drops Wi-Fi for a hotspot, or SELinux not enforced).
+                                        if (EnvironmentUtils.isAdbWifiOverhauled() || classicPortFallback) {
                                             ShizukuSettings.setTcpMode(true)
                                             tcpMode = true
                                         }
@@ -756,10 +763,12 @@ fun SettingsScreen(
                             switchState = tcpMode,
                             // On Android 17, on and not switchable off while the start without Wi-Fi
                             // is on: there that start runs over the classic port this keeps open,
-                            // so a mode that cannot work without it must not leave it off. On any
-                            // other platform it stays the user's setting.
+                            // so a mode that cannot work without it must not leave it off. The same
+                            // on a device whose start without Wi-Fi rests on the classic port. On any
+                            // other device it stays the user's setting.
                             switchEnabled =
-                                !(forceWireless && EnvironmentUtils.isAdbWifiOverhauled()),
+                                !(forceWireless &&
+                                    (EnvironmentUtils.isAdbWifiOverhauled() || classicPortFallback)),
                             onSwitchChange =
                                 { checked ->
                                     when {

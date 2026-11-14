@@ -12,6 +12,7 @@ import moe.shizuku.manager.shell.ShellSession
 import moe.shizuku.manager.utils.Diag
 import moe.shizuku.manager.utils.EnvironmentUtils
 import moe.shizuku.manager.utils.ShizukuStateMachine
+import java.io.File
 
 /**
  * Keeping the classic ADB port open across reboots.
@@ -33,9 +34,12 @@ import moe.shizuku.manager.utils.ShizukuStateMachine
  * The setting is off until someone turns it on, with one exception, [reconcile]: on a device
  * where a hotspot cannot start the server, because raising one takes down the Wi-Fi the
  * framework insists on, the classic port is the only way "Start without Wi-Fi" can mean what it
- * says. There the first start that gets through writes it, so every cold boot after it starts
- * over 127.0.0.1 without any network. TCP mode keeps the same port open after every start
- * anyway; what this adds is the stretch between the boot and the start.
+ * says - and so on a device whose SELinux is not enforced, where the write is known to go
+ * through and the boot start then needs no hotspot at all (on Android 13 the hotspot never gets
+ * adbd's wireless server started without a Wi-Fi network anyway). There the first start that
+ * gets through writes it, so every cold boot after it starts over 127.0.0.1 without any
+ * network. TCP mode keeps the same port open after every start anyway; what this adds is the
+ * stretch between the boot and the start.
  *
  * The port is also reachable from any network the device joins while it is open, which is
  * worth saying out loud in the setting's own words: that is the trade for never needing a
@@ -118,6 +122,30 @@ object AdbPortPersistence {
         return read() == ShizukuSettings.getTcpPort()
     }
 
+    /** Read once per process: the policy does not change while the system runs. */
+    @Volatile
+    private var selinuxNotEnforcedCache: Boolean? = null
+
+    /**
+     * Whether SELinux is not enforced here, from selinuxfs alone: an app domain may read it only
+     * where the policy is not enforced (the FYT 7870 head unit runs permissive), so an enforcing
+     * phone answers false from the refused read itself - no shell, no `getenforce` process.
+     */
+    fun selinuxNotEnforced(): Boolean = selinuxNotEnforcedCache ?: runCatching {
+        File("/sys/fs/selinux/enforce").readText().trim() == "0"
+    }.getOrDefault(false).also { selinuxNotEnforcedCache = it }
+
+    /**
+     * Whether the start without Wi-Fi rests on the classic port on this device rather than on a
+     * hotspot: one that takes Wi-Fi down, where the hotspot cannot get adbd's wireless server
+     * started, or one whose policy lets the shell keep the port across reboots, where the port
+     * makes the boot start need no network at all. Known without raising a hotspot first on the
+     * latter, which is what makes the head unit start from its first boot after a start that got
+     * through. False on a phone whose radio does both and whose SELinux is enforced.
+     */
+    fun needsClassicPortFallback(context: Context): Boolean =
+        classicPortFallback(ClientWifi.hotspotDisplacesClient(context), selinuxNotEnforced())
+
     /**
      * After a start that got through: brings the persistent port in line with what the no-network
      * fallback needs (see the class comment), and takes it back once the start no longer needs it.
@@ -145,12 +173,12 @@ object AdbPortPersistence {
         }
 
         val wanted = ShizukuSettings.getTcpPort()
-        val displaces = ClientWifi.hotspotDisplacesClient(context)
+        val fallbackDevice = needsClassicPortFallback(context)
         val declined = ShizukuSettings.getPersistAdbPortDeclined()
         val refusedHere = ShizukuSettings.getPersistAdbPortRefusedBuild() == Build.FINGERPRINT
         // Everything that needs no shell first: on a device the fallback is not for, this is
         // where it ends, without a single command sent.
-        if (!shouldAutoPersistPort(withoutNetwork, tcpMode, displaces, declined, refusedHere, null, wanted)) {
+        if (!shouldAutoPersistPort(withoutNetwork, tcpMode, fallbackDevice, declined, refusedHere, null, wanted)) {
             return
         }
 
@@ -163,7 +191,7 @@ object AdbPortPersistence {
             }
             return
         }
-        if (!shouldAutoPersistPort(withoutNetwork, tcpMode, displaces, declined, refusedHere, current, wanted)) {
+        if (!shouldAutoPersistPort(withoutNetwork, tcpMode, fallbackDevice, declined, refusedHere, current, wanted)) {
             return
         }
 
@@ -173,8 +201,8 @@ object AdbPortPersistence {
                 ShizukuSettings.setPersistAdbPortAuto(true)
                 Diag.info(
                     AppConstants.TAG,
-                    "Start without Wi-Fi: a hotspot cannot start the server on this device, so " +
-                        "the classic ADB port $wanted stays open after a reboot"
+                    "Start without Wi-Fi: the classic ADB port $wanted stays open after a reboot, " +
+                        "so this device starts without a network"
                 )
             }
 
@@ -193,22 +221,30 @@ object AdbPortPersistence {
 }
 
 /**
+ * Whether a device needs the classic port for its start without Wi-Fi (see
+ * [AdbPortPersistence.needsClassicPortFallback]): a hotspot takes Wi-Fi down, or SELinux is not
+ * enforced. An unknown answer about the hotspot counts as "no".
+ */
+internal fun classicPortFallback(hotspotDisplacesClient: Boolean?, selinuxNotEnforced: Boolean): Boolean =
+    hotspotDisplacesClient == true || selinuxNotEnforced
+
+/**
  * Whether the no-network fallback should write the persistent ADB port: the start is the one
  * without a network, TCP mode keeps the classic port (without it every start closes the port
- * again), a hotspot would take Wi-Fi down on this device, the user has not switched the port off,
+ * again), the device needs the classic port ([classicPortFallback]), the user has not switched the port off,
  * this build has not refused it, and the property does not already say [wanted]. [current] is
  * null when it is not known yet, which is the cheap first pass before anything asks the shell.
- * On a device whose radio holds a hotspot next to Wi-Fi this is always false.
+ * On a phone whose radio holds a hotspot next to Wi-Fi and whose SELinux is enforced this is always false.
  */
 internal fun shouldAutoPersistPort(
     withoutNetwork: Boolean,
     tcpMode: Boolean,
-    hotspotDisplacesClient: Boolean?,
+    fallbackDevice: Boolean,
     declined: Boolean,
     refusedOnThisBuild: Boolean,
     current: Int?,
     wanted: Int
-): Boolean = withoutNetwork && tcpMode && hotspotDisplacesClient == true && !declined &&
+): Boolean = withoutNetwork && tcpMode && fallbackDevice && !declined &&
     !refusedOnThisBuild && wanted > 0 && current != wanted
 
 /**

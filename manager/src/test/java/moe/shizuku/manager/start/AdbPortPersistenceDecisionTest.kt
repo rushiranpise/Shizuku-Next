@@ -8,20 +8,21 @@ import org.junit.Test
  * When the no-network fallback writes the persistent ADB port, and when it takes it back.
  *
  * The port is the one way to start without any network on a device where a hotspot cannot start
- * the server (the FYT 7870 head unit). Everywhere else - above all a phone whose radio holds a
- * hotspot next to Wi-Fi - the fallback must never write it.
+ * the server (the FYT 7870 head unit: one radio, SELinux permissive). Everywhere else - above all a
+ * phone whose radio holds a hotspot next to Wi-Fi and whose SELinux is enforced - the fallback must
+ * never write it.
  */
 class AdbPortPersistenceDecisionTest {
 
     private fun persist(
         withoutNetwork: Boolean = true,
         tcpMode: Boolean = true,
-        displaces: Boolean? = true,
+        fallbackDevice: Boolean = true,
         declined: Boolean = false,
         refusedOnThisBuild: Boolean = false,
         current: Int? = null,
         wanted: Int = 5555
-    ) = shouldAutoPersistPort(withoutNetwork, tcpMode, displaces, declined, refusedOnThisBuild, current, wanted)
+    ) = shouldAutoPersistPort(withoutNetwork, tcpMode, fallbackDevice, declined, refusedOnThisBuild, current, wanted)
 
     @Test
     fun `a head unit starting without wifi gets the port`() {
@@ -30,9 +31,26 @@ class AdbPortPersistenceDecisionTest {
     }
 
     @Test
-    fun `a radio that holds a hotspot next to wifi never gets it`() {
-        assertFalse(persist(displaces = false))
-        assertFalse(persist(displaces = null))
+    fun `a device the fallback is not for never gets it`() {
+        assertFalse(persist(fallbackDevice = false))
+    }
+
+    @Test
+    fun `a radio that drops wifi for a hotspot needs the classic port`() {
+        assertTrue(classicPortFallback(hotspotDisplacesClient = true, selinuxNotEnforced = false))
+    }
+
+    @Test
+    fun `selinux not enforced needs the classic port without asking a hotspot first`() {
+        // The head unit whose platform claims its radio does both, or will not say.
+        assertTrue(classicPortFallback(hotspotDisplacesClient = false, selinuxNotEnforced = true))
+        assertTrue(classicPortFallback(hotspotDisplacesClient = null, selinuxNotEnforced = true))
+    }
+
+    @Test
+    fun `a phone whose radio does both and whose selinux is enforced is left alone`() {
+        assertFalse(classicPortFallback(hotspotDisplacesClient = false, selinuxNotEnforced = false))
+        assertFalse(classicPortFallback(hotspotDisplacesClient = null, selinuxNotEnforced = false))
     }
 
     @Test

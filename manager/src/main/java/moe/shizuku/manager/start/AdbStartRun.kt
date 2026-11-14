@@ -234,20 +234,30 @@ class AdbStartRun(
                 // faster one: TCP mode is switched on with it, which is the setting that keeps that
                 // port open for the restarts the method exists for.
                 //
-                // The same holds on a device where a hotspot takes the Wi-Fi client down (a head
-                // unit with one radio): the framework only starts the wireless server for a Wi-Fi
-                // network, so without one the classic port is all there is, and the port kept
-                // across reboots (see [AdbPortPersistence.reconcile]) needs TCP mode to stay open.
+                // The same holds on a device whose start without Wi-Fi rests on the classic port
+                // (see [AdbPortPersistence.needsClassicPortFallback]): a head unit whose one radio
+                // drops Wi-Fi for a hotspot, or whose SELinux is not enforced. The port kept across
+                // reboots there (see [AdbPortPersistence.reconcile]) needs TCP mode to stay open.
                 val overhauled = EnvironmentUtils.isAdbWifiOverhauled()
-                val displacesWifi = ClientWifi.hotspotDisplacesClient(applicationContext) == true
-                if ((overhauled || displacesWifi) && !ShizukuSettings.getTcpMode()) {
+                val displaces = ClientWifi.hotspotDisplacesClient(applicationContext)
+                val selinuxNotEnforced = AdbPortPersistence.selinuxNotEnforced()
+                val classicFallback = classicPortFallback(displaces, selinuxNotEnforced)
+                // One line that says why the boot start goes the way it does, for the next log.
+                Diag.info(
+                    AppConstants.TAG,
+                    "Start without Wi-Fi: hotspot displaces Wi-Fi = ${displaces ?: "unknown"}, " +
+                        "SELinux enforced = ${!selinuxNotEnforced}, " +
+                        "classic port fallback = $classicFallback, " +
+                        "classic port property = ${EnvironmentUtils.getAdbTcpPort().takeIf { it > 0 } ?: "unset"}"
+                )
+                if ((overhauled || classicFallback) && !ShizukuSettings.getTcpMode()) {
                     ShizukuSettings.setTcpMode(true)
                     Diag.info(
                         AppConstants.TAG,
                         if (overhauled) {
                             "Start without Wi-Fi: switched TCP mode on for Android 17"
                         } else {
-                            "Start without Wi-Fi: switched TCP mode on, a hotspot cannot start the server on this device"
+                            "Start without Wi-Fi: switched TCP mode on, this device starts over the classic port"
                         }
                     )
                 }
@@ -255,7 +265,7 @@ class AdbStartRun(
                 // every cold boot - and a key that has not connected for a week is dropped by
                 // default, which for a car left parked is the start without a network gone until
                 // somebody pairs again over Wi-Fi. The USB method keeps the key the same way.
-                if (displacesWifi) {
+                if (classicFallback) {
                     applicationContext.writeGlobalLongSetting("adb_allowed_connection_time", 0L)
                 }
             } else if (wirelessAlreadyEnabled && !forcedWireless) {
