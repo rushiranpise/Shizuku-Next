@@ -128,6 +128,8 @@
     <string name="app_management_sort_last_added">最近新增</string>
     <string name="app_management_sort_updated">最近更新t</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_process_allowed">已允許</string>
+    <string name="apps_processes_hide_short">隱藏</string>
     <string name="tab_home">首頁</string>
     <string name="tab_apps">應用程式</string>
     <string name="tab_shell">終端</string>
@@ -140,6 +142,8 @@
     <string name="labs_blocked_count">已阻止 %1$d 個</string>
     <string name="labs_blocked_empty">沒有已阻止的應用程式。</string>
     <string name="labs_bulk_apply">套用</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="rotation_mode_off">關閉</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">隱藏</string>
     <string name="tab_hide_developer_options">隱藏開發人員選項</string>
@@ -1048,6 +1052,7 @@
     <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
          screen. The per-app list is unaffected either way, which is what the off state says. -->
     <string name="firewall_tile_label">防火牆</string>
+    <string name="firewall_mobile_only_off">全部網路</string>
     <!-- The three answers every switch outside the app can give. Unknown is its own word: a
          state that could not be read is not the same thing as a feature that is off. -->
     <string name="lab_state_on">開</string>

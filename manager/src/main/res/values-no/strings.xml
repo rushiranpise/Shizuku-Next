@@ -123,6 +123,8 @@
     <string name="app_management_sort_last_added">Nylig lagt til</string>
     <string name="app_management_sort_updated">Oppdatert</string>
     <string name="app_management_sort_alphabetical">A-Å</string>
+    <string name="apps_process_allowed">Tillatt</string>
+    <string name="apps_processes_hide_short">Skjul</string>
     <string name="tab_home">Hjem</string>
     <string name="tab_apps">Apper</string>
     <string name="tab_shell">Skall</string>
@@ -134,6 +136,8 @@
     <string name="labs_filter_blocked">Blokkert</string>
     <string name="labs_blocked_count">%1$d blokkert</string>
     <string name="labs_blocked_empty">Ingenting er blokkert.</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="rotation_mode_off">Av</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Skjuler</string>
     <string name="tab_hide_developer_options">Skjul utvikleralternativer</string>

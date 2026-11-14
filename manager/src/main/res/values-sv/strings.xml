@@ -90,6 +90,7 @@
     <string name="app_management_dialog_adb_is_limited_title">ADB:s behörighet är begränsad</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Det är mycket möjligt att din enhetstillverkare begränsar behörigheten för adb.<p>Det kan finnas en lösning för ditt system i <b><a href=\"%1$s\">det här dokumentet</a></b>.]]></string>
     <string name="app_management_toggle_all">Visa/visa alla</string>
+    <!-- Per-app rotation override for apps that force landscape -->
     <!-- Hiding: what apps can read about this device -->
     <string name="device_watchdog">Vakthund</string>
     <string name="modules_repo_retry">Försöka igen</string>

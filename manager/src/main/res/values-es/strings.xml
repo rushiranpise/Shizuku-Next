@@ -73,6 +73,7 @@
          command. -->
     <string name="dialog_adb_pairing_accessibility_permission_tv">Android bloquea este cambio para aplicaciones instaladas fuera de una tienda de aplicaciones y, en un TV, la información de la aplicación no tiene la opción \"Permitir configuraciones restringidas\" para desbloquearla. Se necesita una computadora conectada a este TV a través de ADB una vez: otorgue el permiso anterior, que permite a Shizuku activar el servicio por sí solo, o desbloquee el interruptor con:\n\n^1</string>
     <string name="dialog_adb_pairing_open_app_info">Información de App</string>
+    <string name="dialog_adb_pairing_accessibility_enable">El emparejamiento automático lee el código del cuadro de diálogo del sistema a través del servicio de accesibilidad de Shizuku, por lo que debe estar activado, y solo durante el tiempo necesario: el servicio se desactiva automáticamente una vez que se encuentra el código, o al cabo de un minuto para ahorrar batería. Normalmente, Shizuku lo activa por sí sola, y para ello necesita el permiso WRITE_SECURE_SETTINGS, que aún no se ha concedido en una instalación nueva.\n\nActívalo en la siguiente pantalla, escribe el código tú mismo en «Manual» o concede el permiso una vez:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Para iniciar el emparejamiento, siga estos pasos:\n- Vaya a \"Opciones de desarrollador\"\n- Habilite \"Depuración USB\" y \"Depuración inalámbrica\"\n- Toque el lado izquierdo de \"Depuración inalámbrica\"\n- Toque \"Emparejar dispositivo con código de emparejamiento\". Shizuku detectará automáticamente el código de emparejamiento.</string>
     <string name="adb_pairing_requires_multi_window">Favor entre en modo de pantalla dividida multiventana primero.</string>
     <string name="adb_pairing_requires_multi_window_reason">El sistema requiere que el diálogo de emparejamiento sea siempre visible. Usar el modo pantalla dividida es la única forma de que esta app y el diálogo del sistema sean visibles al mismo tiempo.</string>
@@ -132,6 +133,23 @@
     <string name="app_management_sort_last_added">Recientemente añadido</string>
     <string name="app_management_sort_updated">Actualizado</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_processes_show">Mostrar %1$d proceso(s)</string>
+    <string name="apps_processes_hide">Ocultar %1$d proceso(s)</string>
+    <string name="apps_process_pid">PID %1$d</string>
+    <string name="apps_process_api">API %1$d</string>
+    <string name="apps_process_allowed">Permitido</string>
+    <string name="apps_process_not_allowed">No permitido</string>
+    <string name="apps_process_stop">Detener procesos</string>
+    <string name="apps_process_stop_title">¿Detener proceso?</string>
+    <string name="apps_process_stop_message">¿Detener PID %1$d por %2$s? La aplicación, puede iniciarla nuevamente.</string>
+    <string name="apps_process_stop_failed">No se pudo detener el proceso.</string>
+    <string name="apps_processes_title">Procesos adjuntos (%1$d)</string>
+    <plurals name="apps_processes_count">
+        <item quantity="one">%1$d proceso</item>
+        <item quantity="other">%1$d procesos</item>
+    </plurals>
+    <string name="apps_processes_hide_short">Ocultar</string>
+    <string name="apps_processes_empty">Sin procesos adjuntos.</string>
     <string name="tab_home">Inicio</string>
     <string name="tab_apps">Apps</string>
     <string name="tab_shell">Shell</string>
@@ -164,6 +182,24 @@
     <string name="labs_pin_app">Fijar aplicación</string>
     <string name="labs_unpin_app">Desanclar aplicación</string>
     <string name="labs_clear_pins">Borrar aplicaciones ancladas</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="tab_rotation">Rotación</string>
+    <string name="rotation_count">%1$d configurado</string>
+    <string name="rotation_gate_off">Desactivado, %1$d configurado</string>
+    <string name="rotation_gate_disabled">La rotación está desactivada</string>
+    <string name="rotation_note">Automático sigue la rotación del sistema. Vertical y Horizontal mantienen la pantalla mientras la aplicación está abierta y la vuelven a colocar cuando sales.</string>
+    <string name="rotation_filter_configured">Configurado</string>
+    <string name="rotation_empty">Ninguna aplicación tiene modo de rotación.</string>
+    <string name="rotation_needs_shizuku">Inicie Shizuku para cambiar la rotación.</string>
+    <string name="rotation_mode_title">Modo rotación</string>
+    <string name="rotation_mode_off">Apagado</string>
+    <string name="rotation_mode_off_note">Utilice la orientación propia de la aplicación.</string>
+    <string name="rotation_mode_auto">Automático</string>
+    <string name="rotation_mode_auto_note">Siga la rotación del sistema. Utilice Retrato u Paisaje si la aplicación lo ignora.</string>
+    <string name="rotation_mode_portrait">Retrato</string>
+    <string name="rotation_mode_portrait_note">Fuerza el modo retrato mientras está abierta la aplicación.</string>
+    <string name="rotation_mode_landscape">Paisaje</string>
+    <string name="rotation_mode_landscape_note">Fuerza el modo paisaje mientras está abierta la aplicación.</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Ocultar</string>
     <string name="tab_hide_developer_options">Ocultar opciones de desarrollador</string>
@@ -419,6 +455,10 @@
     <string name="hiding_notification_text">Toque para resultados.</string>
     <string name="hiding_notification_idle_title">Ocultar está en</string>
     <string name="hiding_notification_watching">Viendo tus aplicaciones listadas.</string>
+    <string name="rotation_notification_title">La rotación está bloqueada</string>
+    <string name="rotation_notification_text">Bloqueado por %1$s.</string>
+    <string name="rotation_notification_watching_title">El control de rotación está activado</string>
+    <string name="rotation_notification_watching">Esperando una aplicación en la lista de rotación.</string>
     <string name="hiding_notification_paused_title">Ocultar está en pausa</string>
     <string name="hiding_notification_paused_text">Su configuración se restablece. Continúe ocultándolos para sus aplicaciones enumeradas.</string>
     <string name="hiding_resume">Reanudar</string>
@@ -568,6 +608,7 @@
     <string name="start_failed_wifi_required">Conéctate a una red Wi-Fi; el sistema desactiva la depuración inalámbrica si no hay ninguna. O inicia desde una computadora usando el comando ADB de abajo.</string>
     <string name="start_failed_binder_went_away">El servicio se inició y luego se detuvo de nuevo, por lo que nada puede usarlo todavía. Eso pasa cuando el servidor se cierra con la aplicación por la que pasó el inicio, que es lo que hace el payload después de iniciarlo. Intenta iniciar de nuevo.</string>
     <string name="start_failed_no_port">No se encontró ningún puerto de depuración inalámbrica. Asegúrate de que la depuración inalámbrica esté habilitada y el Wi-Fi conectado.</string>
+    <string name="start_failed_no_port_no_permission">No se ha encontrado ningún puerto de depuración inalámbrica, y Shizuku no puede activar la depuración inalámbrica sin el permiso WRITE_SECURE_SETTINGS: <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. O bien, inicia Shizuku mediante la depuración por USB una vez que se haya concedido el permiso por sí mismo.</string>
     <string name="start_failed_no_auth">La depuración inalámbrica no está permitida en esta red. Vincula el dispositivo de nuevo.</string>
     <string name="action_dismiss">Descartar</string>
     <string name="action_connect_wifi">Conectar</string>
@@ -577,6 +618,7 @@
     <string name="start_failed_usb_no_port">Ningún puerto local ADB está abierto Android lo borra en cada reinicio, y reabrirlo necesita una conexión para tomarlo. Conéctate a Wi-Fi y Shizuku lo reabrirá a través de la depuración inalámbrica, ejecuta <b>adb tcpip 5555</b> desde una computadora, o elija <b>Iniciar sin Wi-Fi</b> como método de inicio para iniciar la depuración inalámbrica en su lugar.</string>
     <string name="start_failed_usb_no_port_no_option">No hay ningún puerto ADB local abierto. Android lo borra cada vez que se reinicia y, al volver a abrirlo, se necesita una conexión de red para tomar prestada. Conéctese a Wi-Fi una vez o ejecute <b>adb tcpip 5555</b> desde una computadora.</string>
     <string name="start_failed_root_unavailable">Root ya no está disponible en este dispositivo, por lo que Shizuku no puede iniciarse mediante root. Elige otro método de inicio.</string>
+    <string name="start_failed_adb_root">La raíz ADB no está disponible. Habilite la depuración USB en una compilación depurable o elija otro método de inicio.</string>
     <string name="start_failed_system_needs_app">El método de inicio del sistema debe iniciarse desde la aplicación.</string>
     <string name="start_failed_system_no_exploit">Este dispositivo no incluye el agente FOTA de Samsung (com.sdet.fotaagent), que es el único componente que el método de inicio del sistema puede usar, por lo que no hay nada que escalar aquí. Cambia el método de inicio del sistema a Comando personalizado: la aplicación te mostrará qué ejecutar con una elevación que tu dispositivo sí tenga.</string>
     <string name="start_failed_no_binder">El servicio no apareció en un minuto. Ambas mitades guardan un registro: el iniciador en ShizukuServiceStarter y el traspaso en BinderSender. Un lector de logcat filtrado a esos dos muestra si el iniciador llegó a bifurcar el servidor y si el servidor alguna vez pidió el binder.</string>
@@ -689,6 +731,8 @@
     <string name="settings_always_show_navigation_bar_summary">Mantenga la barra de pestañas visible cuando se desplaza hacia abajo.</string>
     <string name="settings_secure_quick_tiles">Mosaicos rápidos seguros</string>
     <string name="settings_secure_quick_tiles_summary">Bloquee cambios rápidos de mosaicos mientras el teléfono está bloqueado.</string>
+    <string name="settings_require_grant_authentication">Confirmar concesiones de aplicaciones</string>
+    <string name="settings_require_grant_authentication_summary">Solicite datos biométricos o bloqueo de pantalla antes de otorgar acceso de Shizuku a una aplicación.</string>
     <string name="settings_watchdog">Perro guardián</string>
     <string name="settings_watchdog_summary">Reiniciar automáticamente Shizuku si falla</string>
     <string name="settings_auto_disable_wireless_debugging">Ocultar la depuración inalámbrica</string>
@@ -901,6 +945,10 @@
     <string name="permission_description">Permitir que la aplicación use Shizuku.</string>
     <string name="permission_warning_template"><![CDATA[Permitir <b>%1$s</b> en %2$s\?]]></string>
     <string name="grant_dialog_button_allow_always">Permitir siempre</string>
+    <string name="grant_dialog_button_allow_once">Permitir una vez</string>
+    <string name="grant_auth_title">Confirma que eres tú</string>
+    <string name="grant_auth_subtitle">Autenticarse para otorgar acceso a Shizuku.</string>
+    <string name="grant_auth_unavailable">Configure un bloqueo de pantalla o datos biométricos para confirmar las subvenciones.</string>
     <string name="grant_dialog_button_deny">"Denegar"</string>
     <!-- Starter -->
     <string name="starter">Arrancador</string>
@@ -1050,6 +1098,7 @@
     <string name="manage_bulk_action">Configurar aplicación</string>
     <string name="manage_bulk_title">Configurar aplicación</string>
     <string name="manage_bulk_note">Elija una operación y modo de aplicación. Revisarás las aplicaciones antes de presentar la solicitud.</string>
+    <string name="manage_bulk_pinned_note">Las aplicaciones fijadas permanecen en la parte superior y se omiten en Seleccionar todo lo que se muestra.</string>
     <string name="manage_pin_app">Fijar aplicación</string>
     <string name="manage_unpin_app">Desanclar aplicación</string>
     <string name="manage_bulk_mode">Modo</string>
@@ -1059,7 +1108,7 @@
     <string name="manage_bulk_confirm_op">Aplicación en: %1$s</string>
     <string name="manage_bulk_confirm_mode">Modo %1$s</string>
     <string name="manage_bulk_confirm_targets">Aplicaciones: %1$d</string>
-    <string name="manage_bulk_confirm_warning">Estos cambios se aplican inmediatamente. Algunas aplicaciones pueden rechazar la operación.</string>
+    <string name="manage_bulk_confirm_warning">Estos cambios se aplican inmediatamente. Algunas aplicaciones pueden rechazar la opción.</string>
     <string name="manage_bulk_progress_title">Aplicando la opeción en la aplicación</string>
     <string name="manage_bulk_progress">Cambiando %1$d de %2$d...</string>
     <string name="manage_bulk_result_title">Resultado del lote</string>
@@ -1075,6 +1124,8 @@
     <string name="app_section_permissions">Permisos del sistema</string>
     <string name="app_section_runtime">Permisos de tiempo de ejecución</string>
     <string name="app_section_ops">Opciones de app</string>
+    <string name="app_section_rotation">Rotación</string>
+    <string name="app_rotation_changed">Rotación cambiada</string>
     <string name="app_section_actions">Acciones</string>
     <string name="app_section_battery">Batería</string>
     <string name="app_section_info">Info</string>
@@ -1188,6 +1239,9 @@
     <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
          screen. The per-app list is unaffected either way, which is what the off state says. -->
     <string name="firewall_tile_label">Cortafuegos</string>
+    <string name="firewall_mobile_only_on">Solo datos móviles</string>
+    <string name="firewall_mobile_only_off">Todas las redes</string>
+    <string name="firewall_mobile_only_failed">No se pudo cambiar la regla de datos móviles</string>
     <!-- The three answers every switch outside the app can give. Unknown is its own word: a
          state that could not be read is not the same thing as a feature that is off. -->
     <string name="lab_state_on">Encendido</string>

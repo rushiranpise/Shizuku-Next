@@ -132,6 +132,23 @@
     <string name="app_management_sort_last_added">Aggiunte di recente</string>
     <string name="app_management_sort_updated">Aggiornate</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_processes_show">Mostra %1$d processo/i</string>
+    <string name="apps_processes_hide">Nascondi %1$d processo/i</string>
+    <string name="apps_process_pid">PID %1$d</string>
+    <string name="apps_process_api">API %1$d</string>
+    <string name="apps_process_allowed">Consentito</string>
+    <string name="apps_process_not_allowed">Non consentito</string>
+    <string name="apps_process_stop">Arresta processo</string>
+    <string name="apps_process_stop_title">Arrestare il processo?</string>
+    <string name="apps_process_stop_message">Arrestare il PID %1$d di %2$s? L\'app potrebbe riavviarlo.</string>
+    <string name="apps_process_stop_failed">Impossibile arrestare il processo.</string>
+    <string name="apps_processes_title">Processi allegati (%1$d)</string>
+    <plurals name="apps_processes_count">
+        <item quantity="one">%1$d processo</item>
+        <item quantity="other">%1$d processi</item>
+    </plurals>
+    <string name="apps_processes_hide_short">Nascondi</string>
+    <string name="apps_processes_empty">Nessun processo allegato.</string>
     <string name="tab_home">Home</string>
     <string name="tab_apps">App</string>
     <string name="tab_shell">Shell</string>
@@ -164,6 +181,24 @@
     <string name="labs_pin_app">Fissa app</string>
     <string name="labs_unpin_app">Non fissare più</string>
     <string name="labs_clear_pins">Cancella app fissate</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="tab_rotation">Rotazione</string>
+    <string name="rotation_count">%1$d configurata</string>
+    <string name="rotation_gate_off">Disattivato, %1$d configurata</string>
+    <string name="rotation_gate_disabled">Rotazione disattivata</string>
+    <string name="rotation_note">Automatico segue la rotazione del sistema. Verticale e Orizzontale mantengono lo schermo in quell\'orientamento finché l\'app è aperta e ripristinano quello precedente quando esci.</string>
+    <string name="rotation_filter_configured">Configurata</string>
+    <string name="rotation_empty">Nessuna app ha una modalità di rotazione.</string>
+    <string name="rotation_needs_shizuku">Avvia Shizuku per modificare la rotazione.</string>
+    <string name="rotation_mode_title">Modalità di rotazione</string>
+    <string name="rotation_mode_off">Disattivo</string>
+    <string name="rotation_mode_off_note">Usa l\'orientamento predefinito dell\'app.</string>
+    <string name="rotation_mode_auto">Automatico</string>
+    <string name="rotation_mode_auto_note">Segui la rotazione del sistema. Usa Verticale o Orizzontale se l\'app la ignora.</string>
+    <string name="rotation_mode_portrait">Verticale</string>
+    <string name="rotation_mode_portrait_note">Forza l\'orientamento verticale mentre questa app è aperta.</string>
+    <string name="rotation_mode_landscape">Orizzontale</string>
+    <string name="rotation_mode_landscape_note">Forza l\'orientamento orizzontale mentre questa app è aperta.</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Modalità nascosta</string>
     <string name="tab_hide_developer_options">Nascondi opzioni sviluppatore</string>
@@ -419,6 +454,10 @@
     <string name="hiding_notification_text">Tocca per ripristinarle.</string>
     <string name="hiding_notification_idle_title">Modalità nascosta attiva</string>
     <string name="hiding_notification_watching">Monitoraggio delle app in elenco.</string>
+    <string name="rotation_notification_title">Rotazione bloccata</string>
+    <string name="rotation_notification_text">Bloccato per %1$s.</string>
+    <string name="rotation_notification_watching_title">Controllo rotazione attivo</string>
+    <string name="rotation_notification_watching">In attesa di un\'app nell\'elenco di rotazione.</string>
     <string name="hiding_notification_paused_title">Modalità nascosta in pausa</string>
     <string name="hiding_notification_paused_text">Le impostazioni sono state ripristinate. Riattiva la modalità nascosta per le app in elenco.</string>
     <string name="hiding_resume">Riattiva</string>
@@ -578,6 +617,7 @@
     <string name="start_failed_usb_no_port">Nessuna porta ADB locale è aperta: Android la chiude a ogni riavvio e, per riaprirla, serve una connessione di cui servirsi. Connettiti al Wi-Fi e Shizuku la riaprirà tramite il debug wireless, esegui <b>adb tcpip 5555</b> da un computer, oppure scegli <b>Avvia senza Wi-Fi</b> come metodo di avvio per avviare invece tramite il debug wireless.</string>
     <string name="start_failed_usb_no_port_no_option">Nessuna porta ADB locale è aperta. Android la chiude a ogni riavvio e, per riaprirla, serve una connessione di rete a cui appoggiarsi. Connettiti una volta a una rete Wi-Fi oppure esegui <b>adb tcpip 5555</b> da un computer.</string>
     <string name="start_failed_root_unavailable">Il root non è più disponibile su questo dispositivo, quindi Shizuku non può avviarsi tramite root. Scegli un altro metodo di avvio.</string>
+    <string name="start_failed_adb_root">Il root ADB non è disponibile. Attiva il debug USB su una build debuggable oppure scegli un altro metodo di avvio.</string>
     <string name="start_failed_system_needs_app">Il metodo di avvio di sistema deve essere eseguito dall\'app.</string>
     <string name="start_failed_system_no_exploit">Questo dispositivo non include l\'agente FOTA di Samsung (com.sdet.fotaagent), che è l\'unico componente utilizzabile dal metodo di avvio di sistema, quindi non è presente nulla con cui elevare i privilegi. Imposta il metodo di avvio di sistema su Comando personalizzato: l\'app ti mostrerà cosa eseguire con un\'elevazione dei privilegi disponibile sul tuo dispositivo.</string>
     <string name="start_failed_no_binder">Il servizio non è comparso entro un minuto. Entrambe le parti conservano un log: lo starter con il tag ShizukuServiceStarter e la consegna del binder con BinderSender. Un lettore di logcat filtrato su questi due tag mostra se lo starter è arrivato fino al fork del server e se il server ha mai richiesto il binder.</string>
@@ -685,6 +725,8 @@
     <string name="settings_always_show_navigation_bar_summary">Mantieni visibile la barra delle schede quando scorri verso il basso.</string>
     <string name="settings_secure_quick_tiles">Proteggi i riquadri rapidi</string>
     <string name="settings_secure_quick_tiles_summary">Blocca le modifiche ai riquadri rapidi quando il telefono è bloccato.</string>
+    <string name="settings_require_grant_authentication">Conferma autorizzazioni app</string>
+    <string name="settings_require_grant_authentication_summary">Richiedi dati biometrici o blocco schermo prima di concedere a un\'app l\'accesso a Shizuku.</string>
     <string name="settings_watchdog">Watchdog</string>
     <string name="settings_watchdog_summary">Riavvia Shizuku automaticamente se si arresta in modo anomalo</string>
     <string name="settings_auto_disable_wireless_debugging">Disabilita debug wireless</string>
@@ -889,6 +931,10 @@
     <string name="permission_description">Consenti all\'app di usare Shizuku.</string>
     <string name="permission_warning_template"><![CDATA[Consentire a <b>%1$s</b> di %2$s\?]]></string>
     <string name="grant_dialog_button_allow_always">Consenti sempre</string>
+    <string name="grant_dialog_button_allow_once">Consenti una volta</string>
+    <string name="grant_auth_title">Conferma la tua identità</string>
+    <string name="grant_auth_subtitle">Autenticati per concedere l\'accesso a Shizuku.</string>
+    <string name="grant_auth_unavailable">Imposta un blocco schermo o i dati biometrici per confermare le autorizzazioni.</string>
     <string name="grant_dialog_button_deny">"Nega"</string>
     <!-- Starter -->
     <string name="starter">Avviatore</string>
@@ -1056,6 +1102,8 @@
     <string name="app_section_permissions">Autorizzazioni di sistema</string>
     <string name="app_section_runtime">Autorizzazioni di runtime</string>
     <string name="app_section_ops">App-op</string>
+    <string name="app_section_rotation">Rotazione</string>
+    <string name="app_rotation_changed">Rotazione modificata</string>
     <string name="app_section_actions">Azioni</string>
     <string name="app_section_battery">Batteria</string>
     <string name="app_section_info">Informazioni</string>
@@ -1169,6 +1217,9 @@
     <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
          screen. The per-app list is unaffected either way, which is what the off state says. -->
     <string name="firewall_tile_label">Firewall</string>
+    <string name="firewall_mobile_only_on">Solo dati mobili</string>
+    <string name="firewall_mobile_only_off">Tutte le reti</string>
+    <string name="firewall_mobile_only_failed">Impossibile modificare la regola per i dati mobili</string>
     <!-- The three answers every switch outside the app can give. Unknown is its own word: a
          state that could not be read is not the same thing as a feature that is off. -->
     <string name="lab_state_on">Attivo</string>

@@ -6,27 +6,62 @@
       a change here reaches translators on the next push and not before.
     -->
     <!-- To translators: you can leave your here -->
+    <string name="home_status_adb_wireless">ADB</string>
+    <string name="home_status_adb_usb">ADB</string>
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
-    <string name="home_wireless_adb_title"><![CDATA[Simulan gamit ang Wireless na pag-debug]]></string>
+    <string name="home_wireless_adb_title"><![CDATA[Simulán biya Awángkáwad na pagdepurá]]></string>
+    <string name="home_wireless_adb_starting_without_wifi">Simulán nang walâng Wi-Fi: Paúlit-úlit na sasamò ang gamit ng Awángkáwad na pagdepurá hanggáng sa tuluyang manatiling nakatugot. Puwedeng umabot ng 2 minuto bago gumana o sumukò.</string>
+    <string name="home_usb_adb_needs_network">Ang de-USB na pagpápagána ay gumagamit ng tipikál na porteng ADB at nangángailángan ng kabalagán para mulîng mabuksán. Kumonék sa Wi-Fi nang 1 beses, o piliin na mulaing paraán ang<b>Simulán nang walâng Wi-Fi</b> at gamitin sa halíp ang Awángkáwad na pagdepurá.</string>
+    <string name="home_usb_adb_needs_network_no_option">Ang de-USB na pagpápagána ay gumagamit ng tipikál na porteng ADB at nangángailángan ng kabalagán para mulîng mabuksán. Kumonék sa Wi-Fi nang 1 beses, o paganahin sa kompiyuter gamit ang mandong pang-ADB na nasa<b>Ibáng mga paraán</b>.</string>
+    <string name="home_usb_adb_needs_computer">Ang de-USB na pagpápagána ay gumagamit ng tipikál na porteng ADB. Sa bersiyóng itó ng Android, paganahin sa kompiyuter gamit ang mandong pang-ADB na nasa<b>Ibáng mga paraán</b>.</string>
+    <string name="home_wireless_adb_summary">Paganahin gamit ang Awángkáwad na pagdepurá.</string>
+    <string name="home_usb_adb_title"><![CDATA[Simulán biya Pang-USB na pagdepurá]]></string>
+    <string name="home_usb_adb_summary">Paganahin gamit ang Pang-USB na pagdepurá.</string>
+    <string name="home_support_body">Ang Shizuku-Next ay libre at walâng patalastás. Sa \'yong pakapé, direkta kang makatutulong sa pagpápanatíli nitó.</string>
+    <string name="diagnostics_title">Surìng-aralín</string>
+    <string name="diagnostics_copy">Kopyahín ang surìng-áral</string>
+    <string name="diagnostics_copied">Kinopya ang surìng-áral</string>
+    <string name="diagnostics_service">Serbisyo</string>
+    <string name="diagnostics_server_uid">Panserver na UID</string>
+    <string name="diagnostics_server_api">Panserver na API</string>
+    <string name="diagnostics_server_context">Kaligiráng panserver</string>
+    <string name="diagnostics_wireless_debugging">Awángkáwad na pagdepurá</string>
+    <string name="diagnostics_adb_port">Porteng ADB</string>
+    <string name="diagnostics_wifi">Wi-Fi</string>
+    <string name="diagnostics_local_network">Lokál na kabalagán</string>
+    <string name="diagnostics_battery">Pag-optimisá ng bateryá</string>
+    <string name="diagnostics_app">Aplikasyón</string>
+    <string name="diagnostics_android">Android</string>
+    <string name="diagnostics_device">Gamit</string>
+    <string name="diagnostics_started_with">Sinimulán biya</string>
+    <string name="diagnostics_default">Takdâng paraán</string>
+    <string name="diagnostics_hiding">Nakatagò</string>
+    <string name="diagnostics_phantom">Panghintô ng proseso</string>
+    <string name="diagnostics_root">Ugát</string>
+    <string name="diagnostics_granted">Pinayagan</string>
+    <string name="diagnostics_missing">Nawawalâ</string>
+    <string name="diagnostics_not_required">Dî-kailangan</string>
+    <string name="diagnostics_connected">Konektado</string>
+    <string name="diagnostics_not_connected">Dî-konektado</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
+    <string name="diagnostics_battery_optimized">Optimisado</string>
+    <string name="diagnostics_battery_unrestricted">Dî-nakahigpít</string>
+    <string name="diagnostics_available">Avéylaból</string>
+    <string name="diagnostics_unavailable">Dî-avéylaból</string>
+    <string name="diagnostics_closed">Serado</string>
     <!-- Adb -->
-    <string name="dialog_adb_invalid_port">Ang port ay isang integer mula 1 hanggang 65535.</string>
+    <string name="dialog_adb_port">Porte</string>
+    <string name="dialog_adb_invalid_port">Mag-input ng pamporteng bilang muláng 1 hanggáng 65535.</string>
     <string name="adb_pairing">Pagpapares</string>
-    <string name="dialog_adb_pairing_title">Makipagpares sa device</string>
-    <string name="dialog_adb_pairing_discovery">Hinahanap ang serbisyo ng pagpapares</string>
-    <string name="dialog_adb_pairing_paring_code">Code ng pagpapares</string>
-    <string name="paring_code_is_wrong">Mali ang code ng pagpapares.</string>
-    <string name="cannot_connect_port">Hindi makakonekta sa serbisyo ng wireless
-        debugging.\n\nPakitiyak na naka-whitelist ang Shizuku sa lahat ng firewall, ad-block, VPN, o
-        mga katulad na app na maaaring maghigpit sa pag-access sa network.</string>
-    <string name="dialog_adb_pairing_message">Mangyaring simulan ang pagpapares sa pamamagitan ng
-        pagsasagawa ng mga sumusunod na hakbang:\n- Mag-navigate sa \"Mga Pagpipilian sa
-        Developer\"\n- Paganahin ang \"USB debugging\" at \"Wireless debugging\"\n- I-tap ang
-        kaliwang bahagi ng \"Wireless debugging\"\n- I-tap ang \"Ipares ang aparato na may code ng
-        pagpapares\"\n- Ipasok ang code ng pagpapares sa abiso</string>
+    <string name="dialog_adb_pairing_title">Magpares ng gamit</string>
+    <string name="dialog_adb_pairing_discovery">Humahanap ng serbisyong pampares</string>
+    <string name="dialog_adb_pairing_paring_code">Kódigóng pampares</string>
+    <string name="paring_code_is_wrong">Dî-wastô ang kódigóng pampares.</string>
+    <string name="cannot_connect_port">Hindî makakonék biya Awángkáwad na pagdepurá.\n\nTiyakíng inilistáng-putî ang Shizuku sa anumáng kontrapuwego, adblokero, VPN, o kagayang mga aplikasyóng naghihigpít ng akses sa kabalagán.</string>
+    <string name="dialog_adb_pairing_message">Simulán ang pagpapares sa gitan ng sumusunód na mga hakbang:\n– Pumuntá sa \"Mga ópsiyóng pandevélopér\" (\"Developer options\").\n– Tugután ang \"Pang-USB na pagdepurá\" (\"USB debugging\") at \"Awángkáwad na pagdepurá\" (\"Wireless debugging\").\n– Pindutín ang mismong \"Awángkáwad na pagdepurá.\"\n– Pindutín ang \"Magpares ng gamit gamit ang kódigóng pampares\" (\"Pair device with pairing code\")\n– Inpután ng kódigóng pampares ang notipikasyón.</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -34,6 +69,7 @@
     <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
+    <string name="dialog_adb_pairing_open_app_info">Impormasyón sa aplikasyón</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Simulan ang pagpapares sa pamamagitan ng pagsunod sa mga sumusunod na hakbang:\n- Magpunta sa \"Mga opsyon ng developer\"\n- I-tap ang \"Pag-debug ng USB\" at \"Wireless na pag-debug\"\n- I-tap ang kaliwang bahagi ng \"Wireless na pag-debug\"\n- I-tap ang \"Ipares ang device sa pagpapares ng code.\" Awtomatikong makikita ng Shizuku ang code ng pagpapares.</string>
     <string name="adb_pairing_requires_multi_window">Pumunta muna sa split-screen (multi-window)
         mode.</string>
@@ -46,9 +82,9 @@
     <string name="adb_pair_required">Sundin muna ang mga hakbang sa pagpapares.</string>
     <string name="enable">Paganahin</string>
     <string name="auto_pair_instructions">Magpares nang Hindi nagta-type ng code:\n\n1. I-tap ang \'Mga opsyo ng developer\" sa ibaba\n\nAwtomatikong bubukasn ng Shizuku ang \"Wireless na pag-debug\" at ang dialog ng pagpares, pagbasa ng code at port at simulan ito. Panatilihing bukas ang dialog hanggang matapos ang pagpares.</string>
-    <string name="auto_pair_manual">Mano-mano</string>
-    <string name="development_settings">Mga opsyon ng developer</string>
-    <string name="notification_settings">Mga opsyon sa notipikasyon</string>
+    <string name="auto_pair_manual">Máno-máno</string>
+    <string name="development_settings">Awtomátikó</string>
+    <string name="notification_settings">Mga seting ukol sa notipikasyón</string>
     <string name="adb_pairing_tutorial_content_notification">Tutulungan ka ng isang notipikasyon mula sa Shizuku na tapusin ang pagpapares.</string>
     <string name="adb_pairing_tutorial_content_steps">Magpunta sa \"Mga opsyon ng developer\", pagkatapos ay paganahin ang \"Pag-debug ng USB\" at \"Wireless na pag-debug\".</string>
     <string name="adb_pairing_tutorial_content_enter_pairing_code">I-tap ang kaliwang bahagi ng \"Wireless na pag-debug\", pagkatapos ay i-tap ang \"Ipares ang device sa pagpapares ng code\". Ilagay ang code sa notification para makumpleto ang pagpapares.</string>
@@ -59,37 +95,44 @@
     <string name="adb_pairing_tutorial_content_network">Kailangang ma-access ng Shizuku ang lokal na network. Ito ay kinokontrol ng pahintulot ng network.</string>
     <string name="adb_pairing_tutorial_content_network_limation_not_foreground">Hindi pinapayagan ng ilang system (gaya ng MIUI) ang mga app na i-access ang network kapag hindi nakikita ang mga ito, kahit na gumagamit ang app ng foreground services. Mangyaring i-turn off ang \"Battery optimization\" para sa Shizuku sa mga naturang system.</string>
     <!-- Home - Root -->
-    <string name="home_root_title"><![CDATA[Simulan (para sa mga device na may root)]]></string>
+    <string name="home_root_title"><![CDATA[Simulán biya Ugát]]></string>
     <string name="home_root_description"><![CDATA[Kung gumagamit ka ng Magisk, maaari mong subukan %1$s. Para sa mga gumagamit ng root, ay papalitan nito ang Shizuku. Tandaan, kailangang magbago ng kaunti ang mga app upang magamit ang %2$s.]]></string>
-    <string name="home_root_button_start">Simulan</string>
+    <string name="home_root_button_start">Simulán</string>
     <!-- Home - Application management -->
     <plurals name="home_app_management_authorized_apps_count">
-        <item quantity="one"><![CDATA[%d aplikasyon ang awtorisado]]></item>
-        <item quantity="other"><![CDATA[%d na aplikasyon ang awtorisado]]></item>
+        <item quantity="one"><![CDATA[%d aplikasyón ang inawtorisá]]></item>
+        <item quantity="other"><![CDATA[%d aplikasyón ang inawtorisá]]></item>
     </plurals>
     <!-- Home - Automation -->
     <!-- Home - Stealth mode -->
     <!-- Home - Learn more -->
     <!-- Home - Adb permissions limited -->
     <!-- Home - Dialogs -->
-    <string name="home_dialog_reboot_required_title">Kinakailangan ng reboot</string>
-    <string name="home_dialog_reboot_required_message">Kinakailangan ng reboot ng device para gumana ng maayos ang Shizuku. Para magpatuloy, paki-reboot ang iyong device.</string>
+    <string name="home_dialog_reboot_required_title">Kailangang ireistárt</string>
+    <string name="home_dialog_reboot_required_message">Kailangang ireistárt para gumana nang maayos ang Shizuku. Para magpatuloy, ireistárt ang iyóng gamit.</string>
+    <string name="home_dialog_duplicate_app_detected_title">May nainóng katulad na aplikasyón</string>
+    <string name="home_dialog_duplicate_app_detected_message">Ibáng bersiyón ng aplikasyón ang nainóng nakainstól sa \'yong gamit. Para magpatuloy, tanggalín sa pagkainstól lahát ng katulad na aplikasyón at ireistárt ang iyóng gamit.</string>
     <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
+    <string name="home_permission_owned_by">Natutukoy ng mga aplikasyón ang Shizuku sa pamamagitan ng permiso nitó, na ayon sa Android ay isinasaysáy o isinaysáy ng %1$s—isáng kopya o labíng kopya ng Shizuku. Patuloy ng mga \'tong matutukoy ang kopya hanggá\'t hindî \'to tinatanggál sa pagkainstól at/o hindî nirereistárt ang iyóng gamit.</string>
+    <string name="home_permission_not_registered">Natutukoy ng mga aplikasyón ang Shizuku sa pamamagitan ng permiso nitó, na siyáng hindî pa natatalâ ng Android pagkatapos mareinstól. Bagamán gumagana ang Shizuku, hindî \'to matutukoy ng ibáng mga aplikasyón hanggá\'t hindî nirereistárt ang iyóng gamit.</string>
+    <string name="home_dialog_button_exit">Labás</string>
     <!-- Application management -->
-    <string name="app_management_dialog_adb_is_limited_title">Limitado ang pahintulot ng adb</string>
+    <string name="app_management_dialog_adb_is_limited_title">Limitado ang permisong ADB</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Posibleng nilimitahan ng gumawa ng device mo ang kakayahan ng adb.<p>Maaaring may solusyon para sa sistema mo sa <b><a href="%1$s">dokumentong ito</a></b>.]]></string>
-    <string name="app_management_toggle_all">I-toggle ang lahat</string>
-    <string name="app_management_search_hint">Maghanap ng mga app</string>
-    <string name="app_management_sort">I-sort</string>
+    <string name="app_management_toggle_all">Tugután lahát</string>
+    <string name="app_management_search_hint">Maghánap ng aplikasyón</string>
+    <string name="app_management_sort">Uriin</string>
     <string name="apps_needs_shizuku">Simulan ang Shizuku para makita ang mga app</string>
     <string name="apps_empty">Walang mga app na maipapakita</string>
     <string name="apps_filter_empty">Walang mga app sa filter na ito</string>
-    <string name="apps_filter_all">Lahat</string>
+    <string name="apps_filter_all">Lahát</string>
     <string name="apps_filter_granted">Pinayagan</string>
-    <string name="apps_filter_revoked">Hindi pinayagan</string>
-    <string name="apps_filter_hidden">Nakatago</string>
-    <string name="apps_no_match">Walang nahanap na mga app</string>
-    <string name="app_management_sort_last_added">Kamakailang idinagdag</string>
+    <string name="apps_filter_revoked">Dî-pinayagan</string>
+    <string name="apps_filter_hidden">Nakatagò</string>
+    <string name="apps_no_match">Walâng aplikasyóng tugmâ sa \'yong hinahanap</string>
+    <string name="app_management_sort_last_added">Kakadagdág</string>
+    <string name="app_management_sort_updated">Inapdeyt</string>
+    <string name="apps_processes_hide_short">Itago</string>
     <string name="tab_apps">Mga app</string>
     <string name="lab_more_apps">Ibang mga app</string>
     <string name="labs_filter_allowed">Pinayagan</string>
@@ -97,6 +140,7 @@
     <string name="labs_blocked_count">%1$d na-block</string>
     <string name="labs_blocked_empty">Walang na-block</string>
     <string name="labs_bulk_apply">I-apply</string>
+    <!-- Per-app rotation override for apps that force landscape -->
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Tinatago</string>
     <string name="tab_hide_developer_options">I-tagl ang mga opsyon ng developer</string>
@@ -138,7 +182,7 @@
     <string name="log_tab_saved">Naka-save</string>
     <string name="log_capture_start">Simulan</string>
     <string name="log_capture_stop">Itigil</string>
-    <string name="log_capture_choose_hint">Maghanap ng mga app</string>
+    <string name="log_capture_choose_hint">Maghánap ng aplikasyón</string>
     <string name="tab_settings">Mga setting</string>
     <string name="home_device_manager_version">Bersyon ng manager</string>
     <string name="home_device_android_version">Bersyon ng Android</string>
@@ -155,7 +199,8 @@
     <string name="tools_modules">Mga modyul</string>
     <string name="tab_modules">Mga modyul</string>
     <string name="modules_catalog">Maghanap ng mga modyul</string>
-    <string name="catalog_filter_sort">I-sort</string>
+    <string name="catalog_filter_sort">Uriin</string>
+    <string name="catalog_filter_updated">Inapdeyt</string>
     <string name="catalog_updated_any">Anumang oras</string>
     <string name="catalog_updated_last_7">Nakaraang 7 araw</string>
     <string name="catalog_updated_last_30">Nakaraang 30 araw</string>
@@ -175,8 +220,9 @@
     <string name="modules_catalog_no_releases">Ang repository na ito at walang mga release.</string>
     <string name="modules_catalog_installed">Naka-install</string>
     <string name="modules_disabled">Hindi pinapagana</string>
-    <string name="modules_sort">I-sort</string>
+    <string name="modules_sort">Uriin</string>
     <string name="modules_action_stop">Itigil</string>
+    <string name="modules_service_short">Serbisyo</string>
     <string name="modules_service_running_short">Gumagana</string>
     <string name="modules_summary">Magdagdag ng mga features sa Shizuku gamit ang mga modyul mula sa komunidad</string>
     <string name="modules_none">Wala pang mga modyul.</string>
@@ -215,6 +261,7 @@
     <string name="settings_start_on_boot">Magsimula sa boot</string>
     <string name="settings_watchdog">Tagapagbantay</string>
     <string name="settings_watchdog_summary">Awtomatikong i-restart ang Shizuku kung nag-crash ito</string>
+    <string name="transport_adb">ADB</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
     <string name="settings_tcp_mode_summary">"Pinapayagan ang Shizuku na mag-restart nang walang
@@ -246,6 +293,7 @@
     <string name="contributor_view_github">Tignan sa GitHub</string>
     <string name="contributor_details_close">Isara</string>
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
+    <string name="contributor_area_app">Aplikasyón</string>
     <string name="contributor_area_i18n">Pagsasalin</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
@@ -353,14 +401,14 @@
     <string name="dialog_requesting_legacy_button_open_shizuku">Buksan ang Shizuku</string>
     <string name="wadb_notification_attempt_now">Subukan ulit</string>
     <!-- Manage tab -->
-    <string name="manage_search_hint">Maghanap ng mga app</string>
-    <string name="manage_filter_all">Lahat</string>
+    <string name="manage_search_hint">Maghánap ng aplikasyón</string>
+    <string name="manage_filter_all">Lahát</string>
     <string name="manage_filter_disabled">Hindi pinapagana</string>
-    <string name="manage_filter_hidden">Nakatago</string>
+    <string name="manage_filter_hidden">Nakatagò</string>
     <string name="manage_empty">Walang mga apps.</string>
     <string name="permissions_action_deny">Tanggihan</string>
     <string name="manage_status_disabled">Hindi pinapagana</string>
-    <string name="manage_status_hidden">Nakatago</string>
+    <string name="manage_status_hidden">Nakatagò</string>
     <string name="manage_bulk_apply">I-apply</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_op_mode_deny">Tanggihan</string>
@@ -382,9 +430,10 @@
     <string name="home_switch_dev_options">Mga opsyon ng developer</string>
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
+    <string name="app_info_updated">Inapdeyt</string>
     <string name="accessibility_boot">Magsimula sa boot</string>
     <string name="wifi_passwords_connect">Mag-connect</string>
-    <string name="files_sort">I-sort</string>
+    <string name="files_sort">Uriin</string>
     <string name="files_action_copy">Kopyahin</string>
     <string name="files_field_name">Pangalan</string>
     <string name="install_details_same">.</string>

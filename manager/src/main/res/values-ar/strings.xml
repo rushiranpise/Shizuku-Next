@@ -163,6 +163,8 @@
     <string name="app_management_sort_updated">تم التحديث
 </string>
     <string name="app_management_sort_alphabetical">ا-ي</string>
+    <string name="apps_process_allowed">مسموح</string>
+    <string name="apps_processes_hide_short">إخفاء</string>
     <string name="tab_home">الرئيسيه</string>
     <string name="tab_apps">التطبيقات </string>
     <string name="tab_shell">واجهة الأوامر (Shell)
@@ -178,6 +180,9 @@
     <string name="labs_blocked_count">تم حظر %1$d</string>
     <string name="labs_blocked_empty">لا شيء محظور.</string>
     <string name="labs_bulk_apply">تطبيق</string>
+    <string name="labs_bulk_done">انجز</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="rotation_mode_off">معطل</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">إخفاء</string>
     <string name="tab_hide_developer_options">إخفاء خيارات المطور</string>
@@ -693,13 +698,13 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="intents_action_for">%1$s</string>
     <string name="home_battery_warning">.</string>
     <string name="batch_selected_count">%1$d</string>
-    <string name="app_management_action_select_all"></string>
-    <string name="app_management_action_grant"></string>
-    <string name="app_management_action_revoke"></string>
-    <string name="app_management_batch_grant_title"></string>
-    <string name="app_management_batch_revoke_title"></string>
-    <string name="app_management_batch_message">%1$d؟(؟</string>
-    <string name="app_management_toggle_all_message">%1$d؟</string>
+    <string name="app_management_action_select_all">تحديد الكل</string>
+    <string name="app_management_action_grant">السماح</string>
+    <string name="app_management_action_revoke">إلغاء</string>
+    <string name="app_management_batch_grant_title">منح الإذن</string>
+    <string name="app_management_batch_revoke_title">إلغاء الإذن</string>
+    <string name="app_management_batch_message">تطبيق على %1$d من التطبيقات المحددة؟</string>
+    <string name="app_management_toggle_all_message">تطبيق على كافة التطبيقات المدرجة في قائمة %1$d؟</string>
     <string name="app_management_batch_granted">تم منح الوصول إلى تطبيقات %1$d</string>
     <string name="app_management_batch_revoked">تم إلغاء الوصول من تطبيقات %1$d</string>
     <string name="action_undo">تراجع</string>
@@ -723,18 +728,18 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="stealth_warning_compatibility_3">انقر فوق هذه البطاقة لنسخ كتلة كود برمجية يمكنك إرسالها إلى المطور حتى يعمل التحقق \"Shizuku المثبت\" عندما يتم إخفاء Shizuku.</string>
     <string name="stealth_warning_detection">قد تظل بعض التطبيقات قادرة على الكشف عن شيزوكو حتى عندما تكون مخفية.</string>
     <string name="stealth_info_reconfigure">سوف تحتاج إلى إعادة الإقران وإعادة تكوين Shizuku بعد تثبيت الإصدار المخفي.</string>
-    <string name="stealth_info_rish">Rish users: re-export the files after installing the hidden version.</string>
-    <string name="stealth_info_intents">Intent users: update your intents with the new package name.</string>
-    <string name="stealth_info_update">You must update Shizuku through the app when using the hidden version because it has a different signature.</string>
-    <string name="stealth_package_name">Package name (optional)</string>
-    <string name="stealth_package_name_helper_text">If left empty, a random suffix will be added to the package name.</string>
-    <string name="stealth_error_ends_with_period">Package name cannot end with a period.</string>
-    <string name="stealth_error_invalid_characters">Only letters, numbers, and periods are allowed.</string>
-    <string name="stealth_error_needs_two_segments">Package name must have at least two segments.</string>
-    <string name="stealth_error_segment_starts_with_number">Segments cannot start with a number.</string>
-    <string name="stealth_display_name">Display name (optional)</string>
-    <string name="stealth_display_name_helper_text">Shown as the name of the copy in the launcher and the app list. Left empty, the copy keeps the name of this app.</string>
-    <string name="stealth_error_display_name_too_long">Keep it to %1$d characters or fewer.</string>
+    <string name="stealth_info_rish">قم بإعادة تصدير الملفات بعد تثبيت النسخة المخفية.</string>
+    <string name="stealth_info_intents">المستخدمين النوايا: تحديث نواياك مع اسم الحزمة الجديد.</string>
+    <string name="stealth_info_update">يجب عليك تحديث Shizuku من خلال التطبيق عند استخدام الإصدار المخفي لأنه يحتوي على توقيع مختلف.</string>
+    <string name="stealth_package_name">اسم الحزمة (اختياري)</string>
+    <string name="stealth_package_name_helper_text">إذا ترك فارغاً، سيتم إضافة لاحقة عشوائية إلى اسم الحزمة.</string>
+    <string name="stealth_error_ends_with_period">اسم الحزمة لا يمكن أن ينتهي بفترة زمنية.</string>
+    <string name="stealth_error_invalid_characters">ولا يسمح إلا بالحروف والأرقام والفترات.</string>
+    <string name="stealth_error_needs_two_segments">اسم الحزمة يجب أن يحتوي على جزأين على الأقل.</string>
+    <string name="stealth_error_segment_starts_with_number">لا يمكن أن تبدأ الشرائح برقم.</string>
+    <string name="stealth_display_name">اسم العرض (اختياري)</string>
+    <string name="stealth_display_name_helper_text">يظهر كأسم للنسخة في المشغل وقائمة التطبيق. اليسار فارغ، تحتفظ النسخة باسم هذا التطبيق.</string>
+    <string name="stealth_error_display_name_too_long">حافظ عليه إلى %1$d أحرف أو أقل.</string>
     <string name="stealth_uninstall_required">إلغاء التثبيت مطلوب</string>
     <string name="stealth_uninstall_message">سيطلبك النظام الآن إلغاء تثبيت Shizuku. ثم قم بتثبيت الاستنساخ.</string>
     <string name="stealth_uninstall">إلغاء تثبيت</string>
@@ -844,30 +849,30 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="setup_step">الخطوة %1$d من %2$d</string>
     <string name="setup_action_skip">تخطي</string>
     <string name="setup_action_continue">متابعة</string>
-    <string name="setup_action_done"></string>
-    <string name="setup_welcome_title"></string>
-    <string name="setup_welcome_body">.</string>
-    <string name="setup_start_title">؟</string>
-    <string name="setup_start_body">.</string>
-    <string name="setup_root_title"></string>
-    <string name="setup_root_body">.</string>
+    <string name="setup_action_done">انجز</string>
+    <string name="setup_welcome_title">مرحبا بكم في شيزوكو-التالي</string>
+    <string name="setup_welcome_body">شيزوكو - التالي يبدأ ويدير خدمة شيزوكو، التي تتيح للتطبيقات استخدام الأذونات التي تحتاج عادة إلى مشرف أو جذر. كل شيء هنا يمكن تغييره لاحقا في الإعدادات.</string>
+    <string name="setup_start_title">كيف ينبغي أن يبدأ شيزوكو؟</string>
+    <string name="setup_start_body">هذا يقرر المكان الذي تحصل فيه الخدمة على أذوناتها. يمكنك تغييره في وقت لاحق من الإعدادات، تحت أسلوب البدء.</string>
+    <string name="setup_root_title">الجذر (Root)</string>
+    <string name="setup_root_body">نقرة واحدة، بدون كابل ولا اقتران. تحتاج إلى مدير جذري يمنح حق الوصول إلى شيزوكو.</string>
     <string name="setup_wireless_title">تصحيح الأخطاء عن طريق الشبكه اللاسلكية</string>
-    <string name="setup_wireless_body">.</string>
+    <string name="setup_wireless_body">يعمل بدون جذر. يحتاج إلى خيارات المطور واقران لمرة واحدة؛ بعد ذلك يبدأ من التطبيق.</string>
     <string name="setup_usb_title">تصحيح أخطاء USB</string>
     <string name="setup_usb_body">يعمل بدون جذر. يحتاج إلى منفذ ADB كلاسيكي؛ إذا لم يكن مفتوحا، قم بالاتصال بالحاسوب مرة واحدة لبدء تشغيل شيزوكو.</string>
     <string name="setup_permissions_title"></string>
-    <string name="setup_permissions_body">.</string>
-    <string name="settings_run_setup"></string>
-    <string name="settings_run_setup_summary"></string>
-    <string name="settings_help">مساعده</string>
-    <string name="settings_translate"></string>
-    <string name="settings_translate_note">.</string>
-    <string name="crowdin_url"></string>
+    <string name="setup_permissions_body">يمكنك تخطي أي من هذه الخيارات وتغييرها لاحقاً في الإعدادات.</string>
+    <string name="settings_run_setup">تشغيل الإعداد مرة أخرى</string>
+    <string name="settings_run_setup_summary">خطوات الترحيب: كيف يبدأ شيزوكو وما يحتاجه</string>
+    <string name="settings_help">المساعدة</string>
+    <string name="settings_translate">المشاركة في الترجمة</string>
+    <string name="settings_translate_note">ترجم التطبيق على كراودن.</string>
+    <string name="crowdin_url">https://crowdin.com/project/Shizuku-ext</string>
     <string name="settings_report_bug">الإبلاغ عن خطأ</string>
-    <string name="settings_support_coffee"></string>
-    <string name="settings_support_coffee_note"></string>
-    <string name="settings_contributors"></string>
-    <string name="settings_contributors_hint"></string>
+    <string name="settings_support_coffee">اشتري لي قهوة</string>
+    <string name="settings_support_coffee_note">دعم تطوير شيزوكو-القادم</string>
+    <string name="settings_contributors">المساهمون</string>
+    <string name="settings_contributors_hint">اسحب لاستكشاف · اقرص لتكبير – اضغط للحصول على التفاصيل</string>
     <!--
       A plural, not a plain string: most of the people on this wall are here for a single commit,
       so the singular is read more often than the plural is.
@@ -880,7 +885,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
         <item quantity="many">%1$d</item>
         <item quantity="other">%1$d</item>
     </plurals>
-    <string name="contributor_view_github"></string>
+    <string name="contributor_view_github">عرض على GitHub</string>
     <string name="contributor_details_close">إغلاق</string>
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
     <string name="contributor_area_app">تطبيق</string>
@@ -1019,13 +1024,13 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="shell_bookmark_name_hint">الإسم</string>
     <string name="shell_bookmark_sort_newest">الأحدث</string>
     <string name="shell_bookmark_sort_name">الإسم</string>
-    <string name="shell_bookmark_empty">.</string>
-    <string name="shell_quick_battery"></string>
-    <string name="shell_quick_storage"></string>
-    <string name="shell_quick_device"></string>
-    <string name="shell_quick_apps"></string>
-    <string name="shell_quick_grant"></string>
-    <string name="shell_quick_revoke"></string>
+    <string name="shell_bookmark_empty">لم يتم حفظ شيء حتى الآن. اكتب الأمر واضغط على زر الإشارة المرجعية للحفاظ عليه.</string>
+    <string name="shell_quick_battery">البطارية</string>
+    <string name="shell_quick_storage">التخزين</string>
+    <string name="shell_quick_device">الجهاز</string>
+    <string name="shell_quick_apps">تطبيقاتي</string>
+    <string name="shell_quick_grant">منح الإذن</string>
+    <string name="shell_quick_revoke">إلغاء الإذن</string>
     <string name="shell_quick_app_ops"></string>
     <string name="shell_quick_force_stop">إيقاف إجباري</string>
     <string name="shell_adb_prefix_dropped">تشغيل على الجهاز: بادئة adb shell هي ما ستكتبه على جهاز كمبيوتر.</string>
@@ -1091,10 +1096,17 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="manage_bulk_mode">الوضع</string>
     <string name="manage_bulk_review">مراجعة</string>
     <string name="manage_bulk_apply">تطبيق</string>
+    <string name="manage_bulk_done_action">انجز</string>
     <!-- One app, and what it may do on the device -->
+    <string name="app_detail_missing">لم يعد هذا التطبيق مثبّتا.</string>
     <string name="app_open_info">معلومات التطبيق</string>
-    <string name="app_section_battery"></string>
-    <string name="app_grant_confirm_ok"></string>
+    <string name="app_section_permissions">أذونات النظام</string>
+    <string name="app_section_runtime">صلاحيات وقت التشغيل</string>
+    <string name="app_section_ops">مدير التطبيقات</string>
+    <string name="app_section_actions">الإجراءات</string>
+    <string name="app_section_battery">البطارية</string>
+    <string name="app_section_info">المعلومات</string>
+    <string name="app_grant_confirm_ok">السماح</string>
     <string name="app_op_camera">استخدام الكاميرا</string>
     <string name="app_op_camera_note">ونفس الفكرة بالنسبة للكاميرا: الإذن يبقى، والصور لا تصل.</string>
     <string name="app_op_vibrate">اهتزاز</string>
@@ -1103,6 +1115,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="app_op_pip">صورة في صورة</string>
     <string name="app_op_mode_default">تلقائي</string>
     <string name="app_op_mode_allow">السماح</string>
+    <string name="app_op_mode_ignore">تجاهل</string>
     <string name="app_op_mode_deny">منع</string>
     <string name="app_action_force_stop">إيقاف إجباري</string>
     <string name="app_action_enable">يُمكَِن</string>
@@ -1127,6 +1140,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
          screen. The per-app list is unaffected either way, which is what the off state says. -->
     <string name="firewall_tile_label">جدار الحمايه</string>
+    <string name="firewall_mobile_only_off">جميع الشبكات</string>
     <!-- The three answers every switch outside the app can give. Unknown is its own word: a
          state that could not be read is not the same thing as a feature that is off. -->
     <string name="lab_state_on">مفعل</string>

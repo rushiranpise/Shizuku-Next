@@ -183,6 +183,7 @@
     <string name="labs_bulk_apply">Terapkan</string>
     <string name="labs_bulk_done">Selesai</string>
     <string name="labs_pin_app">Sematan aplikasi</string>
+    <!-- Per-app rotation override for apps that force landscape -->
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Tersembunyi</string>
     <string name="tab_hide_developer_options">Sembunyikan opsi pengembang</string>

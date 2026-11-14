@@ -145,6 +145,24 @@
     <string name="app_management_sort_last_added">Adăugat recent</string>
     <string name="app_management_sort_updated">Actualizat</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_processes_show">Arată %1$d proces(e)</string>
+    <string name="apps_processes_hide">Ascunde %1$d proces(e)</string>
+    <string name="apps_process_pid">PID %1$d</string>
+    <string name="apps_process_api">API %1$d</string>
+    <string name="apps_process_allowed">Permis</string>
+    <string name="apps_process_not_allowed">Nu este permis</string>
+    <string name="apps_process_stop">Oprește procesul</string>
+    <string name="apps_process_stop_title">Oprești procesul?</string>
+    <string name="apps_process_stop_message">Oprești PID %1$d pentru %2$s? Este posibil ca aplicația să pornească din nou.</string>
+    <string name="apps_process_stop_failed">Procesul nu a putut fi oprit.</string>
+    <string name="apps_processes_title">Procese atașate (%1$d)</string>
+    <plurals name="apps_processes_count">
+        <item quantity="one">%1$d proces</item>
+        <item quantity="few">%1$d procese</item>
+        <item quantity="other">%1$d de procese</item>
+    </plurals>
+    <string name="apps_processes_hide_short">Ascunde</string>
+    <string name="apps_processes_empty">Niciun proces atașat.</string>
     <string name="tab_home">Acasă</string>
     <string name="tab_apps">Aplicații</string>
     <string name="tab_shell">Terminal</string>
@@ -177,6 +195,24 @@
     <string name="labs_pin_app">Fixează aplicația</string>
     <string name="labs_unpin_app">Anulează fixarea aplicației</string>
     <string name="labs_clear_pins">Șterge aplicațiile fixate</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="tab_rotation">Rotire</string>
+    <string name="rotation_count">%1$d configurat</string>
+    <string name="rotation_gate_off">Oprit, %1$d configurat</string>
+    <string name="rotation_gate_disabled">Rotirea este oprită</string>
+    <string name="rotation_note">Funcția „Auto” se adaptează la orientarea sistemului. Modurile „Portret” și „Peisaj” mențin orientarea ecranului cât timp aplicația este deschisă și o readuc la starea inițială când ieși din aplicație.</string>
+    <string name="rotation_filter_configured">Configurat</string>
+    <string name="rotation_empty">Nicio aplicație nu are un mod de rotație.</string>
+    <string name="rotation_needs_shizuku">Pornește Shizuku pentru a schimba rotația.</string>
+    <string name="rotation_mode_title">Mod rotire</string>
+    <string name="rotation_mode_off">Dezactivat</string>
+    <string name="rotation_mode_off_note">Folosește propria orientare a aplicației.</string>
+    <string name="rotation_mode_auto">Automat</string>
+    <string name="rotation_mode_auto_note">Respectă orientarea sistemului. Utilizează orientarea verticală sau orizontală dacă aplicația nu ține cont de aceasta.</string>
+    <string name="rotation_mode_portrait">Portret</string>
+    <string name="rotation_mode_portrait_note">Forțează portret cât timp aplicația este deschisă.</string>
+    <string name="rotation_mode_landscape">Peisaj</string>
+    <string name="rotation_mode_landscape_note">Forțează peisaj cât timp aplicația este deschisă.</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Ascuns</string>
     <string name="tab_hide_developer_options">Ascunde opțiunile dezvoltatorului</string>
@@ -432,6 +468,10 @@
     <string name="hiding_notification_text">Apasă pentru a le restaura.</string>
     <string name="hiding_notification_idle_title">Ascunderea este activă</string>
     <string name="hiding_notification_watching">Urmărește aplicațiile listate.</string>
+    <string name="rotation_notification_title">Rotirea este blocată</string>
+    <string name="rotation_notification_text">Blocat pentru %1$s.</string>
+    <string name="rotation_notification_watching_title">Funcția de control al rotației este activată</string>
+    <string name="rotation_notification_watching">Se așteaptă o aplicație în lista de rotație.</string>
     <string name="hiding_notification_paused_title">Ascunderea este întreruptă</string>
     <string name="hiding_notification_paused_text">Setările tale au fost restaurate. Reia ascunderea lor pentru aplicațiile listate.</string>
     <string name="hiding_resume">Continuă</string>
@@ -591,6 +631,7 @@
     <string name="start_failed_usb_no_port">Nici un port ADB local nu este deschis Android la fiecare repornire și redeschiderea are nevoie de o conexiune pentru a împrumuta. Conectați-vă la Wi-Fi și Shizuku îl va redeschide prin depanare wireless, rulați <b>adb tcpip 5555</b> de pe un computer, sau alege <b>Pornește fără Wi-Fi</b> ca metodă de început pentru a porni prin depanare wireless.</string>
     <string name="start_failed_usb_no_port_no_option">Nu este deschis niciun port ADB local. Android îl închide la fiecare repornire, iar redeschiderea acestuia necesită o conexiune la rețea pentru a o utiliza. Conectează-te o dată la Wi-Fi sau execută comanda <b>adb tcpip 5555</b> de pe un computer.</string>
     <string name="start_failed_root_unavailable">Accesul la root nu mai este disponibil pe acest dispozitiv, deci Shizuku nu poate porni. Alege o altă metodă de pornire.</string>
+    <string name="start_failed_adb_root">Drepturile de root pentru ADB nu sunt disponibile. Activează depanarea prin USB pe o versiune care permite depanarea sau alege o altă metodă de pornire.</string>
     <string name="start_failed_system_needs_app">Metoda de pornire a sistemului trebuie să fie pornită din aplicație.</string>
     <string name="start_failed_system_no_exploit">Acest dispozitiv nu livrează agentul Samsung FOTA (com.sdet. otaagent), care este singura componentă pe care o poate folosi metoda de pornire a sistemului, astfel încât nu este nimic de mărit cu aici. Comutați metoda de pornire a sistemului la comandă personalizată: aplicația vă va arăta ce să rulați cu o escaladare pe care o are dispozitivul dvs.</string>
     <string name="start_failed_no_binder">Serviciul nu a apărut într-un minut. Ambele jumătăţi păstrează un log: porneşterii de la ShizukuServiceStarter şi predarea sub BinderSender. Un cititor de logcat filtrat la cele două arată dacă începătorul a ajuns până la forjarea serverului, și dacă serverul a cerut vreodată un lider.</string>
@@ -696,6 +737,8 @@
     <string name="settings_always_show_navigation_bar_summary">Menține bara filelor vizibilă atunci când derulezi în jos.</string>
     <string name="settings_secure_quick_tiles">Securizează dalele rapide</string>
     <string name="settings_secure_quick_tiles_summary">Blochează schimbarea setărilor rapide atunci când telefonul este blocat.</string>
+    <string name="settings_require_grant_authentication">Confirmă autorizațiile aplicației</string>
+    <string name="settings_require_grant_authentication_summary">Solicită autentificarea biometrică sau blocarea ecranului înainte de a acorda unei aplicații acces la Shizuku.</string>
     <string name="settings_watchdog">Watchdog</string>
     <string name="settings_watchdog_summary">Repornește automat Shizuku dacă se blochează</string>
     <string name="settings_auto_disable_wireless_debugging">Dezactivează depanarea fără fir</string>
@@ -901,6 +944,10 @@
     <string name="permission_description">Permite aplicației să folosească Shizuku.</string>
     <string name="permission_warning_template"><![CDATA[Permiți <b>%1$s</b> să %2$s\?]]></string>
     <string name="grant_dialog_button_allow_always">Permite tot timpul</string>
+    <string name="grant_dialog_button_allow_once">Permite o dată</string>
+    <string name="grant_auth_title">Confirmă-ți identitatea</string>
+    <string name="grant_auth_subtitle">Autentifică-te pentru a acorda acces la Shizuku.</string>
+    <string name="grant_auth_unavailable">Configurează o blocare a ecranului sau o metodă de autentificare biometrică pentru a confirma acordarea autorizărilor.</string>
     <string name="grant_dialog_button_deny">"Refuz"</string>
     <!-- Starter -->
     <string name="starter">Începător</string>
@@ -1068,6 +1115,8 @@
     <string name="app_section_permissions">Permisiuni de sistem</string>
     <string name="app_section_runtime">Permisiuni de execuție</string>
     <string name="app_section_ops">Operațiuni aplicații</string>
+    <string name="app_section_rotation">Rotire</string>
+    <string name="app_rotation_changed">Rotire schimbată</string>
     <string name="app_section_actions">Acțiuni</string>
     <string name="app_section_battery">Baterie</string>
     <string name="app_section_info">Informații</string>
@@ -1181,6 +1230,9 @@
     <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
          screen. The per-app list is unaffected either way, which is what the off state says. -->
     <string name="firewall_tile_label">Firewall</string>
+    <string name="firewall_mobile_only_on">Doar date mobile</string>
+    <string name="firewall_mobile_only_off">Toate rețelele</string>
+    <string name="firewall_mobile_only_failed">Nu s-a putut modifica regula pentru datele mobile</string>
     <!-- The three answers every switch outside the app can give. Unknown is its own word: a
          state that could not be read is not the same thing as a feature that is off. -->
     <string name="lab_state_on">Activat</string>
