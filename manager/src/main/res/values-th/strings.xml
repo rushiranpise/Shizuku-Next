@@ -6,7 +6,6 @@
       a change here reaches translators on the next push and not before.
     -->
     <!-- To translators: you can leave your here -->
-    <string name="home_status_adb_wireless"></string>
     <string name="home_status_adb_usb"></string>
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
@@ -119,7 +118,6 @@
     <string name="settings_start_on_boot">เริ่มต้นเมื่อบูตเครื่อง</string>
     <string name="settings_watchdog">สุนัขเฝ้าบ้าน</string>
     <string name="settings_watchdog_summary">รีสตาร์ทชิซูกุโดยอัตโนมัติหากเกิดการขัดข้อง</string>
-    <string name="transport_adb"></string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
     <string name="settings_tcp_mode">โหมด TCP</string>

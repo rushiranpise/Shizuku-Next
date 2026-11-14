@@ -13,7 +13,6 @@
     <string name="home_wireless_adb_title"><![CDATA[البدء باستخدام "التصحيح اللاسلكي"]]></string>
     <string name="home_wireless_adb_starting_without_wifi">في حال عدم وجود شبكة: يتم توجيه طلبات متكررة للجهاز لتفعيل وضع \"تصحيح الأخطاء عبر الشبكة اللاسلكية\" إلى أن يستجيب. قد تستغرق هذه العملية ما يصل إلى دقيقتين قبل أن يبدأ الوضع في العمل أو يتوقف النظام عن المحاولة.</string>
     <string name="home_usb_adb_needs_network">يستخدم بدء التشغيل عبر USB منفذ ADB التقليدي، ويتطلب إعادة فتحه اتصالًا بالشبكة. اتصل بشبكة Wi-Fi مرة واحدة، أو اختر <b>البدء بدون Wi-Fi</b> كطريقة لبدء التشغيل، واستخدم تصحيح الأخطاء اللاسلكي بدلًا من ذلك.</string>
-    <string name="home_usb_adb_needs_network_no_option"></string>
     <string name="home_usb_adb_needs_computer">يحتاج البدء عبر USB إلى منفذ ADB الكلاسيكي. في هذا الإصدار من الأندرويد، قم بالاتصال بالحاسوب وبدء تشغيل Shizuku مع أمر ADB بطرق أخرى.</string>
     <string name="home_wireless_adb_summary">بدأ التشغيل باستخدام تصحيح الأخطاء اللاسلكي.</string>
     <string name="home_usb_adb_title"><![CDATA[بدء التشغيل عبر تصحيح أخطاء USB]]></string>
