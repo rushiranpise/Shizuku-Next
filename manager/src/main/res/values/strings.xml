@@ -834,6 +834,10 @@
     <string name="settings_accent_green">Green</string>
     <string name="settings_accent_orange">Orange</string>
     <string name="settings_accent_pink">Pink</string>
+    <string name="settings_accent_custom">Custom HEX...</string>
+    <string name="settings_accent_custom_title">Custom accent color</string>
+    <string name="settings_accent_custom_hint">Enter a 6-digit HEX color, for example #3F51B5</string>
+    <string name="settings_accent_custom_invalid">Use 6 HEX digits, for example #3F51B5</string>
     <string name="settings_high_contrast">High contrast</string>
     <string name="settings_high_contrast_summary">Stronger text and outline colors</string>
     <string name="settings_update_stable">Stable</string>

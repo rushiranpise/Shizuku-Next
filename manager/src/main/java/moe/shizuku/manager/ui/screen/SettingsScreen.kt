@@ -136,6 +136,9 @@ import rikka.shizuku.manager.ShizukuLocales
 /** The agent a system uid start goes through, checked for when it is not running yet. */
 private const val FOTA_AGENT_PACKAGE = "com.sdet.fotaagent"
 
+/** The value the accent dialog uses to open the free-form HEX entry. */
+private const val CUSTOM_ACCENT = "custom"
+
 /** The seeds offered when the system palette is off. */
 private val AccentChoices = listOf(
     DEFAULT_ACCENT_COLOR to R.string.settings_accent_indigo,
@@ -146,6 +149,15 @@ private val AccentChoices = listOf(
     "#8B5000" to R.string.settings_accent_orange,
     "#8E4585" to R.string.settings_accent_pink,
 )
+
+/** A six-digit HEX colour in the form the theme stores, or null when it is not one. */
+private fun normalizedAccentHex(value: String): String? {
+    val digits = value.trim().removePrefix("#")
+    if (digits.length != 6 || digits.any { it !in '0'..'9' && it !in 'a'..'f' && it !in 'A'..'F' }) {
+        return null
+    }
+    return "#${digits.uppercase()}"
+}
 
 /** The settings categories. The tab lists these and opens one at a time. */
 private enum class SettingsSection(
@@ -234,13 +246,24 @@ fun SettingsScreen(
     }
     var accentColor by remember {
         mutableStateOf(
-            ShizukuSettings.getPreferences().getString(
-                ShizukuSettings.Keys.KEY_ACCENT_COLOR,
-                DEFAULT_ACCENT_COLOR
+            normalizedAccentHex(
+                ShizukuSettings.getPreferences().getString(
+                    ShizukuSettings.Keys.KEY_ACCENT_COLOR,
+                    DEFAULT_ACCENT_COLOR
+                ) ?: DEFAULT_ACCENT_COLOR
             ) ?: DEFAULT_ACCENT_COLOR
         )
     }
     var accentDialog by remember { mutableStateOf(false) }
+    var customAccentDialog by remember { mutableStateOf(false) }
+    var customAccentDraft by remember { mutableStateOf(accentColor) }
+
+    fun setAccentColor(value: String) {
+        ShizukuSettings.getPreferences().edit()
+            .putString(ShizukuSettings.Keys.KEY_ACCENT_COLOR, value).apply()
+        accentColor = value
+        ThemeState.refresh()
+    }
 
     var legacyPairing by remember { mutableStateOf(ShizukuSettings.getLegacyPairing()) }
     var secureQuickTiles by remember { mutableStateOf(ShizukuSettings.getSecureQuickTiles()) }
@@ -1528,15 +1551,68 @@ fun SettingsScreen(
     if (accentDialog) {
         ChoiceDialog(
             title = stringResource(R.string.settings_accent_color),
-            options = AccentChoices.map { (hex, label) -> hex to stringResource(label) },
-            selected = accentColor,
+            options = AccentChoices.map { (hex, label) -> hex to stringResource(label) } +
+                (CUSTOM_ACCENT to stringResource(R.string.settings_accent_custom)),
+            selected = if (AccentChoices.any { it.first == accentColor }) accentColor else CUSTOM_ACCENT,
             onDismiss = { accentDialog = false },
             onSelect = { value ->
-                ShizukuSettings.getPreferences().edit()
-                    .putString(ShizukuSettings.Keys.KEY_ACCENT_COLOR, value).apply()
-                accentColor = value
-                ThemeState.refresh()
-                accentDialog = false
+                if (value == CUSTOM_ACCENT) {
+                    accentDialog = false
+                    customAccentDraft = accentColor
+                    customAccentDialog = true
+                } else {
+                    setAccentColor(value)
+                    accentDialog = false
+                }
+            }
+        )
+    }
+
+    if (customAccentDialog) {
+        val normalized = normalizedAccentHex(customAccentDraft)
+        AlertDialog(
+            onDismissRequest = { customAccentDialog = false },
+            title = { Text(stringResource(R.string.settings_accent_custom_title)) },
+            text = {
+                OutlinedTextField(
+                    value = customAccentDraft,
+                    onValueChange = { input ->
+                        val digits = input.filter {
+                            it.isDigit() || it in 'a'..'f' || it in 'A'..'F'
+                        }.take(6)
+                        customAccentDraft = if (digits.isEmpty()) "" else "#$digits"
+                    },
+                    singleLine = true,
+                    isError = customAccentDraft.isNotEmpty() && normalized == null,
+                    supportingText = {
+                        Text(
+                            stringResource(
+                                if (customAccentDraft.isNotEmpty() && normalized == null) {
+                                    R.string.settings_accent_custom_invalid
+                                } else {
+                                    R.string.settings_accent_custom_hint
+                                }
+                            )
+                        )
+                    },
+                    keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+                        keyboardType = KeyboardType.Ascii
+                    )
+                )
+            },
+            confirmButton = {
+                PillButton(
+                    enabled = normalized != null,
+                    onClick = {
+                        normalized?.let { setAccentColor(it) }
+                        customAccentDialog = false
+                    }
+                ) { Text(stringResource(android.R.string.ok)) }
+            },
+            dismissButton = {
+                PillButtonQuiet(onClick = { customAccentDialog = false }) {
+                    Text(stringResource(android.R.string.cancel))
+                }
             }
         )
     }
