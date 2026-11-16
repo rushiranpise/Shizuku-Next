@@ -21,8 +21,8 @@ own reacting to the pull request: GitHub starts no runs for events caused by `GI
 the pull request is opened with that token, so a separate workflow waits for an event that never
 arrives. That is why `merge` sits inside `crowdin.yml`, and why `translations-merge.yml` exists
 only for pull requests opened by somebody else. The automatic run also repairs rejected
-placeholder or command strings in `ci/repair-translations.py`; the check remains the final
-authority after that repair.
+placeholder or command strings, and drops locale files that hold no strings at all, in
+`ci/repair-translations.py`; the check remains the final authority after that repair.
 
 So the loop is: change a string → push → Crowdin has it → a translator writes it →
 the next nightly opens a pull request → it merges itself. The two things that remain a
@@ -32,7 +32,8 @@ The merge is automatic because a translation cannot break anything the way code 
 pull request is checked first, and it is left open when:
 
 - it changes any file other than `manager/src/main/res/values-*/strings.xml`
-- a file is not valid XML, or holds no strings at all
+- a hand-made file is not valid XML, or holds no strings at all (the automatic Crowdin run
+  drops an empty file and keeps merging the rest)
 - a translated string changes an ADB command from the source, or loses a format placeholder
 - a pull request empties a translated value that was non-empty on `master` (or adds a new empty
   value), so a blank label cannot ship as a translation
@@ -44,6 +45,15 @@ command is repaired rather than left for a person: `ci/repair-translations.py` r
 element from the locale file and deletes its translations from Crowdin. The app falls back to
 the English string, and the next export cannot bring the bad value back. A hand-made translation
 pull request still stops at the check, because there the bad string is not in Crowdin to remove.
+
+The same run drops a locale file that has no strings in it. Crowdin writes such a file for a
+language with nothing translated; it is not a translation, and leaving it would block every
+good translation in the export behind the check's "no strings in it" refusal. The file is
+deleted from the branch and its path is removed from the checked list, so the good files still
+merge. There is no Crowdin translation to delete for it, because the empty export was written
+only from comments. If the export contained nothing but those empty files, the branch is back
+at `master` after the repair and the workflow closes the pull request instead of merging
+nothing.
 
 Keys that the source no longer has are reported and do not block: every locale carries a few
 from strings renamed upstream, Android ignores a translation with nothing to attach it to,
@@ -324,8 +334,8 @@ Two consequences for whoever picks one up. Its folder still has to exist in the 
 a translation file for it will merge, and the languages are mapped now, so the first nightly after
 somebody translates a string opens a pull request the check refuses: that one is merged **by
 hand**, as above. And until then nothing about the language is live - a language with no
-translations exports no file at all, which is why mapping all six costs nothing while they are
-empty.
+translations exports only a comment-only file, which the automatic repair drops, so mapping all
+six costs nothing while they are empty.
 
 ## The Russian that arrived as resource ids
 

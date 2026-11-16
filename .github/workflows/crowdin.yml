@@ -147,6 +147,27 @@ jobs:
           git push origin l10n
           git fetch --depth=1 origin l10n
 
+      # A locale file with no strings is an export for a language with nothing translated in
+      # it, not a translation. The repair above deletes it (and any file whose only strings
+      # were rejected), so the rest of the export can merge. If that leaves the branch at
+      # master, there is no pull request left to merge and closing it is the successful
+      # outcome; otherwise the deleted files ride along with the good translations.
+      - name: Stop when the export leaves nothing to merge
+        id: left
+        if: steps.pr.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet origin/master HEAD; then
+            echo "empty=true" >> "$GITHUB_OUTPUT"
+            gh pr close ${{ steps.pr.outputs.number }} --delete-branch
+            echo "closed the pull request: no translation survived the check"
+          else
+            echo "empty=false" >> "$GITHUB_OUTPUT"
+          fi
+
       # The export writes what the translator typed, and a translator is not thinking about the
       # resource compiler: an Italian sentence arrives holding `nell'app`, aapt2 refuses a bare
       # apostrophe wherever it is not inside a quoted region, and master's Build App goes red on a
@@ -161,7 +182,7 @@ jobs:
       # is known is that this job fetches the same branch successfully a few steps above, and that
       # the repair has to happen before the check below rather than after it.
       - name: Escape the apostrophes the export cannot carry
-        if: steps.pr.outputs.skip != 'true'
+        if: steps.pr.outputs.skip != 'true' && steps.left.outputs.empty != 'true'
         run: |
           set -euo pipefail
 
@@ -186,11 +207,11 @@ jobs:
           git fetch --depth=1 origin l10n
 
       - name: Check it before merging it
-        if: steps.pr.outputs.skip != 'true'
+        if: steps.pr.outputs.skip != 'true' && steps.left.outputs.empty != 'true'
         run: python3 ci/check-translations.py changed.txt origin/l10n origin/master
 
       - name: Merge it
-        if: steps.pr.outputs.skip != 'true'
+        if: steps.pr.outputs.skip != 'true' && steps.left.outputs.empty != 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

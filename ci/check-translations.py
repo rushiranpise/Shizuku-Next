@@ -189,6 +189,9 @@ def main():
     for path in paths:
         try:
             translated = strings_at(translated_ref, path)
+        except subprocess.CalledProcessError:
+            problems.append(f"{path}: file is missing from the pull request")
+            continue
         except ElementTree.ParseError as error:
             problems.append(f"{path}: not valid XML ({error})")
             continue
