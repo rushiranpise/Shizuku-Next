@@ -215,16 +215,13 @@ fun AppsScreen(
     // a server round trip per app, and the chips want its size before anyone picks that
     // filter. Recomputed when a toggle changes something (version), which is what keeps the
     // counts honest.
-    var grantedNames by remember { mutableStateOf(emptySet<String>()) }
+    var permanentGrantedNames by remember { mutableStateOf(emptySet<String>()) }
     var launcherless by remember { mutableStateOf(emptySet<String>()) }
     var derivedFor by remember { mutableStateOf<Pair<Boolean, Int>?>(null) }
     LaunchedEffect(all, version, active, warmUp) {
         if ((!active && !warmUp) || all.isEmpty()) {
-            grantedNames = emptySet()
+            permanentGrantedNames = emptySet()
             launcherless = emptySet()
-            // Nothing is known yet, or there is no server to ask, so there is no number to
-            // carry to the tab bar either.
-            onGrantedCount(0)
             return@LaunchedEffect
         }
         if (derivedFor == (running to version)) return@LaunchedEffect
@@ -240,10 +237,27 @@ fun AppsScreen(
 
             granted to withoutLauncher
         }
-        grantedNames = granted
+        permanentGrantedNames = granted
         launcherless = withoutLauncher
-        onGrantedCount(granted.size)
     }
+
+    // A temporary grant lives in the server's attached process, not in the saved flags. Its app
+    // is still holding access, so the Granted filter and the tab count include it. The row keeps
+    // the switch off because there is no permanent grant to switch off.
+    val oneTimeNames = remember(all, clientProcessesByUid, permanentGrantedNames) {
+        val namesByUid = all.mapNotNull { pi ->
+            pi.applicationInfo?.uid?.let { uid -> uid to pi.packageName }
+        }.toMap()
+        clientProcessesByUid
+            .filterValues { processes -> processes.any { it.allowed } }
+            .keys
+            .mapNotNull { namesByUid[it] }
+            .filterNot { it in permanentGrantedNames }
+            .toSet()
+    }
+    val grantedNames = permanentGrantedNames + oneTimeNames
+
+    LaunchedEffect(grantedNames.size) { onGrantedCount(grantedNames.size) }
 
     // What kind of app it is, which needs no server: the flags and the record are on the app
     // already, so these three are worked out from the list the package manager just handed over.
@@ -642,7 +656,11 @@ fun AppsScreen(
                                             onClick = { toggleProcesses(uid) }
                                         )
                                     }
-                                    AppStatusChips(pi, hidden = pi.packageName in launcherless)
+                                    AppStatusChips(
+                                        pi,
+                                        hidden = pi.packageName in launcherless,
+                                        oneTime = pi.packageName in oneTimeNames
+                                    )
                                     if (selectionMode) {
                                         Checkbox(checked = isSelected, onCheckedChange = null)
                                     } else {

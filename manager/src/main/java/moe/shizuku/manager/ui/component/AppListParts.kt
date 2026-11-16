@@ -387,15 +387,17 @@ fun PackageInfo.packageLine(): String {
 /**
  * What a row says about the app beside its name.
  *
- * Two at most: what kind of app it is - system or user, which is a fact about the app that
- * nothing else in the list shows - and one thing worth knowing about its state, most actionable
- * first: gone from this user, suspended, disabled, or with no launcher entry. Always at least
- * the kind, so a row that says nothing else still says what it is.
+ * What kind of app it is - system or user, which is a fact about the app that nothing else in the
+ * list shows - and what is worth knowing about its state, most actionable first: gone from this
+ * user, suspended, disabled, or with no launcher entry. A one-time grant is added last, because it
+ * is about the access a row is using rather than about the app itself. Always at least the kind, so
+ * a row that says nothing else still says what it is.
  */
 fun appStatusChips(
     pi: PackageInfo,
     hidden: Boolean,
-    removed: Boolean = false
+    removed: Boolean = false,
+    oneTime: Boolean = false
 ): List<Pair<Int, ChipEmphasis>> {
     val ai = pi.applicationInfo
     if (removed || ai == null) {
@@ -416,6 +418,7 @@ fun appStatusChips(
 
         hidden -> chips += R.string.manage_status_hidden to ChipEmphasis.HIDDEN
     }
+    if (oneTime) chips += R.string.apps_status_one_time to ChipEmphasis.SOFT
     return chips
 }
 
@@ -432,9 +435,10 @@ fun AppStatusChips(
     pi: PackageInfo,
     hidden: Boolean,
     removed: Boolean = false,
+    oneTime: Boolean = false,
     modifier: Modifier = Modifier
 ) {
-    val chips = appStatusChips(pi, hidden, removed)
+    val chips = appStatusChips(pi, hidden, removed, oneTime)
 
     Row(
         modifier = modifier,

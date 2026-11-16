@@ -150,6 +150,7 @@
     <string name="apps_process_api">API %1$d</string>
     <string name="apps_process_allowed">Allowed</string>
     <string name="apps_process_not_allowed">Not allowed</string>
+    <string name="apps_status_one_time">One-time</string>
     <string name="apps_process_stop">Stop process</string>
     <string name="apps_process_stop_title">Stop process?</string>
     <string name="apps_process_stop_message">Stop PID %1$d for %2$s? The app may start it again.</string>
