@@ -43,6 +43,16 @@ public class ShizukuSettings {
         public static final String KEY_LIGHT_THEME = "light_theme";
         public static final String KEY_NIGHT_MODE = "night_mode";
         public static final String KEY_BLACK_NIGHT_THEME = "black_night_theme";
+
+        /** Black only the page behind the content, leaving cards and dialogs on dark grey. */
+        public static final String KEY_AMOLED_BACKGROUND_ONLY = "amoled_background_only";
+
+        /** The seed colour for the non-system palette, as #RRGGBB. */
+        public static final String KEY_ACCENT_COLOR = "accent_color";
+
+        /** Stronger text and outline colours than the palette normally gives. */
+        public static final String KEY_HIGH_CONTRAST = "high_contrast";
+
         public static final String KEY_USE_SYSTEM_COLOR = "use_system_color";
         /** Whether the floating navigation bar stays visible when a page scrolls. */
         public static final String KEY_ALWAYS_SHOW_NAVIGATION_BAR = "always_show_navigation_bar";

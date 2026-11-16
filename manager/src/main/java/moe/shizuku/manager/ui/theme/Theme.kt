@@ -6,6 +6,7 @@ import android.content.ContextWrapper
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.material3.MotionScheme
@@ -25,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowInsetsControllerCompat
+import com.materialkolor.Contrast
 import com.materialkolor.PaletteStyle
 import com.materialkolor.dynamiccolor.ColorSpec
 import com.materialkolor.rememberDynamicColorScheme
@@ -33,6 +35,9 @@ import moe.shizuku.manager.utils.EnvironmentUtils
 
 /** Shizuku brand indigo, matching the XML theme's primaryColor. */
 private val BrandColor = Color(0xFF3F51B5)
+
+/** The indigo seed used until the user chooses another accent. */
+const val DEFAULT_ACCENT_COLOR = "#3F51B5"
 
 /**
  * True while the pure black (AMOLED) scheme is in use. Cards and the page are the
@@ -93,6 +98,17 @@ fun ShizukuTheme(content: @Composable () -> Unit) {
     val useSystemColor = prefs.getBoolean(ShizukuSettings.Keys.KEY_USE_SYSTEM_COLOR, true) &&
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     val amoled = darkTheme && prefs.getBoolean(ShizukuSettings.Keys.KEY_BLACK_NIGHT_THEME, false)
+    // The switch above can either black every surface or only the page behind the cards. The
+    // second is what the appearance request asked for: a black page, with dialogs and menus
+    // still reading as raised surfaces instead of disappearing into it.
+    val amoledBackgroundOnly = amoled &&
+        prefs.getBoolean(ShizukuSettings.Keys.KEY_AMOLED_BACKGROUND_ONLY, false)
+    val highContrast = prefs.getBoolean(ShizukuSettings.Keys.KEY_HIGH_CONTRAST, false)
+    val accentHex = prefs.getString(
+        ShizukuSettings.Keys.KEY_ACCENT_COLOR,
+        DEFAULT_ACCENT_COLOR
+    ) ?: DEFAULT_ACCENT_COLOR
+    val accentColor = remember(accentHex) { parseAccentColor(accentHex) }
 
     // The system's scheme taken whole, not re-derived from one of its colours.
     //
@@ -107,10 +123,13 @@ fun ShizukuTheme(content: @Composable () -> Unit) {
         // The brand seed, for when the system palette is not wanted: a fixed seed avoids a
         // washed-out grey palette on a desaturated wallpaper.
         rememberDynamicColorScheme(
-            seedColor = BrandColor,
+            seedColor = accentColor,
             isDark = darkTheme,
-            isAmoled = amoled,
+            // material-kolor's AMOLED option blacks every surface. Background-only asked for
+            // the page black and the containers left alone, so only the full mode gets it.
+            isAmoled = amoled && !amoledBackgroundOnly,
             style = PaletteStyle.TonalSpot,
+            contrastLevel = if (highContrast) Contrast.High.value else Contrast.Default.value,
             specVersion = ColorSpec.SpecVersion.SPEC_2021,
         )
     }
@@ -119,17 +138,21 @@ fun ShizukuTheme(content: @Composable () -> Unit) {
     // roles that the cards and the navigation bar actually use kept the standard
     // dark greys a black page with grey cards. Spread the black across every
     // surface role; row dividers keep the list readable without the card shape.
-    val colorScheme = if (amoled) baseScheme.copy(
-        background = Color.Black,
-        surface = Color.Black,
-        surfaceDim = Color.Black,
-        surfaceBright = Color.Black,
-        surfaceContainerLowest = Color.Black,
-        surfaceContainerLow = Color.Black,
-        surfaceContainer = Color.Black,
-        surfaceContainerHigh = Color.Black,
-        surfaceContainerHighest = Color.Black,
-    ) else baseScheme
+    val colorScheme = when {
+        amoledBackgroundOnly -> baseScheme.copy(background = Color.Black)
+        amoled -> baseScheme.copy(
+            background = Color.Black,
+            surface = Color.Black,
+            surfaceDim = Color.Black,
+            surfaceBright = Color.Black,
+            surfaceContainerLowest = Color.Black,
+            surfaceContainerLow = Color.Black,
+            surfaceContainer = Color.Black,
+            surfaceContainerHigh = Color.Black,
+            surfaceContainerHighest = Color.Black,
+        )
+        else -> baseScheme
+    }.let { if (highContrast) it.withHighContrast(darkTheme) else it }
 
     // Match the status/navigation bar icons to the app's theme, not the system's;
     // otherwise a white in-app theme gets light icons on a white bar (invisible).
@@ -159,6 +182,22 @@ fun ShizukuTheme(content: @Composable () -> Unit) {
         )
     }
 }
+
+/** The strongest text and outline roles, for the high contrast switch. */
+private fun ColorScheme.withHighContrast(dark: Boolean): ColorScheme {
+    val foreground = if (dark) Color.White else Color.Black
+    return copy(
+        onBackground = foreground,
+        onSurface = foreground,
+        onSurfaceVariant = if (dark) Color(0xFFE6E6E6) else Color(0xFF1A1A1A),
+        outline = if (dark) Color(0xFFBDBDBD) else Color(0xFF3A3A3A),
+        outlineVariant = if (dark) Color(0xFF8C8C8C) else Color(0xFF6B6B6B),
+    )
+}
+
+/** The stored #RRGGBB accent, or the brand colour when it cannot be read. */
+private fun parseAccentColor(hex: String): Color =
+    runCatching { Color(android.graphics.Color.parseColor(hex)) }.getOrDefault(BrandColor)
 
 private fun Context.findActivity(): Activity? {
     var context: Context = this

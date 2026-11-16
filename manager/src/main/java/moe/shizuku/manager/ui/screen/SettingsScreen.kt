@@ -109,6 +109,7 @@ import moe.shizuku.manager.ui.Detail
 import moe.shizuku.manager.ui.televisionReturnFocus
 import moe.shizuku.manager.ui.component.ScrollToTopButton
 import moe.shizuku.manager.ui.component.SegmentedColumn
+import moe.shizuku.manager.ui.theme.DEFAULT_ACCENT_COLOR
 import moe.shizuku.manager.ui.theme.ThemeState
 import moe.shizuku.manager.ui.component.SegmentedListItem
 import moe.shizuku.manager.ui.component.stripHtmlTags
@@ -134,6 +135,17 @@ import rikka.shizuku.manager.ShizukuLocales
 
 /** The agent a system uid start goes through, checked for when it is not running yet. */
 private const val FOTA_AGENT_PACKAGE = "com.sdet.fotaagent"
+
+/** The seeds offered when the system palette is off. */
+private val AccentChoices = listOf(
+    DEFAULT_ACCENT_COLOR to R.string.settings_accent_indigo,
+    "#6750A4" to R.string.settings_accent_purple,
+    "#1565C0" to R.string.settings_accent_blue,
+    "#006A6A" to R.string.settings_accent_teal,
+    "#2E6B30" to R.string.settings_accent_green,
+    "#8B5000" to R.string.settings_accent_orange,
+    "#8E4585" to R.string.settings_accent_pink,
+)
 
 /** The settings categories. The tab lists these and opens one at a time. */
 private enum class SettingsSection(
@@ -204,6 +216,31 @@ fun SettingsScreen(
     var blackNight by remember {
         mutableStateOf(ShizukuSettings.getPreferences().getBoolean(ShizukuSettings.Keys.KEY_BLACK_NIGHT_THEME, false))
     }
+    var blackNightBackgroundOnly by remember {
+        mutableStateOf(
+            ShizukuSettings.getPreferences().getBoolean(
+                ShizukuSettings.Keys.KEY_AMOLED_BACKGROUND_ONLY,
+                false
+            )
+        )
+    }
+    var highContrast by remember {
+        mutableStateOf(
+            ShizukuSettings.getPreferences().getBoolean(
+                ShizukuSettings.Keys.KEY_HIGH_CONTRAST,
+                false
+            )
+        )
+    }
+    var accentColor by remember {
+        mutableStateOf(
+            ShizukuSettings.getPreferences().getString(
+                ShizukuSettings.Keys.KEY_ACCENT_COLOR,
+                DEFAULT_ACCENT_COLOR
+            ) ?: DEFAULT_ACCENT_COLOR
+        )
+    }
+    var accentDialog by remember { mutableStateOf(false) }
 
     var legacyPairing by remember { mutableStateOf(ShizukuSettings.getLegacyPairing()) }
     var secureQuickTiles by remember { mutableStateOf(ShizukuSettings.getSecureQuickTiles()) }
@@ -1011,6 +1048,25 @@ fun SettingsScreen(
                                 }
                         )
                     }
+                    if (!useSystemColor) {
+                        item {
+                            SegmentedListItem(
+                                centerSlots = true,
+                                leadingContent = { SettingsIcon(Icons.Outlined.Palette) },
+                                headlineContent = { Text(stringResource(R.string.settings_accent_color)) },
+                                supportingContent = {
+                                    Text(stringResource(R.string.settings_accent_color_summary))
+                                },
+                                trailingContent = {
+                                    Icon(
+                                        Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                                        contentDescription = null
+                                    )
+                                },
+                                onClick = { accentDialog = true }
+                            )
+                        }
+                    }
                     item {
                         SegmentedListItem(
                             centerSlots = true,
@@ -1023,6 +1079,49 @@ fun SettingsScreen(
                                     ShizukuSettings.getPreferences().edit()
                                         .putBoolean(ShizukuSettings.Keys.KEY_BLACK_NIGHT_THEME, it).apply()
                                     blackNight = it
+                                    ThemeState.refresh()
+                                }
+                        )
+                    }
+                    if (blackNight) {
+                        item {
+                            SegmentedListItem(
+                                centerSlots = true,
+                                leadingContent = { SettingsIcon(Icons.Outlined.DarkMode) },
+                                headlineContent = {
+                                    Text(stringResource(R.string.settings_amoled_background_only))
+                                },
+                                supportingContent = {
+                                    Text(stringResource(R.string.settings_amoled_background_only_summary))
+                                },
+                                switchState = blackNightBackgroundOnly,
+                                onSwitchChange =
+                                    {
+                                        ShizukuSettings.getPreferences().edit()
+                                            .putBoolean(
+                                                ShizukuSettings.Keys.KEY_AMOLED_BACKGROUND_ONLY,
+                                                it
+                                            ).apply()
+                                        blackNightBackgroundOnly = it
+                                        ThemeState.refresh()
+                                    }
+                            )
+                        }
+                    }
+                    item {
+                        SegmentedListItem(
+                            centerSlots = true,
+                            leadingContent = { SettingsIcon(Icons.Outlined.Tune) },
+                            headlineContent = { Text(stringResource(R.string.settings_high_contrast)) },
+                            supportingContent = {
+                                Text(stringResource(R.string.settings_high_contrast_summary))
+                            },
+                            switchState = highContrast,
+                            onSwitchChange =
+                                {
+                                    ShizukuSettings.getPreferences().edit()
+                                        .putBoolean(ShizukuSettings.Keys.KEY_HIGH_CONTRAST, it).apply()
+                                    highContrast = it
                                     ThemeState.refresh()
                                 }
                         )
@@ -1422,6 +1521,22 @@ fun SettingsScreen(
                 nightMode = value
                 ThemeState.refresh()
                 themeDialog = false
+            }
+        )
+    }
+
+    if (accentDialog) {
+        ChoiceDialog(
+            title = stringResource(R.string.settings_accent_color),
+            options = AccentChoices.map { (hex, label) -> hex to stringResource(label) },
+            selected = accentColor,
+            onDismiss = { accentDialog = false },
+            onSelect = { value ->
+                ShizukuSettings.getPreferences().edit()
+                    .putString(ShizukuSettings.Keys.KEY_ACCENT_COLOR, value).apply()
+                accentColor = value
+                ThemeState.refresh()
+                accentDialog = false
             }
         )
     }
