@@ -109,6 +109,14 @@ fun ShizukuTheme(content: @Composable () -> Unit) {
         DEFAULT_ACCENT_COLOR
     ) ?: DEFAULT_ACCENT_COLOR
     val accentColor = remember(accentHex) { parseAccentColor(accentHex) }
+    val paletteStyleName = prefs.getString(
+        ShizukuSettings.Keys.KEY_PALETTE_STYLE,
+        PaletteStyle.TonalSpot.name
+    ) ?: PaletteStyle.TonalSpot.name
+    val paletteStyle = remember(paletteStyleName) {
+        runCatching { PaletteStyle.valueOf(paletteStyleName) }
+            .getOrDefault(PaletteStyle.TonalSpot)
+    }
 
     // The system's scheme taken whole, not re-derived from one of its colours.
     //
@@ -128,7 +136,7 @@ fun ShizukuTheme(content: @Composable () -> Unit) {
             // material-kolor's AMOLED option blacks every surface. Background-only asked for
             // the page black and the containers left alone, so only the full mode gets it.
             isAmoled = amoled && !amoledBackgroundOnly,
-            style = PaletteStyle.TonalSpot,
+            style = paletteStyle,
             contrastLevel = if (highContrast) Contrast.High.value else Contrast.Default.value,
             specVersion = ColorSpec.SpecVersion.SPEC_2021,
         )

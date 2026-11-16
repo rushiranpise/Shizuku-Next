@@ -50,6 +50,9 @@ public class ShizukuSettings {
         /** The seed colour for the non-system palette, as #RRGGBB. */
         public static final String KEY_ACCENT_COLOR = "accent_color";
 
+        /** The material-kolor palette style used with the accent colour. */
+        public static final String KEY_PALETTE_STYLE = "palette_style";
+
         /** Stronger text and outline colours than the palette normally gives. */
         public static final String KEY_HIGH_CONTRAST = "high_contrast";
 

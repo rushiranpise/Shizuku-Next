@@ -827,6 +827,11 @@
     <string name="settings_amoled_background_only_summary">Keep cards, dialogs and menus in the normal dark colors</string>
     <string name="settings_accent_color">Accent color</string>
     <string name="settings_accent_color_summary">Choose a Material 3 palette when system color is off</string>
+    <string name="settings_palette_style">Palette style</string>
+    <string name="settings_palette_tonal_spot">Tonal Spot</string>
+    <string name="settings_palette_vibrant">Vibrant</string>
+    <string name="settings_palette_expressive">Expressive</string>
+    <string name="settings_palette_monochrome">Monochrome</string>
     <string name="settings_accent_indigo">Indigo</string>
     <string name="settings_accent_purple">Purple</string>
     <string name="settings_accent_blue">Blue</string>

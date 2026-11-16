@@ -100,6 +100,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.materialkolor.PaletteStyle
 import moe.shizuku.manager.BuildConfig
 import moe.shizuku.manager.R
 import moe.shizuku.manager.ShizukuSettings
@@ -157,6 +158,22 @@ private fun normalizedAccentHex(value: String): String? {
         return null
     }
     return "#${digits.uppercase()}"
+}
+
+/** The material-kolor styles offered with a custom accent. */
+private val PaletteStyles = listOf(
+    PaletteStyle.TonalSpot,
+    PaletteStyle.Vibrant,
+    PaletteStyle.Expressive,
+    PaletteStyle.Monochrome,
+)
+
+@StringRes
+private fun paletteLabelRes(style: PaletteStyle): Int = when (style) {
+    PaletteStyle.Vibrant -> R.string.settings_palette_vibrant
+    PaletteStyle.Expressive -> R.string.settings_palette_expressive
+    PaletteStyle.Monochrome -> R.string.settings_palette_monochrome
+    else -> R.string.settings_palette_tonal_spot
 }
 
 /** The settings categories. The tab lists these and opens one at a time. */
@@ -257,11 +274,31 @@ fun SettingsScreen(
     var accentDialog by remember { mutableStateOf(false) }
     var customAccentDialog by remember { mutableStateOf(false) }
     var customAccentDraft by remember { mutableStateOf(accentColor) }
+    var paletteStyle by remember {
+        mutableStateOf(
+            runCatching {
+                PaletteStyle.valueOf(
+                    ShizukuSettings.getPreferences().getString(
+                        ShizukuSettings.Keys.KEY_PALETTE_STYLE,
+                        PaletteStyle.TonalSpot.name
+                    ) ?: PaletteStyle.TonalSpot.name
+                )
+            }.getOrDefault(PaletteStyle.TonalSpot)
+        )
+    }
+    var paletteDialog by remember { mutableStateOf(false) }
 
     fun setAccentColor(value: String) {
         ShizukuSettings.getPreferences().edit()
             .putString(ShizukuSettings.Keys.KEY_ACCENT_COLOR, value).apply()
         accentColor = value
+        ThemeState.refresh()
+    }
+
+    fun setPaletteStyle(value: PaletteStyle) {
+        ShizukuSettings.getPreferences().edit()
+            .putString(ShizukuSettings.Keys.KEY_PALETTE_STYLE, value.name).apply()
+        paletteStyle = value
         ThemeState.refresh()
     }
 
@@ -1089,6 +1126,25 @@ fun SettingsScreen(
                                 onClick = { accentDialog = true }
                             )
                         }
+                        item {
+                            SegmentedListItem(
+                                centerSlots = true,
+                                leadingContent = { SettingsIcon(Icons.Outlined.Palette) },
+                                headlineContent = {
+                                    Text(stringResource(R.string.settings_palette_style))
+                                },
+                                supportingContent = {
+                                    Text(stringResource(paletteLabelRes(paletteStyle)))
+                                },
+                                trailingContent = {
+                                    Icon(
+                                        Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                                        contentDescription = null
+                                    )
+                                },
+                                onClick = { paletteDialog = true }
+                            )
+                        }
                     }
                     item {
                         SegmentedListItem(
@@ -1564,6 +1620,19 @@ fun SettingsScreen(
                     setAccentColor(value)
                     accentDialog = false
                 }
+            }
+        )
+    }
+
+    if (paletteDialog) {
+        ChoiceDialog(
+            title = stringResource(R.string.settings_palette_style),
+            options = PaletteStyles.map { it.name to stringResource(paletteLabelRes(it)) },
+            selected = paletteStyle.name,
+            onDismiss = { paletteDialog = false },
+            onSelect = { name ->
+                runCatching { PaletteStyle.valueOf(name) }.getOrNull()?.let { setPaletteStyle(it) }
+                paletteDialog = false
             }
         )
     }
