@@ -17,7 +17,7 @@ import org.json.JSONObject
  */
 object ShellBookmarks {
 
-    private const val PREFS = "shell_bookmarks"
+    internal const val PREFS = "shell_bookmarks"
     private const val KEY = "bookmarks"
 
     data class Bookmark(

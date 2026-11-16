@@ -10,6 +10,7 @@ import moe.shizuku.manager.accessibility.AccessibilityKeepAliveService
 import moe.shizuku.manager.manage.AutoStartGate
 import moe.shizuku.manager.manage.PackageTools
 import moe.shizuku.manager.service.HidingWatchService
+import moe.shizuku.manager.shell.ShellBookmarks
 import org.json.JSONArray
 import org.json.JSONObject
 import rikka.shizuku.Shizuku
@@ -20,10 +21,11 @@ import java.util.Locale
 /**
  * A file the user can keep of everything they configured, and put back after a reinstall.
  *
- * The two preference files are written by name rather than through the app's own getters, because
- * this has to include the Labs lists and the accessibility locks and not the shell's history or
- * bookmarks. Runtime bookkeeping - the auth token, the ADB key, the last port, the last boot, the
- * hiding originals - is left out on purpose: those are facts about this install, not settings.
+ * The preference files are written by name rather than through the app's own getters, because
+ * this has to include the Labs lists, the accessibility locks and the shell's bookmarks, and not
+ * the shell's history. Runtime bookkeeping - the auth token, the ADB key, the last port, the last
+ * boot, the hiding originals - is left out on purpose: those are facts about this install, not
+ * settings.
  */
 object SettingsBackup {
 
@@ -36,6 +38,7 @@ object SettingsBackup {
     private const val KEY_APP_VERSION = "appVersion"
     private const val KEY_SETTINGS = "settings"
     private const val KEY_ACCESSIBILITY = "accessibility"
+    private const val KEY_BOOKMARKS = "bookmarks"
     private const val KEY_AUTOSTART = "autostart"
     private const val KEY_TYPE = "type"
     private const val KEY_VALUE = "value"
@@ -75,10 +78,13 @@ object SettingsBackup {
         val accessibility: Map<String, Value>,
         val exportedAt: String?,
         /** Null means it was not read because Shizuku was not running, so do not touch it. */
-        val autostart: Set<String>? = null
+        val autostart: Set<String>? = null,
+        /** Null means the backup predates bookmark support, so leave the current list alone. */
+        val bookmarks: Map<String, Value>? = null
     ) {
         val count: Int
-            get() = settings.size + accessibility.size + if (autostart != null) 1 else 0
+            get() = settings.size + accessibility.size + (bookmarks?.size ?: 0) +
+                if (autostart != null) 1 else 0
     }
 
     sealed interface Value {
@@ -132,6 +138,7 @@ object SettingsBackup {
         return runCatching {
             val settings = encode(ShizukuSettings.getPreferences())
             val accessibility = encode(accessibilityPreferences(context))
+            val bookmarks = encode(bookmarkPreferences(context))
             val autostart = if (shellAvailable()) {
                 PackageTools.readOpDeniedInstalled(AutoStartGate.OP)
             } else {
@@ -144,13 +151,15 @@ object SettingsBackup {
                 .put(KEY_APP_VERSION, BuildConfig.VERSION_NAME)
                 .put(KEY_SETTINGS, settings)
                 .put(KEY_ACCESSIBILITY, accessibility)
+                .put(KEY_BOOKMARKS, bookmarks)
             autostart?.let { root.put(KEY_AUTOSTART, JSONArray(it.sorted())) }
 
             context.contentResolver.openOutputStream(uri)?.use { output ->
                 output.write(root.toString(2).toByteArray(Charsets.UTF_8))
             } ?: return@runCatching null
 
-            settings.length() + accessibility.length() + if (autostart != null) 1 else 0
+            settings.length() + accessibility.length() + bookmarks.length() +
+                if (autostart != null) 1 else 0
         }.getOrNull()
     }
 
@@ -168,11 +177,16 @@ object SettingsBackup {
 
             val settings = decode(root.getJSONObject(KEY_SETTINGS)) ?: return@runCatching null
             val accessibility = root.optJSONObject(KEY_ACCESSIBILITY)?.let(::decode) ?: emptyMap()
+            val bookmarks = if (root.has(KEY_BOOKMARKS)) {
+                decode(root.getJSONObject(KEY_BOOKMARKS)) ?: return@runCatching null
+            } else {
+                null
+            }
             val exportedAt = root.optString(KEY_EXPORTED_AT, "").takeIf { it.isNotEmpty() }
             val autostart = root.optJSONArray(KEY_AUTOSTART)?.let { array ->
                 decodePackages(array) ?: return@runCatching null
             }
-            Backup(settings, accessibility, exportedAt, autostart)
+            Backup(settings, accessibility, exportedAt, autostart, bookmarks)
         }.getOrNull()
     }
 
@@ -211,6 +225,15 @@ object SettingsBackup {
         }
         if (!accessibilityEditor.commit()) return null
 
+        backup.bookmarks?.let { bookmarks ->
+            val bookmarksEditor = bookmarkPreferences(context).edit().clear()
+            bookmarks.forEach { (key, value) ->
+                value.write(bookmarksEditor, key)
+                applied++
+            }
+            if (!bookmarksEditor.commit()) return null
+        }
+
         // Put the services that are driven by these preferences back in step with them.
         ShizukuSettings.updateBootReceiver(context)
         ShizukuSettings.setWatchdog(context, ShizukuSettings.getWatchdog())
@@ -235,6 +258,12 @@ object SettingsBackup {
     private fun accessibilityPreferences(context: Context): SharedPreferences =
         context.applicationContext.getSharedPreferences(
             AccessibilityKeepAlive.FILE,
+            Context.MODE_PRIVATE
+        )
+
+    private fun bookmarkPreferences(context: Context): SharedPreferences =
+        context.applicationContext.getSharedPreferences(
+            ShellBookmarks.PREFS,
             Context.MODE_PRIVATE
         )
 

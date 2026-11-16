@@ -668,9 +668,9 @@
     <string name="settings_section_tools_summary">Permissions, setup, backup, terminal and intents</string>
     <string name="settings_backup_section">Backup and restore</string>
     <string name="settings_backup_export">Back up settings</string>
-    <string name="settings_backup_export_summary">Save app settings and Labs lists to a JSON file.</string>
+    <string name="settings_backup_export_summary">Save app settings, Labs lists and shell bookmarks to a JSON file.</string>
     <string name="settings_backup_restore">Restore settings</string>
-    <string name="settings_backup_restore_summary">Replace app settings and Labs lists from a backup file.</string>
+    <string name="settings_backup_restore_summary">Replace app settings, Labs lists and shell bookmarks from a backup file.</string>
     <string name="settings_backup_exported">Saved %1$d settings.</string>
     <string name="settings_backup_export_failed">Could not save the backup.</string>
     <string name="settings_backup_unreadable">That file is not a Shizuku settings backup.</string>
