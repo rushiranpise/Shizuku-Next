@@ -334,6 +334,19 @@ jobs:
           fi
           bash .github/scripts/virustotal-scan.sh "$APK"
 
+      # A stable asset for links such as
+      # https://github.com/rushiranpise/Shizuku-Next/releases/latest/download/shizuku-next.apk
+      # The release APK is universal, so the same file works on arm64 phones.
+      - name: Add Latest APK
+        run: |
+          APK=$(find files -maxdepth 1 -type f -name '*.apk' \
+            ! -name '*-debug.apk' ! -name 'shizuku-next.apk' -print -quit)
+          if [ -z "$APK" ]; then
+            echo "::error::Release APK was not downloaded"
+            exit 1
+          fi
+          cp "$APK" files/shizuku-next.apk
+
       - name: Create Draft Release
         env:
           GH_TOKEN: ${{ github.token }}
