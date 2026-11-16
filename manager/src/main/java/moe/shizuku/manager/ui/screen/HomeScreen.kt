@@ -1400,9 +1400,9 @@ private fun RowScope.DebuggingButton(
                 // those words still does not fit on its line.
                 text = label.replaceFirst(' ', '\n'),
                 modifier = Modifier.weight(1f),
-                // The second line starts under the first, as in the mock, rather than
-                // being centred under it.
-                textAlign = TextAlign.Start,
+                // Both lines sit centred under each other, so labels of different lengths
+                // read as one block inside the button.
+                textAlign = TextAlign.Center,
                 maxLines = 2
             )
         }
