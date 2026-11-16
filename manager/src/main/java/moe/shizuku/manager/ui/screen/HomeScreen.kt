@@ -1384,7 +1384,9 @@ private fun RowScope.DebuggingButton(
         }
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            // No fillMaxWidth here: the icon and label are centred as one group. Letting the
+            // label take the remaining width centred the text inside its own box but left the
+            // icon at the button's edge, which is what still read as left-aligned.
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -1399,11 +1401,11 @@ private fun RowScope.DebuggingButton(
                 // translation keeps its own words, and the font shrinks only if one of
                 // those words still does not fit on its line.
                 text = label.replaceFirst(' ', '\n'),
-                modifier = Modifier.weight(1f),
-                // Both lines sit centred under each other, so labels of different lengths
-                // read as one block inside the button.
+                // Both lines sit centred under each other, and the group is centred in the
+                // button by the row above.
                 textAlign = TextAlign.Center,
-                maxLines = 2
+                maxLines = 2,
+                fillWidth = false
             )
         }
     }
