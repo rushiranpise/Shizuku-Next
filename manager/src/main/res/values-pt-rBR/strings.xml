@@ -139,6 +139,14 @@
     <string name="app_management_sort_last_added">Adicionado recentemente</string>
     <string name="app_management_sort_updated">Atualizado</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_processes_hide">Ocultar %1$d processo(s)</string>
+    <string name="apps_process_allowed">Permitido</string>
+    <string name="apps_process_stop">Parar processo</string>
+    <string name="apps_process_stop_title">Parar processo?</string>
+    <string name="apps_process_stop_message">Parar o PID %1$d de %2$s? O aplicativo pode iniciá-lo novamente.</string>
+    <string name="apps_processes_title">Processos anexados (%1$d)</string>
+    <string name="apps_processes_hide_short">Esconder</string>
+    <string name="apps_processes_empty">Nenhum processo associado.</string>
     <string name="tab_home">Residencial</string>
     <string name="tab_apps">Aplicativos</string>
     <string name="tab_shell">Shell</string>
@@ -165,6 +173,24 @@
     <string name="labs_pin_app">Fixar aplicativo</string>
     <string name="labs_unpin_app">Desafixar aplicativo</string>
     <string name="labs_clear_pins">Limpar aplicativos fixados</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="tab_rotation">Rotação</string>
+    <string name="rotation_count">%1$d configurado</string>
+    <string name="rotation_gate_off">Desativado, %1$d configurado</string>
+    <string name="rotation_gate_disabled">Rotação está desativada</string>
+    <string name="rotation_note">O modo automático segue a rotação do sistema. Os modos retrato e paisagem seguram a tela enquanto o aplicativo está aberto e a devolvem ao deixá-lo.</string>
+    <string name="rotation_filter_configured">Configurado</string>
+    <string name="rotation_empty">Ainda não há nenhum aplicativo com um modo de rotação definido.</string>
+    <string name="rotation_needs_shizuku">Inicie o Shizuku para alterar rotação.</string>
+    <string name="rotation_mode_title">Modo de rotação</string>
+    <string name="rotation_mode_off">Desligado</string>
+    <string name="rotation_mode_off_note">Usar a rotação do próprio aplicativo.</string>
+    <string name="rotation_mode_auto">Automático</string>
+    <string name="rotation_mode_auto_note">Seguir a rotação do sistema. Utilize o modo retrato ou paisagem se o aplicativo ignorar isto.</string>
+    <string name="rotation_mode_portrait">Retrato</string>
+    <string name="rotation_mode_portrait_note">Forçar o modo retrato enquanto o aplicativo estiver aberto.</string>
+    <string name="rotation_mode_landscape">Paisagem</string>
+    <string name="rotation_mode_landscape_note">Forçar o modo paisagem enquanto o aplicativo estiver aberto.</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Ocultando</string>
     <string name="tab_hide_developer_options">Ocultar opções do desenvolvedor</string>
@@ -420,6 +446,10 @@
     <string name="hiding_notification_text">Toque para restaurá-los.</string>
     <string name="hiding_notification_idle_title">Esconder está ativado</string>
     <string name="hiding_notification_watching">Assistindo seus aplicativos listados.</string>
+    <string name="rotation_notification_title">Rotação travada</string>
+    <string name="rotation_notification_text">Rotação travada para %1$s.</string>
+    <string name="rotation_notification_watching_title">Controle de rotação está ativado</string>
+    <string name="rotation_notification_watching">Esperando um aplicativo na lista de rotação.</string>
     <string name="hiding_notification_paused_title">A ocultação está pausada</string>
     <string name="hiding_notification_paused_text">Suas configurações foram restauradas. Resume ocultá-las para seus aplicativos listados.</string>
     <string name="hiding_resume">Retomar</string>
@@ -529,18 +559,24 @@
     <string name="modules_warning">Um módulo é um script de shell criado por outra pessoa. Ele é executado pelo Shizuku com o mesmo nível de acesso que o próprio Shizuku tem. Instale apenas módulos em que você confia e leia os comandos que eles pedem para executar.</string>
     <string name="modules_none">Nenhum módulo instalado ainda.</string>
     <string name="modules_search">Buscar módulos</string>
+    <string name="modules_no_match">Nenhum módulo correspondente.</string>
     <string name="modules_install">Instalar um módulo</string>
     <string name="modules_installed">%1$s instalado</string>
     <string name="modules_access_full">Acesso total</string>
     <string name="modules_access_full_summary">Permita que os módulos executem scripts de serviço e usem a ponte de shell da WebUI. Sem isso, apenas as ações serão executadas.</string>
     <string name="modules_allow_background">Permitir ações em segundo plano</string>
     <string name="modules_allow_background_summary">Permite que o script de serviço de um módulo seja executado sem supervisão.</string>
+    <string name="modules_row_summary">%1$s - %2$s</string>
+    <string name="modules_action_run">Executar ação</string>
     <string name="modules_service_start">Iniciar serviço</string>
     <string name="modules_service_stop">Parar serviço</string>
     <string name="modules_web_ui">Abrir WebUI</string>
     <string name="modules_delete">excluir</string>
     <string name="modules_delete_confirm">Excluir %1$s?</string>
     <string name="modules_delete_confirm_message">O módulo e tudo o que estiver no diretório dele serão removidos, incluindo os registros.</string>
+    <string name="modules_review_title">Executar este comando?</string>
+    <string name="modules_review_message">%1$s pediu ao Shizuku para executar:</string>
+    <string name="modules_review_approve">Executar</string>
     <string name="modules_review_trust">Confiar em %1$s, e não perguntar novamente</string>
     <string name="modules_result_title">%1$s</string>
     <string name="modules_result_exit">Código de saída %1$d</string>
@@ -557,12 +593,13 @@
     <string name="about_package">Pacote</string>
     <string name="check_for_updates_now">Verificar agora</string>
     <string name="start_failed">Não foi possível iniciar Shizuku</string>
+    <string name="start_failed_write_secure_settings">O Shizuku não pode ativar Depuração por Wi-Fi sem a permissão WRITE_SECURE_SETTINGS. Ative-a manualmente em Opções do Desenvolvedor &gt; Depuração por Wi-Fi, ou conceda a permissão com <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. Assim que o Shizuku estiver em execução, ele manterá essa permissão, então isso só precisa ser feito uma vez.</string>
     <string name="action_open_wireless_debugging">Depuração sem fio</string>
     <string name="start_failed_unsupported">Este dispositivo não pode iniciá-lo em segundo plano</string>
     <string name="start_failed_wifi_required">Conecte-se a uma rede Wi-Fi o sistema desativa a depuração sem uma. Ou inicie um computador usando o comando ADB abaixo.</string>
     <string name="start_failed_binder_went_away">O serviço foi iniciado e então foi interrompido novamente, então nada pode ser usado ainda. Isso acontece quando o servidor é reduzido com o aplicativo que o início passou que é o que a carga faz depois de iniciá-la. Tente o início novamente.</string>
     <string name="start_failed_no_port">Nenhuma porta de depuração sem fio foi encontrada. Certifique-se de que a depuração sem fio está ativada e o Wi-Fi está conectado.</string>
-    <string name="start_failed_no_port_no_permission">Nenhuma porta de depuração por Wi-Fi foi encontrada, e o Shizuku não pode ativar a depuração por Wi-Fi sem WRITE_SECURE_SETTINGS: <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. Ou inicie o Shizuku pela depuração USB uma vez — ele concede a permissão a si mesmo depois.</string>
+    <string name="start_failed_no_port_no_permission">Nenhuma porta de depuração remota foi encontrada, e o Shizuku não pode ativar a depuração remota sem WRITE_SECURE_SETTINGS: <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. Ou inicie o Shizuku pela depuração USB uma vez — ele concede a permissão a si mesmo depois.</string>
     <string name="start_failed_no_auth">Depuração sem fio não é permitida nesta rede. Emparelhe o dispositivo novamente.</string>
     <string name="action_dismiss">Descartar</string>
     <string name="action_connect_wifi">Conectar</string>
@@ -570,7 +607,9 @@
     <string name="start_failed_pairing_required">Este dispositivo não está emparelhado para depuração sem fio. Paree-o novamente.</string>
     <string name="start_failed_connection_lost">A conexão ADB foi fechada durante o início. Tente novamente.</string>
     <string name="start_failed_usb_no_port">Nenhuma porta ADB local está aberta para Android limpá-lo em cada reinicialização e reabri-lo precisa de uma conexão com empréstimo. Conectar-se ao Wi-Fi e Shizuku irá reabri-lo através da depuração sem fio, execute <b>adb tcpip 5555</b> de um computador, ou escolha <b>Iniciar sem o Wi-Fi</b> como método inicial para iniciar a depuração sem fio.</string>
+    <string name="start_failed_usb_no_port_no_option">Nenhuma porta ADB local está aberta. O Android limpa essa configuração toda vez que o dispositivo é reiniciado. Para reabri-la, é necessário usar uma conexão de rede temporariamente. Conecte-se ao Wi-Fi uma vez ou execute <b>adb tcpip 5555</b> em um computador.</string>
     <string name="start_failed_root_unavailable">O Root não está mais disponível neste dispositivo, então o Shizuku não pode começar de novo. Escolha outro método de início.</string>
+    <string name="start_failed_adb_root">O acesso root via ADB não está disponível. Ative a depuração USB em uma build do Android com suporte à depuração ou escolha outro método de inicialização.</string>
     <string name="start_failed_system_needs_app">O método de início do sistema deve ser iniciado a partir do aplicativo.</string>
     <string name="start_failed_system_no_exploit">Este dispositivo não envia o agente da Samsung FOTA (com.sdet. otaagent), que é o único componente que o método de início do sistema pode utilizar, portanto não há nada com que aumentar aqui. Alterne o método de início do sistema para o comando Personalizado: o aplicativo irá mostrar a você o que executar com um escalonamento do seu dispositivo tem.</string>
     <string name="start_failed_no_binder">O serviço não apareceu em um minuto. Ambas as metades mantêm um registro: o iniciador sob ShizukuServiceStarter e a transição sob BinderSender. Um leitor de logcat filtrado para esses dois mostra se o iniciante chegou ao ponto de bifurcar o servidor, e se o servidor já pediu pelo binder.</string>
@@ -585,11 +624,16 @@
     <string name="settings_section_wireless_summary">Depuração sem fio, modo TCP e porta ADB</string>
     <string name="settings_section_tools">Ferramentas</string>
     <string name="settings_section_tools_summary">Permissões, configuração, backup, terminal e intents</string>
+    <string name="settings_backup_section">Backup e restauração</string>
+    <string name="settings_backup_export">Fazer backup das configurações</string>
     <string name="settings_backup_export_summary">Salve as configurações do aplicativo e as listas do Labs em um arquivo JSON.</string>
+    <string name="settings_backup_restore">Restaurar configurações</string>
     <string name="settings_backup_restore_summary">Substitui as configurações do aplicativo e as listas do Labs pelas informações de um arquivo de backup.</string>
     <string name="settings_backup_exported">%1$d configurações salvas.</string>
     <string name="settings_backup_export_failed">Não foi possível salvar o backup.</string>
+    <string name="settings_backup_unreadable">Este arquivo não é um backup de configurações do Shizuku.</string>
     <string name="settings_backup_restore_title">Restaurar as configurações?</string>
+    <string name="settings_backup_restore_message">Isto substitui as configurações e listas de %1$d.</string>
     <string name="settings_backup_restore_action">RESTAURAR</string>
     <string name="settings_backup_restored">%1$d Configurações restauradas. Reinicie o Shizuku para aplicar as alterações de inicialização.</string>
     <string name="settings_backup_restore_failed">Não foi possível restaurar o backup.</string>
@@ -614,8 +658,10 @@
     <string name="intents_adb_command">Comece através do Computador</string>
     <string name="intents_status_broadcast">Transmissão de status</string>
     <string name="intents_status_broadcast_extra">status extra: 1 = em execução, 0 = não está</string>
+    <string name="labs_gate_stays_on">Não foi possível alterar certos aplicativos, então a lista continua ativa</string>
     <string name="intents_values">Para aplicativos de automação</string>
     <string name="intents_package">Pacote</string>
+    <string name="intents_action_for">Ação de %1$s</string>
     <string name="home_battery_warning">O Shizuku pode ser encerrado em segundo plano. Permita que ignore as otimizações de bateria.</string>
     <string name="batch_selected_count">%1$d selecionado</string>
     <string name="app_management_action_select_all">Selecionar todos</string>
@@ -672,6 +718,12 @@
     <string name="settings_start_on_boot">Iniciar no arranque</string>
     <string name="settings_use_system_color">Usar cor temática do sistema</string>
     <string name="settings_use_system_color_summary">Seguir a paleta do sistema</string>
+    <string name="settings_always_show_navigation_bar">Sempre exibir a barra de navegação</string>
+    <string name="settings_always_show_navigation_bar_summary">Manter a barra de guias visível ao rolar para baixo.</string>
+    <string name="settings_secure_quick_tiles">Proteger blocos de Configurações Rápidas</string>
+    <string name="settings_secure_quick_tiles_summary">Impedir alterações nos blocos de Configurações Rápidas enquanto o dispositivo estiver bloqueado.</string>
+    <string name="settings_require_grant_authentication">Confirmar concessões a aplicativos</string>
+    <string name="settings_require_grant_authentication_summary">Solicitar autenticação biométrica ou bloqueio de tela antes de permitir que um aplicativo acesse o Shizuku.</string>
     <string name="settings_watchdog">Cão de guarda</string>
     <string name="settings_watchdog_summary">Reiniciar Shizuku automaticamente se o programa
         bloquear</string>
@@ -679,6 +731,7 @@
     <string name="settings_auto_disable_wireless_debugging_summary">Desativar depuração sem fios quando Shizuku parar.</string>
     <string name="settings_start_method">Método de início padrão</string>
     <string name="settings_start_method_root_unavailable">Este dispositivo não tem root, então começa a cair para a depuração sem fio.</string>
+    <string name="settings_start_method_root_unavailable_usb">Este dispositivo não tem acesso root, então a inicialização é feita via USB.</string>
     <string name="start_method_wireless_no_network">Sem Wi-Fi</string>
     <string name="start_method_wireless">Sem fio</string>
     <string name="start_method_usb">BR</string>
@@ -747,20 +800,38 @@
     <string name="permissions_notifications_summary">Mostra o código de emparelhamento, o progresso e os erros iniciais.</string>
     <string name="permissions_nearby">Dispositivos próximos</string>
     <string name="permissions_nearby_summary">Localiza a porta de depuração sem fio na sua rede.</string>
+    <string name="permissions_hotspot">Ponto de acesso local</string>
+    <string name="permissions_hotspot_summary">Permite o Shizuku inicializar sem Wi-Fi criando um ponto de acesso local.</string>
     <string name="permissions_write_secure_settings">Gravar configurações seguras</string>
     <string name="permissions_write_secure_settings_summary">Vamos ativar o Shizuku na depuração sem fios. Apenas o ADB pode conceder esta permissão.</string>
     <string name="permissions_accessibility">Serviço de acessibilidade</string>
     <string name="permissions_accessibility_summary">Lê o código de emparelhamento automaticamente.</string>
     <string name="permissions_battery_summary">Para o Android de matar Shizuku em segundo plano.</string>
+    <string name="permissions_pairing_service">Serviço de emparelhamento</string>
+    <string name="permissions_pairing_service_reason">Lê o código de emparelhamento.</string>
+    <string name="permissions_pairing_service_restricted">Permitir configurações restritas em informações do aplicativo.</string>
     <!--
       The guided first run. Each page is one decision, and the sentences say what happens rather
       than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
     -->
+    <string name="setup_step">Etapa %1$d de %2$d</string>
+    <string name="setup_action_skip">Pular</string>
     <string name="setup_action_continue">Continuar</string>
+    <string name="setup_action_done">Concluir</string>
     <string name="setup_welcome_title">Bem-vindo ao Shizuku-Next</string>
+    <string name="setup_welcome_body">O Shizuku-Next inicia e gerencia o serviço Shizuku, que permite que os aplicativos usem permissões que normalmente exigem adb ou root. Todas as configurações aqui podem ser alteradas posteriormente em Configurações.</string>
+    <string name="setup_start_title">Como o Shizuku inicializar?</string>
+    <string name="setup_start_body">Isso define de onde o serviço obtém suas permissões. Você pode alterar isso posteriormente em Configurações, em Método de inicialização.</string>
     <string name="setup_root_title">raiz</string>
+    <string name="setup_root_body">Um toque, sem cabos e sem emparelhamento. Requer um gerenciador de root que conceda acesso ao Shizuku.</string>
     <string name="setup_wireless_title">Depuração sem fio</string>
+    <string name="setup_wireless_body">Funciona sem root. Requer opções de desenvolvedor e um emparelhamento único; depois disso, inicia pelo aplicativo.</string>
     <string name="setup_usb_title">Depuração USB</string>
+    <string name="setup_usb_body">Funciona sem root. Requer a porta ADB clássica; se não estiver aberta, conecte-se a um computador uma vez para iniciar o Shizuku.</string>
+    <string name="setup_permissions_title">Permissões opcionais</string>
+    <string name="setup_permissions_body">Você pode ignorar qualquer uma dessas opções e alterá-las posteriormente nas Configurações.</string>
+    <string name="settings_run_setup">Executar a configuração inicial novamente</string>
+    <string name="settings_run_setup_summary">Os primeiros passos: como Shizuku começa e o que ele precisa</string>
     <string name="settings_help">Ajuda</string>
     <string name="settings_translate">Participe da tradução</string>
     <string name="settings_translate_note">Traduza o aplicativo no Crowdin.</string>
@@ -774,6 +845,10 @@
       A plural, not a plain string: most of the people on this wall are here for a single commit,
       so the singular is read more often than the plural is.
     -->
+    <plurals name="contributor_commits">
+        <item quantity="one">Commit de %1$d</item>
+        <item quantity="other">Commits de %1$d</item>
+    </plurals>
     <string name="contributor_view_github">Ver no GitHub</string>
     <string name="contributor_details_close">Fechar</string>
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
@@ -806,6 +881,9 @@
     <string name="bug_report_dialog_issues">Pesquise em todos os relatórios ^1 para ver se o seu bug
         já foi reportado.</string>
     <string name="bug_report_dialog_link_issues">problemas existentes</string>
+    <string name="bug_report_dialog_method">Por favor, envie um relatório de problema em ^1.</string>
+    <string name="bug_report_dialog_log_note">Se o relatório de problema precisa de um log, compartilhe o log completo abaixo em anexo.</string>
+    <string name="bug_report_dialog_share_log">Compartilhe o log</string>
     <!-- Snackbar -->
     <string name="snackbar_battery_optimization_settings">Desative a otimização da bateria para
         utilizar esta funcionalidade.</string>
@@ -858,6 +936,10 @@
     <string name="permission_description">Permita que o aplicativo use o Shizuku.</string>
     <string name="permission_warning_template"><![CDATA[Permitir <b>%1$s</b> a %2$s\?]]></string>
     <string name="grant_dialog_button_allow_always">Permitir o tempo todo</string>
+    <string name="grant_dialog_button_allow_once">Permitir apenas uma vez</string>
+    <string name="grant_auth_title">Confirmar que é você</string>
+    <string name="grant_auth_subtitle">Faça a autenticação para conceder acesso ao Shizuku.</string>
+    <string name="grant_auth_unavailable">Configure um bloqueio de tela ou biometria para confirmar concessões de permissão.</string>
     <string name="grant_dialog_button_deny">"Negar"</string>
     <!-- Starter -->
     <string name="starter">Iniciante</string>
@@ -964,6 +1046,7 @@
     <string name="off">Desligado</string>
     <string name="dialog_cannot_open_browser_title">Não é possível iniciar o navegador</string>
     <string name="toast_copied_to_clipboard">Copiado para a área de transferência</string>
+    <string name="toast_press_back_again">Pressione voltar novamente para sair</string>
     <string name="accessibility_service_description">Fornece suporte para emparelhamento com
         dispositivos (por exemplo, televisores com Android 14 ou superior) onde as notificações ou o
         ecrã dividido não podem ser utilizados.\n\nPermite ao Shizuku extrair o código de
@@ -999,18 +1082,38 @@
     <string name="manage_status_hidden">Hidden</string>
     <string name="manage_select">Selecione aplicativos</string>
     <string name="manage_select_all">Selecionar todos os exibidos</string>
+    <string name="manage_clear_selection">Limpar seleção</string>
+    <string name="manage_selection_close">Fechar seleção</string>
     <string name="manage_selected_count">%1$d selecionado</string>
+    <string name="manage_bulk_action">Definir app op</string>
+    <string name="manage_bulk_title">Definir app op</string>
+    <string name="manage_bulk_note">Escolha um app op e modo. Você verificará os aplicativos antes de aplicar.</string>
+    <string name="manage_bulk_pinned_note">Aplicativos fixados ficam no topo e são pulados por Selecionar todos os mostrados.</string>
     <string name="manage_pin_app">Fixar aplicativo</string>
     <string name="manage_unpin_app">Desafixar aplicativo</string>
+    <string name="manage_bulk_mode">Modo</string>
+    <string name="manage_bulk_review">Revisão</string>
     <string name="manage_bulk_apply">Aplicar</string>
+    <string name="manage_bulk_confirm_mode">Modo:%1$s</string>
+    <string name="manage_bulk_confirm_targets">Aplicativos: %1$d</string>
+    <string name="manage_bulk_confirm_warning">Estas alterações são aplicadas imediatamente. Alguns aplicativos podem rejeitar a operação.</string>
+    <string name="manage_bulk_progress_title">Aplicando operação do aplicativo</string>
     <string name="manage_bulk_progress">Alterando %1$d de %2$d...</string>
+    <string name="manage_bulk_result_title">Resultado do lote</string>
     <string name="manage_bulk_result_summary">Alterado: %1$d, falhou: %2$d.</string>
+    <string name="manage_bulk_result_changed">Alterado</string>
+    <string name="manage_bulk_result_failed">Falhou</string>
+    <string name="manage_bulk_result_failed_hint">Operações com falha podem não ser suportadas pelo aplicativo ou podem ser bloqueadas pelo Android.</string>
+    <string name="manage_bulk_failures_only">Somente falhas</string>
+    <string name="manage_bulk_done_action">Concluir</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_detail_missing">Este app não está mais instalado.</string>
     <string name="app_open_info">Informações do app</string>
     <string name="app_section_permissions">Permissões do sistema</string>
     <string name="app_section_runtime">Permissões de execução</string>
     <string name="app_section_ops">Operações de apps</string>
+    <string name="app_section_rotation">Rotação</string>
+    <string name="app_rotation_changed">Rotação alterada</string>
     <string name="app_section_actions">Ações.</string>
     <string name="app_section_battery">Bateria</string>
     <string name="app_section_info">Informações</string>
@@ -1074,6 +1177,19 @@
     <string name="app_action_uninstall_note">Remove o aplicativo, mas mantém seus dados.</string>
     <string name="app_action_restore">Restaurar aplicativo do sistema</string>
     <string name="app_action_restore_note">Restaura um aplicativo do sistema removido para este usuário.</string>
+    <string name="app_section_data">Dados do aplicativo</string>
+    <string name="app_data_note">Exporta OBB e Android/data. Os dados internos do aplicativo precisam de root e não estão incluídos.</string>
+    <string name="app_data_export_note">Para o aplicativo e salva OBB e dados externos em um arquivo ZIP.</string>
+    <string name="app_data_import">Importar dados do aplicativo</string>
+    <string name="app_data_none">Este aplicativo não tem OBB nem dados externos para exportar.</string>
+    <string name="app_data_exporting">Exportando dados do aplicativo</string>
+    <string name="app_data_importing">Importando dados do aplicativo</string>
+    <string name="app_data_imported">Dados do aplicativo importados. Inicie o aplicativo para usá-los.</string>
+    <string name="app_data_export_failed">Não foi possível exportar dados de aplicativos: %1$s</string>
+    <string name="app_data_import_failed">Não foi possível importar dados de aplicativos: %1$s</string>
+    <string name="app_data_cancelled">Cancelado.</string>
+    <string name="app_data_import_title">Importar dados do aplicativo?</string>
+    <string name="app_data_import_action">Importar</string>
     <string name="app_confirm_title">Você tem certeza?</string>
     <string name="app_confirm_disable">Desativar %1$s? Ele para de executar até que você o ative novamente.</string>
     <string name="app_confirm_clear_data">Excluir todos os dados de %1$s? Esta ação não pode ser desfeita.</string>
@@ -1105,11 +1221,16 @@
     <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
          screen. The per-app list is unaffected either way, which is what the off state says. -->
     <string name="firewall_tile_label">Firewall</string>
+    <string name="firewall_mobile_only_on">Apenas redes móveis</string>
+    <string name="firewall_mobile_only_off">Todas as redes</string>
+    <string name="firewall_mobile_only_failed">Não foi possível alterar a regra de redes móveis</string>
     <!-- The three answers every switch outside the app can give. Unknown is its own word: a
          state that could not be read is not the same thing as a feature that is off. -->
     <string name="lab_state_on">Ligado</string>
     <string name="lab_state_off">Desligado</string>
+    <string name="lab_state_unavailable">Indisponível</string>
     <!-- The switches in the shade and on the home screen that are not about one app. -->
+    <string name="lab_switch_service">Serviço do Shizuku</string>
     <string name="lab_switch_hiding">Ocultando</string>
     <string name="lab_switch_watchdog">Cão de guarda</string>
     <!-- The three platform settings themselves, and the hiding switches that are about the same
@@ -1125,8 +1246,13 @@
     <string name="home_switch_dev_options">Opções do desenvolvedor</string>
     <string name="home_switch_usb">Depuração USB</string>
     <string name="home_switch_wireless">Depuração sem fio</string>
+    <string name="lab_widget_description">Ative ou desative está funcionalidade.</string>
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
+    <string name="lab_switch_is_on">%1$s está ativado</string>
+    <string name="lab_switch_is_off">%1$s está desativado</string>
+    <string name="lab_switch_could_not_change">Não foi possível alterar %1$s</string>
+    <string name="lab_switch_locked">Desbloqueie o dispositivo para alterar este título.</string>
     <string name="app_info_version">Versão</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">Target SDK</string>
@@ -1143,13 +1269,34 @@
     <string name="app_info_yes">sim</string>
     <string name="app_info_no">Não</string>
     <string name="tab_wifi_passwords">Senhas de Wi-Fi</string>
+    <string name="tab_accessibility">Acessibilidade</string>
     <string name="accessibility_boot">Iniciar no arranque</string>
+    <string name="accessibility_boot_summary">Inicia o keep-alive novamente após reinicialização.</string>
+    <string name="accessibility_empty">Nenhum serviço de acessibilidade for encontrado.</string>
+    <string name="accessibility_gate_off">Keep-alive desativado</string>
+    <string name="accessibility_count">%1$d ativado</string>
     <string name="accessibility_filter_off">Desligado</string>
     <string name="accessibility_filter_on">Ligado</string>
+    <string name="accessibility_no_match">Nenhum serviço correspondente à sua pesquisa.</string>
+    <string name="accessibility_write_failed">Não foi possível alterar o dispositivo. Confira se o Shizuku está em execução.</string>
     <string name="accessibility_notification_channel">Serviços de acessibilidade</string>
+    <string name="accessibility_notification_title">Serviços de acessibilidade mantidos ativados</string>
+    <string name="accessibility_notification_text">O Shizuku-Next reativa os serviços bloqueados quando o Android os desativa.</string>
     <string name="wifi_passwords_show">Mostrar senha</string>
     <string name="wifi_passwords_hide">Ocultar senha</string>
+    <string name="wifi_passwords_copy">Copiar senha</string>
+    <string name="wifi_passwords_none">Sem senha</string>
+    <string name="wifi_passwords_needs_shizuku">O Shizuku não está em execução, portanto não há shell para ler as redes salvas.</string>
+    <string name="wifi_passwords_failed">O serviço de Wi‑Fi não respondeu. O log contém o que ele disse.</string>
+    <string name="wifi_passwords_unsupported">A leitura das redes salvas requer Android 9 ou posterior, que é onde o serviço de Wi‑Fi oculto pode ser acessado.</string>
+    <string name="wifi_passwords_connected">Conectado</string>
     <string name="wifi_passwords_connect">Conectar</string>
+    <string name="wifi_passwords_connected_toast">Conectado a %1$s</string>
+    <string name="wifi_passwords_forget">Esquecer</string>
+    <string name="wifi_passwords_forget_message">%1$s Será esquecido, incluindo a senha salva. Isso não pode ser desfeito.</string>
+    <string name="wifi_passwords_action_failed">A ação falhou. Consulte o log. para ver detalhes.</string>
+    <string name="wifi_backup_import">Importar redes</string>
+    <string name="wifi_backup_export_message">Salva suas redes e senhas em um arquivo. Você pode proteger o arquivo com uma senha. Sem a senha, o arquivo não pode ser aberto.</string>
     <string name="tab_files">Arquivos</string>
     <string name="files_root_internal">Interno</string>
     <string name="files_root_app_data">Dado</string>
@@ -1174,6 +1321,7 @@
     <string name="files_action_select_all">Selecionar todos</string>
     <string name="files_action_rename">Renomear</string>
     <string name="files_action_copy">copiar</string>
+    <string name="files_action_paste_copy">Colar aqui</string>
     <string name="files_action_delete">excluir</string>
     <string name="files_field_name">Nome:</string>
     <string name="tab_install">Instalador de aplicativos</string>

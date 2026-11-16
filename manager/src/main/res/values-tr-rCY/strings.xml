@@ -124,6 +124,8 @@
     <string name="app_management_sort_last_added">Son eklenenler</string>
     <string name="app_management_sort_updated">Güncellenenler</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_process_allowed">İzin verilenler</string>
+    <string name="apps_processes_hide_short">Gizle</string>
     <string name="tab_home">Ana Sayfa</string>
     <string name="tab_apps">Uygulamalar</string>
     <string name="tab_shell">Shell</string>
@@ -135,6 +137,8 @@
     <string name="labs_filter_blocked">Engellenen</string>
     <string name="labs_blocked_count">%1$d engellendi</string>
     <string name="labs_blocked_empty">Hiçbir şey engellenmemiş.</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="rotation_mode_off">Kapalı</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hide_developer_options">Geliştirici seçeneklerini gizle</string>
     <string name="tab_hide_usb_debugging">USB hata ayıklamayı gizle</string>

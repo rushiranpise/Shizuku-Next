@@ -81,6 +81,7 @@
     <string name="tab_firewall">ফায়ারওয়াল</string>
     <string name="tab_autostart">অটোস্টার্ট</string>
     <string name="labs_filter_allowed">অনুমোদিত</string>
+    <!-- Per-app rotation override for apps that force landscape -->
     <!-- Hiding: what apps can read about this device -->
     <string name="hiding_filter_hidden">লুকায়িত</string>
     <string name="activities_apps_section">অ্যাপগুলি</string>

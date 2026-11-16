@@ -124,6 +124,8 @@
     <string name="app_management_sort_last_added">Ostatnio dodane</string>
     <string name="app_management_sort_updated">Aktualizacja</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_process_allowed">Dozwolone</string>
+    <string name="apps_processes_hide_short">Ukryj</string>
     <string name="tab_home">Home</string>
     <string name="tab_apps">Aplikację</string>
     <string name="tab_shell">Shell</string>
@@ -135,6 +137,8 @@
     <string name="labs_filter_blocked">Zablokowane</string>
     <string name="labs_blocked_count">%1$d Zablokowane</string>
     <string name="labs_blocked_empty">Nic nie jest zablokowane.</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="rotation_mode_off">Wyłączony</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Ukrywanie</string>
     <string name="tab_hide_developer_options">Ukryte opcję deweloperskie</string>

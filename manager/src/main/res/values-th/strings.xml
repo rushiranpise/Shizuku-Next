@@ -12,6 +12,7 @@
     <string name="home_wireless_adb_title"><![CDATA[เริ่มผ่านการแก้ไขข้อบกพร่องผ่าน Wi-Fi]]></string>
     <string name="home_wireless_adb_starting_without_wifi"></string>
     <string name="home_usb_adb_needs_network">Buppa255@gmail.com</string>
+    <string name="home_usb_adb_needs_network_no_option">A USB start uses the classic ADB port, and reopening it needs a network. Connect to Wi-Fi once, or start from a computer with the ADB command in Other methods.</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
@@ -89,6 +90,7 @@
     <string name="app_management_dialog_adb_is_limited_title">การอนุญาตของ adb นั้นจำกัด</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[เป็นไปได้สูงที่ผู้ผลิตอุปกรณ์ของคุณจะจำกัดการอนุญาตของ adb <p>อาจมีวิธีแก้ไขสำหรับอุปกรณ์ของคุณใน<b><a href="%1$s">เอกสารนี้</a></b>]]></string>
     <string name="app_management_toggle_all">สลับทั้งหมด</string>
+    <!-- Per-app rotation override for apps that force landscape -->
     <!-- Hiding: what apps can read about this device -->
     <string name="intent_start">เริ่ม</string>
     <string name="device_watchdog">สุนัขเฝ้าบ้าน</string>
