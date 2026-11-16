@@ -70,6 +70,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
@@ -114,6 +115,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import moe.shizuku.manager.ui.component.PillButton
 import moe.shizuku.manager.ui.component.PillButtonQuiet
+import moe.shizuku.manager.AppConstants
 import moe.shizuku.manager.R
 import moe.shizuku.manager.shell.ShellBackend
 import moe.shizuku.manager.shell.LibraryCommand
@@ -653,7 +655,37 @@ fun ShellScreen(bottomPadding: Dp = 0.dp, onBack: (() -> Unit)? = null) {
                                 text = { Text(stringResource(R.string.shell_copy)) },
                                 onClick = {
                                     menuOpen = false
-                                    clipboard.setText(AnnotatedString(printed.joinToString("\n")))
+                                    val text = ShellOutput.clipboardText(printed)
+                                    if (text == null) {
+                                        scope.launch {
+                                            feedback.showSnackbar(
+                                                context.getString(R.string.shell_copy_too_large)
+                                            )
+                                        }
+                                    } else {
+                                        val copied = try {
+                                            clipboard.setText(AnnotatedString(text))
+                                            true
+                                        } catch (e: Exception) {
+                                            Log.w(
+                                                AppConstants.TAG,
+                                                "Could not copy the shell output",
+                                                e
+                                            )
+                                            false
+                                        }
+                                        scope.launch {
+                                            feedback.showSnackbar(
+                                                context.getString(
+                                                    if (copied) {
+                                                        R.string.toast_copied_to_clipboard
+                                                    } else {
+                                                        R.string.shell_copy_failed
+                                                    }
+                                                )
+                                            )
+                                        }
+                                    }
                                 }
                             )
                             DropdownMenuItem(

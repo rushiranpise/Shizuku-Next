@@ -1067,6 +1067,8 @@
     <string name="shell_stop">Stop</string>
     <string name="shell_clear">Clear</string>
     <string name="shell_copy">Copy</string>
+    <string name="shell_copy_too_large">Output is too long to copy. Use Save instead.</string>
+    <string name="shell_copy_failed">Could not copy the output. Use Save instead.</string>
     <string name="shell_history_previous">Previous command</string>
     <string name="shell_history_next">Next command</string>
 

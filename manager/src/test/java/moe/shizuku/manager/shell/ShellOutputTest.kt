@@ -1,6 +1,7 @@
 package moe.shizuku.manager.shell
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -43,5 +44,17 @@ class ShellOutputTest {
         // The line above the answer is usually part of the answer, so a line holding two
         // matches is two steps of the search rather than one.
         assertEquals(3, ShellOutput.matchCount(listOf("one one", "two", "one"), "one"))
+    }
+
+    @Test
+    fun `clipboard text joins the transcript with newlines`() {
+        assertEquals("one\ntwo", ShellOutput.clipboardText(listOf("one", "two")))
+    }
+
+    @Test
+    fun `clipboard text is refused before it exceeds the binder limit`() {
+        assertEquals("ab\ncd", ShellOutput.clipboardText(listOf("ab", "cd"), maxChars = 5))
+        assertNull(ShellOutput.clipboardText(listOf("abc", "de"), maxChars = 5))
+        assertNull(ShellOutput.clipboardText(listOf("a".repeat(6)), maxChars = 5))
     }
 }
