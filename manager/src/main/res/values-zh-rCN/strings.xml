@@ -13,6 +13,8 @@
     <string name="home_wireless_adb_title"><![CDATA[通过无线调试启动]]></string>
     <string name="home_wireless_adb_starting_without_wifi">无网络启动：会反复请求设备开启无线调试，直到它保持开启为止。启动或放弃前最多可能需要两分钟。</string>
     <string name="home_usb_adb_needs_network">通过 USB 启动用的是经典 ADB 端口，而重新打开端口需要联网。请连接一次 Wi-Fi，或将启动方式设为<b>不使用 Wi-Fi 启动</b>，改用无线调试启动。</string>
+    <string name="home_usb_adb_needs_network_no_option">USB启动使用经典的ADB端口，重新打开需要网络。只需连接一次Wi-Fi，或通过其他方法从带有ADB命令的电脑启动。</string>
+    <string name="home_usb_adb_needs_computer">USB启动需要经典的ADB端口。在此Android版本中，请连接电脑，并通过“其他方法”中的ADB命令启动Shizuku。</string>
     <string name="home_wireless_adb_summary">通过无线调试启动。</string>
     <string name="home_usb_adb_title"><![CDATA[通过 USB 调试启动]]></string>
     <string name="home_usb_adb_summary">通过 USB 调试启动。</string>
@@ -68,6 +70,7 @@
     <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
+    <string name="dialog_adb_pairing_accessibility_permission_tv">Android 会阻止在应用商店之外安装的应用使用此开关，而在电视上，应用信息中也没有“允许受限设置”选项来解除该限制。需要通过ADB将电脑连接到此电视一次：要么授予上述权限，使Shizuku 能够自行开启服务；要么使用以下命令解除开关限制：\n\n^1</string>
     <string name="dialog_adb_pairing_open_app_info">应用信息</string>
     <string name="dialog_adb_pairing_accessibility_enable">自动配对要通过 Shizuku 的无障碍服务从系统对话框里读取配对码，所以需要开启它——而且只在需要的那一小会儿：找到配对码后或一分钟后，服务会自行关闭以省电。Shizuku 通常会自己开启它，这需要 WRITE_SECURE_SETTINGS 权限，而全新安装还没有这个权限。\n\n在下一屏开启它、在“手动”下自己输入配对码，或者授予一次权限：\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">请按照以下步骤开始配对：\n- 进入“开发者选项”\n- 启用“USB 调试”和“无线调试”\n- 点击“无线调试”左侧\n- 点击“使用配对码配对设备”。Shizuku 将自动检测配对码。</string>
@@ -128,7 +131,16 @@
     <string name="app_management_sort_last_added">最近添加</string>
     <string name="app_management_sort_updated">最近更新</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_processes_show">显示%1$d个进程（多个进程）</string>
+    <string name="apps_processes_hide">隐藏%1$d个进程（多个进程）</string>
+    <string name="apps_process_pid">应用进程PID%1$d</string>
+    <string name="apps_process_api">应用进程API%1$d</string>
     <string name="apps_process_allowed">已允许</string>
+    <string name="apps_process_not_allowed">不允许</string>
+    <string name="apps_status_one_time">一次性</string>
+    <string name="apps_process_stop">停止进程</string>
+    <string name="apps_process_stop_title">停止进程？</string>
+    <string name="apps_process_stop_message">停止 PID %1$d为%2$s?应用程序可能会再次启动它。</string>
     <string name="apps_processes_hide_short">隐藏</string>
     <string name="tab_home">首页</string>
     <string name="tab_apps">应用</string>
