@@ -320,6 +320,20 @@ jobs:
           path: files
           merge-multiple: true
 
+      # The release APK is the one people install, so it is the one that gets a
+      # public scan. The debug APK is too large for the public API's upload limit.
+      - name: Scan Release APK with VirusTotal
+        id: virustotal
+        env:
+          VIRUSTOTAL_API_KEY: ${{ secrets.VIRUSTOTAL_API_KEY }}
+        run: |
+          APK=$(find files -maxdepth 1 -type f -name '*.apk' ! -name '*-debug.apk' -print -quit)
+          if [ -z "$APK" ]; then
+            echo "::error::Release APK was not downloaded"
+            exit 1
+          fi
+          bash .github/scripts/virustotal-scan.sh "$APK"
+
       - name: Create Draft Release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -346,3 +360,28 @@ jobs:
           else
             gh release create "$RELEASE_VERSION" files/*.apk --title "$RELEASE_VERSION" $NOTES $FLAGS
           fi
+
+      # Added after the release exists so it also lands on a release whose notes
+      # GitHub generated, and replaced rather than repeated when a run is retried.
+      - name: Add VirusTotal Report to Release Notes
+        if: ${{ steps.virustotal.outputs.report_url != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_VERSION: ${{ needs.build.outputs.versionName }}
+          VIRUSTOTAL_REPORT_URL: ${{ steps.virustotal.outputs.report_url }}
+          VIRUSTOTAL_STATS: ${{ steps.virustotal.outputs.stats }}
+        run: |
+          BODY=$(gh release view "$RELEASE_VERSION" --json body --jq .body)
+          BODY=$(BODY="$BODY" python3 -c 'import os; print(os.environ["BODY"].split("\n\n### VirusTotal\n")[0].rstrip(), end="")')
+
+          if [ -n "$BODY" ]; then
+            BODY=$(printf '%s\n\n### VirusTotal\n\n[Scan report](%s)' "$BODY" "$VIRUSTOTAL_REPORT_URL")
+          else
+            BODY=$(printf '### VirusTotal\n\n[Scan report](%s)' "$VIRUSTOTAL_REPORT_URL")
+          fi
+
+          if [ -n "$VIRUSTOTAL_STATS" ]; then
+            BODY=$(printf '%s\n\n%s' "$BODY" "$VIRUSTOTAL_STATS")
+          fi
+
+          gh release edit "$RELEASE_VERSION" --notes "$BODY"
