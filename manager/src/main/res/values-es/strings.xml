@@ -784,6 +784,13 @@
     <string name="settings_language_system">Por defecto del sistema</string>
     <string name="settings_black_night_theme">Tema Noche cerrada</string>
     <string name="settings_black_night_theme_summary">Use el tema Noche cerrada si el modo nocturno está habilitado</string>
+    <string name="settings_palette_vibrant">Vibrante</string>
+    <string name="settings_accent_purple">Morado</string>
+    <string name="settings_accent_blue">Azul</string>
+    <string name="settings_accent_green">Verde</string>
+    <string name="settings_accent_orange">Naranja</string>
+    <string name="settings_accent_pink">Rosa</string>
+    <string name="settings_high_contrast">Alto contraste</string>
     <string name="settings_update_stable">Estable</string>
     <string name="settings_update_beta">Dev</string>
     <string name="settings_permissions">Permisos</string>

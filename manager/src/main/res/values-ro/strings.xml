@@ -151,6 +151,7 @@
     <string name="apps_process_api">API %1$d</string>
     <string name="apps_process_allowed">Permis</string>
     <string name="apps_process_not_allowed">Nu este permis</string>
+    <string name="apps_status_one_time">O singură dată</string>
     <string name="apps_process_stop">Oprește procesul</string>
     <string name="apps_process_stop_title">Oprești procesul?</string>
     <string name="apps_process_stop_message">Oprești PID %1$d pentru %2$s? Este posibil ca aplicația să pornească din nou.</string>
@@ -799,6 +800,28 @@
     <string name="settings_language_system">Implicit sistem</string>
     <string name="settings_black_night_theme">Negru Amoled</string>
     <string name="settings_black_night_theme_summary">Folosește o temă complet neagră în modul întunecat</string>
+    <string name="settings_amoled_background_only">Doar fundal negru</string>
+    <string name="settings_amoled_background_only_summary">Păstrează culorile închise obișnuite pentru carduri, ferestre de dialog și meniuri</string>
+    <string name="settings_accent_color">Culoare accent</string>
+    <string name="settings_accent_color_summary">Alege o paletă cu Material 3 când culoarea sistemului este dezactivată</string>
+    <string name="settings_palette_style">Stilul paletei</string>
+    <string name="settings_palette_tonal_spot">Punct tonal</string>
+    <string name="settings_palette_vibrant">Vibrant</string>
+    <string name="settings_palette_expressive">Expresiv</string>
+    <string name="settings_palette_monochrome">Monocrom</string>
+    <string name="settings_accent_indigo">Indigo</string>
+    <string name="settings_accent_purple">Violet</string>
+    <string name="settings_accent_blue">Albastru</string>
+    <string name="settings_accent_teal">Turcoaz</string>
+    <string name="settings_accent_green">Verde</string>
+    <string name="settings_accent_orange">Portocaliu</string>
+    <string name="settings_accent_pink">Roz</string>
+    <string name="settings_accent_custom">HEX personalizat...</string>
+    <string name="settings_accent_custom_title">Culoare de accent personalizată</string>
+    <string name="settings_accent_custom_hint">Introdu o culoare HEX de 6 cifre, de exemplu #3F51B5</string>
+    <string name="settings_accent_custom_invalid">Utilizează 6 cifre HEX, de exemplu #3F51B5</string>
+    <string name="settings_high_contrast">Contrast ridicat</string>
+    <string name="settings_high_contrast_summary">Culori mai intense pentru text și contur</string>
     <string name="settings_update_stable">Stabil</string>
     <string name="settings_update_beta">În dezvoltare</string>
     <string name="settings_permissions">Permisiuni</string>
@@ -1031,6 +1054,8 @@
     <string name="shell_stop">Oprește</string>
     <string name="shell_clear">Curăță</string>
     <string name="shell_copy">Copiază</string>
+    <string name="shell_copy_too_large">Rezultatul este prea lung pentru a fi copiat. Folosește opțiunea „Salvare” în schimb.</string>
+    <string name="shell_copy_failed">Nu s-a putut copia rezultatul. Folosește opțiunea „Salvare” în schimb.</string>
     <string name="shell_history_previous">Comanda anterioară</string>
     <string name="shell_history_next">Următoarea comandă</string>
     <!-- Watchdog -->
