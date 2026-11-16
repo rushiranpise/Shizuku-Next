@@ -6,11 +6,14 @@
       a change here reaches translators on the next push and not before.
     -->
     <!-- To translators: you can leave your here -->
+    <string name="home_status_adb_wireless">adb</string>
+    <string name="home_status_adb_usb">adb</string>
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
     <string name="home_wireless_adb_title"><![CDATA[무선 디버깅으로 시작]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Wi-Fi 없이 시작: 무선 디버깅이 켜진 상태로 유지될 때까지 기기에 계속해서 요청을 보냅니다. 시작되거나 포기할 때까지 최대 2분이 걸릴 수 있습니다.</string>
     <string name="home_usb_adb_needs_network">USB로 시작하면 기존 ADB 포트를 사용하며, 이 포트를 다시 열려면 네트워크가 필요합니다. Wi-Fi에 한 번 연결하거나, 시작 방법을 <b>Wi-Fi 없이 시작</b>으로 선택해 무선 디버깅으로 다시 시작하세요.</string>
+    <string name="home_usb_adb_needs_network_no_option">USB를 통한 시작 방식은 기존의 ADB 포트를 사용하며, 다시 활성화하려면 네트워크 연결이 필요합니다. Wi-Fi에 한 번 연결하거나, \'기타 방법\'에 안내된 대로 컴퓨터에서 ADB 명령어를 사용하여 시작하십시오.</string>
     <string name="home_wireless_adb_summary">무선 디버깅을 사용해 시작합니다.</string>
     <string name="home_usb_adb_title"><![CDATA[USB 디버깅으로 시작]]></string>
     <string name="home_usb_adb_summary">USB 디버깅을 사용해 시작합니다.</string>
@@ -20,8 +23,10 @@
     <string name="diagnostics_service">서비스</string>
     <string name="diagnostics_server_uid">서버 uid</string>
     <string name="diagnostics_server_api">서버 API</string>
+    <string name="diagnostics_server_context">서버 컨텍스트</string>
     <string name="diagnostics_wireless_debugging">무선 디버깅</string>
     <string name="diagnostics_adb_port">ADB 포트</string>
+    <string name="diagnostics_wifi">Wi-Fi</string>
     <string name="diagnostics_local_network">로컬 네트워크</string>
     <string name="diagnostics_battery">배터리 최적화</string>
     <string name="diagnostics_app">앱</string>
@@ -29,13 +34,18 @@
     <string name="diagnostics_device">기기</string>
     <string name="diagnostics_started_with">시작 방법</string>
     <string name="diagnostics_default">기본 방법</string>
+    <string name="diagnostics_hiding">숨김</string>
+    <string name="diagnostics_phantom">프로세스 종료</string>
+    <string name="diagnostics_root">루트</string>
     <string name="diagnostics_granted">허용됨</string>
+    <string name="diagnostics_missing">없음</string>
     <string name="diagnostics_not_required">필요 없음</string>
     <string name="diagnostics_connected">연결됨</string>
     <string name="diagnostics_not_connected">연결되지 않음</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
+    <string name="diagnostics_battery_optimized">최적화</string>
     <string name="diagnostics_battery_unrestricted">제한 없음</string>
     <string name="diagnostics_available">사용 가능</string>
     <string name="diagnostics_unavailable">사용 불가</string>
@@ -126,6 +136,11 @@
     <string name="app_management_sort_last_added">최근 추가순</string>
     <string name="app_management_sort_updated">업데이트순</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_process_allowed">허용됨</string>
+    <string name="apps_process_not_allowed">허용 안 됨</string>
+    <string name="apps_process_stop">프로세스 중지</string>
+    <string name="apps_process_stop_title">프로세스를 중지하시겠습니까?</string>
+    <string name="apps_processes_hide_short">숨기기</string>
     <string name="tab_home">홈</string>
     <string name="tab_apps">앱</string>
     <string name="tab_shell">셸</string>
@@ -136,7 +151,18 @@
     <string name="labs_filter_allowed">허용됨</string>
     <string name="labs_filter_blocked">차단됨</string>
     <string name="labs_blocked_count">%1$d개 차단됨</string>
+    <string name="labs_bulk_progress_title">앱 업데이트 중</string>
+    <string name="labs_bulk_apply">적용</string>
+    <string name="labs_bulk_done">완료</string>
+    <string name="labs_pin_app">앱 고정</string>
+    <string name="labs_unpin_app">앱 고정 해제</string>
+    <string name="labs_clear_pins">고정된 앱 지우기</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="tab_rotation">회전</string>
+    <string name="rotation_mode_off">끔</string>
+    <string name="rotation_mode_auto">자동</string>
     <!-- Hiding: what apps can read about this device -->
+    <string name="tab_hiding">숨김</string>
     <string name="tab_hide_developer_options">개발자 옵션 숨기기</string>
     <string name="tab_hide_usb_debugging">USB 디버깅 숨기기</string>
     <string name="tab_hide_wireless_debugging">무선 디버깅 숨기기</string>
@@ -166,6 +192,15 @@
     <string name="force_dark_notification_text">다크 모드 강제 적용 목록에 있는 앱이 열려 있습니다</string>
     <string name="force_dark_notification_watching">목록에 있는 앱이 열리길 기다리는 중</string>
     <string name="tab_activities">액티비티 런처</string>
+    <string name="tab_power">전원</string>
+    <string name="power_reboot">재부팅</string>
+    <string name="power_recovery">리커버리 모드로 다시 시작</string>
+    <string name="power_bootloader">부트로더 모드로 다시 시작</string>
+    <string name="power_off">전원 끄기</string>
+    <string name="power_screen_off">화면 끄기</string>
+    <string name="power_soft_reboot">소프트 다시 시작</string>
+    <string name="power_restart_system_ui">시스템 UI 다시 시작</string>
+    <string name="tab_display">디스플레이</string>
     <string name="activities_apps_count">앱 %1$d개</string>
     <string name="activities_count">액티비티 %1$d개</string>
     <string name="activities_launcher">런처</string>
@@ -182,6 +217,8 @@
     <string name="activities_edit_as_intent">인텐트로 편집</string>
     <string name="activities_copied">복사됨</string>
     <string name="activities_apps_section">앱</string>
+    <string name="activities_save">저장</string>
+    <string name="activities_unsave">저장된 항목 제거</string>
     <string name="tab_intent_builder">인텐트 빌더</string>
     <string name="intent_uri">인텐트 URI</string>
     <string name="intent_uri_load">필드로 불러오기</string>
@@ -227,6 +264,7 @@
     <string name="device_screen_on">화면 켜짐 시간</string>
     <string name="device_time_on_battery">배터리 사용 시간</string>
     <string name="device_screen_off">화면 꺼짐 시간</string>
+    <string name="device_doze">절전 모드</string>
     <string name="device_usage_note">플랫폼 자체가 관리하는 카운터입니다. 배터리가 완전히 충전될 때마다 초기화되므로, 한 시간 전에 충전한 기기는 여기에 몇 초로 표시되고 하루 종일 충전기에서 분리되어 있던 기기는 몇 시간으로 표시됩니다.</string>
     <string name="device_drain">배터리를 사용한 기능</string>
     <string name="device_max_charging_current">최대 충전 전류</string>
@@ -257,19 +295,26 @@
     <string name="device_watchdog">지키는 개</string>
     <string name="device_app_in_front">포그라운드 앱</string>
     <string name="device_thermal">온도</string>
+    <string name="device_cpu">CPU</string>
     <string name="device_load_average">부하 평균</string>
+    <string name="tab_log">로그</string>
     <string name="log_filter_all">전체</string>
+    <string name="log_filter_problems">오류</string>
     <string name="log_save">저장</string>
     <string name="log_clear">삭제</string>
     <string name="log_cleared">로그 삭제됨</string>
     <string name="log_tab_app">이 앱</string>
+    <string name="log_tab_capture">기록</string>
+    <string name="log_tab_saved">저장됨</string>
     <string name="log_capture_start">시작</string>
     <string name="log_capture_stop">중단</string>
     <string name="log_capture_device">전체 장치</string>
     <string name="log_capture_choose">녹화할 앱</string>
     <string name="log_capture_choose_hint">앱 검색</string>
     <string name="log_capture_jump">최근 크래시</string>
+    <string name="log_session_share">공유</string>
     <string name="log_session_delete">삭제</string>
+    <string name="log_session_deleted">%1$s 삭제됨</string>
     <string name="hiding_resume">재시작</string>
     <string name="tab_settings">설정</string>
     <string name="action_start">시작</string>
@@ -279,6 +324,7 @@
     <string name="modules_sort">정렬</string>
     <string name="modules_action_short">액션</string>
     <string name="modules_service_short">서비스</string>
+    <string name="modules_access_full">전체 권한</string>
     <string name="settings_backup_restore_action">복구</string>
     <string name="intents_start">시작</string>
     <!-- Terminal -->
@@ -299,6 +345,7 @@
     <string name="settings_start_on_boot">부팅 시 시작</string>
     <string name="settings_watchdog">지키는 개</string>
     <string name="settings_watchdog_summary">Shizuku가 충돌하면 자동으로 다시 시작합니다.</string>
+    <string name="transport_adb">adb</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
     <string name="settings_tcp_mode">TCP 모드</string>
@@ -414,9 +461,13 @@
     <string name="manage_filter_hidden">숨김</string>
     <string name="permissions_action_deny">거부</string>
     <string name="manage_status_hidden">숨김</string>
+    <string name="manage_pin_app">앱 고정</string>
+    <string name="manage_unpin_app">앱 고정 해제</string>
     <!-- One app, and what it may do on the device -->
+    <string name="app_section_rotation">회전</string>
     <string name="app_op_mode_deny">거부</string>
     <string name="app_action_enable">할 수 있게 하다</string>
+    <string name="app_network_block">네트워크 액세스 차단</string>
     <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
          screen. The per-app list is unaffected either way, which is what the off state says. -->
     <string name="firewall_tile_label">방화벽</string>
@@ -438,7 +489,11 @@
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
     <string name="app_info_updated">업데이트순</string>
+    <string name="tab_accessibility">접근성</string>
     <string name="accessibility_boot">부팅 시 시작</string>
+    <string name="accessibility_filter_off">끔</string>
+    <string name="accessibility_filter_on">켬</string>
+    <string name="accessibility_no_match">검색 결과와 일치하는 서비스가 없습니다.</string>
     <string name="accessibility_notification_channel">접근성 서비스</string>
     <string name="files_root_app_data">데이터</string>
     <string name="files_sort">정렬</string>
