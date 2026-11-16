@@ -785,14 +785,17 @@ fun ShellScreen(bottomPadding: Dp = 0.dp, onBack: (() -> Unit)? = null) {
         }
 
         Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
-            // Selectable, so one line or part of one can be copied without taking the lot.
-            SelectionContainer {
-                LazyColumn(
-                    state = listState,
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
-                ) {
-                    itemsIndexed(lines) { index, line ->
+            LazyColumn(
+                state = listState,
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+            ) {
+                itemsIndexed(lines, key = { _, line -> line.id }) { index, line ->
+                    // One container per line, because a selection that spans lazy items can
+                    // name a line the list has already dropped. Compose then looks that id up
+                    // in the current selectables and throws when it is gone. Within a line,
+                    // a word or the whole line is still selectable.
+                    SelectionContainer {
                         OutputLineText(
                             line = line,
                             query = if (searching) searchQuery else "",
