@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-08",
+  "generated": "2026-11-16",
   "contributors": [
     {
       "name": "Rikka",
@@ -17,7 +17,7 @@
       "name": "Rushi Ranpise",
       "login": "rushiranpise",
       "avatarUrl": "https://avatars.githubusercontent.com/u/37355997?v=4",
-      "commits": 553,
+      "commits": 598,
       "areas": [
         "APP",
         "I18N",
@@ -190,6 +190,18 @@
       ]
     },
     {
+      "name": "danko",
+      "login": "last-doc-x",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/222331475?v=4",
+      "commits": 4,
+      "areas": [
+        "I18N"
+      ],
+      "languages": [
+        "ru"
+      ]
+    },
+    {
       "name": "Ian P",
       "login": "ianz56",
       "avatarUrl": "https://avatars.githubusercontent.com/u/41635087?v=4",
@@ -241,18 +253,6 @@
       "name": "Vlad Loktionov",
       "login": "VladWinner",
       "avatarUrl": "https://avatars.githubusercontent.com/u/13555921?v=4",
-      "commits": 3,
-      "areas": [
-        "I18N"
-      ],
-      "languages": [
-        "ru"
-      ]
-    },
-    {
-      "name": "danko",
-      "login": "last-doc-x",
-      "avatarUrl": "https://avatars.githubusercontent.com/u/222331475?v=4",
       "commits": 3,
       "areas": [
         "I18N"
