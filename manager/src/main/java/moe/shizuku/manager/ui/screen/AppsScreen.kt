@@ -182,7 +182,7 @@ fun AppsScreen(
     // settled after launch, so that the swipe towards it stays cheap and the first visit does
     // not wait for the server to be asked about every package.
     var loadedFor by remember { mutableStateOf<Pair<Boolean, Int>?>(null) }
-    LaunchedEffect(running, active, warmUp, refreshKey) {
+    LaunchedEffect(running, active, warmUp, refreshKey, version) {
         if (!active && !warmUp) return@LaunchedEffect
         // A pull starts from a list that is already on screen, so it is the one case that
         // skips the guard: reading again is the whole point of the gesture. Every other
@@ -462,16 +462,10 @@ fun AppsScreen(
                     if (shown.isNotEmpty()) {
                         PillButtonQuiet(onClick = {
                             scope.launch {
-                                val allGranted = withContext(Dispatchers.IO) {
-                                    shown.all {
-                                        runCatching {
-                                            AuthorizationManager.granted(
-                                                it.packageName,
-                                                it.applicationInfo!!.uid
-                                            )
-                                        }.getOrDefault(false)
-                                    }
-                                }
+                                // A temporary grant is access too, so an app holding one
+                                // counts as granted here. Otherwise Toggle all offers to grant
+                                // it permanently instead of taking the access away.
+                                val allGranted = shown.all { it.packageName in grantedNames }
                                 pendingToggleAll = !allGranted
                             }
                         }) { Text(stringResource(R.string.app_management_toggle_all)) }
@@ -606,9 +600,13 @@ fun AppsScreen(
         ) {
             items(shown, key = { it.rowKey() }) { pi ->
                 val uid = pi.applicationInfo!!.uid
-                val granted = remember(pi.packageName, version) {
+                val permanentGranted = remember(pi.packageName, version) {
                     runCatching { AuthorizationManager.granted(pi.packageName, uid) }.getOrDefault(false)
                 }
+                val oneTime = pi.packageName in oneTimeNames
+                // The switch is on while either kind of access is held, so turning it off
+                // revokes the temporary grant as well as the permanent one.
+                val granted = permanentGranted || oneTime
                 val isSelected = pi.packageName in selected
                 val processes = clientProcessesByUid[uid].orEmpty().filter { it.allowed }
 
@@ -659,7 +657,7 @@ fun AppsScreen(
                                     AppStatusChips(
                                         pi,
                                         hidden = pi.packageName in launcherless,
-                                        oneTime = pi.packageName in oneTimeNames
+                                        oneTime = oneTime
                                     )
                                     if (selectionMode) {
                                         Checkbox(checked = isSelected, onCheckedChange = null)
