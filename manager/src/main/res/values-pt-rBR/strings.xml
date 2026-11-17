@@ -141,9 +141,12 @@
     <string name="app_management_sort_alphabetical">A-Z</string>
     <string name="apps_processes_hide">Ocultar %1$d processo(s)</string>
     <string name="apps_process_allowed">Permitido</string>
+    <string name="apps_process_not_allowed">Não permitido</string>
+    <string name="apps_status_one_time">Uma vez</string>
     <string name="apps_process_stop">Parar processo</string>
     <string name="apps_process_stop_title">Parar processo?</string>
     <string name="apps_process_stop_message">Parar o PID %1$d de %2$s? O aplicativo pode iniciá-lo novamente.</string>
+    <string name="apps_process_stop_failed">Não foi possível parar o processo.</string>
     <string name="apps_processes_title">Processos anexados (%1$d)</string>
     <string name="apps_processes_hide_short">Esconder</string>
     <string name="apps_processes_empty">Nenhum processo associado.</string>
@@ -159,10 +162,16 @@
     <string name="labs_blocked_count">%1$d bloqueado</string>
     <string name="labs_blocked_empty">Nada está bloqueado.</string>
     <string name="labs_bulk_actions">Ações em massa</string>
+    <string name="labs_bulk_allow_all">Permitir todos os exibidos</string>
+    <string name="labs_bulk_block_all">Bloquear todos os exibidos</string>
+    <string name="labs_bulk_show_all">Mostrar todos na lista</string>
+    <string name="labs_bulk_hide_all">Ocultar todos na lista</string>
     <string name="labs_bulk_confirm_title">Alteração em massa</string>
     <string name="labs_bulk_confirm_count">Aplicativos para atualizar: %1$d</string>
+    <string name="labs_bulk_confirm_state">Novo estado: %1$s</string>
     <string name="labs_bulk_confirm_pinned">Ignorados fixados: %1$d</string>
     <string name="labs_bulk_confirm_warning">Apenas os aplicativos desta lista são alterados. Aplicativos fixados são deixados sozinhos.</string>
+    <string name="labs_bulk_progress_title">Atualizando apps</string>
     <string name="labs_bulk_progress">Alterando %1$d de %2$d...</string>
     <string name="labs_bulk_result_title">Atualização em massa concluída</string>
     <string name="labs_bulk_result_summary">Alterado: %1$d, falhou: %2$d.</string>
@@ -414,7 +423,7 @@
     <string name="log_tab_capture">Gravar</string>
     <string name="log_tab_saved">Salvo</string>
     <string name="log_capture_start">Iniciar</string>
-    <string name="log_capture_stop">Interromper</string>
+    <string name="log_capture_stop">Parar</string>
     <string name="log_capture_device">Todo o dispositivo</string>
     <string name="log_capture_choose">Aplicativo para gravar</string>
     <string name="log_capture_choose_hint">Pesquisar aplicativos</string>
@@ -484,7 +493,7 @@
     <string name="status_running_short">Executando</string>
     <string name="status_stopped_short">Parado</string>
     <string name="home_status_service_active">Shizuku em execução</string>
-    <string name="home_status_service_stopped">Shizuku não está em execução</string>
+    <string name="home_status_service_stopped">O Shizuku não está em execução</string>
     <string name="action_start">Iniciar</string>
     <string name="tools_stealth">Modo furtivo</string>
     <string name="tools_modules">Módulos</string>
@@ -550,7 +559,7 @@
     <string name="modules_sort_enabled_first">Ativados primeiro</string>
     <string name="modules_sort_action_first">Com ação primeiro</string>
     <string name="modules_sort_webui_first">Com WebUI primeiro</string>
-    <string name="modules_action_stop">Interromper</string>
+    <string name="modules_action_stop">Parar</string>
     <string name="modules_web_ui_short">WebUI</string>
     <string name="modules_action_short">Acão</string>
     <string name="modules_service_short">Serviço</string>
@@ -651,7 +660,7 @@
     <string name="intents_copy">copiar</string>
     <string name="intents_regenerate">Regenerar</string>
     <string name="intents_start">Iniciar</string>
-    <string name="intents_stop">Interromper</string>
+    <string name="intents_stop">Parar</string>
     <string name="intents_watchdog_on">Vigia do cachorro</string>
     <string name="intents_watchdog_off">Watchdog para fora</string>
     <string name="intents_watchdog_toggle">Watchdog interruptor</string>
@@ -788,6 +797,26 @@
     <string name="settings_black_night_theme">Tema escuro</string>
     <string name="settings_black_night_theme_summary">Use o tema preto puro se o modo noturno
         estiver ativado</string>
+    <string name="settings_amoled_background_only">Apenas fundo preto</string>
+    <string name="settings_accent_color">Cor de destaque</string>
+    <string name="settings_palette_style">Estilo da paleta</string>
+    <string name="settings_palette_tonal_spot">Ponto Tonal</string>
+    <string name="settings_palette_vibrant">Vibrante</string>
+    <string name="settings_palette_expressive">Expressivo</string>
+    <string name="settings_palette_monochrome">Monocromático</string>
+    <string name="settings_accent_indigo">Índigo</string>
+    <string name="settings_accent_purple">Roxo</string>
+    <string name="settings_accent_blue">Azul</string>
+    <string name="settings_accent_teal">Azul-petróleo</string>
+    <string name="settings_accent_green">Verde</string>
+    <string name="settings_accent_orange">Laranja</string>
+    <string name="settings_accent_pink">Rosa</string>
+    <string name="settings_accent_custom">HEX personalizado...</string>
+    <string name="settings_accent_custom_title">Cor de destaque personalizada</string>
+    <string name="settings_accent_custom_hint">Digite uma cor HEX de 6 dígitos, por exemplo #3F51B5</string>
+    <string name="settings_accent_custom_invalid">Use 6 dígitos HEX, por exemplo #3F51B5</string>
+    <string name="settings_high_contrast">Alto contraste</string>
+    <string name="settings_high_contrast_summary">Texto e cores de contorno mais fortes</string>
     <string name="settings_update_stable">Estável</string>
     <string name="settings_update_beta">Desenv.</string>
     <string name="settings_permissions">Permissões</string>
@@ -913,7 +942,7 @@
     <!-- About -->
     <!-- Start/Stop -->
     <string name="start">Iniciar</string>
-    <string name="action_stop">Interromper</string>
+    <string name="action_stop">Parar</string>
     <string name="action_restart">Reiniciar</string>
     <string name="action_open_adb_port">Abrir porta do ADB</string>
     <!-- Notification -->
@@ -1008,7 +1037,7 @@
     <string name="shell_quick_grant">Conceder permissão</string>
     <string name="shell_quick_revoke">Revogar permissão</string>
     <string name="shell_quick_app_ops">App op</string>
-    <string name="shell_quick_force_stop">Forçar fechamento</string>
+    <string name="shell_quick_force_stop">Forçar parada</string>
     <string name="shell_adb_prefix_dropped">Ran no dispositivo: o prefixo do adb shell é o que você digitaria em um computador.</string>
     <string name="shell_adb_host_devices">Isso lista os dispositivos anexados a um computador. Este é o dispositivo, então não há nada a listar: `pm list packages` é o que está instalado nele.</string>
     <string name="shell_adb_host_install">A instalação pertence ao lado do computador desse comando. Aqui o mesmo trabalho é <b>pm install /path/to/app. pk</b>, execute sobre Shizuku como qualquer outro comando.</string>
@@ -1022,9 +1051,11 @@
     <string name="shell_exit_note">Não há shell para sair porque cada comando é executado separadamente. Sua pasta atual e variáveis de ambiente são mantidas.</string>
     <string name="shell_input_hint">Comando</string>
     <string name="shell_run">Executar</string>
-    <string name="shell_stop">Interromper</string>
+    <string name="shell_stop">Parar</string>
     <string name="shell_clear">Limpar</string>
     <string name="shell_copy">copiar</string>
+    <string name="shell_copy_too_large">A saída é muito longa para copiar. Use a opção de salvar.</string>
+    <string name="shell_copy_failed">Não foi possível copiar a saída. Use a opção Salvar.</string>
     <string name="shell_history_previous">Comando anterior</string>
     <string name="shell_history_next">Próximo comando</string>
     <!-- Watchdog -->
@@ -1035,7 +1066,7 @@
         saber mais sobre as possíveis soluções para evitar futuras falhas.</string>
     <string name="watchdog_shizuku_crashed_action_turn_off_alerts">Desativar alertas</string>
     <string name="watchdog_shizuku_recovered_title">Shizuku está sendo executado novamente</string>
-    <string name="watchdog_shizuku_recovered_text">Watchdog o começou de novo depois de parar por si só.</string>
+    <string name="watchdog_shizuku_recovered_text">O cão de guarda o iniciou de novo após uma parada inesperada.</string>
     <string name="watchdog_given_up_title">Não foi possível iniciar o Shizuku</string>
     <string name="watchdog_given_up_text">O Shizuku foi iniciado %1$d vezes e não voltou a funcionar. Reiniciá-lo não vai adiantar nada até que o problema seja resolvido.</string>
     <string name="watchdog_given_up_action_start">Iniciar</string>
@@ -1094,6 +1125,8 @@
     <string name="manage_bulk_mode">Modo</string>
     <string name="manage_bulk_review">Revisão</string>
     <string name="manage_bulk_apply">Aplicar</string>
+    <string name="manage_bulk_confirm_title">Revisar alteração em lote</string>
+    <string name="manage_bulk_confirm_op">App op: %1$s</string>
     <string name="manage_bulk_confirm_mode">Modo:%1$s</string>
     <string name="manage_bulk_confirm_targets">Aplicativos: %1$d</string>
     <string name="manage_bulk_confirm_warning">Estas alterações são aplicadas imediatamente. Alguns aplicativos podem rejeitar a operação.</string>
@@ -1179,11 +1212,16 @@
     <string name="app_action_restore_note">Restaura um aplicativo do sistema removido para este usuário.</string>
     <string name="app_section_data">Dados do aplicativo</string>
     <string name="app_data_note">Exporta OBB e Android/data. Os dados internos do aplicativo precisam de root e não estão incluídos.</string>
+    <string name="app_data_needs_shizuku">Inicie o Shizuku para exportar ou importar dados do app.</string>
+    <string name="app_data_export">Exportar dados do app</string>
     <string name="app_data_export_note">Para o aplicativo e salva OBB e dados externos em um arquivo ZIP.</string>
     <string name="app_data_import">Importar dados do aplicativo</string>
+    <string name="app_data_import_note">Para o app e substitui os OBB e dados externos de um arquivo ZIP.</string>
     <string name="app_data_none">Este aplicativo não tem OBB nem dados externos para exportar.</string>
     <string name="app_data_exporting">Exportando dados do aplicativo</string>
     <string name="app_data_importing">Importando dados do aplicativo</string>
+    <string name="app_data_preparing">Preparando...</string>
+    <string name="app_data_exported">Dados de app exportados.</string>
     <string name="app_data_imported">Dados do aplicativo importados. Inicie o aplicativo para usá-los.</string>
     <string name="app_data_export_failed">Não foi possível exportar dados de aplicativos: %1$s</string>
     <string name="app_data_import_failed">Não foi possível importar dados de aplicativos: %1$s</string>
@@ -1286,9 +1324,14 @@
     <string name="wifi_passwords_hide">Ocultar senha</string>
     <string name="wifi_passwords_copy">Copiar senha</string>
     <string name="wifi_passwords_none">Sem senha</string>
+    <string name="wifi_passwords_empty">Nenhuma rede salva.</string>
     <string name="wifi_passwords_needs_shizuku">O Shizuku não está em execução, portanto não há shell para ler as redes salvas.</string>
     <string name="wifi_passwords_failed">O serviço de Wi‑Fi não respondeu. O log contém o que ele disse.</string>
     <string name="wifi_passwords_unsupported">A leitura das redes salvas requer Android 9 ou posterior, que é onde o serviço de Wi‑Fi oculto pode ser acessado.</string>
+    <string name="wifi_passwords_search_hint">Procurar redes</string>
+    <string name="wifi_passwords_no_match">Nenhuma rede salva.</string>
+    <string name="wifi_passwords_actions">Ações de rede</string>
+    <string name="wifi_passwords_all_actions">Todas as redes</string>
     <string name="wifi_passwords_connected">Conectado</string>
     <string name="wifi_passwords_connect">Conectar</string>
     <string name="wifi_passwords_connected_toast">Conectado a %1$s</string>
@@ -1325,9 +1368,24 @@
     <string name="files_action_delete">excluir</string>
     <string name="files_field_name">Nome:</string>
     <string name="tab_install">Instalador de aplicativos</string>
+    <string name="install_ignore_dexopt">Ignorar o perfil dexopt</string>
+    <string name="install_ignore_dexopt_desc">Não use o perfil do app ao otimizá-lo.</string>
+    <string name="install_dexopt">Dexopt</string>
+    <string name="install_dexopt_default">Padrão da plataforma</string>
+    <string name="install_dexopt_verify">verify</string>
+    <string name="install_dexopt_quicken">quicken</string>
+    <string name="install_dexopt_speed_profile">speed-profile</string>
+    <string name="install_dexopt_speed">speed</string>
+    <string name="install_dexopt_everything">everything</string>
+    <string name="install_referrer">Referenciador</string>
     <string name="install_details_version">Versão</string>
     <string name="install_details_target">Target SDK</string>
+    <string name="install_details_permissions">Permissões (%1$d)</string>
     <string name="install_details_installed">Instalado</string>
+    <string name="install_details_not_installed">Não instalado</string>
+    <string name="install_details_not_installed_note">Não há aplicativo instalado para substituir.</string>
+    <string name="install_details_update">Mais recente do que a versão instalada.</string>
+    <string name="install_downgrade">Permitir um downgrade</string>
     <string name="install_location_auto">Opções do desenvolvedor</string>
     <string name="install_source_shell">Shell</string>
 </resources>

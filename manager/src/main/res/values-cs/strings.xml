@@ -632,7 +632,7 @@
     <string name="start_system_custom_copied">Příkaz zkopírován do schránky.</string>
     <string name="start_system_custom_copy_failed">Příkaz je výše, připraven ke kopírování ručně.</string>
     <string name="settings_section_startup">Při startování</string>
-    <string name="settings_section_startup_summary">Boot, hídací pes a metoda startu</string>
+    <string name="settings_section_startup_summary">Boot, hlídací pes a metoda startu</string>
     <string name="settings_section_wireless">Bezdrátové ladění</string>
     <string name="settings_section_wireless_summary">Bezdrátové ladění, TCP režim a ADB port</string>
     <string name="settings_section_tools">Nástroje</string>
@@ -667,7 +667,7 @@
     <string name="intents_stop">Zastavit</string>
     <string name="intents_watchdog_on">Zapnout hlídacího psa</string>
     <string name="intents_watchdog_off">Vypnout hlídacího psa</string>
-    <string name="intents_watchdog_toggle">Přepínač hídacího psa</string>
+    <string name="intents_watchdog_toggle">Přepínač hlídacího psa</string>
     <string name="intents_adb_command">Spustit přes počítač</string>
     <string name="intents_status_broadcast">Stav vysílání</string>
     <string name="intents_status_broadcast_extra">status navíc: 1 = běží, 0 = ne</string>
@@ -1049,7 +1049,7 @@
     <string name="shell_history_previous">Předchozí příkaz</string>
     <string name="shell_history_next">Další příkaz</string>
     <!-- Watchdog -->
-    <string name="watchdog_running">Hídací pes běží</string>
+    <string name="watchdog_running">Hlídací pes běží</string>
     <string name="watchdog_turn_off">Vypnout</string>
     <string name="watchdog_shizuku_crashed_title">Shizuku nedávno havarovala</string>
     <string name="watchdog_shizuku_crashed_text">Hlídací pes službu znovu spustil. Klepněte a zjistěte o možných řešeních, jak předejít budoucím pádům.</string>

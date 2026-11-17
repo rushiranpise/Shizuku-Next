@@ -743,6 +743,7 @@
     <string name="shell_root_refused">Quyền truy cập root bị từ chối nên các lệnh sẽ sử dụng Shizuku. Cấp quyền truy cập root cho ứng dụng này để sử dụng Root.</string>
     <string name="shell_library_hint">Tìm kiếm lệnh</string>
     <string name="shell_variables_pick_app">Chọn ứng dụng</string>
+    <string name="shell_history_empty">Chưa có lệnh nào được chạy. Các lệnh sẽ xuất hiện ở đây khi chúng được chạy, lệnh mới nhất ở trên cùng.</string>
     <string name="shell_bookmark_empty">Chưa lưu mục nào. Nhập lệnh và nhấn nút dấu trang để lưu lại.</string>
     <string name="shell_quick_grant">Cho phép</string>
     <string name="shell_quick_revoke">Thu hồi quyền</string>
@@ -971,6 +972,7 @@
     <string name="install_failed">Thất bại: %1$s</string>
     <string name="install_could_not_read">Không thể đọc tệp đó.</string>
     <string name="install_replace_desc">Giữ dữ liệu và cập nhật.</string>
+    <string name="install_downgrade_desc">Cài đặt phiên bản cũ hơn trên phiên bản mới hơn.</string>
     <string name="install_grant_all">Cấp mọi quyền</string>
     <string name="install_allow_test">Cho phép các gói thử nghiệm</string>
     <string name="install_skip_verification">Bỏ qua xác minh</string>

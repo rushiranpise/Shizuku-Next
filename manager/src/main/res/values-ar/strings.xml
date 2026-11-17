@@ -170,6 +170,7 @@
     <string name="apps_process_api">واجهة برمجة التطبيقات %1$d</string>
     <string name="apps_process_allowed">مسموح</string>
     <string name="apps_process_not_allowed">غير مسموح</string>
+    <string name="apps_status_one_time"></string>
     <string name="apps_process_stop">إيقاف العملية</string>
     <string name="apps_process_stop_title">إيقاف العملية؟</string>
     <string name="apps_process_stop_message">إيقاف PID %1$d لـ %2$s؟ قد يبدأه التطبيق مرة أخرى.</string>
@@ -883,6 +884,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="settings_black_night_theme">وضع السواد النقيّ</string>
     <string name="settings_black_night_theme_summary">استخدام خلفية سوداء بالكامل في الوضع الداكن
 </string>
+    <string name="settings_amoled_background_only">هيكون</string>
     <string name="settings_update_stable">مستقر</string>
     <string name="settings_update_beta">اختباري</string>
     <string name="settings_permissions">الأذونات</string>

@@ -420,6 +420,8 @@
     <string name="status_value_none">-</string>
     <string name="status_running_short">動作中</string>
     <string name="status_stopped_short">停止中</string>
+    <string name="home_status_service_active">Shizuku サービスはアクティブです</string>
+    <string name="home_status_service_stopped">Shizuku サービスは起動していません</string>
     <string name="action_start">開始</string>
     <string name="tools_stealth">ステルスモード</string>
     <string name="tools_modules">モジュール</string>
@@ -497,6 +499,8 @@
     <string name="modules_delete">削除</string>
     <string name="modules_delete_confirm">%1$s を削除しますか？</string>
     <string name="modules_delete_confirm_message">モジュールとそのディレクトリ内のすべて、ログが削除されます。</string>
+    <string name="modules_result_title">%1$s</string>
+    <string name="modules_result_exit">終了コード %1$d</string>
     <string name="tools_terminal">ターミナルアプリ</string>
     <string name="tools_terminal_summary">任意のターミナルアプリでシェルコマンドを実行します。使用：rish</string>
     <string name="tools_battery">電池の最適化</string>
@@ -515,6 +519,7 @@
     <string name="action_pair">ペア</string>
     <string name="start_failed_pairing_required">このデバイスはワイヤレスデバッグ用にペアリングされていません。もう一度ペアリングしてください。</string>
     <string name="start_failed_connection_lost">ADB 接続は開始中に閉じられました。もう一度やり直してください。</string>
+    <string name="start_failed_usb_no_port">現在、ローカルのADBポートは開いていません。Androidは再起動のたびにこのポートを閉じてしまうため、再度開くには接続を確立する必要があります。Wi-Fiに接続してShizuku経由でワイヤレスデバッグを有効にするか、PCから<b>「adb tcpip 5555」</b>コマンドを実行してください。あるいは、起動方法として<b>「Wi-Fiなしで開始」</b>を選択し、ワイヤレスデバッグを利用して開始することも可能です。</string>
     <string name="start_failed_root_unavailable">この端末ではルートが利用できないため、シズクはルートからやり直すことはできません。別のスタート方法を選択してください。</string>
     <string name="start_failed_system_needs_app">システム起動方法はアプリから起動する必要があります。</string>
     <string name="start_failed_system_no_exploit">このデバイスは、Samsung FOTAエージェント(com.sdet)を出荷しません。 otaagent)は、システムの開始メソッドが使用できる唯一のコンポーネントであるため、ここでエスカレートするものはありません。 システムの開始方法をformat@@0コマンドに切り替えます。アプリには、デバイスのエスカレーションで何を実行するかが表示されます。</string>
@@ -525,10 +530,26 @@
     <string name="start_system_custom_copied">コマンドをクリップボードにコピーしました。</string>
     <string name="start_system_custom_copy_failed">コマンドは上記です。手動でコピーする準備ができています。</string>
     <string name="settings_section_startup">起動</string>
+    <string name="settings_section_startup_summary">起動時に開始、Watchdog、スタート方法</string>
     <string name="settings_section_wireless">ワイヤレスデバッグ</string>
+    <string name="settings_section_wireless_summary">ワイヤレスデバッグ、TCPモード、ADB ポート</string>
     <string name="settings_section_tools">ツール</string>
+    <string name="settings_section_tools_summary">権限、セットアップ、バックアップ、ターミナル、インテント</string>
+    <string name="settings_backup_section">バックアップと復元</string>
+    <string name="settings_backup_export">設定をバックアップ</string>
+    <string name="settings_backup_export_summary">アプリ設定、ラボのリスト、シェルブックマークをJSONファイルに保存します。</string>
+    <string name="settings_backup_restore">設定を復元</string>
+    <string name="settings_backup_restore_summary">バックアップファイルからアプリ設定、ラボのリスト、シェルブックマークを上書きします。</string>
+    <string name="settings_backup_exported">%1$d の設定を保存しました。</string>
+    <string name="settings_backup_export_failed">バックアップを保存できませんでした。</string>
+    <string name="settings_backup_unreadable">そのファイルは、Shizuku 設定のバックアップではありません。</string>
+    <string name="settings_backup_restore_title">設定を復元しますか？</string>
+    <string name="settings_backup_restore_message">%1$d の設定とリストを置き換えます。</string>
     <string name="settings_backup_restore_action">復元</string>
+    <string name="settings_backup_restored">%1$d 設定を復元しました。変更を適用するには、Shizukuを再起動してください。</string>
+    <string name="settings_backup_restore_failed">バックアップを復元できませんでした。</string>
     <string name="settings_section_appearance">外観</string>
+    <string name="settings_section_appearance_summary">テーマ、色、言語、ナビゲーションバー</string>
     <string name="settings_section_about">このアプリについて</string>
     <string name="settings_theme">テーマ</string>
     <string name="settings_theme_system">システム設定に従う</string>
@@ -594,6 +615,12 @@
     <string name="settings_start_on_boot">起動時にスタート</string>
     <string name="settings_use_system_color">システムテーマの色を使用</string>
     <string name="settings_use_system_color_summary">システムパレットに従う</string>
+    <string name="settings_always_show_navigation_bar">常にナビゲーションバーを表示する</string>
+    <string name="settings_always_show_navigation_bar_summary">下にスクロールしたときにタブバーを表示したままにします。</string>
+    <string name="settings_secure_quick_tiles">安全なクイックタイル</string>
+    <string name="settings_secure_quick_tiles_summary">端末がロックされている間、クイックタイルの変更をブロックします。</string>
+    <string name="settings_require_grant_authentication">権限付与時に認証をする</string>
+    <string name="settings_require_grant_authentication_summary">Shizuku へのアプリアクセスを許可する前に生体認証や画面ロックを使用します。</string>
     <string name="settings_watchdog">Watchdog</string>
     <string name="settings_watchdog_summary">Shizukuがクラッシュした場合に自動的に再起動する</string>
     <string name="settings_auto_disable_wireless_debugging">ワイヤレスデバッグを無効にする</string>
@@ -636,8 +663,7 @@
     <string name="home_system_summary">adbの代わりにシステムユーザー (UID 1000) として Shizuku を実行します。Samsungのみ、FOTAエージェントを通じて、それらは船を構築します</string>
     <string name="home_adb_command_summary">ADB経由でコンピューターから Shizuku を起動します。タップしてコマンドをコピーします</string>
     <string name="settings_tcp_mode">TCPモード</string>
-    <string name="settings_tcp_mode_summary">"
-        \"Wi-FiなしでShizukuを再起動できるようにします。（再起動後、Shizukuが一度起動している必要があります）\""</string>
+    <string name="settings_tcp_mode_summary">"Wi-FiなしでShizukuを再起動できるようにします。（再起動後、Shizukuが一度起動している必要があります）"</string>
     <string name="settings_tcp_mode_dialog_close_port">"TCPポートは直ちに閉じられます。TCPモードを再度オンにするにはWi-Fiが必要です。続行しますか？"</string>
     <string name="settings_restart_dialog_title">再起動が必要です</string>
     <string name="settings_restart_dialog_message">Shizukuはこの設定を適用するために再起動が必要です。</string>
