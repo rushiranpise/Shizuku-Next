@@ -883,6 +883,7 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="settings_black_night_theme">وضع السواد النقيّ</string>
     <string name="settings_black_night_theme_summary">استخدام خلفية سوداء بالكامل في الوضع الداكن
 </string>
+    <string name="settings_amoled_background_only">هيكون</string>
     <string name="settings_update_stable">مستقر</string>
     <string name="settings_update_beta">اختباري</string>
     <string name="settings_permissions">الأذونات</string>

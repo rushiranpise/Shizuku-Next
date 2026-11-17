@@ -138,6 +138,7 @@
     <string name="apps_process_api">API %1$d</string>
     <string name="apps_process_allowed">Consentito</string>
     <string name="apps_process_not_allowed">Non consentito</string>
+    <string name="apps_status_one_time">Una tantum</string>
     <string name="apps_process_stop">Arresta processo</string>
     <string name="apps_process_stop_title">Arrestare il processo?</string>
     <string name="apps_process_stop_message">Arrestare il PID %1$d di %2$s? L\'app potrebbe riavviarlo.</string>
@@ -787,6 +788,28 @@
     <string name="settings_black_night_theme">Nero AMOLED</string>
     <string name="settings_black_night_theme_summary">Usa il tema nero puro se la modalità notte è
         abilitata</string>
+    <string name="settings_amoled_background_only">Solo sfondo nero</string>
+    <string name="settings_amoled_background_only_summary">Mantieni schede, finestre di dialogo e menu nei normali colori scuri</string>
+    <string name="settings_accent_color">Colore principale</string>
+    <string name="settings_accent_color_summary">Scegli una palette Material 3 quando i colori di sistema sono disattivati</string>
+    <string name="settings_palette_style">Stile della palette</string>
+    <string name="settings_palette_tonal_spot">Tonale</string>
+    <string name="settings_palette_vibrant">Vivace</string>
+    <string name="settings_palette_expressive">Espressivo</string>
+    <string name="settings_palette_monochrome">Monocromatico</string>
+    <string name="settings_accent_indigo">Indaco</string>
+    <string name="settings_accent_purple">Viola</string>
+    <string name="settings_accent_blue">Blu</string>
+    <string name="settings_accent_teal">Ottanio</string>
+    <string name="settings_accent_green">Verde</string>
+    <string name="settings_accent_orange">Arancione</string>
+    <string name="settings_accent_pink">Rosa</string>
+    <string name="settings_accent_custom">Esadecimale personalizzato…</string>
+    <string name="settings_accent_custom_title">Colore principale personalizzato</string>
+    <string name="settings_accent_custom_hint">Inserisci un codice esadecimale a 6 cifre, per esempio #3F51B5</string>
+    <string name="settings_accent_custom_invalid">Usa 6 cifre esadecimali, ad esempio #3F51B5</string>
+    <string name="settings_high_contrast">Contrasto elevato</string>
+    <string name="settings_high_contrast_summary">Colori più marcati per testo e contorni</string>
     <string name="settings_update_stable">Stabile</string>
     <string name="settings_update_beta">Dev</string>
     <string name="settings_permissions">Autorizzazioni</string>
@@ -1018,6 +1041,8 @@
     <string name="shell_stop">Arresta</string>
     <string name="shell_clear">Cancella</string>
     <string name="shell_copy">Copia</string>
+    <string name="shell_copy_too_large">L\'output è troppo lungo per essere copiato. Usa Salva.</string>
+    <string name="shell_copy_failed">Impossibile copiare l\'output. Usa Salva.</string>
     <string name="shell_history_previous">Comando precedente</string>
     <string name="shell_history_next">Comando successivo</string>
     <!-- Watchdog -->
