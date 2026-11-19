@@ -16,14 +16,17 @@ import android.view.Window
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import moe.shizuku.manager.R
+import moe.shizuku.manager.ShizukuSettings
 import moe.shizuku.manager.adb.AdbPairingAccessibilityService
 import moe.shizuku.manager.adb.AdbPairingTutorialActivity
 import moe.shizuku.manager.start.isDeveloperOptionsEnabled
 import moe.shizuku.manager.utils.EnvironmentUtils
 import moe.shizuku.manager.utils.SettingsPage
+import rikka.core.content.asActivity
 
 /**
  * Starts the pairing flow by asking how to pair, always.
@@ -208,8 +211,17 @@ private fun Context.startAutomaticPairing() {
     }
 }
 
-/** The manual branch: the notification flow that asks for the code. */
+/** The manual branch: type the code in the app, or in the notification. */
 private fun Context.startManualPairing() {
+    // The setting is about this choice: with it on, the code is entered in a dialog in
+    // the app instead of the notification flow.
+    if (ShizukuSettings.getLegacyPairing()) {
+        runCatching {
+            AdbPairDialogFragment().show(asActivity<FragmentActivity>().supportFragmentManager)
+        }
+        return
+    }
+
     // Reading the code can still fail (OEM dialog, service killed) keep the
     // notification flow one tap away as the fallback.
     runCatching {
