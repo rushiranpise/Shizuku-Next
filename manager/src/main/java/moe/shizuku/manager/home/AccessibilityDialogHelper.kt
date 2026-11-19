@@ -27,15 +27,20 @@ import moe.shizuku.manager.utils.EnvironmentUtils
 import moe.shizuku.manager.utils.SettingsPage
 
 /**
- * Starts the pairing flow by asking how to pair, always.
+ * Starts the pairing flow. The ways want different things from the user: automated pairing
+ * reads the code out of the system dialog and so needs the accessibility service running,
+ * while manual pairing needs nothing but typing it. Switching the service on is the
+ * automated branch's business, and it is only ever raised there: asking for it up front
+ * demanded something of a user who may be about to choose the way that doesn't need it.
  *
- * The two ways want different things from the user: automated pairing reads the code out
- * of the system dialog and so needs the accessibility service running, while manual
- * pairing needs nothing but typing it. So switching the service on is the automated
- * branch's business, and it is only ever raised there: asking for it up front demanded
- * something of a user who may be about to choose the way that doesn't need it at all.
+ * With legacy pairing on, the choice has already been made, so asking again would only
+ * stand between the user and the dialog they asked for.
  */
 fun Context.showAccessibilityDialog() {
+    if (ShizukuSettings.getLegacyPairing()) {
+        startManualPairing()
+        return
+    }
     showNavigateDialog()
 }
 
