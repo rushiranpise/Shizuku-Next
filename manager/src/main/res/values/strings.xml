@@ -764,6 +764,8 @@
     <string name="settings_use_system_color_summary">Follow the system palette</string>
     <string name="settings_always_show_navigation_bar">Always show navigation bar</string>
     <string name="settings_always_show_navigation_bar_summary">Keep the tab bar visible when you scroll down.</string>
+    <string name="settings_show_scroll_to_top">Show scroll to top button</string>
+    <string name="settings_show_scroll_to_top_summary">Show the floating button that returns long lists to the top.</string>
     <string name="settings_secure_quick_tiles">Secure quick tiles</string>
     <string name="settings_secure_quick_tiles_summary">Block quick tile changes while the phone is locked.</string>
     <string name="settings_require_grant_authentication">Confirm app grants</string>

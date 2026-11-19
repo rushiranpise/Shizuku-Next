@@ -60,6 +60,9 @@ public class ShizukuSettings {
         /** Whether the floating navigation bar stays visible when a page scrolls. */
         public static final String KEY_ALWAYS_SHOW_NAVIGATION_BAR = "always_show_navigation_bar";
 
+        /** Whether long lists show the floating button that returns them to the top. */
+        public static final String KEY_SHOW_SCROLL_TO_TOP = "show_scroll_to_top";
+
         /** Whether quick tiles refuse changes while the device is locked. */
         public static final String KEY_SECURE_QUICK_TILES = "secure_quick_tiles";
 
@@ -613,6 +616,19 @@ public class ShizukuSettings {
 
     public static void setAlwaysShowNavigationBar(boolean enable) {
         getPreferences().edit().putBoolean(Keys.KEY_ALWAYS_SHOW_NAVIGATION_BAR, enable).apply();
+    }
+
+    /**
+     * Whether long lists show the floating button that returns them to the top.
+     *
+     * On by default, so existing installs keep the button after updating.
+     */
+    public static boolean getShowScrollToTop() {
+        return getPreferences().getBoolean(Keys.KEY_SHOW_SCROLL_TO_TOP, true);
+    }
+
+    public static void setShowScrollToTop(boolean enable) {
+        getPreferences().edit().putBoolean(Keys.KEY_SHOW_SCROLL_TO_TOP, enable).apply();
     }
 
     /**

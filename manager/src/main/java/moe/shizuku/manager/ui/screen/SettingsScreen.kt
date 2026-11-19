@@ -267,6 +267,7 @@ fun SettingsScreen(
             )
         )
     }
+    var showScrollToTop by remember { mutableStateOf(ShizukuSettings.getShowScrollToTop()) }
     var accentColor by remember {
         mutableStateOf(
             normalizedAccentHex(
@@ -1222,6 +1223,27 @@ fun SettingsScreen(
                                 },
                                 switchState = alwaysShowNavigationBar,
                                 onSwitchChange = onAlwaysShowNavigationBarChange
+                            )
+                        }
+                    }
+                    // The button is already left off a watch, so the switch would do
+                    // nothing there.
+                    if (!LocalWatch.current) {
+                        item {
+                            SegmentedListItem(
+                                centerSlots = true,
+                                leadingContent = { SettingsIcon(Icons.Outlined.KeyboardArrowUp) },
+                                headlineContent = {
+                                    Text(stringResource(R.string.settings_show_scroll_to_top))
+                                },
+                                supportingContent = {
+                                    Text(stringResource(R.string.settings_show_scroll_to_top_summary))
+                                },
+                                switchState = showScrollToTop,
+                                onSwitchChange = {
+                                    ShizukuSettings.setShowScrollToTop(it)
+                                    showScrollToTop = it
+                                }
                             )
                         }
                     }
