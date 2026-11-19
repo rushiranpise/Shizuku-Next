@@ -62,6 +62,9 @@
     <string name="paring_code_is_wrong">Mã ghép nối sai.</string>
     <string name="cannot_connect_port">Không thể kết nối với dịch vụ gỡ lỗi không dây.\n\nVui lòng đảm bảo rằng Shizuku đã được bỏ chặn trong tất cả các ứng dụng tường lửa, chặn quảng cáo, VPN hoặc các ứng dụng tương tự có thể hạn chế quyền truy cập mạng.</string>
     <string name="dialog_adb_pairing_message">Vui lòng bắt đầu ghép nối bằng cách thực hiện các bước sau:\n- Đi tới \"Tùy chọn nhà phát triển\"\n- Bật \"Gỡ lỗi USB\" và \"Gỡ lỗi không dây\"\n- Nhấn vào phần bên trái của \"Gỡ lỗi không dây\"\n- Nhấn \"Ghép nối thiết bị bằng mã ghép nối\"\n- Nhập mã ghép nối vào thông báo</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -82,6 +85,7 @@
     <string name="enable">Cho phép</string>
     <string name="auto_pair_instructions">Ghép nối mà không cần nhập mã:\n\n1. Tùy chọn nhà phát triển → Gỡ lỗi không dây\n2. Ghép nối thiết bị bằng mã ghép nối\n\nShizuku sẽ đọc mã và cổng trực tiếp từ hộp thoại đó rồi tự khởi chạy. Hãy giữ hộp thoại luôn mở cho đến khi quá trình ghép nối hoàn tất.</string>
     <string name="auto_pair_manual">Thủ công</string>
+    <string name="adb_pairing_developer_options">Tùy chọn nhà phát triển</string>
     <string name="development_settings">Tự động</string>
     <string name="notification_settings">Tùy chọn thông báo</string>
     <string name="adb_pairing_tutorial_content_notification">Một thông báo từ Shizuku sẽ giúp bạn hoàn thành việc ghép nối.</string>
@@ -316,6 +320,7 @@
     <string name="device_capacity_range">Phạm vi đã học</string>
     <string name="device_capacity_note">Nền tảng này không báo cáo dung lượng thiết kế, hơn nữa thiết bị còn chặn quyền truy cập vào bộ đo mức pin ngay từ lớp vỏ ngoài, vì vậy không thể tính toán chính xác tỷ lệ phần trăm pin đầy. Những thông tin mà hệ thống thu thập được đã được trình bày ở trên.</string>
     <string name="device_history">Lịch sử</string>
+    <string name="device_history_level">Cấp độ</string>
     <string name="device_history_temperature">Nhiệt độ</string>
     <string name="device_system">Hệ thống</string>
     <string name="device_model">Kiểu máy</string>

@@ -62,6 +62,9 @@
     <string name="paring_code_is_wrong">La clave de emparejamiento es incorrecta.</string>
     <string name="cannot_connect_port">No se puede conectar al servicio de depuración inalámbrica.\n\nPor favor, asegúrese de que Shizuku esté en la lista blanca de todas las aplicaciones de cortafuegos, bloqueador de anuncios, VPN u similares que puedan restringir el acceso a la red.</string>
     <string name="dialog_adb_pairing_message">Comience el emparejamiento realizando los siguientes pasos:\n- Vaya a \"Opciones de desarrollador\"\n- Habilite \"Depuración USB\" y \"Depuración inalámbrica\"\n- Toque el lado izquierdo de \"Depuración inalámbrica\"\n- Toque \"Emparejar dispositivo con código de emparejamiento\"\n- Ingrese el código de emparejamiento en la notificación</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -82,6 +85,7 @@
     <string name="enable">Activar</string>
     <string name="auto_pair_instructions">Emparejar sin escribir un código: \n\n1. Opciones de desarrollador → Depuración inalámbrica \n2. El dispositivo se empareja con el código de emparejamiento \n\n Shizuku lee el código y el puerto directamente desde ese diálogo y se inicia. Mantenga el cuadro de diálogo abierto hasta que se empareje.</string>
     <string name="auto_pair_manual">Manual</string>
+    <string name="adb_pairing_developer_options">Opciones de desarrollador</string>
     <string name="development_settings">Automático</string>
     <string name="notification_settings">Configuración de notificaciones</string>
     <string name="adb_pairing_tutorial_content_notification">Una notificación de Shizuku le ayudará a completar la vinculación.</string>
@@ -192,7 +196,7 @@
     <string name="rotation_empty">Ninguna aplicación tiene modo de rotación.</string>
     <string name="rotation_needs_shizuku">Inicie Shizuku para cambiar la rotación.</string>
     <string name="rotation_mode_title">Modo rotación</string>
-    <string name="rotation_mode_off">Apagado</string>
+    <string name="rotation_mode_off">Desactivado</string>
     <string name="rotation_mode_off_note">Utiliza la orientación propia de la aplicación.</string>
     <string name="rotation_mode_auto">Automático</string>
     <string name="rotation_mode_auto_note">Sigue la rotación del sistema. Usa Vertical u Horizontal si la aplicación ignora esto.</string>
@@ -229,6 +233,7 @@
     <string name="tab_force_dark">Forzar modo oscuro</string>
     <string name="force_dark_gate">Forzar modo oscuro</string>
     <string name="force_dark_gate_disabled">Forzar modo oscuro esta desactivado</string>
+    <string name="force_dark_gate_off">Desactivado</string>
     <string name="force_dark_count">%1$d forzado</string>
     <string name="force_dark_filter_forced">Forzado</string>
     <string name="force_dark_filter_not">No forzado</string>
@@ -740,41 +745,41 @@
     <string name="start_method_root">Root</string>
     <string name="transport_adb">adb</string>
     <string name="settings_adb_without_developer_options">Desactivar las opciones de desarrollador</string>
-    <string name="settings_adb_without_developer_options_summary">Desactiva las opciones de desarrollador, pero mantiene los ajustes ADB que Shizuku necesita. Shizuku seguirá funcionando, y estos ajustes se restaurarán después de cada reinicio.</string>
-    <string name="start_failed_developer_options_off">Las opciones de desarrollador están desactivadas porque el ADB sin opciones de desarrollador está activado </string>
-    <string name="action_turn_on_developer_options">Activar las opciones de desarrollador</string>
-    <string name="toast_developer_options_required">Desactiva ADB sin opciones de desarrollador</string>
-    <string name="settings_adb_without_developer_options_confirm_title">¿Desactivar las opciones de desarrollador?</string>
-    <string name="settings_adb_without_developer_options_confirm_message">Shizuku seguirá trabajando y restaurará sus ajustes de ADB después de un reinicio. No podrá abrir las opciones de desarrollador para cambiar los ajustes de depuración USB o inalámbrica o emparejar un nuevo dispositivo. ¿Desactivar las opciones de desarrollador?</string>
-    <string name="settings_adb_without_developer_options_confirm">Apagar</string>
-    <string name="settings_adb_without_developer_options_failed">Shizuku no pudo cambiar la configuración. Concede WRITE_SECURE_SETTINGS primero en la página de permisos.</string>
-    <string name="settings_wait_for_wifi">Esperando conexión Wi-Fi antes de continuar</string>
-    <string name="settings_wait_for_wifi_summary">Se reinicia automáticamente Shizuku y espera una conexión Wi-Fi sin contador.</string>
+    <string name="settings_adb_without_developer_options_summary">Desactiva las Opciones de desarrollador, pero mantiene los ajustes ADB que Shizuku necesita. Shizuku seguirá funcionando, y estos ajustes se restaurarán después de cada reinicio.</string>
+    <string name="start_failed_developer_options_off">Las Opciones de desarrollador aparecen desactivadas porque la función ADB sin Opciones de desarrollador está habilitada</string>
+    <string name="action_turn_on_developer_options">Activar las Opciones de desarrollador</string>
+    <string name="toast_developer_options_required">Desactivar ADB sin Opciones de desarrollador</string>
+    <string name="settings_adb_without_developer_options_confirm_title">¿Desactivar las Opciones de desarrollador?</string>
+    <string name="settings_adb_without_developer_options_confirm_message">Shizuku seguirá funcionando y restaurará su configuración de ADB tras reiniciar el dispositivo. Sin embargo, no podrá acceder a las Opciones de desarrollador para modificar los ajustes de depuración USB o inalámbrica, ni emparejar un nuevo dispositivo. ¿Desea desactivar las Opciones de desarrollador?</string>
+    <string name="settings_adb_without_developer_options_confirm">Desactivar</string>
+    <string name="settings_adb_without_developer_options_failed">Shizuku no pudo cambiar la configuración. Primero conceda el permiso WRITE_SECURE_SETTINGS en la página de permisos.</string>
+    <string name="settings_wait_for_wifi">Esperar conexión Wi-Fi</string>
+    <string name="settings_wait_for_wifi_summary">Los reinicios automáticos de Shizuku esperan a que haya una conexión Wi‑Fi no medida.</string>
     <string name="settings_unavailable_while_forcing_wireless">No disponible mientras Iniciar sin Wi-Fi está activado.</string>
-    <string name="settings_force_wireless_debugging">Empieza sin Wi-Fi (experimental)</string>
-    <string name="settings_force_wireless_debugging_summary">Intenta arrancar Shizuku sin depuración por Wi-Fi ni USB. Esto también desactiva la espera por Wi-Fi y la depuración inalámbrica automática.</string>
+    <string name="settings_force_wireless_debugging">Iniciar sin Wi‑Fi (experimental)</string>
+    <string name="settings_force_wireless_debugging_summary">Intenta iniciar Shizuku sin Wi‑Fi ni depuración por USB. Compatible con Android 11 a 16. Al activar esta opción, también se desactivan la espera de Wi‑Fi y la depuración inalámbrica automática.</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
     <string name="settings_needs_write_secure_settings">Necesita el permiso WRITE_SECURE_SETTINGS. Inicia Shizuku una vez para concederlo y luego vuelve aquí.</string>
-    <string name="state_on">Encendido</string>
-    <string name="state_off">Apagado</string>
-    <string name="settings_persist_adb_port">Conserva el puerto ADB tras reiniciar</string>
-    <string name="settings_persist_adb_port_summary">Mantiene el puerto ADB abierto tras cada reinicio, así Shizuku puede arrancar sin Wi-Fi ni hotspot.</string>
+    <string name="state_on">Activado</string>
+    <string name="state_off">Desactivado</string>
+    <string name="settings_persist_adb_port">Mantener el puerto ADB después de reiniciar</string>
+    <string name="settings_persist_adb_port_summary">Mantiene abierto el puerto ADB después de cada reinicio para que Shizuku pueda iniciarse sin Wi-Fi ni punto de acceso.</string>
     <string name="settings_persist_adb_port_ok">El puerto ADB permanecerá abierto tras el reinicio</string>
     <string name="settings_persist_adb_port_refused">Android no permitió esta acción. Shizuku debe ejecutarse como root o como usuario del sistema.</string>
     <string name="settings_persist_adb_port_unavailable">Inicie Shizuku primero. Esta configuración solo puede modificarse mediante Shizuku.</string>
     <string name="settings_system_start_method">Método de inicio del sistema</string>
     <string name="settings_system_start_method_exploit">Samsung (Agente FOTA)</string>
     <string name="settings_system_start_method_custom">Comando personalizado</string>
-    <string name="home_system_title">Iniciar vía System UID</string>
-    <string name="home_system_summary">Ejecutar Shizuku como usuario del sistema (UID 1000) en lugar de como adb: solo para Samsung, mediante el agente FOTA incluido en esas versiones</string>
-    <string name="home_adb_command_summary">Iniciar Shizuku desde una computadora con ADB. Presione para copiar el comando</string>
+    <string name="home_system_title">Iniciar mediante el UID del sistema</string>
+    <string name="home_system_summary">Ejecutar Shizuku como usuario del sistema (UID 1000) en lugar de como adb: solo en dispositivos Samsung, a través del agente FOTA que incluyen esas compilaciones</string>
+    <string name="home_adb_command_summary">Inicia Shizuku desde una computadora mediante ADB. Toca para copiar el comando</string>
     <string name="settings_tcp_mode">Modo TCP</string>
-    <string name="settings_tcp_mode_summary">"Permite que Shizuku se reinicie sin necesidad de Wi‑Fi. (Shizuku debe haberse iniciado al menos una vez desde el último reinicio del dispositivo)"</string>
-    <string name="settings_tcp_mode_dialog_close_port">"El puerto TCP se cerrará inmediatamente. Necesitará una conexión Wi‑Fi para volver a activar el modo TCP. ¿Desea continuar?"</string>
-    <string name="settings_tcp_mode_close_wireless">No se ha cerrado: la depuración inalámbrica está activada. Cerrar el puerto la detendría. El puerto se cerrará cuando el teléfono se reinicie.</string>
-    <string name="settings_tcp_mode_close_usb_off">No cerrado: la depuración USB está desactivada. Enciéndelo y vuelve a intentarlo.</string>
-    <string name="settings_tcp_mode_close_nothing">Ningún puerto TCP fue abierto.</string>
+    <string name="settings_tcp_mode_summary">"Permite que Shizuku se reinicie sin Wi-Fi. (Shizuku debe haberse iniciado al menos una vez desde el reinicio del dispositivo)"</string>
+    <string name="settings_tcp_mode_dialog_close_port">"El puerto TCP se cerrará de inmediato. Necesitará Wi-Fi para volver a activar el modo TCP. ¿Continuar?"</string>
+    <string name="settings_tcp_mode_close_wireless">No se cerró: la depuración inalámbrica está activada. Cerrar el puerto la detendría. El puerto se cerrará cuando se reinicie el teléfono.</string>
+    <string name="settings_tcp_mode_close_usb_off">No se cerró: la depuración USB está desactivada. Actívala y vuelve a intentarlo.</string>
+    <string name="settings_tcp_mode_close_nothing">No había ningún puerto TCP abierto.</string>
     <string name="settings_restart_dialog_title">Reinicio necesario</string>
     <string name="settings_restart_dialog_message">Shizuku debe reiniciarse para aplicar esta configuración.</string>
     <string name="settings_restart_dialog_message_wifi_required"><![CDATA[<br><br><b>Se requiere Wi-Fi. Shizuku seguirá funcionando y esperará a que se conecte Wi-Fi antes de reiniciar en segundo plano.</b>]]></string>
@@ -782,15 +787,15 @@
     <string name="settings_auto_disable_usb_debugging">Desactivar depuración USB</string>
     <string name="settings_auto_disable_usb_debugging_summary">Desactivar depuración USB al detener Shizuku</string>
     <string name="settings_language">Idioma</string>
-    <string name="settings_language_system">Por defecto del sistema</string>
-    <string name="settings_black_night_theme">Tema Noche cerrada</string>
-    <string name="settings_black_night_theme_summary">Use el tema Noche cerrada si el modo nocturno está habilitado</string>
+    <string name="settings_language_system">Predeterminado del sistema</string>
+    <string name="settings_black_night_theme">Negro AMOLED</string>
+    <string name="settings_black_night_theme_summary">Usar un tema negro puro en el modo oscuro</string>
     <string name="settings_amoled_background_only">Solo fondo negro</string>
-    <string name="settings_amoled_background_only_summary">Mantener las tarjetas, los cuadros de diálogo y los menús en los colores oscuros normales</string>
+    <string name="settings_amoled_background_only_summary">Mantener las tarjetas, cuadros de diálogo y menús en los colores oscuros habituales</string>
     <string name="settings_accent_color">Color de acento</string>
     <string name="settings_accent_color_summary">Elegir una paleta de Material 3 cuando el color del sistema esté desactivado</string>
     <string name="settings_palette_style">Estilo de la paleta</string>
-    <string name="settings_palette_tonal_spot">Acento tonal</string>
+    <string name="settings_palette_tonal_spot">Punto tonal</string>
     <string name="settings_palette_vibrant">Vibrante</string>
     <string name="settings_palette_expressive">Expresiva</string>
     <string name="settings_palette_monochrome">Monocromática</string>
@@ -808,17 +813,17 @@
     <string name="settings_high_contrast">Alto contraste</string>
     <string name="settings_high_contrast_summary">Colores de texto y contorno más intensos</string>
     <string name="settings_update_stable">Estable</string>
-    <string name="settings_update_beta">Dev</string>
+    <string name="settings_update_beta">Desarrollo</string>
     <string name="settings_permissions">Permisos</string>
     <string name="settings_permissions_summary">Lo que requiere Shizuku, y lo que está permitido</string>
     <string name="permissions_allowed">Permitido</string>
     <string name="permissions_action_allow">Permitir</string>
     <string name="permissions_action_settings">Configuración</string>
-    <string name="permissions_open_settings_hint">Android no preguntará de nuevo. Actívelo en Información de la app -> Permisos.</string>
+    <string name="permissions_open_settings_hint">Android no preguntará de nuevo. Actívelo en Información de la aplicación -> Permisos.</string>
     <string name="permissions_notifications">Notificaciones</string>
     <string name="permissions_notifications_summary">Muestra el código de emparejamiento, el proceso de arranque y los errores.</string>
     <string name="permissions_nearby">Dispositivos cercanos</string>
-    <string name="permissions_nearby_summary">Encuentra el puerto de depuración inalámbrico en su red.</string>
+    <string name="permissions_nearby_summary">Busca el puerto de depuración inalámbrica en su red.</string>
     <string name="permissions_hotspot">Punto de acceso local</string>
     <string name="permissions_hotspot_summary">Permite que Shizuku comience sin Wi-Fi creando un punto de acceso local.</string>
     <string name="permissions_write_secure_settings">Escribir configuraciones seguras</string>
@@ -839,12 +844,12 @@
     <string name="setup_action_done">Hecho</string>
     <string name="setup_welcome_title">Bienvenido a Shizuku-Next</string>
     <string name="setup_welcome_body">Shizuku-Next inicia y administra el servicio Shizuku, que permite a las aplicaciones usar permisos que normalmente necesitan adb o root. Todo aquí se puede cambiar más tarde en Configuración.</string>
-    <string name="setup_start_title">¿Cómo debería empezar Shizuku?</string>
-    <string name="setup_start_body">Esto decide de dónde obtiene el servicio y sus permisos. Puedes cambiarlo más tarde en Configuración, en Método de inicio.</string>
+    <string name="setup_start_title">¿Cómo debe iniciarse Shizuku?</string>
+    <string name="setup_start_body">Esto decide de dónde obtiene sus permisos el servicio. Puede cambiarlo más adelante en Configuración, dentro de Método de inicio.</string>
     <string name="setup_root_title">Root</string>
-    <string name="setup_root_body">Un toque, sin cable y sin emparejamiento. Necesita un administrador raíz que le otorgue acceso a Shizuku.</string>
+    <string name="setup_root_body">Un toque, sin cable y sin emparejamiento. Necesita un administrador root que le conceda acceso a Shizuku.</string>
     <string name="setup_wireless_title">Depuración inalámbrica</string>
-    <string name="setup_wireless_body">Funciona sin root. Necesita opciones de desarrollador y un emparejamiento único; después de eso comienza desde la aplicación.</string>
+    <string name="setup_wireless_body">Funciona sin root. Necesita Opciones de desarrollador y un emparejamiento único; después se inicia desde la aplicación.</string>
     <string name="setup_usb_title">Depuración USB</string>
     <string name="setup_usb_body">Funciona sin root. Necesita el puerto ADB clásico; si no está abierto, conéctese a una computadora una vez para iniciar Shizuku.</string>
     <string name="setup_permissions_title">Permisos opcionales</string>
@@ -1057,7 +1062,7 @@
     <string name="watchdog_not_running_text">Android no dejaba que se iniciara solo. Toque para iniciarlo de nuevo.</string>
     <!-- Misc -->
     <string name="error">Error</string>
-    <string name="off">Apagado</string>
+    <string name="off">Desactivado</string>
     <string name="dialog_cannot_open_browser_title">No se puede iniciar el explorador</string>
     <string name="toast_copied_to_clipboard">Copiado al portapapeles</string>
     <string name="toast_press_back_again">Presione Atrás nuevamente para salir</string>
@@ -1244,8 +1249,8 @@
     <string name="firewall_mobile_only_failed">No se pudo cambiar la regla de datos móviles</string>
     <!-- The three answers every switch outside the app can give. Unknown is its own word: a
          state that could not be read is not the same thing as a feature that is off. -->
-    <string name="lab_state_on">Encendido</string>
-    <string name="lab_state_off">Apagado</string>
+    <string name="lab_state_on">Activado</string>
+    <string name="lab_state_off">Desactivado</string>
     <string name="lab_state_unavailable">No disponible</string>
     <!-- The switches in the shade and on the home screen that are not about one app. -->
     <string name="lab_switch_service">Servicio Shizuku</string>
@@ -1293,8 +1298,8 @@
     <string name="accessibility_empty">No se encontraron servicios de accesibilidad.</string>
     <string name="accessibility_gate_off">Servicio de actividad desactivado</string>
     <string name="accessibility_count">%1$d activados</string>
-    <string name="accessibility_filter_off">Apagado</string>
-    <string name="accessibility_filter_on">Encendido</string>
+    <string name="accessibility_filter_off">Desactivado</string>
+    <string name="accessibility_filter_on">Activado</string>
     <string name="accessibility_no_match">Ningún servicio coincide con su búsqueda.</string>
     <string name="accessibility_write_failed">No se pudo cambiar el servicio. Compruebe que Shizuku esté funcionando.</string>
     <string name="accessibility_notification_channel">Servicios de accesibilidad</string>

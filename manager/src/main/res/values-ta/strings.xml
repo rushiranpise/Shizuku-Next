@@ -29,6 +29,9 @@
         மற்றும் \"வயர்லெஸ் பிழைத்திருத்தம்\" என்பதை இயக்கவும்\n- \"வயர்லெஸ் பிழைத்திருத்தம்\" இன்
         இடது பக்கத்தைத் தட்டவும்\n- \"இணைப்பு குறியீட்டுடன் சாதனத்தை இணை\" என்பதைத் தட்டவும்\n-
         அறிவிப்பில் இணைத்தல் குறியீட்டை உள்ளிடவும்</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from

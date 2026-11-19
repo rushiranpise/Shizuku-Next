@@ -62,6 +62,9 @@
     <string name="paring_code_is_wrong">ペアリングコードが間違っています。</string>
     <string name="cannot_connect_port">ワイヤレスデバッグサービスに接続できません。\n\nShizukuがすべてのファイアウォール、広告ブロック、VPNなどネットワークアクセスを制限できるアプリでホワイトリストに登録されていることを必ず確認してください。</string>
     <string name="dialog_adb_pairing_message">以下の手順でペアリングを開始してください。\n・「開発者向けオプション」に移動します。\n・「USBデバッグ」と「ワイヤレスデバッグ」を有効にします。\n・「ワイヤレスデバッグ」の左側をタップします。\n・「ペアリングコードでデバイスをペアリング」をタップします。\n・通知にペアリングコードを入力します</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -82,6 +85,7 @@
     <string name="enable">有効にする</string>
     <string name="auto_pair_instructions">コードを入力せずにペアリング：\n\n1. 下の「開発者向けオプション」をタップ\n\nShizukuがワイヤレスデバッグとペアリングダイアログを自動的に開き、コードとポート番号を読み取って起動します。ペアリングが完了するまでダイアログを閉じないでください。</string>
     <string name="auto_pair_manual">マニュアル</string>
+    <string name="adb_pairing_developer_options">開発者向けオプション</string>
     <string name="development_settings">開発者向けオプション</string>
     <string name="notification_settings">通知オプション</string>
     <string name="adb_pairing_tutorial_content_notification">Shizukuからの通知でペアリングが完了します。</string>
@@ -228,6 +232,7 @@
     <string name="tab_force_dark">ダークモードの強制</string>
     <string name="force_dark_gate">強制的にダークモード</string>
     <string name="force_dark_gate_disabled">ダークモードの強制がオフです</string>
+    <string name="force_dark_gate_off">オフ</string>
     <string name="force_dark_count">%1$d 強制的に</string>
     <string name="force_dark_filter_forced">強制的に</string>
     <string name="force_dark_filter_not">強制されていません</string>

@@ -62,6 +62,9 @@
     <string name="paring_code_is_wrong">O código de emparelhamento está errado.</string>
     <string name="cannot_connect_port">Não é possível conectar-se ao serviço de depuração sem fio.\n\nVerifique se o Shizuku está na lista de permissões de todos os aplicativos de firewall, bloqueadores de anúncios, VPN ou similares que possam restringir o acesso à rede.</string>
     <string name="dialog_adb_pairing_message">Para iniciar o emparelhamento, siga estas etapas:\n- Acesse “Opções do desenvolvedor”\n- Ative “Depuração por USB” e “Depuração sem fio”\n- Toque no lado esquerdo de “Depuração sem fio”\n- Toque em “Emparelhar dispositivo com código de emparelhamento”\n- Digite o código de emparelhamento na notificação</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -70,7 +73,7 @@
     <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
-    <string name="dialog_adb_pairing_accessibility_permission_tv">O Android bloqueia essa opção para aplicativos instalados fora de uma loja de aplicativos e, em uma TV, as informações do aplicativo não têm a opção \"Permitir configurações restritas\" para desbloqueá-la. É preciso conectar um computador à TV via ADB uma única vez: conceda a permissão acima, que permite o Shizuku ativar o serviço sozinho, ou desbloqueie a opção com:\n\n^1</string>
+    <string name="dialog_adb_pairing_accessibility_permission_tv">O Android bloqueia esse interruptor pra apps instalados fora de uma loja de apps e em uma tv</string>
     <string name="dialog_adb_pairing_open_app_info">Informações do app</string>
     <string name="dialog_adb_pairing_accessibility_enable">O pareamento automático lê o código da caixa de diálogo do sistema pelo serviço de acessibilidade do Shizuku, então ele precisa estar ativado, e somente pelo tempo necessário: o serviço se desativa sozinho assim que o código é encontrado, ou após um minuto para economizar bateria. Normalmente, o Shizuku o ativa sozinho, e isso exige a permissão WRITE_SECURE_SETTINGS, que uma instalação nova ainda não recebeu.\n\nAtive-o na próxima tela, digite o código manualmente em Manual ou conceda a permissão uma vez:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Para iniciar o emparelhamento, siga estas etapas:\n- Acesse “Opções do desenvolvedor”\n- Ative “Depuração por USB” e “Depuração sem fio”\n- Toque no lado esquerdo de “Depuração sem fio”\n- Toque em “Emparelhar dispositivo com código de emparelhamento”. O Shizuku detectará automaticamente o código de emparelhamento.</string>
@@ -83,6 +86,7 @@
     <string name="enable">Ativar</string>
     <string name="auto_pair_instructions">Parear sem digitar um código:\n\n1. Opções de desenvolvedor → Depuração sem fio\n2. Parear dispositivo com o código\n\nShizuku lê o código e porta diretamente dessa caixa de diálogo e começa por si mesmo. Mantenha a caixa de diálogo aberta até o pareamento terminar.</string>
     <string name="auto_pair_manual">Manualmente</string>
+    <string name="adb_pairing_developer_options">Opções do desenvolvedor</string>
     <string name="development_settings">Opções do desenvolvedor</string>
     <string name="notification_settings">Opções de notificação</string>
     <string name="adb_pairing_tutorial_content_notification">Uma notificação de Shizuku ajudará você
@@ -139,7 +143,10 @@
     <string name="app_management_sort_last_added">Adicionado recentemente</string>
     <string name="app_management_sort_updated">Atualizado</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_processes_show">Mostrar %1$d processo(s)</string>
     <string name="apps_processes_hide">Ocultar %1$d processo(s)</string>
+    <string name="apps_process_pid">PID %1$d</string>
+    <string name="apps_process_api">API %1$d</string>
     <string name="apps_process_allowed">Permitido</string>
     <string name="apps_process_not_allowed">Não permitido</string>
     <string name="apps_status_one_time">Uma vez</string>
@@ -148,6 +155,10 @@
     <string name="apps_process_stop_message">Parar o PID %1$d de %2$s? O aplicativo pode iniciá-lo novamente.</string>
     <string name="apps_process_stop_failed">Não foi possível parar o processo.</string>
     <string name="apps_processes_title">Processos anexados (%1$d)</string>
+    <plurals name="apps_processes_count">
+        <item quantity="one">Processo %1$d</item>
+        <item quantity="other">Processos %1$d</item>
+    </plurals>
     <string name="apps_processes_hide_short">Esconder</string>
     <string name="apps_processes_empty">Nenhum processo associado.</string>
     <string name="tab_home">Residencial</string>
@@ -229,6 +240,7 @@
     <string name="tab_force_dark">Forçar o modo escuro</string>
     <string name="force_dark_gate">Forçar o modo escuro</string>
     <string name="force_dark_gate_disabled">Forçar modo escuro desativado</string>
+    <string name="force_dark_gate_off">Desligado</string>
     <string name="force_dark_count">%1$d forçado</string>
     <string name="force_dark_filter_forced">Forçado</string>
     <string name="force_dark_filter_not">Não forçado</string>
@@ -251,8 +263,8 @@
     <string name="power_bootloader">Reinicie para o bootloader</string>
     <string name="power_bootloader_summary">Reinicie para o modo de fastboot para conectar a um computador.</string>
     <string name="power_bootloader_confirm">O celular irá reiniciar no bootloader e ficar até você reiniciar ele, geralmente de um computador.</string>
-    <string name="power_off">Desligar</string>
-    <string name="power_off_summary">Desligue seu celular</string>
+    <string name="power_off">Desligar\u200b</string>
+    <string name="power_off_summary">Desligue o celular.</string>
     <string name="power_off_confirm">O celular desligará agora. Trabalho não salvo será perdido.</string>
     <string name="power_screen_off">Desligue a tela do celular</string>
     <string name="power_screen_off_summary">Desligue a tela do celular. Se uma senha estiver definida, o celular bloqueará também.</string>
@@ -274,7 +286,7 @@
     <string name="display_density">Densidade</string>
     <string name="display_density_summary">Controle o tamanho dos itens na tela. Valores maiores deixa eles menores; e vice-versa.</string>
     <string name="display_min_refresh">Taxa de atualização minima</string>
-    <string name="display_min_refresh_summary">A menor taxa de atualização que a tela pode usar, em Hz. Defina a taxa máxima para manter a tela sempre nessa taxa.</string>
+    <string name="display_min_refresh_summary">A taxa de atualização minima que a tela pode usar</string>
     <string name="display_max_refresh">Taxa máxima de atualização</string>
     <string name="display_max_refresh_summary">A maior taxa de atualização que a tela pode usar, em Hz.</string>
     <string name="display_current">Atual: %1$s</string>
@@ -798,7 +810,9 @@
     <string name="settings_black_night_theme_summary">Use o tema preto puro se o modo noturno
         estiver ativado</string>
     <string name="settings_amoled_background_only">Apenas fundo preto</string>
+    <string name="settings_amoled_background_only_summary">Manter cartas, diálogos e menus nas cores escuras normais</string>
     <string name="settings_accent_color">Cor de destaque</string>
+    <string name="settings_accent_color_summary">Escolher uma paleta material 3 quando a cor do sistema está desativada</string>
     <string name="settings_palette_style">Estilo da paleta</string>
     <string name="settings_palette_tonal_spot">Ponto Tonal</string>
     <string name="settings_palette_vibrant">Vibrante</string>
@@ -1227,6 +1241,7 @@
     <string name="app_data_import_failed">Não foi possível importar dados de aplicativos: %1$s</string>
     <string name="app_data_cancelled">Cancelado.</string>
     <string name="app_data_import_title">Importar dados do aplicativo?</string>
+    <string name="app_data_import_message">Trocar OBB e dados externos por %1$s desse arquivo? Seções faltando no arquivo serão ignoradas.</string>
     <string name="app_data_import_action">Importar</string>
     <string name="app_confirm_title">Você tem certeza?</string>
     <string name="app_confirm_disable">Desativar %1$s? Ele para de executar até que você o ative novamente.</string>
@@ -1334,12 +1349,28 @@
     <string name="wifi_passwords_all_actions">Todas as redes</string>
     <string name="wifi_passwords_connected">Conectado</string>
     <string name="wifi_passwords_connect">Conectar</string>
+    <string name="wifi_passwords_wifi_off">O wi-fi está desativado, ligue ele e tente de novo.</string>
+    <string name="wifi_passwords_wifi_off_hint">O wi-fi está desativado, ligue ele pra conectar.</string>
     <string name="wifi_passwords_connected_toast">Conectado a %1$s</string>
     <string name="wifi_passwords_forget">Esquecer</string>
     <string name="wifi_passwords_forget_message">%1$s Será esquecido, incluindo a senha salva. Isso não pode ser desfeito.</string>
+    <string name="wifi_passwords_forgot">%1$s esquecido</string>
+    <string name="wifi_passwords_forget_all">Esquecer todas as redes</string>
+    <string name="wifi_passwords_forget_all_message">Todas as redes salvas serão esquecidas, isso não pode ser desfeito.</string>
+    <string name="wifi_passwords_forgot_all">%1$d redes esquecidas</string>
     <string name="wifi_passwords_action_failed">A ação falhou. Consulte o log. para ver detalhes.</string>
+    <string name="wifi_backup_export">Exportar redes</string>
     <string name="wifi_backup_import">Importar redes</string>
     <string name="wifi_backup_export_message">Salva suas redes e senhas em um arquivo. Você pode proteger o arquivo com uma senha. Sem a senha, o arquivo não pode ser aberto.</string>
+    <string name="wifi_backup_format_plain">Texto puro</string>
+    <string name="wifi_backup_format_compressed">Comprimido</string>
+    <string name="wifi_backup_password">Senha</string>
+    <string name="wifi_backup_password_hint">Deixe vazio pra criar um arquivo não protegido.</string>
+    <string name="wifi_backup_needs_android8">Proteção de senha necessita android 8 ou mais recente.</string>
+    <string name="wifi_backup_exported">%1$d redes exportadas</string>
+    <string name="wifi_backup_imported">%1$d de %2$d redes adicionadas</string>
+    <string name="wifi_backup_unreadable">Não pode ler o arquivo, ou a senha está incorreta, verifique os registros para detalhes.</string>
+    <string name="wifi_backup_unwritable">Não pode criar o arquivo, verifique os registros para detalhes.</string>
     <string name="tab_files">Arquivos</string>
     <string name="files_root_internal">Interno</string>
     <string name="files_root_app_data">Dado</string>
@@ -1357,6 +1388,8 @@
     <string name="files_sort_descending">Descendente</string>
     <string name="files_show_hidden">Mostrar arquivos ocultos</string>
     <string name="files_hide_hidden">Ocultar arquivos ocultos</string>
+    <string name="files_failed">%1$s não pode ser listado. Sem acesso ao shell, ou a pasta não existe.</string>
+    <string name="files_needs_shizuku">O shizuku não está executando, então os arquivos não podem ser lidos.</string>
     <string name="files_preview_binary">Este não é um arquivo de texto, portanto não pode ser exibido.</string>
     <string name="files_preview_failed">Não foi possível ler este arquivo.</string>
     <string name="files_preview_truncated">Apenas o início do arquivo é exibido.</string>
@@ -1364,10 +1397,35 @@
     <string name="files_action_select_all">Selecionar todos</string>
     <string name="files_action_rename">Renomear</string>
     <string name="files_action_copy">copiar</string>
+    <string name="files_action_cut">Cortar</string>
     <string name="files_action_paste_copy">Colar aqui</string>
+    <string name="files_action_paste_move">Mover pra cá</string>
     <string name="files_action_delete">excluir</string>
+    <string name="files_action_compress">Comprimir ou extrair</string>
+    <string name="files_action_new_folder">Nova pasta</string>
+    <string name="files_dialog_compress">Nome do zip</string>
     <string name="files_field_name">Nome:</string>
+    <string name="files_dialog_delete_title">Deletar %1$d item(s)?</string>
+    <string name="files_dialog_delete_message">Isso removem eles pra sempre, não há uma lixeira aqui.</string>
+    <string name="files_working_copying">Copiando</string>
+    <string name="files_working_moving">Movendo</string>
+    <string name="files_working_deleting">Deletando</string>
+    <string name="files_working_compressing">Comprimindo</string>
+    <string name="files_working_extracting">Extraindo</string>
     <string name="tab_install">Instalador de aplicativos</string>
+    <string name="install_no_file">Nenhum pacote escolhido</string>
+    <string name="install_choose">Escolher</string>
+    <string name="install_choose_hint">Arquivo APK, APKS, APKM, ou XAPK</string>
+    <string name="install_action">Instalar</string>
+    <string name="install_running">Instalando\u2026</string>
+    <string name="install_done">Instalado.</string>
+    <string name="install_open">Abrir app</string>
+    <string name="install_open_failed">Não pode abrir o app.</string>
+    <string name="install_options_heading">Opções de instalação</string>
+    <string name="install_instant">Instalar como um instant app</string>
+    <string name="install_instant_desc">Roda sem instalar o app completo ou adicionar ele pra tela de início.</string>
+    <string name="install_rollback">Manter versão anterior</string>
+    <string name="install_rollback_desc">Manter a versão anterior pra que você possa restaurar-la depois.</string>
     <string name="install_ignore_dexopt">Ignorar o perfil dexopt</string>
     <string name="install_ignore_dexopt_desc">Não use o perfil do app ao otimizá-lo.</string>
     <string name="install_dexopt">Dexopt</string>
@@ -1378,6 +1436,9 @@
     <string name="install_dexopt_speed">speed</string>
     <string name="install_dexopt_everything">everything</string>
     <string name="install_referrer">Referenciador</string>
+    <string name="install_referrer_desc">A URI diz pro app de onde a instalação veio.</string>
+    <string name="install_details_reading">Lendo o pacote\u2026</string>
+    <string name="install_details_unreadable">Esse arquivo não é um pacote de app válido.</string>
     <string name="install_details_version">Versão</string>
     <string name="install_details_target">Target SDK</string>
     <string name="install_details_permissions">Permissões (%1$d)</string>
@@ -1385,7 +1446,38 @@
     <string name="install_details_not_installed">Não instalado</string>
     <string name="install_details_not_installed_note">Não há aplicativo instalado para substituir.</string>
     <string name="install_details_update">Mais recente do que a versão instalada.</string>
+    <string name="install_details_downgrade">Mais velho que o %1$s instalado\u2014permitir um ‘downgrade’.</string>
+    <string name="install_details_same">Mesma versão que o app instalado.</string>
+    <string name="install_option_unsupported">Não suportado nessa versão do android</string>
+    <string name="install_failed">Falhou: %1$s</string>
+    <string name="install_could_not_read">Não pode ler esse arquivo.</string>
+    <string name="install_replace">Trocar o app instalado</string>
+    <string name="install_replace_desc">Manter os dados e atualizar.</string>
     <string name="install_downgrade">Permitir um downgrade</string>
+    <string name="install_downgrade_desc">Instalar uma versão antiga sobre uma nova.</string>
+    <string name="install_grant_all">Dar todas as permissões</string>
+    <string name="install_grant_all_desc">Dar todas as permissões que o app pede durante a instalação.</string>
+    <string name="install_allow_test">Permitir pacotes de teste</string>
+    <string name="install_allow_test_desc">Permitir apps marcados como versões de teste ou depuração.</string>
+    <string name="install_keep_running">Não force a parada do app</string>
+    <string name="install_keep_running_desc">Deixe o app aberto enquanto ele é trocado.</string>
+    <string name="install_skip_verification">Pular a verificação</string>
+    <string name="install_skip_verification_desc">Pular a checagem da verificação do app.</string>
+    <string name="install_bypass_sdk">Ignorar o bloqueamento do target sdk</string>
+    <string name="install_bypass_sdk_desc">Permitir que apps que servem pra uma versão mais antiga do android sejam instalados.</string>
+    <string name="install_user">Instalar pra</string>
+    <string name="install_user_current">Esse usuário</string>
+    <string name="install_user_all">Todos os usuários</string>
+    <string name="install_location">Onde</string>
     <string name="install_location_auto">Opções do desenvolvedor</string>
+    <string name="install_location_internal">Armazenamento interno</string>
+    <string name="install_location_shared">Armazenamento compartilhado</string>
+    <string name="install_spoof_source">Falsificar origem da instalação</string>
+    <string name="install_spoof_source_desc">O pacote que o Android foi avisado instalou esse app.</string>
+    <string name="install_source_presets">Fontes de instalação comuns</string>
+    <string name="install_source_none">Sem falsificar</string>
+    <string name="install_source_play_store">Google play store</string>
     <string name="install_source_shell">Shell</string>
+    <string name="install_source_google_package_installer">Instalador de pacotes do Google</string>
+    <string name="install_source_aosp_package_installer">Instalador do pacote do AOSP</string>
 </resources>

@@ -62,6 +62,9 @@
     <string name="paring_code_is_wrong">Dî-wastô ang kódigóng pampares.</string>
     <string name="cannot_connect_port">Hindî makakonék biya Awángkáwad na pagdepurá.\n\nTiyakíng inilistáng-putî ang Shizuku sa anumáng kontrapuwego, adblokero, VPN, o kagayang mga aplikasyóng naghihigpít ng akses sa kabalagán.</string>
     <string name="dialog_adb_pairing_message">Simulán ang pagpapares sa gitan ng sumusunód na mga hakbang:\n– Pumuntá sa \"Mga ópsiyóng pandevélopér\" (\"Developer options\").\n– Tugután ang \"Pang-USB na pagdepurá\" (\"USB debugging\") at \"Awángkáwad na pagdepurá\" (\"Wireless debugging\").\n– Pindutín ang mismong \"Awángkáwad na pagdepurá.\"\n– Pindutín ang \"Magpares ng gamit gamit ang kódigóng pampares\" (\"Pair device with pairing code\")\n– Inpután ng kódigóng pampares ang notipikasyón.</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -83,6 +86,7 @@
     <string name="enable">Paganahin</string>
     <string name="auto_pair_instructions">Magpares nang Hindi nagta-type ng code:\n\n1. I-tap ang \'Mga opsyo ng developer\" sa ibaba\n\nAwtomatikong bubukasn ng Shizuku ang \"Wireless na pag-debug\" at ang dialog ng pagpares, pagbasa ng code at port at simulan ito. Panatilihing bukas ang dialog hanggang matapos ang pagpares.</string>
     <string name="auto_pair_manual">Máno-máno</string>
+    <string name="adb_pairing_developer_options">Mga opsyon ng developer</string>
     <string name="development_settings">Awtomátikó</string>
     <string name="notification_settings">Mga seting ukol sa notipikasyón</string>
     <string name="adb_pairing_tutorial_content_notification">Tutulungan ka ng isang notipikasyon mula sa Shizuku na tapusin ang pagpapares.</string>

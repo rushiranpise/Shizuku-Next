@@ -62,6 +62,9 @@
     <string name="paring_code_is_wrong">Il codice di accoppiamento è sbagliato.</string>
     <string name="cannot_connect_port">Impossibile connettersi al servizio di debug wireless.\n\nAssicurati che Shizuku sia nella whitelist di tutte le app firewall, ad-block, VPN o simili che possono limitare l\'accesso alla rete.</string>
     <string name="dialog_adb_pairing_message">Avvia l\'accoppiamento seguendo questi passaggi:\n- Vai su \"Opzioni sviluppatore\"\n- Attiva \"Debug USB\" e \"Debug wireless\"\n- Tocca la parte sinistra di \"Debug wireless\"\n- Tocca \"Accoppia dispositivo con codice di accoppiamento\"\n- Inserisci il codice di accoppiamento nella notifica</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -82,6 +85,7 @@
     <string name="enable">Abilita</string>
     <string name="auto_pair_instructions">Accopia senza digitare un codice:\n\n1. Opzioni sviluppatore → Debug wireless\n2. Accoppia dispositivo con codice di accoppiamento\n\nShizuku legge il codice e la porta direttamente da quella finestra, e si avvia da solo. Mantieni aperta la finestra finché l\'accoppiamento non è terminato.</string>
     <string name="auto_pair_manual">Manuale</string>
+    <string name="adb_pairing_developer_options">Opzioni sviluppatore</string>
     <string name="development_settings">Automatico</string>
     <string name="notification_settings">Impostazioni di notifica</string>
     <string name="adb_pairing_tutorial_content_notification">Una notifica di Shizuku ti aiuterà a completare l\'accoppiamento.</string>
@@ -229,6 +233,7 @@
     <string name="tab_force_dark">Forza modalità scura</string>
     <string name="force_dark_gate">Forza modalità scura</string>
     <string name="force_dark_gate_disabled">Forza modalità scura è disattivata</string>
+    <string name="force_dark_gate_off">Disattivo</string>
     <string name="force_dark_count">%1$d forzata</string>
     <string name="force_dark_filter_forced">Forzata</string>
     <string name="force_dark_filter_not">Non forzata</string>
