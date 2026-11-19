@@ -52,7 +52,6 @@ class AdbPairDialogFragment : DialogFragment() {
             setView(binding.root)
             setNegativeButton(android.R.string.cancel, null)
             setPositiveButton(android.R.string.ok, null)
-            setNeutralButton(R.string.adb_pairing_developer_options, null)
         }
         val dialog = builder.create()
         dialog.setCanceledOnTouchOutside(false)
@@ -67,7 +66,7 @@ class AdbPairDialogFragment : DialogFragment() {
 
         binding.pairingCode.error = null
 
-        dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener {
+        binding.developerOptions.setOnClickListener {
             SettingsHelper.launchOrHighlightWirelessDebugging(it.context)
         }
 

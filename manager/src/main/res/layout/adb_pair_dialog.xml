@@ -21,6 +21,15 @@
             android:layout_height="wrap_content"
             android:text="@string/dialog_adb_pairing_message" />
 
+        <!-- Kept out of the alert's button bar: with OK and Cancel it no longer fits on
+             one row, and Android responds by stacking all three. -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/developer_options"
+            style="?attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/adb_pairing_developer_options" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/pairing_code"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
