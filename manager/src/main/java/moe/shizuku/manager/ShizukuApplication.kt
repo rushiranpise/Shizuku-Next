@@ -19,6 +19,7 @@ import moe.shizuku.manager.utils.AppLocale
 import moe.shizuku.manager.utils.BootTimeline
 import moe.shizuku.manager.utils.Diag
 import moe.shizuku.manager.utils.ShizukuStateMachine
+import moe.shizuku.manager.worker.UpdateCheckWorker
 import org.lsposed.hiddenapibypass.HiddenApiBypass
 import rikka.core.util.BuildUtils.atLeast30
 import rikka.shizuku.Shizuku
@@ -90,6 +91,11 @@ class ShizukuApplication : Application() {
         // would lose the backstop until its next reboot, which is exactly the kind of window the
         // backstop exists to close. Safe to call when the watchdog is off - it checks.
         WatchdogAlarmReceiver.schedule(context)
+
+        // The background update check looks for a release and offers it in a notification.
+        // WorkManager needs the unlock, so a process that woke earlier leaves it to the next
+        // ordinary start; the periodic request itself survives if it was scheduled already.
+        if (context.isUserUnlockedCompat()) UpdateCheckWorker.schedule(context)
 
         // Hiding and force dark are both rules about the app in front, and the same watch holds
         // both. A process that died while either was armed starts it again rather than leaving the

@@ -134,6 +134,7 @@ import moe.shizuku.manager.utils.EnvironmentUtils
 import moe.shizuku.manager.utils.SettingsHelper
 import moe.shizuku.manager.utils.ShizukuStateMachine
 import moe.shizuku.manager.utils.UpdateHelper
+import moe.shizuku.manager.worker.UpdateCheckWorker
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -1848,6 +1849,7 @@ fun SettingsScreen(
                 ShizukuSettings.getPreferences().edit()
                     .putInt(ShizukuSettings.Keys.KEY_UPDATE_MODE, value).apply()
                 updateMode = value
+                UpdateCheckWorker.schedule(context)
                 updateDialog = false
             },
             // Picking a mode only says when to look; this is the "look now" that

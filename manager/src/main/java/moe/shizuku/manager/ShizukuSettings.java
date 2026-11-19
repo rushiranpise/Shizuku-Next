@@ -69,6 +69,9 @@ public class ShizukuSettings {
         /** Whether creating a grant has to be confirmed with device authentication. */
         public static final String KEY_REQUIRE_GRANT_AUTHENTICATION = "require_grant_authentication";
         public static final String KEY_UPDATE_MODE = "update_mode";
+
+        /** The newest release a background check has already notified about. */
+        public static final String KEY_LAST_NOTIFIED_UPDATE = "last_notified_update";
         public static final String KEY_HELP = "help";
         public static final String KEY_REPORT_BUG = "report_bug";
         public static final String KEY_LEGACY_PAIRING = "legacy_pairing";
@@ -297,6 +300,15 @@ public class ShizukuSettings {
 
     public static void setLastPromptedVersion(String version) {
         getPreferences().edit().putString("lastPromptedVersion", version).apply();
+    }
+
+    /** The newest release a background check has already offered in a notification. */
+    public static String getLastNotifiedUpdate() {
+        return getPreferences().getString(Keys.KEY_LAST_NOTIFIED_UPDATE, "");
+    }
+
+    public static void setLastNotifiedUpdate(String version) {
+        getPreferences().edit().putString(Keys.KEY_LAST_NOTIFIED_UPDATE, version).apply();
     }
 
     /**

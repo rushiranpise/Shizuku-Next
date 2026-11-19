@@ -951,6 +951,9 @@
     <string name="snackbar_battery_optimization_settings">Turn off battery optimization to use this feature.</string>
     <string name="snackbar_action_fix">Fix</string>
     <string name="snackbar_update_available">A new update is available</string>
+    <string name="update_notification_channel">App updates</string>
+    <string name="update_notification_title">Shizuku update available</string>
+    <string name="update_notification_text">Version %1$s is available. Tap to open Shizuku.</string>
     <string name="snackbar_action_update">Update</string>
 
     <!-- Updates -->

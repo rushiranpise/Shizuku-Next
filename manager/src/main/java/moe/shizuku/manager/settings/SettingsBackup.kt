@@ -11,6 +11,7 @@ import moe.shizuku.manager.manage.AutoStartGate
 import moe.shizuku.manager.manage.PackageTools
 import moe.shizuku.manager.service.HidingWatchService
 import moe.shizuku.manager.shell.ShellBookmarks
+import moe.shizuku.manager.worker.UpdateCheckWorker
 import org.json.JSONArray
 import org.json.JSONObject
 import rikka.shizuku.Shizuku
@@ -60,6 +61,7 @@ object SettingsBackup {
         "hiding_since",
         "hiding_vpn_client",
         "lastPromptedVersion",
+        "last_notified_update",
         "last_adb_port",
         "last_adb_port_boot",
         "last_adb_transport",
@@ -239,6 +241,7 @@ object SettingsBackup {
         ShizukuSettings.setWatchdog(context, ShizukuSettings.getWatchdog())
         AccessibilityKeepAliveService.refresh(context)
         HidingWatchService.refresh(context)
+        UpdateCheckWorker.schedule(context)
 
         if (backup.autostart != null && oldAutostart != null) {
             (oldAutostart - backup.autostart).forEach { packageName ->
