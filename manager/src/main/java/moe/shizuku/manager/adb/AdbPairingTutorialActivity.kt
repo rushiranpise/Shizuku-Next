@@ -34,6 +34,7 @@ class AdbPairingTutorialActivity : AppBarActivity() {
 
     companion object {
         private const val EXTRA_PAIR_IN_APP = "moe.shizuku.manager.extra.PAIR_IN_APP"
+        private const val PAIR_DIALOG_TAG = "in_app_pair_dialog"
 
         /** The manual choice with legacy pairing on: the code is typed in a dialog here. */
         fun inAppPairingIntent(context: Context): Intent =
@@ -165,9 +166,18 @@ class AdbPairingTutorialActivity : AppBarActivity() {
 
     private fun showPairDialog() {
         if (isFinishing || supportFragmentManager.isStateSaved) return
-        AdbPairDialogFragment().apply {
-            dismissAction = { finish() }
-        }.show(supportFragmentManager)
+
+        // After a configuration change the fragment manager restores the dialog, and the
+        // callback held by the old instance is gone. Reuse that instance instead of showing
+        // a second dialog on top of it, and attach the callback again so closing it still
+        // finishes the activity.
+        val restored = supportFragmentManager
+            .findFragmentByTag(PAIR_DIALOG_TAG) as? AdbPairDialogFragment
+        val dialog = restored ?: AdbPairDialogFragment()
+        dialog.dismissAction = { finish() }
+        if (restored == null) {
+            dialog.show(supportFragmentManager, PAIR_DIALOG_TAG)
+        }
     }
 
     private fun doStartPairingService() {
