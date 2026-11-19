@@ -19,7 +19,7 @@
             android:id="@android:id/text1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/dialog_adb_pairing_message" />
+            android:text="@string/dialog_adb_pairing_message_manual" />
 
         <!-- Kept out of the alert's button bar: with OK and Cancel it no longer fits on
              one row, and Android responds by stacking all three. -->
