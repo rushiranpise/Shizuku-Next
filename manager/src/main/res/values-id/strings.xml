@@ -66,6 +66,9 @@
         langkah-langkah berikut:\n- Arahkan ke \"Opsi Pengembang\"\n- Aktifkan \"Debugging USB\" dan
         \"Debugging Nirkabel\"\n- Ketuk sisi kiri \"Debugging Nirkabel\"\n- Ketuk \"Pasangkan
         perangkat dengan kode pemasangan\"\n- Masukkan kode pemasangan di notifikasi</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -93,6 +96,7 @@
     <string name="enable">Memungkinkan</string>
     <string name="auto_pair_instructions">Pair without typing a code:\n\n1. Developer options → Wireless debugging\n2. Pair device with pairing code\n\nShizuku reads the code and port straight from that dialog and starts itself. Keep the dialog open until pairing finishes.</string>
     <string name="auto_pair_manual">Manual</string>
+    <string name="adb_pairing_developer_options">Opsi pengembang</string>
     <string name="development_settings">Pilihan pengembang</string>
     <string name="notification_settings">Pengaturan notifikasi</string>
     <string name="adb_pairing_tutorial_content_notification">Notifikasi dari Shizuku akan membantu

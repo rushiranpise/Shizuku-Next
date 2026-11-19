@@ -62,6 +62,9 @@
     <string name="paring_code_is_wrong">配对码错误。</string>
     <string name="cannot_connect_port">无法连接到无线调试服务。\n\n请确保将 Shizuku 添加到所有防火墙、广告拦截器、VPN 或类似可能限制网络访问的应用中的白名单。</string>
     <string name="dialog_adb_pairing_message">请按照以下步骤开始配对：\n- 打开“开发者选项”\n- 启用“USB 调试”和“无线调试”\n- 点击“无线调试”左侧\n- 点击“使用配对码配对设备”\n- 在通知栏中输入配对码</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -82,6 +85,7 @@
     <string name="enable">启用</string>
     <string name="auto_pair_instructions">免输码配对：\n\n1. 开发者选项 → 无线调试\n2. 使用配对码配对设备\n\nShizuku 会直接从那个对话框读取配对码和端口并自行启动。配对完成前请保持对话框打开。</string>
     <string name="auto_pair_manual">手动</string>
+    <string name="adb_pairing_developer_options">开发者选项</string>
     <string name="development_settings">开发者选项</string>
     <string name="notification_settings">通知设置</string>
     <string name="adb_pairing_tutorial_content_notification">一条来自 Shizuku 的通知将帮助你完成配对。</string>
@@ -227,6 +231,7 @@
     <string name="tab_force_dark">强制深色模式</string>
     <string name="force_dark_gate">强制深色模式</string>
     <string name="force_dark_gate_disabled">强制深色模式已关闭</string>
+    <string name="force_dark_gate_off">关闭</string>
     <string name="force_dark_count">已强制 %1$d 个</string>
     <string name="force_dark_filter_forced">已强制</string>
     <string name="force_dark_filter_not">未强制</string>

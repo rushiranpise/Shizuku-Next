@@ -64,6 +64,9 @@
     <string name="dialog_adb_pairing_message">يرجى بدء عملية الاقتران من خلال تنفيذ الخطوات التالية:
 
 \n- انتقل إلى \"خيارات المطور\"\n- قم بتمكين \"تصحيح أخطاء USB\" و\"تصحيح الأخطاء اللاسلكية\" \n- انقر على الجانب الأيسر من \"تصحيح الأخطاء اللاسلكية\"\n- انقر على \"إقران الجهاز برمز الإقران\"\n- أدخل رمز الاقتران في الإشعار</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -87,6 +90,7 @@
 </string>
     <string name="auto_pair_manual">يدوي
 </string>
+    <string name="adb_pairing_developer_options">خيارات المطور</string>
     <string name="development_settings">خيارات للمطور</string>
     <string name="notification_settings">إعداد الإشعارات</string>
     <string name="adb_pairing_tutorial_content_notification">سيساعدك إشعار من Shizuku على إكمال
@@ -267,6 +271,7 @@
     <string name="tab_force_dark">فرض الوضع المظلم</string>
     <string name="force_dark_gate">فرض الوضع المظلم</string>
     <string name="force_dark_gate_disabled">وضع الظلام الاجباري متوفف</string>
+    <string name="force_dark_gate_off">معطل</string>
     <string name="force_dark_count">%1$d إجباري</string>
     <string name="force_dark_filter_forced">إجباري</string>
     <string name="force_dark_filter_not">غير إجباري</string>

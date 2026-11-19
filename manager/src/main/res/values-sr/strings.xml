@@ -27,6 +27,9 @@
         „Опције за програмере“\n- Омогућите „USB отклањање грешака“ и „Бежично отклањање грешака“\n-
         Додирните леву страну „Бежично отклањање грешака“\n- Додирните „Упари уређај са кодом за
         упаривање“\n- Унесите код за упаривање у обавештење</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
