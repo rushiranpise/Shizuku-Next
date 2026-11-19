@@ -42,6 +42,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
@@ -61,7 +62,9 @@ import moe.shizuku.manager.ui.component.CenteredMessage
 import moe.shizuku.manager.ui.component.ExpressiveSwitch
 import moe.shizuku.manager.ui.component.ScrollToTopButton
 import moe.shizuku.manager.ui.component.SegmentedCard
+import moe.shizuku.manager.ui.component.WatchSearchField
 import moe.shizuku.manager.ui.component.televisionTextInput
+import moe.shizuku.manager.ui.theme.LocalWatch
 
 /** Which services the list is showing, the same two-chip filter its sibling lists use. */
 private enum class ServiceFilter { ALL, OFF, ON }
@@ -88,6 +91,7 @@ fun AccessibilityScreen(bottomPadding: Dp, onBack: () -> Unit) {
     var autoBoot by remember { mutableStateOf(false) }
     var query by remember { mutableStateOf("") }
     var filter by remember { mutableStateOf(ServiceFilter.ALL) }
+    var searchOpen by remember { mutableStateOf(false) }
 
     // The system accessibility screen can switch a service too, so this is read again whenever
     // the page is come back to.
@@ -155,7 +159,16 @@ fun AccessibilityScreen(bottomPadding: Dp, onBack: () -> Unit) {
         TopAppBar(
             title = {
                 Column {
-                    Text(stringResource(R.string.tab_accessibility))
+                    Text(
+                        stringResource(R.string.tab_accessibility),
+                        style = if (LocalWatch.current) {
+                            MaterialTheme.typography.titleSmall
+                        } else {
+                            MaterialTheme.typography.titleLarge
+                        },
+                        maxLines = if (LocalWatch.current) 1 else Int.MAX_VALUE,
+                        overflow = if (LocalWatch.current) TextOverflow.Ellipsis else TextOverflow.Clip
+                    )
                     Text(
                         text = if (!keepAlive) {
                             stringResource(R.string.accessibility_gate_off)
@@ -167,7 +180,7 @@ fun AccessibilityScreen(bottomPadding: Dp, onBack: () -> Unit) {
                     )
                 }
             },
-            windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+            windowInsets = watchTopAppBarInsets(),
             navigationIcon = {
                 IconButton(onClick = onBack) {
                     Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
@@ -202,9 +215,9 @@ fun AccessibilityScreen(bottomPadding: Dp, onBack: () -> Unit) {
         SegmentedCard(modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)) {
             ListItem(
                 headlineContent = { Text(stringResource(R.string.accessibility_boot)) },
-                supportingContent = {
-                    Text(stringResource(R.string.accessibility_boot_summary))
-                },
+                supportingContent = if (!LocalWatch.current) {
+                    { Text(stringResource(R.string.accessibility_boot_summary)) }
+                } else null,
                 trailingContent = {
                     ExpressiveSwitch(
                         checked = autoBoot,
@@ -246,9 +259,28 @@ fun AccessibilityScreen(bottomPadding: Dp, onBack: () -> Unit) {
                     else ServiceFilter.ON
                 }
             )
+            if (LocalWatch.current) {
+                IconButton(onClick = {
+                    searchOpen = !searchOpen
+                    if (!searchOpen) query = ""
+                }) {
+                    Icon(
+                        if (searchOpen) Icons.Filled.Close else Icons.Filled.Search,
+                        contentDescription = stringResource(R.string.app_management_search_hint)
+                    )
+                }
+            }
         }
 
-        OutlinedTextField(
+        if (LocalWatch.current) {
+            if (searchOpen) {
+                WatchSearchField(
+                    query = query,
+                    hint = stringResource(R.string.app_management_search_hint),
+                    onQuery = { query = it }
+                )
+            }
+        } else OutlinedTextField(
             value = query,
             onValueChange = { query = it },
             modifier = Modifier

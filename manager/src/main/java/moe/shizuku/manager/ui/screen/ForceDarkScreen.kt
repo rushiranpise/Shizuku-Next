@@ -63,6 +63,8 @@ import moe.shizuku.manager.ui.component.rowKey
 import moe.shizuku.manager.ui.component.CenteredMessage
 import moe.shizuku.manager.ui.component.ExpressiveSwitch
 import moe.shizuku.manager.ui.component.SegmentedCard
+import moe.shizuku.manager.ui.component.WatchSearchField
+import moe.shizuku.manager.ui.theme.LocalWatch
 import moe.shizuku.manager.ui.component.appLabel
 import moe.shizuku.manager.utils.ShizukuStateMachine
 
@@ -89,6 +91,7 @@ fun ForceDarkScreen(bottomPadding: Dp, onBack: () -> Unit) {
     var forced by remember { mutableStateOf<Set<String>>(emptySet()) }
     var loading by remember { mutableStateOf(true) }
     var query by remember { mutableStateOf("") }
+    var searchOpen by remember { mutableStateOf(false) }
     var showOnlyForced by remember { mutableStateOf(false) }
     var version by remember { mutableIntStateOf(0) }
     var running by remember { mutableStateOf(ShizukuStateMachine.isRunning()) }
@@ -192,10 +195,22 @@ fun ForceDarkScreen(bottomPadding: Dp, onBack: () -> Unit) {
         TopAppBar(
             title = {
                 Column {
-                    Text(stringResource(R.string.tab_force_dark))
+                    Text(
+                        stringResource(R.string.tab_force_dark),
+                        style = if (LocalWatch.current) {
+                            MaterialTheme.typography.titleSmall
+                        } else {
+                            MaterialTheme.typography.titleLarge
+                        },
+                        maxLines = if (LocalWatch.current) 1 else Int.MAX_VALUE,
+                        overflow = if (LocalWatch.current) TextOverflow.Ellipsis else TextOverflow.Clip
+                    )
                     Text(
                         text = if (!gateOn) {
-                            stringResource(R.string.force_dark_gate_disabled)
+                            stringResource(
+                                if (LocalWatch.current) R.string.force_dark_gate_off
+                                else R.string.force_dark_gate_disabled
+                            )
                         } else {
                             stringResource(R.string.force_dark_count, forced.size)
                         },
@@ -204,7 +219,7 @@ fun ForceDarkScreen(bottomPadding: Dp, onBack: () -> Unit) {
                     )
                 }
             },
-            windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+            windowInsets = watchTopAppBarInsets(),
             navigationIcon = {
                 IconButton(onClick = onBack) {
                     Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
@@ -278,9 +293,32 @@ fun ForceDarkScreen(bottomPadding: Dp, onBack: () -> Unit) {
                 enabled = gateOn,
                 onClick = { showOnlyForced = true }
             )
+            if (LocalWatch.current) {
+                IconButton(
+                    onClick = {
+                        searchOpen = !searchOpen
+                        if (!searchOpen) query = ""
+                    },
+                    enabled = gateOn
+                ) {
+                    Icon(
+                        if (searchOpen) Icons.Filled.Close else Icons.Filled.Search,
+                        contentDescription = stringResource(R.string.app_management_search_hint)
+                    )
+                }
+            }
         }
 
-        OutlinedTextField(
+        if (LocalWatch.current) {
+            if (searchOpen) {
+                WatchSearchField(
+                    query = query,
+                    hint = stringResource(R.string.app_management_search_hint),
+                    enabled = gateOn,
+                    onQuery = { query = it }
+                )
+            }
+        } else OutlinedTextField(
             value = query,
             onValueChange = { query = it },
             modifier = Modifier

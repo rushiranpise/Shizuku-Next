@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -34,7 +36,7 @@ import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material.icons.outlined.SaveAlt
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.outlined.Stop
-import androidx.compose.material3.AlertDialog
+import moe.shizuku.manager.ui.component.AppAlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -62,6 +64,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -91,6 +95,9 @@ import moe.shizuku.manager.ui.component.CenteredMessage
 import moe.shizuku.manager.ui.component.packageLine
 import moe.shizuku.manager.ui.component.rowKey
 import moe.shizuku.manager.ui.component.appLabel
+import moe.shizuku.manager.ui.theme.LocalWatch
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import moe.shizuku.manager.utils.Diag
 import moe.shizuku.manager.utils.ShizukuStateMachine
 import moe.shizuku.manager.utils.runShellCommand
@@ -134,7 +141,7 @@ fun LogScreen(bottomPadding: Dp, onBack: () -> Unit) {
                     )
                 }
             },
-            windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+            windowInsets = watchTopAppBarInsets(),
             navigationIcon = {
                 IconButton(onClick = onBack) {
                     Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
@@ -677,7 +684,66 @@ private fun AppPickerDialog(onDismiss: () -> Unit, onPick: (Logcat.Scope.App) ->
         filtered.sortedBy { appLabel(pm, it).lowercase() }.take(200)
     }
 
-    AlertDialog(
+    if (LocalWatch.current) {
+        Dialog(
+            onDismissRequest = onDismiss,
+            properties = DialogProperties(usePlatformDefaultWidth = false)
+        ) {
+            // 600dp is taller than the watch: the list and its title ran off the display.
+            // A full-height sheet keeps the title, the search field and the rows on screen.
+            val watchHeight = LocalConfiguration.current.screenHeightDp.dp
+            Surface(
+                modifier = Modifier.fillMaxWidth().height(watchHeight),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(start = 24.dp, end = 24.dp, top = 48.dp, bottom = 16.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            stringResource(R.string.log_capture_choose),
+                            style = MaterialTheme.typography.titleSmall,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.weight(1f)
+                        )
+                        IconButton(onClick = onDismiss) {
+                            Icon(
+                                Icons.Filled.Close,
+                                contentDescription = stringResource(android.R.string.cancel)
+                            )
+                        }
+                    }
+                    WatchAppSearchField(query, stringResource(R.string.log_capture_choose_hint)) { query = it }
+                    LazyColumn(modifier = Modifier.weight(1f)) {
+                        items(shown, key = { it.rowKey() }) { pi ->
+                            ListItem(
+                                modifier = Modifier.clickable {
+                                    onPick(
+                                        Logcat.Scope.App(
+                                            packageName = pi.packageName,
+                                            label = appLabel(pm, pi),
+                                            uid = pi.applicationInfo?.uid ?: 0
+                                        )
+                                    )
+                                },
+                                headlineContent = { Text(appLabel(pm, pi), maxLines = 1) },
+                                colors = ListItemDefaults.colors(containerColor = Color.Transparent)
+                            )
+                        }
+                    }
+                }
+            }
+        }
+        return
+    }
+
+    AppAlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.log_capture_choose)) },
         text = {
@@ -728,6 +794,63 @@ private fun filterLines(lines: List<Logcat.Line>, query: String, filter: LogFilt
 }
 
 /** The search box, the same shape on both tabs. */
+@Composable
+private fun WatchAppSearchField(
+    query: String,
+    hint: String,
+    onQuery: (String) -> Unit
+) {
+    Surface(
+        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+        shape = MaterialTheme.shapes.extraLarge,
+        color = MaterialTheme.colorScheme.surfaceContainerHigh
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth().height(48.dp).padding(horizontal = 12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                Icons.Filled.Search,
+                contentDescription = null,
+                modifier = Modifier.size(20.dp),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            BasicTextField(
+                value = query,
+                onValueChange = onQuery,
+                singleLine = true,
+                textStyle = MaterialTheme.typography.bodyMedium.copy(
+                    fontFamily = FontFamily.Monospace,
+                    color = MaterialTheme.colorScheme.onSurface
+                ),
+                cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
+                modifier = Modifier.weight(1f).padding(horizontal = 8.dp),
+                decorationBox = { inner ->
+                    if (query.isEmpty()) {
+                        Text(
+                            hint,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                    inner()
+                }
+            )
+            if (query.isNotEmpty()) {
+                IconButton(onClick = { onQuery("") }, modifier = Modifier.size(40.dp)) {
+                    Icon(
+                        Icons.Filled.Close,
+                        contentDescription = stringResource(android.R.string.cancel),
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
+            }
+        }
+    }
+}
+
 @Composable
 private fun SearchField(
     query: String,

@@ -77,7 +77,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.material3.AlertDialog
+import moe.shizuku.manager.ui.component.AppAlertDialog
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
@@ -107,6 +107,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import moe.shizuku.manager.ui.theme.LocalWatch
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
@@ -542,7 +543,7 @@ fun ShellScreen(bottomPadding: Dp = 0.dp, onBack: (() -> Unit)? = null) {
                         textStyle = MaterialTheme.typography.bodyMedium
                     )
                 },
-                windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+                windowInsets = watchTopAppBarInsets(),
                 navigationIcon = {
                     IconButton(onClick = { searching = false; searchQuery = "" }) {
                         Icon(
@@ -587,20 +588,40 @@ fun ShellScreen(bottomPadding: Dp = 0.dp, onBack: (() -> Unit)? = null) {
             TopAppBar(
                 title = {
                     Column {
-                        Text(stringResource(R.string.shell_title))
+                        Text(
+                            stringResource(R.string.shell_title),
+                            style = if (LocalWatch.current) {
+                                MaterialTheme.typography.titleSmall
+                            } else {
+                                MaterialTheme.typography.titleLarge
+                            },
+                            maxLines = if (LocalWatch.current) 1 else Int.MAX_VALUE,
+                            overflow = if (LocalWatch.current) {
+                                TextOverflow.Ellipsis
+                            } else {
+                                TextOverflow.Clip
+                            }
+                        )
                         Text(
                             text = when {
                                 backend == ShellBackend.ROOT ->
                                     stringResource(R.string.shell_backend_root_status)
-                                uid >= 0 -> stringResource(R.string.shell_backend_shizuku_status, uid)
-                                else -> stringResource(R.string.shell_backend_offline)
+                                uid >= 0 -> stringResource(
+                                    if (LocalWatch.current) R.string.shell_backend_shizuku_status_short
+                                    else R.string.shell_backend_shizuku_status,
+                                    uid
+                                )
+                                else -> stringResource(
+                                    if (LocalWatch.current) R.string.shell_backend_offline_short
+                                    else R.string.shell_backend_offline
+                                )
                             },
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 },
-                windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+                windowInsets = watchTopAppBarInsets(),
                 // An arrow only when this was opened from the Labs list: it used to be a tab,
                 // where the bar underneath was how you left, and it is a screen over the tabs
                 // now, so the arrow is the way back.
@@ -624,7 +645,7 @@ fun ShellScreen(bottomPadding: Dp = 0.dp, onBack: (() -> Unit)? = null) {
                             contentDescription = stringResource(R.string.shell_paste)
                         )
                     }
-                    if (field.text.isNotBlank()) {
+                    if (!LocalWatch.current && field.text.isNotBlank()) {
                         IconButton(onClick = { naming = NameRequest(command = field.text.trim()) }) {
                             Icon(
                                 Icons.Outlined.BookmarkAdd,
@@ -633,11 +654,13 @@ fun ShellScreen(bottomPadding: Dp = 0.dp, onBack: (() -> Unit)? = null) {
                         }
                     }
                     if (lines.isNotEmpty()) {
-                        IconButton(onClick = { searching = true }) {
-                            Icon(
-                                Icons.Filled.Search,
-                                contentDescription = stringResource(R.string.shell_search)
-                            )
+                        if (!LocalWatch.current) {
+                            IconButton(onClick = { searching = true }) {
+                                Icon(
+                                    Icons.Filled.Search,
+                                    contentDescription = stringResource(R.string.shell_search)
+                                )
+                            }
                         }
                         // The rest are used often enough to keep, and rare enough not to hold a
                         // place in the bar on a screen where the log wants the room.
@@ -651,6 +674,15 @@ fun ShellScreen(bottomPadding: Dp = 0.dp, onBack: (() -> Unit)? = null) {
                             expanded = menuOpen,
                             onDismissRequest = { menuOpen = false }
                         ) {
+                            if (LocalWatch.current) {
+                                DropdownMenuItem(
+                                    text = { Text(stringResource(R.string.shell_search)) },
+                                    onClick = {
+                                        menuOpen = false
+                                        searching = true
+                                    }
+                                )
+                            }
                             DropdownMenuItem(
                                 text = { Text(stringResource(R.string.shell_copy)) },
                                 onClick = {
@@ -1308,7 +1340,7 @@ private fun NameDialog(
     onConfirm: (String) -> Unit
 ) {
     var name by remember { mutableStateOf(initial) }
-    AlertDialog(
+    AppAlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(title) },
         text = {
@@ -1363,7 +1395,7 @@ private fun PackagePickerDialog(
         }
     }
 
-    AlertDialog(
+    AppAlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(title) },
         text = {

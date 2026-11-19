@@ -54,7 +54,7 @@ import androidx.compose.material.icons.rounded.Usb
 import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.material.icons.rounded.MoreHoriz
 import androidx.compose.material.icons.rounded.Wifi
-import androidx.compose.material3.AlertDialog
+import moe.shizuku.manager.ui.component.AppAlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LoadingIndicator
@@ -383,7 +383,7 @@ fun HomeScreen(bottomPadding: Dp) {
     Column(modifier = Modifier.fillMaxSize()) {
         TopAppBar(
             title = { Text(stringResource(R.string.app_name)) },
-            windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp)
+            windowInsets = watchTopAppBarInsets(),
         )
 
         Box(
@@ -971,7 +971,7 @@ fun HomeScreen(bottomPadding: Dp) {
     }
 
     if (showAdbCommand) {
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { showAdbCommand = false },
             title = { Text(stringResource(R.string.intents_adb_command)) },
             text = { Text(Starter.adbCommand, fontFamily = FontFamily.Monospace) },

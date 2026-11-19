@@ -26,7 +26,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.Star
-import androidx.compose.material3.AlertDialog
+import moe.shizuku.manager.ui.component.AppAlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenu
@@ -328,7 +328,7 @@ fun CatalogScreen(
                     Text(stringResource(R.string.catalog_apps_title))
                 }
             },
-            windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+            windowInsets = watchTopAppBarInsets(),
             navigationIcon = {
                 IconButton(onClick = onBack) {
                     Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
@@ -571,7 +571,7 @@ fun CatalogScreen(
     }
 
     installOutcome?.let { message ->
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { installOutcome = null },
             title = { Text(stringResource(R.string.catalog_apps_title)) },
             text = { Text(message) },

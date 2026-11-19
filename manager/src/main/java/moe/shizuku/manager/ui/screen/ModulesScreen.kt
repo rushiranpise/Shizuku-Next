@@ -29,6 +29,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
@@ -50,7 +51,7 @@ import androidx.compose.material.icons.outlined.Stop
 import androidx.compose.material.icons.outlined.Terminal
 import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material.icons.outlined.VerifiedUser
-import androidx.compose.material3.AlertDialog
+import moe.shizuku.manager.ui.component.AppAlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
@@ -96,6 +97,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CompletableDeferred
@@ -114,6 +116,7 @@ import moe.shizuku.manager.module.ModuleUpdate
 import moe.shizuku.manager.ui.component.PillButton
 import moe.shizuku.manager.ui.component.PillButtonQuiet
 import moe.shizuku.manager.ui.component.cardOutline
+import moe.shizuku.manager.ui.theme.LocalWatch
 
 /**
  * The modules this app has installed.
@@ -342,11 +345,19 @@ fun ModulesScreen(
                                 unfocusedIndicatorColor = Color.Transparent
                             )
                         )
-                    } else {
-                        Text(stringResource(R.string.tools_modules))
+                    } else if (!LocalWatch.current) {
+                        // A watch header with four actions has no width left for a title: it
+                        // showed as an ellipsis. The selected tab already says which screen
+                        // this is, so the room goes to the actions instead.
+                        Text(
+                            text = stringResource(R.string.tools_modules),
+                            style = MaterialTheme.typography.titleLarge,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
                     }
                 },
-                windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+                windowInsets = watchTopAppBarInsets(),
                 actions = {
                     TelevisionRefreshButton(refreshing, refresh)
                     if (searching) {
@@ -407,23 +418,42 @@ fun ModulesScreen(
                                 SortChoice(R.string.modules_sort_webui_first, sort.webUiFirst) {
                                     sort = sort.copy(webUiFirst = !sort.webUiFirst).saved()
                                 }
+                                if (LocalWatch.current) {
+                                    DropdownMenuItem(
+                                        text = { Text(stringResource(R.string.modules_settings_item)) },
+                                        onClick = {
+                                            sortDialog = false
+                                            tuneDialog = true
+                                        }
+                                    )
+                                }
                             }
                         }
 
-                    // Their modules screen is where repositories are found from, not the
-                    // other way round: the catalog belongs to the modules section, and this
-                    // is the second way in - the floating button's dialog is the first.
+                    // The catalog is where modules are found, so its icon stays in the
+                    // header on every layout. A watch has room for one more beside it: the
+                    // install button. The module settings move into the sort menu there, so
+                    // the row still fits across the round display.
                     IconButton(onClick = { catalogOpen = true }) {
                         Icon(
                             imageVector = Icons.Filled.Cloud,
                             contentDescription = stringResource(R.string.modules_find_modules)
                         )
                     }
-                    IconButton(onClick = { tuneDialog = true }) {
-                        Icon(
-                            imageVector = Icons.Outlined.Tune,
-                            contentDescription = stringResource(R.string.modules_settings)
-                        )
+                    if (LocalWatch.current) {
+                        IconButton(onClick = { installDialog = true }) {
+                            Icon(
+                                imageVector = Icons.Filled.Add,
+                                contentDescription = stringResource(R.string.modules_install)
+                            )
+                        }
+                    } else {
+                        IconButton(onClick = { tuneDialog = true }) {
+                            Icon(
+                                imageVector = Icons.Outlined.Tune,
+                                contentDescription = stringResource(R.string.modules_settings)
+                            )
+                        }
                     }
                     }
                 }
@@ -555,31 +585,33 @@ fun ModulesScreen(
             }
         }
 
-        FloatingActionButton(
-            modifier = Modifier
-                .televisionFocusShape(FloatingActionButtonDefaults.shape)
-                .align(Alignment.BottomEnd)
-                .padding(end = 16.dp, bottom = bottomPadding + 16.dp),
-            onClick = { installDialog = true }
-        ) {
-            Icon(
-                imageVector = Icons.Filled.Add,
-                contentDescription = stringResource(R.string.modules_install)
+        if (!LocalWatch.current) {
+            FloatingActionButton(
+                modifier = Modifier
+                    .televisionFocusShape(FloatingActionButtonDefaults.shape)
+                    .align(Alignment.BottomEnd)
+                    .padding(end = 16.dp, bottom = bottomPadding + 16.dp),
+                onClick = { installDialog = true }
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Add,
+                    contentDescription = stringResource(R.string.modules_install)
+                )
+            }
+
+            // Above the install button: the two sit in the same corner, and a scroll button that
+            // covered it would be the one thing this list already has plenty of.
+            ScrollToTopButton(
+                listState = listState,
+                bottomPadding = bottomPadding,
+                modifier = Modifier.align(Alignment.BottomEnd),
+                extraBottom = 72.dp
             )
         }
-
-        // Above the install button: the two sit in the same corner, and a scroll button that
-        // covered it would be the one thing this list already has plenty of.
-        ScrollToTopButton(
-            listState = listState,
-            bottomPadding = bottomPadding,
-            modifier = Modifier.align(Alignment.BottomEnd),
-            extraBottom = 72.dp
-        )
     }
 
     if (installDialog) {
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { installDialog = false },
             title = { Text(stringResource(R.string.modules_install_title)) },
             text = {
@@ -610,7 +642,7 @@ fun ModulesScreen(
     }
 
     if (tuneDialog) {
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { tuneDialog = false },
             title = { Text(stringResource(R.string.modules_settings)) },
             text = {
@@ -696,7 +728,7 @@ fun ModulesScreen(
     }
 
     result?.let { actionResult ->
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { result = null },
             title = { Text(stringResource(R.string.modules_result_title, resultTitle)) },
             text = {
@@ -725,7 +757,7 @@ fun ModulesScreen(
     }
 
     pendingTrust?.let { module ->
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { pendingTrust = null },
             title = { Text(stringResource(R.string.modules_trust_confirm, module.name)) },
             text = { Text(stringResource(R.string.modules_trust_confirm_message)) },
@@ -745,7 +777,7 @@ fun ModulesScreen(
     }
 
     pendingDelete?.let { module ->
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { pendingDelete = null },
             title = { Text(stringResource(R.string.modules_delete_confirm, module.name)) },
             text = { Text(stringResource(R.string.modules_delete_confirm_message)) },
@@ -766,7 +798,7 @@ fun ModulesScreen(
     }
 
     errorRes?.let { messageRes ->
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { errorRes = null },
             title = { Text(stringResource(R.string.error)) },
             text = { Text(stringResource(messageRes)) },
@@ -1227,7 +1259,7 @@ fun CommandReviewDialog(
 ) {
     var trustModule by remember(request) { mutableStateOf(false) }
 
-    AlertDialog(
+    AppAlertDialog(
         onDismissRequest = onReject,
         title = { Text(stringResource(R.string.modules_review_title)) },
         text = {

@@ -10,11 +10,13 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusGroup
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.Row
@@ -26,11 +28,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.isImeVisible
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
@@ -82,6 +87,7 @@ import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusRequester
@@ -99,8 +105,10 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.boundsInParent
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import moe.shizuku.manager.R
@@ -136,6 +144,7 @@ import moe.shizuku.manager.ui.screen.TerminalScreen
 import moe.shizuku.manager.ui.screen.WifiPasswordsScreen
 import moe.shizuku.manager.ui.theme.LocalAmoledTheme
 import moe.shizuku.manager.ui.theme.LocalTelevision
+import moe.shizuku.manager.ui.theme.LocalWatch
 import moe.shizuku.manager.ui.theme.ShizukuTheme
 
 /**
@@ -265,6 +274,7 @@ private val tabs = listOf(
     Tab(R.string.tab_settings, Icons.Filled.Settings, Icons.Outlined.Settings),
 )
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ShizukuApp(onRunSetup: () -> Unit) {
     ShizukuTheme {
@@ -313,16 +323,33 @@ fun ShizukuApp(onRunSetup: () -> Unit) {
 
                 if (current != null) {
                     SideEffect { tvDetailWasOpen = true }
-                    BackHandler { detail = null }
+                    // A text field's keyboard is dismissed by Back before the screen it is on
+                    // is: without this, typing in the shell and pressing Back to put the
+                    // keyboard away also left the shell for Labs.
+                    val keyboardController = LocalSoftwareKeyboardController.current
+                    val imeVisible = LocalWatch.current && WindowInsets.isImeVisible
+                    BackHandler {
+                        if (imeVisible) {
+                            keyboardController?.hide()
+                        } else {
+                            detail = null
+                        }
+                    }
                     CenteredContent(
                         // A detail screen has no tab bar under it, so it is the one that has
                         // to keep clear of the navigation bar itself. The tab layout adds
                         // that inset to its own bottom padding; a detail had none, which on
                         // a device with navigation buttons put the shell's input row under
                         // them.
-                        modifier = Modifier.windowInsetsPadding(
-                            WindowInsets.navigationBars.only(WindowInsetsSides.Bottom)
-                        )
+                        //
+                        // A watch is round and has no navigation bar inset to give that
+                        // band: the last row of a list, and the install button under it,
+                        // were cut by the curve. Keep the same band clear of the edge.
+                        modifier = Modifier
+                            .windowInsetsPadding(
+                                WindowInsets.navigationBars.only(WindowInsetsSides.Bottom)
+                            )
+                            .padding(bottom = if (LocalWatch.current) 24.dp else 0.dp)
                     ) {
                         when (current) {
                             // Both get the bar's padding of zero: a detail has no floating
@@ -504,7 +531,7 @@ internal fun backAction(
     else -> BackAction.SHOW_HINT
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun MainTabs(
     pagerState: PagerState,
@@ -530,7 +557,15 @@ private fun MainTabs(
         lastBackAt = 0L
     }
 
+    // The same rule on a tab: a search field's keyboard is what Back dismisses first, not the
+    // tab. The pages' own handlers still answer before this one.
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val imeVisible = LocalWatch.current && WindowInsets.isImeVisible
     BackHandler {
+        if (imeVisible) {
+            keyboardController?.hide()
+            return@BackHandler
+        }
         val now = SystemClock.elapsedRealtime()
         when (backAction(pagerState.currentPage, lastBackAt, now)) {
             BackAction.GO_HOME -> {
@@ -579,9 +614,17 @@ private fun MainTabs(
     // and feeding that measurement into every page as bottom padding made the pages re-lay out
     // whenever the bar re-measured mid-animation — a scroll, a tab change — which is what read
     // as the content bouncing and left a gap the size of the bar's largest frame.
-    val bottomPadding = FloatingToolbarDefaults.ContainerSize +
-        FloatingToolbarDefaults.ScreenOffset +
-        WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
+    val navigationBottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
+    // The watch bar is a smaller pill, raised clear of the round display's bottom edge. Its
+    // 48dp height plus the 24dp lift is what the pages have to keep clear of, not the phone
+    // toolbar's 80dp.
+    val bottomPadding = if (LocalWatch.current) {
+        72.dp + navigationBottom
+    } else {
+        FloatingToolbarDefaults.ContainerSize +
+            FloatingToolbarDefaults.ScreenOffset +
+            navigationBottom
+    }
 
     Box(
         modifier = Modifier
@@ -591,7 +634,17 @@ private fun MainTabs(
                 else Modifier
             )
     ) {
-        CenteredContent {
+        CenteredContent(
+            // Reserve the watch bar's band instead of letting the pager run underneath it.
+            // The pages still keep their own bottom padding for the scrollable end, but the
+            // viewport now stops above the pill, so a button at the bottom of a page is never
+            // hidden behind it.
+            modifier = if (LocalWatch.current && !modulesFullscreen) {
+                Modifier.padding(bottom = bottomPadding)
+            } else {
+                Modifier
+            }
+        ) {
             HorizontalPager(
                 state = pagerState,
                 userScrollEnabled = !(pagerState.currentPage == 2 && modulesFullscreen),
@@ -641,7 +694,18 @@ private fun MainTabs(
         // A module's own page, its action console and the catalog take the whole tab, and the
         // bar leaves with them: a floating bar sitting over somebody else's page is this app's
         // own furniture showing through. Its back arrow - or the back gesture - brings it back.
-        if (!modulesFullscreen) {
+        if (!modulesFullscreen && LocalWatch.current) {
+            WatchTabBar(
+                pagerState = pagerState,
+                grantedCount = grantedCount,
+                onSelect = { index ->
+                    if (index != pagerState.currentPage) {
+                        scope.launch { pagerState.scrollToPage(index) }
+                    }
+                },
+                modifier = Modifier.align(Alignment.BottomCenter)
+            )
+        } else if (!modulesFullscreen) {
             // The bar's own band, and the fade the pages run into. It is drawn here rather than
             // by the pages for two reasons: it leaves with the bar, and it is already there
             // before a page has scrolled a long list sitting at its top still has rows under
@@ -824,6 +888,80 @@ private fun MainTabs(
                                 }
                             }
                         }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * The phone's floating toolbar is a five-item bar wide enough to outgrow a round watch.
+ *
+ * This is the same five destinations in a 216dp pill, with 36dp targets and no scroll hiding:
+ * it stays visible, sits above the curved bottom edge, and every tab can be reached without a
+ * swipe. The phone and TV keep their own bars.
+ */
+@Composable
+private fun WatchTabBar(
+    pagerState: PagerState,
+    grantedCount: Int,
+    onSelect: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier
+            // The pager is a full-screen scrolling sibling. Keep the bar above it in the hit
+            // test as well as in the drawing order, or a tap on a tab can land on the page row
+            // sitting underneath the pill.
+            .zIndex(1f)
+            .windowInsetsPadding(WindowInsets.navigationBars.only(WindowInsetsSides.Bottom))
+            .padding(bottom = 24.dp)
+            .width(216.dp)
+            .height(48.dp),
+        shape = CircleShape,
+        color = MaterialTheme.colorScheme.surfaceContainerHigh,
+        tonalElevation = 3.dp
+    ) {
+        Row(
+            modifier = Modifier.fillMaxSize().padding(horizontal = 10.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            tabs.forEachIndexed { index, tab ->
+                val selected = pagerState.currentPage == index
+                Box(
+                    modifier = Modifier
+                        .size(36.dp)
+                        .clip(CircleShape)
+                        .background(
+                            if (selected) MaterialTheme.colorScheme.secondaryContainer
+                            else Color.Transparent
+                        )
+                        .clickable { if (!selected) onSelect(index) },
+                    contentAlignment = Alignment.Center
+                ) {
+                    BadgedBox(
+                        badge = {
+                            if (index == 1 && grantedCount > 0) {
+                                Badge(
+                                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                                ) {
+                                    Text(grantedCount.toString())
+                                }
+                            }
+                        }
+                    ) {
+                        Icon(
+                            imageVector = if (selected) tab.selectedIcon else tab.unselectedIcon,
+                            contentDescription = stringResource(tab.label),
+                            modifier = Modifier.size(20.dp),
+                            tint = if (selected) {
+                                MaterialTheme.colorScheme.onSecondaryContainer
+                            } else {
+                                MaterialTheme.colorScheme.onSurfaceVariant
+                            }
+                        )
                     }
                 }
             }

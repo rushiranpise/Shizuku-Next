@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -62,7 +63,7 @@ import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material.icons.outlined.Wifi
 import androidx.compose.material.icons.outlined.WifiTethering
-import androidx.compose.material3.AlertDialog
+import moe.shizuku.manager.ui.component.AppAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -80,6 +81,8 @@ import moe.shizuku.manager.ui.component.ExpressiveSwitch
 import moe.shizuku.manager.ui.component.SegmentedCard
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -94,10 +97,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.materialkolor.PaletteStyle
@@ -112,6 +117,7 @@ import moe.shizuku.manager.ui.component.ScrollToTopButton
 import moe.shizuku.manager.ui.component.SegmentedColumn
 import moe.shizuku.manager.ui.theme.DEFAULT_ACCENT_COLOR
 import moe.shizuku.manager.ui.theme.ThemeState
+import moe.shizuku.manager.ui.theme.LocalWatch
 import moe.shizuku.manager.ui.component.SegmentedListItem
 import moe.shizuku.manager.ui.component.stripHtmlTags
 import moe.shizuku.manager.adb.AdbStarter
@@ -476,7 +482,7 @@ fun SettingsScreen(
                     }
                 }
             },
-            windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp)
+            windowInsets = watchTopAppBarInsets(),
         )
 
         Box(
@@ -1413,7 +1419,7 @@ fun SettingsScreen(
     }
 
     restartAction?.let { action ->
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { restartAction = null },
             title = { Text(stringResource(R.string.settings_restart_dialog_title)) },
             text = {
@@ -1449,7 +1455,7 @@ fun SettingsScreen(
     }
 
     if (closeTcpDialog) {
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { closeTcpDialog = false },
             title = { Text(stringResource(android.R.string.dialog_alert_title)) },
             text = { Text(stringResource(R.string.settings_tcp_mode_dialog_close_port)) },
@@ -1483,7 +1489,7 @@ fun SettingsScreen(
     }
 
     if (adbWithoutDeveloperOptionsPrompt) {
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { adbWithoutDeveloperOptionsPrompt = false },
             title = {
                 Text(stringResource(R.string.settings_adb_without_developer_options_confirm_title))
@@ -1506,7 +1512,7 @@ fun SettingsScreen(
     }
 
     batteryPrompt?.let { action ->
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { batteryPrompt = null },
             title = { Text(stringResource(R.string.tools_battery)) },
             text = { Text(stringResource(R.string.snackbar_battery_optimization_settings)) },
@@ -1526,7 +1532,7 @@ fun SettingsScreen(
     }
 
     restorePending?.let { backup ->
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { restorePending = null },
             title = { Text(stringResource(R.string.settings_backup_restore_title)) },
             text = { Text(stringResource(R.string.settings_backup_restore_message, backup.count)) },
@@ -1639,7 +1645,7 @@ fun SettingsScreen(
 
     if (customAccentDialog) {
         val normalized = normalizedAccentHex(customAccentDraft)
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { customAccentDialog = false },
             title = { Text(stringResource(R.string.settings_accent_custom_title)) },
             text = {
@@ -1711,7 +1717,7 @@ fun SettingsScreen(
 
     if (tcpPortDialog) {
         var draft by remember { mutableStateOf(tcpPort) }
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { tcpPortDialog = false },
             title = { Text(stringResource(R.string.settings_tcp_port)) },
             text = {
@@ -1992,7 +1998,63 @@ private fun ChoiceDialog(
     onSelect: (String) -> Unit,
     confirmButton: (@Composable () -> Unit)? = null
 ) {
-    AlertDialog(
+    if (LocalWatch.current) {
+        Dialog(
+            onDismissRequest = onDismiss,
+            properties = DialogProperties(usePlatformDefaultWidth = false)
+        ) {
+            // A full-height panel, because a watch dialog window otherwise measures itself to
+            // its content: a short height left the language list showing one row. The title is
+            // centred, so it stays inside the circle where the screen is narrowest.
+            val watchHeight = LocalConfiguration.current.screenHeightDp.dp
+            Surface(
+                modifier = Modifier.fillMaxWidth().height(watchHeight),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
+                ) {
+                    Text(
+                        title,
+                        style = MaterialTheme.typography.titleSmall,
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center
+                    )
+                    Spacer(Modifier.height(4.dp))
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                            .verticalScroll(rememberScrollState()),
+                        verticalArrangement = Arrangement.spacedBy(2.dp)
+                    ) {
+                        options.forEach { (value, label) ->
+                            ChoiceRow(
+                                selected = value == selected,
+                                label = label,
+                                onClick = { onSelect(value) }
+                            )
+                        }
+                    }
+                    Spacer(Modifier.height(4.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        confirmButton?.invoke()
+                        PillButtonQuiet(onClick = onDismiss) {
+                            Text(stringResource(android.R.string.cancel))
+                        }
+                    }
+                }
+            }
+        }
+        return
+    }
+
+    AppAlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(title) },
         text = {

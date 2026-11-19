@@ -27,7 +27,7 @@ import androidx.compose.material.icons.outlined.Block
 import androidx.compose.material.icons.outlined.ScreenLockLandscape
 import androidx.compose.material.icons.outlined.ScreenLockPortrait
 import androidx.compose.material.icons.outlined.ScreenRotation
-import androidx.compose.material3.AlertDialog
+import moe.shizuku.manager.ui.component.AppAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -55,6 +55,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
@@ -80,6 +81,9 @@ import moe.shizuku.manager.ui.component.appLabel
 import moe.shizuku.manager.ui.component.packageLine
 import moe.shizuku.manager.ui.component.rowKey
 import moe.shizuku.manager.ui.component.televisionTextInput
+import moe.shizuku.manager.ui.component.WatchDialogPanel
+import moe.shizuku.manager.ui.component.WatchSearchField
+import moe.shizuku.manager.ui.theme.LocalWatch
 import moe.shizuku.manager.utils.Diag
 import moe.shizuku.manager.utils.ShizukuStateMachine
 
@@ -108,6 +112,7 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
     var modes by remember { mutableStateOf<Map<String, RotationMode>>(emptyMap()) }
     var loading by remember { mutableStateOf(true) }
     var query by remember { mutableStateOf("") }
+    var searchOpen by remember { mutableStateOf(false) }
     var showOnlyConfigured by remember { mutableStateOf(false) }
     var picking by remember { mutableStateOf<PackageInfo?>(null) }
     var version by remember { mutableIntStateOf(0) }
@@ -205,38 +210,64 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
 
     picking?.let { app ->
         val current = modes[app.packageName] ?: RotationMode.OFF
-        AlertDialog(
-            onDismissRequest = { picking = null },
-            title = { Text(stringResource(R.string.rotation_mode_title)) },
-            text = {
-                Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                    Text(
-                        appLabel(pm, app),
-                        style = MaterialTheme.typography.titleSmall
+        if (LocalWatch.current) {
+            WatchDialogPanel(
+                title = stringResource(R.string.rotation_mode_title),
+                onDismiss = { picking = null }
+            ) {
+                Text(appLabel(pm, app), style = MaterialTheme.typography.titleSmall)
+                RotationMode.entries.forEach { option ->
+                    ChoiceRow(
+                        selected = current == option,
+                        label = stringResource(option.labelRes),
+                        supporting = stringResource(option.noteRes),
+                        onClick = { choose(app.packageName, option) }
                     )
-                    RotationMode.entries.forEach { option ->
-                        ChoiceRow(
-                            selected = current == option,
-                            label = stringResource(option.labelRes),
-                            supporting = stringResource(option.noteRes),
-                            onClick = { choose(app.packageName, option) }
-                        )
-                    }
-                }
-            },
-            confirmButton = {
-                PillButtonQuiet(onClick = { picking = null }) {
-                    Text(stringResource(android.R.string.cancel))
                 }
             }
-        )
+        } else {
+            AppAlertDialog(
+                onDismissRequest = { picking = null },
+                title = { Text(stringResource(R.string.rotation_mode_title)) },
+                text = {
+                    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                        Text(
+                            appLabel(pm, app),
+                            style = MaterialTheme.typography.titleSmall
+                        )
+                        RotationMode.entries.forEach { option ->
+                            ChoiceRow(
+                                selected = current == option,
+                                label = stringResource(option.labelRes),
+                                supporting = stringResource(option.noteRes),
+                                onClick = { choose(app.packageName, option) }
+                            )
+                        }
+                    }
+                },
+                confirmButton = {
+                    PillButtonQuiet(onClick = { picking = null }) {
+                        Text(stringResource(android.R.string.cancel))
+                    }
+                }
+            )
+        }
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
         TopAppBar(
             title = {
                 Column {
-                    Text(stringResource(R.string.tab_rotation))
+                    Text(
+                        stringResource(R.string.tab_rotation),
+                        style = if (LocalWatch.current) {
+                            MaterialTheme.typography.titleSmall
+                        } else {
+                            MaterialTheme.typography.titleLarge
+                        },
+                        maxLines = if (LocalWatch.current) 1 else Int.MAX_VALUE,
+                        overflow = if (LocalWatch.current) TextOverflow.Ellipsis else TextOverflow.Clip
+                    )
                     Text(
                         text = if (!gateOn) {
                             stringResource(R.string.rotation_gate_off, modes.size)
@@ -248,7 +279,7 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
                     )
                 }
             },
-            windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+            windowInsets = watchTopAppBarInsets(),
             navigationIcon = {
                 IconButton(onClick = onBack) {
                     Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
@@ -266,12 +297,14 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
 
         val contentAlpha = if (gateOn) 1f else GateOffAlpha
 
-        Text(
-            text = stringResource(R.string.rotation_note),
-            modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
+        if (!LocalWatch.current) {
+            Text(
+                text = stringResource(R.string.rotation_note),
+                modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
 
         Row(
             modifier = Modifier
@@ -297,36 +330,58 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
                 enabled = gateOn,
                 onClick = { showOnlyConfigured = true }
             )
+            if (LocalWatch.current) {
+                IconButton(onClick = {
+                    searchOpen = !searchOpen
+                    if (!searchOpen) query = ""
+                }) {
+                    Icon(
+                        if (searchOpen) Icons.Filled.Close else Icons.Filled.Search,
+                        contentDescription = stringResource(R.string.app_management_search_hint)
+                    )
+                }
+            }
         }
 
-        OutlinedTextField(
-            value = query,
-            onValueChange = { query = it },
-            modifier = Modifier
-                .fillMaxWidth()
-                .alpha(contentAlpha)
-                .padding(horizontal = 16.dp, vertical = 8.dp)
-                .televisionTextInput(MaterialTheme.shapes.extraLarge),
-            enabled = gateOn,
-            placeholder = { Text(stringResource(R.string.app_management_search_hint)) },
-            leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
-            trailingIcon = {
-                if (query.isNotEmpty()) {
-                    IconButton(onClick = { query = "" }) {
-                        Icon(
-                            Icons.Filled.Close,
-                            contentDescription = stringResource(android.R.string.cancel)
-                        )
-                    }
-                }
-            },
-            singleLine = true,
-            shape = MaterialTheme.shapes.extraLarge,
-            colors = OutlinedTextFieldDefaults.colors(
-                unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant,
-                focusedBorderColor = MaterialTheme.colorScheme.primary
-            )
-        )
+        if (!LocalWatch.current || searchOpen) {
+            if (LocalWatch.current) {
+                WatchSearchField(
+                    query = query,
+                    hint = stringResource(R.string.app_management_search_hint),
+                    enabled = gateOn,
+                    onQuery = { query = it }
+                )
+            } else {
+                OutlinedTextField(
+                    value = query,
+                    onValueChange = { query = it },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .alpha(contentAlpha)
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                        .televisionTextInput(MaterialTheme.shapes.extraLarge),
+                    enabled = gateOn,
+                    placeholder = { Text(stringResource(R.string.app_management_search_hint)) },
+                    leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
+                    trailingIcon = {
+                        if (query.isNotEmpty()) {
+                            IconButton(onClick = { query = "" }) {
+                                Icon(
+                                    Icons.Filled.Close,
+                                    contentDescription = stringResource(android.R.string.cancel)
+                                )
+                            }
+                        }
+                    },
+                    singleLine = true,
+                    shape = MaterialTheme.shapes.extraLarge,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant,
+                        focusedBorderColor = MaterialTheme.colorScheme.primary
+                    )
+                )
+            }
+        }
 
         Box(modifier = Modifier.fillMaxWidth().weight(1f).alpha(contentAlpha)) {
             val listState = rememberLazyListState()

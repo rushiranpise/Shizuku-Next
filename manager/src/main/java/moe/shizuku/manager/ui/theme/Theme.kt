@@ -23,8 +23,11 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.unit.Density
 import androidx.core.view.WindowInsetsControllerCompat
 import com.materialkolor.Contrast
 import com.materialkolor.PaletteStyle
@@ -52,6 +55,20 @@ val LocalAmoledTheme = staticCompositionLocalOf { false }
  * do something a remote can reach instead. Everything else is the phone layout as it is.
  */
 val LocalTelevision = staticCompositionLocalOf { false }
+
+/**
+ * True on a watch. The app is a phone layout, and a watch is roughly 226dp square, so this is
+ * also what tells the theme to scale the whole Compose tree down instead of letting the fixed
+ * bars and five tabs take more width than the display has. Screens can read it for the few
+ * places that need a smaller title or action row.
+ */
+val LocalWatch = staticCompositionLocalOf { false }
+
+/** The logical width a phone layout is written for. A watch is below it, so it is scaled. */
+private const val WatchTargetWidthDp = 350f
+
+/** Do not shrink so far that text stops being readable on the smallest watch. */
+private const val WatchMinScale = 0.65f
 
 /**
  * The state layers on a TV. With a remote, focus is the only cursor there is, and the stock
@@ -84,6 +101,23 @@ fun ShizukuTheme(content: @Composable () -> Unit) {
     ThemeState.version
 
     val context = LocalContext.current
+    val configuration = LocalConfiguration.current
+    val inheritedDensity = LocalDensity.current
+    val alreadyWatch = LocalWatch.current
+    val watch = remember { EnvironmentUtils.isWatch() }
+    val densityScale = if (watch && !alreadyWatch && configuration.screenWidthDp > 0) {
+        (configuration.screenWidthDp / WatchTargetWidthDp).coerceIn(WatchMinScale, 1f)
+    } else {
+        1f
+    }
+    // ShizukuTheme is wrapped around the setup screen and again around the main app. Scaling the
+    // second one too would make the watch UI 0.56x instead of 0.75x, so LocalWatch doubles as the
+    // marker that this tree has already been scaled.
+    val density = if (densityScale == 1f) {
+        inheritedDensity
+    } else {
+        Density(inheritedDensity.density * densityScale, inheritedDensity.fontScale)
+    }
     val prefs = ShizukuSettings.getPreferences()
 
     val darkTheme = when (ShizukuSettings.getNightMode()) {
@@ -178,6 +212,8 @@ fun ShizukuTheme(content: @Composable () -> Unit) {
     val television = remember { EnvironmentUtils.isTelevision() }
 
     CompositionLocalProvider(
+        LocalDensity provides density,
+        LocalWatch provides (alreadyWatch || watch),
         LocalAmoledTheme provides amoled,
         LocalTelevision provides television,
         LocalRippleConfiguration provides

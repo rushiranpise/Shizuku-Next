@@ -27,9 +27,11 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.FilterList
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Sort
-import androidx.compose.material3.AlertDialog
+import moe.shizuku.manager.ui.component.AppAlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
@@ -97,6 +99,8 @@ import moe.shizuku.manager.ui.component.ChipEmphasis
 import moe.shizuku.manager.ui.component.SegmentedCard
 import moe.shizuku.manager.ui.component.StatusChip
 import moe.shizuku.manager.ui.component.stripHtmlTags
+import moe.shizuku.manager.ui.component.WatchSearchField
+import moe.shizuku.manager.ui.theme.LocalWatch
 import moe.shizuku.manager.utils.ShizukuStateMachine
 
 enum class SortOrder {
@@ -147,6 +151,10 @@ fun AppsScreen(
     var selected by remember { mutableStateOf(setOf<String>()) }
     var version by remember { mutableIntStateOf(0) }
     var sortMenu by remember { mutableStateOf(false) }
+    var filterMenu by remember { mutableStateOf(false) }
+    var moreMenu by remember { mutableStateOf(false) }
+    var selectionMenu by remember { mutableStateOf(false) }
+    var searchOpen by remember { mutableStateOf(false) }
     var filter by remember { mutableStateOf(AppFilter.ALL) }
     // The kind of app, from the same set of filters the app-ops and Labs lists use.
     var kind by remember { mutableStateOf(ManageFilter.ALL) }
@@ -431,10 +439,59 @@ fun AppsScreen(
 
     Box(modifier = Modifier.fillMaxSize()) {
     Column(modifier = Modifier.fillMaxSize()) {
-        if (selectionMode) {
+        if (selectionMode && LocalWatch.current) {
+            TopAppBar(
+                title = {
+                    Text(
+                        stringResource(R.string.batch_selected_count, selected.size),
+                        style = MaterialTheme.typography.titleMedium,
+                        maxLines = 1
+                    )
+                },
+                windowInsets = watchTopAppBarInsets(),
+                navigationIcon = {
+                    IconButton(onClick = { selected = emptySet() }) {
+                        Icon(Icons.Filled.Close, contentDescription = null)
+                    }
+                },
+                actions = {
+                    Box {
+                        IconButton(onClick = { selectionMenu = true }) {
+                            Icon(Icons.Filled.MoreVert, contentDescription = null)
+                        }
+                        DropdownMenu(
+                            expanded = selectionMenu,
+                            onDismissRequest = { selectionMenu = false }
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.app_management_action_select_all)) },
+                                onClick = {
+                                    selected = shown.map { it.packageName }.toSet()
+                                    selectionMenu = false
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.app_management_action_grant)) },
+                                onClick = {
+                                    pendingBatch = true
+                                    selectionMenu = false
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.app_management_action_revoke)) },
+                                onClick = {
+                                    pendingBatch = false
+                                    selectionMenu = false
+                                }
+                            )
+                        }
+                    }
+                }
+            )
+        } else if (selectionMode) {
             TopAppBar(
                 title = { Text(stringResource(R.string.batch_selected_count, selected.size)) },
-                windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+                windowInsets = watchTopAppBarInsets(),
                 navigationIcon = {
                     IconButton(onClick = { selected = emptySet() }) {
                         Icon(Icons.Filled.Close, contentDescription = null)
@@ -452,10 +509,160 @@ fun AppsScreen(
                     }
                 }
             )
+        } else if (LocalWatch.current) {
+            TopAppBar(
+                title = {
+                    Text(
+                        stringResource(R.string.tab_apps),
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                },
+                windowInsets = watchTopAppBarInsets(),
+                actions = {
+                    IconButton(onClick = {
+                        if (searchOpen) {
+                            searchOpen = false
+                            query = ""
+                        } else {
+                            searchOpen = true
+                        }
+                    }) {
+                        Icon(
+                            Icons.Filled.Search,
+                            contentDescription = stringResource(R.string.app_management_search_hint)
+                        )
+                    }
+                    Box {
+                        IconButton(onClick = { filterMenu = true }) {
+                            Icon(
+                                Icons.Filled.FilterList,
+                                contentDescription = stringResource(R.string.apps_filter_title),
+                                tint = if (kind != ManageFilter.ALL || filter != AppFilter.ALL) {
+                                    MaterialTheme.colorScheme.primary
+                                } else {
+                                    MaterialTheme.colorScheme.onSurfaceVariant
+                                }
+                            )
+                        }
+                        DropdownMenu(
+                            expanded = filterMenu,
+                            onDismissRequest = { filterMenu = false }
+                        ) {
+                            ManageFilter.entries.forEach { option ->
+                                val count = when (option) {
+                                    ManageFilter.ALL -> all.size
+                                    ManageFilter.USER -> userPackages.size
+                                    ManageFilter.SYSTEM -> systemPackages.size
+                                    ManageFilter.DISABLED -> disabledPackages.size
+                                    ManageFilter.HIDDEN -> launcherless.size
+                                }
+                                DropdownMenuItem(
+                                    text = {
+                                        Text(
+                                            stringResource(
+                                                when (option) {
+                                                    ManageFilter.ALL -> R.string.manage_filter_all
+                                                    ManageFilter.USER -> R.string.manage_filter_user
+                                                    ManageFilter.SYSTEM -> R.string.manage_filter_system
+                                                    ManageFilter.DISABLED -> R.string.manage_filter_disabled
+                                                    ManageFilter.HIDDEN -> R.string.manage_filter_hidden
+                                                }
+                                            ) + "  " + count
+                                        )
+                                    },
+                                    onClick = {
+                                        kind = option
+                                        filterMenu = false
+                                    }
+                                )
+                            }
+                            DropdownMenuItem(
+                                text = {
+                                    Text(
+                                        stringResource(R.string.apps_filter_granted) +
+                                            "  " + grantedNames.size
+                                    )
+                                },
+                                onClick = {
+                                    filter = if (filter == AppFilter.GRANTED) {
+                                        AppFilter.ALL
+                                    } else {
+                                        AppFilter.GRANTED
+                                    }
+                                    filterMenu = false
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = {
+                                    Text(
+                                        stringResource(R.string.apps_filter_revoked) +
+                                            "  " + (all.size - grantedNames.size)
+                                    )
+                                },
+                                onClick = {
+                                    filter = if (filter == AppFilter.REVOKED) {
+                                        AppFilter.ALL
+                                    } else {
+                                        AppFilter.REVOKED
+                                    }
+                                    filterMenu = false
+                                }
+                            )
+                        }
+                    }
+                    Box {
+                        IconButton(onClick = { moreMenu = true }) {
+                            Icon(Icons.Filled.MoreVert, contentDescription = null)
+                        }
+                        DropdownMenu(
+                            expanded = moreMenu,
+                            onDismissRequest = { moreMenu = false }
+                        ) {
+                            if (shown.isNotEmpty()) {
+                                DropdownMenuItem(
+                                    text = {
+                                        Text(stringResource(R.string.app_management_toggle_all))
+                                    },
+                                    onClick = {
+                                        moreMenu = false
+                                        scope.launch {
+                                            val allGranted = shown.all {
+                                                it.packageName in grantedNames
+                                            }
+                                            pendingToggleAll = !allGranted
+                                        }
+                                    }
+                                )
+                            }
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.app_management_sort_last_added)) },
+                                onClick = {
+                                    sortOrder = SortOrder.RECENTLY_INSTALLED
+                                    moreMenu = false
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.app_management_sort_updated)) },
+                                onClick = {
+                                    sortOrder = SortOrder.RECENTLY_UPDATED
+                                    moreMenu = false
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.app_management_sort_alphabetical)) },
+                                onClick = {
+                                    sortOrder = SortOrder.ALPHABETICAL
+                                    moreMenu = false
+                                }
+                            )
+                        }
+                    }
+                }
+            )
         } else {
             TopAppBar(
                 title = { Text(stringResource(R.string.tab_apps)) },
-                windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+                windowInsets = watchTopAppBarInsets(),
                 actions = {
                     // Long-press and Select all exist for picking individual apps; this is
                     // the one-tap version for when every listed app should be flipped.
@@ -500,90 +707,102 @@ fun AppsScreen(
         // its label shrinks to fit, so a wide font never pushes the row onto a second line.
         // Filter first, search within it: the two answer different questions and the search
         // box alone cannot say "only what is granted".
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 4.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            ManageFilter.entries.forEach { option ->
-                val count = when (option) {
-                    ManageFilter.ALL -> all.size
-                    ManageFilter.USER -> userPackages.size
-                    ManageFilter.SYSTEM -> systemPackages.size
-                    ManageFilter.DISABLED -> disabledPackages.size
-                    ManageFilter.HIDDEN -> launcherless.size
+        if (!LocalWatch.current) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 4.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                ManageFilter.entries.forEach { option ->
+                    val count = when (option) {
+                        ManageFilter.ALL -> all.size
+                        ManageFilter.USER -> userPackages.size
+                        ManageFilter.SYSTEM -> systemPackages.size
+                        ManageFilter.DISABLED -> disabledPackages.size
+                        ManageFilter.HIDDEN -> launcherless.size
+                    }
+                    AppFilterChip(
+                        modifier = Modifier.weight(1f),
+                        label = stringResource(
+                            when (option) {
+                                ManageFilter.ALL -> R.string.manage_filter_all
+                                ManageFilter.USER -> R.string.manage_filter_user
+                                ManageFilter.SYSTEM -> R.string.manage_filter_system
+                                ManageFilter.DISABLED -> R.string.manage_filter_disabled
+                                ManageFilter.HIDDEN -> R.string.manage_filter_hidden
+                            }
+                        ),
+                        count = count,
+                        selected = kind == option,
+                        onClick = { kind = option }
+                    )
                 }
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 4.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 AppFilterChip(
                     modifier = Modifier.weight(1f),
-                    label = stringResource(
-                        when (option) {
-                            ManageFilter.ALL -> R.string.manage_filter_all
-                            ManageFilter.USER -> R.string.manage_filter_user
-                            ManageFilter.SYSTEM -> R.string.manage_filter_system
-                            ManageFilter.DISABLED -> R.string.manage_filter_disabled
-                            ManageFilter.HIDDEN -> R.string.manage_filter_hidden
-                        }
-                    ),
-                    count = count,
-                    selected = kind == option,
-                    onClick = { kind = option }
+                    label = stringResource(R.string.apps_filter_granted),
+                    count = grantedNames.size,
+                    selected = filter == AppFilter.GRANTED,
+                    onClick = {
+                        filter = if (filter == AppFilter.GRANTED) AppFilter.ALL else AppFilter.GRANTED
+                    }
+                )
+                AppFilterChip(
+                    modifier = Modifier.weight(1f),
+                    label = stringResource(R.string.apps_filter_revoked),
+                    count = all.size - grantedNames.size,
+                    selected = filter == AppFilter.REVOKED,
+                    onClick = {
+                        filter = if (filter == AppFilter.REVOKED) AppFilter.ALL else AppFilter.REVOKED
+                    }
                 )
             }
         }
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 4.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            AppFilterChip(
-                modifier = Modifier.weight(1f),
-                label = stringResource(R.string.apps_filter_granted),
-                count = grantedNames.size,
-                selected = filter == AppFilter.GRANTED,
-                onClick = {
-                    filter = if (filter == AppFilter.GRANTED) AppFilter.ALL else AppFilter.GRANTED
-                }
-            )
-            AppFilterChip(
-                modifier = Modifier.weight(1f),
-                label = stringResource(R.string.apps_filter_revoked),
-                count = all.size - grantedNames.size,
-                selected = filter == AppFilter.REVOKED,
-                onClick = {
-                    filter = if (filter == AppFilter.REVOKED) AppFilter.ALL else AppFilter.REVOKED
-                }
-            )
+        if (!LocalWatch.current || searchOpen) {
+            if (LocalWatch.current) {
+                WatchSearchField(
+                    query = query,
+                    hint = stringResource(R.string.app_management_search_hint),
+                    onQuery = { query = it }
+                )
+            } else {
+                OutlinedTextField(
+                    value = query,
+                    onValueChange = { query = it },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                        .televisionTextInput(MaterialTheme.shapes.extraLarge),
+                    placeholder = { Text(stringResource(R.string.app_management_search_hint)) },
+                    leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
+                    trailingIcon = {
+                        // Clearing a search is the one thing you always end up wanting.
+                        if (query.isNotEmpty()) {
+                            IconButton(onClick = { query = "" }) {
+                                Icon(Icons.Filled.Close, contentDescription = stringResource(android.R.string.cancel))
+                            }
+                        }
+                    },
+                    singleLine = true,
+                    shape = MaterialTheme.shapes.extraLarge,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant,
+                        focusedBorderColor = MaterialTheme.colorScheme.primary
+                    )
+                )
+            }
         }
-
-        OutlinedTextField(
-            value = query,
-            onValueChange = { query = it },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp)
-                .televisionTextInput(MaterialTheme.shapes.extraLarge),
-            placeholder = { Text(stringResource(R.string.app_management_search_hint)) },
-            leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
-            trailingIcon = {
-                // Clearing a search is the one thing you always end up wanting.
-                if (query.isNotEmpty()) {
-                    IconButton(onClick = { query = "" }) {
-                        Icon(Icons.Filled.Close, contentDescription = stringResource(android.R.string.cancel))
-                    }
-                }
-            },
-            singleLine = true,
-            shape = MaterialTheme.shapes.extraLarge,
-            colors = OutlinedTextFieldDefaults.colors(
-                unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant,
-                focusedBorderColor = MaterialTheme.colorScheme.primary
-            )
-        )
 
         RefreshBox(
             isRefreshing = refreshing,
@@ -756,7 +975,7 @@ fun AppsScreen(
 
     if (permissionLimited) {
         val adbUrl = runCatching { Helps.ADB.get() }.getOrDefault("")
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { permissionLimited = false },
             title = { Text(stringResource(R.string.app_management_dialog_adb_is_limited_title)) },
             text = {
@@ -786,7 +1005,7 @@ fun AppsScreen(
     }
 
     pendingToggleAll?.let { grant ->
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { pendingToggleAll = null },
             title = {
                 Text(
@@ -814,7 +1033,7 @@ fun AppsScreen(
     }
 
     pendingBatch?.let { grant ->
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { pendingBatch = null },
             title = {
                 Text(
@@ -847,7 +1066,7 @@ fun AppsScreen(
         val label = all.firstOrNull { it.applicationInfo?.uid == process.uid }
             ?.let { runCatching { it.applicationInfo?.loadLabel(pm)?.toString() }.getOrNull() }
             ?: process.packageName.ifBlank { "uid ${process.uid}" }
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { pendingStopProcess = null },
             title = { Text(stringResource(R.string.apps_process_stop_title)) },
             text = { Text(stringResource(R.string.apps_process_stop_message, process.pid, label)) },

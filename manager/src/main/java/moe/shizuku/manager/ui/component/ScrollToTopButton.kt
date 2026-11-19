@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import moe.shizuku.manager.R
+import moe.shizuku.manager.ui.theme.LocalWatch
 
 /**
  * The way back to the top of a list, once it has been scrolled past the first screen.
@@ -46,6 +47,9 @@ fun ScrollToTopButton(
     modifier: Modifier = Modifier,
     extraBottom: Dp = 0.dp
 ) {
+    // A watch already has the raised tab pill across the bottom. A second floating button there
+    // landed on top of the last row it was supposed to help with.
+    if (LocalWatch.current) return
     val scrolled by remember {
         derivedStateOf {
             listState.firstVisibleItemIndex > 0 || listState.firstVisibleItemScrollOffset > 0
@@ -84,6 +88,7 @@ fun ScrollToTopButton(
     modifier: Modifier = Modifier,
     extraBottom: Dp = 0.dp
 ) {
+    if (LocalWatch.current) return
     val scrolled by remember { derivedStateOf { scrollState.value > 0 } }
     val scope = rememberCoroutineScope()
 

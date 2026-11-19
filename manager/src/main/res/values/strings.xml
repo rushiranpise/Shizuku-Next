@@ -75,6 +75,7 @@
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
     <string name="dialog_adb_pairing_accessibility_permission_tv">Android blocks this switch for apps installed outside an app store, and on a TV, App info has no \"Allow restricted settings\" option to unblock it. A computer connected to this TV over ADB is needed once: either grant the permission above, which lets Shizuku turn the service on by itself, or unblock the switch with:\n\n^1</string>
+    <string name="dialog_adb_pairing_accessibility_enable_watch">Automatic pairing reads the code from the system dialog, so Shizuku\'s accessibility service has to be on. Enable it on the next screen.\n\nIf the switch is greyed out, open App info and allow restricted settings.</string>
     <string name="dialog_adb_pairing_open_app_info">App info</string>
     <string name="dialog_adb_pairing_accessibility_enable">Automatic pairing reads the code out of the system dialog through Shizuku\'s accessibility service, so it has to be enabled, and only for as long as it takes: the service turns itself off once the code is found, or after a minute to save power. Shizuku normally enables it on its own, and that needs the WRITE_SECURE_SETTINGS permission, which a fresh install has not been granted yet.\n\nEnable it on the next screen, type the code yourself under Manual, or grant the permission once:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Please start pairing by performing the following steps:\n- Navigate to \"Developer Options\"\n- Enable \"USB debugging\" and \"Wireless debugging\"\n- Tap the left side of \"Wireless debugging\"\n- Tap \"Pair device with pairing code.\" Shizuku will automatically detect the pairing code.</string>
@@ -85,6 +86,7 @@
     <string name="adb_pair_required">Pair the device first.</string>
     <string name="enable">Enable</string>
     <string name="auto_pair_instructions">Pair without typing a code:\n\n1. Tap Developer options below\n\nShizuku opens Wireless debugging and the pairing dialog itself, reads the code and port, and starts. Keep the dialog open until pairing finishes.</string>
+    <string name="auto_pair_instructions_watch">Shizuku opens Developer options and Wireless debugging, reads the pairing code, and starts. Keep the system dialog open until pairing finishes.</string>
     <string name="auto_pair_manual">Manual</string>
     <string name="development_settings">Automatic</string>
     <string name="notification_settings">Notification settings</string>
@@ -136,6 +138,7 @@
     <string name="apps_needs_shizuku">Start Shizuku to see apps</string>
     <string name="apps_empty">No apps to show</string>
     <string name="apps_filter_empty">No apps in this filter</string>
+    <string name="apps_filter_title">Filter apps</string>
     <string name="apps_filter_all">All</string>
     <string name="apps_filter_granted">Granted</string>
     <string name="apps_filter_revoked">Revoked</string>
@@ -250,6 +253,7 @@
     <string name="tab_force_dark">Force dark mode</string>
     <string name="force_dark_gate">Force dark mode</string>
     <string name="force_dark_gate_disabled">Force dark mode is off</string>
+    <string name="force_dark_gate_off">Off</string>
     <string name="force_dark_count">%1$d forced</string>
     <string name="force_dark_filter_forced">Forced</string>
     <string name="force_dark_filter_not">Not forced</string>
@@ -565,6 +569,7 @@
     <string name="modules_install_from_file">Install from a file</string>
     <string name="modules_install_title">Install a module</string>
     <string name="modules_settings">Modules</string>
+    <string name="modules_settings_item">Module settings</string>
     <string name="modules_settings_summary">What a module may do, and how sure you want to be</string>
     <string name="modules_access_full_summary_short">Services and the WebUI shell bridge</string>
     <string name="modules_allow_background_summary_short">A service script running unwatched</string>
@@ -1027,8 +1032,10 @@
     <string name="shell_backend_shizuku">Shizuku</string>
     <string name="shell_backend_root">Root</string>
     <string name="shell_backend_shizuku_status">Shizuku, uid %1$d</string>
+    <string name="shell_backend_shizuku_status_short">uid %1$d</string>
     <string name="shell_backend_root_status">Root, uid 0</string>
     <string name="shell_backend_offline">No command runner is active</string>
+    <string name="shell_backend_offline_short">No runner</string>
     <string name="shell_needs_a_backend">Start Shizuku, or pick Root on a rooted device: one of the two runs the commands. Root works with Shizuku stopped.</string>
     <string name="shell_intro">Runs as the uid Shizuku runs as (2000 over adb, 0 with root), so it reaches whatever that uid can: /sdcard, /system, and app data with root. It opens in /sdcard, one command at a time; with no tty behind it, programs that need a terminal (nano, an ssh prompt) will not run here.</string>
     <string name="shell_root_granted">Root is available: commands run as uid 0.</string>
