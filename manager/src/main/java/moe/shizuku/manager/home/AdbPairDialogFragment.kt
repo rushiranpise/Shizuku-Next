@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.app.Dialog
 import android.content.ActivityNotFoundException
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
@@ -37,6 +38,9 @@ import java.net.ConnectException
 class AdbPairDialogFragment : DialogFragment() {
 
     private lateinit var binding: AdbPairDialogBinding
+
+    /** Run when the dialog closes, including a successful pairing. */
+    var dismissAction: (() -> Unit)? = null
 
     private val viewModel: ViewModel by activityViewModels()
 
@@ -146,6 +150,11 @@ class AdbPairDialogFragment : DialogFragment() {
     fun show(fragmentManager: FragmentManager) {
         if (fragmentManager.isStateSaved) return
         show(fragmentManager, javaClass.simpleName)
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        dismissAction?.invoke()
     }
 
     override fun getDialog(): AlertDialog? {
