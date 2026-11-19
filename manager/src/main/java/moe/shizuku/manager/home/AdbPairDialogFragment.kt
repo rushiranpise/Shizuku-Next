@@ -49,7 +49,7 @@ class AdbPairDialogFragment : DialogFragment() {
             setView(binding.root)
             setNegativeButton(android.R.string.cancel, null)
             setPositiveButton(android.R.string.ok, null)
-            setNeutralButton(R.string.development_settings, null)
+            setNeutralButton(R.string.adb_pairing_developer_options, null)
         }
         val dialog = builder.create()
         dialog.setCanceledOnTouchOutside(false)

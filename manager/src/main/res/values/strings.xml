@@ -88,6 +88,7 @@
     <string name="auto_pair_instructions">Pair without typing a code:\n\n1. Tap Developer options below\n\nShizuku opens Wireless debugging and the pairing dialog itself, reads the code and port, and starts. Keep the dialog open until pairing finishes.</string>
     <string name="auto_pair_instructions_watch">Shizuku opens Developer options and Wireless debugging, reads the pairing code, and starts. Keep the system dialog open until pairing finishes.</string>
     <string name="auto_pair_manual">Manual</string>
+    <string name="adb_pairing_developer_options">Developer options</string>
     <string name="development_settings">Automatic</string>
     <string name="notification_settings">Notification settings</string>
     <string name="adb_pairing_tutorial_content_notification">A notification from Shizuku will help you complete the pairing.</string>
