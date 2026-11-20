@@ -65,6 +65,7 @@
     <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
          a translation of dialog_adb_pairing_message would still tell the user to type the code
          into a notification that this flow never shows. Untranslated locales fall back here. -->
+    <string name="dialog_adb_pairing_message_manual">Spusťte prosím párování provedením následujících kroků:\n- Přejděte do „Možnosti pro vývojáře“\n- Zapněte „Ladění přes USB“ a „Bezdrátové ladění“\n- Klepněte na levou část u položky „Bezdrátové ladění“\n- Klepněte na „Spárovat zařízení pomocí párovacího kódu“\n- Do polí níže zadejte kód a port, které se tam zobrazí\n\nNechte toto dialogové okno otevřené, dokud se párování nedokončí. Pokud kód zmizí když se vrátíte zpět, použijte režim rozdělené obrazovky, pokud to vaše zařízení podporuje.</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -74,6 +75,7 @@
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
     <string name="dialog_adb_pairing_accessibility_permission_tv">Android blokuje tento přepínač pro aplikace nainstalované mimo obchod s aplikacemi a v televizi, Informace o aplikaci nemají žádnou možnost \"Povolit omezená nastavení\" pro její odblokování. Počítač připojený k této televizi přes ADB je potřeba jednou: buď udělte výše uvedené svolení. která umožňuje Shizuku zapnout službu sama, nebo odblokovat přepínač pomocí:\n\n^1</string>
+    <string name="dialog_adb_pairing_accessibility_enable_watch">Automatické párování čte kód ze systémového dialogu, takže musí být zapnuto Shizuku služba přístupnosti. Povolte jej na další obrazovce.\n\nPokud je přepínač šedý, otevřete informace o aplikaci a povolte omezené nastavení.</string>
     <string name="dialog_adb_pairing_open_app_info">Informace o aplikaci</string>
     <string name="dialog_adb_pairing_accessibility_enable">Funkce automatického párování načítá kód z dialogového okna systému prostřednictvím služby usnadnění přístupu aplikace Shizuku, takže musí být tato služba zapnutá, a to pouze po dobu nezbytně nutnou: služba se sama vypne, jakmile kód najde, nebo po uplynutí jedné minuty z důvodu úspory energie. Shizuku ji obvykle zapíná sama, k čemuž potřebuje oprávnění WRITE_SECURE_SETTINGS, které u čerstvé instalace ještě nebylo uděleno.\n\nZapněte ji na další obrazovce, zadejte kód ručně v části „Manual“ nebo oprávnění udělejte jednorázově:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Párování spusťte provedením následujících kroků:\n- Přejděte do sekce „Možnosti pro vývojáře“\n- Povolte „Ladění USB“ a „Bezdrátové ladění“\n- Klepněte na levou stranu sekce „Bezdrátové ladění“\n- Klepněte na „Spárovat zařízení s párovacím kódem“. Shizuku automaticky detekuje párovací kód.</string>
@@ -84,6 +86,7 @@
     <string name="adb_pair_required">Nejprve projděte krok párování.</string>
     <string name="enable">Zapnout</string>
     <string name="auto_pair_instructions">Párovat bez zadání kódu:\n\n1. Možnosti vývojáře → Bezdrátové ladění\n2. Párovat zařízení s párovacím kódem\n\nShizuku čte kód a portuje přímo z tohoto dialogového okna a spustí se. Ponechat dialogové okno otevřené, dokud neskončí párování.</string>
+    <string name="auto_pair_instructions_watch">Shizuku otevře možnosti vývojáře a bezdrátové ladění, přečte si párovací kód a začne. Ponechte systémové dialogové okno otevřené, dokud neskončí párování.</string>
     <string name="auto_pair_manual">Ruční</string>
     <string name="adb_pairing_developer_options">Možnosti vývojáře</string>
     <string name="development_settings">Možnosti vývojářů</string>
@@ -130,6 +133,7 @@
     <string name="apps_needs_shizuku">Spustit Shizuku pro zobrazení aplikací</string>
     <string name="apps_empty">Žádné aplikace k zobrazení</string>
     <string name="apps_filter_empty">Žádné aplikace v tomto filtru</string>
+    <string name="apps_filter_title">Filtrovat aplikace</string>
     <string name="apps_filter_all">Vše</string>
     <string name="apps_filter_granted">Uděleno</string>
     <string name="apps_filter_revoked">Odebráno</string>
@@ -540,6 +544,7 @@
     <string name="modules_install_from_file">Instalovat ze souboru</string>
     <string name="modules_install_title">Instalovat modul</string>
     <string name="modules_settings">Moduly</string>
+    <string name="modules_settings_item">Nastavení modulů</string>
     <string name="modules_settings_summary">Co může modul udělat a jestli to chcete vy</string>
     <string name="modules_access_full_summary_short">Služby a most WebUI shell</string>
     <string name="modules_allow_background_summary_short">Servisní skript běží nesledovaný</string>
@@ -731,6 +736,8 @@
     <string name="settings_use_system_color_summary">Postupujte podle palety systému</string>
     <string name="settings_always_show_navigation_bar">Vždy zobrazovat navigační lištu</string>
     <string name="settings_always_show_navigation_bar_summary">Ponechat panel viditelný při posouvání dolů.</string>
+    <string name="settings_show_scroll_to_top">Zobrazit tlačítko posunutí nahoru</string>
+    <string name="settings_show_scroll_to_top_summary">Zobrazit plovoucí tlačítko, které vrací dlouhé seznamy nahoru.</string>
     <string name="settings_secure_quick_tiles">Zabezpečené dlaždice</string>
     <string name="settings_secure_quick_tiles_summary">Blokovat změny dlaždic, když je telefon uzamčen.</string>
     <string name="settings_require_grant_authentication">Potvrdit ověření aplikaci</string>
@@ -915,6 +922,9 @@
     <string name="snackbar_battery_optimization_settings">Pro použití této funkce prosím vypněte optimalizaci baterie.</string>
     <string name="snackbar_action_fix">Opravit</string>
     <string name="snackbar_update_available">K dispozici je nová aktualizace</string>
+    <string name="update_notification_channel">Aktualizace aplikací</string>
+    <string name="update_notification_title">Aktualizace Shizuku je k dispozici</string>
+    <string name="update_notification_text">Verze %1$s je k dispozici. Klepnutím otevřete Shizuku.</string>
     <string name="snackbar_action_update">Aktualizovat</string>
     <!-- Updates -->
     <string name="check_for_updates">Zkontrolovat aktualizace</string>
@@ -986,8 +996,10 @@
     <string name="shell_backend_shizuku">Shizuku</string>
     <string name="shell_backend_root">Root</string>
     <string name="shell_backend_shizuku_status">Shizuku, uid %1$d</string>
+    <string name="shell_backend_shizuku_status_short">uid %1$d</string>
     <string name="shell_backend_root_status">Root, uid 0</string>
     <string name="shell_backend_offline">Žádný běh příkazu není aktivní</string>
+    <string name="shell_backend_offline_short">Žádný běh</string>
     <string name="shell_needs_a_backend">Spustit Shizuku, nebo vybrat Root na rootovaném zařízení: jeden ze dvou běží na příkazy. Root funguje s Shizuku zastaven.</string>
     <string name="shell_intro">Spustí jako uid Shizuku běží jako (2000 přes adb, 0 s rootem), aby dosáhla všeho, co uid může: /sdcard, /system a data aplikace s rootem. Otevírá se v /sdcard, jeden příkaz najednou; bez odstínu, programy, které potřebují terminál (nano, ssh prompt) zde nebudou běžet.</string>
     <string name="shell_root_granted">Root je k dispozici: příkazy spuštěné jako uid 0.</string>

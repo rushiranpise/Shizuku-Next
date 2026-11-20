@@ -15,9 +15,9 @@
     <string name="home_usb_adb_needs_network">A inicialização via USB utiliza a porta ADB clássica, e para reabri-la é necessária uma conexão de rede. Conecte-se ao Wi-Fi uma vez ou escolha <b>Iniciar sem Wi-Fi</b> como método de inicialização e inicie a depuração sem fio.</string>
     <string name="home_usb_adb_needs_network_no_option">A configuração inicial por USB usa a porta ADB clássica, e para reabri-la é preciso uma rede. Conecte-se ao Wi-Fi uma vez ou inicie pelo computador com o comando ADB em Outros métodos.</string>
     <string name="home_usb_adb_needs_computer">A configuração inicial via USB requer a porta ADB tradicional. Nesta versão do Android, conecte-se a um computador e inicie o Shizuku usando o comando ADB na seção Outros métodos.</string>
-    <string name="home_wireless_adb_summary">Inicia o uso de depuração sem fio.</string>
+    <string name="home_wireless_adb_summary">Inicia usando a depuração sem fio.</string>
     <string name="home_usb_adb_title"><![CDATA[Iniciar via depuração USB]]></string>
-    <string name="home_usb_adb_summary">Inicia o uso da depuração USB.</string>
+    <string name="home_usb_adb_summary">Inicia o usando a depuração USB.</string>
     <string name="home_support_body">Shizuku-Next é gratuito e não tem anúncios. O valor do seu café ajuda a cobrir o tempo gasto na manutenção.</string>
     <string name="diagnostics_title">Diagnósticos</string>
     <string name="diagnostics_copy">Copiar diagnósticos</string>
@@ -34,11 +34,11 @@
     <string name="diagnostics_app">Aplicativo</string>
     <string name="diagnostics_android">Android</string>
     <string name="diagnostics_device">Dispositivo</string>
-    <string name="diagnostics_started_with">Começou com</string>
+    <string name="diagnostics_started_with">Iniciou via</string>
     <string name="diagnostics_default">Método padrão</string>
     <string name="diagnostics_hiding">Ocultando</string>
     <string name="diagnostics_phantom">Matador de processos</string>
-    <string name="diagnostics_root">raiz</string>
+    <string name="diagnostics_root">Root</string>
     <string name="diagnostics_granted">concedido</string>
     <string name="diagnostics_missing">ausente</string>
     <string name="diagnostics_not_required">não é necessário</string>
@@ -55,16 +55,17 @@
     <!-- Adb -->
     <string name="dialog_adb_port">Porta</string>
     <string name="dialog_adb_invalid_port">Digite um número de porta entre 1 e 65535.</string>
-    <string name="adb_pairing">Emparelhamento</string>
-    <string name="dialog_adb_pairing_title">Emparelhar com dispositivo</string>
+    <string name="adb_pairing">Pareamento</string>
+    <string name="dialog_adb_pairing_title">Parear com dispositivo</string>
     <string name="dialog_adb_pairing_discovery">Procurando serviço de pareamento</string>
     <string name="dialog_adb_pairing_paring_code">Código de pareamento</string>
-    <string name="paring_code_is_wrong">O código de emparelhamento está errado.</string>
+    <string name="paring_code_is_wrong">O código de pareamento está errado.</string>
     <string name="cannot_connect_port">Não é possível conectar-se ao serviço de depuração sem fio.\n\nVerifique se o Shizuku está na lista de permissões de todos os aplicativos de firewall, bloqueadores de anúncios, VPN ou similares que possam restringir o acesso à rede.</string>
     <string name="dialog_adb_pairing_message">Para iniciar o emparelhamento, siga estas etapas:\n- Acesse “Opções do desenvolvedor”\n- Ative “Depuração por USB” e “Depuração sem fio”\n- Toque no lado esquerdo de “Depuração sem fio”\n- Toque em “Emparelhar dispositivo com código de emparelhamento”\n- Digite o código de emparelhamento na notificação</string>
     <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
          a translation of dialog_adb_pairing_message would still tell the user to type the code
          into a notification that this flow never shows. Untranslated locales fall back here. -->
+    <string name="dialog_adb_pairing_message_manual">Por favor, inicie o pareamento seguindo estas etapas:\n- Acesse \"Opções do desenvolvedor\"\n- Ative \"Depuração USB\" e \"Depuração por Wi-Fi\"\n- Toque no lado esquerdo de \"Depuração por Wi-Fi\"\n- Toque em \"Parear o dispositivo com um código de pareamento\"\n- Insira o código e a porta exibidos lá nos campos abaixo\n\nMantenha essa caixa de diálogo aberta até que o pareamento seja concluído. Se o código desaparecer quando você voltar, use a tela dividida, caso seu dispositivo seja compatível.</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -74,7 +75,8 @@
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
     <string name="dialog_adb_pairing_accessibility_permission_tv">O Android bloqueia esse interruptor pra apps instalados fora de uma loja de apps e em uma tv</string>
-    <string name="dialog_adb_pairing_open_app_info">Informações do app</string>
+    <string name="dialog_adb_pairing_accessibility_enable_watch">O pareamento automático lê o código da caixa de diálogo do sistema, portanto, o serviço de acessibilidade do Shizuku precisa estar ativado. Ative-o na próxima tela.\n\nSe o interruptor estiver bloqueado, abra as Informações do app e permita configurações restritas.</string>
+    <string name="dialog_adb_pairing_open_app_info">Informações do Aplicativo</string>
     <string name="dialog_adb_pairing_accessibility_enable">O pareamento automático lê o código da caixa de diálogo do sistema pelo serviço de acessibilidade do Shizuku, então ele precisa estar ativado, e somente pelo tempo necessário: o serviço se desativa sozinho assim que o código é encontrado, ou após um minuto para economizar bateria. Normalmente, o Shizuku o ativa sozinho, e isso exige a permissão WRITE_SECURE_SETTINGS, que uma instalação nova ainda não recebeu.\n\nAtive-o na próxima tela, digite o código manualmente em Manual ou conceda a permissão uma vez:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Para iniciar o emparelhamento, siga estas etapas:\n- Acesse “Opções do desenvolvedor”\n- Ative “Depuração por USB” e “Depuração sem fio”\n- Toque no lado esquerdo de “Depuração sem fio”\n- Toque em “Emparelhar dispositivo com código de emparelhamento”. O Shizuku detectará automaticamente o código de emparelhamento.</string>
     <string name="adb_pairing_requires_multi_window">Primeiro, abra o modo de tela dividida.</string>
@@ -85,6 +87,7 @@
     <string name="adb_pair_required">Por favor, passe primeiro pela etapa de emparelhamento.</string>
     <string name="enable">Ativar</string>
     <string name="auto_pair_instructions">Parear sem digitar um código:\n\n1. Opções de desenvolvedor → Depuração sem fio\n2. Parear dispositivo com o código\n\nShizuku lê o código e porta diretamente dessa caixa de diálogo e começa por si mesmo. Mantenha a caixa de diálogo aberta até o pareamento terminar.</string>
+    <string name="auto_pair_instructions_watch">Shizuku abre opções de desenvolvedor e depuração sem fio, lê o código de pareamento e começa. Mantenha a caixa de diálogo do sistema aberta até que o pareamento termine.</string>
     <string name="auto_pair_manual">Manualmente</string>
     <string name="adb_pairing_developer_options">Opções do desenvolvedor</string>
     <string name="development_settings">Opções do desenvolvedor</string>
@@ -135,6 +138,7 @@
     <string name="apps_needs_shizuku">Iniciar Shizuku para ver os aplicativos</string>
     <string name="apps_empty">Nenhum app para mostrar</string>
     <string name="apps_filter_empty">Nenhum app neste filtro</string>
+    <string name="apps_filter_title">Filtrar aplicativos</string>
     <string name="apps_filter_all">TODOS</string>
     <string name="apps_filter_granted">Concedido</string>
     <string name="apps_filter_revoked">Revogado</string>
@@ -410,7 +414,7 @@
     <string name="device_start_method">Iniciado por</string>
     <string name="device_transport">Transporte</string>
     <string name="device_watchdog">Cão de guarda</string>
-    <string name="device_app_in_front">App à frente</string>
+    <string name="device_app_in_front">App em primeiro plano</string>
     <string name="device_hiding_held">Escondendo manobras</string>
     <string name="device_thermal">Térmica</string>
     <string name="device_thermal_note">Todo sensor térmico que o kernel expõe, mais quente primeiro. Um sensor sem nada anexado reporta o sentinela -273 e é deixado de fora, assim como os níveis de descanso de energia, que não são temperaturas. Zonas %d foram listadas.</string>
@@ -451,9 +455,9 @@
     <string name="log_filter_crashes">Batidas</string>
     <string name="log_saved_empty">Nada foi gravado ainda.</string>
     <string name="log_session_share">Compartilhar</string>
-    <string name="log_session_delete">excluir</string>
+    <string name="log_session_delete">Excluir</string>
     <string name="log_session_deleted">%1$s Excluído</string>
-    <string name="log_session_busy">%1$s ainda está sendo gravado.</string>
+    <string name="log_session_busy">%1$s Ainda está sendo gravado.</string>
     <string name="log_session_running">gravando</string>
     <string name="permissions_usage_access">Acesso ao uso</string>
     <string name="permissions_usage_access_summary">Vamos ocultar listas, ver qual app está aberto. Concedido pelo Shizuku ou nas configurações de uso do Android.</string>
@@ -479,7 +483,7 @@
     <string name="hiding_notification_stopped_text">Shizuku não está em execução, então esconder não pode detectar qual aplicativo está aberto. Todas as configurações ocultas foram restauradas.</string>
     <string name="hiding_carries_session_wireless">Não aplicado: Shizuku usa depuração sem fio, então escondê-lo iria parar Shizuku.</string>
     <string name="hiding_carries_session_usb">Não aplicado: Shizuku usa depuração USB, então escondê-lo iria parar Shizuku.</string>
-    <string name="tab_settings">Confirgurações</string>
+    <string name="tab_settings">Configurações</string>
     <string name="home_status_transport_label">Transporte</string>
     <string name="home_status_started_with">Atual</string>
     <string name="home_status_started_default">Padrão</string>
@@ -523,30 +527,31 @@
     <string name="catalog_updated_last_90">Últimos 90 dias</string>
     <string name="catalog_sort_updated">Atualizado recentemente</string>
     <string name="catalog_sort_stars">Mais estrelas</string>
-    <string name="catalog_sort_name">Nome de A a Z</string>
+    <string name="catalog_sort_name">Nome A–Z</string>
     <string name="catalog_sort_released">Última versão</string>
     <string name="catalog_sort_added">Mais recentes</string>
     <string name="catalog_latest_release">Último lançamento: %1$s</string>
     <string name="catalog_no_release">Sem lançamentos</string>
     <string name="catalog_no_apk">Não há APK nesta versão</string>
-    <string name="catalog_apk_installed">%1$s instalado</string>
+    <string name="catalog_apk_installed">%1$s Instalado</string>
     <string name="catalog_install_failed">Não foi possível iniciar a instalação.</string>
     <string name="catalog_view_github">Ver no GitHub</string>
     <string name="modules_repo_retry">Repetir</string>
     <string name="modules_repo_error">Não foi possível carregar os repositórios.</string>
     <string name="modules_repo_by_author">por %1$s</string>
     <string name="modules_repo_latest_version">Versão mais recente</string>
-    <string name="modules_repo_loading">Loading...</string>
+    <string name="modules_repo_loading">Carregando...</string>
     <string name="modules_repo_sort_stars_low_to_high"></string>
     <string name="modules_repo_sort_stars_high_to_low">Estrelas (do maior para o menor)</string>
     <string name="modules_find_modules">Encontrar módulos</string>
     <string name="modules_install_from_file">Instalar a partir de um arquivo</string>
-    <string name="modules_install_title">New</string>
+    <string name="modules_install_title">Instalar um módulo</string>
     <string name="modules_settings">Módulos</string>
+    <string name="modules_settings_item">Configurações do módulo</string>
     <string name="modules_settings_summary">O que um módulo pode fazer e o nível de confiança que você quer ter</string>
     <string name="modules_access_full_summary_short">Serviços e ponte de shell do WebUI</string>
     <string name="modules_allow_background_summary_short">Um script de serviço em execução sem supervisão</string>
-    <string name="modules_catalog_install"></string>
+    <string name="modules_catalog_install">Instalar</string>
     <string name="modules_catalog_installing">Instalação</string>
     <string name="modules_catalog_no_releases">Este repositório não tem versões.</string>
     <string name="modules_catalog_installed">Instalado</string>
@@ -607,7 +612,7 @@
     <string name="modules_error_too_large">Esse módulo, quando descompactado, ocupa mais espaço do que um módulo deve ocupar; por isso, foi rejeitado.</string>
     <string name="modules_error_script_too_large">Um script nesse módulo excede o tamanho permitido para um script, por isso foi rejeitado.</string>
     <string name="modules_error_install_failed">Não foi possível instalar o módulo.</string>
-    <string name="tools_terminal">Apps de terminal</string>
+    <string name="tools_terminal">Aplicativos de terminal</string>
     <string name="tools_terminal_summary">Execute comandos de shell em qualquer aplicativo de terminal, usando rish</string>
     <string name="tools_battery">Otimização da bateria</string>
     <string name="intents_title">Intenções</string>
@@ -741,13 +746,14 @@
     <string name="settings_use_system_color_summary">Seguir a paleta do sistema</string>
     <string name="settings_always_show_navigation_bar">Sempre exibir a barra de navegação</string>
     <string name="settings_always_show_navigation_bar_summary">Manter a barra de guias visível ao rolar para baixo.</string>
+    <string name="settings_show_scroll_to_top">Mostrar botão de rolar para cima</string>
+    <string name="settings_show_scroll_to_top_summary">Mostrar o botão flutuante que retorna listas longas para o topo.</string>
     <string name="settings_secure_quick_tiles">Proteger blocos de Configurações Rápidas</string>
     <string name="settings_secure_quick_tiles_summary">Impedir alterações nos blocos de Configurações Rápidas enquanto o dispositivo estiver bloqueado.</string>
     <string name="settings_require_grant_authentication">Confirmar concessões a aplicativos</string>
     <string name="settings_require_grant_authentication_summary">Solicitar autenticação biométrica ou bloqueio de tela antes de permitir que um aplicativo acesse o Shizuku.</string>
     <string name="settings_watchdog">Cão de guarda</string>
-    <string name="settings_watchdog_summary">Reiniciar Shizuku automaticamente se o programa
-        bloquear</string>
+    <string name="settings_watchdog_summary">Reiniciar o Shizuku automaticamente se ele travar</string>
     <string name="settings_auto_disable_wireless_debugging">Desativar depuração sem fio</string>
     <string name="settings_auto_disable_wireless_debugging_summary">Desativar depuração sem fios quando Shizuku parar.</string>
     <string name="settings_start_method">Método de início padrão</string>
@@ -801,7 +807,7 @@
     <string name="settings_restart_dialog_message">A Shizuku precisa de reiniciar para poder aplicar
         esta definição.</string>
     <string name="settings_restart_dialog_message_wifi_required"><![CDATA[<br><br><b>É obrigatório Wi-Fi. A Shizuku continua a funcionar e espera pela ligação Wi-Fi antes de reiniciar em segundo plano.</b>]]></string>
-    <string name="settings_tcp_port">porta TCP</string>
+    <string name="settings_tcp_port">Porta TCP</string>
     <string name="settings_auto_disable_usb_debugging">Desativar depuração USB</string>
     <string name="settings_auto_disable_usb_debugging_summary">Desativar depuração USB ao parar Shizuku</string>
     <string name="settings_language">Idioma</string>
@@ -832,14 +838,14 @@
     <string name="settings_high_contrast">Alto contraste</string>
     <string name="settings_high_contrast_summary">Texto e cores de contorno mais fortes</string>
     <string name="settings_update_stable">Estável</string>
-    <string name="settings_update_beta">Desenv.</string>
+    <string name="settings_update_beta">Dev</string>
     <string name="settings_permissions">Permissões</string>
-    <string name="settings_permissions_summary">O que o Shizuku precisa e é permitido</string>
+    <string name="settings_permissions_summary">O que o Shizuku precisa e o que é permitido</string>
     <string name="permissions_allowed">Permitido</string>
     <string name="permissions_action_allow">Autorizar</string>
     <string name="permissions_action_settings">Confirgurações</string>
     <string name="permissions_open_settings_hint">O Android não perguntará novamente. Ligue-o em Informações do App → Permissões.</string>
-    <string name="permissions_notifications">notificações</string>
+    <string name="permissions_notifications">Notificações</string>
     <string name="permissions_notifications_summary">Mostra o código de emparelhamento, o progresso e os erros iniciais.</string>
     <string name="permissions_nearby">Dispositivos próximos</string>
     <string name="permissions_nearby_summary">Localiza a porta de depuração sem fio na sua rede.</string>
@@ -918,8 +924,7 @@
     <string name="bug_report_dialog_before_reporting">Em primeiro lugar, faça o seguinte:</string>
     <string name="bug_report_dialog_update">Verifique se está a utilizar o ^1.</string>
     <string name="bug_report_dialog_link_update">versão mais recente</string>
-    <string name="bug_report_dialog_wiki">Leia o ^1 e siga todos os passos de resolução de problemas
-        relevantes.</string>
+    <string name="bug_report_dialog_wiki">Leia o ^1 e siga todas as etapas de solução de problemas relevantes.</string>
     <string name="bug_report_dialog_link_wiki">wiki</string>
     <string name="bug_report_dialog_issues">Pesquise em todos os relatórios ^1 para ver se o seu bug
         já foi reportado.</string>
@@ -932,6 +937,9 @@
         utilizar esta funcionalidade.</string>
     <string name="snackbar_action_fix">Corrigir</string>
     <string name="snackbar_update_available">Uma nova atualização está disponível</string>
+    <string name="update_notification_channel">Atualizações de aplicativos</string>
+    <string name="update_notification_title">Atualização do Shizuku está disponível</string>
+    <string name="update_notification_text">A versão %1$s está disponível. Toque para abrir o Shizuku.</string>
     <string name="snackbar_action_update">Atualização</string>
     <!-- Updates -->
     <string name="check_for_updates">Verificar se há atualizações</string>
@@ -986,8 +994,7 @@
     <string name="grant_dialog_button_deny">"Negar"</string>
     <!-- Starter -->
     <string name="starter">Iniciante</string>
-    <string name="start_with_root_failed">Não é possível iniciar o serviço porque a permissão de
-        root não foi concedida ou este dispositivo não está enraizado.</string>
+    <string name="start_with_root_failed">Não foi possível iniciar porque o acesso root não está disponível.</string>
     <!-- WADB Starter -->
     <string name="wadb_notification_title">Começar Shizuku…</string>
     <string name="wadb_notification_wifi_required">Aguarda ligação Wi-Fi antes de prosseguir.</string>
@@ -1005,8 +1012,10 @@
     <string name="shell_backend_shizuku">Shizuku</string>
     <string name="shell_backend_root">raiz</string>
     <string name="shell_backend_shizuku_status">Localização, Uid %1$d</string>
+    <string name="shell_backend_shizuku_status_short">uid %1$d</string>
     <string name="shell_backend_root_status">Raiz, uid 0</string>
     <string name="shell_backend_offline">Nenhum runner de comando está ativo</string>
+    <string name="shell_backend_offline_short">Não iniciado</string>
     <string name="shell_needs_a_backend">Inicie o Shizuku, ou escolha Root em um dispositivo com root: um dos dois executa os comandos. O Root funciona com o Shizuku parado.</string>
     <string name="shell_intro">Executa como o Shizuku do uid funciona como (2000 em vez de adb, 0 com root), assim ele atinge o que o uid pode: /sdcard, /system e dados do app com root. Ele abre em /sdcard, um comando de cada vez; sem travessura, programas que precisam de um terminal (nano, um prompt ssh) não serão executados aqui.</string>
     <string name="shell_root_granted">Root está disponível: comandos executam como uid 0.</string>
@@ -1029,7 +1038,7 @@
     <string name="shell_variables_title">Preenchê-lo em</string>
     <string name="shell_variables_pick_app">Escolha um aplicativo</string>
     <string name="shell_history">Histórico</string>
-    <string name="shell_history_empty">Nada foi executado ainda. Os comandos aparecem aqui uma vez que funcionam, as mais recentes primeiro.</string>
+    <string name="shell_history_empty">Nada foi executado ainda. Os comandos aparecem aqui quando forem executados, com os mais recentes primeiro.</string>
     <string name="shell_history_clear">Limpar</string>
     <string name="shell_history_run">Executar este comando</string>
     <string name="shell_history_forget">Remover do histórico</string>
@@ -1039,8 +1048,8 @@
     <string name="shell_bookmark_deleted_name">%1$s Excluído</string>
     <string name="shell_bookmark_run">Executar</string>
     <string name="shell_bookmark_rename">Renomear</string>
-    <string name="shell_bookmark_delete">excluir</string>
-    <string name="shell_bookmark_name_hint">Nome:</string>
+    <string name="shell_bookmark_delete">Excluir</string>
+    <string name="shell_bookmark_name_hint">Nome</string>
     <string name="shell_bookmark_sort_newest">Recentes</string>
     <string name="shell_bookmark_sort_name">Nome:</string>
     <string name="shell_bookmark_empty">Nada salvo ainda. Digite um comando e pressione o botão de favoritos para mantê-lo.</string>
@@ -1050,7 +1059,7 @@
     <string name="shell_quick_apps">Meus aplicativos</string>
     <string name="shell_quick_grant">Conceder permissão</string>
     <string name="shell_quick_revoke">Revogar permissão</string>
-    <string name="shell_quick_app_ops">App op</string>
+    <string name="shell_quick_app_ops">Operação do Aplicativo</string>
     <string name="shell_quick_force_stop">Forçar parada</string>
     <string name="shell_adb_prefix_dropped">Ran no dispositivo: o prefixo do adb shell é o que você digitaria em um computador.</string>
     <string name="shell_adb_host_devices">Isso lista os dispositivos anexados a um computador. Este é o dispositivo, então não há nada a listar: `pm list packages` é o que está instalado nele.</string>
@@ -1092,13 +1101,9 @@
     <string name="dialog_cannot_open_browser_title">Não é possível iniciar o navegador</string>
     <string name="toast_copied_to_clipboard">Copiado para a área de transferência</string>
     <string name="toast_press_back_again">Pressione voltar novamente para sair</string>
-    <string name="accessibility_service_description">Fornece suporte para emparelhamento com
-        dispositivos (por exemplo, televisores com Android 14 ou superior) onde as notificações ou o
-        ecrã dividido não podem ser utilizados.\n\nPermite ao Shizuku extrair o código de
-        emparelhamento do ecrã de depuração sem fios. Será desativado assim que o código de
-        emparelhamento for encontrado.</string>
+    <string name="accessibility_service_description">Emparelha a depuração sem fio sem toques nem digitação.\n\nO Shizuku abre a tela de depuração sem fio, abre a caixa de diálogo do sistema “Emparelhar com dispositivo”, lê o código e a porta de emparelhamento, emparelha e inicia a si mesmo. Em TVs (por exemplo, Android 14+) ele conduz todo o fluxo e desliga quando encontra um código.</string>
     <!-- Messages for legacy -->
-    <string name="dialog_legacy_not_support_title">%1$s não é compatível com Shizuku</string>
+    <string name="dialog_legacy_not_support_title">%1$s Não é compatível com Shizuku</string>
     <string name="dialog_legacy_not_support_message"><![CDATA[O Shizuku legado está obsoleto desde março de 2019. Além disso, o Shizuku legado não funciona em sistemas Android mais recentes.<p>Peça ao desenvolvedor de <b>%1$s</b> para atualizar.]]></string>
     <string name="dialog_requesting_legacy_title">%1$s está solicitando Shizuku</string>
     <string name="dialog_requesting_legacy_message"><![CDATA[<b>%1$s</b> tem suporte moderno para Shizuku, mas está solicitando Shizuku legado. Isso pode acontecer porque o Shizuku não está em execução. Verifique no aplicativo Shizuku.<p>O uso do Shizuku legado foi suspenso desde março de 2019.]]></string>
@@ -1154,7 +1159,7 @@
     <string name="manage_bulk_failures_only">Somente falhas</string>
     <string name="manage_bulk_done_action">Concluir</string>
     <!-- One app, and what it may do on the device -->
-    <string name="app_detail_missing">Este app não está mais instalado.</string>
+    <string name="app_detail_missing">Este aplicativo não está mais instalado.</string>
     <string name="app_open_info">Informações do app</string>
     <string name="app_section_permissions">Permissões do sistema</string>
     <string name="app_section_runtime">Permissões de execução</string>
@@ -1165,12 +1170,12 @@
     <string name="app_section_battery">Bateria</string>
     <string name="app_section_info">Informações</string>
     <string name="app_permissions_note">Somente permissões cuja proteção inclui desenvolvimento, ou os perigosos, podem ser alteradas através do adb; a plataforma recusa o resto no entanto confiável Shizuku, para que essas linhas mantenham seu desligamento.</string>
-    <string name="app_permissions_none">Este app não tem permissões de sistema.</string>
+    <string name="app_permissions_none">Este aplicativo não tem permissões de sistema.</string>
     <string name="app_permission_locked">%1$s, não pode ser alterado através do ADB</string>
     <string name="app_permission_granted">Permissão concedida</string>
     <string name="app_permission_revoked">Permissão revogada</string>
     <string name="app_grant_confirm_title">Conceder %1$s a %2$s?</string>
-    <string name="app_grant_confirm_message">Isto dá poder ao aplicativo de nível ADB. Só conceda ele a apps confiáveis.</string>
+    <string name="app_grant_confirm_message">Isto dá ao aplicativo poder de nível ADB. Conceda isso apenas a aplicativos em que você confia.</string>
     <string name="app_grant_confirm_ok">Conceder</string>
     <string name="app_action_failed">Android recusou isso. Nada mudou.</string>
     <string name="app_ops_note">Os aplicativos são os que a própria plataforma consulta, e adb pode alterar os abaixo. Alguns recursos são de acesso especial nas configurações do sistema em vez de aplicativos para acesso a todos os arquivos. acesso de uso, alarmes exatos, modificação de configurações do sistema e nenhum aplicativo pode alterá-las.</string>
@@ -1196,10 +1201,10 @@
     <string name="app_op_project_media">Capturar o écran</string>
     <string name="app_op_project_media_note">Negar para-lo de gravar ou transmitir o que está na tela.</string>
     <string name="app_op_record_audio">Gravar áudio</string>
-    <string name="app_op_record_audio_note">Negar deixa a permissão concedida e faz com que as gravações voltem vazias. que é o que um aplicativo que não vai levar para responder as necessidades.</string>
+    <string name="app_op_record_audio_note">Negar mantém a permissão concedida e faz com que as gravações retornem vazias, o que é o que um aplicativo que não aceita não como resposta precisa.</string>
     <string name="app_op_camera">Use a câmera</string>
     <string name="app_op_camera_note">A mesma ideia para a câmara: a autorização permanente, as imagens não chegam.</string>
-    <string name="app_op_vibrate">vibrar</string>
+    <string name="app_op_vibrate">Vibrar</string>
     <string name="app_op_vibrate_note">Negar isto para por meio do vibrador.</string>
     <string name="app_op_mock_location">Localização falsa</string>
     <string name="app_op_mock_location_note">Negar para que deixe de alimentar uma posição louca para outros aplicativos.</string>
@@ -1213,8 +1218,8 @@
     <string name="app_action_force_stop">Forçar fechamento</string>
     <string name="app_action_force_stop_note">Interrompe-o agora. Pode começar de novo mais tarde.</string>
     <string name="app_action_suspend">Suspender</string>
-    <string name="app_action_unsuspend">Desbanir</string>
-    <string name="app_action_suspend_note">Desabilita mas mantém seus dados.</string>
+    <string name="app_action_unsuspend">Desuspender</string>
+    <string name="app_action_suspend_note">Desabilita, Mas mantém seus dados.</string>
     <string name="app_action_disable">Desligado</string>
     <string name="app_action_enable">Ativar</string>
     <string name="app_action_disable_note">Desabilita até que você o ative novamente.</string>
@@ -1265,9 +1270,9 @@
     <string name="app_bucket_never">nunca</string>
     <string name="app_bucket_never_note">Não é possível executar em segundo plano.</string>
     <string name="app_battery_unrestricted">Ignorar otimização de bateria</string>
-    <string name="app_battery_unrestricted_note">Permite que ele fique ativo durante o Doze, mas usa mais bateria.</string>
+    <string name="app_battery_unrestricted_note">Permite que ele permaneça ativo durante o Doze, mas consome mais bateria.</string>
     <string name="app_section_network">Rede</string>
-    <string name="app_network_needs_shizuku">Inicie Shizuku para alterar o que um app pode alcançar.</string>
+    <string name="app_network_needs_shizuku">Inicie Shizuku para alterar o que um aplicativo pode alcançar.</string>
     <string name="app_network_unsupported">Este dispositivo não oferece o firewall necessário.</string>
     <string name="app_network_block">Bloquear acesso à rede</string>
     <string name="app_network_block_note">A plataforma deixa cair o tráfego.</string>
@@ -1303,12 +1308,12 @@
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
     <string name="lab_switch_is_on">%1$s está ativado</string>
-    <string name="lab_switch_is_off">%1$s está desativado</string>
+    <string name="lab_switch_is_off">%1$s Está desativado</string>
     <string name="lab_switch_could_not_change">Não foi possível alterar %1$s</string>
     <string name="lab_switch_locked">Desbloqueie o dispositivo para alterar este título.</string>
     <string name="app_info_version">Versão</string>
     <string name="app_info_uid">UID</string>
-    <string name="app_info_target_sdk">Target SDK</string>
+    <string name="app_info_target_sdk">SDK de destino</string>
     <string name="app_info_min_sdk">SDK Mínimo</string>
     <string name="app_info_abi">ABI</string>
     <string name="app_info_data_dir">Diretório de dados</string>
@@ -1327,7 +1332,7 @@
     <string name="accessibility_boot_summary">Inicia o keep-alive novamente após reinicialização.</string>
     <string name="accessibility_empty">Nenhum serviço de acessibilidade for encontrado.</string>
     <string name="accessibility_gate_off">Keep-alive desativado</string>
-    <string name="accessibility_count">%1$d ativado</string>
+    <string name="accessibility_count">%1$d Ativado</string>
     <string name="accessibility_filter_off">Desligado</string>
     <string name="accessibility_filter_on">Ligado</string>
     <string name="accessibility_no_match">Nenhum serviço correspondente à sua pesquisa.</string>
@@ -1354,7 +1359,7 @@
     <string name="wifi_passwords_connected_toast">Conectado a %1$s</string>
     <string name="wifi_passwords_forget">Esquecer</string>
     <string name="wifi_passwords_forget_message">%1$s Será esquecido, incluindo a senha salva. Isso não pode ser desfeito.</string>
-    <string name="wifi_passwords_forgot">%1$s esquecido</string>
+    <string name="wifi_passwords_forgot">%1$s Esquecido</string>
     <string name="wifi_passwords_forget_all">Esquecer todas as redes</string>
     <string name="wifi_passwords_forget_all_message">Todas as redes salvas serão esquecidas, isso não pode ser desfeito.</string>
     <string name="wifi_passwords_forgot_all">%1$d redes esquecidas</string>
@@ -1376,9 +1381,9 @@
     <string name="files_root_app_data">Dado</string>
     <string name="files_root_app_obb">Obb</string>
     <string name="files_root_system">SISTEMA</string>
-    <string name="files_root_tmp">Tmp</string>
-    <string name="files_root_root">raiz</string>
-    <string name="files_empty">Não há nada nesta pasta</string>
+    <string name="files_root_tmp">Temporário</string>
+    <string name="files_root_root">Root</string>
+    <string name="files_empty">Não há nada nesta pasta.</string>
     <string name="files_all_hidden">Tudo nesta pasta está oculto.</string>
     <string name="files_sort">Ordenar</string>
     <string name="files_sort_name">Ordenar por nome</string>
@@ -1393,7 +1398,7 @@
     <string name="files_preview_binary">Este não é um arquivo de texto, portanto não pode ser exibido.</string>
     <string name="files_preview_failed">Não foi possível ler este arquivo.</string>
     <string name="files_preview_truncated">Apenas o início do arquivo é exibido.</string>
-    <string name="files_selected_count">%1$d selecionado</string>
+    <string name="files_selected_count">%1$d Selecionado</string>
     <string name="files_action_select_all">Selecionar todos</string>
     <string name="files_action_rename">Renomear</string>
     <string name="files_action_copy">copiar</string>
@@ -1419,13 +1424,13 @@
     <string name="install_action">Instalar</string>
     <string name="install_running">Instalando\u2026</string>
     <string name="install_done">Instalado.</string>
-    <string name="install_open">Abrir app</string>
-    <string name="install_open_failed">Não pode abrir o app.</string>
+    <string name="install_open">Abrir aplicativo</string>
+    <string name="install_open_failed">Não foi possível abrir o aplicativo.</string>
     <string name="install_options_heading">Opções de instalação</string>
-    <string name="install_instant">Instalar como um instant app</string>
-    <string name="install_instant_desc">Roda sem instalar o app completo ou adicionar ele pra tela de início.</string>
+    <string name="install_instant">Instalar como um instante aplicativo</string>
+    <string name="install_instant_desc">Funciona sem instalar o aplicativo completo ou adicioná-lo à tela inicial.</string>
     <string name="install_rollback">Manter versão anterior</string>
-    <string name="install_rollback_desc">Manter a versão anterior pra que você possa restaurar-la depois.</string>
+    <string name="install_rollback_desc">Mantenha a versão anterior para que você possa restaurá-la depois.</string>
     <string name="install_ignore_dexopt">Ignorar o perfil dexopt</string>
     <string name="install_ignore_dexopt_desc">Não use o perfil do app ao otimizá-lo.</string>
     <string name="install_dexopt">Dexopt</string>
@@ -1434,13 +1439,13 @@
     <string name="install_dexopt_quicken">quicken</string>
     <string name="install_dexopt_speed_profile">speed-profile</string>
     <string name="install_dexopt_speed">speed</string>
-    <string name="install_dexopt_everything">everything</string>
+    <string name="install_dexopt_everything">tudo</string>
     <string name="install_referrer">Referenciador</string>
-    <string name="install_referrer_desc">A URI diz pro app de onde a instalação veio.</string>
+    <string name="install_referrer_desc">A URI que informa ao aplicativo de onde veio a instalação.</string>
     <string name="install_details_reading">Lendo o pacote\u2026</string>
     <string name="install_details_unreadable">Esse arquivo não é um pacote de app válido.</string>
     <string name="install_details_version">Versão</string>
-    <string name="install_details_target">Target SDK</string>
+    <string name="install_details_target">SDK de destino</string>
     <string name="install_details_permissions">Permissões (%1$d)</string>
     <string name="install_details_installed">Instalado</string>
     <string name="install_details_not_installed">Não instalado</string>
@@ -1451,21 +1456,21 @@
     <string name="install_option_unsupported">Não suportado nessa versão do android</string>
     <string name="install_failed">Falhou: %1$s</string>
     <string name="install_could_not_read">Não pode ler esse arquivo.</string>
-    <string name="install_replace">Trocar o app instalado</string>
+    <string name="install_replace">Trocar o aplicativo instalado</string>
     <string name="install_replace_desc">Manter os dados e atualizar.</string>
     <string name="install_downgrade">Permitir um downgrade</string>
     <string name="install_downgrade_desc">Instalar uma versão antiga sobre uma nova.</string>
     <string name="install_grant_all">Dar todas as permissões</string>
     <string name="install_grant_all_desc">Dar todas as permissões que o app pede durante a instalação.</string>
     <string name="install_allow_test">Permitir pacotes de teste</string>
-    <string name="install_allow_test_desc">Permitir apps marcados como versões de teste ou depuração.</string>
-    <string name="install_keep_running">Não force a parada do app</string>
-    <string name="install_keep_running_desc">Deixe o app aberto enquanto ele é trocado.</string>
+    <string name="install_allow_test_desc">Permitir aplicativos marcados como versões de teste ou depuração.</string>
+    <string name="install_keep_running">Não encerre o aplicativo</string>
+    <string name="install_keep_running_desc">Deixe aplicativo aberto enquanto ele é trocado.</string>
     <string name="install_skip_verification">Pular a verificação</string>
     <string name="install_skip_verification_desc">Pular a checagem da verificação do app.</string>
     <string name="install_bypass_sdk">Ignorar o bloqueamento do target sdk</string>
-    <string name="install_bypass_sdk_desc">Permitir que apps que servem pra uma versão mais antiga do android sejam instalados.</string>
-    <string name="install_user">Instalar pra</string>
+    <string name="install_bypass_sdk_desc">Permitir aplicativos que tenham como alvo uma versão do Android antiga demais para serem instalados normalmente.</string>
+    <string name="install_user">Instalar para</string>
     <string name="install_user_current">Esse usuário</string>
     <string name="install_user_all">Todos os usuários</string>
     <string name="install_location">Onde</string>
@@ -1473,10 +1478,10 @@
     <string name="install_location_internal">Armazenamento interno</string>
     <string name="install_location_shared">Armazenamento compartilhado</string>
     <string name="install_spoof_source">Falsificar origem da instalação</string>
-    <string name="install_spoof_source_desc">O pacote que o Android foi avisado instalou esse app.</string>
+    <string name="install_spoof_source_desc">O pacote que o Android foi avisado instalou esse aplicativo.</string>
     <string name="install_source_presets">Fontes de instalação comuns</string>
     <string name="install_source_none">Sem falsificar</string>
-    <string name="install_source_play_store">Google play store</string>
+    <string name="install_source_play_store">Google Play Store</string>
     <string name="install_source_shell">Shell</string>
     <string name="install_source_google_package_installer">Instalador de pacotes do Google</string>
     <string name="install_source_aosp_package_installer">Instalador do pacote do AOSP</string>
