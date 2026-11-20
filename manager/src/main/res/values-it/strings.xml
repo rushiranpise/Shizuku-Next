@@ -84,6 +84,7 @@
     <string name="adb_pair_required">Accoppia prima il dispositivo.</string>
     <string name="enable">Abilita</string>
     <string name="auto_pair_instructions">Accopia senza digitare un codice:\n\n1. Opzioni sviluppatore → Debug wireless\n2. Accoppia dispositivo con codice di accoppiamento\n\nShizuku legge il codice e la porta direttamente da quella finestra, e si avvia da solo. Mantieni aperta la finestra finché l\'accoppiamento non è terminato.</string>
+    <string name="auto_pair_instructions_watch">Shizuku apre le opzioni sviluppatore e il debug wireless, legge il codice di accoppiamento e si avvia. Mantieni aperta la finestra di dialogo di sistema fino al termine dell\'accoppiamento.</string>
     <string name="auto_pair_manual">Manuale</string>
     <string name="adb_pairing_developer_options">Opzioni sviluppatore</string>
     <string name="development_settings">Automatico</string>
@@ -128,6 +129,7 @@
     <string name="apps_needs_shizuku">Avvia Shizuku per visualizzare le app</string>
     <string name="apps_empty">Nessuna app da mostrare</string>
     <string name="apps_filter_empty">Nessuna app in questo filtro</string>
+    <string name="apps_filter_title">Filtra app</string>
     <string name="apps_filter_all">Tutte</string>
     <string name="apps_filter_granted">Autorizzate</string>
     <string name="apps_filter_revoked">Revocate</string>
@@ -729,6 +731,7 @@
     <string name="settings_use_system_color_summary">Segui la palette di sistema</string>
     <string name="settings_always_show_navigation_bar">Mostra sempre la barra di navigazione</string>
     <string name="settings_always_show_navigation_bar_summary">Mantieni visibile la barra delle schede quando scorri verso il basso.</string>
+    <string name="settings_show_scroll_to_top">Mostra pulsante di scorrimento in alto</string>
     <string name="settings_secure_quick_tiles">Proteggi i riquadri rapidi</string>
     <string name="settings_secure_quick_tiles_summary">Blocca le modifiche ai riquadri rapidi quando il telefono è bloccato.</string>
     <string name="settings_require_grant_authentication">Conferma autorizzazioni app</string>
@@ -912,6 +915,9 @@
     <string name="snackbar_battery_optimization_settings">Per utilizzare questa funzione disattiva l\'ottimizzazione della batteria.</string>
     <string name="snackbar_action_fix">Risolvi</string>
     <string name="snackbar_update_available">È disponibile un nuovo aggiornamento</string>
+    <string name="update_notification_channel">Aggiornamenti app</string>
+    <string name="update_notification_title">Aggiornamento di Shizuku disponibile</string>
+    <string name="update_notification_text">La versione %1$s è disponibile. Tocca per aprire Shizuku.</string>
     <string name="snackbar_action_update">Aggiorna</string>
     <!-- Updates -->
     <string name="check_for_updates">Controlla aggiornamenti</string>
@@ -983,8 +989,10 @@
     <string name="shell_backend_shizuku">Shizuku</string>
     <string name="shell_backend_root">Root</string>
     <string name="shell_backend_shizuku_status">Shizuku, UID %1$d</string>
+    <string name="shell_backend_shizuku_status_short">uid %1$d</string>
     <string name="shell_backend_root_status">Root, UID 0</string>
     <string name="shell_backend_offline">Nessun runner di comando attivo</string>
+    <string name="shell_backend_offline_short">Nessun runner</string>
     <string name="shell_needs_a_backend">Avvia Shizuku, o scegli Root su un dispositivo con root: uno dei due esegue i comandi. Root funziona con Shizuku arrestato.</string>
     <string name="shell_intro">Viene eseguito con lo stesso UID con cui gira Shizuku (2000 tramite adb, 0 con root), quindi raggiunge tutto ciò a cui quell\'UID ha accesso: /sdcard, /system e, con root, i dati delle app. Si apre in /sdcard, un comando alla volta; senza un tty, i programmi che richiedono un terminale (nano, un prompt ssh) non vengono eseguiti qui.</string>
     <string name="shell_root_granted">Root disponibile: comandi eseguiti come UID 0.</string>

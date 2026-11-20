@@ -65,6 +65,7 @@
     <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
          a translation of dialog_adb_pairing_message would still tell the user to type the code
          into a notification that this flow never shows. Untranslated locales fall back here. -->
+    <string name="dialog_adb_pairing_message_manual">Por favor, inicie el emparejamiento realizando los siguientes pasos:\n- Vaya a \"Opciones de desarrollador\"\n- Active la \"Depuración por USB\" y la \"Depuración inalámbrica\"\n- Toque el lado izquierdo de \"Depuración inalámbrica\"\n- Toque \"Emparejar dispositivo con código de emparejamiento\"\n- Introduzca el código y el puerto que aparecen allí en los campos que se muestran a continuación\n\nMantenga ese cuadro de diálogo abierto hasta que termine el emparejamiento. Si el código desaparece al volver atrás, use la pantalla dividida si su dispositivo es compatible.</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -74,6 +75,7 @@
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
     <string name="dialog_adb_pairing_accessibility_permission_tv">Android bloquea este cambio para aplicaciones instaladas fuera de una tienda de aplicaciones y, en un TV, la información de la aplicación no tiene la opción \"Permitir configuraciones restringidas\" para desbloquearla. Se necesita una computadora conectada a este TV a través de ADB una vez: otorgue el permiso anterior, que permite a Shizuku activar el servicio por sí solo, o desbloquee el interruptor con:\n\n^1</string>
+    <string name="dialog_adb_pairing_accessibility_enable_watch">El emparejamiento automático lee el código del cuadro de diálogo del sistema, por lo que el servicio de accesibilidad de Shizuku debe estar activado. Actívelo en la siguiente pantalla.\n\nSi el interruptor aparece atenuado, abra Información de la aplicación y permita las configuraciones restringidas.</string>
     <string name="dialog_adb_pairing_open_app_info">Información de aplicación</string>
     <string name="dialog_adb_pairing_accessibility_enable">El emparejamiento automático lee el código del cuadro de diálogo del sistema a través del servicio de accesibilidad de Shizuku, por lo que debe estar activado, y solo durante el tiempo necesario: el servicio se desactiva automáticamente una vez que se encuentra el código, o al cabo de un minuto para ahorrar batería. Normalmente, Shizuku lo activa por sí solo, y para ello necesita el permiso WRITE_SECURE_SETTINGS, que aún no se ha concedido en una instalación nueva.\n\nActívelo en la siguiente pantalla, escriba el código usted mismo en «Manual» o conceda el permiso una vez:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Para iniciar el emparejamiento, siga estos pasos:\n- Vaya a \"Opciones de desarrollador\"\n- Habilite \"Depuración USB\" y \"Depuración inalámbrica\"\n- Toque el lado izquierdo de \"Depuración inalámbrica\"\n- Toque \"Emparejar dispositivo con código de emparejamiento\". Shizuku detectará automáticamente el código de emparejamiento.</string>
@@ -84,6 +86,7 @@
     <string name="adb_pair_required">Por favor, ve al paso de emparejamiento primero.</string>
     <string name="enable">Activar</string>
     <string name="auto_pair_instructions">Emparejar sin escribir un código: \n\n1. Opciones de desarrollador → Depuración inalámbrica \n2. El dispositivo se empareja con el código de emparejamiento \n\n Shizuku lee el código y el puerto directamente desde ese diálogo y se inicia. Mantenga el cuadro de diálogo abierto hasta que se empareje.</string>
+    <string name="auto_pair_instructions_watch">Shizuku abre las Opciones de desarrollador y la Depuración inalámbrica, lee el código de emparejamiento y se inicia. Mantenga abierto el cuadro de diálogo del sistema hasta que finalice el emparejamiento.</string>
     <string name="auto_pair_manual">Manual</string>
     <string name="adb_pairing_developer_options">Opciones de desarrollador</string>
     <string name="development_settings">Automático</string>
@@ -128,6 +131,7 @@
     <string name="apps_needs_shizuku">Inicie Shizuku para ver las aplicaciones</string>
     <string name="apps_empty">No hay aplicaciones para mostrar</string>
     <string name="apps_filter_empty">No hay aplicaciones en este filtro</string>
+    <string name="apps_filter_title">Filtrar aplicaciones</string>
     <string name="apps_filter_all">Todo</string>
     <string name="apps_filter_granted">Concedido</string>
     <string name="apps_filter_revoked">Revocado</string>
@@ -536,6 +540,7 @@
     <string name="modules_install_from_file">Instalar desde un archivo</string>
     <string name="modules_install_title">Instalar un módulo</string>
     <string name="modules_settings">Módulos</string>
+    <string name="modules_settings_item">Configuración del módulo</string>
     <string name="modules_settings_summary">Qué puede hacer un módulo y qué nivel de seguridad prefiere</string>
     <string name="modules_access_full_summary_short">Servicios y el puente de shell de WebUI</string>
     <string name="modules_allow_background_summary_short">Un script de servicio ejecutándose sin supervisión</string>
@@ -727,6 +732,8 @@
     <string name="settings_use_system_color_summary">Seguir la paleta del sistema</string>
     <string name="settings_always_show_navigation_bar">Mostrar siempre la barra de navegación</string>
     <string name="settings_always_show_navigation_bar_summary">Mantenga la barra de pestañas visible cuando se desplaza hacia abajo.</string>
+    <string name="settings_show_scroll_to_top">Mostrar botón para desplazarse al inicio</string>
+    <string name="settings_show_scroll_to_top_summary">Muestra el botón flotante que devuelve las listas largas al principio.</string>
     <string name="settings_secure_quick_tiles">Ajustes rápidos seguros</string>
     <string name="settings_secure_quick_tiles_summary">Bloquee los cambios en los ajustes rápidos mientras el teléfono está bloqueado.</string>
     <string name="settings_require_grant_authentication">Confirmar permisos de aplicaciones</string>
@@ -843,7 +850,7 @@
     <string name="setup_action_continue">Continuar</string>
     <string name="setup_action_done">Hecho</string>
     <string name="setup_welcome_title">Bienvenido a Shizuku-Next</string>
-    <string name="setup_welcome_body">Shizuku-Next inicia y administra el servicio Shizuku, que permite a las aplicaciones usar permisos que normalmente necesitan adb o root. Todo aquí se puede cambiar más tarde en Configuración.</string>
+    <string name="setup_welcome_body">Shizuku-Next inicia y gestiona el servicio de Shizuku, lo que permite a las aplicaciones usar permisos que normalmente requieren ADB o root. Todo lo que configure aquí se puede cambiar más tarde en Configuración.</string>
     <string name="setup_start_title">¿Cómo debe iniciarse Shizuku?</string>
     <string name="setup_start_body">Esto decide de dónde obtiene sus permisos el servicio. Puede cambiarlo más adelante en Configuración, dentro de Método de inicio.</string>
     <string name="setup_root_title">Root</string>
@@ -853,24 +860,24 @@
     <string name="setup_usb_title">Depuración USB</string>
     <string name="setup_usb_body">Funciona sin root. Necesita el puerto ADB clásico; si no está abierto, conéctese a una computadora una vez para iniciar Shizuku.</string>
     <string name="setup_permissions_title">Permisos opcionales</string>
-    <string name="setup_permissions_body">Puede omitir cualquiera de estos y cambiarlos más tarde en Configuración.</string>
+    <string name="setup_permissions_body">Puede omitir cualquiera de estas opciones y modificarlas más tarde en Configuración.</string>
     <string name="settings_run_setup">Ejecutar la configuración nuevamente</string>
-    <string name="settings_run_setup_summary">Los pasos de bienvenida: cómo empieza Shizuku y qué necesita</string>
+    <string name="settings_run_setup_summary">Los pasos de bienvenida: cómo se inicia Shizuku y qué necesita</string>
     <string name="settings_help">Ayuda</string>
-    <string name="settings_translate">Participa en la traducción</string>
+    <string name="settings_translate">Participe en la traducción</string>
     <string name="settings_translate_note">Traducir la aplicación en Crowdin.</string>
     <string name="crowdin_url">https://crowdin.com/project/Shizuku-Next</string>
     <string name="settings_report_bug">Informar de un error</string>
-    <string name="settings_support_coffee">Cómprame un café</string>
+    <string name="settings_support_coffee">Invíteme a un café</string>
     <string name="settings_support_coffee_note">Apoyar el desarrollo de Shizuku-Next</string>
-    <string name="settings_contributors">Contribuidor</string>
+    <string name="settings_contributors">Colaboradores</string>
     <string name="settings_contributors_hint">Arrastre para explorar · Pellizque para acercar · Toque para ver los detalles</string>
     <!--
       A plural, not a plain string: most of the people on this wall are here for a single commit,
       so the singular is read more often than the plural is.
     -->
     <plurals name="contributor_commits">
-        <item quantity="one">%1$d confirmacion</item>
+        <item quantity="one">%1$d confirmación</item>
         <item quantity="other">%1$d confirmaciones</item>
     </plurals>
     <string name="contributor_view_github">Ver en GitHub</string>
@@ -888,27 +895,30 @@
       person: a new contributor is described the moment the generator sees them, and %1$s/%2$s are
       filled with the area names above and with language names the platform already localises.
     -->
-    <string name="contributor_summary_code">Trabajø en %1$s.</string>
+    <string name="contributor_summary_code">Trabajó en %1$s.</string>
     <string name="contributor_summary_translations">Tradujo la aplicación al %1$s.</string>
     <string name="contributor_summary_code_translations">Trabajó en %1$s y tradujo la aplicación a %2$s.</string>
-    <string name="contributor_summary_default">Contribuidor</string>
+    <string name="contributor_summary_default">Colaborador</string>
     <string name="settings_legacy_pairing">Emparejamiento heredado</string>
-    <string name="settings_legacy_pairing_summary">Introduzca el código de emparejamiento en un cuadro de diálogo en lugar de en una notificación</string>
+    <string name="settings_legacy_pairing_summary">Introducir el código de emparejamiento en un cuadro de diálogo en lugar de una notificación</string>
     <!-- Bug Report Dialog -->
     <string name="bug_report_dialog_before_reporting">Primero, haga lo siguiente:</string>
     <string name="bug_report_dialog_update">Compruebe que esté usando la ^1.</string>
     <string name="bug_report_dialog_link_update">última versión</string>
     <string name="bug_report_dialog_wiki">Lea la ^1 y siga todos los pasos de solución de problemas correspondientes.</string>
     <string name="bug_report_dialog_link_wiki">wiki</string>
-    <string name="bug_report_dialog_issues">Busque en todos los ^1 para ver si su error ya ha sido informado.</string>
-    <string name="bug_report_dialog_link_issues">problemas existentes</string>
+    <string name="bug_report_dialog_issues">Busque en todos los ^1 para ver si su error ya ha sido reportado.</string>
+    <string name="bug_report_dialog_link_issues">incidencias existentes</string>
     <string name="bug_report_dialog_method">Por favor, envíe una incidencia en ^1.</string>
-    <string name="bug_report_dialog_log_note">Si el problema necesita un registro, compártalo completo a continuación y adjúntelo.</string>
-    <string name="bug_report_dialog_share_log">Buscar en el registro</string>
+    <string name="bug_report_dialog_log_note">Si la incidencia requiere un registro, comparta el registro completo que aparece a continuación y adjúntelo.</string>
+    <string name="bug_report_dialog_share_log">Compartir el registro</string>
     <!-- Snackbar -->
-    <string name="snackbar_battery_optimization_settings">Deshabilite la optimización de la batería para utilizar esta función.</string>
+    <string name="snackbar_battery_optimization_settings">Desactive la optimización de batería para usar esta función.</string>
     <string name="snackbar_action_fix">Arreglar</string>
     <string name="snackbar_update_available">Hay una nueva actualización disponible</string>
+    <string name="update_notification_channel">Actualizaciones de la aplicación</string>
+    <string name="update_notification_title">Actualización de Shizuku disponible</string>
+    <string name="update_notification_text">La versión %1$s está disponible. Toque para abrir Shizuku.</string>
     <string name="snackbar_action_update">Actualizar</string>
     <!-- Updates -->
     <string name="check_for_updates">Comprobar actualizaciones</string>
@@ -921,8 +931,8 @@
     <string name="update_check_no_release">Todavía no hay ninguna versión publicada con la que comparar</string>
     <string name="update_downloading">Descargando actualización...</string>
     <string name="update_download_failed">No se pudo descargar la actualización</string>
-    <string name="update_success">Actualización completa</string>
-    <string name="update_failed">Error al actualizar</string>
+    <string name="update_success">Actualización completada</string>
+    <string name="update_failed">La actualización ha fallado</string>
     <!-- Toast -->
     <string name="toast_pairing_timeout">Se agotó el tiempo de espera del servicio de emparejamiento de Shizuku</string>
     <!-- Dark Mode Setting Override -->
@@ -937,28 +947,28 @@
     <string name="action_restart">Reiniciar</string>
     <string name="action_open_adb_port">Abrir puerto ADB</string>
     <!-- Notification -->
-    <string name="notification_channel_adb_pairing">Emparejamiento de depuración inalámbrica</string>
-    <string name="notification_adb_pairing_input_paring_code">Introducir el código de emparejamiento</string>
+    <string name="notification_channel_adb_pairing">Emparejamiento por depuración inalámbrica</string>
+    <string name="notification_adb_pairing_input_paring_code">Introduzca el código de emparejamiento</string>
     <string name="notification_adb_pairing_searching_for_service_title">Buscando servicio de emparejamiento</string>
-    <string name="notification_adb_pairing_service_found_title">Encontrado servicios de emparejamiento</string>
+    <string name="notification_adb_pairing_service_found_title">Servicio de emparejamiento encontrado</string>
     <string name="notification_adb_pairing_stop_searching">Detener búsqueda</string>
     <string name="notification_adb_pairing_working_title">Emparejamiento en proceso</string>
     <string name="notification_adb_pairing_succeed_title">Emparejamiento correcto</string>
     <string name="notification_adb_pairing_succeed_text">Ya puede iniciar Shizuku.</string>
-    <string name="notification_adb_pairing_failed_title">Fallo de emparejamiento</string>
+    <string name="notification_adb_pairing_failed_title">El emparejamiento ha fallado</string>
     <string name="notification_adb_pairing_retry">Reintentar</string>
     <string name="notification_auth_missing_title">Token de autenticación requerido</string>
-    <string name="notification_auth_missing_message">Agregue el extra de \"autenticación\" a su intent. Puede encontrar su token tocando \"Ver intents\" en la aplicación.</string>
+    <string name="notification_auth_missing_message">Agregue el extra “auth” a su intent. Puede encontrar su token tocando \"Ver intents\" en la aplicación.</string>
     <string name="notification_auth_invalid_title">Token de autenticación no válido</string>
-    <string name="notification_auth_invalid_message">Asegúrese de que el token en su intent coincide con el que se muestra en \"Ver intents\" en la app.</string>
+    <string name="notification_auth_invalid_message">Asegúrese de que el token en su intent coincide con el que se muestra en \"Ver intents\" en la aplicación.</string>
     <!-- Permission related, appears in system permission UI -->
-    <string name="permission_label">acceso Shizuku</string>
+    <string name="permission_label">acceder a Shizuku</string>
     <string name="permission_description">Permitir que la aplicación use Shizuku.</string>
     <string name="permission_warning_template"><![CDATA[¿Permitir que <b>%1$s</b> %2$s?]]></string>
     <string name="grant_dialog_button_allow_always">Permitir siempre</string>
     <string name="grant_dialog_button_allow_once">Permitir una vez</string>
     <string name="grant_auth_title">Confirme que es usted</string>
-    <string name="grant_auth_subtitle">Autenticarse para otorgar acceso a Shizuku.</string>
+    <string name="grant_auth_subtitle">Autenticarse para conceder acceso a Shizuku.</string>
     <string name="grant_auth_unavailable">Configure un bloqueo de pantalla o datos biométricos para confirmar las autorizaciones.</string>
     <string name="grant_dialog_button_deny">"Denegar"</string>
     <!-- Starter -->
@@ -966,26 +976,28 @@
     <string name="start_with_root_failed">No se pudo iniciar porque no hay acceso root disponible.</string>
     <!-- WADB Starter -->
     <string name="wadb_notification_title">Iniciando Shizuku…</string>
-    <string name="wadb_notification_wifi_required">Esperando conexión Wi-Fi antes de continuar</string>
+    <string name="wadb_notification_wifi_required">Esperando conexión Wi-Fi</string>
     <string name="wadb_notification_retry">Esperando para reintentar</string>
     <string name="wadb_notification_connecting">Iniciando Shizuku con ADB inalámbrico</string>
-    <string name="wadb_notification_waiting_for_unlock">Desbloquear el dispositivo para continuar</string>
+    <string name="wadb_notification_waiting_for_unlock">Desbloquee el dispositivo para continuar</string>
     <string name="wadb_notification_forcing_wireless">Manteniendo la depuración inalámbrica activada</string>
     <string name="wadb_error_title">No se pudo iniciar después de reiniciar</string>
-    <string name="wadb_error_notify_dev">Toque para notificar al desarrollador.</string>
+    <string name="wadb_error_notify_dev">Toque para informar de esto al desarrollador.</string>
     <string name="wadb_permission_error_notification_title">Error de permiso</string>
-    <string name="wadb_permission_error_notification_content">Shizuku necesita el permiso WRITE_SECURE_SETTINGS para activar la depuración inalámbrica. Toca para saber cómo concederlo.</string>
+    <string name="wadb_permission_error_notification_content">Shizuku necesita el permiso WRITE_SECURE_SETTINGS para activar la depuración inalámbrica. Toque para saber cómo concederlo.</string>
     <!-- Shell -->
     <string name="shell_title">Shell</string>
     <string name="shell_backend_shizuku">Shizuku</string>
     <string name="shell_backend_root">Root</string>
-    <string name="shell_backend_shizuku_status">Shizuku, uid %1$d</string>
-    <string name="shell_backend_root_status">Root, uid 0</string>
-    <string name="shell_backend_offline">Ningún comando runner está activo</string>
-    <string name="shell_needs_a_backend">Inicie Shizuku o seleccione Root en un dispositivo rooteado: uno de los dos ejecuta los comandos. Los trabajos de raíz con Shizuku se detuvieron.</string>
-    <string name="shell_intro">Se ejecuta como el uid que Shizuku ejecuta (2000 sobre adb, 0 con root), por lo que alcanza todo lo que ese uid puede: /sdcard, /system y datos de la aplicación con root. Se abre en /sdcard, un comando a la vez; sin tty detrás, los programas que necesitan una terminal (nano, un indicador ssh) no se ejecutarán aquí.</string>
-    <string name="shell_root_granted">Root está disponible: los comandos se ejecutarán como uid 0.</string>
-    <string name="shell_root_refused">Se denegó el acceso raíz, por lo que los comandos utilizarán Shizuku. Otorgue a esta aplicación acceso root para usar Root.</string>
+    <string name="shell_backend_shizuku_status">Shizuku, UID %1$d</string>
+    <string name="shell_backend_shizuku_status_short">UID %1$d</string>
+    <string name="shell_backend_root_status">Root, UID 0</string>
+    <string name="shell_backend_offline">No hay ningún ejecutor de comandos activo</string>
+    <string name="shell_backend_offline_short">Sin ejecutor</string>
+    <string name="shell_needs_a_backend">Inicia Shizuku o selecciona Root en un dispositivo rooteado: uno de los dos ejecuta los comandos. Root funciona aunque Shizuku esté detenido.</string>
+    <string name="shell_intro">Se ejecuta con el mismo UID que Shizuku (2000 por ADB, 0 con root), por lo que accede a todo lo que ese UID permita: /sdcard, /system y los datos de las aplicaciones con root. Se abre en /sdcard y procesa un comando a la vez; al no tener una terminal asociada, los programas interactivos (como nano o una sesión SSH) no funcionarán aquí.</string>
+    <string name="shell_root_granted">Root está disponible: los comandos se ejecutarán como UID 0.</string>
+    <string name="shell_root_refused">Se denegó el acceso root, por lo que los comandos usarán Shizuku. Conceda acceso root a esta aplicación para usar Root.</string>
     <string name="shell_search">Buscar</string>
     <string name="shell_search_hint">Buscar</string>
     <string name="shell_search_position">%1$d de %2$d</string>
@@ -999,19 +1011,19 @@
     <string name="shell_expand">Expandir</string>
     <string name="shell_collapse">Contraer</string>
     <string name="shell_library">Biblioteca</string>
-    <string name="shell_library_hint">Comandos de búsqueda</string>
-    <string name="shell_library_empty">No hay comando coincidente.</string>
-    <string name="shell_variables_title">Rellénelo</string>
-    <string name="shell_variables_pick_app">Elige una aplicación</string>
+    <string name="shell_library_hint">Buscar comandos</string>
+    <string name="shell_library_empty">No hay comandos que coincidan.</string>
+    <string name="shell_variables_title">Rellenar</string>
+    <string name="shell_variables_pick_app">Elija una aplicación</string>
     <string name="shell_history">Historial</string>
     <string name="shell_history_empty">Todavía no se ha ejecutado nada. Los comandos aparecerán aquí cuando se ejecuten, empezando por el más reciente.</string>
     <string name="shell_history_clear">Borrar</string>
-    <string name="shell_history_run">Ejecutar comando</string>
+    <string name="shell_history_run">Ejecutar este comando</string>
     <string name="shell_history_forget">Eliminar del historial</string>
     <string name="shell_bookmarks">Guardado</string>
     <string name="shell_bookmark_save">Guardar este comando</string>
     <string name="shell_bookmark_saved">Guardado</string>
-    <string name="shell_bookmark_deleted_name">Se ha eliminado %1$s</string>
+    <string name="shell_bookmark_deleted_name">Se eliminó %1$s</string>
     <string name="shell_bookmark_run">Ejecutar</string>
     <string name="shell_bookmark_rename">Renombrar</string>
     <string name="shell_bookmark_delete">Eliminar</string>
