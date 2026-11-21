@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
@@ -115,16 +116,21 @@ object AdbPortPersistence {
      * between the write and the preference updates.
      */
     suspend fun setByUser(enable: Boolean): Outcome = operations.withLock {
-        val outcome = applyLocked(enable)
-        val applied = outcome == Outcome.APPLIED
-        ShizukuSettings.setPersistAdbPort(if (enable) applied else !applied)
-        if (applied) {
-            // The user's choice from here on, either way: the no-network fallback neither takes
-            // back a port they switched on nor brings back one they switched off.
-            ShizukuSettings.setPersistAdbPortAuto(false)
-            ShizukuSettings.setPersistAdbPortDeclined(!enable)
+        // Waiting for the lock stays cancellable; once it is held, the write and the preferences
+        // that describe it have to finish together. A cancellation after the property write but
+        // before the preferences would leave the port and the switch disagreeing.
+        withContext(NonCancellable) {
+            val outcome = applyLocked(enable)
+            val applied = outcome == Outcome.APPLIED
+            ShizukuSettings.setPersistAdbPort(if (enable) applied else !applied)
+            if (applied) {
+                // The user's choice from here on, either way: the no-network fallback neither
+                // takes back a port they switched on nor brings back one they switched off.
+                ShizukuSettings.setPersistAdbPortAuto(false)
+                ShizukuSettings.setPersistAdbPortDeclined(!enable)
+            }
+            outcome
         }
-        outcome
     }
 
     /** What the property currently says, or null when nothing can read it. */
@@ -183,7 +189,11 @@ object AdbPortPersistence {
      * they left it. Runs through the server, so it is for after a start, never on the main thread.
      */
     suspend fun reconcile(context: Context, @ShizukuSettings.StartMethod method: Int) {
-        operations.withLock { reconcileLocked(context, method) }
+        // As with the user's toggle: the wait is cancellable, the transaction is not. A write
+        // that took and a preference update that did not would be the state this exists to avoid.
+        operations.withLock {
+            withContext(NonCancellable) { reconcileLocked(context, method) }
+        }
     }
 
     private suspend fun reconcileLocked(context: Context, method: Int) {
