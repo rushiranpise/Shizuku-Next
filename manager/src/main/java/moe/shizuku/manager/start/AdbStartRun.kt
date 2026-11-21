@@ -478,6 +478,31 @@ class AdbStartRun(
                 }
             }
 
+            // Discovery can be where the hotspot is first seen to take Wi-Fi down, changing the
+            // fallback answer after the decision above. Ask again before the TCP mode check below:
+            // otherwise this start has learned the device needs the classic port but leaves it
+            // unopened, and the no-network start it was for stays broken until a later start with
+            // Wi-Fi. Only the no-network method may switch TCP mode on here; every other start
+            // leaves it to the user.
+            if (withoutNetwork) {
+                val fallbackNow = classicPortFallback(
+                    ClientWifi.hotspotDisplacesClient(applicationContext),
+                    AdbPortPersistence.selinuxNotEnforced()
+                )
+                if (fallbackNow) {
+                    if (!ShizukuSettings.getTcpMode()) {
+                        ShizukuSettings.setTcpMode(true)
+                        Diag.info(
+                            AppConstants.TAG,
+                            "Start without Wi-Fi: discovery showed the classic port fallback; " +
+                                "TCP mode is on"
+                        )
+                    }
+                    // The same key timeout the earlier fallback decision keeps.
+                    applicationContext.writeGlobalLongSetting("adb_allowed_connection_time", 0L)
+                }
+            }
+
             // TCP mode promises a classic ADB port, and only a USB start ever opened one: a
             // wireless start, which is what the no-network method is, left TCP mode meaning
             // "keep whatever port there is", and after a reboot with no Wi-Fi there is none,
