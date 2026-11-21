@@ -22,6 +22,7 @@ import moe.shizuku.manager.ShizukuSettings
 import moe.shizuku.manager.utils.runShellCommand
 import rikka.shizuku.Shizuku
 import moe.shizuku.manager.utils.Diag
+import moe.shizuku.manager.utils.EnvironmentUtils
 
 /**
  * One setting a restrictive app reads, and the value it is unhappy with.
@@ -82,9 +83,14 @@ enum class Signal(
 
     ACCESSIBILITY(
         R.string.hiding_signal_accessibility,
+        // The list first in both directions. Hiding empties the list and then turns the master
+        // switch off; restoring puts the services back and only then turns the switch on. The
+        // other order leaves the switch on with nothing to turn on, which the platform answers
+        // by turning it back off - and that is a device whose accessibility stays off after the
+        // app that was hidden from is closed.
         listOf(
-            SettingKey("secure", "accessibility_enabled", "0", visible = "1"),
-            SettingKey("secure", "enabled_accessibility_services", "")
+            SettingKey("secure", "enabled_accessibility_services", ""),
+            SettingKey("secure", "accessibility_enabled", "0", visible = "1")
         )
     ),
 
@@ -142,6 +148,7 @@ object Hiding {
     private const val PREF_PREFIX_APPS = "hiding_apps_"
     private const val PREF_PAUSED = "hiding_paused"
     private const val PREF_DISABLED = "hiding_disabled_signals"
+    private const val PREF_HIDDEN_KEYS = "hiding_hidden_keys"
     private const val PREF_HIDDEN_SINCE = "hiding_since"
     private const val PREF_RESTART_ON_OPEN = "hiding_restart_on_open"
 
@@ -203,10 +210,39 @@ object Hiding {
      */
     fun canWatch(): Boolean = hasUsageAccess() || shellAvailable()
 
-    /** A signal is hidden only when every one of its keys says so, or when the tunnel is down. */
+    /**
+     * A signal is hidden only when every one of its keys says so, or when the tunnel is down.
+     *
+     * Android 17 redacts the three debugging switches to 0 for third-party apps, so a read there
+     * cannot tell the lie from the truth. The write this app made is remembered instead - see
+     * [markHidden] - because otherwise hiding USB debugging would see the redacted zero, decide
+     * it was already hidden, and never write anything at all.
+     */
     fun isHidden(signal: Signal): Boolean = when (signal) {
         Signal.VPN -> vpnTakenDown()
-        else -> signal.keys.all { readKey(it) == it.hidden }
+        else -> signal.keys.all { key ->
+            if (isRedacted(key)) key.id in hiddenKeys() else readKey(key) == key.hidden
+        }
+    }
+
+    /**
+     * Whether [key] is one of the debugging switches Android 17 hides from third-party apps.
+     *
+     * A raw zero there is not a value: it is what a redacted read looks like, and it says
+     * nothing about the switch. See [EnvironmentUtils.isDebugSwitchReadRedacted].
+     */
+    private fun isRedacted(key: SettingKey): Boolean =
+        key.namespace == "global" && EnvironmentUtils.isDebugSwitchReadRedacted(key.name)
+
+    private fun hiddenKeys(): Set<String> =
+        ShizukuSettings.getPreferences()
+            .getStringSet(PREF_HIDDEN_KEYS, emptySet()).orEmpty().toSet()
+
+    /** Remembers a redacted key this app wrote hidden, or forgets one it has put back. */
+    private fun markHidden(key: SettingKey, hidden: Boolean) {
+        val keys = hiddenKeys().toMutableSet()
+        if (hidden) keys.add(key.id) else keys.remove(key.id)
+        ShizukuSettings.getPreferences().edit().putStringSet(PREF_HIDDEN_KEYS, keys).apply()
     }
 
     /** The apps this signal is hidden for. */
@@ -459,7 +495,7 @@ object Hiding {
             // A mode somebody switched off is put back and left alone, list and all: turning it
             // off is a statement about now, not about the apps named on it.
             if (!isSignalEnabled(signal)) {
-                if (isHidden(signal)) restore(signal)
+                putBack(signal)
                 return@forEach
             }
 
@@ -469,7 +505,7 @@ object Hiding {
             // The one thing the watch will not do, whatever a list says: cut the connection it
             // is watching through. A list that names it stays named and is simply not applied.
             if (carriesSession(signal)) {
-                if (isHidden(signal)) restore(signal)
+                putBack(signal)
                 return@forEach
             }
 
@@ -491,7 +527,7 @@ object Hiding {
                 // restarts Shizuku, and its start moves wireless debugging on the way - so the
                 // setting ends up hidden by something that never recorded what it replaced.
                 // Measured on the device, at 16:19, wireless debugging left off that way.
-                isHidden(signal) -> if (hasRecord(signal)) restore(signal) else reveal(signal)
+                else -> putBack(signal)
             }
         }
 
@@ -668,6 +704,10 @@ object Hiding {
 
         val saved = originals(signal)
         signal.keys.forEach { key ->
+            // A redacted read cannot say what the switch was, so it is not recorded at all:
+            // restoring a redacted zero as if it were the truth is what would leave the toggle
+            // off afterwards.
+            if (isRedacted(key)) return@forEach
             if (!saved.containsKey(key.id)) {
                 val current = readKey(key)
                 // What the setting says now is only an original if it is not already the lie.
@@ -681,6 +721,8 @@ object Hiding {
             if (!writeKey(key, key.hidden)) {
                 Diag.warn(TAG, "hiding ${signal.name} would not take: ${key.id}")
                 applied = false
+            } else if (isRedacted(key)) {
+                markHidden(key, true)
             }
         }
         return applied
@@ -699,21 +741,51 @@ object Hiding {
         var applied = true
 
         signal.keys.forEach { key ->
-            if (!saved.containsKey(key.id)) return@forEach
-            val value = saved.remove(key.id)
+            if (!saved.containsKey(key.id)) {
+                // A redacted key is never recorded, so the marker is the only record that it was
+                // hidden. Put the switch back into view rather than leaving it off for good.
+                if (isRedacted(key) && key.id in hiddenKeys()) {
+                    val visible = key.visible
+                    if (visible == null || !writeKey(key, visible)) {
+                        Diag.warn(TAG, "bringing ${key.id} back would not take")
+                        applied = false
+                    } else {
+                        markHidden(key, false)
+                    }
+                }
+                return@forEach
+            }
 
-            if (!trustworthy(key, value)) {
+            val value = saved.remove(key.id)
+            // A stored value for a redacted key cannot be what the switch was, so the value that
+            // brings it back is used instead of replaying a redacted zero.
+            val restoreTo = if (isRedacted(key)) key.visible else value
+
+            if (restoreTo == null) {
+                if (isRedacted(key)) return@forEach
+                if (!deleteKey(key)) {
+                    Diag.warn(TAG, "restoring ${key.id} would not take")
+                    applied = false
+                    saved[key.id] = value
+                } else {
+                    markHidden(key, false)
+                }
+                return@forEach
+            }
+
+            if (!isRedacted(key) && !trustworthy(key, value)) {
                 // Nothing is written: putting the lie back is not a restore, and the value the
                 // setting really had was never recorded, so there is nothing to put back.
                 Diag.warn(TAG, "not restoring ${key.id}: the remembered value is the hidden one")
                 return@forEach
             }
 
-            val put = if (value == null) deleteKey(key) else writeKey(key, value)
-            if (!put) {
+            if (!writeKey(key, restoreTo)) {
                 Diag.warn(TAG, "restoring ${key.id} would not take")
                 applied = false
                 saved[key.id] = value
+            } else {
+                markHidden(key, false)
             }
         }
 
@@ -723,6 +795,20 @@ object Hiding {
 
     /** Puts everything back, which is what anything that stops hiding does. */
     fun restoreAll(): Boolean = Signal.entries.fold(true) { all, signal -> restore(signal) && all }
+
+    /**
+     * Puts a signal back if anything of it is hidden, record or not.
+     *
+     * Asking [isHidden] alone was not enough. A hide that only got half its keys written - which
+     * is what a refused or normalised accessibility write leaves behind - is not hidden by that
+     * question, so the watch put nothing back and the master accessibility switch stayed off.
+     */
+    private fun putBack(signal: Signal) {
+        when {
+            hasRecord(signal) -> restore(signal)
+            isHidden(signal) -> reveal(signal)
+        }
+    }
 
     /**
      * Whether a remembered value can be trusted as an original.
@@ -741,6 +827,9 @@ object Hiding {
         Signal.VPN -> rememberedVpnClient() != null
         else -> originals(signal).isNotEmpty()
     }
+
+    /** Whether a signal is hidden, or a record says it is being hidden right now. */
+    fun isHeld(signal: Signal): Boolean = hasRecord(signal) || isHidden(signal)
 
     // ---- the tunnel --------------------------------------------------------------
 
@@ -919,6 +1008,8 @@ object Hiding {
             if (!writeKey(key, visible)) {
                 Diag.warn(TAG, "bringing ${key.id} back would not take")
                 applied = false
+            } else {
+                markHidden(key, false)
             }
         }
         return applied
@@ -949,9 +1040,15 @@ object Hiding {
             "secure" -> Settings.Secure.putString(resolver, key.name, value)
             else -> false
         }
-        // Read back, always: a write the provider accepted is not the same as a setting the
-        // platform is using, and the switches have to be able to say which happened.
-        put && readKey(key) == value
+        when {
+            !put -> false
+            // Android 17 will not read a redacted debug switch back, so the accepted write is the
+            // only evidence there is; a read there answers 0 whatever was written.
+            isRedacted(key) -> true
+            // Read back, always: a write the provider accepted is not the same as a setting the
+            // platform is using, and the switches have to be able to say which happened.
+            else -> readKey(key) == value
+        }
     }.getOrDefault(false)
 
     /**
@@ -959,11 +1056,15 @@ object Hiding {
      * was never there: an empty string is a value somebody chose.
      */
     private fun deleteKey(key: SettingKey): Boolean = runCatching {
-        when (key.namespace) {
+        val put = when (key.namespace) {
             "global" -> Settings.Global.putString(resolver, key.name, null)
             "secure" -> Settings.Secure.putString(resolver, key.name, null)
             else -> false
         }
-        readKey(key) == null
+        when {
+            !put -> false
+            isRedacted(key) -> true
+            else -> readKey(key) == null
+        }
     }.getOrDefault(false)
 }

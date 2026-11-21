@@ -8,6 +8,9 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.provider.Settings
 import android.util.Log
+import moe.shizuku.manager.manage.Hiding
+import moe.shizuku.manager.manage.Signal
+import moe.shizuku.manager.service.HidingWatchService
 import moe.shizuku.manager.utils.newShellProcess
 
 /** One service the accessibility list can offer, with the labels the row shows. */
@@ -82,6 +85,13 @@ object AccessibilitySettings {
 
     /** Puts back every pinned service that is missing, and says whether anything was written. */
     fun restoreMissing(context: Context): Boolean {
+        // Hiding accessibility for a listed app empties this list on purpose. Putting pinned
+        // services straight back would be the keep-alive undoing that hide, which the watch then
+        // repeats a second later - a fight that leaves the master switch wherever the last write
+        // landed. Only a running watch can be holding the list down, so a stale hide left by a
+        // dead process still gets its services put back here.
+        if (HidingWatchService.isRunning() && Hiding.isHeld(Signal.ACCESSIBILITY)) return false
+
         val pinned = AccessibilityKeepAlive.pinned(context)
         if (pinned.isEmpty()) return false
 
