@@ -142,6 +142,17 @@ object ClientWifi {
                 delay(POLL_MS)
             }
 
+            // The platform may have brought the client back only for the user to turn Wi-Fi off
+            // in the meantime. The toggle is the current choice, where clientWifiWasOn is only
+            // what it was before the hotspot.
+            val toggle = runCatching {
+                Settings.Global.getInt(appContext.contentResolver, WIFI_ON, -1)
+            }.getOrDefault(-1)
+            if (toggle == 0 || toggle == 3) {
+                Diag.info(AppConstants.TAG, "Wi-Fi was switched off after the hotspot; leaving it off")
+                return@launch
+            }
+
             Diag.warn(AppConstants.TAG, "Wi-Fi did not come back after the hotspot closed; switching it on")
             @Suppress("DEPRECATION")
             val viaApi = runCatching { wifi(appContext)?.setWifiEnabled(true) == true }
