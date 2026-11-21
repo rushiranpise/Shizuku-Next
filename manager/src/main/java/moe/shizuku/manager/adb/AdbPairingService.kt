@@ -82,7 +82,11 @@ class AdbPairingService : Service() {
             ).apply {
                 setSound(null, null)
                 setShowBadge(false)
-                setAllowBubbles(false)
+                // API 29: @TargetApi only quiets lint, and the manual pairing flow can reach this
+                // service on an older platform.
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    setAllowBubbles(false)
+                }
             })
     }
 
