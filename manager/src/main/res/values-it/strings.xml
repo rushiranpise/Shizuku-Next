@@ -65,6 +65,7 @@
     <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
          a translation of dialog_adb_pairing_message would still tell the user to type the code
          into a notification that this flow never shows. Untranslated locales fall back here. -->
+    <string name="dialog_adb_pairing_message_manual">Per iniziare l\'accoppiamento, esegui i seguenti passaggi:\n- Vai in \"Opzioni sviluppatore\"\n- Attiva \"Debug USB\" e \"Debug wireless\"\n- Tocca il lato sinistro di \"Debug wireless\"\n- Tocca \"Accoppia dispositivo con codice di accoppiamento\"\n- Inserisci nei campi sottostanti il codice e la porta mostrati\n\nMantieni quella finestra aperta finché l\'accoppiamento non è completato. Se il codice scompare quando torni qui, e il tuo dispositivo la supporta, usa la funzione di schermo diviso.</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -74,6 +75,7 @@
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
     <string name="dialog_adb_pairing_accessibility_permission_tv">Android blocca questo interruttore per le app installate al di fuori di uno store di app e, su una TV, Informazioni app non ha l\'opzione \"Consenti impostazioni con limitazioni\" per sbloccarlo. Serve una sola volta un computer collegato a questa TV tramite ADB: puoi concedere il permesso indicato sopra, che consente a Shizuku di attivare il servizio da solo, oppure sbloccare l\'interruttore con:\n\n^1</string>
+    <string name="dialog_adb_pairing_accessibility_enable_watch">L\'accoppiamento automatico legge il codice dalla finestra di sistema, quindi il servizio di accessibilità di Shizuku deve essere attivo. Attivalo nella schermata successiva.\n\nSe l\'interruttore è in grigio, apri Info app e consenti le impostazioni con limitazioni.</string>
     <string name="dialog_adb_pairing_open_app_info">Informazioni app</string>
     <string name="dialog_adb_pairing_accessibility_enable">L\'accoppiamento automatico legge il codice dalla finestra di sistema tramite il servizio di accessibilità di Shizuku, quindi deve essere attivo, ma solo per il tempo necessario: il servizio si disattiva da solo una volta trovato il codice, oppure dopo un minuto per risparmiare batteria. Di norma Shizuku lo attiva in autonomia, ma serve il permesso WRITE_SECURE_SETTINGS, che dopo una nuova installazione non è ancora stato concesso.\n\nAttivalo nella schermata successiva, digita tu il codice in Manuale, oppure concedi il permesso una volta:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Avvia l\'accoppiamento seguendo questi passaggi:\n- Vai su \"Opzioni sviluppatore\"\n- Attiva \"Debug USB\" e \"Debug wireless\"\n- Tocca la parte sinistra di \"Debug wireless\"\n- Tocca \"Accoppia dispositivo con codice di accoppiamento\". Shizuku rileverà automaticamente il codice di accoppiamento.</string>
@@ -538,6 +540,7 @@
     <string name="modules_install_from_file">Installa da un file</string>
     <string name="modules_install_title">Installa un modulo</string>
     <string name="modules_settings">Moduli</string>
+    <string name="modules_settings_item">Impostazioni modulo</string>
     <string name="modules_settings_summary">Cosa può fare un modulo e quanto vuoi esserne sicuro</string>
     <string name="modules_access_full_summary_short">Servizi e bridge shell della WebUI</string>
     <string name="modules_allow_background_summary_short">Uno script di servizio eseguito senza supervisione</string>
@@ -732,6 +735,7 @@
     <string name="settings_always_show_navigation_bar">Mostra sempre la barra di navigazione</string>
     <string name="settings_always_show_navigation_bar_summary">Mantieni visibile la barra delle schede quando scorri verso il basso.</string>
     <string name="settings_show_scroll_to_top">Mostra pulsante di scorrimento in alto</string>
+    <string name="settings_show_scroll_to_top_summary">Mostra il pulsante flottante che riporta in cima gli elenchi lunghi.</string>
     <string name="settings_secure_quick_tiles">Proteggi i riquadri rapidi</string>
     <string name="settings_secure_quick_tiles_summary">Blocca le modifiche ai riquadri rapidi quando il telefono è bloccato.</string>
     <string name="settings_require_grant_authentication">Conferma autorizzazioni app</string>

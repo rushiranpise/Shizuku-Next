@@ -13,6 +13,7 @@
     <string name="home_wireless_adb_title"><![CDATA[Démarrer par débogage sans fil]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Démarrage sans réseau: il est demandé au périphérique de déboguer sans fil jusqu\'à ce qu\'il reste allumé. Cela peut prendre jusqu\'à deux minutes avant de démarrer ou d\'abandonner.</string>
     <string name="home_usb_adb_needs_network">Un démarrage USB utilise le port ADB classique, et la réouverture a besoin d\'un réseau. Connectez-vous une fois au Wi-Fi, ou choisissez <b>Démarrer sans Wi-Fi</b> comme méthode de démarrage et démarrez le débogage sans fil à la place.</string>
+    <string name="home_usb_adb_needs_network_no_option">Un démarrage USB utilise le port ADB classique, et sa réouverture nécessite un réseau. Connectez une fois au Wi-Fi, ou démarrez à partir d\'un ordinateur avec la commande ADB dans Autres méthodes.</string>
     <string name="home_wireless_adb_summary">Démarrer l\'utilisation du débogage sans fil.</string>
     <string name="home_usb_adb_title"><![CDATA[Démarrer via le débogage USB]]></string>
     <string name="home_usb_adb_summary">Démarrer via le débogage USB.</string>
