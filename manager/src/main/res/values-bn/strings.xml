@@ -47,6 +47,9 @@
     <string name="diagnostics_closed">বন্ধ</string>
     <!-- Adb -->
     <string name="dialog_adb_port">পোর্ট</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -81,6 +84,7 @@
     <string name="tab_firewall">ফায়ারওয়াল</string>
     <string name="tab_autostart">অটোস্টার্ট</string>
     <string name="labs_filter_allowed">অনুমোদিত</string>
+    <!-- Per-app rotation override for apps that force landscape -->
     <!-- Hiding: what apps can read about this device -->
     <string name="hiding_filter_hidden">লুকায়িত</string>
     <string name="activities_apps_section">অ্যাপগুলি</string>

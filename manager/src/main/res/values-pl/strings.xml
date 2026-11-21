@@ -40,6 +40,9 @@
         Przejdź do „Opcji programisty”\n- Włącz „Debugowanie USB” i „Debugowanie bezprzewodowe”\n-
         Dotknij lewej strony „Debugowania bezprzewodowego”\n- Dotknij „Sparuj urządzenie za pomocą
         kodu parowania”\n- Wprowadź kod parowania w powiadomieniu</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -63,6 +66,7 @@
     <string name="enable">Włącz</string>
     <string name="auto_pair_instructions">Paruj bez wpisywania kodu:\n\n1. Opcje programisty → debugowanie bezprzewodowe\n2. Sparuj urządzenie z kodem parowania\n\nShizuku odczytuje kod i port bezpośrednio z tego okna dialogowego i zaczyna się sam. Pozostaw okno otwarte aż do zakończenia parowania.</string>
     <string name="auto_pair_manual">Instrukcja</string>
+    <string name="adb_pairing_developer_options">Opcję deweloperskie</string>
     <string name="development_settings">Opcje programisty</string>
     <string name="notification_settings">Opcje powiadomień</string>
     <string name="adb_pairing_tutorial_content_notification">Powiadomienie od Shizuku pomoże ci
@@ -124,6 +128,8 @@
     <string name="app_management_sort_last_added">Ostatnio dodane</string>
     <string name="app_management_sort_updated">Aktualizacja</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_process_allowed">Dozwolone</string>
+    <string name="apps_processes_hide_short">Ukryj</string>
     <string name="tab_home">Home</string>
     <string name="tab_apps">Aplikację</string>
     <string name="tab_shell">Shell</string>
@@ -135,6 +141,8 @@
     <string name="labs_filter_blocked">Zablokowane</string>
     <string name="labs_blocked_count">%1$d Zablokowane</string>
     <string name="labs_blocked_empty">Nic nie jest zablokowane.</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="rotation_mode_off">Wyłączony</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Ukrywanie</string>
     <string name="tab_hide_developer_options">Ukryte opcję deweloperskie</string>
@@ -161,6 +169,7 @@
     <string name="tab_force_dark">Wymuś tryb ciemny</string>
     <string name="force_dark_gate">Wymuś tryb ciemny</string>
     <string name="force_dark_gate_disabled">Tryb ciemny jest wyłączony</string>
+    <string name="force_dark_gate_off">Wyłączony</string>
     <string name="force_dark_count">%1$d Wymuszone</string>
     <string name="force_dark_filter_forced">Wymuszone</string>
     <string name="force_dark_filter_not">Niewymuszone</string>

@@ -66,6 +66,10 @@
     <string name="paring_code_is_wrong">The pairing code is incorrect.</string>
     <string name="cannot_connect_port">Can\'t connect to wireless debugging service.\n\nPlease ensure that Shizuku is whitelisted in all firewall, ad-block, VPN, or similar apps that can restrict network access.</string>
     <string name="dialog_adb_pairing_message">Please start pairing by performing the following steps:\n- Navigate to \"Developer Options\"\n- Enable \"USB debugging\" and \"Wireless debugging\"\n- Tap the left side of \"Wireless debugging\"\n- Tap \"Pair device with pairing code\"\n- Input the pairing code in the notification</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
+    <string name="dialog_adb_pairing_message_manual">Please start pairing by performing the following steps:\n- Navigate to \"Developer Options\"\n- Enable \"USB debugging\" and \"Wireless debugging\"\n- Tap the left side of \"Wireless debugging\"\n- Tap \"Pair device with pairing code\"\n- Enter the code and port shown there in the fields below\n\nKeep that dialog open until pairing finishes. If the code disappears when you switch back, use split screen if your device supports it.</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -75,6 +79,7 @@
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
     <string name="dialog_adb_pairing_accessibility_permission_tv">Android blocks this switch for apps installed outside an app store, and on a TV, App info has no \"Allow restricted settings\" option to unblock it. A computer connected to this TV over ADB is needed once: either grant the permission above, which lets Shizuku turn the service on by itself, or unblock the switch with:\n\n^1</string>
+    <string name="dialog_adb_pairing_accessibility_enable_watch">Automatic pairing reads the code from the system dialog, so Shizuku\'s accessibility service has to be on. Enable it on the next screen.\n\nIf the switch is greyed out, open App info and allow restricted settings.</string>
     <string name="dialog_adb_pairing_open_app_info">App info</string>
     <string name="dialog_adb_pairing_accessibility_enable">Automatic pairing reads the code out of the system dialog through Shizuku\'s accessibility service, so it has to be enabled, and only for as long as it takes: the service turns itself off once the code is found, or after a minute to save power. Shizuku normally enables it on its own, and that needs the WRITE_SECURE_SETTINGS permission, which a fresh install has not been granted yet.\n\nEnable it on the next screen, type the code yourself under Manual, or grant the permission once:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Please start pairing by performing the following steps:\n- Navigate to \"Developer Options\"\n- Enable \"USB debugging\" and \"Wireless debugging\"\n- Tap the left side of \"Wireless debugging\"\n- Tap \"Pair device with pairing code.\" Shizuku will automatically detect the pairing code.</string>
@@ -85,7 +90,9 @@
     <string name="adb_pair_required">Pair the device first.</string>
     <string name="enable">Enable</string>
     <string name="auto_pair_instructions">Pair without typing a code:\n\n1. Tap Developer options below\n\nShizuku opens Wireless debugging and the pairing dialog itself, reads the code and port, and starts. Keep the dialog open until pairing finishes.</string>
+    <string name="auto_pair_instructions_watch">Shizuku opens Developer options and Wireless debugging, reads the pairing code, and starts. Keep the system dialog open until pairing finishes.</string>
     <string name="auto_pair_manual">Manual</string>
+    <string name="adb_pairing_developer_options">Developer options</string>
     <string name="development_settings">Automatic</string>
     <string name="notification_settings">Notification settings</string>
     <string name="adb_pairing_tutorial_content_notification">A notification from Shizuku will help you complete the pairing.</string>
@@ -136,6 +143,7 @@
     <string name="apps_needs_shizuku">Start Shizuku to see apps</string>
     <string name="apps_empty">No apps to show</string>
     <string name="apps_filter_empty">No apps in this filter</string>
+    <string name="apps_filter_title">Filter apps</string>
     <string name="apps_filter_all">All</string>
     <string name="apps_filter_granted">Granted</string>
     <string name="apps_filter_revoked">Revoked</string>
@@ -144,12 +152,14 @@
     <string name="app_management_sort_last_added">Recently added</string>
     <string name="app_management_sort_updated">Updated</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_sort_keep_in_place">Keep apps in place</string>
     <string name="apps_processes_show">Show %1$d process(es)</string>
     <string name="apps_processes_hide">Hide %1$d process(es)</string>
     <string name="apps_process_pid">PID %1$d</string>
     <string name="apps_process_api">API %1$d</string>
     <string name="apps_process_allowed">Allowed</string>
     <string name="apps_process_not_allowed">Not allowed</string>
+    <string name="apps_status_one_time">One-time</string>
     <string name="apps_process_stop">Stop process</string>
     <string name="apps_process_stop_title">Stop process?</string>
     <string name="apps_process_stop_message">Stop PID %1$d for %2$s? The app may start it again.</string>
@@ -249,6 +259,7 @@
     <string name="tab_force_dark">Force dark mode</string>
     <string name="force_dark_gate">Force dark mode</string>
     <string name="force_dark_gate_disabled">Force dark mode is off</string>
+    <string name="force_dark_gate_off">Off</string>
     <string name="force_dark_count">%1$d forced</string>
     <string name="force_dark_filter_forced">Forced</string>
     <string name="force_dark_filter_not">Not forced</string>
@@ -564,6 +575,7 @@
     <string name="modules_install_from_file">Install from a file</string>
     <string name="modules_install_title">Install a module</string>
     <string name="modules_settings">Modules</string>
+    <string name="modules_settings_item">Module settings</string>
     <string name="modules_settings_summary">What a module may do, and how sure you want to be</string>
     <string name="modules_access_full_summary_short">Services and the WebUI shell bridge</string>
     <string name="modules_allow_background_summary_short">A service script running unwatched</string>
@@ -668,9 +680,9 @@
     <string name="settings_section_tools_summary">Permissions, setup, backup, terminal and intents</string>
     <string name="settings_backup_section">Backup and restore</string>
     <string name="settings_backup_export">Back up settings</string>
-    <string name="settings_backup_export_summary">Save app settings and Labs lists to a JSON file.</string>
+    <string name="settings_backup_export_summary">Save app settings, Labs lists and shell bookmarks to a JSON file.</string>
     <string name="settings_backup_restore">Restore settings</string>
-    <string name="settings_backup_restore_summary">Replace app settings and Labs lists from a backup file.</string>
+    <string name="settings_backup_restore_summary">Replace app settings, Labs lists and shell bookmarks from a backup file.</string>
     <string name="settings_backup_exported">Saved %1$d settings.</string>
     <string name="settings_backup_export_failed">Could not save the backup.</string>
     <string name="settings_backup_unreadable">That file is not a Shizuku settings backup.</string>
@@ -758,6 +770,8 @@
     <string name="settings_use_system_color_summary">Follow the system palette</string>
     <string name="settings_always_show_navigation_bar">Always show navigation bar</string>
     <string name="settings_always_show_navigation_bar_summary">Keep the tab bar visible when you scroll down.</string>
+    <string name="settings_show_scroll_to_top">Show scroll to top button</string>
+    <string name="settings_show_scroll_to_top_summary">Show the floating button that returns long lists to the top.</string>
     <string name="settings_secure_quick_tiles">Secure quick tiles</string>
     <string name="settings_secure_quick_tiles_summary">Block quick tile changes while the phone is locked.</string>
     <string name="settings_require_grant_authentication">Confirm app grants</string>
@@ -822,6 +836,28 @@
     <string name="settings_language_system">System default</string>
     <string name="settings_black_night_theme">Amoled Black</string>
     <string name="settings_black_night_theme_summary">Use a pure black theme in dark mode</string>
+    <string name="settings_amoled_background_only">Black background only</string>
+    <string name="settings_amoled_background_only_summary">Keep cards, dialogs and menus in the normal dark colors</string>
+    <string name="settings_accent_color">Accent color</string>
+    <string name="settings_accent_color_summary">Choose a Material 3 palette when system color is off</string>
+    <string name="settings_palette_style">Palette style</string>
+    <string name="settings_palette_tonal_spot">Tonal Spot</string>
+    <string name="settings_palette_vibrant">Vibrant</string>
+    <string name="settings_palette_expressive">Expressive</string>
+    <string name="settings_palette_monochrome">Monochrome</string>
+    <string name="settings_accent_indigo">Indigo</string>
+    <string name="settings_accent_purple">Purple</string>
+    <string name="settings_accent_blue">Blue</string>
+    <string name="settings_accent_teal">Teal</string>
+    <string name="settings_accent_green">Green</string>
+    <string name="settings_accent_orange">Orange</string>
+    <string name="settings_accent_pink">Pink</string>
+    <string name="settings_accent_custom">Custom HEX...</string>
+    <string name="settings_accent_custom_title">Custom accent color</string>
+    <string name="settings_accent_custom_hint">Enter a 6-digit HEX color, for example #3F51B5</string>
+    <string name="settings_accent_custom_invalid">Use 6 HEX digits, for example #3F51B5</string>
+    <string name="settings_high_contrast">High contrast</string>
+    <string name="settings_high_contrast_summary">Stronger text and outline colors</string>
     <string name="settings_update_stable">Stable</string>
     <string name="settings_update_beta">Dev</string>
     <string name="settings_permissions">Permissions</string>
@@ -921,6 +957,9 @@
     <string name="snackbar_battery_optimization_settings">Turn off battery optimization to use this feature.</string>
     <string name="snackbar_action_fix">Fix</string>
     <string name="snackbar_update_available">A new update is available</string>
+    <string name="update_notification_channel">App updates</string>
+    <string name="update_notification_title">Shizuku update available</string>
+    <string name="update_notification_text">Version %1$s is available. Tap to open Shizuku.</string>
     <string name="snackbar_action_update">Update</string>
 
     <!-- Updates -->
@@ -1004,8 +1043,10 @@
     <string name="shell_backend_shizuku">Shizuku</string>
     <string name="shell_backend_root">Root</string>
     <string name="shell_backend_shizuku_status">Shizuku, uid %1$d</string>
+    <string name="shell_backend_shizuku_status_short">uid %1$d</string>
     <string name="shell_backend_root_status">Root, uid 0</string>
     <string name="shell_backend_offline">No command runner is active</string>
+    <string name="shell_backend_offline_short">No runner</string>
     <string name="shell_needs_a_backend">Start Shizuku, or pick Root on a rooted device: one of the two runs the commands. Root works with Shizuku stopped.</string>
     <string name="shell_intro">Runs as the uid Shizuku runs as (2000 over adb, 0 with root), so it reaches whatever that uid can: /sdcard, /system, and app data with root. It opens in /sdcard, one command at a time; with no tty behind it, programs that need a terminal (nano, an ssh prompt) will not run here.</string>
     <string name="shell_root_granted">Root is available: commands run as uid 0.</string>
@@ -1067,6 +1108,8 @@
     <string name="shell_stop">Stop</string>
     <string name="shell_clear">Clear</string>
     <string name="shell_copy">Copy</string>
+    <string name="shell_copy_too_large">Output is too long to copy. Use Save instead.</string>
+    <string name="shell_copy_failed">Could not copy the output. Use Save instead.</string>
     <string name="shell_history_previous">Previous command</string>
     <string name="shell_history_next">Next command</string>
 

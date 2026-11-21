@@ -27,6 +27,9 @@
         «گزینه‌های توسعه‌دهنده» بروید\n- «اشکال‌زدایی USB» و «اشکال‌زدایی بی‌سیم» را فعال کنید\n-
         روی سمت چپ «اشکال‌زدایی بی‌سیم» ضربه بزنید\n- روی «جفت کردن دستگاه با کد جفت‌سازی» ضربه
         بزنید\n- کد جفت‌سازی را در اعلان وارد کنید</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -89,6 +92,7 @@
     <string name="app_management_dialog_adb_is_limited_title">مجوز adb محدود است</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[این احتمال وجود دارد که سازنده دستگاه شما مجوز adb را محدود کند.<p>ممکن است راه حلی برای دستگاه شما در <b><a href=\"%1$s\">این سند</a></b> وجود داشته باشد.]]></string>
     <string name="app_management_toggle_all">همه را تغییر دهید</string>
+    <!-- Per-app rotation override for apps that force landscape -->
     <!-- Hiding: what apps can read about this device -->
     <string name="intent_start">راه‌اندازی</string>
     <string name="device_watchdog">دیده‌بان</string>

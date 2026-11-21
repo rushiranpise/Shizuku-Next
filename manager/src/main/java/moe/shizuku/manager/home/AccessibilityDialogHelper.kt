@@ -1,16 +1,25 @@
 package moe.shizuku.manager.home
 
 import android.Manifest.permission.WRITE_SECURE_SETTINGS
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.drawable.ColorDrawable
 import android.provider.Settings
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.TypefaceSpan
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.Window
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import moe.shizuku.manager.R
+import moe.shizuku.manager.ShizukuSettings
 import moe.shizuku.manager.adb.AdbPairingAccessibilityService
 import moe.shizuku.manager.adb.AdbPairingTutorialActivity
 import moe.shizuku.manager.start.isDeveloperOptionsEnabled
@@ -18,15 +27,20 @@ import moe.shizuku.manager.utils.EnvironmentUtils
 import moe.shizuku.manager.utils.SettingsPage
 
 /**
- * Starts the pairing flow by asking how to pair, always.
+ * Starts the pairing flow. The ways want different things from the user: automated pairing
+ * reads the code out of the system dialog and so needs the accessibility service running,
+ * while manual pairing needs nothing but typing it. Switching the service on is the
+ * automated branch's business, and it is only ever raised there: asking for it up front
+ * demanded something of a user who may be about to choose the way that doesn't need it.
  *
- * The two ways want different things from the user: automated pairing reads the code out
- * of the system dialog and so needs the accessibility service running, while manual
- * pairing needs nothing but typing it. So switching the service on is the automated
- * branch's business, and it is only ever raised there: asking for it up front demanded
- * something of a user who may be about to choose the way that doesn't need it at all.
+ * With legacy pairing on, the choice has already been made, so asking again would only
+ * stand between the user and the dialog they asked for.
  */
 fun Context.showAccessibilityDialog() {
+    if (ShizukuSettings.getLegacyPairing()) {
+        startManualPairing()
+        return
+    }
     showNavigateDialog()
 }
 
@@ -71,20 +85,31 @@ private fun Context.showEnableDialog() {
     // info: TV Settings has no corner menu to put it in. Sending somebody there is a dead end, so
     // on a TV the button is left out and the message names the computer-side ways instead.
     val television = EnvironmentUtils.isTelevision()
-    val message = pairingEnableMessage(television)
+
+    // On a watch the long computer-side explanation is not what the user is holding, and an
+    // AlertDialog lays it out in a strip too narrow to read. Say what to do in the fewest
+    // lines that fit, and let the watch panel scroll if it still needs to.
+    if (EnvironmentUtils.isWatch()) {
+        showWatchPairingDialog(
+            title = getString(R.string.dialog_adb_pairing_title),
+            message = getString(R.string.dialog_adb_pairing_accessibility_enable_watch),
+            positive = WatchAction(R.string.enable) { SettingsPage.Accessibility.launch(this) },
+            neutral = WatchAction(R.string.dialog_adb_pairing_open_app_info) {
+                SettingsPage.ApplicationDetails.launch(this)
+            },
+            negative = WatchAction(R.string.auto_pair_manual) { startManualPairing() },
+        )
+        return
+    }
 
     val builder = MaterialAlertDialogBuilder(this)
         .setTitle(R.string.dialog_adb_pairing_title)
-        .setMessage(message)
+        .setMessage(pairingEnableMessage(television))
         .setPositiveButton(R.string.enable) { _, _ ->
             SettingsPage.Accessibility.launch(this)
         }
         // The way out that needs none of this: type the code yourself.
-        .setNegativeButton(R.string.auto_pair_manual) { _, _ ->
-            runCatching {
-                startActivity(Intent(this, AdbPairingTutorialActivity::class.java))
-            }
-        }
+        .setNegativeButton(R.string.auto_pair_manual) { _, _ -> startManualPairing() }
     if (!television) {
         builder.setNeutralButton(R.string.dialog_adb_pairing_open_app_info) { _, _ ->
             SettingsPage.ApplicationDetails.launch(this)
@@ -138,37 +163,132 @@ private fun Context.pairingEnableMessage(television: Boolean): CharSequence {
 private fun Context.showNavigateDialog() {
     val isTelevision = EnvironmentUtils.isTelevision() && EnvironmentUtils.isTlsSupported()
 
+    // A watch has neither the width nor the taps for the full instructions, and the Material
+    // dialog there is laid out for a phone: its title took most of the panel and left the
+    // message a line-tall strip. The watch panel scrolls in a square that fits the circle.
+    if (EnvironmentUtils.isWatch()) {
+        showWatchPairingDialog(
+            title = getString(R.string.dialog_adb_pairing_title),
+            message = getString(R.string.auto_pair_instructions_watch),
+            positive = WatchAction(R.string.development_settings) { startAutomaticPairing() },
+            negative = WatchAction(R.string.auto_pair_manual) { startManualPairing() },
+        )
+        return
+    }
+
     MaterialAlertDialogBuilder(this)
         .setTitle(R.string.dialog_adb_pairing_title)
         .setMessage(
             if (isTelevision) R.string.dialog_adb_pairing_accessibility_navigate
             else R.string.auto_pair_instructions
         )
-        .setPositiveButton(R.string.development_settings) { _, _ ->
-            // Only now, having chosen the automated way, is the accessibility service
-            // needed and only if Shizuku can't switch it on itself.
-            // The screen this opens is under Developer options, which this app's own "ADB
-            // without Developer options" setting hides: launching then would open nothing.
-            if (!isDeveloperOptionsEnabled()) {
-                Toast.makeText(
-                    this,
-                    getString(R.string.toast_developer_options_required),
-                    Toast.LENGTH_LONG
-                ).show()
-                return@setPositiveButton
-            }
-            if (ensureAccessibilityService()) {
-                SettingsPage.Developer.HighlightWirelessDebugging.launch(this)
-            }
-        }
-        .setNegativeButton(R.string.auto_pair_manual) { _, _ ->
-            // Reading the code can still fail (OEM dialog, service killed) keep the
-            // notification flow one tap away as the fallback.
-            runCatching {
-                startActivity(Intent(this, AdbPairingTutorialActivity::class.java))
-            }
-        }
+        .setPositiveButton(R.string.development_settings) { _, _ -> startAutomaticPairing() }
+        .setNegativeButton(R.string.auto_pair_manual) { _, _ -> startManualPairing() }
         .show()
+}
+
+/** The automated branch: make sure the reader is on, then open the screen it drives. */
+private fun Context.startAutomaticPairing() {
+    // Only now, having chosen the automated way, is the accessibility service
+    // needed and only if Shizuku can't switch it on itself.
+    // The screen this opens is under Developer options, which this app's own "ADB
+    // without Developer options" setting hides: launching then would open nothing.
+    if (!isDeveloperOptionsEnabled()) {
+        Toast.makeText(
+            this,
+            getString(R.string.toast_developer_options_required),
+            Toast.LENGTH_LONG
+        ).show()
+        return
+    }
+
+    if (ensureAccessibilityService()) {
+        SettingsPage.Developer.HighlightWirelessDebugging.launch(this)
+        // A watch may already have the service connected from an earlier attempt, in which
+        // case it is not going to be told to drive by another connection: ask it directly.
+        // If it is not connected yet, it schedules the same drive when the system binds it.
+        // A phone keeps its old flow: the service drives itself once Android binds it.
+        if (EnvironmentUtils.isWatch()) {
+            AdbPairingAccessibilityService.drive()
+        }
+    }
+}
+
+/** The manual branch: type the code in the app, or in the notification. */
+private fun Context.startManualPairing() {
+    // The setting is about this choice: with it on, the code is entered in a dialog in
+    // the app instead of the notification flow.
+    if (ShizukuSettings.getLegacyPairing()) {
+        // The tutorial activity is still the way in: it asks for the permissions discovery
+        // needs, then shows the code dialog instead of starting the notification flow.
+        runCatching {
+            startActivity(AdbPairingTutorialActivity.inAppPairingIntent(this))
+        }
+        return
+    }
+
+    // Reading the code can still fail (OEM dialog, service killed) keep the
+    // notification flow one tap away as the fallback.
+    runCatching {
+        startActivity(Intent(this, AdbPairingTutorialActivity::class.java))
+    }
+}
+
+/** One row of a [showWatchPairingDialog]. */
+private class WatchAction(val labelRes: Int, val onClick: () -> Unit)
+
+/**
+ * The pairing dialogs as they should look on a watch.
+ *
+ * The Material dialog was laid out for a phone. On a 480x480 round watch it fills the screen,
+ * spends most of it on the title, and stacks the buttons into the bottom of the circle; the
+ * message ends up in a strip one line tall and "Manual" is half off the screen. This uses a
+ * square smaller than the screen so text stays inside the round edge, and scrolls the whole
+ * content, so every line and every button can be reached.
+ */
+private fun Context.showWatchPairingDialog(
+    title: String,
+    message: String,
+    positive: WatchAction,
+    negative: WatchAction,
+    neutral: WatchAction? = null,
+) {
+    val view = LayoutInflater.from(this).inflate(R.layout.dialog_watch_pairing, null)
+    view.findViewById<TextView>(R.id.title).text = title
+    view.findViewById<TextView>(R.id.message).text = message
+
+    val dialog = Dialog(this)
+    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+    dialog.setContentView(view)
+    dialog.setCanceledOnTouchOutside(false)
+
+    fun bind(id: Int, action: WatchAction?) {
+        val button = view.findViewById<MaterialButton>(id)
+        if (action == null) {
+            button.isVisible = false
+        } else {
+            button.text = getString(action.labelRes)
+            button.setOnClickListener {
+                dialog.dismiss()
+                action.onClick()
+            }
+        }
+    }
+    bind(R.id.positive, positive)
+    bind(R.id.neutral, neutral)
+    bind(R.id.negative, negative)
+
+    dialog.show()
+
+    // A square that leaves the corners of the circle empty, so the title and the last button
+    // are not cut by the bezel. In pixels because the window takes no dp.
+    val metrics = resources.displayMetrics
+    val side = (minOf(metrics.widthPixels, metrics.heightPixels) - 48 * metrics.density).toInt()
+    dialog.window?.apply {
+        setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
+        setGravity(Gravity.CENTER)
+        setLayout(side, side)
+    }
 }
 
 /**

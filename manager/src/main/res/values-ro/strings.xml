@@ -62,6 +62,10 @@
     <string name="paring_code_is_wrong">Codul de asociere este greșit.</string>
     <string name="cannot_connect_port">Nu se poate stabili conexiunea la serviciul de depanare wireless.\n\nAsigură-te că aplicația Shizuku se află pe lista albă a tuturor aplicațiilor de tip firewall, blocare a reclamelor, VPN sau a altor aplicații similare care pot restricționa accesul la rețea.</string>
     <string name="dialog_adb_pairing_message">Începe procesul de asociere urmând pașii de mai jos:\n- Accesează „Opțiuni pentru dezvoltatori”\n- Activează „Depanare USB” și „Depanare wireless”\n- Atinge partea stângă a opțiunii „Depanare wireless”\n- Atinge „Asociere dispozitiv cu un cod de asociere”\n- Introdu codul de asociere din notificare</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
+    <string name="dialog_adb_pairing_message_manual">Îîncepe procesul de asociere urmând pașii de mai jos:\n- Accesează „Opțiuni pentru dezvoltatori”\n- Activează „Depanare USB” și „Depanare fără fir”\n- Atinge partea stângă a opțiunii „Depanare fără fir”\n- Atinge „Asociere dispozitiv cu un cod de asociere”\n- Introdu codul și portul afișate acolo în câmpurile de mai jos\n\nPăstrează fereastra de dialog deschisă până la finalizarea asocierii. Dacă codul dispare când revii la ecranul anterior, utilizează modul ecran divizat, dacă dispozitivul suportă această funcție.</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -71,6 +75,7 @@
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
     <string name="dialog_adb_pairing_accessibility_permission_tv">Android blochează această opțiune pentru aplicațiile instalate din afara unui magazin de aplicații, iar pe un televizor, secțiunea „Informații despre aplicație” nu conține opțiunea „Permite setări restricționate” pentru a o debloca. Este necesar un computer conectat la acest televizor prin ADB o singură dată: fie pentru a acorda permisiunea de mai sus, care permite aplicației Shizuku să activeze singură serviciul, fie pentru a debloca comutatorul cu:\n\n^1</string>
+    <string name="dialog_adb_pairing_accessibility_enable_watch">Asocierea automată citește codul din fereastra de dialog a sistemului, așa că serviciul de accesibilitate al aplicației Shizuku trebuie să fie activat. Activează-l în ecranul următor.\n\nDacă butonul este afișat în gri, deschide secțiunea „Informații despre aplicație” și permite setările restricționate.</string>
     <string name="dialog_adb_pairing_open_app_info">Informații aplicație</string>
     <string name="dialog_adb_pairing_accessibility_enable">Împerecherea automată citește codul din dialogul de sistem prin serviciul de accesibilitate Shizuku, așa că trebuie activat și numai atât timp cât este necesar: serviciul se oprește automat odată ce codul este găsit sau după un minut pentru a economisi energie. În mod normal, Shizuku o activează singur, iar acest lucru necesită permisiunea WRITE_SECURE_SETTINGS, care nu a fost încă acordată la o instalare nouă.\n\nActivează pe ecranul următor, introdu codul în secțiunea Manual sau acordă permisiunea o singură dată:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Începe procesul de asociere urmând pașii de mai jos:\n- Accesează „Opțiuni pentru dezvoltatori”\n- Activează „Depanare USB” și „Depanare wireless”\n- Atinge partea stângă a opțiunii „Depanare wireless”\n- Atinge „Asociază dispozitivul cu codul de asociere”. Shizuku va detecta automat codul de asociere.</string>
@@ -84,7 +89,9 @@
     <string name="adb_pair_required">Parcurge mai întâi procesul de asociere.</string>
     <string name="enable">Permite</string>
     <string name="auto_pair_instructions">Asociază fără a scrie un cod:\n\n1. Opțiuni de dezvoltare → Depanare fără fir\n2. Dispozitivul de împerechere cu codul\n\nShizuku citește codul și portul direct din acel dialog și pornește singur. Păstrează dialogul deschis până la finalizarea împerecherii.</string>
+    <string name="auto_pair_instructions_watch">Shizuku deschide „Opțiunile pentru dezvoltatori” și „Depanare fără fir”, citește codul de asociere și începe procesul. Ține fereastra de dialog a sistemului deschisă până la finalizarea procesului de asociere.</string>
     <string name="auto_pair_manual">Manual</string>
+    <string name="adb_pairing_developer_options">Opțiuni pentru dezvoltatori</string>
     <string name="development_settings">Opțiuni dezvoltator</string>
     <string name="notification_settings">Opțiuni de notificare</string>
     <string name="adb_pairing_tutorial_content_notification">O notificare de la Shizuku te va ajuta
@@ -137,6 +144,7 @@
     <string name="apps_needs_shizuku">Pornește Shizuku pentru a vedea aplicațiile</string>
     <string name="apps_empty">Nicio aplicație de afișat</string>
     <string name="apps_filter_empty">Nicio aplicație în acest filtru</string>
+    <string name="apps_filter_title">Filtrează aplicațiile</string>
     <string name="apps_filter_all">Toate</string>
     <string name="apps_filter_granted">Acordat</string>
     <string name="apps_filter_revoked">Revocat</string>
@@ -145,6 +153,25 @@
     <string name="app_management_sort_last_added">Adăugat recent</string>
     <string name="app_management_sort_updated">Actualizat</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_processes_show">Arată %1$d proces(e)</string>
+    <string name="apps_processes_hide">Ascunde %1$d proces(e)</string>
+    <string name="apps_process_pid">PID %1$d</string>
+    <string name="apps_process_api">API %1$d</string>
+    <string name="apps_process_allowed">Permis</string>
+    <string name="apps_process_not_allowed">Nu este permis</string>
+    <string name="apps_status_one_time">O singură dată</string>
+    <string name="apps_process_stop">Oprește procesul</string>
+    <string name="apps_process_stop_title">Oprești procesul?</string>
+    <string name="apps_process_stop_message">Oprești PID %1$d pentru %2$s? Este posibil ca aplicația să pornească din nou.</string>
+    <string name="apps_process_stop_failed">Procesul nu a putut fi oprit.</string>
+    <string name="apps_processes_title">Procese atașate (%1$d)</string>
+    <plurals name="apps_processes_count">
+        <item quantity="one">%1$d proces</item>
+        <item quantity="few">%1$d procese</item>
+        <item quantity="other">%1$d de procese</item>
+    </plurals>
+    <string name="apps_processes_hide_short">Ascunde</string>
+    <string name="apps_processes_empty">Niciun proces atașat.</string>
     <string name="tab_home">Acasă</string>
     <string name="tab_apps">Aplicații</string>
     <string name="tab_shell">Terminal</string>
@@ -177,6 +204,24 @@
     <string name="labs_pin_app">Fixează aplicația</string>
     <string name="labs_unpin_app">Anulează fixarea aplicației</string>
     <string name="labs_clear_pins">Șterge aplicațiile fixate</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="tab_rotation">Rotire</string>
+    <string name="rotation_count">%1$d configurat</string>
+    <string name="rotation_gate_off">Oprit, %1$d configurat</string>
+    <string name="rotation_gate_disabled">Rotirea este oprită</string>
+    <string name="rotation_note">Funcția „Auto” se adaptează la orientarea sistemului. Modurile „Portret” și „Peisaj” mențin orientarea ecranului cât timp aplicația este deschisă și o readuc la starea inițială când ieși din aplicație.</string>
+    <string name="rotation_filter_configured">Configurat</string>
+    <string name="rotation_empty">Nicio aplicație nu are un mod de rotație.</string>
+    <string name="rotation_needs_shizuku">Pornește Shizuku pentru a schimba rotația.</string>
+    <string name="rotation_mode_title">Mod rotire</string>
+    <string name="rotation_mode_off">Dezactivat</string>
+    <string name="rotation_mode_off_note">Folosește propria orientare a aplicației.</string>
+    <string name="rotation_mode_auto">Automat</string>
+    <string name="rotation_mode_auto_note">Respectă orientarea sistemului. Utilizează orientarea verticală sau orizontală dacă aplicația nu ține cont de aceasta.</string>
+    <string name="rotation_mode_portrait">Portret</string>
+    <string name="rotation_mode_portrait_note">Forțează portret cât timp aplicația este deschisă.</string>
+    <string name="rotation_mode_landscape">Peisaj</string>
+    <string name="rotation_mode_landscape_note">Forțează peisaj cât timp aplicația este deschisă.</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Ascuns</string>
     <string name="tab_hide_developer_options">Ascunde opțiunile dezvoltatorului</string>
@@ -206,6 +251,7 @@
     <string name="tab_force_dark">Mod întunecat forțat</string>
     <string name="force_dark_gate">Mod întunecat forțat</string>
     <string name="force_dark_gate_disabled">Modulul întunecat forțat este dezactivat</string>
+    <string name="force_dark_gate_off">Dezactivat</string>
     <string name="force_dark_count">%1$d forțat</string>
     <string name="force_dark_filter_forced">Forțat</string>
     <string name="force_dark_filter_not">Nu este forțat</string>
@@ -432,6 +478,10 @@
     <string name="hiding_notification_text">Apasă pentru a le restaura.</string>
     <string name="hiding_notification_idle_title">Ascunderea este activă</string>
     <string name="hiding_notification_watching">Urmărește aplicațiile listate.</string>
+    <string name="rotation_notification_title">Rotirea este blocată</string>
+    <string name="rotation_notification_text">Blocat pentru %1$s.</string>
+    <string name="rotation_notification_watching_title">Funcția de control al rotației este activată</string>
+    <string name="rotation_notification_watching">Se așteaptă o aplicație în lista de rotație.</string>
     <string name="hiding_notification_paused_title">Ascunderea este întreruptă</string>
     <string name="hiding_notification_paused_text">Setările tale au fost restaurate. Reia ascunderea lor pentru aplicațiile listate.</string>
     <string name="hiding_resume">Continuă</string>
@@ -504,6 +554,7 @@
     <string name="modules_install_from_file">Instalează dintr-un fișier</string>
     <string name="modules_install_title">Instalează un modul</string>
     <string name="modules_settings">Module</string>
+    <string name="modules_settings_item">Setări modul</string>
     <string name="modules_settings_summary">Ce poate face un modul și cât de sigur vrei să fii</string>
     <string name="modules_access_full_summary_short">Serviciile și puntea de legătură cu interfața WebUI</string>
     <string name="modules_allow_background_summary_short">Un script de servicii care rulează nevăzut</string>
@@ -591,6 +642,7 @@
     <string name="start_failed_usb_no_port">Nici un port ADB local nu este deschis Android la fiecare repornire și redeschiderea are nevoie de o conexiune pentru a împrumuta. Conectați-vă la Wi-Fi și Shizuku îl va redeschide prin depanare wireless, rulați <b>adb tcpip 5555</b> de pe un computer, sau alege <b>Pornește fără Wi-Fi</b> ca metodă de început pentru a porni prin depanare wireless.</string>
     <string name="start_failed_usb_no_port_no_option">Nu este deschis niciun port ADB local. Android îl închide la fiecare repornire, iar redeschiderea acestuia necesită o conexiune la rețea pentru a o utiliza. Conectează-te o dată la Wi-Fi sau execută comanda <b>adb tcpip 5555</b> de pe un computer.</string>
     <string name="start_failed_root_unavailable">Accesul la root nu mai este disponibil pe acest dispozitiv, deci Shizuku nu poate porni. Alege o altă metodă de pornire.</string>
+    <string name="start_failed_adb_root">Drepturile de root pentru ADB nu sunt disponibile. Activează depanarea prin USB pe o versiune care permite depanarea sau alege o altă metodă de pornire.</string>
     <string name="start_failed_system_needs_app">Metoda de pornire a sistemului trebuie să fie pornită din aplicație.</string>
     <string name="start_failed_system_no_exploit">Acest dispozitiv nu livrează agentul Samsung FOTA (com.sdet. otaagent), care este singura componentă pe care o poate folosi metoda de pornire a sistemului, astfel încât nu este nimic de mărit cu aici. Comutați metoda de pornire a sistemului la comandă personalizată: aplicația vă va arăta ce să rulați cu o escaladare pe care o are dispozitivul dvs.</string>
     <string name="start_failed_no_binder">Serviciul nu a apărut într-un minut. Ambele jumătăţi păstrează un log: porneşterii de la ShizukuServiceStarter şi predarea sub BinderSender. Un cititor de logcat filtrat la cele două arată dacă începătorul a ajuns până la forjarea serverului, și dacă serverul a cerut vreodată un lider.</string>
@@ -694,8 +746,12 @@
     <string name="settings_use_system_color_summary">Urmează paleta sistemului</string>
     <string name="settings_always_show_navigation_bar">Arată întotdeauna bara de navigare</string>
     <string name="settings_always_show_navigation_bar_summary">Menține bara filelor vizibilă atunci când derulezi în jos.</string>
+    <string name="settings_show_scroll_to_top">Arată butonul de derulare sus</string>
+    <string name="settings_show_scroll_to_top_summary">Afișează butonul plutitor care readuce listele lungi în partea de sus.</string>
     <string name="settings_secure_quick_tiles">Securizează dalele rapide</string>
     <string name="settings_secure_quick_tiles_summary">Blochează schimbarea setărilor rapide atunci când telefonul este blocat.</string>
+    <string name="settings_require_grant_authentication">Confirmă autorizațiile aplicației</string>
+    <string name="settings_require_grant_authentication_summary">Solicită autentificarea biometrică sau blocarea ecranului înainte de a acorda unei aplicații acces la Shizuku.</string>
     <string name="settings_watchdog">Watchdog</string>
     <string name="settings_watchdog_summary">Repornește automat Shizuku dacă se blochează</string>
     <string name="settings_auto_disable_wireless_debugging">Dezactivează depanarea fără fir</string>
@@ -756,6 +812,28 @@
     <string name="settings_language_system">Implicit sistem</string>
     <string name="settings_black_night_theme">Negru Amoled</string>
     <string name="settings_black_night_theme_summary">Folosește o temă complet neagră în modul întunecat</string>
+    <string name="settings_amoled_background_only">Doar fundal negru</string>
+    <string name="settings_amoled_background_only_summary">Păstrează culorile închise obișnuite pentru carduri, ferestre de dialog și meniuri</string>
+    <string name="settings_accent_color">Culoare accent</string>
+    <string name="settings_accent_color_summary">Alege o paletă cu Material 3 când culoarea sistemului este dezactivată</string>
+    <string name="settings_palette_style">Stilul paletei</string>
+    <string name="settings_palette_tonal_spot">Punct tonal</string>
+    <string name="settings_palette_vibrant">Vibrant</string>
+    <string name="settings_palette_expressive">Expresiv</string>
+    <string name="settings_palette_monochrome">Monocrom</string>
+    <string name="settings_accent_indigo">Indigo</string>
+    <string name="settings_accent_purple">Violet</string>
+    <string name="settings_accent_blue">Albastru</string>
+    <string name="settings_accent_teal">Turcoaz</string>
+    <string name="settings_accent_green">Verde</string>
+    <string name="settings_accent_orange">Portocaliu</string>
+    <string name="settings_accent_pink">Roz</string>
+    <string name="settings_accent_custom">HEX personalizat...</string>
+    <string name="settings_accent_custom_title">Culoare de accent personalizată</string>
+    <string name="settings_accent_custom_hint">Introdu o culoare HEX de 6 cifre, de exemplu #3F51B5</string>
+    <string name="settings_accent_custom_invalid">Utilizează 6 cifre HEX, de exemplu #3F51B5</string>
+    <string name="settings_high_contrast">Contrast ridicat</string>
+    <string name="settings_high_contrast_summary">Culori mai intense pentru text și contur</string>
     <string name="settings_update_stable">Stabil</string>
     <string name="settings_update_beta">În dezvoltare</string>
     <string name="settings_permissions">Permisiuni</string>
@@ -854,6 +932,9 @@
     <string name="snackbar_battery_optimization_settings">Dezactivează optimizarea bateriei pentru a utiliza această funcție.</string>
     <string name="snackbar_action_fix">Repară</string>
     <string name="snackbar_update_available">O nouă actualizare este disponibilă</string>
+    <string name="update_notification_channel">Actualizări ale aplicației</string>
+    <string name="update_notification_title">Actualizare Shizuku disponibilă</string>
+    <string name="update_notification_text">Versiunea %1$s este disponibilă. Atinge pentru a deschide Shizuku.</string>
     <string name="snackbar_action_update">Actualizare</string>
     <!-- Updates -->
     <string name="check_for_updates">Verifică pentru actualizări</string>
@@ -901,6 +982,10 @@
     <string name="permission_description">Permite aplicației să folosească Shizuku.</string>
     <string name="permission_warning_template"><![CDATA[Permiți <b>%1$s</b> să %2$s\?]]></string>
     <string name="grant_dialog_button_allow_always">Permite tot timpul</string>
+    <string name="grant_dialog_button_allow_once">Permite o dată</string>
+    <string name="grant_auth_title">Confirmă-ți identitatea</string>
+    <string name="grant_auth_subtitle">Autentifică-te pentru a acorda acces la Shizuku.</string>
+    <string name="grant_auth_unavailable">Configurează o blocare a ecranului sau o metodă de autentificare biometrică pentru a confirma acordarea autorizărilor.</string>
     <string name="grant_dialog_button_deny">"Refuz"</string>
     <!-- Starter -->
     <string name="starter">Începător</string>
@@ -921,8 +1006,10 @@
     <string name="shell_backend_shizuku">Shizuku</string>
     <string name="shell_backend_root">Root</string>
     <string name="shell_backend_shizuku_status">Shizuku, uid %1$d</string>
+    <string name="shell_backend_shizuku_status_short">uid %1$d</string>
     <string name="shell_backend_root_status">Root, uid 0</string>
     <string name="shell_backend_offline">Niciun executant de comenzi nu este activ</string>
+    <string name="shell_backend_offline_short">Nimic nu rulează</string>
     <string name="shell_needs_a_backend">Pornește Shizuku sau alege Root pe un dispozitiv rootat: una dintre cele două execută comenzile. Root funcționează chiar și cu Shizuku oprit.</string>
     <string name="shell_intro">Rulează ca uid-ul pe care Shizuku îl rulează ca (2000 peste adb, 0 cu root), deci ajunge la tot ce poate accesa acel uid: /sdcard, /system și app data cu root. Se deschide în /sdcard, câte o comandă pe rând; fără un tty în spate, programele care necesită un terminal (nano, un prompt ssh) nu vor rula aici.</string>
     <string name="shell_root_granted">Root este disponibil: comenzile rulează ca uid 0.</string>
@@ -984,6 +1071,8 @@
     <string name="shell_stop">Oprește</string>
     <string name="shell_clear">Curăță</string>
     <string name="shell_copy">Copiază</string>
+    <string name="shell_copy_too_large">Rezultatul este prea lung pentru a fi copiat. Folosește opțiunea „Salvare” în schimb.</string>
+    <string name="shell_copy_failed">Nu s-a putut copia rezultatul. Folosește opțiunea „Salvare” în schimb.</string>
     <string name="shell_history_previous">Comanda anterioară</string>
     <string name="shell_history_next">Următoarea comandă</string>
     <!-- Watchdog -->
@@ -1068,6 +1157,8 @@
     <string name="app_section_permissions">Permisiuni de sistem</string>
     <string name="app_section_runtime">Permisiuni de execuție</string>
     <string name="app_section_ops">Operațiuni aplicații</string>
+    <string name="app_section_rotation">Rotire</string>
+    <string name="app_rotation_changed">Rotire schimbată</string>
     <string name="app_section_actions">Acțiuni</string>
     <string name="app_section_battery">Baterie</string>
     <string name="app_section_info">Informații</string>
@@ -1181,6 +1272,9 @@
     <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
          screen. The per-app list is unaffected either way, which is what the off state says. -->
     <string name="firewall_tile_label">Firewall</string>
+    <string name="firewall_mobile_only_on">Doar date mobile</string>
+    <string name="firewall_mobile_only_off">Toate rețelele</string>
+    <string name="firewall_mobile_only_failed">Nu s-a putut modifica regula pentru datele mobile</string>
     <!-- The three answers every switch outside the app can give. Unknown is its own word: a
          state that could not be read is not the same thing as a feature that is off. -->
     <string name="lab_state_on">Activat</string>

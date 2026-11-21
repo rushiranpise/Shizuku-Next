@@ -10,6 +10,37 @@ package moe.shizuku.manager.shell
 object ShellOutput {
 
     /**
+     * The most text worth putting on the clipboard.
+     *
+     * Android moves clips through Binder, whose transaction buffer is about 1 MB and is shared
+     * with everything else this process is doing. A Java string spends two bytes per character
+     * there, so 400,000 characters is roughly 800 KB before the parcel overhead. Above that the
+     * platform throws a wrapped `TransactionTooLargeException`, which used to take the app down
+     * when the shell copied a long transcript.
+     */
+    const val MAX_CLIPBOARD_CHARS = 400_000
+
+    /**
+     * The transcript as one clipboard string, or null when it is too large for the clipboard.
+     *
+     * The size is counted before anything is joined so a very large transcript cannot spend the
+     * memory on a string that is only going to be refused. The newline between lines is counted
+     * with them, which is why the last line is charged one character it does not use.
+     */
+    fun clipboardText(
+        texts: List<String>,
+        maxChars: Int = MAX_CLIPBOARD_CHARS
+    ): String? {
+        var size = 0L
+        for (text in texts) {
+            size += text.length
+            if (size > maxChars) return null
+            size++
+        }
+        return texts.joinToString("\n")
+    }
+
+    /**
      * Where [query] occurs in [text], case-insensitively, as ranges.
      *
      * Non-overlapping and left to right, so `aa` in `aaaa` is two matches rather than three.

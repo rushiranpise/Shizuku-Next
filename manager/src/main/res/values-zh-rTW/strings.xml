@@ -60,6 +60,9 @@
     <string name="paring_code_is_wrong">配對碼錯誤。</string>
     <string name="cannot_connect_port">無法連線到無線偵錯服務。\n\n請確保將 Shizuku 新增至所有防火牆、廣告攔截器、VPN 或類似可能限制網路存取的應用程式中的白名單。</string>
     <string name="dialog_adb_pairing_message">請開始配對，請執行以下步驟：\n- 導覽至「開發人員選項」\n- 啟用「USB 偵錯」與「無線偵錯」\n- 點選「無線偵錯」的左側\n- 點擊「使用配對碼配對裝置」\n- 在通知中輸入配對代碼</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -79,6 +82,7 @@
     <string name="enable">啟用</string>
     <string name="auto_pair_instructions">免輸碼配對：\n\n1. 開發人員選項 → 無線偵錯\n2. 使用配對碼配對裝置\n\nShizuku 會直接從那個對話方塊讀取配對碼和連接埠並自行啟動。配對完成前請保持對話方塊開啟。</string>
     <string name="auto_pair_manual">手動</string>
+    <string name="adb_pairing_developer_options">開發人員選項</string>
     <string name="development_settings">開發人員選項</string>
     <string name="notification_settings">通知設定</string>
     <string name="adb_pairing_tutorial_content_notification">一則來自 Shizuku 的通知將協助你完成配對。</string>
@@ -128,6 +132,8 @@
     <string name="app_management_sort_last_added">最近新增</string>
     <string name="app_management_sort_updated">最近更新t</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_process_allowed">已允許</string>
+    <string name="apps_processes_hide_short">隱藏</string>
     <string name="tab_home">首頁</string>
     <string name="tab_apps">應用程式</string>
     <string name="tab_shell">終端</string>
@@ -140,6 +146,8 @@
     <string name="labs_blocked_count">已阻止 %1$d 個</string>
     <string name="labs_blocked_empty">沒有已阻止的應用程式。</string>
     <string name="labs_bulk_apply">套用</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="rotation_mode_off">關閉</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">隱藏</string>
     <string name="tab_hide_developer_options">隱藏開發人員選項</string>
@@ -169,6 +177,7 @@
     <string name="tab_force_dark">強制深色模式</string>
     <string name="force_dark_gate">強制深色模式</string>
     <string name="force_dark_gate_disabled">強制深色模式已關閉</string>
+    <string name="force_dark_gate_off">關閉</string>
     <string name="force_dark_count">已強制 %1$d 個</string>
     <string name="force_dark_filter_forced">已強制</string>
     <string name="force_dark_filter_not">未強制</string>
@@ -1048,6 +1057,7 @@
     <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
          screen. The per-app list is unaffected either way, which is what the off state says. -->
     <string name="firewall_tile_label">防火牆</string>
+    <string name="firewall_mobile_only_off">全部網路</string>
     <!-- The three answers every switch outside the app can give. Unknown is its own word: a
          state that could not be read is not the same thing as a feature that is off. -->
     <string name="lab_state_on">開</string>

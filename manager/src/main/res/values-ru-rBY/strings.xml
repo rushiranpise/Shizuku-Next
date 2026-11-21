@@ -29,6 +29,9 @@
     <string name="paring_code_is_wrong">Неверный код сопряжения.</string>
     <string name="cannot_connect_port">Не удалось подключиться к службе беспроводной отладки.\n\nУбедитесь, что Shizuku разрешён в брандмауэре, блокировщике рекламы, VPN и других подобных приложениях, которые могут ограничивать доступ к сети.</string>
     <string name="dialog_adb_pairing_message">Чтобы начать сопряжение, выполните следующие действия:\n- Откройте «Параметры разработчика»\n- Включите «Отладку по USB» и «Беспроводную отладку»\n- Нажмите левую часть пункта «Беспроводная отладка»\n- Нажмите «Сопрячь устройство с кодом сопряжения»\n- Введите код сопряжения в уведомлении</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -96,14 +99,19 @@
     <string name="app_management_sort_last_added">Недавно добавленные</string>
     <string name="app_management_sort_updated">Обновлённые</string>
     <string name="app_management_sort_alphabetical">А–Я</string>
+    <string name="apps_process_allowed">Разрешено</string>
+    <string name="apps_processes_hide_short">Скрыть</string>
     <string name="tab_home">Главная</string>
     <string name="tab_apps">Приложения</string>
     <string name="tab_shell">Оболочка</string>
     <string name="labs_filter_allowed">Разрешено</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="rotation_mode_off">Выключено</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="hiding_gate_disabled">Отключён</string>
     <string name="hiding_filter_hidden">Скрытые</string>
     <string name="hiding_signal_wireless_debugging">Беспроводная отладка</string>
+    <string name="force_dark_gate_off">Выключено</string>
     <string name="power_confirm_title">Вы уверены?</string>
     <string name="activities_detail_package">Пакет</string>
     <string name="activities_copy">Копировать</string>

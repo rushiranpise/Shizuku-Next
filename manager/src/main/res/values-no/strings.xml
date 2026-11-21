@@ -40,6 +40,9 @@
         til \"Utvikleralternativer\"\n- Aktiver \"USB-feilsøking\" og \"Trådløs feilsøking\"\n-
         Trykk på venstre side av \"Trådløs feilsøking\"\n- Trykk på \"Par enhet med paringskode\"\n-
         Skriv inn paringskoden i varselet</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -64,6 +67,7 @@
     <string name="enable">Aktivere</string>
     <string name="auto_pair_instructions">Koble til uten å skrive kode:\n\n1. Utviklerinnstillinger → Trådløs feilsøking\n2. Koble enheten med paringskode\n\nShizuku leser koden og porten rett fra dialogboksen og starter seg selv. Hold dialogboksen åpen til sammenkoblingen blir ferdig.</string>
     <string name="auto_pair_manual">Manuell</string>
+    <string name="adb_pairing_developer_options">Alternativer for utviklere</string>
     <string name="development_settings">Utvikleralternativer</string>
     <string name="notification_settings">Varslingsalternativer</string>
     <string name="adb_pairing_tutorial_content_notification">En varsling fra Shizuku vil hjelpe deg
@@ -123,6 +127,8 @@
     <string name="app_management_sort_last_added">Nylig lagt til</string>
     <string name="app_management_sort_updated">Oppdatert</string>
     <string name="app_management_sort_alphabetical">A-Å</string>
+    <string name="apps_process_allowed">Tillatt</string>
+    <string name="apps_processes_hide_short">Skjul</string>
     <string name="tab_home">Hjem</string>
     <string name="tab_apps">Apper</string>
     <string name="tab_shell">Skall</string>
@@ -134,6 +140,8 @@
     <string name="labs_filter_blocked">Blokkert</string>
     <string name="labs_blocked_count">%1$d blokkert</string>
     <string name="labs_blocked_empty">Ingenting er blokkert.</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="rotation_mode_off">Av</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Skjuler</string>
     <string name="tab_hide_developer_options">Skjul utvikleralternativer</string>
@@ -160,6 +168,7 @@
     <string name="tab_force_dark">Tving mørk modus</string>
     <string name="force_dark_gate">Tving mørk modus</string>
     <string name="force_dark_gate_disabled">Tving mørk modus er av</string>
+    <string name="force_dark_gate_off">Av</string>
     <string name="force_dark_count">%1$d tvunget</string>
     <string name="force_dark_filter_forced">Tvunget</string>
     <string name="force_dark_filter_not">Ikke tvunget</string>

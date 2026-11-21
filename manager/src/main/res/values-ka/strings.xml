@@ -29,6 +29,9 @@
         შესრულებით:\n- გადადით „დეველოპერის პარამეტრებზე“\n- ჩართეთ „USB გამართვა“ და „უკაბელო
         გამართვა“\n- შეეხეთ „უკაბელო გამართვის“ მარცხენა მხარეს\n- შეეხეთ „მოწყობილობის დაწყვილება
         დაწყვილების კოდით“\n- შეიყვანეთ დაწყვილების კოდი შეტყობინებაში</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -93,6 +96,7 @@
     <string name="app_management_dialog_adb_is_limited_title">ADB-ის ნებართვა შეზღუდულია</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[ძალიან შესაძლებელია, რომ თქვენი მოწყობილობის მწარმოებელმა შეზღუდოს adb-ის ნებართვა.<p>შეიძლება არსებობდეს გამოსავალი თქვენი სისტემისთვის <b><a href=\"%1$s\">ეს დოკუმენტი</a></b>.]]></string>
     <string name="app_management_toggle_all">ყველაფრის გადართვა</string>
+    <!-- Per-app rotation override for apps that force landscape -->
     <!-- Hiding: what apps can read about this device -->
     <string name="intent_start">დაწყება</string>
     <string name="device_watchdog">მაკონტროლებელი</string>

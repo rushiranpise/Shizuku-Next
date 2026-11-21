@@ -39,7 +39,7 @@ import androidx.compose.material.icons.outlined.SignalCellularAlt
 import androidx.compose.material.icons.outlined.Usb
 import androidx.compose.material.icons.outlined.VpnKey
 import androidx.compose.material.icons.outlined.WifiOff
-import androidx.compose.material3.AlertDialog
+import moe.shizuku.manager.ui.component.AppAlertDialog
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -71,6 +71,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import moe.shizuku.manager.ui.theme.LocalWatch
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -103,6 +104,7 @@ import moe.shizuku.manager.ui.component.CenteredMessage
 import moe.shizuku.manager.ui.component.ChoiceRow
 import moe.shizuku.manager.ui.component.ExpressiveSwitch
 import moe.shizuku.manager.ui.component.SegmentedCard
+import moe.shizuku.manager.ui.component.WatchSearchField
 import moe.shizuku.manager.ui.component.appLabel
 import moe.shizuku.manager.ui.component.packageLine
 import moe.shizuku.manager.utils.Diag
@@ -253,10 +255,14 @@ fun LabsToggleScreen(
     var mobileOnly by remember { mutableStateOf<Set<String>>(emptySet()) }
     var loading by remember { mutableStateOf(true) }
     var query by remember { mutableStateOf("") }
+    var searchOpen by remember { mutableStateOf(false) }
     var filter by remember { mutableStateOf(ToggleFilter.ALL) }
     // The other question the list answers, and the one the app-ops list already asked: what
     // kind of app it is, so a system package can be told from something you installed.
     var kind by remember { mutableStateOf(ManageFilter.ALL) }
+    // The order this list was last left in, remembered per list: the firewall can be sorted
+    // by install date while autostart is by name. Defaults to A-Z with active apps on top.
+    val sort = rememberAppSort(feature.name)
     var version by remember { mutableIntStateOf(0) }
     var running by remember { mutableStateOf(ShizukuStateMachine.isRunning()) }
     var vpnClient by remember { mutableStateOf(Hiding.chosenVpnClient()) }
@@ -408,7 +414,10 @@ fun LabsToggleScreen(
         }
     }
 
-    val shown = remember(apps, blocked, launcherless, systemPackages, userPackages, disabledPackages, query, filter, kind, pinned) {
+    val shown = remember(
+        apps, blocked, launcherless, systemPackages, userPackages, disabledPackages,
+        query, filter, kind, pinned, sort.order, sort.keepInPlace
+    ) {
         val byKind = if (feature.userAppsOnly) {
             apps.filter { it.packageName in userPackages }
         } else when (kind) {
@@ -432,30 +441,19 @@ fun LabsToggleScreen(
                     it.packageName.contains(trimmed, ignoreCase = true)
             }
         }
-        // The apps this mode applies to first, then by name. The list is long - three hundred
-        // packages on a phone - and the rows somebody opens this screen for are the ones already on
-        // it, which sorting by name alone buries wherever the alphabet happens to put them. Inside
-        // each group the order is still the name, so nothing moves except across the line between
-        // applied and not.
-        //
-        // Each name is resolved once, before the sort rather than inside it: a comparator is asked
-        // for its keys about n log n times, and this one runs again on every keystroke of the
-        // search above it, so a lookup per comparison was the same few labels fetched over and over.
-        searched
-            .map { app -> app to appLabel(pm, app).lowercase() }
-            .sortedWith(
-                compareBy(
-                    { (app, _) -> app.packageName !in pinned },
-                    { (app, _) -> slotKey(app) !in blocked },
-                    { (_, label) -> label }
-                )
-            )
-            .map { (app, _) -> app }
+        // The chosen order first, then - each a stable sort of the one before - the rows that
+        // stay at the top. Pinned apps are always first; the apps this mode applies to come next
+        // unless the list was asked to keep them in place. A stable sort leaves the order within
+        // each group alone, so nothing moves except across those lines.
+        val ordered = searched.sortedForDisplay(sort.order) { appLabel(pm, it) }
+        val pinnedFirst = ordered.sortedBy { it.packageName !in pinned }
+        if (sort.keepInPlace) pinnedFirst
+        else pinnedFirst.sortedBy { slotKey(it) !in blocked }
     }
 
     if (pickingVpn) {
         val candidates = remember(apps) { Hiding.vpnCandidates() }
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { pickingVpn = false },
             title = { Text(stringResource(R.string.hiding_vpn_client)) },
             text = {
@@ -598,11 +596,78 @@ fun LabsToggleScreen(
         }
     }
 
+    // The bulk actions are a menu on the list's own row on a watch, where the header has room
+    // for the title and the gate switch and nothing else.
+    val bulkActions: @Composable (Modifier) -> Unit = { modifier ->
+        Box(modifier = modifier) {
+            IconButton(
+                onClick = { bulkMenu = true },
+                enabled = shown.isNotEmpty() || pinned.isNotEmpty()
+            ) {
+                Icon(
+                    Icons.Filled.MoreVert,
+                    contentDescription = stringResource(R.string.labs_bulk_actions)
+                )
+            }
+            DropdownMenu(
+                expanded = bulkMenu,
+                onDismissRequest = { bulkMenu = false }
+            ) {
+                val canBulk = gateOn && !carriesSession &&
+                    (!feature.needsShell || running) &&
+                    shown.any { it.packageName !in pinned }
+                DropdownMenuItem(
+                    text = {
+                        Text(
+                            stringResource(
+                                if (feature.signal == null) R.string.labs_bulk_allow_all
+                                else R.string.labs_bulk_show_all
+                            )
+                        )
+                    },
+                    onClick = { beginBulk(false) },
+                    enabled = canBulk
+                )
+                DropdownMenuItem(
+                    text = {
+                        Text(
+                            stringResource(
+                                if (feature.signal == null) R.string.labs_bulk_block_all
+                                else R.string.labs_bulk_hide_all
+                            )
+                        )
+                    },
+                    onClick = { beginBulk(true) },
+                    enabled = canBulk
+                )
+                if (pinned.isNotEmpty()) {
+                    DropdownMenuItem(
+                        text = { Text(stringResource(R.string.labs_clear_pins)) },
+                        onClick = {
+                            PinnedApps.clear()
+                            pinned = emptySet()
+                            bulkMenu = false
+                        }
+                    )
+                }
+            }
+        }
+    }
+
     Column(modifier = Modifier.fillMaxSize()) {
         TopAppBar(
             title = {
                 Column {
-                    Text(stringResource(feature.titleRes))
+                    Text(
+                        stringResource(feature.titleRes),
+                        style = if (LocalWatch.current) {
+                            MaterialTheme.typography.titleSmall
+                        } else {
+                            MaterialTheme.typography.titleLarge
+                        },
+                        maxLines = if (LocalWatch.current) 1 else Int.MAX_VALUE,
+                        overflow = if (LocalWatch.current) TextOverflow.Ellipsis else TextOverflow.Clip
+                    )
                     // How many are blocked, next to the name: the list's filters can say it,
                     // but the count is the thing somebody opens this screen to see.
                     Text(
@@ -622,7 +687,7 @@ fun LabsToggleScreen(
                     )
                 }
             },
-            windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+            windowInsets = watchTopAppBarInsets(),
             navigationIcon = {
                 IconButton(onClick = onBack) {
                     Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
@@ -641,58 +706,14 @@ fun LabsToggleScreen(
                     // padding of its own, so a switch put in it lands on the glass.
                     modifier = Modifier.padding(start = 4.dp)
                 )
-                Box(modifier = Modifier.padding(end = 8.dp)) {
-                    IconButton(
-                        onClick = { bulkMenu = true },
-                        enabled = shown.isNotEmpty() || pinned.isNotEmpty()
-                    ) {
-                        Icon(
-                            Icons.Filled.MoreVert,
-                            contentDescription = stringResource(R.string.labs_bulk_actions)
-                        )
-                    }
-                    DropdownMenu(
-                        expanded = bulkMenu,
-                        onDismissRequest = { bulkMenu = false }
-                    ) {
-                        val canBulk = gateOn && !carriesSession &&
-                            (!feature.needsShell || running) &&
-                            shown.any { it.packageName !in pinned }
-                        DropdownMenuItem(
-                            text = {
-                                Text(
-                                    stringResource(
-                                        if (feature.signal == null) R.string.labs_bulk_allow_all
-                                        else R.string.labs_bulk_show_all
-                                    )
-                                )
-                            },
-                            onClick = { beginBulk(false) },
-                            enabled = canBulk
-                        )
-                        DropdownMenuItem(
-                            text = {
-                                Text(
-                                    stringResource(
-                                        if (feature.signal == null) R.string.labs_bulk_block_all
-                                        else R.string.labs_bulk_hide_all
-                                    )
-                                )
-                            },
-                            onClick = { beginBulk(true) },
-                            enabled = canBulk
-                        )
-                        if (pinned.isNotEmpty()) {
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.labs_clear_pins)) },
-                                onClick = {
-                                    PinnedApps.clear()
-                                    pinned = emptySet()
-                                    bulkMenu = false
-                                }
-                            )
-                        }
-                    }
+                if (!LocalWatch.current) {
+                    AppSortMenu(
+                        sortOrder = sort.order,
+                        onSortOrderChange = { sort.order = it },
+                        keepInPlace = sort.keepInPlace,
+                        onKeepInPlaceChange = { sort.keepInPlace = it }
+                    )
+                    bulkActions(Modifier.padding(end = 8.dp))
                 }
             }
         )
@@ -735,41 +756,44 @@ fun LabsToggleScreen(
         }
 
         // Every chip gets an equal slot and shrinks its label to fit. A wide font changes
-        // the text size, not the number of rows.
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .alpha(contentAlpha)
-                .padding(horizontal = 16.dp, vertical = 4.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            // Not on a hiding list: everything on one is an app somebody installed, so there
-            // is no second kind of app to tell it apart from.
-            if (!feature.userAppsOnly) ManageFilter.entries.forEach { option ->
-                val count = when (option) {
-                    ManageFilter.ALL -> apps.size
-                    ManageFilter.USER -> userPackages.size
-                    ManageFilter.SYSTEM -> systemPackages.size
-                    ManageFilter.DISABLED -> disabledPackages.size
-                    ManageFilter.HIDDEN -> launcherless.size
+        // the text size, not the number of rows. On a watch the kind row is left out: the
+        // state row is the question this screen is about, and two rows of chips leave no list.
+        if (!LocalWatch.current) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .alpha(contentAlpha)
+                    .padding(horizontal = 16.dp, vertical = 4.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Not on a hiding list: everything on one is an app somebody installed, so there
+                // is no second kind of app to tell it apart from.
+                if (!feature.userAppsOnly) ManageFilter.entries.forEach { option ->
+                    val count = when (option) {
+                        ManageFilter.ALL -> apps.size
+                        ManageFilter.USER -> userPackages.size
+                        ManageFilter.SYSTEM -> systemPackages.size
+                        ManageFilter.DISABLED -> disabledPackages.size
+                        ManageFilter.HIDDEN -> launcherless.size
+                    }
+                    AppFilterChip(
+                        modifier = Modifier.weight(1f),
+                        label = stringResource(
+                            when (option) {
+                                ManageFilter.ALL -> R.string.manage_filter_all
+                                ManageFilter.USER -> R.string.manage_filter_user
+                                ManageFilter.SYSTEM -> R.string.manage_filter_system
+                                ManageFilter.DISABLED -> R.string.manage_filter_disabled
+                                ManageFilter.HIDDEN -> R.string.manage_filter_hidden
+                            }
+                        ),
+                        count = count,
+                        selected = kind == option,
+                        enabled = gateOn,
+                        onClick = { kind = option }
+                    )
                 }
-                AppFilterChip(
-                    modifier = Modifier.weight(1f),
-                    label = stringResource(
-                        when (option) {
-                            ManageFilter.ALL -> R.string.manage_filter_all
-                            ManageFilter.USER -> R.string.manage_filter_user
-                            ManageFilter.SYSTEM -> R.string.manage_filter_system
-                            ManageFilter.DISABLED -> R.string.manage_filter_disabled
-                            ManageFilter.HIDDEN -> R.string.manage_filter_hidden
-                        }
-                    ),
-                    count = count,
-                    selected = kind == option,
-                    enabled = gateOn,
-                    onClick = { kind = option }
-                )
             }
         }
 
@@ -803,9 +827,30 @@ fun LabsToggleScreen(
                     filter = if (filter == ToggleFilter.BLOCKED) ToggleFilter.ALL else ToggleFilter.BLOCKED
                 }
             )
+            if (LocalWatch.current) {
+                IconButton(onClick = {
+                    searchOpen = !searchOpen
+                    if (!searchOpen) query = ""
+                }) {
+                    Icon(
+                        if (searchOpen) Icons.Filled.Close else Icons.Filled.Search,
+                        contentDescription = stringResource(R.string.app_management_search_hint)
+                    )
+                }
+                bulkActions(Modifier)
+            }
         }
 
-        OutlinedTextField(
+        if (LocalWatch.current) {
+            if (searchOpen) {
+                WatchSearchField(
+                    query = query,
+                    hint = stringResource(R.string.app_management_search_hint),
+                    enabled = gateOn,
+                    onQuery = { query = it }
+                )
+            }
+        } else OutlinedTextField(
             value = query,
             onValueChange = { query = it },
             modifier = Modifier
@@ -900,7 +945,7 @@ fun LabsToggleScreen(
                                         isBlocked && gateOn && !carriesSession &&
                                             (!feature.needsShell || running)
                                     }
-                                    if (openWithHiding != null) {
+                                    if (!LocalWatch.current && openWithHiding != null) {
                                         IconButton(
                                             onClick = {
                                                 scope.launch {
@@ -923,14 +968,19 @@ fun LabsToggleScreen(
                                     }
 
                                     // The chips the other app lists carry, so an app says the
-                                    // same things about itself wherever it is listed.
-                                    AppStatusChips(
-                                        pi,
-                                        hidden = FirewallKey.userIdOf(slot) ==
-                                            UserHandleCompat.myUserId() &&
-                                            pi.packageName in launcherless
-                                    )
-                                    if (feature == AppToggleFeature.FIREWALL &&
+                                    // same things about itself wherever it is listed. Left off a
+                                    // watch row: with the switch they leave the package name no
+                                    // room, and the row wraps past the card.
+                                    if (!LocalWatch.current) {
+                                        AppStatusChips(
+                                            pi,
+                                            hidden = FirewallKey.userIdOf(slot) ==
+                                                UserHandleCompat.myUserId() &&
+                                                pi.packageName in launcherless
+                                        )
+                                    }
+                                    if (!LocalWatch.current &&
+                                        feature == AppToggleFeature.FIREWALL &&
                                         PackageTools.supportsMobileOnly()
                                     ) {
                                         val isMobileOnly = slot in mobileOnly
@@ -978,28 +1028,30 @@ fun LabsToggleScreen(
                                             )
                                         }
                                     }
-                                    IconButton(
-                                        onClick = {
-                                            val nowPinned = PinnedApps.toggle(pi.packageName)
-                                            pinned = if (nowPinned) {
-                                                pinned + pi.packageName
-                                            } else {
-                                                pinned - pi.packageName
+                                    if (!LocalWatch.current) {
+                                        IconButton(
+                                            onClick = {
+                                                val nowPinned = PinnedApps.toggle(pi.packageName)
+                                                pinned = if (nowPinned) {
+                                                    pinned + pi.packageName
+                                                } else {
+                                                    pinned - pi.packageName
+                                                }
                                             }
+                                        ) {
+                                            Icon(
+                                                Icons.Outlined.PushPin,
+                                                contentDescription = stringResource(
+                                                    if (pi.packageName in pinned) R.string.labs_unpin_app
+                                                    else R.string.labs_pin_app
+                                                ),
+                                                tint = if (pi.packageName in pinned) {
+                                                    MaterialTheme.colorScheme.primary
+                                                } else {
+                                                    MaterialTheme.colorScheme.onSurfaceVariant
+                                                }
+                                            )
                                         }
-                                    ) {
-                                        Icon(
-                                            Icons.Outlined.PushPin,
-                                            contentDescription = stringResource(
-                                                if (pi.packageName in pinned) R.string.labs_unpin_app
-                                                else R.string.labs_pin_app
-                                            ),
-                                            tint = if (pi.packageName in pinned) {
-                                                MaterialTheme.colorScheme.primary
-                                            } else {
-                                                MaterialTheme.colorScheme.onSurfaceVariant
-                                            }
-                                        )
                                     }
                                     ExpressiveSwitch(
                                         checked = isBlocked,
@@ -1095,7 +1147,7 @@ private fun BulkConfirmDialog(
     onDismiss: () -> Unit,
     onConfirm: () -> Unit
 ) {
-    AlertDialog(
+    AppAlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.labs_bulk_confirm_title)) },
         text = {
@@ -1139,7 +1191,7 @@ private fun BulkConfirmDialog(
 @Composable
 private fun BulkProgressDialog(feature: AppToggleFeature, state: BulkToggleState.Running) {
     val total = state.request.packages.size
-    AlertDialog(
+    AppAlertDialog(
         onDismissRequest = {},
         title = { Text(stringResource(R.string.labs_bulk_progress_title)) },
         text = {
@@ -1175,7 +1227,7 @@ private fun BulkResultDialog(
     onDismiss: () -> Unit
 ) {
     val changed = state.request.packages.size - state.failed
-    AlertDialog(
+    AppAlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.labs_bulk_result_title)) },
         text = {

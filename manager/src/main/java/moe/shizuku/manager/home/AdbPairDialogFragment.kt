@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.app.Dialog
 import android.content.ActivityNotFoundException
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
@@ -13,7 +14,6 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
@@ -38,6 +38,9 @@ class AdbPairDialogFragment : DialogFragment() {
 
     private lateinit var binding: AdbPairDialogBinding
 
+    /** Run when the dialog closes, including a successful pairing. */
+    var dismissAction: (() -> Unit)? = null
+
     private val viewModel: ViewModel by activityViewModels()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -49,7 +52,6 @@ class AdbPairDialogFragment : DialogFragment() {
             setView(binding.root)
             setNegativeButton(android.R.string.cancel, null)
             setPositiveButton(android.R.string.ok, null)
-            setNeutralButton(R.string.development_settings, null)
         }
         val dialog = builder.create()
         dialog.setCanceledOnTouchOutside(false)
@@ -64,9 +66,7 @@ class AdbPairDialogFragment : DialogFragment() {
 
         binding.pairingCode.error = null
 
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).isVisible = false
-
-        dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener {
+        binding.developerOptions.setOnClickListener {
             SettingsHelper.launchOrHighlightWirelessDebugging(it.context)
         }
 
@@ -78,7 +78,6 @@ class AdbPairDialogFragment : DialogFragment() {
                 -1
             }
             if (port > 65535 || port < 1) {
-                binding.port.isVisible = true
                 binding.port.error = context.getString(R.string.dialog_adb_invalid_port)
                 return@setOnClickListener
             }
@@ -88,21 +87,12 @@ class AdbPairDialogFragment : DialogFragment() {
             viewModel.run(port, password)
         }
 
-        viewModel.port.observe(this) {
-            if (it == -1) {
-                dialog.setTitle(R.string.dialog_adb_pairing_discovery)
-                binding.text1.isVisible = true
-                binding.pairingCode.isVisible = false
-                binding.port.editText!!.setText(it.toString())
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isVisible = false
-                dialog.getButton(AlertDialog.BUTTON_NEUTRAL).isVisible = true
-            } else {
-                dialog.setTitle(R.string.dialog_adb_pairing_title)
-                binding.text1.isVisible = false
-                binding.pairingCode.isVisible = true
-                binding.port.editText!!.setText(it.toString())
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isVisible = true
-                dialog.getButton(AlertDialog.BUTTON_NEUTRAL).isVisible = false
+        // Discovery normally fills this in. When it finds nothing, the port shown in the
+        // system pairing dialog can be typed instead, so the field stays usable either way.
+        viewModel.port.observe(this) { port ->
+            val field = binding.port.editText!!
+            if (port > 0 && field.text.isNullOrEmpty()) {
+                field.setText(port.toString())
             }
         }
     }
@@ -111,17 +101,6 @@ class AdbPairDialogFragment : DialogFragment() {
         super.onActivityCreated(savedInstanceState)
 
         val context = requireContext()
-        val inMultiScreenOrDisplay = (requireActivity().isInMultiWindowMode
-                || (requireActivity().window?.decorView?.display?.displayId ?: -1) > 0)
-
-        binding.text1.isVisible = inMultiScreenOrDisplay
-        binding.text2.isVisible = !inMultiScreenOrDisplay
-
-        if (inMultiScreenOrDisplay) {
-            dialog?.setTitle(R.string.dialog_adb_pairing_discovery)
-        } else {
-            dialog?.setTitle(R.string.dialog_adb_pairing_title)
-        }
 
         viewModel.result.observe(this) {
             if (it == null) {
@@ -146,6 +125,11 @@ class AdbPairDialogFragment : DialogFragment() {
     fun show(fragmentManager: FragmentManager) {
         if (fragmentManager.isStateSaved) return
         show(fragmentManager, javaClass.simpleName)
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        dismissAction?.invoke()
     }
 
     override fun getDialog(): AlertDialog? {

@@ -28,6 +28,9 @@
         »Brezžično odpravljanje napak«\n- Dotaknite se leve strani »Brezžično odpravljanje napak«\n-
         Dotaknite se »Seznani napravo s kodo za združevanje«\n- V obvestilo vnesite kodo za
         združevanje</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -93,6 +96,7 @@
     <string name="app_management_dialog_adb_is_limited_title">Dovoljenje adb je omejeno</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Zelo možno je, da proizvajalec vaše naprave omejuje dovoljenja adb.<p>Rešitev za vaš sistem je morda v <b><a href=\"%1$s\">tem dokumentu</a></b>.]]></string>
     <string name="app_management_toggle_all">Preklopi vse</string>
+    <!-- Per-app rotation override for apps that force landscape -->
     <!-- Hiding: what apps can read about this device -->
     <string name="intent_start">Začni</string>
     <string name="device_watchdog">Nadzorni pes</string>

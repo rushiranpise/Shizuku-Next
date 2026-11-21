@@ -27,9 +27,11 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.FilterList
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Sort
-import androidx.compose.material3.AlertDialog
+import moe.shizuku.manager.ui.component.AppAlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
@@ -86,6 +88,7 @@ import moe.shizuku.manager.manage.InstalledPackages
 import moe.shizuku.manager.receiver.ShizukuReceiverStarter
 import moe.shizuku.manager.ui.component.AppFilterChip
 import moe.shizuku.manager.ui.component.AppIcon
+import moe.shizuku.manager.ui.component.appLabel
 import moe.shizuku.manager.ui.component.packageLine
 import moe.shizuku.manager.ui.component.rowKey
 import moe.shizuku.manager.ui.component.AppRowLine
@@ -97,17 +100,9 @@ import moe.shizuku.manager.ui.component.ChipEmphasis
 import moe.shizuku.manager.ui.component.SegmentedCard
 import moe.shizuku.manager.ui.component.StatusChip
 import moe.shizuku.manager.ui.component.stripHtmlTags
+import moe.shizuku.manager.ui.component.WatchSearchField
+import moe.shizuku.manager.ui.theme.LocalWatch
 import moe.shizuku.manager.utils.ShizukuStateMachine
-
-enum class SortOrder {
-    /** Most recently installed first: when the app first appeared on the device. */
-    RECENTLY_INSTALLED,
-
-    /** Most recently updated first: when the APK last changed. */
-    RECENTLY_UPDATED,
-
-    ALPHABETICAL
-}
 
 /**
  * The Shizuku half of the filter: whether this app is allowed to use the service.
@@ -143,10 +138,15 @@ fun AppsScreen(
 
     var all by remember { mutableStateOf<List<PackageInfo>>(emptyList()) }
     var query by remember { mutableStateOf("") }
-    var sortOrder by remember { mutableStateOf(SortOrder.RECENTLY_INSTALLED) }
+    // The order this list was last left in. Defaults to recently added.
+    val sort = rememberAppSort("APPS", SortOrder.RECENTLY_INSTALLED)
     var selected by remember { mutableStateOf(setOf<String>()) }
     var version by remember { mutableIntStateOf(0) }
     var sortMenu by remember { mutableStateOf(false) }
+    var filterMenu by remember { mutableStateOf(false) }
+    var moreMenu by remember { mutableStateOf(false) }
+    var selectionMenu by remember { mutableStateOf(false) }
+    var searchOpen by remember { mutableStateOf(false) }
     var filter by remember { mutableStateOf(AppFilter.ALL) }
     // The kind of app, from the same set of filters the app-ops and Labs lists use.
     var kind by remember { mutableStateOf(ManageFilter.ALL) }
@@ -182,7 +182,7 @@ fun AppsScreen(
     // settled after launch, so that the swipe towards it stays cheap and the first visit does
     // not wait for the server to be asked about every package.
     var loadedFor by remember { mutableStateOf<Pair<Boolean, Int>?>(null) }
-    LaunchedEffect(running, active, warmUp, refreshKey) {
+    LaunchedEffect(running, active, warmUp, refreshKey, version) {
         if (!active && !warmUp) return@LaunchedEffect
         // A pull starts from a list that is already on screen, so it is the one case that
         // skips the guard: reading again is the whole point of the gesture. Every other
@@ -215,16 +215,13 @@ fun AppsScreen(
     // a server round trip per app, and the chips want its size before anyone picks that
     // filter. Recomputed when a toggle changes something (version), which is what keeps the
     // counts honest.
-    var grantedNames by remember { mutableStateOf(emptySet<String>()) }
+    var permanentGrantedNames by remember { mutableStateOf(emptySet<String>()) }
     var launcherless by remember { mutableStateOf(emptySet<String>()) }
     var derivedFor by remember { mutableStateOf<Pair<Boolean, Int>?>(null) }
     LaunchedEffect(all, version, active, warmUp) {
         if ((!active && !warmUp) || all.isEmpty()) {
-            grantedNames = emptySet()
+            permanentGrantedNames = emptySet()
             launcherless = emptySet()
-            // Nothing is known yet, or there is no server to ask, so there is no number to
-            // carry to the tab bar either.
-            onGrantedCount(0)
             return@LaunchedEffect
         }
         if (derivedFor == (running to version)) return@LaunchedEffect
@@ -240,10 +237,27 @@ fun AppsScreen(
 
             granted to withoutLauncher
         }
-        grantedNames = granted
+        permanentGrantedNames = granted
         launcherless = withoutLauncher
-        onGrantedCount(granted.size)
     }
+
+    // A temporary grant lives in the server's attached process, not in the saved flags. Its app
+    // is still holding access, so the Granted filter and the tab count include it. The row keeps
+    // the switch off because there is no permanent grant to switch off.
+    val oneTimeNames = remember(all, clientProcessesByUid, permanentGrantedNames) {
+        val namesByUid = all.mapNotNull { pi ->
+            pi.applicationInfo?.uid?.let { uid -> uid to pi.packageName }
+        }.toMap()
+        clientProcessesByUid
+            .filterValues { processes -> processes.any { it.allowed } }
+            .keys
+            .mapNotNull { namesByUid[it] }
+            .filterNot { it in permanentGrantedNames }
+            .toSet()
+    }
+    val grantedNames = permanentGrantedNames + oneTimeNames
+
+    LaunchedEffect(grantedNames.size) { onGrantedCount(grantedNames.size) }
 
     // What kind of app it is, which needs no server: the flags and the record are on the app
     // already, so these three are worked out from the list the package manager just handed over.
@@ -263,7 +277,7 @@ fun AppsScreen(
     }
 
     val shown = remember(
-        all, query, sortOrder, filter, kind,
+        all, query, sort.order, filter, kind,
         userPackages, systemPackages, disabledPackages, launcherless, grantedNames
     ) {
         val q = query.trim()
@@ -287,16 +301,9 @@ fun AppsScreen(
                 label.contains(q, ignoreCase = true) || it.packageName.contains(q, ignoreCase = true)
             }
         }
-        when (sortOrder) {
-            // The two timestamps the package manager keeps: when it was installed, and when
-            // the APK was last replaced. They differ for anything that has been updated.
-            SortOrder.RECENTLY_INSTALLED -> filtered.sortedByDescending { it.firstInstallTime }
-            SortOrder.RECENTLY_UPDATED -> filtered.sortedByDescending { it.lastUpdateTime }
-            SortOrder.ALPHABETICAL -> filtered.sortedBy {
-                runCatching { it.applicationInfo?.loadLabel(pm)?.toString()?.lowercase() }
-                    .getOrDefault(it.packageName)
-            }
-        }
+        // The two timestamps the package manager keeps: when it was installed, and when the
+        // APK was last replaced. They differ for anything that has been updated.
+        filtered.sortedForDisplay(sort.order) { appLabel(pm, it) }
     }
 
     val selectionMode = selected.isNotEmpty()
@@ -417,10 +424,59 @@ fun AppsScreen(
 
     Box(modifier = Modifier.fillMaxSize()) {
     Column(modifier = Modifier.fillMaxSize()) {
-        if (selectionMode) {
+        if (selectionMode && LocalWatch.current) {
+            TopAppBar(
+                title = {
+                    Text(
+                        stringResource(R.string.batch_selected_count, selected.size),
+                        style = MaterialTheme.typography.titleMedium,
+                        maxLines = 1
+                    )
+                },
+                windowInsets = watchTopAppBarInsets(),
+                navigationIcon = {
+                    IconButton(onClick = { selected = emptySet() }) {
+                        Icon(Icons.Filled.Close, contentDescription = null)
+                    }
+                },
+                actions = {
+                    Box {
+                        IconButton(onClick = { selectionMenu = true }) {
+                            Icon(Icons.Filled.MoreVert, contentDescription = null)
+                        }
+                        DropdownMenu(
+                            expanded = selectionMenu,
+                            onDismissRequest = { selectionMenu = false }
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.app_management_action_select_all)) },
+                                onClick = {
+                                    selected = shown.map { it.packageName }.toSet()
+                                    selectionMenu = false
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.app_management_action_grant)) },
+                                onClick = {
+                                    pendingBatch = true
+                                    selectionMenu = false
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.app_management_action_revoke)) },
+                                onClick = {
+                                    pendingBatch = false
+                                    selectionMenu = false
+                                }
+                            )
+                        }
+                    }
+                }
+            )
+        } else if (selectionMode) {
             TopAppBar(
                 title = { Text(stringResource(R.string.batch_selected_count, selected.size)) },
-                windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+                windowInsets = watchTopAppBarInsets(),
                 navigationIcon = {
                     IconButton(onClick = { selected = emptySet() }) {
                         Icon(Icons.Filled.Close, contentDescription = null)
@@ -438,26 +494,170 @@ fun AppsScreen(
                     }
                 }
             )
+        } else if (LocalWatch.current) {
+            TopAppBar(
+                title = {
+                    Text(
+                        stringResource(R.string.tab_apps),
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                },
+                windowInsets = watchTopAppBarInsets(),
+                actions = {
+                    IconButton(onClick = {
+                        if (searchOpen) {
+                            searchOpen = false
+                            query = ""
+                        } else {
+                            searchOpen = true
+                        }
+                    }) {
+                        Icon(
+                            Icons.Filled.Search,
+                            contentDescription = stringResource(R.string.app_management_search_hint)
+                        )
+                    }
+                    Box {
+                        IconButton(onClick = { filterMenu = true }) {
+                            Icon(
+                                Icons.Filled.FilterList,
+                                contentDescription = stringResource(R.string.apps_filter_title),
+                                tint = if (kind != ManageFilter.ALL || filter != AppFilter.ALL) {
+                                    MaterialTheme.colorScheme.primary
+                                } else {
+                                    MaterialTheme.colorScheme.onSurfaceVariant
+                                }
+                            )
+                        }
+                        DropdownMenu(
+                            expanded = filterMenu,
+                            onDismissRequest = { filterMenu = false }
+                        ) {
+                            ManageFilter.entries.forEach { option ->
+                                val count = when (option) {
+                                    ManageFilter.ALL -> all.size
+                                    ManageFilter.USER -> userPackages.size
+                                    ManageFilter.SYSTEM -> systemPackages.size
+                                    ManageFilter.DISABLED -> disabledPackages.size
+                                    ManageFilter.HIDDEN -> launcherless.size
+                                }
+                                DropdownMenuItem(
+                                    text = {
+                                        Text(
+                                            stringResource(
+                                                when (option) {
+                                                    ManageFilter.ALL -> R.string.manage_filter_all
+                                                    ManageFilter.USER -> R.string.manage_filter_user
+                                                    ManageFilter.SYSTEM -> R.string.manage_filter_system
+                                                    ManageFilter.DISABLED -> R.string.manage_filter_disabled
+                                                    ManageFilter.HIDDEN -> R.string.manage_filter_hidden
+                                                }
+                                            ) + "  " + count
+                                        )
+                                    },
+                                    onClick = {
+                                        kind = option
+                                        filterMenu = false
+                                    }
+                                )
+                            }
+                            DropdownMenuItem(
+                                text = {
+                                    Text(
+                                        stringResource(R.string.apps_filter_granted) +
+                                            "  " + grantedNames.size
+                                    )
+                                },
+                                onClick = {
+                                    filter = if (filter == AppFilter.GRANTED) {
+                                        AppFilter.ALL
+                                    } else {
+                                        AppFilter.GRANTED
+                                    }
+                                    filterMenu = false
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = {
+                                    Text(
+                                        stringResource(R.string.apps_filter_revoked) +
+                                            "  " + (all.size - grantedNames.size)
+                                    )
+                                },
+                                onClick = {
+                                    filter = if (filter == AppFilter.REVOKED) {
+                                        AppFilter.ALL
+                                    } else {
+                                        AppFilter.REVOKED
+                                    }
+                                    filterMenu = false
+                                }
+                            )
+                        }
+                    }
+                    Box {
+                        IconButton(onClick = { moreMenu = true }) {
+                            Icon(Icons.Filled.MoreVert, contentDescription = null)
+                        }
+                        DropdownMenu(
+                            expanded = moreMenu,
+                            onDismissRequest = { moreMenu = false }
+                        ) {
+                            if (shown.isNotEmpty()) {
+                                DropdownMenuItem(
+                                    text = {
+                                        Text(stringResource(R.string.app_management_toggle_all))
+                                    },
+                                    onClick = {
+                                        moreMenu = false
+                                        scope.launch {
+                                            val allGranted = shown.all {
+                                                it.packageName in grantedNames
+                                            }
+                                            pendingToggleAll = !allGranted
+                                        }
+                                    }
+                                )
+                            }
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.app_management_sort_last_added)) },
+                                onClick = {
+                                    sort.order = SortOrder.RECENTLY_INSTALLED
+                                    moreMenu = false
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.app_management_sort_updated)) },
+                                onClick = {
+                                    sort.order = SortOrder.RECENTLY_UPDATED
+                                    moreMenu = false
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.app_management_sort_alphabetical)) },
+                                onClick = {
+                                    sort.order = SortOrder.ALPHABETICAL
+                                    moreMenu = false
+                                }
+                            )
+                        }
+                    }
+                }
+            )
         } else {
             TopAppBar(
                 title = { Text(stringResource(R.string.tab_apps)) },
-                windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+                windowInsets = watchTopAppBarInsets(),
                 actions = {
                     // Long-press and Select all exist for picking individual apps; this is
                     // the one-tap version for when every listed app should be flipped.
                     if (shown.isNotEmpty()) {
                         PillButtonQuiet(onClick = {
                             scope.launch {
-                                val allGranted = withContext(Dispatchers.IO) {
-                                    shown.all {
-                                        runCatching {
-                                            AuthorizationManager.granted(
-                                                it.packageName,
-                                                it.applicationInfo!!.uid
-                                            )
-                                        }.getOrDefault(false)
-                                    }
-                                }
+                                // A temporary grant is access too, so an app holding one
+                                // counts as granted here. Otherwise Toggle all offers to grant
+                                // it permanently instead of taking the access away.
+                                val allGranted = shown.all { it.packageName in grantedNames }
                                 pendingToggleAll = !allGranted
                             }
                         }) { Text(stringResource(R.string.app_management_toggle_all)) }
@@ -469,15 +669,15 @@ fun AppsScreen(
                     DropdownMenu(expanded = sortMenu, onDismissRequest = { sortMenu = false }) {
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.app_management_sort_last_added)) },
-                            onClick = { sortOrder = SortOrder.RECENTLY_INSTALLED; sortMenu = false }
+                            onClick = { sort.order = SortOrder.RECENTLY_INSTALLED; sortMenu = false }
                         )
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.app_management_sort_updated)) },
-                            onClick = { sortOrder = SortOrder.RECENTLY_UPDATED; sortMenu = false }
+                            onClick = { sort.order = SortOrder.RECENTLY_UPDATED; sortMenu = false }
                         )
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.app_management_sort_alphabetical)) },
-                            onClick = { sortOrder = SortOrder.ALPHABETICAL; sortMenu = false }
+                            onClick = { sort.order = SortOrder.ALPHABETICAL; sortMenu = false }
                         )
                     }
                 }
@@ -492,90 +692,102 @@ fun AppsScreen(
         // its label shrinks to fit, so a wide font never pushes the row onto a second line.
         // Filter first, search within it: the two answer different questions and the search
         // box alone cannot say "only what is granted".
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 4.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            ManageFilter.entries.forEach { option ->
-                val count = when (option) {
-                    ManageFilter.ALL -> all.size
-                    ManageFilter.USER -> userPackages.size
-                    ManageFilter.SYSTEM -> systemPackages.size
-                    ManageFilter.DISABLED -> disabledPackages.size
-                    ManageFilter.HIDDEN -> launcherless.size
+        if (!LocalWatch.current) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 4.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                ManageFilter.entries.forEach { option ->
+                    val count = when (option) {
+                        ManageFilter.ALL -> all.size
+                        ManageFilter.USER -> userPackages.size
+                        ManageFilter.SYSTEM -> systemPackages.size
+                        ManageFilter.DISABLED -> disabledPackages.size
+                        ManageFilter.HIDDEN -> launcherless.size
+                    }
+                    AppFilterChip(
+                        modifier = Modifier.weight(1f),
+                        label = stringResource(
+                            when (option) {
+                                ManageFilter.ALL -> R.string.manage_filter_all
+                                ManageFilter.USER -> R.string.manage_filter_user
+                                ManageFilter.SYSTEM -> R.string.manage_filter_system
+                                ManageFilter.DISABLED -> R.string.manage_filter_disabled
+                                ManageFilter.HIDDEN -> R.string.manage_filter_hidden
+                            }
+                        ),
+                        count = count,
+                        selected = kind == option,
+                        onClick = { kind = option }
+                    )
                 }
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 4.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 AppFilterChip(
                     modifier = Modifier.weight(1f),
-                    label = stringResource(
-                        when (option) {
-                            ManageFilter.ALL -> R.string.manage_filter_all
-                            ManageFilter.USER -> R.string.manage_filter_user
-                            ManageFilter.SYSTEM -> R.string.manage_filter_system
-                            ManageFilter.DISABLED -> R.string.manage_filter_disabled
-                            ManageFilter.HIDDEN -> R.string.manage_filter_hidden
-                        }
-                    ),
-                    count = count,
-                    selected = kind == option,
-                    onClick = { kind = option }
+                    label = stringResource(R.string.apps_filter_granted),
+                    count = grantedNames.size,
+                    selected = filter == AppFilter.GRANTED,
+                    onClick = {
+                        filter = if (filter == AppFilter.GRANTED) AppFilter.ALL else AppFilter.GRANTED
+                    }
+                )
+                AppFilterChip(
+                    modifier = Modifier.weight(1f),
+                    label = stringResource(R.string.apps_filter_revoked),
+                    count = all.size - grantedNames.size,
+                    selected = filter == AppFilter.REVOKED,
+                    onClick = {
+                        filter = if (filter == AppFilter.REVOKED) AppFilter.ALL else AppFilter.REVOKED
+                    }
                 )
             }
         }
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 4.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            AppFilterChip(
-                modifier = Modifier.weight(1f),
-                label = stringResource(R.string.apps_filter_granted),
-                count = grantedNames.size,
-                selected = filter == AppFilter.GRANTED,
-                onClick = {
-                    filter = if (filter == AppFilter.GRANTED) AppFilter.ALL else AppFilter.GRANTED
-                }
-            )
-            AppFilterChip(
-                modifier = Modifier.weight(1f),
-                label = stringResource(R.string.apps_filter_revoked),
-                count = all.size - grantedNames.size,
-                selected = filter == AppFilter.REVOKED,
-                onClick = {
-                    filter = if (filter == AppFilter.REVOKED) AppFilter.ALL else AppFilter.REVOKED
-                }
-            )
+        if (!LocalWatch.current || searchOpen) {
+            if (LocalWatch.current) {
+                WatchSearchField(
+                    query = query,
+                    hint = stringResource(R.string.app_management_search_hint),
+                    onQuery = { query = it }
+                )
+            } else {
+                OutlinedTextField(
+                    value = query,
+                    onValueChange = { query = it },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                        .televisionTextInput(MaterialTheme.shapes.extraLarge),
+                    placeholder = { Text(stringResource(R.string.app_management_search_hint)) },
+                    leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
+                    trailingIcon = {
+                        // Clearing a search is the one thing you always end up wanting.
+                        if (query.isNotEmpty()) {
+                            IconButton(onClick = { query = "" }) {
+                                Icon(Icons.Filled.Close, contentDescription = stringResource(android.R.string.cancel))
+                            }
+                        }
+                    },
+                    singleLine = true,
+                    shape = MaterialTheme.shapes.extraLarge,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant,
+                        focusedBorderColor = MaterialTheme.colorScheme.primary
+                    )
+                )
+            }
         }
-
-        OutlinedTextField(
-            value = query,
-            onValueChange = { query = it },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp)
-                .televisionTextInput(MaterialTheme.shapes.extraLarge),
-            placeholder = { Text(stringResource(R.string.app_management_search_hint)) },
-            leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
-            trailingIcon = {
-                // Clearing a search is the one thing you always end up wanting.
-                if (query.isNotEmpty()) {
-                    IconButton(onClick = { query = "" }) {
-                        Icon(Icons.Filled.Close, contentDescription = stringResource(android.R.string.cancel))
-                    }
-                }
-            },
-            singleLine = true,
-            shape = MaterialTheme.shapes.extraLarge,
-            colors = OutlinedTextFieldDefaults.colors(
-                unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant,
-                focusedBorderColor = MaterialTheme.colorScheme.primary
-            )
-        )
 
         RefreshBox(
             isRefreshing = refreshing,
@@ -592,9 +804,13 @@ fun AppsScreen(
         ) {
             items(shown, key = { it.rowKey() }) { pi ->
                 val uid = pi.applicationInfo!!.uid
-                val granted = remember(pi.packageName, version) {
+                val permanentGranted = remember(pi.packageName, version) {
                     runCatching { AuthorizationManager.granted(pi.packageName, uid) }.getOrDefault(false)
                 }
+                val oneTime = pi.packageName in oneTimeNames
+                // The switch is on while either kind of access is held, so turning it off
+                // revokes the temporary grant as well as the permanent one.
+                val granted = permanentGranted || oneTime
                 val isSelected = pi.packageName in selected
                 val processes = clientProcessesByUid[uid].orEmpty().filter { it.allowed }
 
@@ -642,7 +858,11 @@ fun AppsScreen(
                                             onClick = { toggleProcesses(uid) }
                                         )
                                     }
-                                    AppStatusChips(pi, hidden = pi.packageName in launcherless)
+                                    AppStatusChips(
+                                        pi,
+                                        hidden = pi.packageName in launcherless,
+                                        oneTime = oneTime
+                                    )
                                     if (selectionMode) {
                                         Checkbox(checked = isSelected, onCheckedChange = null)
                                     } else {
@@ -740,7 +960,7 @@ fun AppsScreen(
 
     if (permissionLimited) {
         val adbUrl = runCatching { Helps.ADB.get() }.getOrDefault("")
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { permissionLimited = false },
             title = { Text(stringResource(R.string.app_management_dialog_adb_is_limited_title)) },
             text = {
@@ -770,7 +990,7 @@ fun AppsScreen(
     }
 
     pendingToggleAll?.let { grant ->
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { pendingToggleAll = null },
             title = {
                 Text(
@@ -798,7 +1018,7 @@ fun AppsScreen(
     }
 
     pendingBatch?.let { grant ->
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { pendingBatch = null },
             title = {
                 Text(
@@ -831,7 +1051,7 @@ fun AppsScreen(
         val label = all.firstOrNull { it.applicationInfo?.uid == process.uid }
             ?.let { runCatching { it.applicationInfo?.loadLabel(pm)?.toString() }.getOrNull() }
             ?: process.packageName.ifBlank { "uid ${process.uid}" }
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { pendingStopProcess = null },
             title = { Text(stringResource(R.string.apps_process_stop_title)) },
             text = { Text(stringResource(R.string.apps_process_stop_message, process.pid, label)) },

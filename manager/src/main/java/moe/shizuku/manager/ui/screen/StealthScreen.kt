@@ -21,7 +21,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.AlertDialog
+import moe.shizuku.manager.ui.component.AppAlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -156,7 +156,7 @@ fun StealthScreen(onBack: () -> Unit) {
     Column(modifier = Modifier.fillMaxSize()) {
         TopAppBar(
             title = { Text(stringResource(R.string.tools_stealth)) },
-            windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+            windowInsets = watchTopAppBarInsets(),
             navigationIcon = {
                 IconButton(onClick = onBack) {
                     Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
@@ -359,7 +359,7 @@ fun StealthScreen(onBack: () -> Unit) {
     }
 
     if (pendingUninstall) {
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { pendingUninstall = false },
             title = { Text(stringResource(R.string.stealth_uninstall_required)) },
             text = { Text(stringResource(R.string.stealth_uninstall_message)) },
@@ -378,7 +378,7 @@ fun StealthScreen(onBack: () -> Unit) {
     }
 
     error?.let { message ->
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { error = null },
             title = { Text(stringResource(R.string.error)) },
             text = { Text(message) },

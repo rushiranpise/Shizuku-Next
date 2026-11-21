@@ -77,12 +77,19 @@ class AdbPairingAccessibilityService : AccessibilityService() {
     /** True once the pairing row was clicked, so the service does not keep tapping Settings. */
     private var driveDone = false
 
+    /** True once the Wireless debugging row was opened, so its page is not clicked again. */
+    private var wirelessOpened = false
+
     private var lastDriveTarget: String? = null
     private var lastDriveAt = 0L
 
     /** Only TV needs driving; elsewhere the user drives the dialog themselves. */
     private val isTelevision
         get() = EnvironmentUtils.isTelevision() && EnvironmentUtils.isTlsSupported()
+
+    /** Wear OS hides both Settings rows below the fold; a phone shows them at once. */
+    private val isWatch
+        get() = EnvironmentUtils.isWatch()
 
     /**
      * Called when Android binds the service.
@@ -96,8 +103,10 @@ class AdbPairingAccessibilityService : AccessibilityService() {
 
         paired = false
         driveDone = false
+        wirelessOpened = false
         driveAttempts = 0
         lastDriveTarget = null
+        instance = this
 
         Diag.info(TAG, "Connected, television: $isTelevision")
 
@@ -193,17 +202,36 @@ class AdbPairingAccessibilityService : AccessibilityService() {
 
             val root = settingsRoot()
             if (root != null) {
-                val pairRow = findText(root, PAIR_CODE_TEXT)
+                val pairRow = if (isWatch) {
+                    findText(root, PAIR_CODE_TEXTS)
+                } else {
+                    findText(root, PAIR_CODE_TEXT)
+                }
                 if (pairRow != null) {
                     if (clickRow(pairRow, PAIR_CODE_TARGET)) {
                         driveDone = true
                         return
                     }
+                } else if (isWatch &&
+                    (wirelessOpened ||
+                        findTextAnywhere(root, PAIR_CODE_TEXTS) != null ||
+                        findTextAnywhere(root, PAIRED_DEVICES_TEXT) != null)
+                ) {
+                    // The Wireless debugging page, where the pair row sits below the fold on a
+                    // watch. Its own title says "Wireless debugging" too, so it must not be
+                    // clicked again: that is the switch row, not a way into the page.
+                    scrollForward(root)
                 } else {
                     // Developer options. The title's clickable parent is the left side of
                     // the row; the switch beside it is a sibling, so this opens the screen
                     // rather than toggling wireless debugging.
-                    findText(root, WIRELESS_TEXT)?.let { clickRow(it, WIRELESS_TARGET) }
+                    val wirelessRow = findText(root, WIRELESS_TEXT)
+                    if (wirelessRow != null) {
+                        if (clickRow(wirelessRow, WIRELESS_TARGET)) wirelessOpened = true
+                    } else if (isWatch) {
+                        // Wear OS puts Wireless debugging under the fold of a short watch list.
+                        scrollForward(root)
+                    }
                 }
             }
 
@@ -222,11 +250,55 @@ class AdbPairingAccessibilityService : AccessibilityService() {
         return null
     }
 
-    private fun findText(node: AccessibilityNodeInfo, text: String): AccessibilityNodeInfo? {
-        if (node.text?.toString() == text && node.isVisibleToUser) return node
+    private fun findText(node: AccessibilityNodeInfo, text: String): AccessibilityNodeInfo? =
+        findText(node, setOf(text))
+
+    private fun findText(
+        node: AccessibilityNodeInfo,
+        texts: Set<String>
+    ): AccessibilityNodeInfo? {
+        if (node.text?.toString() in texts && node.isVisibleToUser) return node
         for (index in 0 until node.childCount) {
             val child = node.getChild(index) ?: continue
-            findText(child, text)?.let { return it }
+            findText(child, texts)?.let { return it }
+        }
+        return null
+    }
+
+    /** The same walk, for deciding which Settings page is open rather than what to tap. */
+    private fun findTextAnywhere(node: AccessibilityNodeInfo, text: String): AccessibilityNodeInfo? =
+        findTextAnywhere(node, setOf(text))
+
+    private fun findTextAnywhere(
+        node: AccessibilityNodeInfo,
+        texts: Set<String>
+    ): AccessibilityNodeInfo? {
+        if (node.text?.toString() in texts) return node
+        for (index in 0 until node.childCount) {
+            val child = node.getChild(index) ?: continue
+            findTextAnywhere(child, texts)?.let { return it }
+        }
+        return null
+    }
+
+    /**
+     * Scrolls the Settings list once, for the rows a watch puts below the fold.
+     *
+     * Only a list is scrolled, and only forward: the drive already knows which row it is
+     * looking for, and scrolling back would undo the reveal.
+     */
+    private fun scrollForward(root: AccessibilityNodeInfo): Boolean {
+        val scrollable = findScrollable(root) ?: return false
+        return runCatching {
+            scrollable.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD)
+        }.getOrDefault(false)
+    }
+
+    private fun findScrollable(node: AccessibilityNodeInfo): AccessibilityNodeInfo? {
+        if (node.isScrollable) return node
+        for (index in 0 until node.childCount) {
+            val child = node.getChild(index) ?: continue
+            findScrollable(child)?.let { return it }
         }
         return null
     }
@@ -442,6 +514,7 @@ class AdbPairingAccessibilityService : AccessibilityService() {
         // Logged so the log can tell a service that was switched off (this line) from one whose
         // process died (no line, and a crash entry instead).
         Diag.info(TAG, "Unbound, paired: $paired")
+        if (instance === this) instance = null
         handler.removeCallbacksAndMessages(null)
         return super.onUnbind(intent)
     }
@@ -483,6 +556,17 @@ class AdbPairingAccessibilityService : AccessibilityService() {
         /** The two rows between Developer options and the dialog, and how often to look. */
         private const val WIRELESS_TEXT = "Wireless debugging"
         private const val PAIR_CODE_TEXT = "Pair device with pairing code"
+
+        /**
+         * What the pairing row is called. Phones say "Pair device with pairing code"; Wear OS
+         * says "Pair new device", and the drive has to know both or automatic pairing never
+         * leaves the Wireless debugging page on a watch.
+         */
+        private val PAIR_CODE_TEXTS = setOf(
+            PAIR_CODE_TEXT,
+            "Pair new device",
+        )
+        private const val PAIRED_DEVICES_TEXT = "Paired devices"
         private const val WIRELESS_TARGET = "wireless"
         private const val PAIR_CODE_TARGET = "pairing-code"
         private const val DRIVE_INITIAL_DELAY_MS = 800L
@@ -490,6 +574,29 @@ class AdbPairingAccessibilityService : AccessibilityService() {
         private const val DRIVE_EVENT_DELAY_MS = 350L
         private const val DRIVE_ATTEMPTS = 20
         private const val CLICK_DEBOUNCE_MS = 1_500L
+
+        /** The connected service, so the app can ask it to drive after opening Settings. */
+        @Volatile
+        private var instance: AdbPairingAccessibilityService? = null
+
+        /**
+         * Asks a connected reader to start driving the Settings rows now.
+         *
+         * The service otherwise only drives when Android binds it, which happens once. If the
+         * service was already on from an earlier attempt, tapping Automatic opened Developer
+         * options and nothing followed, because no new connection was made and no event from
+         * the watch's settings app was delivered to the service.
+         */
+        @JvmStatic
+        fun drive() {
+            val service = instance ?: return
+            // A fresh run, even if an earlier one had given up or finished its taps.
+            service.driveDone = false
+            service.wirelessOpened = false
+            service.driveAttempts = 0
+            service.handler.removeCallbacks(service.driveAgain)
+            service.handler.postDelayed(service.driveAgain, DRIVE_INITIAL_DELAY_MS)
+        }
 
         /** Long enough for discovery to answer, short enough to report a failure. */
         private const val PAIRING_DISCOVERY_TIMEOUT_MS = 8_000L

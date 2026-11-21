@@ -13,6 +13,8 @@
     <string name="home_wireless_adb_title"><![CDATA[Запуск за допомогою налагоджування через Wi-Fi]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Починаючи без мережі: пристрій потребує бездротової налагодження і знову, доки він не зупиниться. Це може зайняти до двох хвилин, перш ніж почати або відступити.</string>
     <string name="home_usb_adb_needs_network">Для запуску з USB використовується класичний порт ADB, а для його повторного відкриття потрібне з’єднання з мережею. Під’єднайтеся до Wi-Fi один раз або виберіть <b>Запустити без Wi-Fi</b> як спосіб запуску й натомість запустіть бездротове налагодження.</string>
+    <string name="home_usb_adb_needs_network_no_option">Для запуску з USB використовується стандартний порт ADB, а повторне відкриття потребує з’єднання з мережею. Під’єднайтеся до Wi-Fi один раз або запустіть із комп’ютера за допомогою команди ADB у розділі «Інші способи».</string>
+    <string name="home_usb_adb_needs_computer">Для запуску через USB потрібен класичний порт ADB. У цій версії Android під’єднайте пристрій до комп’ютера та запустіть Shizuku за допомогою команди ADB у розділі «Інші способи».</string>
     <string name="home_wireless_adb_summary">Починається за допомогою бездротового налагодження.</string>
     <string name="home_usb_adb_title"><![CDATA[Почати через USB налагодження]]></string>
     <string name="home_usb_adb_summary">Починається використання USB-налагодження.</string>
@@ -60,6 +62,10 @@
     <string name="paring_code_is_wrong">Код парування неправильний.</string>
     <string name="cannot_connect_port">Не вдається під’єднатися до служби бездротового налагодження.\n\nПереконайтеся, що Shizuku додано до списку дозволених у всіх брандмауерах, блокувальниках реклами, VPN-застосунках та інших подібних застосунках, які можуть обмежувати доступ до мережі.</string>
     <string name="dialog_adb_pairing_message">Щоб розпочати сполучення, виконайте такі дії:\n- Перейдіть до розділу «Параметри розробника»\n- Увімкніть «Налагодження через USB» та «Бездротове налагодження»\n- Торкніться лівої частини пункту «Бездротове налагодження»\n- Торкніться «З’єднати пристрій за допомогою коду сполучення»\n- Введіть код сполучення з сповіщення</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
+    <string name="dialog_adb_pairing_message_manual">Щоб розпочати сполучення, виконайте такі дії:\n- Перейдіть до розділу «Параметри розробника»\n- Увімкніть «Налагодження через USB» і «Бездротове налагодження»\n- Торкніться лівого боку пункту «Бездротове налагодження»\n- Торкніться «Створити пару за допомогою коду сполучення»\n- Введіть у поля нижче код і порт, які там показуються\n\nНе закривайте це діалогове вікно, доки сполучення не завершиться. Якщо код зникає, коли ви повертаєтеся до цього екрана, скористайтеся режимом розділеного екрана, якщо ваш пристрій його підтримує.</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -68,7 +74,10 @@
     <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
+    <string name="dialog_adb_pairing_accessibility_permission_tv">Android блокує цей перемикач для застосунках, установлених не з магазину застосунків, а на телевізорі в розділі «Інформація про програму» немає пункту «Дозволити обмежені налаштування», щоб розблокувати його. Для цього один раз знадобиться комп’ютер, під’єднаний до телевізора через ADB: або надайте вказаний вище дозвіл, щоб Shizuku міг самостійно ввімкнути службу, або розблокуйте перемикач за допомогою:\n\n^1</string>
+    <string name="dialog_adb_pairing_accessibility_enable_watch">Автоматичне створення пари зчитує код із системного діалогового вікна, тому службу спеціальних можливостей Shizuku потрібно ввімкнути. Увімкніть її на наступному екрані.\n\nЯкщо перемикач неактивний, відкрийте інформацію про застосунок і дозвольте використання обмежених налаштувань.</string>
     <string name="dialog_adb_pairing_open_app_info">Про застосунок</string>
+    <string name="dialog_adb_pairing_accessibility_enable">Автоматичне творення пари зчитує код із системного діалогового вікна за допомогою служби спеціальних можливостей Shizuku, тому її потрібно ввімкнути — і лише на необхідний час: служба вимкнеться сама, щойно знайде код, або через хвилину, щоб заощадити заряд. Зазвичай Shizuku вмикає її самостійно, для чого потрібен дозвіл WRITE_SECURE_SETTINGS, якого ще немає після нового встановлення.\n\nУвімкніть її на наступному екрані, введіть код вручну в розділі «Вручну» або надайте дозвіл один раз:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Щоб почати сполучення, виконайте такі дії:\n- Перейдіть до розділу «Параметри розробника»\n- Увімкніть «Налагодження USB» і «Бездротове налагодження»\n- Торкніться лівої частини пункту «Бездротове налагодження»\n- Торкніться «З’єднати пристрій за допомогою коду сполучення». Shizuku автоматично виявить код сполучення.</string>
     <string name="adb_pairing_requires_multi_window">Спершу ввійдіть в режим розділеного екрана.</string>
     <string name="adb_pairing_requires_multi_window_reason">Система вимагає, щоб діалогове вікно сполучення завжди було видимим. Використання режиму розділеного екрана — єдиний спосіб одночасно бачити цей застосунок і системне діалогове вікно.</string>
@@ -77,7 +86,9 @@
     <string name="adb_pair_required">Спочатку пройдіть етап парування.</string>
     <string name="enable">Увімкнути</string>
     <string name="auto_pair_instructions">Під’єднайте пристрій без введення коду:\n\n1. Параметри розробника → Бездротове налагодження\n2. З’єднати пристрій за допомогою коду сполучення\n\nShizuku зчитує код і порт безпосередньо з цього діалогового вікна та запускається. Не закривайте вікно, доки сполучення не завершиться.</string>
+    <string name="auto_pair_instructions_watch">Shizuku відкриває «Параметри розробника» та «Бездротове налагодження», зчитує код створення пари й запускається. Не закривайте системне діалогове вікно, доки сполучення не завершиться.</string>
     <string name="auto_pair_manual">Вручну</string>
+    <string name="adb_pairing_developer_options">Параметри розробника</string>
     <string name="development_settings">Параметри розробника</string>
     <string name="notification_settings">Налаштування сповіщень</string>
     <string name="adb_pairing_tutorial_content_notification">Сповіщення від Shizuku допоможе завершити сполучення.</string>
@@ -110,6 +121,8 @@
     <string name="home_dialog_duplicate_app_detected_title">Виявлено копію застосунку</string>
     <string name="home_dialog_duplicate_app_detected_message">На вашому пристрої встановлена інша версія цього застосунку. Для продовження видаліть всі повторювані версії і перезавантажте ваш пристрій.</string>
     <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
+    <string name="home_permission_owned_by">Застосунки шукають Shizuku за його дозволом, а Android повідомляє, що його надає %1$s — копія Shizuku або те, що від неї залишилося. Ці застосунки звертатимуться до неї, доки її не буде видалено, а пристрій перезавантажено.</string>
+    <string name="home_permission_not_registered">Застосунки шукають Shizuku за його дозволом, але Android ще не зареєстрував його. Після перевстановлення це може залишатися, доки пристрій не перезавантажать. На сам Shizuku це не впливає, але інші застосунки можуть його не знаходити.</string>
     <string name="home_dialog_button_exit">Вийти</string>
     <!-- Application management -->
     <string name="app_management_dialog_adb_is_limited_title">Дозвіл на adb обмежений</string>
@@ -120,6 +133,7 @@
     <string name="apps_needs_shizuku">Запустіть Shizuku, щоб переглянути застосунки</string>
     <string name="apps_empty">Немає застосунків для показу</string>
     <string name="apps_filter_empty">Немає застосунків у цьому фільтрі</string>
+    <string name="apps_filter_title">Фільтрація застосунків</string>
     <string name="apps_filter_all">Всі</string>
     <string name="apps_filter_granted">Дозволено</string>
     <string name="apps_filter_revoked">Відкликано</string>
@@ -128,6 +142,8 @@
     <string name="app_management_sort_last_added">Нещодавно додані</string>
     <string name="app_management_sort_updated">Оновлено</string>
     <string name="app_management_sort_alphabetical">А-Я</string>
+    <string name="apps_process_allowed">Дозволено</string>
+    <string name="apps_processes_hide_short">Приховати</string>
     <string name="tab_home">Головна</string>
     <string name="tab_apps">Застосунки</string>
     <string name="tab_shell">Оболонка</string>
@@ -139,6 +155,8 @@
     <string name="labs_filter_blocked">Заблоковано</string>
     <string name="labs_blocked_count">%1$d заблоковано</string>
     <string name="labs_blocked_empty">Нічого не заблоковано.</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="rotation_mode_off">Вимк</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Приховування</string>
     <string name="tab_hide_developer_options">Приховати параметри розробника</string>
@@ -166,6 +184,7 @@
     <string name="tab_force_dark">Примусовий темний режим</string>
     <string name="force_dark_gate">Примусовий темний режим</string>
     <string name="force_dark_gate_disabled">Примусовий темний режим вимкнено</string>
+    <string name="force_dark_gate_off">Вимк</string>
     <string name="force_dark_count">Примусово: %1$d</string>
     <string name="force_dark_filter_forced">Примусово</string>
     <string name="force_dark_filter_not">Не примусово</string>
@@ -911,6 +930,7 @@
     <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
          screen. The per-app list is unaffected either way, which is what the off state says. -->
     <string name="firewall_tile_label">Брандмауер</string>
+    <string name="firewall_mobile_only_off">Усі мережі</string>
     <!-- The three answers every switch outside the app can give. Unknown is its own word: a
          state that could not be read is not the same thing as a feature that is off. -->
     <string name="lab_state_on">Увімк</string>

@@ -1,5 +1,6 @@
 package moe.shizuku.manager.ui.component
 
+import android.content.SharedPreferences
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -14,16 +15,44 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import moe.shizuku.manager.R
+import moe.shizuku.manager.ShizukuSettings
+import moe.shizuku.manager.ui.theme.LocalWatch
+
+/**
+ * Watches the display setting, so turning the button off removes one that is already on screen.
+ */
+@Composable
+private fun rememberShowScrollToTop(): Boolean {
+    val preferences = ShizukuSettings.getPreferences()
+    var show by remember {
+        mutableStateOf(
+            preferences.getBoolean(ShizukuSettings.Keys.KEY_SHOW_SCROLL_TO_TOP, true)
+        )
+    }
+    DisposableEffect(preferences) {
+        val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+            if (key == ShizukuSettings.Keys.KEY_SHOW_SCROLL_TO_TOP) {
+                show = preferences.getBoolean(key, true)
+            }
+        }
+        preferences.registerOnSharedPreferenceChangeListener(listener)
+        onDispose { preferences.unregisterOnSharedPreferenceChangeListener(listener) }
+    }
+    return show
+}
 
 /**
  * The way back to the top of a list, once it has been scrolled past the first screen.
@@ -46,6 +75,10 @@ fun ScrollToTopButton(
     modifier: Modifier = Modifier,
     extraBottom: Dp = 0.dp
 ) {
+    // A watch already has the raised tab pill across the bottom. A second floating button there
+    // landed on top of the last row it was supposed to help with.
+    if (LocalWatch.current) return
+    if (!rememberShowScrollToTop()) return
     val scrolled by remember {
         derivedStateOf {
             listState.firstVisibleItemIndex > 0 || listState.firstVisibleItemScrollOffset > 0
@@ -84,6 +117,8 @@ fun ScrollToTopButton(
     modifier: Modifier = Modifier,
     extraBottom: Dp = 0.dp
 ) {
+    if (LocalWatch.current) return
+    if (!rememberShowScrollToTop()) return
     val scrolled by remember { derivedStateOf { scrollState.value > 0 } }
     val scope = rememberCoroutineScope()
 

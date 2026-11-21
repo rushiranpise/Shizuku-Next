@@ -27,7 +27,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
-import androidx.compose.material3.AlertDialog
+import moe.shizuku.manager.ui.component.AppAlertDialog
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -84,7 +84,9 @@ import moe.shizuku.manager.ui.component.ScrollToTopButton
 import moe.shizuku.manager.ui.component.SegmentedColumn
 import moe.shizuku.manager.ui.component.SegmentedListItem
 import moe.shizuku.manager.ui.component.StatusChip
+import moe.shizuku.manager.ui.component.WatchDialogPanel
 import moe.shizuku.manager.ui.component.statusChipMinWidth
+import moe.shizuku.manager.ui.theme.LocalWatch
 import moe.shizuku.manager.service.HidingWatchService
 import moe.shizuku.manager.utils.ShizukuStateMachine
 
@@ -278,7 +280,7 @@ fun AppDetailScreen(
     Column(modifier = Modifier.fillMaxSize()) {
         TopAppBar(
             title = { Text(label, maxLines = 1) },
-            windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+            windowInsets = watchTopAppBarInsets(),
             navigationIcon = {
                 IconButton(onClick = onBack) {
                     Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
@@ -786,7 +788,7 @@ fun AppDetailScreen(
     }
 
     confirmGrant?.let { permission ->
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { confirmGrant = null },
             title = {
                 Text(stringResource(R.string.app_grant_confirm_title, permission.short, label))
@@ -820,7 +822,7 @@ fun AppDetailScreen(
 
     if (rotationPicker) {
         val current = loaded?.rotationMode ?: RotationMode.OFF
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { rotationPicker = false },
             title = { Text(stringResource(R.string.rotation_mode_title)) },
             text = {
@@ -859,7 +861,7 @@ fun AppDetailScreen(
     }
 
     confirm?.let { pending ->
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { confirm = null },
             title = { Text(stringResource(pending.title)) },
             text = { Text(stringResource(pending.message, pending.name)) },
@@ -878,7 +880,7 @@ fun AppDetailScreen(
     }
 
     pendingImport?.let { uri ->
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { pendingImport = null },
             title = { Text(stringResource(R.string.app_data_import_title)) },
             text = { Text(stringResource(R.string.app_data_import_message, label)) },
@@ -897,7 +899,7 @@ fun AppDetailScreen(
     }
 
     dataJob?.let { job ->
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = {},
             title = {
                 Text(
@@ -1076,7 +1078,34 @@ private fun ModeDialog(
     onPick: (OpMode) -> Unit
 ) {
     var selected by remember { mutableStateOf(current) }
-    AlertDialog(
+    if (LocalWatch.current) {
+        WatchDialogPanel(
+            title = title,
+            onDismiss = onDismiss,
+            confirmButton = {
+                PillButton(onClick = { onPick(selected) }) {
+                    Text(stringResource(android.R.string.ok))
+                }
+            },
+            dismissButton = {
+                PillButtonQuiet(onClick = onDismiss) {
+                    Text(stringResource(android.R.string.cancel))
+                }
+            }
+        ) {
+            Text(note, style = MaterialTheme.typography.bodySmall)
+            Spacer(modifier = Modifier.height(8.dp))
+            OpMode.entries.forEach { mode ->
+                ChoiceRow(
+                    selected = selected == mode,
+                    label = modeLabel(mode),
+                    onClick = { selected = mode }
+                )
+            }
+        }
+        return
+    }
+    AppAlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(title) },
         text = {
@@ -1112,7 +1141,41 @@ private fun BucketDialog(
     // choice it cannot change.
     val options = StandbyBucket.entries.filter { it.settable }
     var selected by remember { mutableStateOf(current?.takeIf { it.settable }) }
-    AlertDialog(
+    if (LocalWatch.current) {
+        WatchDialogPanel(
+            title = stringResource(R.string.app_battery_pick_title),
+            onDismiss = onDismiss,
+            confirmButton = {
+                PillButton(
+                    onClick = { selected?.let(onPick) },
+                    enabled = selected != null
+                ) { Text(stringResource(android.R.string.ok)) }
+            },
+            dismissButton = {
+                PillButtonQuiet(onClick = onDismiss) {
+                    Text(stringResource(android.R.string.cancel))
+                }
+            }
+        ) {
+            if (current == StandbyBucket.EXEMPTED) {
+                Text(
+                    stringResource(R.string.app_bucket_exempted_note),
+                    style = MaterialTheme.typography.bodySmall
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+            options.forEach { bucket ->
+                ChoiceRow(
+                    selected = selected == bucket,
+                    label = stringResource(bucket.label),
+                    supporting = stringResource(bucket.note),
+                    onClick = { selected = bucket }
+                )
+            }
+        }
+        return
+    }
+    AppAlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.app_battery_pick_title)) },
         text = {

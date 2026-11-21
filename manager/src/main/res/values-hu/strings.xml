@@ -64,6 +64,9 @@
         a hálózati hozzáférést.</string>
     <string name="dialog_adb_pairing_message">Kérjük, kezdje el a párosítást a következő lépések végrehajtásával:\n- Navigáljon a \"Fejlesztői beállítások\" menüpontra\n- Engedélyezze az \"USB-hibakeresés\" és a \"Vezeték nélküli hibakeresés\" lehetőségeket\n- Koppintson a \"Vezeték nélküli hibakeresés\" bal oldalára\n- Koppintson az \"Eszköz párosítása párosító kóddal\"
 lehetőségre\n- Írja be az értesítésben megjelenő párosítási kódot</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -83,6 +86,7 @@ lehetőségre\n- Írja be az értesítésben megjelenő párosítási kódot</st
     <string name="auto_pair_instructions">Párosítás kód beírása nélkül:\n\n1. Fejlesztői beállítások → Vezeték nélküli hibakeresés\n2. Eszköz párosítása párosítási kóddal\n\n
 A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot, és elindítja magát. Nyitva tartja a párbeszédpanelt, amíg a párosítás be nem fejeződik.</string>
     <string name="auto_pair_manual">Manuális</string>
+    <string name="adb_pairing_developer_options">Fejlesztői beállítások</string>
     <string name="development_settings">Fejlesztői lehetőségek</string>
     <string name="notification_settings">Értesítési lehetőségek</string>
     <string name="adb_pairing_tutorial_content_notification">A Shizuku értesítése segít a párosítás befejezésében.</string>
@@ -133,6 +137,8 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="app_management_sort_last_added">Legutóbb hozzáadva</string>
     <string name="app_management_sort_updated">Frissítve</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_process_allowed">Engedélyezve</string>
+    <string name="apps_processes_hide_short">Elrejtés</string>
     <string name="tab_home">Kezdőlap</string>
     <string name="tab_apps">Alkalmazások</string>
     <string name="tab_shell">Shell</string>
@@ -144,6 +150,8 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="labs_filter_blocked">Blokkolt</string>
     <string name="labs_blocked_count">%1$d blokkolva</string>
     <string name="labs_blocked_empty">Semmi sincs blokkolva.</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="rotation_mode_off">Ki</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Elrejtés</string>
     <string name="tab_hide_developer_options">Fejlesztői beállítások elrejtése</string>
@@ -171,6 +179,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="tab_force_dark">Kényszerített sötét mód</string>
     <string name="force_dark_gate">Kényszerített sötét mód</string>
     <string name="force_dark_gate_disabled">Kényszerített sötét mód kikapcsolva</string>
+    <string name="force_dark_gate_off">Ki</string>
     <string name="force_dark_count">%1$d kényszerített</string>
     <string name="force_dark_filter_forced">Kényszerített</string>
     <string name="force_dark_filter_not">Nem készerített</string>

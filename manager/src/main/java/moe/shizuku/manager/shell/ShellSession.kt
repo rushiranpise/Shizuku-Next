@@ -5,6 +5,7 @@ import com.topjohnwu.superuser.CallbackList
 import com.topjohnwu.superuser.Shell
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import java.util.concurrent.atomic.AtomicLong
 import moe.shizuku.manager.AppConstants
 import moe.shizuku.manager.utils.ShizukuStateMachine
 import rikka.shizuku.Shizuku
@@ -20,7 +21,17 @@ enum class ShellBackend {
 
 /** One line of output, and what it is. */
 data class ShellLine(val text: String, val kind: Kind) {
+    /**
+     * Identifies this line in the transcript, so the list can keep a line's composition
+     * when older lines are dropped. Data class equality stays about the text and kind.
+     */
+    val id: Long = nextId.getAndIncrement()
+
     enum class Kind { COMMAND, OUTPUT, ERROR, INFO, EXIT }
+
+    private companion object {
+        val nextId = AtomicLong()
+    }
 }
 
 /**

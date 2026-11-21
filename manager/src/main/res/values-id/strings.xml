@@ -13,6 +13,7 @@
     <string name="home_wireless_adb_title"><![CDATA[Mulai melalui Debug Nirkabel]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Memulai tanpa jaringan: perangkat diminta mengaktifkan debugging nirkabel berulang kali hingga fitur tersebut menyala stabil. Proses ini bisa memakan waktu hingga dua menit sebelum dimulai atau berhenti mencoba.</string>
     <string name="home_usb_adb_needs_network">Menjalankan lewat USB menggunakan port ADB klasik, dan membukanya kembali membutuhkan jaringan. Hubungkan ke Wi-Fi sekali, atau pilih <b>Mulai tanpa Wi-Fi</b> sebagai metode mulai lalu jalankan lewat debugging nirkabel.</string>
+    <string name="home_usb_adb_needs_network_no_option">Indonesia.</string>
     <string name="home_usb_adb_needs_computer">A USB start needs the classic ADB port. On this Android version, connect to a computer and start Shizuku with the ADB command in Other methods.</string>
     <string name="home_wireless_adb_summary">Mulai menggunakan debugging nirkabel.</string>
     <string name="home_usb_adb_title"><![CDATA[Mulai lewat debugging USB]]></string>
@@ -66,6 +67,10 @@
         langkah-langkah berikut:\n- Arahkan ke \"Opsi Pengembang\"\n- Aktifkan \"Debugging USB\" dan
         \"Debugging Nirkabel\"\n- Ketuk sisi kiri \"Debugging Nirkabel\"\n- Ketuk \"Pasangkan
         perangkat dengan kode pemasangan\"\n- Masukkan kode pemasangan di notifikasi</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
+    <string name="dialog_adb_pairing_message_manual">.Indonesia\n</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -93,6 +98,7 @@
     <string name="enable">Memungkinkan</string>
     <string name="auto_pair_instructions">Pair without typing a code:\n\n1. Developer options → Wireless debugging\n2. Pair device with pairing code\n\nShizuku reads the code and port straight from that dialog and starts itself. Keep the dialog open until pairing finishes.</string>
     <string name="auto_pair_manual">Manual</string>
+    <string name="adb_pairing_developer_options">Opsi pengembang</string>
     <string name="development_settings">Pilihan pengembang</string>
     <string name="notification_settings">Pengaturan notifikasi</string>
     <string name="adb_pairing_tutorial_content_notification">Notifikasi dari Shizuku akan membantu
@@ -183,6 +189,7 @@
     <string name="labs_bulk_apply">Terapkan</string>
     <string name="labs_bulk_done">Selesai</string>
     <string name="labs_pin_app">Sematan aplikasi</string>
+    <!-- Per-app rotation override for apps that force landscape -->
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Tersembunyi</string>
     <string name="tab_hide_developer_options">Sembunyikan opsi pengembang</string>

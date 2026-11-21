@@ -47,6 +47,13 @@ class AdbStartWorker(context: Context, params: WorkerParameters) :
         setForegroundAsync(buildForegroundInfo())
     }
 
+    /** Required for expedited work on Android 11 and lower, where WorkManager runs it in a
+     * foreground service. Without it setExpedited crashes before doWork gets a chance. */
+    override suspend fun getForegroundInfo(): ForegroundInfo {
+        requestedMethod = inputData.getInt(KEY_START_METHOD, requestedMethod)
+        return buildForegroundInfo()
+    }
+
     override fun stoppedState(): WorkerState =
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             WorkerState.AWAITING_RETRY
@@ -127,14 +134,23 @@ class AdbStartWorker(context: Context, params: WorkerParameters) :
                 KEY_ADB_ROOT to adbRoot
             )
 
-            val request = OneTimeWorkRequestBuilder<AdbStartWorker>()
+            val requestBuilder = OneTimeWorkRequestBuilder<AdbStartWorker>()
                 .setConstraints(constraints)
                 .setInputData(inputData)
                 // Retry about once a minute, doubling as it keeps failing: a boot start
                 // usually just needs to wait for Wi-Fi to associate, and giving up after
                 // one attempt is what left Shizuku down until the next manual start.
                 .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 1, TimeUnit.MINUTES)
-                .build()
+
+            // An immediate start is one somebody asked for, including the authenticated START
+            // broadcast. Ordinary work queued from the background can sit until the app is next
+            // opened, which is the difference between an intent that starts Shizuku and the same
+            // start from the screen. Expedite it; if the quota is gone, it still runs as normal.
+            if (immediate) {
+                requestBuilder.setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+            }
+
+            val request = requestBuilder.build()
 
             // A process that started before the first unlock has no WorkManager, and asking it
             // for one throws. A start that cannot be queued has failed, and says so here rather

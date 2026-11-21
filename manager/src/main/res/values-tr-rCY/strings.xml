@@ -38,6 +38,9 @@
         başlatın:\n- \"Geliştirici Seçenekleri\"ne gidin\n- \"USB hata ayıklama\" ve \"Kablosuz hata
         ayıklama\"yı etkinleştirin\n- \"Kablosuz hata ayıklama\"nın sol tarafına dokunun\n- \"Cihazı
         eşleştirme koduyla eşleştir\"e dokunun\n- Bildirimde eşleştirme kodunu girin</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -63,6 +66,7 @@
     <string name="enable">Etkinleştir</string>
     <string name="auto_pair_instructions">Kod yazmadan eşleştirin:\n\n1. Geliştirici seçenekleri → Kablosuz hata ayıklama\n2. Cihazı eşleme koduyla eşleştir\n\nShizuku, kodu ve portu doğrudan o pencereden okur ve kendini otomatik başlatır. Eşleşme tamamlanana kadar pencereyi açık tutun.</string>
     <string name="auto_pair_manual">Manuel</string>
+    <string name="adb_pairing_developer_options">Geliştirici seçenekleri</string>
     <string name="development_settings">Geliştirici seçenekleri</string>
     <string name="notification_settings">Bildirim seçenekleri</string>
     <string name="adb_pairing_tutorial_content_notification">Shizuku’dan bir bildirim eşleştirmeyi
@@ -124,6 +128,8 @@
     <string name="app_management_sort_last_added">Son eklenenler</string>
     <string name="app_management_sort_updated">Güncellenenler</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_process_allowed">İzin verilenler</string>
+    <string name="apps_processes_hide_short">Gizle</string>
     <string name="tab_home">Ana Sayfa</string>
     <string name="tab_apps">Uygulamalar</string>
     <string name="tab_shell">Shell</string>
@@ -135,6 +141,8 @@
     <string name="labs_filter_blocked">Engellenen</string>
     <string name="labs_blocked_count">%1$d engellendi</string>
     <string name="labs_blocked_empty">Hiçbir şey engellenmemiş.</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="rotation_mode_off">Kapalı</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hide_developer_options">Geliştirici seçeneklerini gizle</string>
     <string name="tab_hide_usb_debugging">USB hata ayıklamayı gizle</string>
@@ -160,6 +168,7 @@
     <string name="tab_force_dark">Koyu moda zorla</string>
     <string name="force_dark_gate">Koyu moda zorla</string>
     <string name="force_dark_gate_disabled">Koyu moda zorlama kapalı</string>
+    <string name="force_dark_gate_off">Kapalı</string>
     <string name="force_dark_count">%1$d zorla koyu modda</string>
     <string name="force_dark_filter_forced">Zorlanmış</string>
     <string name="force_dark_filter_not">Zorlanmamış</string>

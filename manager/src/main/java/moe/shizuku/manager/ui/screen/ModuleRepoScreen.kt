@@ -171,7 +171,7 @@ fun ModuleRepoScreen(
                     Text(stringResource(R.string.modules_catalog))
                 }
             },
-            windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+            windowInsets = watchTopAppBarInsets(),
             navigationIcon = {
                 IconButton(onClick = onBack) {
                     Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)

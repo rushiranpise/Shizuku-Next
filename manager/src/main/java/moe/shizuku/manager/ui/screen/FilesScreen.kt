@@ -42,7 +42,7 @@ import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material.icons.outlined.SelectAll
 import androidx.compose.material.icons.outlined.Sort
-import androidx.compose.material3.AlertDialog
+import moe.shizuku.manager.ui.component.AppAlertDialog
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -259,7 +259,7 @@ fun FilesScreen(bottomPadding: Dp, onBack: () -> Unit) {
                         overflow = TextOverflow.Ellipsis
                     )
                 },
-                windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+                windowInsets = watchTopAppBarInsets(),
                 navigationIcon = {
                     IconButton(onClick = { selected = emptySet() }) {
                         Icon(Icons.Outlined.Close, contentDescription = null)
@@ -348,7 +348,7 @@ fun FilesScreen(bottomPadding: Dp, onBack: () -> Unit) {
         } else {
             TopAppBar(
                 title = { Text(stringResource(R.string.tab_files)) },
-                windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+                windowInsets = watchTopAppBarInsets(),
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
@@ -643,7 +643,7 @@ fun FilesScreen(bottomPadding: Dp, onBack: () -> Unit) {
 
     if (confirmingDelete) {
         val count = selected.size
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { confirmingDelete = false },
             title = { Text(stringResource(R.string.files_dialog_delete_title, count)) },
             text = { Text(stringResource(R.string.files_dialog_delete_message)) },
@@ -753,7 +753,7 @@ private fun RootChip(label: String, selected: Boolean, onClick: () -> Unit) {
 /** What an operation is doing, with the one thing a long operation has to offer: stopping it. */
 @Composable
 private fun ProgressDialog(progress: FileOperations.Progress, onCancel: () -> Unit) {
-    AlertDialog(
+    AppAlertDialog(
         onDismissRequest = {},
         title = {
             Text(
@@ -798,7 +798,7 @@ private fun ProgressDialog(progress: FileOperations.Progress, onCancel: () -> Un
 private fun NameDialog(ask: Ask, onDismiss: () -> Unit, onConfirm: (String) -> Unit) {
     var value by remember(ask) { mutableStateOf(ask.initial) }
 
-    AlertDialog(
+    AppAlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(ask.title)) },
         text = {
@@ -908,7 +908,7 @@ private fun PreviewDialog(preview: Preview, onDismiss: () -> Unit, onLoaded: (Pr
         onLoaded(withContext(Dispatchers.IO) { loadPreview(preview.path) })
     }
 
-    AlertDialog(
+    AppAlertDialog(
         onDismissRequest = onDismiss,
         title = {
             Text(

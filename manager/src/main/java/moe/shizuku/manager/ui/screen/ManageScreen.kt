@@ -8,6 +8,7 @@ import moe.shizuku.manager.AppConstants
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import androidx.activity.compose.BackHandler
+import androidx.annotation.StringRes
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -34,7 +35,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.SelectAll
 import androidx.compose.material.icons.filled.Sort
 import androidx.compose.material.icons.outlined.PushPin
-import androidx.compose.material3.AlertDialog
+import moe.shizuku.manager.ui.component.AppAlertDialog
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -54,6 +55,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import moe.shizuku.manager.ui.component.RefreshBox
 import moe.shizuku.manager.ui.component.TelevisionRefreshButton
+import moe.shizuku.manager.ui.component.WatchSearchField
+import moe.shizuku.manager.ui.theme.LocalWatch
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -123,6 +126,24 @@ enum class ManageFilter {
     HIDDEN
 }
 
+@StringRes
+private fun ManageFilter.labelRes(): Int = when (this) {
+    ManageFilter.ALL -> R.string.manage_filter_all
+    ManageFilter.USER -> R.string.manage_filter_user
+    ManageFilter.SYSTEM -> R.string.manage_filter_system
+    ManageFilter.DISABLED -> R.string.manage_filter_disabled
+    ManageFilter.HIDDEN -> R.string.manage_filter_hidden
+}
+
+/** The next filter on a watch, where one chip takes the place of five. */
+private fun ManageFilter.next(): ManageFilter = when (this) {
+    ManageFilter.ALL -> ManageFilter.USER
+    ManageFilter.USER -> ManageFilter.SYSTEM
+    ManageFilter.SYSTEM -> ManageFilter.DISABLED
+    ManageFilter.DISABLED -> ManageFilter.HIDDEN
+    ManageFilter.HIDDEN -> ManageFilter.ALL
+}
+
 private data class BulkTarget(
     val packageName: String,
     val label: String
@@ -178,7 +199,9 @@ fun ManageScreen(
     var refreshing by remember { mutableStateOf(false) }
     var refreshKey by remember { mutableIntStateOf(0) }
     var query by remember { mutableStateOf("") }
-    var sortOrder by remember { mutableStateOf(SortOrder.ALPHABETICAL) }
+    var searchOpen by remember { mutableStateOf(false) }
+    // The order this list was last left in. Defaults to A-Z.
+    val sort = rememberAppSort("APP_OPS")
     var sortMenu by remember { mutableStateOf(false) }
     var filter by remember { mutableStateOf(ManageFilter.ALL) }
     // The open app is remembered across rotation, like the tab itself: coming back should
@@ -259,7 +282,7 @@ fun ManageScreen(
     }
 
     val shown = remember(
-        apps, query, sortOrder, filter,
+        apps, query, sort.order, filter,
         systemPackages, userPackages, disabledPackages, launcherless, pinned
     ) {
         val byFilter = when (filter) {
@@ -278,14 +301,10 @@ fun ManageScreen(
                     it.packageName.contains(trimmed, ignoreCase = true)
             }
         }
-        val order = when (sortOrder) {
-            SortOrder.RECENTLY_INSTALLED -> compareByDescending<PackageInfo> { it.firstInstallTime }
-            SortOrder.RECENTLY_UPDATED -> compareByDescending<PackageInfo> { it.lastUpdateTime }
-            SortOrder.ALPHABETICAL -> compareBy { appLabel(pm, it).lowercase() }
-        }
-        filtered.sortedWith(
-            compareBy<PackageInfo> { it.packageName !in pinned }.then(order)
-        )
+        // The chosen order first, then pinned apps on top of it with a stable sort, so the
+        // order inside each group is still the one that was asked for.
+        filtered.sortedForDisplay(sort.order) { appLabel(pm, it) }
+            .sortedBy { it.packageName !in pinned }
     }
 
     if (selecting) {
@@ -352,10 +371,17 @@ fun ManageScreen(
                         stringResource(R.string.manage_selected_count, selected.size)
                     } else {
                         stringResource(R.string.tab_manage)
-                    }
+                    },
+                    style = if (LocalWatch.current) {
+                        MaterialTheme.typography.titleSmall
+                    } else {
+                        MaterialTheme.typography.titleLarge
+                    },
+                    maxLines = if (LocalWatch.current) 1 else Int.MAX_VALUE,
+                    overflow = if (LocalWatch.current) TextOverflow.Ellipsis else TextOverflow.Clip
                 )
             },
-            windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+            windowInsets = watchTopAppBarInsets(),
             // Shown when this is opened from the Labs list rather than being the page: it is a
             // detail over the tabs then, with no bar underneath to go back to.
             navigationIcon = {
@@ -417,15 +443,15 @@ fun ManageScreen(
                     DropdownMenu(expanded = sortMenu, onDismissRequest = { sortMenu = false }) {
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.app_management_sort_alphabetical)) },
-                            onClick = { sortOrder = SortOrder.ALPHABETICAL; sortMenu = false }
+                            onClick = { sort.order = SortOrder.ALPHABETICAL; sortMenu = false }
                         )
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.app_management_sort_last_added)) },
-                            onClick = { sortOrder = SortOrder.RECENTLY_INSTALLED; sortMenu = false }
+                            onClick = { sort.order = SortOrder.RECENTLY_INSTALLED; sortMenu = false }
                         )
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.app_management_sort_updated)) },
-                            onClick = { sortOrder = SortOrder.RECENTLY_UPDATED; sortMenu = false }
+                            onClick = { sort.order = SortOrder.RECENTLY_UPDATED; sortMenu = false }
                         )
                     }
                 }
@@ -433,7 +459,8 @@ fun ManageScreen(
         )
 
         // Each chip gets an equal slot and shrinks its label to fit. A wide font changes the
-        // text size, not the number of rows.
+        // text size, not the number of rows. On a watch the five choices become one chip and a
+        // menu: five chips and a search button left the chosen one with no room for its name.
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -441,33 +468,58 @@ fun ManageScreen(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            ManageFilter.entries.forEach { option ->
-                val count = when (option) {
-                    ManageFilter.ALL -> apps.size
-                    ManageFilter.USER -> userPackages.size
-                    ManageFilter.SYSTEM -> systemPackages.size
-                    ManageFilter.DISABLED -> disabledPackages.size
-                    ManageFilter.HIDDEN -> launcherless.size
-                }
+            if (LocalWatch.current) {
                 AppFilterChip(
                     modifier = Modifier.weight(1f),
-                    label = stringResource(
-                        when (option) {
-                            ManageFilter.ALL -> R.string.manage_filter_all
-                            ManageFilter.USER -> R.string.manage_filter_user
-                            ManageFilter.SYSTEM -> R.string.manage_filter_system
-                            ManageFilter.DISABLED -> R.string.manage_filter_disabled
-                            ManageFilter.HIDDEN -> R.string.manage_filter_hidden
-                        }
-                    ),
-                    count = count,
-                    selected = filter == option,
-                    onClick = { filter = option }
+                    label = stringResource(filter.labelRes()),
+                    count = when (filter) {
+                        ManageFilter.ALL -> apps.size
+                        ManageFilter.USER -> userPackages.size
+                        ManageFilter.SYSTEM -> systemPackages.size
+                        ManageFilter.DISABLED -> disabledPackages.size
+                        ManageFilter.HIDDEN -> launcherless.size
+                    },
+                    selected = true,
+                    onClick = { filter = filter.next() }
                 )
+                IconButton(onClick = {
+                    searchOpen = !searchOpen
+                    if (!searchOpen) query = ""
+                }) {
+                    Icon(
+                        if (searchOpen) Icons.Filled.Close else Icons.Filled.Search,
+                        contentDescription = stringResource(R.string.manage_search_hint)
+                    )
+                }
+            } else {
+                ManageFilter.entries.forEach { option ->
+                    val count = when (option) {
+                        ManageFilter.ALL -> apps.size
+                        ManageFilter.USER -> userPackages.size
+                        ManageFilter.SYSTEM -> systemPackages.size
+                        ManageFilter.DISABLED -> disabledPackages.size
+                        ManageFilter.HIDDEN -> launcherless.size
+                    }
+                    AppFilterChip(
+                        modifier = Modifier.weight(1f),
+                        label = stringResource(option.labelRes()),
+                        count = count,
+                        selected = filter == option,
+                        onClick = { filter = option }
+                    )
+                }
             }
         }
 
-        OutlinedTextField(
+        if (LocalWatch.current) {
+            if (searchOpen) {
+                WatchSearchField(
+                    query = query,
+                    hint = stringResource(R.string.manage_search_hint),
+                    onQuery = { query = it }
+                )
+            }
+        } else OutlinedTextField(
             value = query,
             onValueChange = { query = it },
             modifier = Modifier
@@ -717,7 +769,7 @@ private fun BulkOpDialog(
     var selectedOp by remember { mutableStateOf<AppOpChoice?>(null) }
     var selectedMode by remember { mutableStateOf<OpMode?>(null) }
 
-    AlertDialog(
+    AppAlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.manage_bulk_title)) },
         text = {
@@ -798,7 +850,7 @@ private fun BulkConfirmDialog(
     onDismiss: () -> Unit,
     onConfirm: () -> Unit
 ) {
-    AlertDialog(
+    AppAlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.manage_bulk_confirm_title)) },
         text = {
@@ -875,7 +927,7 @@ private fun BulkConfirmDialog(
 @Composable
 private fun BulkProgressDialog(state: BulkState.Running) {
     val total = state.request.targets.size
-    AlertDialog(
+    AppAlertDialog(
         onDismissRequest = {},
         title = { Text(stringResource(R.string.manage_bulk_progress_title)) },
         text = {
@@ -915,7 +967,7 @@ private fun BulkResultDialog(report: BulkReport, onDismiss: () -> Unit) {
     val failed = report.outcomes.size - changed
     var failuresOnly by remember(report) { mutableStateOf(false) }
 
-    AlertDialog(
+    AppAlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.manage_bulk_result_title)) },
         text = {

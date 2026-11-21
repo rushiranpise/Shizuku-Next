@@ -31,7 +31,7 @@ import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material.icons.outlined.Wifi
-import androidx.compose.material3.AlertDialog
+import moe.shizuku.manager.ui.component.AppAlertDialog
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -230,7 +230,7 @@ fun WifiPasswordsScreen(bottomPadding: Dp, onBack: () -> Unit) {
     Column(modifier = Modifier.fillMaxSize()) {
         TopAppBar(
             title = { Text(stringResource(R.string.tab_wifi_passwords)) },
-            windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+            windowInsets = watchTopAppBarInsets(),
             navigationIcon = {
                 IconButton(onClick = onBack) {
                     Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
@@ -546,7 +546,7 @@ fun WifiPasswordsScreen(bottomPadding: Dp, onBack: () -> Unit) {
     }
 
     forgetting?.let { network ->
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { forgetting = null },
             title = { Text(stringResource(R.string.wifi_passwords_forget)) },
             text = {
@@ -577,7 +577,7 @@ fun WifiPasswordsScreen(bottomPadding: Dp, onBack: () -> Unit) {
     }
 
     if (forgettingAll) {
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { forgettingAll = false },
             title = { Text(stringResource(R.string.wifi_passwords_forget_all)) },
             text = {
@@ -604,7 +604,7 @@ fun WifiPasswordsScreen(bottomPadding: Dp, onBack: () -> Unit) {
     }
 
     if (choosingExport) {
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { choosingExport = false },
             title = { Text(stringResource(R.string.wifi_backup_export)) },
             text = {
@@ -669,7 +669,7 @@ fun WifiPasswordsScreen(bottomPadding: Dp, onBack: () -> Unit) {
     }
 
     pendingImport?.let { bytes ->
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { pendingImport = null },
             title = { Text(stringResource(R.string.wifi_backup_password)) },
             text = {

@@ -132,6 +132,35 @@ object UpdateHelper {
     suspend fun isUpdateAvailable(): Boolean = check() is CheckResult.Available
 
     /**
+     * Checks for a release and posts one notification about it.
+     *
+     * The home screen's prompt has its own record: opening the app and seeing that card must not
+     * count as having seen a notification, and a notification must not take the card away. The
+     * version is recorded only after the post succeeds, so a denied notification permission can
+     * be granted later and the next check will offer it again.
+     */
+    suspend fun checkAndNotify(): Boolean {
+        if (!isCheckForUpdatesEnabled()) {
+            UpdateNotifier.cancel(appContext)
+            return false
+        }
+
+        val result = check()
+        if (result !is CheckResult.Available) {
+            if (result is CheckResult.UpToDate) UpdateNotifier.cancel(appContext)
+            return false
+        }
+
+        val release = result.release
+        val lastNotified = Version.parse(ShizukuSettings.getLastNotifiedUpdate())
+        if (lastNotified != null && release.version <= lastNotified) return false
+        if (!UpdateNotifier.notify(appContext, release.version.toString())) return false
+
+        ShizukuSettings.setLastNotifiedUpdate(release.version.toString())
+        return true
+    }
+
+    /**
      * Asks GitHub for the newest release and compares it with the running version. Every
      * failure is turned into a message instead of an exception so callers can tell a real
      * "up to date" apart from a check that never happened.
@@ -230,6 +259,7 @@ object UpdateHelper {
         // dialog - there is no version of it that does not.
         if (installWithShizuku(apk)) {
             Diag.info("UpdateHelper", "the update was installed through the server, with no prompt")
+            UpdateNotifier.cancel(appContext)
             Toast.makeText(appContext, appContext.getString(R.string.update_success), Toast.LENGTH_SHORT).show()
             return
         }
@@ -239,6 +269,7 @@ object UpdateHelper {
                 if (isSuccess) appContext.getString(R.string.update_success)
                 else appContext.getString(R.string.update_failed)
             Toast.makeText(appContext, toastMsg, Toast.LENGTH_SHORT).show()
+            if (isSuccess) UpdateNotifier.cancel(appContext)
             // The card that offered this update is gone from the home screen either way, and on a
             // refusal the offer has to come back: see [clearPromptedVersion].
             if (!isSuccess) clearPromptedVersion()

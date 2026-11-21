@@ -28,6 +28,9 @@
         «Մշակողի ընտրանքներ»\n- Միացրեք «USB վրիպազերծում» և «Անլար վրիպազերծում»\n- Հպեք «Անլար
         վրիպազերծում» բաժնի ձախ կողմին\n- Հպեք «Զուգակցել սարքը զուգակցման կոդով»\n- Մուտքագրեք
         զուգակցման կոդը ծանուցման մեջ</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -91,6 +94,7 @@
     <string name="app_management_dialog_adb_is_limited_title">Adb-ի թույլտվությունները սահմանափակված
         են</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Շատ հնարավոր է, որ Ձեր սարքի արտադրողը սահմանափակել է adb-ի թույլտվությունները։ <p>Հնարավոր լուծումները գտեք <b><a href="%1$s">այստեղ</a></b>։]]></string>
+    <!-- Per-app rotation override for apps that force landscape -->
     <!-- Hiding: what apps can read about this device -->
     <string name="intent_start">Միացնել</string>
     <string name="device_watchdog">Հսկիչ</string>

@@ -55,6 +55,9 @@
     <string name="paring_code_is_wrong">Der Kopplungscode ist falsch.</string>
     <string name="cannot_connect_port">Keine Verbindung zum Dienst für Debugging über WLAN möglich.\n\nAchten Sie darauf, dass Shizuku in allen Firewall-, Werbeblocker-, VPN- oder ähnlichen Apps, die den Netzwerkzugriff einschränken können, auf der Zulassungsliste steht.</string>
     <string name="dialog_adb_pairing_message">Starten Sie die Kopplung mit den folgenden Schritten:\n- Öffnen Sie die „Entwickleroptionen“\n- Aktivieren Sie „USB-Debugging“ und „Debugging über WLAN“\n- Tippen Sie auf die linke Seite von „Debugging über WLAN“\n- Tippen Sie auf „Gerät über einen Kopplungscode koppeln“\n- Geben Sie den Kopplungscode in der Benachrichtigung ein</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -73,6 +76,7 @@
     <string name="enable">Aktivieren</string>
     <string name="auto_pair_instructions">Ohne Eingabe eines Codes koppeln:\n\n1. Entwickleroptionen → Debugging über WLAN\n2. Gerät über einen Kopplungscode koppeln\n\nShizuku liest Code und Port direkt aus diesem Dialog und startet sich selbst. Lassen Sie den Dialog geöffnet, bis die Kopplung abgeschlossen ist.</string>
     <string name="auto_pair_manual">Manuell</string>
+    <string name="adb_pairing_developer_options">Entwickleroptionen</string>
     <string name="development_settings">Automatisch</string>
     <string name="notification_settings">Benachrichtigungseinstellungen</string>
     <string name="adb_pairing_tutorial_content_notification">Eine Benachrichtigung von Shizuku hilft Ihnen, die Kopplung abzuschließen.</string>
@@ -123,12 +127,16 @@
     <string name="app_management_sort_last_added">Zuletzt hinzugefügt</string>
     <string name="app_management_sort_updated">Aktualisiert</string>
     <string name="app_management_sort_alphabetical">A–Z</string>
+    <string name="apps_process_allowed">Zugelassen</string>
+    <string name="apps_processes_hide_short">Verbergen</string>
     <string name="tab_home">Startseite</string>
     <string name="lab_more_apps">Weitere Apps</string>
     <string name="labs_filter_allowed">Zugelassen</string>
     <string name="labs_filter_blocked">Blockiert</string>
     <string name="labs_blocked_count">%1$d blockiert</string>
     <string name="labs_blocked_empty">Nichts blockiert.</string>
+    <!-- Per-app rotation override for apps that force landscape -->
+    <string name="rotation_mode_off">Aus</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Verbergen</string>
     <string name="tab_hide_developer_options">Entwickleroptionen verbergen</string>
@@ -155,6 +163,7 @@
     <string name="tab_force_dark">Dunkles Design erzwingen</string>
     <string name="force_dark_gate">Dunkles Design erzwingen</string>
     <string name="force_dark_gate_disabled">Erzwungenes dunkles Design ist aus</string>
+    <string name="force_dark_gate_off">Aus</string>
     <string name="force_dark_count">%1$d erzwungen</string>
     <string name="force_dark_filter_forced">Erzwungen</string>
     <string name="force_dark_filter_not">Nicht erzwungen</string>
@@ -932,6 +941,7 @@
     <string name="app_network_block_note">Das System verwirft den Datenverkehr der App.</string>
     <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
          screen. The per-app list is unaffected either way, which is what the off state says. -->
+    <string name="firewall_mobile_only_off">Alle Netzwerke</string>
     <!-- The three answers every switch outside the app can give. Unknown is its own word: a
          state that could not be read is not the same thing as a feature that is off. -->
     <string name="lab_state_on">An</string>

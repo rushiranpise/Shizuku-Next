@@ -43,9 +43,25 @@ public class ShizukuSettings {
         public static final String KEY_LIGHT_THEME = "light_theme";
         public static final String KEY_NIGHT_MODE = "night_mode";
         public static final String KEY_BLACK_NIGHT_THEME = "black_night_theme";
+
+        /** Black only the page behind the content, leaving cards and dialogs on dark grey. */
+        public static final String KEY_AMOLED_BACKGROUND_ONLY = "amoled_background_only";
+
+        /** The seed colour for the non-system palette, as #RRGGBB. */
+        public static final String KEY_ACCENT_COLOR = "accent_color";
+
+        /** The material-kolor palette style used with the accent colour. */
+        public static final String KEY_PALETTE_STYLE = "palette_style";
+
+        /** Stronger text and outline colours than the palette normally gives. */
+        public static final String KEY_HIGH_CONTRAST = "high_contrast";
+
         public static final String KEY_USE_SYSTEM_COLOR = "use_system_color";
         /** Whether the floating navigation bar stays visible when a page scrolls. */
         public static final String KEY_ALWAYS_SHOW_NAVIGATION_BAR = "always_show_navigation_bar";
+
+        /** Whether long lists show the floating button that returns them to the top. */
+        public static final String KEY_SHOW_SCROLL_TO_TOP = "show_scroll_to_top";
 
         /** Whether quick tiles refuse changes while the device is locked. */
         public static final String KEY_SECURE_QUICK_TILES = "secure_quick_tiles";
@@ -53,6 +69,9 @@ public class ShizukuSettings {
         /** Whether creating a grant has to be confirmed with device authentication. */
         public static final String KEY_REQUIRE_GRANT_AUTHENTICATION = "require_grant_authentication";
         public static final String KEY_UPDATE_MODE = "update_mode";
+
+        /** The newest release a background check has already notified about. */
+        public static final String KEY_LAST_NOTIFIED_UPDATE = "last_notified_update";
         public static final String KEY_HELP = "help";
         public static final String KEY_REPORT_BUG = "report_bug";
         public static final String KEY_LEGACY_PAIRING = "legacy_pairing";
@@ -294,6 +313,15 @@ public class ShizukuSettings {
 
     public static void setLastPromptedVersion(String version) {
         getPreferences().edit().putString("lastPromptedVersion", version).apply();
+    }
+
+    /** The newest release a background check has already offered in a notification. */
+    public static String getLastNotifiedUpdate() {
+        return getPreferences().getString(Keys.KEY_LAST_NOTIFIED_UPDATE, "");
+    }
+
+    public static void setLastNotifiedUpdate(String version) {
+        getPreferences().edit().putString(Keys.KEY_LAST_NOTIFIED_UPDATE, version).apply();
     }
 
     /**
@@ -660,6 +688,19 @@ public class ShizukuSettings {
 
     public static void setAlwaysShowNavigationBar(boolean enable) {
         getPreferences().edit().putBoolean(Keys.KEY_ALWAYS_SHOW_NAVIGATION_BAR, enable).apply();
+    }
+
+    /**
+     * Whether long lists show the floating button that returns them to the top.
+     *
+     * On by default, so existing installs keep the button after updating.
+     */
+    public static boolean getShowScrollToTop() {
+        return getPreferences().getBoolean(Keys.KEY_SHOW_SCROLL_TO_TOP, true);
+    }
+
+    public static void setShowScrollToTop(boolean enable) {
+        getPreferences().edit().putBoolean(Keys.KEY_SHOW_SCROLL_TO_TOP, enable).apply();
     }
 
     /**

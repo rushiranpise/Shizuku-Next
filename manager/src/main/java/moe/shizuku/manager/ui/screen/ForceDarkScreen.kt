@@ -63,6 +63,8 @@ import moe.shizuku.manager.ui.component.rowKey
 import moe.shizuku.manager.ui.component.CenteredMessage
 import moe.shizuku.manager.ui.component.ExpressiveSwitch
 import moe.shizuku.manager.ui.component.SegmentedCard
+import moe.shizuku.manager.ui.component.WatchSearchField
+import moe.shizuku.manager.ui.theme.LocalWatch
 import moe.shizuku.manager.ui.component.appLabel
 import moe.shizuku.manager.utils.ShizukuStateMachine
 
@@ -89,12 +91,15 @@ fun ForceDarkScreen(bottomPadding: Dp, onBack: () -> Unit) {
     var forced by remember { mutableStateOf<Set<String>>(emptySet()) }
     var loading by remember { mutableStateOf(true) }
     var query by remember { mutableStateOf("") }
+    var searchOpen by remember { mutableStateOf(false) }
     var showOnlyForced by remember { mutableStateOf(false) }
     var version by remember { mutableIntStateOf(0) }
     var running by remember { mutableStateOf(ShizukuStateMachine.isRunning()) }
     var gateOn by remember { mutableStateOf(ForceDark.isEnabled()) }
     var systemTheme by remember { mutableStateOf(ForceDark.usesSystemTheme()) }
     var justToggled by remember { mutableStateOf<String?>(null) }
+    // The order this list was last left in. Defaults to A-Z with forced apps on top.
+    val sort = rememberAppSort("FORCE_DARK")
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(version) {
@@ -149,7 +154,7 @@ fun ForceDarkScreen(bottomPadding: Dp, onBack: () -> Unit) {
         }
     }
 
-    val shown = remember(apps, forced, query, showOnlyForced) {
+    val shown = remember(apps, forced, query, showOnlyForced, sort.order, sort.keepInPlace) {
         val byState = if (showOnlyForced) apps.filter { it.packageName in forced } else apps
         val trimmed = query.trim()
         val searched = if (trimmed.isBlank()) {
@@ -160,15 +165,11 @@ fun ForceDarkScreen(bottomPadding: Dp, onBack: () -> Unit) {
                     it.packageName.contains(trimmed, ignoreCase = true)
             }
         }
-        // The forced apps first, then by name, for the same reason the hiding lists do it: what
-        // somebody opens this screen for is what is already on it. The names are resolved once,
-        // before the sort, for the reason the hiding list gives.
-        searched
-            .map { app -> app to appLabel(pm, app).lowercase() }
-            .sortedWith(
-                compareBy({ (app, _) -> app.packageName !in forced }, { (_, label) -> label })
-            )
-            .map { (app, _) -> app }
+        // The chosen order, then the apps this mode applies to on top of it: the rows somebody
+        // opens this screen for are the ones already on. A stable sort keeps the chosen order
+        // inside each group, and keeping them in place is the same list without that second pass.
+        val ordered = searched.sortedForDisplay(sort.order) { appLabel(pm, it) }
+        if (sort.keepInPlace) ordered else ordered.sortedBy { it.packageName !in forced }
     }
 
     // One place for what turning the mode on or off does: the setting, the screen's own state and
@@ -192,10 +193,22 @@ fun ForceDarkScreen(bottomPadding: Dp, onBack: () -> Unit) {
         TopAppBar(
             title = {
                 Column {
-                    Text(stringResource(R.string.tab_force_dark))
+                    Text(
+                        stringResource(R.string.tab_force_dark),
+                        style = if (LocalWatch.current) {
+                            MaterialTheme.typography.titleSmall
+                        } else {
+                            MaterialTheme.typography.titleLarge
+                        },
+                        maxLines = if (LocalWatch.current) 1 else Int.MAX_VALUE,
+                        overflow = if (LocalWatch.current) TextOverflow.Ellipsis else TextOverflow.Clip
+                    )
                     Text(
                         text = if (!gateOn) {
-                            stringResource(R.string.force_dark_gate_disabled)
+                            stringResource(
+                                if (LocalWatch.current) R.string.force_dark_gate_off
+                                else R.string.force_dark_gate_disabled
+                            )
                         } else {
                             stringResource(R.string.force_dark_count, forced.size)
                         },
@@ -204,13 +217,21 @@ fun ForceDarkScreen(bottomPadding: Dp, onBack: () -> Unit) {
                     )
                 }
             },
-            windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+            windowInsets = watchTopAppBarInsets(),
             navigationIcon = {
                 IconButton(onClick = onBack) {
                     Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
                 }
             },
             actions = {
+                if (!LocalWatch.current) {
+                    AppSortMenu(
+                        sortOrder = sort.order,
+                        onSortOrderChange = { sort.order = it },
+                        keepInPlace = sort.keepInPlace,
+                        onKeepInPlaceChange = { sort.keepInPlace = it }
+                    )
+                }
                 // In the header, where one look at the title says which mode is being switched,
                 // and inset the way the title is: this bar has no padding of its own, so a switch
                 // put in it without any lands on the glass.
@@ -278,9 +299,32 @@ fun ForceDarkScreen(bottomPadding: Dp, onBack: () -> Unit) {
                 enabled = gateOn,
                 onClick = { showOnlyForced = true }
             )
+            if (LocalWatch.current) {
+                IconButton(
+                    onClick = {
+                        searchOpen = !searchOpen
+                        if (!searchOpen) query = ""
+                    },
+                    enabled = gateOn
+                ) {
+                    Icon(
+                        if (searchOpen) Icons.Filled.Close else Icons.Filled.Search,
+                        contentDescription = stringResource(R.string.app_management_search_hint)
+                    )
+                }
+            }
         }
 
-        OutlinedTextField(
+        if (LocalWatch.current) {
+            if (searchOpen) {
+                WatchSearchField(
+                    query = query,
+                    hint = stringResource(R.string.app_management_search_hint),
+                    enabled = gateOn,
+                    onQuery = { query = it }
+                )
+            }
+        } else OutlinedTextField(
             value = query,
             onValueChange = { query = it },
             modifier = Modifier

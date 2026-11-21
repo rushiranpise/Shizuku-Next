@@ -70,13 +70,14 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.material3.AlertDialog
+import moe.shizuku.manager.ui.component.AppAlertDialog
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
@@ -106,6 +107,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import moe.shizuku.manager.ui.theme.LocalWatch
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
@@ -114,6 +116,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import moe.shizuku.manager.ui.component.PillButton
 import moe.shizuku.manager.ui.component.PillButtonQuiet
+import moe.shizuku.manager.AppConstants
 import moe.shizuku.manager.R
 import moe.shizuku.manager.shell.ShellBackend
 import moe.shizuku.manager.shell.LibraryCommand
@@ -540,7 +543,7 @@ fun ShellScreen(bottomPadding: Dp = 0.dp, onBack: (() -> Unit)? = null) {
                         textStyle = MaterialTheme.typography.bodyMedium
                     )
                 },
-                windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+                windowInsets = watchTopAppBarInsets(),
                 navigationIcon = {
                     IconButton(onClick = { searching = false; searchQuery = "" }) {
                         Icon(
@@ -585,20 +588,40 @@ fun ShellScreen(bottomPadding: Dp = 0.dp, onBack: (() -> Unit)? = null) {
             TopAppBar(
                 title = {
                     Column {
-                        Text(stringResource(R.string.shell_title))
+                        Text(
+                            stringResource(R.string.shell_title),
+                            style = if (LocalWatch.current) {
+                                MaterialTheme.typography.titleSmall
+                            } else {
+                                MaterialTheme.typography.titleLarge
+                            },
+                            maxLines = if (LocalWatch.current) 1 else Int.MAX_VALUE,
+                            overflow = if (LocalWatch.current) {
+                                TextOverflow.Ellipsis
+                            } else {
+                                TextOverflow.Clip
+                            }
+                        )
                         Text(
                             text = when {
                                 backend == ShellBackend.ROOT ->
                                     stringResource(R.string.shell_backend_root_status)
-                                uid >= 0 -> stringResource(R.string.shell_backend_shizuku_status, uid)
-                                else -> stringResource(R.string.shell_backend_offline)
+                                uid >= 0 -> stringResource(
+                                    if (LocalWatch.current) R.string.shell_backend_shizuku_status_short
+                                    else R.string.shell_backend_shizuku_status,
+                                    uid
+                                )
+                                else -> stringResource(
+                                    if (LocalWatch.current) R.string.shell_backend_offline_short
+                                    else R.string.shell_backend_offline
+                                )
                             },
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 },
-                windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+                windowInsets = watchTopAppBarInsets(),
                 // An arrow only when this was opened from the Labs list: it used to be a tab,
                 // where the bar underneath was how you left, and it is a screen over the tabs
                 // now, so the arrow is the way back.
@@ -622,7 +645,7 @@ fun ShellScreen(bottomPadding: Dp = 0.dp, onBack: (() -> Unit)? = null) {
                             contentDescription = stringResource(R.string.shell_paste)
                         )
                     }
-                    if (field.text.isNotBlank()) {
+                    if (!LocalWatch.current && field.text.isNotBlank()) {
                         IconButton(onClick = { naming = NameRequest(command = field.text.trim()) }) {
                             Icon(
                                 Icons.Outlined.BookmarkAdd,
@@ -631,11 +654,13 @@ fun ShellScreen(bottomPadding: Dp = 0.dp, onBack: (() -> Unit)? = null) {
                         }
                     }
                     if (lines.isNotEmpty()) {
-                        IconButton(onClick = { searching = true }) {
-                            Icon(
-                                Icons.Filled.Search,
-                                contentDescription = stringResource(R.string.shell_search)
-                            )
+                        if (!LocalWatch.current) {
+                            IconButton(onClick = { searching = true }) {
+                                Icon(
+                                    Icons.Filled.Search,
+                                    contentDescription = stringResource(R.string.shell_search)
+                                )
+                            }
                         }
                         // The rest are used often enough to keep, and rare enough not to hold a
                         // place in the bar on a screen where the log wants the room.
@@ -649,11 +674,50 @@ fun ShellScreen(bottomPadding: Dp = 0.dp, onBack: (() -> Unit)? = null) {
                             expanded = menuOpen,
                             onDismissRequest = { menuOpen = false }
                         ) {
+                            if (LocalWatch.current) {
+                                DropdownMenuItem(
+                                    text = { Text(stringResource(R.string.shell_search)) },
+                                    onClick = {
+                                        menuOpen = false
+                                        searching = true
+                                    }
+                                )
+                            }
                             DropdownMenuItem(
                                 text = { Text(stringResource(R.string.shell_copy)) },
                                 onClick = {
                                     menuOpen = false
-                                    clipboard.setText(AnnotatedString(printed.joinToString("\n")))
+                                    val text = ShellOutput.clipboardText(printed)
+                                    if (text == null) {
+                                        scope.launch {
+                                            feedback.showSnackbar(
+                                                context.getString(R.string.shell_copy_too_large)
+                                            )
+                                        }
+                                    } else {
+                                        val copied = try {
+                                            clipboard.setText(AnnotatedString(text))
+                                            true
+                                        } catch (e: Exception) {
+                                            Log.w(
+                                                AppConstants.TAG,
+                                                "Could not copy the shell output",
+                                                e
+                                            )
+                                            false
+                                        }
+                                        scope.launch {
+                                            feedback.showSnackbar(
+                                                context.getString(
+                                                    if (copied) {
+                                                        R.string.toast_copied_to_clipboard
+                                                    } else {
+                                                        R.string.shell_copy_failed
+                                                    }
+                                                )
+                                            )
+                                        }
+                                    }
                                 }
                             )
                             DropdownMenuItem(
@@ -753,14 +817,17 @@ fun ShellScreen(bottomPadding: Dp = 0.dp, onBack: (() -> Unit)? = null) {
         }
 
         Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
-            // Selectable, so one line or part of one can be copied without taking the lot.
-            SelectionContainer {
-                LazyColumn(
-                    state = listState,
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
-                ) {
-                    itemsIndexed(lines) { index, line ->
+            LazyColumn(
+                state = listState,
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+            ) {
+                itemsIndexed(lines, key = { _, line -> line.id }) { index, line ->
+                    // One container per line, because a selection that spans lazy items can
+                    // name a line the list has already dropped. Compose then looks that id up
+                    // in the current selectables and throws when it is gone. Within a line,
+                    // a word or the whole line is still selectable.
+                    SelectionContainer {
                         OutputLineText(
                             line = line,
                             query = if (searching) searchQuery else "",
@@ -1273,7 +1340,7 @@ private fun NameDialog(
     onConfirm: (String) -> Unit
 ) {
     var name by remember { mutableStateOf(initial) }
-    AlertDialog(
+    AppAlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(title) },
         text = {
@@ -1328,7 +1395,7 @@ private fun PackagePickerDialog(
         }
     }
 
-    AlertDialog(
+    AppAlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(title) },
         text = {

@@ -33,6 +33,9 @@
     <string name="paring_code_is_wrong">Cütləşdirmə kodu yanlışdır.</string>
     <string name="cannot_connect_port">Simsiz sazlama xidmətinə qoşulmaq mümkün deyil.\n\nŞəbəkəyə girişi məhdudlaşdıra bilən bütün firewall, reklam bloku, VPN və ya oxşar tətbiqlərdə Shizuku-nun ağ siyahıya salındığından əmin olun.</string>
     <string name="dialog_adb_pairing_message">Zəhmət olmasa, cütləşdirməyə aşağıdakı addımları yerinə yetirməklə başlayın:\n- \"Developer Seçimləri\"nə keçid edin\n- \"USB ilə sazlama\" və \"Simsiz sazlama\"nı aktiv edin\n-\"Simsiz sazlama\" bölməsinin sol tərəfinə toxunun\n- \"Cihazı cütləşdirmə kodu ilə qoş\" düyməsini basın\n- Bildirişdə cütləşdirmə kodunu daxil edin</string>
+    <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
+         a translation of dialog_adb_pairing_message would still tell the user to type the code
+         into a notification that this flow never shows. Untranslated locales fall back here. -->
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -78,6 +81,7 @@
     <string name="app_management_dialog_adb_is_limited_title">adb icazəsi məhduddur</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Çox güman ki, cihazınızın istehsalçısı adb icazəsini məhdudlaşdırır.<p>Sisteminiz üçün <b><a href="%1$s">bu sənəddə</a></b> həll yolu ola bilər.]]></string>
     <string name="app_management_toggle_all">Hamısını dəyiş</string>
+    <!-- Per-app rotation override for apps that force landscape -->
     <!-- Hiding: what apps can read about this device -->
     <string name="intent_start">Başlat</string>
     <string name="device_watchdog">Nəzarətçi</string>

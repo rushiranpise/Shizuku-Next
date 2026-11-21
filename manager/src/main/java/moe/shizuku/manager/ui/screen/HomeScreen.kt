@@ -54,7 +54,7 @@ import androidx.compose.material.icons.rounded.Usb
 import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.material.icons.rounded.MoreHoriz
 import androidx.compose.material.icons.rounded.Wifi
-import androidx.compose.material3.AlertDialog
+import moe.shizuku.manager.ui.component.AppAlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LoadingIndicator
@@ -384,7 +384,7 @@ fun HomeScreen(bottomPadding: Dp) {
     Column(modifier = Modifier.fillMaxSize()) {
         TopAppBar(
             title = { Text(stringResource(R.string.app_name)) },
-            windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp)
+            windowInsets = watchTopAppBarInsets(),
         )
 
         Box(
@@ -972,7 +972,7 @@ fun HomeScreen(bottomPadding: Dp) {
     }
 
     if (showAdbCommand) {
-        AlertDialog(
+        AppAlertDialog(
             onDismissRequest = { showAdbCommand = false },
             title = { Text(stringResource(R.string.intents_adb_command)) },
             text = { Text(Starter.adbCommand, fontFamily = FontFamily.Monospace) },
@@ -1359,7 +1359,9 @@ private fun RowScope.DebuggingButton(
         }
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            // No fillMaxWidth here: the icon and label are centred as one group. Letting the
+            // label take the remaining width centred the text inside its own box but left the
+            // icon at the button's edge, which is what still read as left-aligned.
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -1374,11 +1376,11 @@ private fun RowScope.DebuggingButton(
                 // translation keeps its own words, and the font shrinks only if one of
                 // those words still does not fit on its line.
                 text = label.replaceFirst(' ', '\n'),
-                modifier = Modifier.weight(1f),
-                // The second line starts under the first, as in the mock, rather than
-                // being centred under it.
-                textAlign = TextAlign.Start,
-                maxLines = 2
+                // Both lines sit centred under each other, and the group is centred in the
+                // button by the row above.
+                textAlign = TextAlign.Center,
+                maxLines = 2,
+                fillWidth = false
             )
         }
     }

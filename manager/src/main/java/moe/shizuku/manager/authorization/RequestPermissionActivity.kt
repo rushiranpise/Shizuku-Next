@@ -120,10 +120,15 @@ class RequestPermissionActivity : AppActivity() {
                 }
             }
             button2.setOnClickListener {
-                // This grant lasts only as long as the requesting process. It is not
-                // persisted and does not need the confirmation used for a permanent grant.
-                setResult(uid, pid, requestCode, allowed = true, onetime = true)
-                dialog.dismiss()
+                // This grant lasts only as long as the requesting process, but it still lets
+                // another app borrow the shell, so it asks for the same confirmation as a
+                // permanent grant. A failed prompt leaves the dialog open to try again.
+                lifecycleScope.launch {
+                    if (GrantAuthenticator.authenticate(this@RequestPermissionActivity)) {
+                        setResult(uid, pid, requestCode, allowed = true, onetime = true)
+                        dialog.dismiss()
+                    }
+                }
             }
             button3.setOnClickListener {
                 setResult(uid, pid, requestCode, allowed = false, onetime = true)

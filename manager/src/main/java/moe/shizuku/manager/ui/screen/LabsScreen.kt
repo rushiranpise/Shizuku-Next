@@ -183,7 +183,7 @@ fun LabsScreen(bottomPadding: Dp, onOpenDetail: (Detail) -> Unit) {
     Column(modifier = Modifier.fillMaxSize()) {
         TopAppBar(
             title = { Text(stringResource(R.string.tab_labs)) },
-            windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp)
+            windowInsets = watchTopAppBarInsets(),
         )
 
         Box(

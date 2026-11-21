@@ -10,7 +10,11 @@ This script closes that loop. It reads the same changed-list, translated-ref and
 as the check, finds the strings whose placeholders or ADB commands no longer match or that a
 pull request emptied, removes those elements from the locale files, and deletes their
 translations from Crowdin. Removing an element makes Android fall back to the English
-string, which is valid and cannot be reintroduced by the next download.
+string, which is valid and cannot be reintroduced by the next download. A locale file that
+holds no strings at all is not a translation - Crowdin writes one for a language with nothing
+translated in it - so the file is deleted instead, and its path is removed from the changed
+list so the rest of the export can still merge. There is no Crowdin translation to delete
+for such a file.
 
     repair-translations.py <changed-list> <translated-ref> <source-ref>
 
@@ -136,6 +140,9 @@ def find_bad_keys(paths, translated_ref, source_ref):
         except ElementTree.ParseError as error:
             print(f"{path}: not valid XML; leaving it for the check ({error})")
             continue
+        except subprocess.CalledProcessError:
+            print(f"{path}: missing from {translated_ref}; leaving it for the check")
+            continue
         if not translated_texts:
             continue
         try:
@@ -170,6 +177,25 @@ def find_bad_keys(paths, translated_ref, source_ref):
             bad[path] = rejected
 
     return bad
+
+
+def find_empty_files(paths, translated_ref):
+    """Return locale paths whose file holds no string or plural element at all."""
+    empty = []
+    for path in paths:
+        if not CHECKS.LOCALE_PATH.match(path):
+            continue
+        try:
+            translated_texts = CHECKS.texts_at(translated_ref, path)
+        except ElementTree.ParseError as error:
+            print(f"{path}: not valid XML; leaving it for the check ({error})")
+            continue
+        except subprocess.CalledProcessError:
+            print(f"{path}: missing from {translated_ref}; leaving it for the check")
+            continue
+        if not translated_texts:
+            empty.append(path)
+    return empty
 
 
 def remove_elements(text, names):
@@ -276,7 +302,7 @@ def main():
     parser.add_argument(
         "--dry-run",
         action="store_true",
-        help="print the rejected keys without changing files or Crowdin",
+        help="print the rejected keys and empty files without changing files or Crowdin",
     )
     args = parser.parse_args()
 
@@ -287,15 +313,21 @@ def main():
         return 0
 
     bad = find_bad_keys(paths, args.translated_ref, args.source_ref)
-    if not bad:
+    empty = find_empty_files(paths, args.translated_ref)
+    if not bad and not empty:
         print("no translation needs repair")
         return 0
 
     for path, keys in sorted(bad.items()):
         print(f"{path}: {', '.join(sorted(keys))}")
+    for path in empty:
+        print(f"{path}: no strings in it; the file will be dropped")
 
     if args.dry_run:
-        print(f"would repair {sum(len(keys) for keys in bad.values())} key(s)")
+        print(
+            f"would repair {sum(len(keys) for keys in bad.values())} key(s)"
+            f" and drop {len(empty)} empty file(s)"
+        )
         return 0
 
     languages = android_language_map(HERE.parent / "crowdin.yml")
@@ -308,8 +340,19 @@ def main():
                 "CROWDIN_TOKEN is not set; refusing to repair the branch without first "
                 "removing the bad translations from Crowdin"
             )
+        for path in empty:
+            language = crowdin_language(path, languages)
+            print(f"{path}: empty {language} export; no Crowdin translation to remove")
         for path, keys in sorted(bad.items()):
             remove_from_crowdin(path, keys, languages, token)
+
+    dropped = set(empty)
+    for path in empty:
+        try:
+            Path(path).unlink()
+        except FileNotFoundError:
+            pass
+        print(f"{path}: dropped the empty translation file")
 
     for path, keys in sorted(bad.items()):
         with open(path, encoding="utf-8", newline="") as handle:
@@ -320,9 +363,26 @@ def main():
             raise RepairError(
                 f"{path}: could not find {', '.join(sorted(missing))} in the file"
             )
+        root = ElementTree.fromstring(fixed)
+        if not root.findall("string") and not root.findall("plurals"):
+            Path(path).unlink()
+            dropped.add(path)
+            print(f"{path}: dropped because no strings remain")
+            continue
         with open(path, "w", encoding="utf-8", newline="") as handle:
             handle.write(fixed)
         print(f"{path}: removed {', '.join(sorted(set(removed)))}")
+
+    if dropped:
+        remaining = [path for path in paths if path not in dropped]
+        with open(args.changed_list, "w", encoding="utf-8") as changed:
+            changed.write("\n".join(remaining))
+            if remaining:
+                changed.write("\n")
+        print(
+            f"dropped {len(dropped)} empty file(s);"
+            f" the check will see {len(remaining)} file(s)"
+        )
 
     return 0
 

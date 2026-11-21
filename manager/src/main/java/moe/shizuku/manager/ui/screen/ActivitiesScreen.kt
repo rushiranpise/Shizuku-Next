@@ -26,7 +26,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.StarBorder
-import androidx.compose.material3.AlertDialog
+import moe.shizuku.manager.ui.component.AppAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -78,6 +78,8 @@ import moe.shizuku.manager.ui.component.statusChipMinWidth
 import moe.shizuku.manager.ui.component.IntentDraft
 import moe.shizuku.manager.ui.component.IntentOperation
 import moe.shizuku.manager.ui.component.IntentForm
+import moe.shizuku.manager.ui.component.WatchSearchField
+import moe.shizuku.manager.ui.theme.LocalWatch
 import moe.shizuku.manager.ui.component.SegmentedCard
 import moe.shizuku.manager.ui.component.StatusChip
 import moe.shizuku.manager.ui.component.appLabel
@@ -106,6 +108,7 @@ fun ActivitiesScreen(bottomPadding: Dp, onBack: () -> Unit) {
     var loading by remember { mutableStateOf(true) }
     var activitiesLoading by remember { mutableStateOf(false) }
     var query by remember { mutableStateOf("") }
+    var searchOpen by remember { mutableStateOf(false) }
     var message by remember { mutableStateOf<Int?>(null) }
     // The activities somebody saved, newest first. Shown above the apps, because the reason to
     // save one is to reach it again without finding its app first.
@@ -351,6 +354,11 @@ fun ActivitiesScreen(bottomPadding: Dp, onBack: () -> Unit) {
                             packageName == null -> stringResource(R.string.tab_activities)
                             else -> appLabelText
                         },
+                        style = if (LocalWatch.current) {
+                            MaterialTheme.typography.titleSmall
+                        } else {
+                            MaterialTheme.typography.titleLarge
+                        },
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -368,7 +376,7 @@ fun ActivitiesScreen(bottomPadding: Dp, onBack: () -> Unit) {
                     }
                 }
             },
-            windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+            windowInsets = watchTopAppBarInsets(),
             navigationIcon = {
                 IconButton(
                     onClick = {
@@ -388,6 +396,17 @@ fun ActivitiesScreen(bottomPadding: Dp, onBack: () -> Unit) {
                 }
             },
             actions = {
+                if (LocalWatch.current && tab == 0 && !picking) {
+                    IconButton(onClick = {
+                        searchOpen = !searchOpen
+                        if (!searchOpen) query = ""
+                    }) {
+                        Icon(
+                            if (searchOpen) Icons.Filled.Close else Icons.Filled.Search,
+                            contentDescription = stringResource(R.string.app_management_search_hint)
+                        )
+                    }
+                }
                 // Only where there is something to send.
                 if (tab == 1) {
                     IconButton(onClick = { send() }) {
@@ -440,7 +459,15 @@ fun ActivitiesScreen(bottomPadding: Dp, onBack: () -> Unit) {
             return@Column
         }
 
-        OutlinedTextField(
+        if (LocalWatch.current) {
+            if (searchOpen) {
+                WatchSearchField(
+                    query = query,
+                    hint = stringResource(R.string.app_management_search_hint),
+                    onQuery = { query = it }
+                )
+            }
+        } else OutlinedTextField(
             value = query,
             onValueChange = { query = it },
             modifier = Modifier
@@ -735,7 +762,7 @@ private fun ActivityDetailsDialog(
     onBuild: () -> Unit,
     onDismiss: () -> Unit
 ) {
-    AlertDialog(
+    AppAlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(activity.title) },
         text = {
