@@ -39,20 +39,21 @@ enum class SortOrder {
 /**
  * The apps in the chosen order.
  *
- * The labels are resolved once per app rather than inside the comparator: a comparator is asked
- * for its keys about n log n times, and these lists re-sort on every keystroke of their search
- * field, so a lookup per comparison was the same few labels fetched over and over.
+ * Only the alphabetical order reads labels, and each one is resolved once per app rather than
+ * inside the comparator: a comparator is asked for its keys about n log n times, and these lists
+ * re-sort on every keystroke of their search field, so a lookup per comparison was the same few
+ * labels fetched over and over. The two timestamp orders need no label at all, so they do not
+ * pay to load every app's.
  */
 fun List<PackageInfo>.sortedForDisplay(
     order: SortOrder,
     label: (PackageInfo) -> String
-): List<PackageInfo> {
-    val labelled = map { it to label(it).lowercase() }
-    return when (order) {
-        SortOrder.RECENTLY_INSTALLED -> labelled.sortedByDescending { it.first.firstInstallTime }
-        SortOrder.RECENTLY_UPDATED -> labelled.sortedByDescending { it.first.lastUpdateTime }
-        SortOrder.ALPHABETICAL -> labelled.sortedBy { it.second }
-    }.map { it.first }
+): List<PackageInfo> = when (order) {
+    SortOrder.RECENTLY_INSTALLED -> sortedByDescending { it.firstInstallTime }
+    SortOrder.RECENTLY_UPDATED -> sortedByDescending { it.lastUpdateTime }
+    SortOrder.ALPHABETICAL -> map { it to label(it).lowercase() }
+        .sortedBy { it.second }
+        .map { it.first }
 }
 
 /**
@@ -134,8 +135,8 @@ fun rememberAppSort(key: String): AppSortState = remember(key) {
  *
  * The three orders are the same everywhere. [keepInPlace] is for the lists that act on the apps
  * they show, which puts those apps at the top by default because that is what somebody opens the
- * list to see. Left unchecked, an app keeps the place the chosen order gives it instead, which is
- * what makes a long list easy to scan for one name.
+ * list to see. Checked, an app keeps the place the chosen order gives it instead, which is what
+ * makes a long list easy to scan for one name.
  *
  * Null [keepInPlace] leaves the option out: the Apps tab and the app-ops list do not have a state
  * of their own to put first.
