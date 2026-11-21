@@ -12,6 +12,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -19,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import moe.shizuku.manager.R
+import moe.shizuku.manager.ShizukuSettings
 
 /**
  * The orders every app list offers, so the same words mean the same order wherever a list of
@@ -51,6 +53,80 @@ fun List<PackageInfo>.sortedForDisplay(
         SortOrder.RECENTLY_UPDATED -> labelled.sortedByDescending { it.first.lastUpdateTime }
         SortOrder.ALPHABETICAL -> labelled.sortedBy { it.second }
     }.map { it.first }
+}
+
+/**
+ * How each lab list was last left, kept beside the other settings.
+ *
+ * A sort is a way of reading one list, not a property of the apps on it, so each list has its
+ * own: the firewall can be sorted by install date while autostart is by name. The keys carry a
+ * prefix so they cannot collide with a setting of the same name.
+ */
+object AppSortPreferences {
+
+    private const val ORDER_PREFIX = "labs_sort_order_"
+    private const val KEEP_PLACE_PREFIX = "labs_sort_keep_place_"
+
+    fun order(key: String): SortOrder {
+        val stored = ShizukuSettings.getPreferences().getString(ORDER_PREFIX + key, null)
+        // An order this build no longer knows falls back to the default rather than to a list
+        // sorted by something arbitrary.
+        return SortOrder.entries.firstOrNull { it.name == stored } ?: SortOrder.ALPHABETICAL
+    }
+
+    fun setOrder(key: String, order: SortOrder) {
+        ShizukuSettings.getPreferences().edit()
+            .putString(ORDER_PREFIX + key, order.name)
+            .apply()
+    }
+
+    fun keepInPlace(key: String): Boolean =
+        ShizukuSettings.getPreferences().getBoolean(KEEP_PLACE_PREFIX + key, false)
+
+    fun setKeepInPlace(key: String, keep: Boolean) {
+        ShizukuSettings.getPreferences().edit()
+            .putBoolean(KEEP_PLACE_PREFIX + key, keep)
+            .apply()
+    }
+}
+
+/** The sort state of one list, with every change written down as it is made. */
+@Stable
+class AppSortState internal constructor(
+    private val key: String,
+    initialOrder: SortOrder,
+    initialKeepInPlace: Boolean
+) {
+    private var orderState by mutableStateOf(initialOrder)
+    private var keepInPlaceState by mutableStateOf(initialKeepInPlace)
+
+    var order: SortOrder
+        get() = orderState
+        set(value) {
+            orderState = value
+            AppSortPreferences.setOrder(key, value)
+        }
+
+    var keepInPlace: Boolean
+        get() = keepInPlaceState
+        set(value) {
+            keepInPlaceState = value
+            AppSortPreferences.setKeepInPlace(key, value)
+        }
+}
+
+/**
+ * The order a list was last left in, remembered across visits and rotations.
+ *
+ * [key] names the list, so two lab lists can be read in two different orders.
+ */
+@Composable
+fun rememberAppSort(key: String): AppSortState = remember(key) {
+    AppSortState(
+        key = key,
+        initialOrder = AppSortPreferences.order(key),
+        initialKeepInPlace = AppSortPreferences.keepInPlace(key)
+    )
 }
 
 /**

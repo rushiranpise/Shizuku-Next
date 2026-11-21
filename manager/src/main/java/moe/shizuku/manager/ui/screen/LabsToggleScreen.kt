@@ -260,10 +260,9 @@ fun LabsToggleScreen(
     // The other question the list answers, and the one the app-ops list already asked: what
     // kind of app it is, so a system package can be told from something you installed.
     var kind by remember { mutableStateOf(ManageFilter.ALL) }
-    var sortOrder by remember { mutableStateOf(SortOrder.ALPHABETICAL) }
-    // Off by default, because the rows somebody opens one of these lists for are the ones
-    // already on it. On, an app keeps the place the chosen order gives it instead.
-    var keepInPlace by remember { mutableStateOf(false) }
+    // The order this list was last left in, remembered per list: the firewall can be sorted
+    // by install date while autostart is by name. Defaults to A-Z with active apps on top.
+    val sort = rememberAppSort(feature.name)
     var version by remember { mutableIntStateOf(0) }
     var running by remember { mutableStateOf(ShizukuStateMachine.isRunning()) }
     var vpnClient by remember { mutableStateOf(Hiding.chosenVpnClient()) }
@@ -417,7 +416,7 @@ fun LabsToggleScreen(
 
     val shown = remember(
         apps, blocked, launcherless, systemPackages, userPackages, disabledPackages,
-        query, filter, kind, pinned, sortOrder, keepInPlace
+        query, filter, kind, pinned, sort.order, sort.keepInPlace
     ) {
         val byKind = if (feature.userAppsOnly) {
             apps.filter { it.packageName in userPackages }
@@ -446,9 +445,10 @@ fun LabsToggleScreen(
         // stay at the top. Pinned apps are always first; the apps this mode applies to come next
         // unless the list was asked to keep them in place. A stable sort leaves the order within
         // each group alone, so nothing moves except across those lines.
-        val ordered = searched.sortedForDisplay(sortOrder) { appLabel(pm, it) }
+        val ordered = searched.sortedForDisplay(sort.order) { appLabel(pm, it) }
         val pinnedFirst = ordered.sortedBy { it.packageName !in pinned }
-        if (keepInPlace) pinnedFirst else pinnedFirst.sortedBy { slotKey(it) !in blocked }
+        if (sort.keepInPlace) pinnedFirst
+        else pinnedFirst.sortedBy { slotKey(it) !in blocked }
     }
 
     if (pickingVpn) {
@@ -708,10 +708,10 @@ fun LabsToggleScreen(
                 )
                 if (!LocalWatch.current) {
                     AppSortMenu(
-                        sortOrder = sortOrder,
-                        onSortOrderChange = { sortOrder = it },
-                        keepInPlace = keepInPlace,
-                        onKeepInPlaceChange = { keepInPlace = it }
+                        sortOrder = sort.order,
+                        onSortOrderChange = { sort.order = it },
+                        keepInPlace = sort.keepInPlace,
+                        onKeepInPlaceChange = { sort.keepInPlace = it }
                     )
                     bulkActions(Modifier.padding(end = 8.dp))
                 }
