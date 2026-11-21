@@ -68,11 +68,11 @@ object AppSortPreferences {
     private const val ORDER_PREFIX = "labs_sort_order_"
     private const val KEEP_PLACE_PREFIX = "labs_sort_keep_place_"
 
-    fun order(key: String): SortOrder {
+    fun order(key: String, default: SortOrder = SortOrder.ALPHABETICAL): SortOrder {
         val stored = ShizukuSettings.getPreferences().getString(ORDER_PREFIX + key, null)
         // An order this build no longer knows falls back to the default rather than to a list
         // sorted by something arbitrary.
-        return SortOrder.entries.firstOrNull { it.name == stored } ?: SortOrder.ALPHABETICAL
+        return SortOrder.entries.firstOrNull { it.name == stored } ?: default
     }
 
     fun setOrder(key: String, order: SortOrder) {
@@ -119,13 +119,17 @@ class AppSortState internal constructor(
 /**
  * The order a list was last left in, remembered across visits and rotations.
  *
- * [key] names the list, so two lab lists can be read in two different orders.
+ * [key] names the list, so two lists can be read in two different orders. [defaultOrder] is
+ * only for a list that has never chosen one.
  */
 @Composable
-fun rememberAppSort(key: String): AppSortState = remember(key) {
+fun rememberAppSort(
+    key: String,
+    defaultOrder: SortOrder = SortOrder.ALPHABETICAL
+): AppSortState = remember(key) {
     AppSortState(
         key = key,
-        initialOrder = AppSortPreferences.order(key),
+        initialOrder = AppSortPreferences.order(key, defaultOrder),
         initialKeepInPlace = AppSortPreferences.keepInPlace(key)
     )
 }

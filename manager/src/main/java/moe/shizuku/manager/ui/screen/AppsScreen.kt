@@ -138,7 +138,8 @@ fun AppsScreen(
 
     var all by remember { mutableStateOf<List<PackageInfo>>(emptyList()) }
     var query by remember { mutableStateOf("") }
-    var sortOrder by remember { mutableStateOf(SortOrder.RECENTLY_INSTALLED) }
+    // The order this list was last left in. Defaults to recently added.
+    val sort = rememberAppSort("APPS", SortOrder.RECENTLY_INSTALLED)
     var selected by remember { mutableStateOf(setOf<String>()) }
     var version by remember { mutableIntStateOf(0) }
     var sortMenu by remember { mutableStateOf(false) }
@@ -276,7 +277,7 @@ fun AppsScreen(
     }
 
     val shown = remember(
-        all, query, sortOrder, filter, kind,
+        all, query, sort.order, filter, kind,
         userPackages, systemPackages, disabledPackages, launcherless, grantedNames
     ) {
         val q = query.trim()
@@ -302,7 +303,7 @@ fun AppsScreen(
         }
         // The two timestamps the package manager keeps: when it was installed, and when the
         // APK was last replaced. They differ for anything that has been updated.
-        filtered.sortedForDisplay(sortOrder) { appLabel(pm, it) }
+        filtered.sortedForDisplay(sort.order) { appLabel(pm, it) }
     }
 
     val selectionMode = selected.isNotEmpty()
@@ -621,21 +622,21 @@ fun AppsScreen(
                             DropdownMenuItem(
                                 text = { Text(stringResource(R.string.app_management_sort_last_added)) },
                                 onClick = {
-                                    sortOrder = SortOrder.RECENTLY_INSTALLED
+                                    sort.order = SortOrder.RECENTLY_INSTALLED
                                     moreMenu = false
                                 }
                             )
                             DropdownMenuItem(
                                 text = { Text(stringResource(R.string.app_management_sort_updated)) },
                                 onClick = {
-                                    sortOrder = SortOrder.RECENTLY_UPDATED
+                                    sort.order = SortOrder.RECENTLY_UPDATED
                                     moreMenu = false
                                 }
                             )
                             DropdownMenuItem(
                                 text = { Text(stringResource(R.string.app_management_sort_alphabetical)) },
                                 onClick = {
-                                    sortOrder = SortOrder.ALPHABETICAL
+                                    sort.order = SortOrder.ALPHABETICAL
                                     moreMenu = false
                                 }
                             )
@@ -668,15 +669,15 @@ fun AppsScreen(
                     DropdownMenu(expanded = sortMenu, onDismissRequest = { sortMenu = false }) {
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.app_management_sort_last_added)) },
-                            onClick = { sortOrder = SortOrder.RECENTLY_INSTALLED; sortMenu = false }
+                            onClick = { sort.order = SortOrder.RECENTLY_INSTALLED; sortMenu = false }
                         )
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.app_management_sort_updated)) },
-                            onClick = { sortOrder = SortOrder.RECENTLY_UPDATED; sortMenu = false }
+                            onClick = { sort.order = SortOrder.RECENTLY_UPDATED; sortMenu = false }
                         )
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.app_management_sort_alphabetical)) },
-                            onClick = { sortOrder = SortOrder.ALPHABETICAL; sortMenu = false }
+                            onClick = { sort.order = SortOrder.ALPHABETICAL; sortMenu = false }
                         )
                     }
                 }

@@ -200,7 +200,8 @@ fun ManageScreen(
     var refreshKey by remember { mutableIntStateOf(0) }
     var query by remember { mutableStateOf("") }
     var searchOpen by remember { mutableStateOf(false) }
-    var sortOrder by remember { mutableStateOf(SortOrder.ALPHABETICAL) }
+    // The order this list was last left in. Defaults to A-Z.
+    val sort = rememberAppSort("APP_OPS")
     var sortMenu by remember { mutableStateOf(false) }
     var filter by remember { mutableStateOf(ManageFilter.ALL) }
     // The open app is remembered across rotation, like the tab itself: coming back should
@@ -281,7 +282,7 @@ fun ManageScreen(
     }
 
     val shown = remember(
-        apps, query, sortOrder, filter,
+        apps, query, sort.order, filter,
         systemPackages, userPackages, disabledPackages, launcherless, pinned
     ) {
         val byFilter = when (filter) {
@@ -300,14 +301,10 @@ fun ManageScreen(
                     it.packageName.contains(trimmed, ignoreCase = true)
             }
         }
-        val order = when (sortOrder) {
-            SortOrder.RECENTLY_INSTALLED -> compareByDescending<PackageInfo> { it.firstInstallTime }
-            SortOrder.RECENTLY_UPDATED -> compareByDescending<PackageInfo> { it.lastUpdateTime }
-            SortOrder.ALPHABETICAL -> compareBy { appLabel(pm, it).lowercase() }
-        }
-        filtered.sortedWith(
-            compareBy<PackageInfo> { it.packageName !in pinned }.then(order)
-        )
+        // The chosen order first, then pinned apps on top of it with a stable sort, so the
+        // order inside each group is still the one that was asked for.
+        filtered.sortedForDisplay(sort.order) { appLabel(pm, it) }
+            .sortedBy { it.packageName !in pinned }
     }
 
     if (selecting) {
@@ -446,15 +443,15 @@ fun ManageScreen(
                     DropdownMenu(expanded = sortMenu, onDismissRequest = { sortMenu = false }) {
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.app_management_sort_alphabetical)) },
-                            onClick = { sortOrder = SortOrder.ALPHABETICAL; sortMenu = false }
+                            onClick = { sort.order = SortOrder.ALPHABETICAL; sortMenu = false }
                         )
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.app_management_sort_last_added)) },
-                            onClick = { sortOrder = SortOrder.RECENTLY_INSTALLED; sortMenu = false }
+                            onClick = { sort.order = SortOrder.RECENTLY_INSTALLED; sortMenu = false }
                         )
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.app_management_sort_updated)) },
-                            onClick = { sortOrder = SortOrder.RECENTLY_UPDATED; sortMenu = false }
+                            onClick = { sort.order = SortOrder.RECENTLY_UPDATED; sortMenu = false }
                         )
                     }
                 }
