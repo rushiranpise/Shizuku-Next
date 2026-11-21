@@ -174,6 +174,10 @@ object AdbPortPersistence {
 
         val wanted = ShizukuSettings.getTcpPort()
         val fallbackDevice = needsClassicPortFallback(context)
+        // A port the user switched on is theirs even when this write brings it to a new port:
+        // only the fallback's own port may be taken back when the start no longer needs it.
+        val userOwned =
+            ShizukuSettings.getPersistAdbPort() && !ShizukuSettings.getPersistAdbPortAuto()
         val declined = ShizukuSettings.getPersistAdbPortDeclined()
         val refusedHere = ShizukuSettings.getPersistAdbPortRefusedBuild() == Build.FINGERPRINT
         // Everything that needs no shell first: on a device the fallback is not for, this is
@@ -198,7 +202,7 @@ object AdbPortPersistence {
         when (apply(true)) {
             Outcome.APPLIED -> {
                 ShizukuSettings.setPersistAdbPort(true)
-                ShizukuSettings.setPersistAdbPortAuto(true)
+                if (!userOwned) ShizukuSettings.setPersistAdbPortAuto(true)
                 Diag.info(
                     AppConstants.TAG,
                     "Start without Wi-Fi: the classic ADB port $wanted stays open after a reboot, " +
