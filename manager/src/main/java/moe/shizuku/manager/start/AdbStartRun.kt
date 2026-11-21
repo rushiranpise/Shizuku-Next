@@ -594,11 +594,13 @@ class AdbStartRun(
             // hotspot cannot (see [AdbPortPersistence.reconcile]). Once the server has settled: the
             // write goes through it, and a server that went away again has the check below to deal
             // with first. Does nothing, and sends no command, on any other device.
-            val startedMethod = requestedMethod
             settleScope.launch {
                 delay(START_SETTLE_MS + SETTLE_RECHECK_MS)
                 if (!Shizuku.pingBinder()) return@launch
-                runCatching { AdbPortPersistence.reconcile(applicationContext, startedMethod) }
+                // Read when the work runs: the method may have changed during the settle window,
+                // and reconciling against the old one would undo the new choice.
+                val method = ShizukuSettings.getStartMethod()
+                runCatching { AdbPortPersistence.reconcile(applicationContext, method) }
                     .onFailure {
                         if (it is CancellationException) throw it
                         Diag.warn(AppConstants.TAG, "Could not settle the ADB port after a reboot", it)
