@@ -62,6 +62,12 @@ object AdbPortPersistence {
         /** The platform refused, which on a shell-only server is the expected answer. */
         REFUSED,
 
+        /**
+         * The command did not run or its result could not be read back, so whether the platform
+         * refused is unknown. Nothing is remembered about the build: a later start may succeed.
+         */
+        UNKNOWN,
+
         /** Nothing to write through: Shizuku is not running and there is no root shell. */
         UNAVAILABLE
     }
@@ -82,26 +88,25 @@ object AdbPortPersistence {
         val code = runCatching {
             session.run(backend, "setprop $KEY $port") { line -> output.append(line.text) }
         }.getOrElse { throwable ->
-            Log.w(AppConstants.TAG, "Could not write $KEY", throwable)
-            return@withContext Outcome.REFUSED
+            Log.w(AppConstants.TAG, "Could not run the write to $KEY", throwable)
+            return@withContext Outcome.UNKNOWN
         }
 
         val readBack = read()
-        when {
-            code == 0 && readBack == port -> {
-                Log.i(AppConstants.TAG, "$KEY is $port; the port will outlive a reboot")
-                Outcome.APPLIED
-            }
-
-            else -> {
-                Log.w(
-                    AppConstants.TAG,
-                    "$KEY was refused (exit $code, reads back $readBack): " +
-                        output.toString().trim()
-                )
-                Outcome.REFUSED
-            }
+        if (readBack == null) {
+            Log.w(AppConstants.TAG, "Could not confirm $KEY (exit $code): the property is unreadable")
+            return@withContext Outcome.UNKNOWN
         }
+        if (readBack == port) {
+            Log.i(AppConstants.TAG, "$KEY is $port; the port will outlive a reboot")
+            return@withContext Outcome.APPLIED
+        }
+        Log.w(
+            AppConstants.TAG,
+            "$KEY was refused (exit $code, reads back $readBack): " +
+                output.toString().trim()
+        )
+        Outcome.REFUSED
     }
 
     /**
@@ -247,6 +252,13 @@ object AdbPortPersistence {
                         "again, and a start here needs Wi-Fi"
                 )
             }
+
+            // A command that did not run, or a read-back that failed, says nothing about the
+            // platform: not remembering it here lets a later start try again.
+            Outcome.UNKNOWN -> Diag.warn(
+                AppConstants.TAG,
+                "Start without Wi-Fi: could not confirm $KEY; a later start will try again"
+            )
 
             Outcome.UNAVAILABLE -> Unit
         }

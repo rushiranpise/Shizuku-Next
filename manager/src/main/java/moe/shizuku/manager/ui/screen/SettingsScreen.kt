@@ -923,6 +923,7 @@ fun SettingsScreen(
                                             AdbPortPersistence.Outcome.REFUSED ->
                                                 R.string.settings_persist_adb_port_refused
 
+                                            AdbPortPersistence.Outcome.UNKNOWN,
                                             AdbPortPersistence.Outcome.UNAVAILABLE ->
                                                 R.string.settings_persist_adb_port_unavailable
                                         }
