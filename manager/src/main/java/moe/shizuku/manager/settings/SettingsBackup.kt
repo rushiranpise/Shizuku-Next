@@ -60,6 +60,7 @@ object SettingsBackup {
         "hiding_paused",
         "hiding_since",
         "hiding_vpn_client",
+        "hotspot_displaces_wifi_build",
         "lastPromptedVersion",
         "last_notified_update",
         "last_adb_port",
@@ -67,6 +68,8 @@ object SettingsBackup {
         "last_adb_transport",
         "manually_stopped",
         "mode",
+        "persist_adb_port_auto",
+        "persist_adb_port_refused_build",
         "running_start_method",
         "server_ran_since_boot",
         "setup_done"

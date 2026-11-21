@@ -158,6 +158,8 @@ class AdbStartRun(
             // interface, so it goes away with the attempt that needed it: leaving it up
             // would be tethering nobody asked for.
             ForcedWirelessDebugging.releaseHotspot()
+            // And the Wi-Fi it may have taken down with it, on a device whose radio cannot do both.
+            ForcedWirelessDebugging.restoreClientWifi(applicationContext)
         }
     }
 
@@ -231,12 +233,40 @@ class AdbStartRun(
                 // that platform the classic port is this method's only transport rather than the
                 // faster one: TCP mode is switched on with it, which is the setting that keeps that
                 // port open for the restarts the method exists for.
-                if (EnvironmentUtils.isAdbWifiOverhauled() && !ShizukuSettings.getTcpMode()) {
+                //
+                // The same holds on a device whose start without Wi-Fi rests on the classic port
+                // (see [AdbPortPersistence.needsClassicPortFallback]): a head unit whose one radio
+                // drops Wi-Fi for a hotspot, or whose SELinux is not enforced. The port kept across
+                // reboots there (see [AdbPortPersistence.reconcile]) needs TCP mode to stay open.
+                val overhauled = EnvironmentUtils.isAdbWifiOverhauled()
+                val displaces = ClientWifi.hotspotDisplacesClient(applicationContext)
+                val selinuxNotEnforced = AdbPortPersistence.selinuxNotEnforced()
+                val classicFallback = classicPortFallback(displaces, selinuxNotEnforced)
+                // One line that says why the boot start goes the way it does, for the next log.
+                Diag.info(
+                    AppConstants.TAG,
+                    "Start without Wi-Fi: hotspot displaces Wi-Fi = ${displaces ?: "unknown"}, " +
+                        "SELinux enforced = ${!selinuxNotEnforced}, " +
+                        "classic port fallback = $classicFallback, " +
+                        "classic port property = ${EnvironmentUtils.getAdbTcpPort().takeIf { it > 0 } ?: "unset"}"
+                )
+                if ((overhauled || classicFallback) && !ShizukuSettings.getTcpMode()) {
                     ShizukuSettings.setTcpMode(true)
                     Diag.info(
                         AppConstants.TAG,
-                        "Start without Wi-Fi: switched TCP mode on for Android 17"
+                        if (overhauled) {
+                            "Start without Wi-Fi: switched TCP mode on for Android 17"
+                        } else {
+                            "Start without Wi-Fi: switched TCP mode on, this device starts over the classic port"
+                        }
                     )
+                }
+                // There the start rests on the key adbd already trusts, over the classic port, at
+                // every cold boot - and a key that has not connected for a week is dropped by
+                // default, which for a car left parked is the start without a network gone until
+                // somebody pairs again over Wi-Fi. The USB method keeps the key the same way.
+                if (classicFallback) {
+                    applicationContext.writeGlobalLongSetting("adb_allowed_connection_time", 0L)
                 }
             } else if (wirelessAlreadyEnabled && !forcedWireless) {
                 // Wireless is already active. Writing adb_wifi_enabled=1 again is a
@@ -559,6 +589,21 @@ class AdbStartRun(
             nm.cancel(ShizukuReceiverStarter.NOTIFICATION_ID)
 
             StartStatusReporter.succeeded()
+
+            // The port that lets the next cold boot start without any network, on a device where a
+            // hotspot cannot (see [AdbPortPersistence.reconcile]). Once the server has settled: the
+            // write goes through it, and a server that went away again has the check below to deal
+            // with first. Does nothing, and sends no command, on any other device.
+            val startedMethod = requestedMethod
+            settleScope.launch {
+                delay(START_SETTLE_MS + SETTLE_RECHECK_MS)
+                if (!Shizuku.pingBinder()) return@launch
+                runCatching { AdbPortPersistence.reconcile(applicationContext, startedMethod) }
+                    .onFailure {
+                        if (it is CancellationException) throw it
+                        Diag.warn(AppConstants.TAG, "Could not settle the ADB port after a reboot", it)
+                    }
+            }
 
             // A start reports success the moment the binder appears, and the case worth cover is
             // the one that appears and then goes away again within seconds: the platform settles a

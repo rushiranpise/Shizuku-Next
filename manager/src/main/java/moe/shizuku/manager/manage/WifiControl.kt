@@ -207,6 +207,17 @@ object WifiControl {
     }
 
     /**
+     * Switches the Wi-Fi client on, for the start that took it down with its hotspot.
+     *
+     * True when the command ran and succeeded, false when it ran and failed, null when there was
+     * no shell to run it in (the server is not up yet and the phone is not rooted).
+     */
+    suspend fun enable(): Boolean? {
+        val result = runCommand("cmd wifi set-wifi-enabled enabled") ?: return null
+        return result.first == 0
+    }
+
+    /**
      * Forgets every saved network, one at a time, and answers how many went.
      *
      * Asked for as a list of ids rather than by clearing the store: each operation is the same

@@ -25,7 +25,10 @@ class AdbMdns(
     @Volatile
     private var serviceName: String? = null
 
-    private val listener = DiscoveryListener(this)
+    // A fresh one for every search: NsdManager refuses a listener it has not finished with, and a
+    // search that is stopped and started again straight away has not finished with the last one.
+    @Volatile
+    private var listener = DiscoveryListener(this)
     private val nsdManager: NsdManager = context.getSystemService(NsdManager::class.java)
 
     /**
@@ -45,6 +48,7 @@ class AdbMdns(
     fun start() {
         if (running) return
         running = true
+        listener = DiscoveryListener(this)
         try {
             nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD, listener)
         } catch (e: Exception) {

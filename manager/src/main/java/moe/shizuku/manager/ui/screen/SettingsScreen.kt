@@ -86,6 +86,7 @@ import androidx.compose.ui.window.DialogProperties
 import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.produceState
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.compose.runtime.getValue
@@ -131,9 +132,11 @@ import moe.shizuku.manager.start.startMethodLabelRes
 import moe.shizuku.manager.utils.AppLocale
 import moe.shizuku.manager.utils.CustomTabsHelper
 import moe.shizuku.manager.utils.EnvironmentUtils
+import moe.shizuku.manager.utils.SelinuxMode
 import moe.shizuku.manager.utils.SettingsHelper
 import moe.shizuku.manager.utils.ShizukuStateMachine
 import moe.shizuku.manager.utils.UpdateHelper
+import moe.shizuku.manager.utils.readSelinuxMode
 import moe.shizuku.manager.worker.UpdateCheckWorker
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -238,7 +241,34 @@ fun SettingsScreen(
     var forceWireless by remember { mutableStateOf(ShizukuSettings.getForceWirelessDebugging()) }
     val forceWirelessActive = wirelessSupported && forceWireless
     var persistAdbPort by remember { mutableStateOf(ShizukuSettings.getPersistAdbPort()) }
+    // Read off the main thread: finding out runs commands.
+    val selinuxPermissive by produceState(initialValue = false) {
+        value = withContext(Dispatchers.IO) {
+            runCatching { readSelinuxMode() }.getOrNull().let {
+                it == SelinuxMode.PERMISSIVE || it == SelinuxMode.DISABLED
+            }
+        }
+    }
     var tcpMode by remember { mutableStateOf(ShizukuSettings.getTcpMode()) }
+    // Whether this device's start without Wi-Fi rests on the classic port (a radio that drops Wi-Fi
+    // for a hotspot, or SELinux not enforced); off the main thread, it reads selinuxfs.
+    val classicPortFallback by produceState(initialValue = false) {
+        value = withContext(Dispatchers.IO) {
+            runCatching { AdbPortPersistence.needsClassicPortFallback(context) }.getOrDefault(false)
+        }
+    }
+    // The persistent ADB port follows the start method and TCP mode as they change: written where
+    // the start without Wi-Fi needs it (switching to that method while the server runs must not wait
+    // for the next start with a network), taken back when the fallback wrote it and the start no
+    // longer needs it. Through the server, so only while it runs; otherwise the next start that gets
+    // through does the same. Sends nothing on a device the fallback is not for.
+    LaunchedEffect(startMethod, tcpMode) {
+        if (!ShizukuStateMachine.isRunning()) return@LaunchedEffect
+        withContext(Dispatchers.IO) {
+            runCatching { AdbPortPersistence.reconcile(context.applicationContext, startMethod) }
+        }
+        persistAdbPort = ShizukuSettings.getPersistAdbPort()
+    }
     var tcpPort by remember { mutableStateOf(ShizukuSettings.getTcpPort().toString()) }
     var systemStartMethod by remember { mutableStateOf(ShizukuSettings.getSystemStartMethod()) }
     var updateMode by remember { mutableStateOf(ShizukuSettings.getUpdateMode()) }
@@ -331,6 +361,9 @@ fun SettingsScreen(
      *
      * Nothing here prompts for root the way checking for a root shell would, and the row
      * stays visible while the setting is on, so it can always be turned off again.
+     *
+     * A policy that is not enforced lets the shell write it too (the FYT 7870 head unit runs
+     * SELinux permissive), so the row is offered there as well: [selinuxPermissive] below.
      */
     val canPersistAdbPort = remember {
         val running = ShizukuSettings.getRunningStartMethod()
@@ -764,7 +797,10 @@ fun SettingsScreen(
                                         // it, and the row below refuses to switch it off while this
                                         // is on. Everywhere else the hotspot route still works and
                                         // the two settings stay the user's to choose.
-                                        if (EnvironmentUtils.isAdbWifiOverhauled()) {
+                                        // The same on a device whose start without Wi-Fi
+                                        // rests on the classic port (a head unit whose radio
+                                        // drops Wi-Fi for a hotspot, or SELinux not enforced).
+                                        if (EnvironmentUtils.isAdbWifiOverhauled() || classicPortFallback) {
                                             ShizukuSettings.setTcpMode(true)
                                             tcpMode = true
                                         }
@@ -832,10 +868,12 @@ fun SettingsScreen(
                             switchState = tcpMode,
                             // On Android 17, on and not switchable off while the start without Wi-Fi
                             // is on: there that start runs over the classic port this keeps open,
-                            // so a mode that cannot work without it must not leave it off. On any
-                            // other platform it stays the user's setting.
+                            // so a mode that cannot work without it must not leave it off. The same
+                            // on a device whose start without Wi-Fi rests on the classic port. On any
+                            // other device it stays the user's setting.
                             switchEnabled =
-                                !(forceWireless && EnvironmentUtils.isAdbWifiOverhauled()),
+                                !(forceWireless &&
+                                    (EnvironmentUtils.isAdbWifiOverhauled() || classicPortFallback)),
                             onSwitchChange =
                                 { checked ->
                                     when {
@@ -859,7 +897,7 @@ fun SettingsScreen(
                                 }
                         )
                     }
-                    if (persistAdbPort || canPersistAdbPort) item {
+                    if (persistAdbPort || canPersistAdbPort || selinuxPermissive) item {
                         SegmentedListItem(
                             centerSlots = true,
                             leadingContent = { SettingsIcon(Icons.Outlined.PushPin) },
@@ -875,13 +913,24 @@ fun SettingsScreen(
                                     // what was asked for.
                                     scope.launch {
                                         val outcome = AdbPortPersistence.apply(checked)
+                                        // Off means "not on" only when the write went through.
+                                        val applied = outcome == AdbPortPersistence.Outcome.APPLIED
                                         ShizukuSettings.setPersistAdbPort(
-                                            outcome == AdbPortPersistence.Outcome.APPLIED
+                                            if (checked) applied else !applied
                                         )
+                                        if (applied) {
+                                            // The user's choice from here on, either way: the
+                                            // no-network fallback neither takes back a port they
+                                            // switched on nor brings back one they switched off.
+                                            ShizukuSettings.setPersistAdbPortAuto(false)
+                                            ShizukuSettings.setPersistAdbPortDeclined(!checked)
+                                        }
                                         persistAdbPort = ShizukuSettings.getPersistAdbPort()
                                         val message = when (outcome) {
+                                            // Switched off and done: the switch says so itself,
+                                            // and "will stay open" would be the opposite.
                                             AdbPortPersistence.Outcome.APPLIED ->
-                                                R.string.settings_persist_adb_port_ok
+                                                if (checked) R.string.settings_persist_adb_port_ok else null
 
                                             AdbPortPersistence.Outcome.REFUSED ->
                                                 R.string.settings_persist_adb_port_refused
@@ -889,7 +938,9 @@ fun SettingsScreen(
                                             AdbPortPersistence.Outcome.UNAVAILABLE ->
                                                 R.string.settings_persist_adb_port_unavailable
                                         }
-                                        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+                                        message?.let {
+                                            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+                                        }
                                     }
                                 }
                         )

@@ -9,10 +9,13 @@ import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import androidx.annotation.RequiresApi
+import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.coroutines.resume
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
@@ -88,12 +91,40 @@ object ForcedWirelessDebugging {
     private const val HOTSPOT_ATTEMPTS = 3
     private const val HOTSPOT_RETRY_DELAY_MS = 1_500L
 
+    /**
+     * Only where the hotspot takes the Wi-Fi client down (see [ClientWifi]): how often the start
+     * that waits for Wi-Fi instead looks at the connection, and how long the setting is left at 0
+     * before it is written back to 1 once Wi-Fi is there. The bounce is what makes it a change the
+     * framework acts on: after a run of refused writes the setting can be left reading 1 with
+     * nothing behind it, and a write of the same value is never passed on.
+     */
+    private const val WIFI_POLL_MS = 500L
+    private const val BOUNCE_MS = 200L
+
+    /**
+     * How long after the hotspot comes up a Wi-Fi client that was on is watched for going off,
+     * on a device whose platform says the radio does both, and how long it has to stay off to
+     * count. A client the hotspot takes down goes within a second or two of it and stays down for
+     * as long as the hotspot is held; a blip is not that, and marking a device on one would take
+     * the hotspot away from a phone it works on.
+     */
+    private const val DISPLACEMENT_WATCH_MS = 5_000L
+    private const val DISPLACEMENT_CONFIRM_MS = 1_000L
+    private const val DISPLACEMENT_POLL_MS = 250L
+
     @Volatile
     private var reservation: WifiManager.LocalOnlyHotspotReservation? = null
 
     /** Why the last hotspot request failed, in words; read when a start gives up on the first. */
     @Volatile
     private var lastRefusal: String? = null
+
+    /**
+     * Whether the Wi-Fi client was on when the hotspot was raised, so that [restoreClientWifi]
+     * knows whether there is anything to put back.
+     */
+    @Volatile
+    private var clientWifiWasOn = false
 
     /**
      * Asks for wireless debugging until cancelled, standing in for the toggle that a
@@ -117,6 +148,13 @@ object ForcedWirelessDebugging {
         failFast: Boolean = false,
         onFailFast: (String) -> Unit = {},
         /**
+         * Called when the interface discovery runs over has changed under it, which is Wi-Fi
+         * connecting while a start that left the hotspot out waits for it. A search registered
+         * before the interface existed is one the platform may never send a query for, so the
+         * caller starts it again.
+         */
+        onNetworkChanged: () -> Unit = {},
+        /**
          * Called once the hotspot attempt is over, whether it came up or not.
          *
          * The caller uses it to wait before asking for discovery: a request registered before
@@ -133,11 +171,38 @@ object ForcedWirelessDebugging {
         // framework to leave wireless debugging alone, and on the rest it is what lets the
         // daemon keep its port, so there is nothing to gain by spending the first seconds
         // of an attempt that may be short asking without one.
+        //
+        // Except where the hotspot would take the Wi-Fi client down with it while Wi-Fi is wanted.
+        // There the hotspot gives nothing - the framework only starts the wireless server for a
+        // Wi-Fi network the device is connected to, and the hotspot is what disconnects it - and
+        // takes the car's internet away for as long as it is held. So no hotspot at all: the start
+        // waits for Wi-Fi, which on a head unit is the phone joining a few seconds after the radio
+        // comes up. A start without any network is the persistent classic port's job there.
+        val wifiWanted = ClientWifi.wantsWifi(context)
+        val displaces = ClientWifi.hotspotDisplacesClient(context)
+        if (shouldAvoidHotspot(wifiWanted, displaces)) {
+            log("this device cannot hold a hotspot next to Wi-Fi and Wi-Fi is on: waiting for Wi-Fi instead of raising a hotspot")
+            onHotspotSettled()
+            awaitWifiAndAsk(context, cr, log, onNetworkChanged)
+            return@withContext
+        }
+
+        val wifiEnabledBefore = ClientWifi.isEnabled(context)
         val hotspotUp = startHotspot(context, log, if (failFast) 1 else HOTSPOT_ATTEMPTS)
         if (!hotspotUp && failFast) {
             onFailFast(lastRefusal ?: "no hotspot")
             return@withContext
         }
+        if (hotspotUp && wifiEnabledBefore == true) clientWifiWasOn = true
+        // The platform said the radio does both (or would not say). If the client goes anyway, that
+        // is the device above, found out the hard way: the hotspot goes at once, Wi-Fi is put back
+        // by the caller, and this build is remembered so it is not asked again. Watched alongside
+        // the asking rather than before it, so a device whose radio really does both starts as
+        // soon as it always did.
+        val displaced = AtomicBoolean(false)
+        val watch = if (hotspotUp && wifiEnabledBefore == true && displaces != true) {
+            launch { if (watchForDisplacement(context)) displaced.set(true) }
+        } else null
         onHotspotSettled()
 
         // Every pass reads before it writes, which is the whole of what issue #79 needed: a write
@@ -158,6 +223,7 @@ object ForcedWirelessDebugging {
         }
 
         if (!pass()) {
+            watch?.cancel()
             log("the wireless debugging setting could not be written")
             return@withContext
         }
@@ -165,15 +231,29 @@ object ForcedWirelessDebugging {
 
         val deadline = System.currentTimeMillis() + WINDOW_MS
 
-        repeat(BURST_COUNT - 1) {
+        var burst = 1
+        while (burst < BURST_COUNT && !displaced.get()) {
             if (!isActive) return@withContext
             pass()
             delay(BURST_INTERVAL_MS)
+            burst++
         }
 
-        while (isActive && System.currentTimeMillis() < deadline) {
+        while (isActive && System.currentTimeMillis() < deadline && !displaced.get()) {
             pass()
             delay(INTERVAL_MS)
+        }
+        watch?.cancel()
+
+        if (displaced.get()) {
+            ClientWifi.rememberDisplacement()
+            releaseHotspot()
+            // Now rather than when the attempt ends: the Wi-Fi this start goes on to wait for has
+            // to be there to connect.
+            restoreClientWifi(context)
+            log("the hotspot switched Wi-Fi off although the platform says the radio can do both: giving it up and waiting for Wi-Fi (remembered for this build)")
+            awaitWifiAndAsk(context, cr, log, onNetworkChanged)
+            return@withContext
         }
 
         Diag.info(
@@ -181,6 +261,63 @@ object ForcedWirelessDebugging {
             "Forced wireless debugging: asked $writes times over $passes passes, " +
                 "hotspot ${if (reservation == null) "not running" else "running"}"
         )
+    }
+
+    /**
+     * The forced start on a device where a hotspot would take Wi-Fi down: no hotspot, no stream of
+     * writes - without a Wi-Fi network every one of them is refused, two and a half thousand a
+     * minute in the log that reported this - just the Wi-Fi connection watched for the whole
+     * window. Each time it connects, the setting is bounced so the framework checks the network it
+     * now has, and the caller restarts discovery over it.
+     */
+    private suspend fun awaitWifiAndAsk(
+        context: Context,
+        cr: ContentResolver,
+        log: (String) -> Unit,
+        onNetworkChanged: () -> Unit
+    ) {
+        val deadline = System.currentTimeMillis() + WINDOW_MS
+        var connected = false
+        var asked = 0
+        while (currentCoroutineContext().isActive && System.currentTimeMillis() < deadline) {
+            val now = ClientWifi.isConnected(context)
+            if (now && !connected) {
+                asked++
+                log("Wi-Fi is connected: asking for wireless debugging over it")
+                writeValue(cr, 0)
+                delay(BOUNCE_MS)
+                writeValue(cr, 1)
+                onNetworkChanged()
+            }
+            connected = now
+            delay(WIFI_POLL_MS)
+        }
+        Diag.info(
+            AppConstants.TAG,
+            "Forced wireless debugging: waited for Wi-Fi without a hotspot, asked $asked times"
+        )
+    }
+
+    /**
+     * Whether the Wi-Fi client goes off within [DISPLACEMENT_WATCH_MS] of the hotspot coming up
+     * and stays off for [DISPLACEMENT_CONFIRM_MS]. Runs alongside the asking, so a client that
+     * stays on costs nothing but the watch itself.
+     */
+    private suspend fun watchForDisplacement(context: Context): Boolean {
+        val start = System.currentTimeMillis()
+        var offSince = -1L
+        while (true) {
+            val now = System.currentTimeMillis()
+            if (displacementObserved(true, ClientWifi.isEnabled(context))) {
+                if (offSince < 0) offSince = now
+                if (now - offSince >= DISPLACEMENT_CONFIRM_MS) return true
+            } else {
+                offSince = -1L
+                if (now - start >= DISPLACEMENT_WATCH_MS) return false
+            }
+            if (now - start >= DISPLACEMENT_WATCH_MS + DISPLACEMENT_CONFIRM_MS) return false
+            delay(DISPLACEMENT_POLL_MS)
+        }
     }
 
     /** Stops the hotspot. Safe to call when there is none. */
@@ -195,9 +332,22 @@ object ForcedWirelessDebugging {
 
     fun isHotspotRunning(): Boolean = reservation != null
 
+    /**
+     * Puts the Wi-Fi client back if the hotspot took it down and the platform has not restored it.
+     * Called when the attempt is over, after [releaseHotspot]; does nothing when there was no
+     * hotspot over a Wi-Fi that was on.
+     */
+    fun restoreClientWifi(context: Context) {
+        if (!clientWifiWasOn) return
+        clientWifiWasOn = false
+        ClientWifi.restoreAfterHotspot(context)
+    }
+
     /** Writes the setting once, and answers whether the write was allowed at all. */
-    private fun writeOnce(cr: ContentResolver): Boolean =
-        runCatching { Settings.Global.putInt(cr, KEY_WIFI_ENABLED, 1) }
+    private fun writeOnce(cr: ContentResolver): Boolean = writeValue(cr, 1)
+
+    private fun writeValue(cr: ContentResolver, value: Int): Boolean =
+        runCatching { Settings.Global.putInt(cr, KEY_WIFI_ENABLED, value) }
             .onFailure { Diag.warn(AppConstants.TAG, "Could not ask for wireless debugging", it) }
             .isSuccess
 

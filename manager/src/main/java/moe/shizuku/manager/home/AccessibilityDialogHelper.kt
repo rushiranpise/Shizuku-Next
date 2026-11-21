@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.graphics.drawable.ColorDrawable
 import android.provider.Settings
 import android.text.Spannable
@@ -217,8 +218,10 @@ private fun Context.startAutomaticPairing() {
 /** The manual branch: type the code in the app, or in the notification. */
 private fun Context.startManualPairing() {
     // The setting is about this choice: with it on, the code is entered in a dialog in
-    // the app instead of the notification flow.
-    if (ShizukuSettings.getLegacyPairing()) {
+    // the app instead of the notification flow. The tutorial that hosts the dialog is an
+    // Android 11 activity (wireless pairing arrived with it), so below that the call is not
+    // made at all and the notification flow below is the way in, as it always was.
+    if (ShizukuSettings.getLegacyPairing() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
         // The tutorial activity is still the way in: it asks for the permissions discovery
         // needs, then shows the code dialog instead of starting the notification flow.
         runCatching {

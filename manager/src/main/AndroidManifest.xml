@@ -66,6 +66,9 @@
          experimental wireless-debugging setting is on. Normal permission, granted at
          install. -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- Whether the Wi-Fi client is on, which the forced start asks before and after its
+         hotspot. Normal permission, granted at install. -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <!-- Normal permission, and the one that decides whether the platform's session installer can
