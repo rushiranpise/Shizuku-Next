@@ -152,6 +152,7 @@
     <string name="app_management_sort_last_added">Recently added</string>
     <string name="app_management_sort_updated">Updated</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_sort_keep_in_place">Keep apps in place</string>
     <string name="apps_processes_show">Show %1$d process(es)</string>
     <string name="apps_processes_hide">Hide %1$d process(es)</string>
     <string name="apps_process_pid">PID %1$d</string>

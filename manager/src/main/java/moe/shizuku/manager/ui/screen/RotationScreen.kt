@@ -118,6 +118,10 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
     var version by remember { mutableIntStateOf(0) }
     var running by remember { mutableStateOf(ShizukuStateMachine.isRunning()) }
     var gateOn by remember { mutableStateOf(RotationOverride.isEnabled()) }
+    var sortOrder by remember { mutableStateOf(SortOrder.ALPHABETICAL) }
+    // Off by default, because the rows somebody opens this screen for are the ones already
+    // configured. On, an app keeps the place the chosen order gives it instead.
+    var keepInPlace by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(version) {
@@ -180,7 +184,7 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
         }
     }
 
-    val shown = remember(apps, modes, query, showOnlyConfigured) {
+    val shown = remember(apps, modes, query, showOnlyConfigured, sortOrder, keepInPlace) {
         val byState = if (showOnlyConfigured) {
             apps.filter { it.packageName in modes }
         } else {
@@ -195,17 +199,11 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
                     it.packageName.contains(trimmed, ignoreCase = true)
             }
         }
-        // The configured apps first, then by name: the app somebody opens this screen for is
-        // usually one already set, and the names are resolved once before the sort.
-        searched
-            .map { app -> app to appLabel(pm, app).lowercase() }
-            .sortedWith(
-                compareBy(
-                    { (app, _) -> app.packageName !in modes },
-                    { (_, label) -> label }
-                )
-            )
-            .map { (app, _) -> app }
+        // The chosen order, then the apps this mode applies to on top of it: the app somebody
+        // opens this screen for is usually one already set. A stable sort keeps the chosen order
+        // inside each group, and keeping them in place is the same list without that second pass.
+        val ordered = searched.sortedForDisplay(sortOrder) { appLabel(pm, it) }
+        if (keepInPlace) ordered else ordered.sortedBy { it.packageName !in modes }
     }
 
     picking?.let { app ->
@@ -286,6 +284,14 @@ fun RotationScreen(bottomPadding: Dp, onBack: () -> Unit) {
                 }
             },
             actions = {
+                if (!LocalWatch.current) {
+                    AppSortMenu(
+                        sortOrder = sortOrder,
+                        onSortOrderChange = { sortOrder = it },
+                        keepInPlace = keepInPlace,
+                        onKeepInPlaceChange = { keepInPlace = it }
+                    )
+                }
                 ExpressiveSwitch(
                     checked = gateOn,
                     onCheckedChange = { checked -> setGate(checked) },

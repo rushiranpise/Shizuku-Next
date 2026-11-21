@@ -260,6 +260,10 @@ fun LabsToggleScreen(
     // The other question the list answers, and the one the app-ops list already asked: what
     // kind of app it is, so a system package can be told from something you installed.
     var kind by remember { mutableStateOf(ManageFilter.ALL) }
+    var sortOrder by remember { mutableStateOf(SortOrder.ALPHABETICAL) }
+    // Off by default, because the rows somebody opens one of these lists for are the ones
+    // already on it. On, an app keeps the place the chosen order gives it instead.
+    var keepInPlace by remember { mutableStateOf(false) }
     var version by remember { mutableIntStateOf(0) }
     var running by remember { mutableStateOf(ShizukuStateMachine.isRunning()) }
     var vpnClient by remember { mutableStateOf(Hiding.chosenVpnClient()) }
@@ -411,7 +415,10 @@ fun LabsToggleScreen(
         }
     }
 
-    val shown = remember(apps, blocked, launcherless, systemPackages, userPackages, disabledPackages, query, filter, kind, pinned) {
+    val shown = remember(
+        apps, blocked, launcherless, systemPackages, userPackages, disabledPackages,
+        query, filter, kind, pinned, sortOrder, keepInPlace
+    ) {
         val byKind = if (feature.userAppsOnly) {
             apps.filter { it.packageName in userPackages }
         } else when (kind) {
@@ -435,25 +442,13 @@ fun LabsToggleScreen(
                     it.packageName.contains(trimmed, ignoreCase = true)
             }
         }
-        // The apps this mode applies to first, then by name. The list is long - three hundred
-        // packages on a phone - and the rows somebody opens this screen for are the ones already on
-        // it, which sorting by name alone buries wherever the alphabet happens to put them. Inside
-        // each group the order is still the name, so nothing moves except across the line between
-        // applied and not.
-        //
-        // Each name is resolved once, before the sort rather than inside it: a comparator is asked
-        // for its keys about n log n times, and this one runs again on every keystroke of the
-        // search above it, so a lookup per comparison was the same few labels fetched over and over.
-        searched
-            .map { app -> app to appLabel(pm, app).lowercase() }
-            .sortedWith(
-                compareBy(
-                    { (app, _) -> app.packageName !in pinned },
-                    { (app, _) -> slotKey(app) !in blocked },
-                    { (_, label) -> label }
-                )
-            )
-            .map { (app, _) -> app }
+        // The chosen order first, then - each a stable sort of the one before - the rows that
+        // stay at the top. Pinned apps are always first; the apps this mode applies to come next
+        // unless the list was asked to keep them in place. A stable sort leaves the order within
+        // each group alone, so nothing moves except across those lines.
+        val ordered = searched.sortedForDisplay(sortOrder) { appLabel(pm, it) }
+        val pinnedFirst = ordered.sortedBy { it.packageName !in pinned }
+        if (keepInPlace) pinnedFirst else pinnedFirst.sortedBy { slotKey(it) !in blocked }
     }
 
     if (pickingVpn) {
@@ -712,6 +707,12 @@ fun LabsToggleScreen(
                     modifier = Modifier.padding(start = 4.dp)
                 )
                 if (!LocalWatch.current) {
+                    AppSortMenu(
+                        sortOrder = sortOrder,
+                        onSortOrderChange = { sortOrder = it },
+                        keepInPlace = keepInPlace,
+                        onKeepInPlaceChange = { keepInPlace = it }
+                    )
                     bulkActions(Modifier.padding(end = 8.dp))
                 }
             }

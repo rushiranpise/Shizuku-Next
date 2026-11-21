@@ -88,6 +88,7 @@ import moe.shizuku.manager.manage.InstalledPackages
 import moe.shizuku.manager.receiver.ShizukuReceiverStarter
 import moe.shizuku.manager.ui.component.AppFilterChip
 import moe.shizuku.manager.ui.component.AppIcon
+import moe.shizuku.manager.ui.component.appLabel
 import moe.shizuku.manager.ui.component.packageLine
 import moe.shizuku.manager.ui.component.rowKey
 import moe.shizuku.manager.ui.component.AppRowLine
@@ -102,16 +103,6 @@ import moe.shizuku.manager.ui.component.stripHtmlTags
 import moe.shizuku.manager.ui.component.WatchSearchField
 import moe.shizuku.manager.ui.theme.LocalWatch
 import moe.shizuku.manager.utils.ShizukuStateMachine
-
-enum class SortOrder {
-    /** Most recently installed first: when the app first appeared on the device. */
-    RECENTLY_INSTALLED,
-
-    /** Most recently updated first: when the APK last changed. */
-    RECENTLY_UPDATED,
-
-    ALPHABETICAL
-}
 
 /**
  * The Shizuku half of the filter: whether this app is allowed to use the service.
@@ -309,16 +300,9 @@ fun AppsScreen(
                 label.contains(q, ignoreCase = true) || it.packageName.contains(q, ignoreCase = true)
             }
         }
-        when (sortOrder) {
-            // The two timestamps the package manager keeps: when it was installed, and when
-            // the APK was last replaced. They differ for anything that has been updated.
-            SortOrder.RECENTLY_INSTALLED -> filtered.sortedByDescending { it.firstInstallTime }
-            SortOrder.RECENTLY_UPDATED -> filtered.sortedByDescending { it.lastUpdateTime }
-            SortOrder.ALPHABETICAL -> filtered.sortedBy {
-                runCatching { it.applicationInfo?.loadLabel(pm)?.toString()?.lowercase() }
-                    .getOrDefault(it.packageName)
-            }
-        }
+        // The two timestamps the package manager keeps: when it was installed, and when the
+        // APK was last replaced. They differ for anything that has been updated.
+        filtered.sortedForDisplay(sortOrder) { appLabel(pm, it) }
     }
 
     val selectionMode = selected.isNotEmpty()

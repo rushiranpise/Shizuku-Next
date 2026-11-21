@@ -98,6 +98,10 @@ fun ForceDarkScreen(bottomPadding: Dp, onBack: () -> Unit) {
     var gateOn by remember { mutableStateOf(ForceDark.isEnabled()) }
     var systemTheme by remember { mutableStateOf(ForceDark.usesSystemTheme()) }
     var justToggled by remember { mutableStateOf<String?>(null) }
+    var sortOrder by remember { mutableStateOf(SortOrder.ALPHABETICAL) }
+    // Off by default, because the rows somebody opens this screen for are the ones already
+    // forced. On, an app keeps the place the chosen order gives it instead.
+    var keepInPlace by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(version) {
@@ -152,7 +156,7 @@ fun ForceDarkScreen(bottomPadding: Dp, onBack: () -> Unit) {
         }
     }
 
-    val shown = remember(apps, forced, query, showOnlyForced) {
+    val shown = remember(apps, forced, query, showOnlyForced, sortOrder, keepInPlace) {
         val byState = if (showOnlyForced) apps.filter { it.packageName in forced } else apps
         val trimmed = query.trim()
         val searched = if (trimmed.isBlank()) {
@@ -163,15 +167,11 @@ fun ForceDarkScreen(bottomPadding: Dp, onBack: () -> Unit) {
                     it.packageName.contains(trimmed, ignoreCase = true)
             }
         }
-        // The forced apps first, then by name, for the same reason the hiding lists do it: what
-        // somebody opens this screen for is what is already on it. The names are resolved once,
-        // before the sort, for the reason the hiding list gives.
-        searched
-            .map { app -> app to appLabel(pm, app).lowercase() }
-            .sortedWith(
-                compareBy({ (app, _) -> app.packageName !in forced }, { (_, label) -> label })
-            )
-            .map { (app, _) -> app }
+        // The chosen order, then the apps this mode applies to on top of it: the rows somebody
+        // opens this screen for are the ones already on. A stable sort keeps the chosen order
+        // inside each group, and keeping them in place is the same list without that second pass.
+        val ordered = searched.sortedForDisplay(sortOrder) { appLabel(pm, it) }
+        if (keepInPlace) ordered else ordered.sortedBy { it.packageName !in forced }
     }
 
     // One place for what turning the mode on or off does: the setting, the screen's own state and
@@ -226,6 +226,14 @@ fun ForceDarkScreen(bottomPadding: Dp, onBack: () -> Unit) {
                 }
             },
             actions = {
+                if (!LocalWatch.current) {
+                    AppSortMenu(
+                        sortOrder = sortOrder,
+                        onSortOrderChange = { sortOrder = it },
+                        keepInPlace = keepInPlace,
+                        onKeepInPlaceChange = { keepInPlace = it }
+                    )
+                }
                 // In the header, where one look at the title says which mode is being switched,
                 // and inset the way the title is: this bar has no padding of its own, so a switch
                 // put in it without any lands on the glass.
