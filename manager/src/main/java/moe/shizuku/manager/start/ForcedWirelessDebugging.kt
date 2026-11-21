@@ -285,8 +285,13 @@ object ForcedWirelessDebugging {
                 asked++
                 log("Wi-Fi is connected: asking for wireless debugging over it")
                 writeValue(cr, 0)
-                delay(BOUNCE_MS)
-                writeValue(cr, 1)
+                try {
+                    delay(BOUNCE_MS)
+                } finally {
+                    // Cancellation can land in the delay; leaving 0 behind would keep wireless
+                    // debugging off after the hunt it was bouncing for is gone.
+                    writeValue(cr, 1)
+                }
                 onNetworkChanged()
             }
             connected = now
