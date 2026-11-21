@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
@@ -164,16 +165,20 @@ object AdbPortPersistence {
      * Serialized with [reconcile].
      */
     suspend fun applyByUser(enable: Boolean): Outcome = writeMutex.withLock {
-        val outcome = apply(enable)
-        if (outcome == Outcome.APPLIED) {
-            ShizukuSettings.setPersistAdbPort(enable)
-            ShizukuSettings.setPersistAdbPortAuto(false)
-            ShizukuSettings.setPersistAdbPortDeclined(!enable)
-        } else {
-            // Off means "not on" only when the write went through.
-            ShizukuSettings.setPersistAdbPort(!enable)
+        // Waiting for the lock stays cancellable; once the write is under way, the preferences
+        // that say what it did are written with it even if the screen that asked has gone.
+        withContext(NonCancellable) {
+            val outcome = apply(enable)
+            if (outcome == Outcome.APPLIED) {
+                ShizukuSettings.setPersistAdbPort(enable)
+                ShizukuSettings.setPersistAdbPortAuto(false)
+                ShizukuSettings.setPersistAdbPortDeclined(!enable)
+            } else {
+                // Off means "not on" only when the write went through.
+                ShizukuSettings.setPersistAdbPort(!enable)
+            }
+            outcome
         }
-        outcome
     }
 
     /** Read once per process: the policy does not change while the system runs. */

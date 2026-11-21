@@ -493,6 +493,22 @@ class AdbStartRun(
             // Asked of the port itself, not of `service.adb.tcp.port`, which outlives adbd (see
             // issue #71 above). When the start is already going over the classic port there is
             // nothing to open.
+            // The search can find out only now that a hotspot takes Wi-Fi down here (it remembers
+            // that for the build), after the decision on TCP mode above was made without knowing.
+            // Asked again, so the classic port below is opened on the very start that learned it.
+            if (withoutNetwork && !ShizukuSettings.getTcpMode() && classicPortFallback(
+                    ClientWifi.hotspotDisplacesClient(applicationContext),
+                    AdbPortPersistence.selinuxNotEnforced()
+                )
+            ) {
+                ShizukuSettings.setTcpMode(true)
+                applicationContext.writeGlobalLongSetting("adb_allowed_connection_time", 0L)
+                Diag.info(
+                    AppConstants.TAG,
+                    "Start without Wi-Fi: switched TCP mode on, this device starts over the classic port"
+                )
+            }
+
             val wanted = ShizukuSettings.getTcpPort()
             if (!usbMethod && ShizukuSettings.getTcpMode() && port != wanted &&
                 !AdbStarter.isPortListening(wanted)
