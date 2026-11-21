@@ -912,19 +912,7 @@ fun SettingsScreen(
                                     // switch follows what actually happened rather than
                                     // what was asked for.
                                     scope.launch {
-                                        val outcome = AdbPortPersistence.apply(checked)
-                                        // Off means "not on" only when the write went through.
-                                        val applied = outcome == AdbPortPersistence.Outcome.APPLIED
-                                        ShizukuSettings.setPersistAdbPort(
-                                            if (checked) applied else !applied
-                                        )
-                                        if (applied) {
-                                            // The user's choice from here on, either way: the
-                                            // no-network fallback neither takes back a port they
-                                            // switched on nor brings back one they switched off.
-                                            ShizukuSettings.setPersistAdbPortAuto(false)
-                                            ShizukuSettings.setPersistAdbPortDeclined(!checked)
-                                        }
+                                        val outcome = AdbPortPersistence.setByUser(checked)
                                         persistAdbPort = ShizukuSettings.getPersistAdbPort()
                                         val message = when (outcome) {
                                             // Switched off and done: the switch says so itself,

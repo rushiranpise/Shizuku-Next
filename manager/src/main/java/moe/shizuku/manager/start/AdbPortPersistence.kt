@@ -4,6 +4,8 @@ import android.content.Context
 import android.os.Build
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import moe.shizuku.manager.AppConstants
 import moe.shizuku.manager.ShizukuSettings
@@ -49,6 +51,9 @@ object AdbPortPersistence {
 
     private const val KEY = "persist.adb.tcp.port"
 
+    /** One boundary for the whole user toggle and for reconcile, not just for their commands. */
+    private val operations = Mutex()
+
     enum class Outcome {
         /** Written and read back: the port will be there after a reboot. */
 
@@ -64,7 +69,9 @@ object AdbPortPersistence {
     /** The port the setting asks for, or 0 to leave adbd not listening. */
     private fun wantedPort(enable: Boolean): Int = if (enable) ShizukuSettings.getTcpPort() else 0
 
-    suspend fun apply(enable: Boolean): Outcome = withContext(Dispatchers.IO) {
+    suspend fun apply(enable: Boolean): Outcome = operations.withLock { applyLocked(enable) }
+
+    private suspend fun applyLocked(enable: Boolean): Outcome = withContext(Dispatchers.IO) {
         val port = wantedPort(enable)
         val rooted = runCatching { EnvironmentUtils.isRooted() }.getOrDefault(false)
         if (!rooted && !ShizukuStateMachine.isRunning()) return@withContext Outcome.UNAVAILABLE
@@ -95,6 +102,24 @@ object AdbPortPersistence {
                 Outcome.REFUSED
             }
         }
+    }
+
+    /**
+     * The user's toggle as one transaction: the write, then the preferences that describe whose
+     * port it is. Holding the same mutex as [reconcile] keeps it from reading the old choice
+     * between the write and the preference updates.
+     */
+    suspend fun setByUser(enable: Boolean): Outcome = operations.withLock {
+        val outcome = applyLocked(enable)
+        val applied = outcome == Outcome.APPLIED
+        ShizukuSettings.setPersistAdbPort(if (enable) applied else !applied)
+        if (applied) {
+            // The user's choice from here on, either way: the no-network fallback neither takes
+            // back a port they switched on nor brings back one they switched off.
+            ShizukuSettings.setPersistAdbPortAuto(false)
+            ShizukuSettings.setPersistAdbPortDeclined(!enable)
+        }
+        outcome
     }
 
     /** What the property currently says, or null when nothing can read it. */
@@ -153,11 +178,15 @@ object AdbPortPersistence {
      * they left it. Runs through the server, so it is for after a start, never on the main thread.
      */
     suspend fun reconcile(context: Context, @ShizukuSettings.StartMethod method: Int) {
+        operations.withLock { reconcileLocked(context, method) }
+    }
+
+    private suspend fun reconcileLocked(context: Context, method: Int) {
         val withoutNetwork = method == ShizukuSettings.StartMethod.WIRELESS_NO_NETWORK
         val tcpMode = ShizukuSettings.getTcpMode()
 
         if (shouldClearAutoPort(ShizukuSettings.getPersistAdbPortAuto(), withoutNetwork, tcpMode)) {
-            when (apply(false)) {
+            when (applyLocked(false)) {
                 Outcome.APPLIED -> {
                     ShizukuSettings.setPersistAdbPort(false)
                     ShizukuSettings.setPersistAdbPortAuto(false)
@@ -199,7 +228,7 @@ object AdbPortPersistence {
             return
         }
 
-        when (apply(true)) {
+        when (applyLocked(true)) {
             Outcome.APPLIED -> {
                 ShizukuSettings.setPersistAdbPort(true)
                 if (!userOwned) ShizukuSettings.setPersistAdbPortAuto(true)
