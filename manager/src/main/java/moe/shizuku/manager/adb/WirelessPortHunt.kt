@@ -256,9 +256,14 @@ class WirelessPortHunt(
 
     @RequiresApi(Build.VERSION_CODES.R)
     private fun startDiscovery() {
-        val discovery = synchronized(lock) { if (closed) null else mdns } ?: return
-        discovery.start()
-        state.update { it.copy(discovering = true) }
+        // The same lock as close(): a search started after close() checked it would otherwise
+        // register a listener that nothing stops.
+        synchronized(lock) {
+            if (closed) return
+            val discovery = mdns ?: return
+            discovery.start()
+            state.update { it.copy(discovering = true) }
+        }
     }
 
     /**
@@ -268,10 +273,15 @@ class WirelessPortHunt(
      */
     @RequiresApi(Build.VERSION_CODES.R)
     private fun restartDiscovery() {
-        val discovery = synchronized(lock) { if (closed) null else mdns } ?: return
-        discovery.stop()
-        discovery.start()
-        state.update { it.copy(discovering = true) }
+        // Stop and start under the lock close() uses, so cleanup cannot run between them and see
+        // discovery stopped, leaving the new listener running after the hunt is over.
+        synchronized(lock) {
+            if (closed) return
+            val discovery = mdns ?: return
+            discovery.stop()
+            discovery.start()
+            state.update { it.copy(discovering = true) }
+        }
     }
 
     private fun fail(e: Throwable) = state.update { it.copy(failure = e) }
