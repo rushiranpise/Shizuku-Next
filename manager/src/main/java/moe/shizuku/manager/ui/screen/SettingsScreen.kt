@@ -257,6 +257,15 @@ fun SettingsScreen(
             runCatching { AdbPortPersistence.needsClassicPortFallback(context) }.getOrDefault(false)
         }
     }
+    // Force-wireless can be switched on before detection finishes, when the switch's handler
+    // still saw no fallback and left TCP mode off; the TCP row is then disabled while off.
+    // Catch that order once the answer is in. Devices without the fallback are left alone.
+    LaunchedEffect(classicPortFallback, forceWireless) {
+        if (classicPortFallback && forceWireless && !tcpMode) {
+            ShizukuSettings.setTcpMode(true)
+            tcpMode = true
+        }
+    }
     // The persistent ADB port follows the start method and TCP mode as they change: written where
     // the start without Wi-Fi needs it (switching to that method while the server runs must not wait
     // for the next start with a network), taken back when the fallback wrote it and the start no
