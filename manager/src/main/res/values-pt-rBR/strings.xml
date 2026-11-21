@@ -81,8 +81,7 @@
     <string name="dialog_adb_pairing_accessibility_navigate">Para iniciar o emparelhamento, siga estas etapas:\n- Acesse “Opções do desenvolvedor”\n- Ative “Depuração por USB” e “Depuração sem fio”\n- Toque no lado esquerdo de “Depuração sem fio”\n- Toque em “Emparelhar dispositivo com código de emparelhamento”. O Shizuku detectará automaticamente o código de emparelhamento.</string>
     <string name="adb_pairing_requires_multi_window">Primeiro, abra o modo de tela dividida.</string>
     <string name="adb_pairing_requires_multi_window_reason">O sistema exige que a janela de emparelhamento permaneça sempre visível. Usar o modo de tela dividida é a única maneira de manter este aplicativo e a janela do sistema visíveis ao mesmo tempo.</string>
-    <string name="adb_error_key_store">Não é possível gerar a chave para depuração sem fios.\nIsto
-        pode dever-se ao facto de o mecanismo KeyStore deste dispositivo estar avariado.</string>
+    <string name="adb_error_key_store">Não é possível gerar a chave para depuração sem fios.\nIsto pode dever-se ao facto de o mecanismo KeyStore deste dispositivo estar avariado.</string>
     <string name="adb_error_stop_tcp">Falha ao interromper o ADB sobre TCP</string>
     <string name="adb_pair_required">Por favor, passe primeiro pela etapa de emparelhamento.</string>
     <string name="enable">Ativar</string>
@@ -99,9 +98,7 @@
     <string name="adb_pairing_tutorial_content_enter_pairing_code">Toque no lado esquerdo de
         \"Depuração sem fios\" e, em seguida, toque em \"Emparelhar dispositivo com código de
         emparelhamento\". Introduza o código na notificação para concluir o emparelhamento.</string>
-    <string name="adb_pairing_tutorial_content_notification_blocked">O processo de emparelhamento
-        precisa que você interaja com uma notificação de Shizuku. Por favor, permita que Shizuku
-        mostre notificações.</string>
+    <string name="adb_pairing_tutorial_content_notification_blocked">O processo de emparelhamento precisa que você interaja com uma notificação de Shizuku. Por favor, permita que Shizuku mostre notificações.</string>
     <string name="adb_pairing_tutorial_content_miui">Os usuários do MIUI talvez precisem alterar o estilo de notificação de “Notificação” para “Android” na opção “Barra de notificações”, nas configurações do sistema.</string>
     <string name="adb_pairing_tutorial_content_miui_2">Caso contrário, talvez você não consiga inserir o código de emparelhamento que aparece na notificação.</string>
     <string name="adb_pairing_tutorial_content_finish">Volte para o Shizuku e inicie o Shizuku.</string>
@@ -114,7 +111,7 @@
     <!-- Home - Application management -->
     <plurals name="home_app_management_authorized_apps_count">
         <item quantity="one"><![CDATA[%d aplicativo autorizado]]></item>
-        <item quantity="other"><![CDATA[%d aplicativos autorizados]]></item>
+        <item quantity="other"><![CDATA[%d Aplicativos autorizados]]></item>
     </plurals>
     <!-- Home - Automation -->
     <!-- Home - Stealth mode -->
@@ -387,7 +384,7 @@
     <string name="device_doze">Doze</string>
     <string name="device_usage_note">Contadores mantidos pela própria plataforma. Eles são reiniciados sempre que a bateria estiver cheia, É por isso que um telefone carregado há uma hora lê segundos aqui e um que esteve fora do carregador durante todo o dia lê as horas.</string>
     <string name="device_drain">O que usou a bateria</string>
-    <string name="device_drain_note">Atribuído por componente, que é o que esta plataforma imprime. Ele mantém números por aplicativo como despertar bloqueios e horários de execução em vez de miliamp horas, então nenhum número por aplicativo é inventado aqui.</string>
+    <string name="device_drain_note">Atribuído por componente, que é o que esta plataforma mostra. Ele mantém os valores por aplicativo, como wake locks e tempos de execução, em vez de miliampères-hora, então nenhum número por aplicativo foi inventado aqui.</string>
     <string name="device_max_charging_current">Corrente máxima de carregamento</string>
     <string name="device_max_charging_voltage">Tensão de carregamento máxima</string>
     <string name="device_capacity_rated">Classificado</string>
@@ -422,8 +419,8 @@
     <string name="device_load_average">Carga média</string>
     <string name="device_cpu_note">A contabilidade do kernel pela janela chamada de seu dump. A carga é a média de uma carga de cinco e quinze minutos; cada linha é o tempo do processador usado e os trabalhadores do kernel aparecem porque eles realizam o trabalho, não apenas aplicativos.</string>
     <string name="tab_log">Registro</string>
-    <string name="log_count">%1$d linhas das últimas 24 horas</string>
-    <string name="log_search_hint">Pesquisar no log</string>
+    <string name="log_count">%1$d Linhas das últimas 24 horas</string>
+    <string name="log_search_hint">Procurar no log</string>
     <string name="log_empty">Nada foi logado nas últimas 24 horas.</string>
     <string name="log_filter_all">TODOS</string>
     <string name="log_filter_problems">ERRO</string>
@@ -625,12 +622,12 @@
     <string name="start_failed_wifi_required">Conecte-se a uma rede Wi-Fi o sistema desativa a depuração sem uma. Ou inicie um computador usando o comando ADB abaixo.</string>
     <string name="start_failed_binder_went_away">O serviço foi iniciado e então foi interrompido novamente, então nada pode ser usado ainda. Isso acontece quando o servidor é reduzido com o aplicativo que o início passou que é o que a carga faz depois de iniciá-la. Tente o início novamente.</string>
     <string name="start_failed_no_port">Nenhuma porta de depuração sem fio foi encontrada. Certifique-se de que a depuração sem fio está ativada e o Wi-Fi está conectado.</string>
-    <string name="start_failed_no_port_no_permission">Nenhuma porta de depuração remota foi encontrada, e o Shizuku não pode ativar a depuração remota sem WRITE_SECURE_SETTINGS: <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. Ou inicie o Shizuku pela depuração USB uma vez — ele concede a permissão a si mesmo depois.</string>
+    <string name="start_failed_no_port_no_permission">Nenhuma porta de depuração wireless foi encontrada, e o Shizuku não consegue ativar a depuração wireless sem WRITE_SECURE_SETTINGS: <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. Ou inicie o Shizuku via depuração USB uma vez; ele concede a permissão a si mesmo depois disso.</string>
     <string name="start_failed_no_auth">Depuração sem fio não é permitida nesta rede. Emparelhe o dispositivo novamente.</string>
     <string name="action_dismiss">Descartar</string>
     <string name="action_connect_wifi">Conectar</string>
     <string name="action_pair">Emparelhar</string>
-    <string name="start_failed_pairing_required">Este dispositivo não está emparelhado para depuração sem fio. Paree-o novamente.</string>
+    <string name="start_failed_pairing_required">Este dispositivo não está pareado para depuração wireless. Pareie-o novamente.</string>
     <string name="start_failed_connection_lost">A conexão ADB foi fechada durante o início. Tente novamente.</string>
     <string name="start_failed_usb_no_port">Nenhuma porta ADB local está aberta para Android limpá-lo em cada reinicialização e reabri-lo precisa de uma conexão com empréstimo. Conectar-se ao Wi-Fi e Shizuku irá reabri-lo através da depuração sem fio, execute <b>adb tcpip 5555</b> de um computador, ou escolha <b>Iniciar sem o Wi-Fi</b> como método inicial para iniciar a depuração sem fio.</string>
     <string name="start_failed_usb_no_port_no_option">Nenhuma porta ADB local está aberta. O Android limpa essa configuração toda vez que o dispositivo é reiniciado. Para reabri-la, é necessário usar uma conexão de rede temporariamente. Conecte-se ao Wi-Fi uma vez ou execute <b>adb tcpip 5555</b> em um computador.</string>
@@ -655,7 +652,7 @@
     <string name="settings_backup_export_summary">Salve as configurações do aplicativo e as listas do Labs em um arquivo JSON.</string>
     <string name="settings_backup_restore">Restaurar configurações</string>
     <string name="settings_backup_restore_summary">Substitui as configurações do aplicativo e as listas do Labs pelas informações de um arquivo de backup.</string>
-    <string name="settings_backup_exported">%1$d configurações salvas.</string>
+    <string name="settings_backup_exported">%1$d Configurações salvas.</string>
     <string name="settings_backup_export_failed">Não foi possível salvar o backup.</string>
     <string name="settings_backup_unreadable">Este arquivo não é um backup de configurações do Shizuku.</string>
     <string name="settings_backup_restore_title">Restaurar as configurações?</string>
@@ -689,7 +686,7 @@
     <string name="intents_package">Pacote</string>
     <string name="intents_action_for">Ação de %1$s</string>
     <string name="home_battery_warning">O Shizuku pode ser encerrado em segundo plano. Permita que ignore as otimizações de bateria.</string>
-    <string name="batch_selected_count">%1$d selecionado</string>
+    <string name="batch_selected_count">%1$d Selecionado</string>
     <string name="app_management_action_select_all">Selecionar todos</string>
     <string name="app_management_action_grant">Conceder</string>
     <string name="app_management_action_revoke">Revoke</string>
@@ -708,8 +705,7 @@
     <string name="terminal_tutorial_1">Exporte os ficheiros para uma nova pasta.</string>
     <string name="terminal_tutorial_1_description">Serão exportados dois ficheiros: %1$s e %2$s. Se
         os ficheiros já existirem na pasta selecionada, serão eliminados.</string>
-    <string name="terminal_tutorial_2">Utilize a aplicação de terminal para copiar os ficheiros para
-        o diretório de ficheiros privados.</string>
+    <string name="terminal_tutorial_2">Utilize a aplicação de terminal para copiar os ficheiros para o diretório de ficheiros privados.</string>
     <string name="terminal_tutorial_2_description">Dica: Se o diretório inicial da sua aplicação de
         terminal (~) estiver no diretório de ficheiros privados, colocar os ficheiros lá permitirá
         que execute %1$s sem ter de digitar o caminho.\n\nCaso contrário, pode criar um alias para
@@ -1134,7 +1130,7 @@
     <string name="manage_select_all">Selecionar todos os exibidos</string>
     <string name="manage_clear_selection">Limpar seleção</string>
     <string name="manage_selection_close">Fechar seleção</string>
-    <string name="manage_selected_count">%1$d selecionado</string>
+    <string name="manage_selected_count">%1$d Selecionado</string>
     <string name="manage_bulk_action">Definir app op</string>
     <string name="manage_bulk_title">Definir app op</string>
     <string name="manage_bulk_note">Escolha um app op e modo. Você verificará os aplicativos antes de aplicar.</string>
@@ -1467,7 +1463,7 @@
     <string name="install_keep_running">Não encerre o aplicativo</string>
     <string name="install_keep_running_desc">Deixe aplicativo aberto enquanto ele é trocado.</string>
     <string name="install_skip_verification">Pular a verificação</string>
-    <string name="install_skip_verification_desc">Pular a checagem da verificação do app.</string>
+    <string name="install_skip_verification_desc">Pular a verificação do pacote.</string>
     <string name="install_bypass_sdk">Ignorar o bloqueamento do target sdk</string>
     <string name="install_bypass_sdk_desc">Permitir aplicativos que tenham como alvo uma versão do Android antiga demais para serem instalados normalmente.</string>
     <string name="install_user">Instalar para</string>
