@@ -82,7 +82,11 @@ class AdbPairingService : Service() {
             ).apply {
                 setSound(null, null)
                 setShowBadge(false)
-                setAllowBubbles(false)
+                // Added in API 29; the service is annotated for R but can be created on older
+                // platforms through the pairing fallback.
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    setAllowBubbles(false)
+                }
             })
     }
 
