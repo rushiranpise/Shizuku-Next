@@ -4,6 +4,8 @@ import android.content.Context
 import android.os.Build
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import moe.shizuku.manager.AppConstants
 import moe.shizuku.manager.ShizukuSettings
@@ -57,9 +59,20 @@ object AdbPortPersistence {
         /** The platform refused, which on a shell-only server is the expected answer. */
         REFUSED,
 
-        /** Nothing to write through: Shizuku is not running and there is no root shell. */
+        /**
+         * Nothing to write through (Shizuku is not running and there is no root shell), or the
+         * outcome is not known: the command did not run to the end, or the property could not be
+         * read back. Either way nothing is known to have been refused, so a later try is welcome.
+         */
         UNAVAILABLE
     }
+
+    /**
+     * One writer at a time: the switch the user flips and the fallback's [reconcile] both decide
+     * from the preferences and then write the property, and a reconcile that had read "not
+     * declined" just before the user switched the port off would write it straight back.
+     */
+    private val writeMutex = Mutex()
 
     /** The port the setting asks for, or 0 to leave adbd not listening. */
     private fun wantedPort(enable: Boolean): Int = if (enable) ShizukuSettings.getTcpPort() else 0
@@ -75,12 +88,35 @@ object AdbPortPersistence {
         val code = runCatching {
             session.run(backend, "setprop $KEY $port") { line -> output.append(line.text) }
         }.getOrElse { throwable ->
+            // The command did not get to answer: not a refusal, just nothing known.
             Log.w(AppConstants.TAG, "Could not write $KEY", throwable)
-            return@withContext Outcome.REFUSED
+            return@withContext Outcome.UNAVAILABLE
         }
 
         val readBack = read()
         when {
+            // -1 is ShellSession's "could not be run at all, or was stopped": nothing known.
+            code < 0 -> {
+                Log.w(AppConstants.TAG, "The write of $KEY did not run to the end")
+                Outcome.UNAVAILABLE
+            }
+
+            // The command ran and said it was refused ("Failed to set property", exit 1 on an
+            // enforcing phone): that is an answer, whatever the read-back says.
+            code != 0 -> {
+                Log.w(
+                    AppConstants.TAG,
+                    "$KEY was refused (exit $code, reads back $readBack): " + output.toString().trim()
+                )
+                Outcome.REFUSED
+            }
+
+            // It said yes but there is nothing to compare against: whether it took is not known.
+            readBack == null -> {
+                Log.w(AppConstants.TAG, "$KEY could not be read back after the write (exit $code)")
+                Outcome.UNAVAILABLE
+            }
+
             code == 0 && readBack == port -> {
                 Log.i(AppConstants.TAG, "$KEY is $port; the port will outlive a reboot")
                 Outcome.APPLIED
@@ -122,6 +158,24 @@ object AdbPortPersistence {
         return read() == ShizukuSettings.getTcpPort()
     }
 
+    /**
+     * The user's own switch: writes the property and records the choice as theirs, so the
+     * fallback neither takes back a port they switched on nor brings back one they switched off.
+     * Serialized with [reconcile].
+     */
+    suspend fun applyByUser(enable: Boolean): Outcome = writeMutex.withLock {
+        val outcome = apply(enable)
+        if (outcome == Outcome.APPLIED) {
+            ShizukuSettings.setPersistAdbPort(enable)
+            ShizukuSettings.setPersistAdbPortAuto(false)
+            ShizukuSettings.setPersistAdbPortDeclined(!enable)
+        } else {
+            // Off means "not on" only when the write went through.
+            ShizukuSettings.setPersistAdbPort(!enable)
+        }
+        outcome
+    }
+
     /** Read once per process: the policy does not change while the system runs. */
     @Volatile
     private var selinuxNotEnforcedCache: Boolean? = null
@@ -152,7 +206,10 @@ object AdbPortPersistence {
      * Only ever touches a port the fallback wrote itself; one the user switched on or off stays as
      * they left it. Runs through the server, so it is for after a start, never on the main thread.
      */
-    suspend fun reconcile(context: Context, @ShizukuSettings.StartMethod method: Int) {
+    suspend fun reconcile(context: Context, @ShizukuSettings.StartMethod method: Int) =
+        writeMutex.withLock { reconcileLocked(context, method) }
+
+    private suspend fun reconcileLocked(context: Context, @ShizukuSettings.StartMethod method: Int) {
         val withoutNetwork = method == ShizukuSettings.StartMethod.WIRELESS_NO_NETWORK
         val tcpMode = ShizukuSettings.getTcpMode()
 
@@ -195,10 +252,12 @@ object AdbPortPersistence {
             return
         }
 
+        // A port the user switched on stays theirs when only the port number changed under it.
+        val userOwned = ShizukuSettings.getPersistAdbPort() && !ShizukuSettings.getPersistAdbPortAuto()
         when (apply(true)) {
             Outcome.APPLIED -> {
                 ShizukuSettings.setPersistAdbPort(true)
-                ShizukuSettings.setPersistAdbPortAuto(true)
+                ShizukuSettings.setPersistAdbPortAuto(!userOwned)
                 Diag.info(
                     AppConstants.TAG,
                     "Start without Wi-Fi: the classic ADB port $wanted stays open after a reboot, " +
@@ -206,6 +265,8 @@ object AdbPortPersistence {
                 )
             }
 
+            // Only a refusal that ran and read back another value: anything unknown is
+            // UNAVAILABLE and gets tried again on a later start.
             Outcome.REFUSED -> {
                 ShizukuSettings.setPersistAdbPortRefusedBuild(Build.FINGERPRINT)
                 Diag.info(

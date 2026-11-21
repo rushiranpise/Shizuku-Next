@@ -285,8 +285,13 @@ object ForcedWirelessDebugging {
                 asked++
                 log("Wi-Fi is connected: asking for wireless debugging over it")
                 writeValue(cr, 0)
-                delay(BOUNCE_MS)
-                writeValue(cr, 1)
+                try {
+                    delay(BOUNCE_MS)
+                } finally {
+                    // Back on even when the attempt is cancelled in the gap: left at 0, wireless
+                    // debugging would stay off after a start that only meant to bounce it.
+                    writeValue(cr, 1)
+                }
                 onNetworkChanged()
             }
             connected = now

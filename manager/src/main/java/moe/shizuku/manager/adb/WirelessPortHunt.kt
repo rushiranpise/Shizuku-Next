@@ -254,10 +254,15 @@ class WirelessPortHunt(
         }
     }
 
+    // Under the same lock as [close]: a search started between close() reading the search and
+    // stopping it would otherwise register a listener after the hunt was over, and nothing would
+    // ever stop it.
     @RequiresApi(Build.VERSION_CODES.R)
     private fun startDiscovery() {
-        val discovery = synchronized(lock) { if (closed) null else mdns } ?: return
-        discovery.start()
+        synchronized(lock) {
+            if (closed) return
+            mdns?.start() ?: return
+        }
         state.update { it.copy(discovering = true) }
     }
 
@@ -268,9 +273,12 @@ class WirelessPortHunt(
      */
     @RequiresApi(Build.VERSION_CODES.R)
     private fun restartDiscovery() {
-        val discovery = synchronized(lock) { if (closed) null else mdns } ?: return
-        discovery.stop()
-        discovery.start()
+        synchronized(lock) {
+            if (closed) return
+            val discovery = mdns ?: return
+            discovery.stop()
+            discovery.start()
+        }
         state.update { it.copy(discovering = true) }
     }
 
@@ -327,8 +335,9 @@ class WirelessPortHunt(
             toUnobserve = observer
             toUnregister = unlockReceiver
             unlockReceiver = null
+            // Stopped inside the lock, so no start can slip in after it.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) runCatching { toStop?.stop() }
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) runCatching { toStop?.stop() }
         toUnobserve?.let { runCatching { cr.unregisterContentObserver(it) } }
         toUnregister?.let { runCatching { appContext.unregisterReceiver(it) } }
         nudgeJob?.cancel()

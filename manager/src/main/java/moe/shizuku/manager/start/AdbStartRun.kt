@@ -598,6 +598,9 @@ class AdbStartRun(
             settleScope.launch {
                 delay(START_SETTLE_MS + SETTLE_RECHECK_MS)
                 if (!Shizuku.pingBinder()) return@launch
+                // A method changed in the meantime is the settings screen's to settle (it
+                // reconciles on every change); acting on the one this start had would undo it.
+                if (ShizukuSettings.getStartMethod() != startedMethod) return@launch
                 runCatching { AdbPortPersistence.reconcile(applicationContext, startedMethod) }
                     .onFailure {
                         if (it is CancellationException) throw it

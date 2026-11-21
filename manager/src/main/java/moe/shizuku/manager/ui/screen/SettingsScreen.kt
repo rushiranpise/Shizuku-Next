@@ -257,6 +257,16 @@ fun SettingsScreen(
             runCatching { AdbPortPersistence.needsClassicPortFallback(context) }.getOrDefault(false)
         }
     }
+    // The detection above finishes after the first frame. Where it finds the fallback while the
+    // start without Wi-Fi is on, TCP mode is switched on as the toggle that turns that start on
+    // would have done, so the locked switch below never shows off; the effect after this one then
+    // settles the port. Elsewhere TCP mode stays the user's.
+    LaunchedEffect(classicPortFallback, forceWireless) {
+        if (classicPortFallback && forceWireless && !tcpMode) {
+            ShizukuSettings.setTcpMode(true)
+            tcpMode = true
+        }
+    }
     // The persistent ADB port follows the start method and TCP mode as they change: written where
     // the start without Wi-Fi needs it (switching to that method while the server runs must not wait
     // for the next start with a network), taken back when the fallback wrote it and the start no
@@ -912,19 +922,9 @@ fun SettingsScreen(
                                     // switch follows what actually happened rather than
                                     // what was asked for.
                                     scope.launch {
-                                        val outcome = AdbPortPersistence.apply(checked)
-                                        // Off means "not on" only when the write went through.
-                                        val applied = outcome == AdbPortPersistence.Outcome.APPLIED
-                                        ShizukuSettings.setPersistAdbPort(
-                                            if (checked) applied else !applied
-                                        )
-                                        if (applied) {
-                                            // The user's choice from here on, either way: the
-                                            // no-network fallback neither takes back a port they
-                                            // switched on nor brings back one they switched off.
-                                            ShizukuSettings.setPersistAdbPortAuto(false)
-                                            ShizukuSettings.setPersistAdbPortDeclined(!checked)
-                                        }
+                                        // Records the choice as the user's and waits for a
+                                        // reconcile in flight, so it cannot be undone by one.
+                                        val outcome = AdbPortPersistence.applyByUser(checked)
                                         persistAdbPort = ShizukuSettings.getPersistAdbPort()
                                         val message = when (outcome) {
                                             // Switched off and done: the switch says so itself,

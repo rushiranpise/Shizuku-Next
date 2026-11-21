@@ -73,6 +73,12 @@ object ClientWifi {
         return wifiWanted(radio, toggle)
     }
 
+    /** Whether the platform's Wi-Fi toggle is on (on, or on in airplane mode), or null when unreadable. */
+    private fun wifiToggleOn(context: Context): Boolean? = runCatching {
+        Settings.Global.getInt(context.applicationContext.contentResolver, WIFI_ON, -1)
+            .takeIf { it >= 0 }
+    }.getOrNull()?.let { it == 1 || it == 2 }
+
     /**
      * Whether the client is joined to a network. The connectivity service is asked rather than the
      * Wi-Fi one: it needs no location permission, and a hotspot is not a network in its list.
@@ -142,6 +148,11 @@ object ClientWifi {
                 delay(POLL_MS)
             }
 
+            // The user may have switched Wi-Fi off in the meantime; that is theirs to keep.
+            if (wifiToggleOn(appContext) == false) {
+                Diag.info(AppConstants.TAG, "Wi-Fi is off after the hotspot, and its toggle is off too; leaving it")
+                return@launch
+            }
             Diag.warn(AppConstants.TAG, "Wi-Fi did not come back after the hotspot closed; switching it on")
             @Suppress("DEPRECATION")
             val viaApi = runCatching { wifi(appContext)?.setWifiEnabled(true) == true }
