@@ -140,6 +140,7 @@
     <string name="app_management_sort_last_added">Aggiunte di recente</string>
     <string name="app_management_sort_updated">Aggiornate</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_sort_keep_in_place">Mantieni la posizione delle app</string>
     <string name="apps_processes_show">Mostra %1$d processo/i</string>
     <string name="apps_processes_hide">Nascondi %1$d processo/i</string>
     <string name="apps_process_pid">PID %1$d</string>

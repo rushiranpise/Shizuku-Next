@@ -10,21 +10,21 @@
     <string name="home_status_adb_usb">adb</string>
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
-    <string name="home_wireless_adb_title"><![CDATA[Iniciar vía Depuración inalámbrica]]></string>
+    <string name="home_wireless_adb_title"><![CDATA[Iniciar mediante Depuración inalámbrica]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Iniciando sin red: se solicita la depuración inalámbrica al dispositivo una y otra vez hasta que permanezca activada. Esto puede tardar hasta dos minutos antes de que se inicie o se detenga el intento.</string>
-    <string name="home_usb_adb_needs_network">Un inicio USB utiliza el puerto ADB clásico y para reabrirlo se necesita una red. Conéctese a Wi-Fi una vez o elija <b>Iniciar sin Wi-Fi</b> como método de inicio y, en su lugar, comience con la depuración inalámbrica.</string>
-    <string name="home_usb_adb_needs_network_no_option">Un inicio USB utiliza el puerto ADB clásico y para reabrirlo se necesita una red. Conéctese a Wi-Fi una vez o inicie desde una computadora con el comando ADB en Otros métodos.</string>
-    <string name="home_usb_adb_needs_computer">Un inicio USB necesita el puerto ADB clásico. En esta versión de Android, conéctese a una computadora e inicie Shizuku con el comando ADB en Otros métodos.</string>
+    <string name="home_usb_adb_needs_network">Un inicio por USB utiliza el puerto ADB clásico y para reabrirlo se necesita una red. Conéctese a Wi-Fi una vez o elija <b>Iniciar sin Wi-Fi</b> como método de inicio y, en su lugar, inicie con la depuración inalámbrica.</string>
+    <string name="home_usb_adb_needs_network_no_option">Un inicio por USB utiliza el puerto ADB clásico y para reabrirlo se necesita una red. Conéctese a Wi-Fi una vez o inicie desde una computadora con el comando ADB en Otros métodos.</string>
+    <string name="home_usb_adb_needs_computer">Un inicio por USB necesita el puerto ADB clásico. En esta versión de Android, conéctese a una computadora e inicie Shizuku con el comando ADB en Otros métodos.</string>
     <string name="home_wireless_adb_summary">Iniciar usando depuración inalambrica.</string>
-    <string name="home_usb_adb_title"><![CDATA[Iniciar por depuración USB]]></string>
-    <string name="home_usb_adb_summary">Iniciar usando depuración USB.</string>
-    <string name="home_support_body">Shizuku-Next es gratis y no tiene anuncios. Invitarme un café ayuda a cubrir el tiempo que lleva mantenerlo.</string>
+    <string name="home_usb_adb_title"><![CDATA[Iniciar mediante depuración por USB]]></string>
+    <string name="home_usb_adb_summary">Iniciar usando depuración por USB.</string>
+    <string name="home_support_body">Shizuku-Next es gratis y no tiene anuncios. Invitarme a un café ayuda a cubrir el tiempo que lleva mantenerlo.</string>
     <string name="diagnostics_title">Diagnostico</string>
     <string name="diagnostics_copy">Copiar diagnostico</string>
     <string name="diagnostics_copied">Diagnóstico copiado</string>
     <string name="diagnostics_service">Servicio</string>
-    <string name="diagnostics_server_uid">Servidor uid</string>
-    <string name="diagnostics_server_api">Servidor API</string>
+    <string name="diagnostics_server_uid">UID del servidor</string>
+    <string name="diagnostics_server_api">API del servidor</string>
     <string name="diagnostics_server_context">Contexto del servidor</string>
     <string name="diagnostics_wireless_debugging">Depuración inalámbrica</string>
     <string name="diagnostics_adb_port">Puerto ADB</string>
@@ -37,7 +37,7 @@
     <string name="diagnostics_started_with">Iniciado con</string>
     <string name="diagnostics_default">Método por defecto</string>
     <string name="diagnostics_hiding">Ocultar</string>
-    <string name="diagnostics_phantom">Matar proceso</string>
+    <string name="diagnostics_phantom">Finalizador de procesos</string>
     <string name="diagnostics_root">Root</string>
     <string name="diagnostics_granted">permitido</string>
     <string name="diagnostics_missing">ausente</string>
@@ -55,13 +55,13 @@
     <!-- Adb -->
     <string name="dialog_adb_port">Puerto</string>
     <string name="dialog_adb_invalid_port">Ingrese un número de puerto del 1 al 65535.</string>
-    <string name="adb_pairing">Emparejar</string>
-    <string name="dialog_adb_pairing_title">Emparejar con dispositivo</string>
+    <string name="adb_pairing">Emparejamiento</string>
+    <string name="dialog_adb_pairing_title">Emparejar con el dispositivo</string>
     <string name="dialog_adb_pairing_discovery">Buscando servicio de emparejamiento</string>
-    <string name="dialog_adb_pairing_paring_code">Clave de emparejamiento</string>
-    <string name="paring_code_is_wrong">La clave de emparejamiento es incorrecta.</string>
-    <string name="cannot_connect_port">No se puede conectar al servicio de depuración inalámbrica.\n\nPor favor, asegúrese de que Shizuku esté en la lista blanca de todas las aplicaciones de cortafuegos, bloqueador de anuncios, VPN u similares que puedan restringir el acceso a la red.</string>
-    <string name="dialog_adb_pairing_message">Comience el emparejamiento realizando los siguientes pasos:\n- Vaya a \"Opciones de desarrollador\"\n- Habilite \"Depuración USB\" y \"Depuración inalámbrica\"\n- Toque el lado izquierdo de \"Depuración inalámbrica\"\n- Toque \"Emparejar dispositivo con código de emparejamiento\"\n- Ingrese el código de emparejamiento en la notificación</string>
+    <string name="dialog_adb_pairing_paring_code">Código de emparejamiento</string>
+    <string name="paring_code_is_wrong">El código de emparejamiento es incorrecto.</string>
+    <string name="cannot_connect_port">No se puede conectar al servicio de depuración inalámbrica.\n\nPor favor, asegúrese de que Shizuku esté en la lista blanca de todas las aplicaciones de cortafuegos, bloqueador de anuncios, VPN o aplicaciones similares que puedan restringir el acceso a la red.</string>
+    <string name="dialog_adb_pairing_message">Comience el emparejamiento realizando los siguientes pasos:\n- Vaya a \"Opciones de desarrollador\"\n- Active \"Depuración por USB\" y \"Depuración inalámbrica\"\n- Toque el lado izquierdo de \"Depuración inalámbrica\"\n- Toque en \"Emparejar dispositivo con código de emparejamiento\"\n- Introduzca el código de emparejamiento en la notificación</string>
     <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
          a translation of dialog_adb_pairing_message would still tell the user to type the code
          into a notification that this flow never shows. Untranslated locales fall back here. -->
@@ -70,44 +70,44 @@
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
          outside the app, and both are named because either reader may be the one holding it. -->
-    <string name="dialog_adb_pairing_accessibility_permission">Android bloquea este interruptor en las aplicaciones instaladas fuera de una tienda de aplicaciones. Permite la operación de aplicación ^1 para activar el servicio de accesibilidad. En la lista de accesibilidad, esto aparece como \"Controlado por ajustes restringidos\".\n\nAbre Información de la aplicación y selecciona \"Permitir configuraciones restringidas\" en el menú, o ejecuta esto en una computadora:\n\n^2\n\nCualquiera de las dos opciones sirve. El interruptor funcionará después.</string>
+    <string name="dialog_adb_pairing_accessibility_permission">Android bloquea este interruptor en las aplicaciones instaladas fuera de una tienda de aplicaciones. Permite la operación de aplicación ^1 para activar el servicio de accesibilidad. En la lista de accesibilidad, esto aparece como \"Controlado por ajustes restringidos\".\n\nAbra Información de la aplicación y seleccione \"Permitir ajustes restringidos\" en el menú, o ejecute esto en una computadora:\n\n^2\n\nCualquiera de las dos opciones sirve. Después, el interruptor funcionará correctamente.</string>
     <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
-    <string name="dialog_adb_pairing_accessibility_permission_tv">Android bloquea este cambio para aplicaciones instaladas fuera de una tienda de aplicaciones y, en un TV, la información de la aplicación no tiene la opción \"Permitir configuraciones restringidas\" para desbloquearla. Se necesita una computadora conectada a este TV a través de ADB una vez: otorgue el permiso anterior, que permite a Shizuku activar el servicio por sí solo, o desbloquee el interruptor con:\n\n^1</string>
-    <string name="dialog_adb_pairing_accessibility_enable_watch">El emparejamiento automático lee el código del cuadro de diálogo del sistema, por lo que el servicio de accesibilidad de Shizuku debe estar activado. Actívelo en la siguiente pantalla.\n\nSi el interruptor aparece atenuado, abra Información de la aplicación y permita las configuraciones restringidas.</string>
-    <string name="dialog_adb_pairing_open_app_info">Información de aplicación</string>
-    <string name="dialog_adb_pairing_accessibility_enable">El emparejamiento automático lee el código del cuadro de diálogo del sistema a través del servicio de accesibilidad de Shizuku, por lo que debe estar activado, y solo durante el tiempo necesario: el servicio se desactiva automáticamente una vez que se encuentra el código, o al cabo de un minuto para ahorrar batería. Normalmente, Shizuku lo activa por sí solo, y para ello necesita el permiso WRITE_SECURE_SETTINGS, que aún no se ha concedido en una instalación nueva.\n\nActívelo en la siguiente pantalla, escriba el código usted mismo en «Manual» o conceda el permiso una vez:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
-    <string name="dialog_adb_pairing_accessibility_navigate">Para iniciar el emparejamiento, siga estos pasos:\n- Vaya a \"Opciones de desarrollador\"\n- Habilite \"Depuración USB\" y \"Depuración inalámbrica\"\n- Toque el lado izquierdo de \"Depuración inalámbrica\"\n- Toque \"Emparejar dispositivo con código de emparejamiento\". Shizuku detectará automáticamente el código de emparejamiento.</string>
-    <string name="adb_pairing_requires_multi_window">Primero entre en modo de pantalla dividida multiventana.</string>
-    <string name="adb_pairing_requires_multi_window_reason">El sistema requiere que el diálogo de emparejamiento sea siempre visible. Usar el modo pantalla dividida es la única forma de que esta app y el diálogo del sistema sean visibles al mismo tiempo.</string>
-    <string name="adb_error_key_store">No se puede generar clave para la depuración inalámbrica.\nEsto puede deberse a que el mecanismo KeyStore de este dispositivo está roto.</string>
-    <string name="adb_error_stop_tcp">No se pudo detener ADB por TCP</string>
-    <string name="adb_pair_required">Por favor, ve al paso de emparejamiento primero.</string>
+    <string name="dialog_adb_pairing_accessibility_permission_tv">Android bloquea este cambio para aplicaciones instaladas fuera de una tienda de aplicaciones y, en un TV, la información de la aplicación no tiene la opción \"Permitir ajustes restringidos\" para desbloquearlo. Se necesita una computadora conectada a este TV a través de ADB una vez: puede conceder el permiso indicado anteriormente, lo que permitirá que Shizuku active el servicio por sí mismo, o desbloquear el interruptor con:\n\n^1</string>
+    <string name="dialog_adb_pairing_accessibility_enable_watch">El emparejamiento automático lee el código del cuadro de diálogo del sistema, por lo que el servicio de accesibilidad de Shizuku debe estar activado. Actívelo en la siguiente pantalla.\n\nSi el interruptor aparece atenuado, abra Información de la aplicación y permita los ajustes restringidos.</string>
+    <string name="dialog_adb_pairing_open_app_info">Información de la aplicación</string>
+    <string name="dialog_adb_pairing_accessibility_enable">El emparejamiento automático lee el código del cuadro de diálogo del sistema a través del servicio de accesibilidad de Shizuku, por lo que debe estar activado, y solo durante el tiempo necesario: el servicio se desactiva automáticamente una vez que se encuentra el código, o al cabo de un minuto para ahorrar batería. Normalmente, Shizuku lo activa por sí solo, y para ello necesita el permiso WRITE_SECURE_SETTINGS, que aún no se ha concedido en una instalación nueva.\n\nActívelo en la siguiente pantalla, escriba el código usted mismo en Manual o conceda el permiso una vez:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
+    <string name="dialog_adb_pairing_accessibility_navigate">Para iniciar el emparejamiento, siga estos pasos:\n- Vaya a \"Opciones de desarrollador\"\n- Active \"Depuración por USB\" y \"Depuración inalámbrica\"\n- Toque el lado izquierdo de \"Depuración inalámbrica\"\n- Toque \"Emparejar dispositivo con código de emparejamiento\". Shizuku detectará automáticamente el código de emparejamiento.</string>
+    <string name="adb_pairing_requires_multi_window">Primero, abra el modo de pantalla dividida.</string>
+    <string name="adb_pairing_requires_multi_window_reason">El sistema requiere que el diálogo de emparejamiento sea siempre visible. Usar el modo pantalla dividida es la única forma de que esta aplicación y el diálogo del sistema sean visibles al mismo tiempo.</string>
+    <string name="adb_error_key_store">No se puede generar la clave para la depuración inalámbrica.\nEsto puede deberse a que el mecanismo KeyStore de este dispositivo está dañado.</string>
+    <string name="adb_error_stop_tcp">No se pudo detener ADB sobre TCP</string>
+    <string name="adb_pair_required">Empareje el dispositivo primero.</string>
     <string name="enable">Activar</string>
-    <string name="auto_pair_instructions">Emparejar sin escribir un código: \n\n1. Opciones de desarrollador → Depuración inalámbrica \n2. El dispositivo se empareja con el código de emparejamiento \n\n Shizuku lee el código y el puerto directamente desde ese diálogo y se inicia. Mantenga el cuadro de diálogo abierto hasta que se empareje.</string>
+    <string name="auto_pair_instructions">Emparejar sin introducir un código:\n\nToque en Opciones de desarrollador más abajo.\n\nShizuku abre automáticamente Depuración inalámbrica y el cuadro de diálogo de emparejamiento, lee el código y el puerto, y se inicia. Mantenga el cuadro de diálogo abierto hasta que finalice el emparejamiento.</string>
     <string name="auto_pair_instructions_watch">Shizuku abre las Opciones de desarrollador y la Depuración inalámbrica, lee el código de emparejamiento y se inicia. Mantenga abierto el cuadro de diálogo del sistema hasta que finalice el emparejamiento.</string>
     <string name="auto_pair_manual">Manual</string>
     <string name="adb_pairing_developer_options">Opciones de desarrollador</string>
     <string name="development_settings">Automático</string>
     <string name="notification_settings">Configuración de notificaciones</string>
-    <string name="adb_pairing_tutorial_content_notification">Una notificación de Shizuku le ayudará a completar la vinculación.</string>
-    <string name="adb_pairing_tutorial_content_steps">Vaya a “Opciones de desarrollador”, luego habilite “Depuración USB” y “Depuración inalámbrica”.</string>
+    <string name="adb_pairing_tutorial_content_notification">Una notificación de Shizuku le ayudará a completar el emparejamiento.</string>
+    <string name="adb_pairing_tutorial_content_steps">Vaya a “Opciones de desarrollador”, luego active “Depuración USB” y “Depuración inalámbrica”.</string>
     <string name="adb_pairing_tutorial_content_enter_pairing_code">Toque el lado izquierdo de \"Depuración inalámbrica\" y luego \"Emparejar dispositivo con código emparejamiento\". Introduzca el código en la notificación para completar el emparejamiento.</string>
-    <string name="adb_pairing_tutorial_content_notification_blocked">El proceso de vinculación requiere que usted interactúe con las notificaciones de Shizuku. Por favor, permita que Shizuku pueda lanzar notificaciones.</string>
-    <string name="adb_pairing_tutorial_content_miui">Usuarios de MIUI podrían necesitar cambiar el estilo de notificaciones por \"Android\" en \"Notificaciones\" - \"Barra de notificaciones\" dentro de los ajustes del sistema.</string>
+    <string name="adb_pairing_tutorial_content_notification_blocked">El proceso de emparejamiento requiere que interactúe con una notificación de Shizuku. Por favor, permita que Shizuku envíe notificaciones.</string>
+    <string name="adb_pairing_tutorial_content_miui">Usuarios de MIUI podrían necesitar cambiar el estilo de notificaciones a \"Android\" en \"Notificaciones\" - \"Barra de notificaciones\" dentro de los ajustes del sistema.</string>
     <string name="adb_pairing_tutorial_content_miui_2">De lo contrario, puede que no pueda introducir el código de emparejamiento desde la notificación.</string>
     <string name="adb_pairing_tutorial_content_finish">Vuelva a Shizuku e inicie Shizuku.</string>
     <string name="adb_pairing_tutorial_content_network">Shizuku necesita acceder a la red local. Esto se controla mediante el permiso de red.</string>
-    <string name="adb_pairing_tutorial_content_network_limation_not_foreground">Algunos sistemas (como MIUI) impiden que las aplicaciones accedan a la red cuando no son visibles, incluso si la app utiliza un servicio en primer plano. Por favor, desactive las funciones de optimización de batería para Shizuku en estos sistemas.</string>
+    <string name="adb_pairing_tutorial_content_network_limation_not_foreground">Algunos sistemas (como MIUI) impiden que las aplicaciones accedan a la red cuando no son visibles, incluso si utilizan un servicio en primer plano. Por favor, desactive las funciones de optimización de batería para Shizuku en estos sistemas.</string>
     <!-- Home - Root -->
-    <string name="home_root_title"><![CDATA[Iniciar vía root]]></string>
-    <string name="home_root_description"><![CDATA[Si usa Magisk, puede probar %1$s. Para usuarios root, eventualmente reemplazará a Shizuku. Tenga en cuenta que las aplicaciones existentes deben modificarse ligeramente para usar %2$s.]]></string>
+    <string name="home_root_title"><![CDATA[Iniciar mediante root]]></string>
+    <string name="home_root_description"><![CDATA[Si usa Magisk, puede probar %1$s. En una compilación depurable, Shizuku también puede iniciarse con ADB root. Para los usuarios con acceso root, eventualmente sustituirá a Shizuku. Tenga en cuenta que las aplicaciones existentes deberán realizar algunos pequeños cambios para poder usar %2$s.]]></string>
     <string name="home_root_button_start">Iniciar</string>
     <!-- Home - Application management -->
     <plurals name="home_app_management_authorized_apps_count">
-        <item quantity="one"><![CDATA[Autorizada %d aplicación]]></item>
-        <item quantity="other"><![CDATA[Autorizadas %d aplicaciones]]></item>
+        <item quantity="one"><![CDATA[%d aplicación autorizada]]></item>
+        <item quantity="other"><![CDATA[%d aplicaciones autorizadas]]></item>
     </plurals>
     <!-- Home - Automation -->
     <!-- Home - Stealth mode -->
@@ -119,12 +119,12 @@
     <string name="home_dialog_duplicate_app_detected_title">Aplicación duplicada detectada</string>
     <string name="home_dialog_duplicate_app_detected_message">Otra versión de esta aplicación está instalada en su dispositivo. Para continuar, desinstale todas las versiones duplicadas y reinicie su dispositivo.</string>
     <!-- The same two states, said on the Home screen instead of in a dialog that only exits. Shizuku works either way; what is affected is what other apps find when they look Shizuku up. -->
-    <string name="home_permission_owned_by">Las aplicaciones buscan a Shizuku por su permiso, y Android indica que %1$s lo declara - una copia de Shizuku, o lo que queda de ella. Esas aplicaciones le harán las peticiones a esa copia hasta que se desinstale y se reinicie el dispositivo.</string>
+    <string name="home_permission_owned_by">Las aplicaciones buscan a Shizuku por su permiso, y Android indica que %1$s lo declara - una copia de Shizuku, o lo que queda de ella. Esas aplicaciones seguirán comunicándose con esa instancia hasta que se desinstale y se reinicie el dispositivo.</string>
     <string name="home_permission_not_registered">Las aplicaciones buscan a Shizuku por su permiso, y Android aún no lo ha registrado, algo que puede ocurrir tras una reinstalación hasta que se reinicie el dispositivo. Shizuku en sí no se ve afectado, pero es posible que otras aplicaciones no lo encuentren.</string>
     <string name="home_dialog_button_exit">Salir</string>
     <!-- Application management -->
-    <string name="app_management_dialog_adb_is_limited_title">El permiso de adb es limitado</string>
-    <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Es muy posible que el fabricante de su dispositivo haya limitado el permiso de adb.<p>Puede que encuentre una solución para su sistema en <b><a href=\"%1$s\">este documento</a></b>.]]></string>
+    <string name="app_management_dialog_adb_is_limited_title">Los permisos de ADB son limitados</string>
+    <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Es muy posible que el fabricante de su dispositivo haya limitado el permiso de ADB.<p>Puede que encuentre una solución para su sistema en <b><a href=\"%1$s\">este documento</a></b>.]]></string>
     <string name="app_management_toggle_all">Alternar todo</string>
     <string name="app_management_search_hint">Buscar aplicaciones</string>
     <string name="app_management_sort">Ordenar</string>
@@ -476,12 +476,12 @@
     <string name="hiding_notification_stopped_title">Ocultación detenida</string>
     <string name="hiding_notification_stopped_text">Shizuku no se está ejecutando, por lo que la ocultación no puede detectar qué aplicación está abierta. Se han restaurado todas las configuraciones ocultas.</string>
     <string name="hiding_carries_session_wireless">No aplicado: Shizuku utiliza la depuración inalámbrica, por lo que ocultarla detendría a Shizuku.</string>
-    <string name="hiding_carries_session_usb">No aplicado: Shizuku usa la depuración USB, por lo que ocultarla detendría a Shizuku.</string>
+    <string name="hiding_carries_session_usb">No aplicado: Shizuku usa la depuración por USB, por lo que ocultarla detendría a Shizuku.</string>
     <string name="tab_settings">Configuración</string>
     <string name="home_status_transport_label">Transporte</string>
     <string name="home_status_started_with">Actual</string>
     <string name="home_status_started_default">Predeterminado</string>
-    <string name="uid_label">UID</string>
+    <string name="uid_label">Interfaz De Usuario</string>
     <string name="uid_name_format">(%1$s)</string>
     <string name="uid_name_root">root</string>
     <string name="uid_name_system">sistema</string>
@@ -619,7 +619,7 @@
     <string name="start_failed_wifi_required">Conéctese a una red Wi-Fi; el sistema desactiva la depuración inalámbrica si no hay ninguna. O inicie desde una computadora usando el comando ADB de abajo.</string>
     <string name="start_failed_binder_went_away">El servicio se inició y luego volvió a detenerse, por lo que aún nada puede usarlo. Esto ocurre cuando el servidor se cierra junto con la aplicación a través de la cual se realizó el inicio, que es precisamente lo que hace la carga útil (payload) después de iniciarlo. Intente iniciarlo de nuevo.</string>
     <string name="start_failed_no_port">No se encontró ningún puerto de depuración inalámbrica. Asegúrese de que la depuración inalámbrica esté habilitada y el Wi-Fi conectado.</string>
-    <string name="start_failed_no_port_no_permission">No se ha encontrado ningún puerto de depuración inalámbrica, y Shizuku no puede activar la depuración inalámbrica sin el permiso WRITE_SECURE_SETTINGS: <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. O inicia Shizuku mediante depuración USB una vez, ya que se concederá el permiso a sí mismo después.</string>
+    <string name="start_failed_no_port_no_permission">No se ha encontrado ningún puerto de depuración inalámbrica, y Shizuku no puede activar la depuración inalámbrica sin el permiso WRITE_SECURE_SETTINGS: <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. O inicia Shizuku mediante depuración por USB una vez, ya que se concederá el permiso a sí mismo después.</string>
     <string name="start_failed_no_auth">La depuración inalámbrica no está permitida en esta red. Vincule el dispositivo de nuevo.</string>
     <string name="action_dismiss">Descartar</string>
     <string name="action_connect_wifi">Conectar</string>
@@ -629,7 +629,7 @@
     <string name="start_failed_usb_no_port">No hay ningún puerto ADB local abierto; Android lo cierra en cada reinicio y volver a abrirlo requiere una conexión auxiliar. Conéctate a una red Wi-Fi y Shizuku lo reabrirá mediante depuración inalámbrica, ejecute <b>adb tcpip 5555</b> desde una computadora, o elija <b>Iniciar sin Wi-Fi</b> como método de inicio para hacerlo a través de la depuración inalámbrica.</string>
     <string name="start_failed_usb_no_port_no_option">No hay ningún puerto ADB local abierto. Android lo cierra en cada reinicio y volver a abrirlo requiere una conexión de red auxiliar. Conéctese a una red Wi-Fi una vez o ejecute <b>adb tcpip 5555</b> desde una computadora.</string>
     <string name="start_failed_root_unavailable">Root ya no está disponible en este dispositivo, por lo que Shizuku no puede iniciarse mediante root. Elija otro método de inicio.</string>
-    <string name="start_failed_adb_root">ADB root no está disponible. Active la depuración USB en una compilación depurable o elige otro método de inicio.</string>
+    <string name="start_failed_adb_root">ADB root no está disponible. Active la depuración por USB en una compilación depurable o elija otro método de inicio.</string>
     <string name="start_failed_system_needs_app">El método de inicio del sistema debe iniciarse desde la aplicación.</string>
     <string name="start_failed_system_no_exploit">Este dispositivo no incluye el agente FOTA de Samsung (com.sdet.fotaagent), que es el único componente que puede usar el método de inicio del sistema, por lo que no hay ningún elemento con el que escalar privilegios aquí. Cambie el método de inicio del sistema a Comando personalizado: la aplicación le mostrará qué ejecutar con una elevación que su dispositivo sí tenga.</string>
     <string name="start_failed_no_binder">El servicio no apareció en el plazo de un minuto. Ambas partes guardan un registro: el iniciador bajo ShizukuServiceStarter y la transferencia bajo BinderSender. Un lector de logcat filtrado por esas dos etiquetas mostrará si el iniciador llegó a bifurcar el servidor y si este llegó a solicitar el binder.</string>
@@ -758,7 +758,7 @@
     <string name="action_turn_on_developer_options">Activar las Opciones de desarrollador</string>
     <string name="toast_developer_options_required">Desactivar ADB sin Opciones de desarrollador</string>
     <string name="settings_adb_without_developer_options_confirm_title">¿Desactivar las Opciones de desarrollador?</string>
-    <string name="settings_adb_without_developer_options_confirm_message">Shizuku seguirá funcionando y restaurará su configuración de ADB tras reiniciar el dispositivo. Sin embargo, no podrá acceder a las Opciones de desarrollador para modificar los ajustes de depuración USB o inalámbrica, ni emparejar un nuevo dispositivo. ¿Desea desactivar las Opciones de desarrollador?</string>
+    <string name="settings_adb_without_developer_options_confirm_message">Shizuku seguirá funcionando y restaurará su configuración de ADB tras reiniciar el dispositivo. Sin embargo, no podrá acceder a las Opciones de desarrollador para modificar los ajustes de depuración por USB o inalámbrica, ni emparejar un nuevo dispositivo. ¿Desea desactivar las Opciones de desarrollador?</string>
     <string name="settings_adb_without_developer_options_confirm">Desactivar</string>
     <string name="settings_adb_without_developer_options_failed">Shizuku no pudo cambiar la configuración. Primero conceda el permiso WRITE_SECURE_SETTINGS en la página de permisos.</string>
     <string name="settings_wait_for_wifi">Esperar conexión Wi-Fi</string>
@@ -786,7 +786,7 @@
     <string name="settings_tcp_mode_summary">"Permite que Shizuku se reinicie sin Wi-Fi. (Shizuku debe haberse iniciado al menos una vez desde el reinicio del dispositivo)"</string>
     <string name="settings_tcp_mode_dialog_close_port">"El puerto TCP se cerrará de inmediato. Necesitará Wi-Fi para volver a activar el modo TCP. ¿Continuar?"</string>
     <string name="settings_tcp_mode_close_wireless">No se cerró: la depuración inalámbrica está activada. Cerrar el puerto la detendría. El puerto se cerrará cuando se reinicie el teléfono.</string>
-    <string name="settings_tcp_mode_close_usb_off">No se cerró: la depuración USB está desactivada. Actívala y vuelve a intentarlo.</string>
+    <string name="settings_tcp_mode_close_usb_off">No se cerró: la depuración por USB está desactivada. Actívela y vuelva a intentarlo.</string>
     <string name="settings_tcp_mode_close_nothing">No había ningún puerto TCP abierto.</string>
     <string name="settings_restart_dialog_title">Reinicio necesario</string>
     <string name="settings_restart_dialog_message">Shizuku debe reiniciarse para aplicar esta configuración.</string>
@@ -923,7 +923,7 @@
     <string name="snackbar_action_update">Actualizar</string>
     <!-- Updates -->
     <string name="check_for_updates">Comprobar actualizaciones</string>
-    <string name="update_latest_installed">Ya tiene la última versión</string>
+    <string name="update_latest_installed">Ya Cuentas Con la última versión</string>
     <string name="update_check_failed">No se puedieron comprobar las actualizaciones</string>
     <string name="update_check_offline">No se pudo conectar con GitHub. Compruebe su conexión y vuelva a intentarlo.</string>
     <string name="update_check_rate_limited">GitHub está limitando la frecuencia de las comprobaciones de actualizaciones. Inténtelo de nuevo más tarde.</string>
@@ -997,7 +997,7 @@
     <string name="shell_backend_offline_short">Sin ejecutor</string>
     <string name="shell_needs_a_backend">Inicia Shizuku o selecciona Root en un dispositivo rooteado: uno de los dos ejecuta los comandos. Root funciona aunque Shizuku esté detenido.</string>
     <string name="shell_intro">Se ejecuta con el mismo UID que Shizuku (2000 por ADB, 0 con root), por lo que accede a todo lo que ese UID permita: /sdcard, /system y los datos de las aplicaciones con root. Se abre en /sdcard y procesa un comando a la vez; al no tener una terminal asociada, los programas interactivos (como nano o una sesión SSH) no funcionarán aquí.</string>
-    <string name="shell_root_granted">Root está disponible: los comandos se ejecutarán como UID 0.</string>
+    <string name="shell_root_granted">Root está disponible: los comandos se ejecutarán como Iterfaz De Usuario 0.</string>
     <string name="shell_root_refused">Se denegó el acceso root, por lo que los comandos usarán Shizuku. Conceda acceso root a esta aplicación para usar Root.</string>
     <string name="shell_search">Buscar</string>
     <string name="shell_search_hint">Buscar</string>
@@ -1229,7 +1229,7 @@
     <string name="app_confirm_title">¿Está seguro?</string>
     <string name="app_confirm_disable">¿Desactivar %1$s? Dejará de ejecutarse hasta que vuelva a activarla.</string>
     <string name="app_confirm_clear_data">¿Eliminar todos los datos de %1$s? Esto no se puede deshacer.</string>
-    <string name="app_confirm_uninstall">¿Eliminar %1$s para este usuario? Sus datos se conservan.</string>
+    <string name="app_confirm_uninstall">¿Quitar %1$s para este usuario? Se conservarán sus datos.</string>
     <string name="app_battery_needs_shizuku">Inicie Shizuku para cambiar la configuración de la batería.</string>
     <string name="app_battery_bucket">Grupo en espera</string>
     <string name="app_battery_pick_title">Grupo en espera</string>
@@ -1237,11 +1237,11 @@
     <string name="app_bucket_active_note">Puede ejecutarse libremente en segundo plano.</string>
     <string name="app_bucket_default">Predeterminado</string>
     <string name="app_bucket_default_note">Android decide cuánto puede ejecutarse.</string>
-    <string name="app_bucket_exempted">Exento</string>
-    <string name="app_bucket_exempted_note">El sistema exime a esta aplicación del modo en espera, por lo que el grupo de abajo no es el que está activo.</string>
+    <string name="app_bucket_exempted">Exenta</string>
+    <string name="app_bucket_exempted_note">El sistema exime a esta aplicación del modo en espera, por lo que el grupo que aparece a continuación no es el que está vigente actualmente.</string>
     <string name="app_bucket_frequent">Frecuente</string>
     <string name="app_bucket_frequent_note">Puede ejecutarse con frecuencia, pero no libremente.</string>
-    <string name="app_bucket_rare">Raro</string>
+    <string name="app_bucket_rare">Rara vez</string>
     <string name="app_bucket_rare_note">Dispone de poco tiempo en segundo plano.</string>
     <string name="app_bucket_restricted">Restringido</string>
     <string name="app_bucket_restricted_note">Rara vez se le permite ejecutarse en segundo plano.</string>
@@ -1253,7 +1253,7 @@
     <string name="app_network_needs_shizuku">Inicie Shizuku para cambiar a qué puede acceder una aplicación.</string>
     <string name="app_network_unsupported">Este dispositivo no ofrece el cortafuegos que esto necesita.</string>
     <string name="app_network_block">Bloquear el acceso a la red</string>
-    <string name="app_network_block_note">El sistema bloquea su tráfico.</string>
+    <string name="app_network_block_note">La plataforma registra una caída en su tráfico.</string>
     <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
          screen. The per-app list is unaffected either way, which is what the off state says. -->
     <string name="firewall_tile_label">Cortafuegos</string>
@@ -1290,7 +1290,7 @@
     <string name="lab_switch_could_not_change">%1$s no se pudo cambiar</string>
     <string name="lab_switch_locked">Desbloquee el teléfono para cambiar este ajuste rápido.</string>
     <string name="app_info_version">Versión</string>
-    <string name="app_info_uid">UID</string>
+    <string name="app_info_uid">ID de usuario</string>
     <string name="app_info_target_sdk">SDK de destino</string>
     <string name="app_info_min_sdk">SDK mínimo</string>
     <string name="app_info_abi">ABI</string>
@@ -1301,20 +1301,20 @@
     <string name="app_info_updated">Actualizado</string>
     <string name="app_info_debuggable">Depurable</string>
     <string name="app_info_backup">Copia de seguridad permitida</string>
-    <string name="app_info_launcher">Entrada del launcher</string>
+    <string name="app_info_launcher">Entrada del lanzador</string>
     <string name="app_info_yes">Si</string>
     <string name="app_info_no">No</string>
     <string name="tab_wifi_passwords">Contraseñas Wi-Fi</string>
     <string name="tab_accessibility">Accesibilidad</string>
     <string name="accessibility_boot">Iniciar al arrancar</string>
-    <string name="accessibility_boot_summary">Vuelve a iniciar el servicio de actividad tras reiniciar.</string>
+    <string name="accessibility_boot_summary">Inicia de nuevo el proceso de mantenimiento activo tras reiniciar.</string>
     <string name="accessibility_empty">No se encontraron servicios de accesibilidad.</string>
-    <string name="accessibility_gate_off">Servicio de actividad desactivado</string>
+    <string name="accessibility_gate_off">Mantenimiento activo desactivado</string>
     <string name="accessibility_count">%1$d activados</string>
     <string name="accessibility_filter_off">Desactivado</string>
     <string name="accessibility_filter_on">Activado</string>
     <string name="accessibility_no_match">Ningún servicio coincide con su búsqueda.</string>
-    <string name="accessibility_write_failed">No se pudo cambiar el servicio. Compruebe que Shizuku esté funcionando.</string>
+    <string name="accessibility_write_failed">No se pudo cambiar el servicio. Compruebe que Shizuku está en ejecución.</string>
     <string name="accessibility_notification_channel">Servicios de accesibilidad</string>
     <string name="accessibility_notification_title">Servicios de accesibilidad mantenidos activos</string>
     <string name="accessibility_notification_text">Shizuku-Next vuelve a activar los servicios bloqueados cuando Android los desactiva.</string>
@@ -1324,16 +1324,16 @@
     <string name="wifi_passwords_none">Sin contraseña</string>
     <string name="wifi_passwords_empty">No hay redes guardadas.</string>
     <string name="wifi_passwords_needs_shizuku">Shizuku no se está ejecutando, por lo que no hay un shell para leer las redes guardadas.</string>
-    <string name="wifi_passwords_failed">El servicio wifi no contestaba. El registro contiene lo que decía.</string>
-    <string name="wifi_passwords_unsupported">Para leer las redes guardadas se necesita Android 9 o posterior, que es desde donde se puede acceder al servicio wifi oculto.</string>
+    <string name="wifi_passwords_failed">El servicio de wifi no ha respondido. El registro contiene los detalles.</string>
+    <string name="wifi_passwords_unsupported">Para leer las redes guardadas se necesita Android 9 o posterior, que es desde donde se puede acceder al servicio de wifi oculto.</string>
     <string name="wifi_passwords_search_hint">Buscar redes</string>
     <string name="wifi_passwords_no_match">No se encontró ninguna red guardada.</string>
     <string name="wifi_passwords_actions">Acciones de red</string>
     <string name="wifi_passwords_all_actions">Todas las redes</string>
     <string name="wifi_passwords_connected">Conectado</string>
     <string name="wifi_passwords_connect">Conectar</string>
-    <string name="wifi_passwords_wifi_off">El Wi-Fi está apagado. Enciéndalo y vuelva a intentarlo.</string>
-    <string name="wifi_passwords_wifi_off_hint">El Wi-Fi está apagado. Enciéndalo para conectarse.</string>
+    <string name="wifi_passwords_wifi_off">El Wi-Fi está desactivado. Actívelo e inténtelo de nuevo.</string>
+    <string name="wifi_passwords_wifi_off_hint">El Wi-Fi está desactivado. Actívelo para conectarse.</string>
     <string name="wifi_passwords_connected_toast">Conectado a %1$s</string>
     <string name="wifi_passwords_forget">Olvidar</string>
     <string name="wifi_passwords_forget_message">Se olvidará %1$s, incluida su contraseña guardada. Esto no se puede deshacer.</string>
@@ -1350,8 +1350,8 @@
     <string name="wifi_backup_password">Contraseña</string>
     <string name="wifi_backup_password_hint">Déjelo vacío para crear un archivo desprotegido.</string>
     <string name="wifi_backup_needs_android8">La protección con contraseña necesita Android 8 o posterior.</string>
-    <string name="wifi_backup_exported">%1$d redes escritas</string>
-    <string name="wifi_backup_imported">%1$d de %2$d redes agregadas</string>
+    <string name="wifi_backup_exported">%1$d redes guardadas</string>
+    <string name="wifi_backup_imported">%1$d de %2$d redes añadidas</string>
     <string name="wifi_backup_unreadable">No se pudo leer el archivo o la contraseña es incorrecta. Consulte el registro para obtener más detalles.</string>
     <string name="wifi_backup_unwritable">No se pudo escribir el archivo. Consulte el registro para obtener más detalles.</string>
     <string name="tab_files">Archivos</string>
@@ -1361,17 +1361,17 @@
     <string name="files_root_system">Sistema</string>
     <string name="files_root_tmp">Temporal</string>
     <string name="files_root_root">Root</string>
-    <string name="files_empty">Nada en esta carpeta.</string>
+    <string name="files_empty">Esta carpeta está vacía.</string>
     <string name="files_all_hidden">Todo lo que hay en esta carpeta está oculto.</string>
     <string name="files_sort">Ordenar</string>
     <string name="files_sort_name">Ordenar por nombre</string>
     <string name="files_sort_size">Ordenar por tamaño</string>
     <string name="files_sort_modified">Ordenar por fecha</string>
-    <string name="files_sort_ascending">Ascendentes</string>
-    <string name="files_sort_descending">Descendentes</string>
+    <string name="files_sort_ascending">Ascendente</string>
+    <string name="files_sort_descending">Descendente</string>
     <string name="files_show_hidden">Mostrar archivos ocultos</string>
     <string name="files_hide_hidden">Ocultar archivos ocultos</string>
-    <string name="files_failed">%1$s no pudo mostrar en la lista. No hay acceso al shell o falta la carpeta.</string>
+    <string name="files_failed">%1$s no se pudo mostrar en la lista. No hay acceso al shell o falta la carpeta.</string>
     <string name="files_needs_shizuku">Shizuku no se está ejecutando, por lo que no se pueden leer los archivos.</string>
     <string name="files_preview_binary">Este no es un archivo de texto, por lo que no se puede mostrar.</string>
     <string name="files_preview_failed">No se pudo leer este archivo.</string>
@@ -1406,11 +1406,11 @@
     <string name="install_open_failed">No se pudo abrir la aplicación.</string>
     <string name="install_options_heading">Opciones de instalación</string>
     <string name="install_instant">Instalar como una aplicación instantánea</string>
-    <string name="install_instant_desc">Se ejecuta sin instalar la aplicación completa ni agregarla al lanzador.</string>
+    <string name="install_instant_desc">Se ejecuta sin instalar la aplicación completa ni añadirla al lanzador.</string>
     <string name="install_rollback">Conservar la versión anterior</string>
-    <string name="install_rollback_desc">Conserva la versión anterior para poder restaurarla más tarde.</string>
+    <string name="install_rollback_desc">Conserva la versión anterior para poder restaurarla más adelante.</string>
     <string name="install_ignore_dexopt">Ignorar el perfil de dexopt</string>
-    <string name="install_ignore_dexopt_desc">No utilice el perfil de la aplicación al optimizarla.</string>
+    <string name="install_ignore_dexopt_desc">No usar el perfil de la aplicación al optimizarla.</string>
     <string name="install_dexopt">Dexopt</string>
     <string name="install_dexopt_default">Plataforma predeterminada</string>
     <string name="install_dexopt_verify">verificar</string>
@@ -1429,14 +1429,14 @@
     <string name="install_details_not_installed">No instalado</string>
     <string name="install_details_not_installed_note">No hay ninguna aplicación instalada para reemplazar.</string>
     <string name="install_details_update">Más reciente que la versión instalada.</string>
-    <string name="install_details_downgrade">Las versiones anteriores a las %1$s \u2014 instaladas permiten una degradación.</string>
+    <string name="install_details_downgrade">Anterior a la versión instalada %1$s \u2014 permitir una degradación de versión.</string>
     <string name="install_details_same">Misma versión que la aplicación instalada.</string>
     <string name="install_option_unsupported">No es compatible con esta versión de Android</string>
     <string name="install_failed">Error: %1$s</string>
     <string name="install_could_not_read">No se pudo leer ese archivo.</string>
     <string name="install_replace">Reemplazar la aplicación instalada</string>
-    <string name="install_replace_desc">Conservar sus datos y actualízarlos.</string>
-    <string name="install_downgrade">Permitir una degradación</string>
+    <string name="install_replace_desc">Conservar sus datos y actualízarla.</string>
+    <string name="install_downgrade">Permitir volver a una versión anterior</string>
     <string name="install_downgrade_desc">Instalar una versión anterior sobre una más nueva.</string>
     <string name="install_grant_all">Conceder todos los permisos</string>
     <string name="install_grant_all_desc">Conceder todos los permisos que la aplicación solicita durante la instalación.</string>
@@ -1445,17 +1445,17 @@
     <string name="install_keep_running">No cerrar la aplicación</string>
     <string name="install_keep_running_desc">Mantener la aplicación en ejecución mientras se reemplaza.</string>
     <string name="install_skip_verification">Omitir verificación</string>
-    <string name="install_skip_verification_desc">Omita la verificación del paquete.</string>
-    <string name="install_bypass_sdk">Omitir el bloque SDK de destino</string>
+    <string name="install_skip_verification_desc">Omitir la comprobación de verificación del paquete.</string>
+    <string name="install_bypass_sdk">Omitir el bloqueo de SDK de destino</string>
     <string name="install_bypass_sdk_desc">Permitir aplicaciones dirigidas a una versión de Android demasiado antigua para instalarse normalmente.</string>
     <string name="install_user">Instalar para</string>
     <string name="install_user_current">Este usuario</string>
     <string name="install_user_all">Todos los usuarios</string>
-    <string name="install_location">Dønde</string>
+    <string name="install_location">Dónde</string>
     <string name="install_location_auto">Automático</string>
     <string name="install_location_internal">Almacenamiento interno</string>
     <string name="install_location_shared">Almacenamiento compartido</string>
-    <string name="install_spoof_source">Falsificar fuente de instalación</string>
+    <string name="install_spoof_source">Suplantar el origen de instalación</string>
     <string name="install_spoof_source_desc">El paquete que se le indica a Android que instaló esta aplicación.</string>
     <string name="install_source_presets">Fuentes de instalación comunes</string>
     <string name="install_source_none">Sin falsificar</string>
