@@ -457,7 +457,6 @@
     <string name="wifi_passwords_empty">Walâng natigom na yabe.</string>
     <string name="wifi_passwords_connected">Konektado</string>
     <string name="wifi_passwords_connect">Kumonék</string>
-    <string name="wifi_passwords_connected_toast">Konektado</string>
     <string name="wifi_backup_password">Yabe</string>
     <string name="files_sort">Uriin</string>
     <string name="files_action_copy">Kopyahin</string>
