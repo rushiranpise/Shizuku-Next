@@ -142,6 +142,7 @@
     <string name="app_management_sort_last_added">Nedávno přidané</string>
     <string name="app_management_sort_updated">Aktualizované</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_sort_keep_in_place">Udržovat aplikace na místě</string>
     <string name="apps_processes_show">Zobrazit %1$d proces(y)</string>
     <string name="apps_processes_hide">Skrýt %1$d proces(y)</string>
     <string name="apps_process_pid">PID %1$d</string>

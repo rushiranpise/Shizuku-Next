@@ -74,7 +74,7 @@
     <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
-    <string name="dialog_adb_pairing_accessibility_permission_tv">O Android bloqueia esse interruptor pra apps instalados fora de uma loja de apps e em uma tv</string>
+    <string name="dialog_adb_pairing_accessibility_permission_tv">O Android bloqueia essa chave para apps instalados fora de uma loja de apps e, em uma TV, as informações do app não têm a opção \"Permitir configurações restritas\" para desbloqueá-la. É necessário conectar um computador a esta TV via ADB uma única vez: seja concedendo a permissão acima, o que permite que o Shizuku ative o serviço por conta própria, seja desbloqueando a chave com:\n\n^1</string>
     <string name="dialog_adb_pairing_accessibility_enable_watch">O pareamento automático lê o código da caixa de diálogo do sistema, portanto, o serviço de acessibilidade do Shizuku precisa estar ativado. Ative-o na próxima tela.\n\nSe o interruptor estiver bloqueado, abra as Informações do app e permita configurações restritas.</string>
     <string name="dialog_adb_pairing_open_app_info">Informações do Aplicativo</string>
     <string name="dialog_adb_pairing_accessibility_enable">O pareamento automático lê o código da caixa de diálogo do sistema pelo serviço de acessibilidade do Shizuku, então ele precisa estar ativado, e somente pelo tempo necessário: o serviço se desativa sozinho assim que o código é encontrado, ou após um minuto para economizar bateria. Normalmente, o Shizuku o ativa sozinho, e isso exige a permissão WRITE_SECURE_SETTINGS, que uma instalação nova ainda não recebeu.\n\nAtive-o na próxima tela, digite o código manualmente em Manual ou conceda a permissão uma vez:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
@@ -134,7 +134,7 @@
     <string name="app_management_sort">Ordenar</string>
     <string name="apps_needs_shizuku">Iniciar Shizuku para ver os aplicativos</string>
     <string name="apps_empty">Nenhum app para mostrar</string>
-    <string name="apps_filter_empty">Nenhum app neste filtro</string>
+    <string name="apps_filter_empty">Nenhum aplicativo neste filtro</string>
     <string name="apps_filter_title">Filtrar aplicativos</string>
     <string name="apps_filter_all">TODOS</string>
     <string name="apps_filter_granted">Concedido</string>
@@ -144,6 +144,7 @@
     <string name="app_management_sort_last_added">Adicionado recentemente</string>
     <string name="app_management_sort_updated">Atualizado</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_sort_keep_in_place">Manter os aplicativos como estão</string>
     <string name="apps_processes_show">Mostrar %1$d processo(s)</string>
     <string name="apps_processes_hide">Ocultar %1$d processo(s)</string>
     <string name="apps_process_pid">PID %1$d</string>
