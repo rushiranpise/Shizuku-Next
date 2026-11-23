@@ -23,10 +23,12 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicReference
+import kotlin.concurrent.thread
 import moe.shizuku.manager.AppConstants
 import moe.shizuku.manager.MainActivity
 import moe.shizuku.manager.R
 import moe.shizuku.manager.ShizukuSettings
+import moe.shizuku.manager.ktx.isUserUnlockedCompat
 import moe.shizuku.manager.manage.ForceDark
 import moe.shizuku.manager.manage.Hiding
 import moe.shizuku.manager.manage.HidingGrants
@@ -103,6 +105,26 @@ class HidingWatchService : Service() {
 
             runCatching { ContextCompat.startForegroundService(context, intent) }
                 .onFailure { Diag.warn(TAG, "could not start the hiding watch", it) }
+        }
+
+        /** Whether hiding or force dark is armed, which is when a watch should be running. */
+        fun isArmed(): Boolean = Hiding.isActive() || ForceDark.hasWorkToDo()
+
+        /**
+         * Starts the watch when something is armed, off the calling thread.
+         *
+         * Not before the first unlock: like the watchdog, this service is not direct-boot aware,
+         * so a process woken by the locked-boot broadcast cannot start it - the platform does not
+         * find it, and nothing came back to try again. Hiding then stayed off after every reboot
+         * until the app was opened. The unlock and BOOT_COMPLETED call this again for that reason.
+         */
+        fun startIfArmed(context: Context, reason: String) {
+            if (!context.isUserUnlockedCompat() || !isArmed()) return
+            val app = context.applicationContext
+            thread(name = "hiding-watch-start") {
+                Diag.info(TAG, "starting the hiding watch: $reason")
+                refresh(app)
+            }
         }
 
         fun stop(context: Context) {

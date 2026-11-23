@@ -9,8 +9,6 @@ import com.topjohnwu.superuser.Shell
 import moe.shizuku.manager.ktx.logd
 import moe.shizuku.manager.ktx.isUserUnlockedCompat
 import moe.shizuku.manager.manage.Activities
-import moe.shizuku.manager.manage.ForceDark
-import moe.shizuku.manager.manage.Hiding
 import moe.shizuku.manager.receiver.UserUnlockedStarter
 import moe.shizuku.manager.receiver.WatchdogAlarmReceiver
 import moe.shizuku.manager.service.HidingWatchService
@@ -102,10 +100,9 @@ class ShizukuApplication : Application() {
         // device with nothing holding what it set: a setting left hidden, or the force-dark
         // switches left on for a phone that is not showing the app they were meant for. Off the
         // main thread, because it asks the shell, and the platform may refuse a foreground service
-        // started from the background - which is what the start it does is for.
-        if (Hiding.isActive() || ForceDark.hasWorkToDo()) {
-            thread(name = "hiding-watch-restart") { HidingWatchService.refresh(context) }
-        }
+        // started from the background - which is what the start it does is for. A process woken
+        // before the first unlock cannot start it yet; UserUnlockedStarter does it at the unlock.
+        HidingWatchService.startIfArmed(context, "process start")
 
         // An activity launched through the assistant is swapped out and swapped back within a
         // couple of seconds, and the only way that goes wrong for good is the process dying in

@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import moe.shizuku.manager.ShizukuSettings
 import moe.shizuku.manager.ktx.ensureWorkManager
 import moe.shizuku.manager.ktx.isUserUnlockedCompat
+import moe.shizuku.manager.service.HidingWatchService
 import moe.shizuku.manager.service.LockedBootStartService
 import moe.shizuku.manager.service.WatchdogService
 import moe.shizuku.manager.utils.ShizukuStateMachine
@@ -44,7 +45,9 @@ object UserUnlockedStarter {
     @Synchronized
     fun registerIfLocked(context: Context) {
         if (registered != null || context.isUserUnlockedCompat()) return
-        if (!ShizukuSettings.getStartOnBoot(context) && !ShizukuSettings.getWatchdog()) return
+        if (!ShizukuSettings.getStartOnBoot(context) && !ShizukuSettings.getWatchdog() &&
+            !HidingWatchService.isArmed()
+        ) return
 
         val app = context.applicationContext
         val receiver = object : BroadcastReceiver() {
@@ -102,6 +105,10 @@ object UserUnlockedStarter {
         // The watchdog put a restart off until now ("Restart deferred until the user is unlocked").
         // Starting it again re-runs its probe, which joins the start above if there is one.
         if (ShizukuSettings.getWatchdog()) WatchdogService.start(context)
+
+        // The hiding watch could not be started before the unlock either (see
+        // [HidingWatchService.startIfArmed]), and this process will not run its start-up again.
+        HidingWatchService.startIfArmed(context, "user unlocked")
     }
 
     private val watchScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
