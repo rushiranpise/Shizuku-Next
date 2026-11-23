@@ -117,16 +117,40 @@ class HidingHoldTest {
         val stops = Hiding.ManagerStops()
         stops.record("a", 1_000L)
         stops.record("b", 2_000L)
-        assertTrue(stops.matches("a", 1_500L))
-        assertTrue(stops.matches("b", 2_000L))
+        assertEquals(emptyList<Long>(), stops.userExits("a", listOf(1_500L)))
+        assertEquals(emptyList<Long>(), stops.userExits("b", listOf(2_000L)))
     }
 
     @Test
     fun `an exit far from any stop of ours is the user's`() {
         val stops = Hiding.ManagerStops()
         stops.record("a", 1_000L)
-        assertFalse(stops.matches("a", 10_000L))
-        assertFalse(stops.matches("c", 1_000L))
+        assertEquals(listOf(10_000L), stops.userExits("a", listOf(10_000L)))
+        assertEquals(listOf(1_000L), stops.userExits("c", listOf(1_000L)))
+    }
+
+    @Test
+    fun `a stop of ours accounts for its own exit and no other`() {
+        val stops = Hiding.ManagerStops()
+        stops.record("a", 1_000L)
+        // The force-stop's exit, and the user closing the reopened app a moment later.
+        assertEquals(listOf(2_500L), stops.userExits("a", listOf(1_050L, 2_500L)))
+    }
+
+    @Test
+    fun `each stop of ours accounts for one exit`() {
+        val stops = Hiding.ManagerStops()
+        stops.record("a", 1_000L)
+        stops.record("a", 20_000L)
+        assertEquals(emptyList<Long>(), stops.userExits("a", listOf(20_100L, 1_100L)))
+    }
+
+    @Test
+    fun `exits with no stop of ours are all the user's`() {
+        val stops = Hiding.ManagerStops()
+        stops.record("a", 1_000L)
+        assertEquals(listOf(10_000L, 12_000L), stops.userExits("a", listOf(10_000L, 12_000L)))
+        assertEquals(listOf(1_000L), stops.userExits("b", listOf(1_000L)))
     }
 
     @Test
@@ -134,6 +158,6 @@ class HidingHoldTest {
         val stops = Hiding.ManagerStops()
         stops.record("a", 1_000L)
         stops.clear()
-        assertFalse(stops.matches("a", 1_000L))
+        assertEquals(listOf(1_000L), stops.userExits("a", listOf(1_000L)))
     }
 }

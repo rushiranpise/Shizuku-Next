@@ -276,15 +276,15 @@ object Hiding {
         return runCatching {
             val manager = ShizukuApplication.application
                 .getSystemService(ActivityManager::class.java) ?: return null
-            manager.getHistoricalProcessExitReasons(packageName, 0, EXIT_RECORDS)
+            val exits = manager.getHistoricalProcessExitReasons(packageName, 0, EXIT_RECORDS)
                 .filter { info ->
                     info.timestamp >= sinceMillis &&
-                        info.reason == ApplicationExitInfo.REASON_USER_REQUESTED &&
-                        // A force-stop is recorded as the user's request, and the one a restart
-                        // makes is not the user leaving.
-                        !isOurStop(packageName, info.timestamp)
+                        info.reason == ApplicationExitInfo.REASON_USER_REQUESTED
                 }
-                .maxOfOrNull { it.timestamp }
+                .map { it.timestamp }
+            // A force-stop is recorded as the user's request, and the one a restart makes is not
+            // the user leaving - but only that one exit is ours.
+            managerStops.userExits(packageName, exits).maxOrNull()
         }.getOrNull()
     }
 
@@ -941,10 +941,24 @@ object Hiding {
             stops.getOrPut(packageName) { mutableListOf() }.add(at)
         }
 
-        /** Whether an exit of [packageName] at [timestamp] is one of the recorded stops. */
+        /**
+         * The exits of [packageName] at [exits] that are not one of our stops, in their order.
+         *
+         * Each recorded stop accounts for one exit at most, the closest within the slack: a stop
+         * leaves exactly one exit record behind, so any other exit near it - the user closing the
+         * reopened app a moment later - is still the user's.
+         */
         @Synchronized
-        fun matches(packageName: String, timestamp: Long): Boolean =
-            stops[packageName].orEmpty().any { kotlin.math.abs(timestamp - it) <= FORCED_STOP_SLACK_MS }
+        fun userExits(packageName: String, exits: List<Long>): List<Long> {
+            val unmatched = exits.toMutableList()
+            stops[packageName].orEmpty().sorted().forEach { stop ->
+                unmatched
+                    .filter { kotlin.math.abs(it - stop) <= FORCED_STOP_SLACK_MS }
+                    .minByOrNull { kotlin.math.abs(it - stop) }
+                    ?.let { unmatched.remove(it) }
+            }
+            return unmatched
+        }
 
         @Synchronized
         fun clear() = stops.clear()
@@ -954,10 +968,6 @@ object Hiding {
 
     /** How far either side of a stop of ours an exit record is taken to be that stop. */
     private const val FORCED_STOP_SLACK_MS = 3_000L
-
-    /** Whether an exit of [packageName] at [timestamp] is a stop [restartForLaunch] made. */
-    private fun isOurStop(packageName: String, timestamp: Long): Boolean =
-        managerStops.matches(packageName, timestamp)
 
     private val PACKAGE_NAME = Regex("""[A-Za-z][A-Za-z0-9_]*(\.[A-Za-z0-9_]+)+""")
 

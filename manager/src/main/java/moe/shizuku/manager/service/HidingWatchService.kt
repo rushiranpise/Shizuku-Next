@@ -91,9 +91,7 @@ class HidingWatchService : Service() {
          */
         fun refresh(context: Context) {
             val intent = Intent(context, HidingWatchService::class.java)
-            if (!Hiding.hasWorkToDo() && !ForceDark.hasWorkToDo() &&
-                !RotationOverride.hasForceWork()
-            ) {
+            if (!isArmed()) {
                 // No feature has an app left to act for, so nothing has a reason to stay
                 // hidden, forced dark or rotation-locked - and nothing for a watch to watch.
                 Hiding.restoreAll()
@@ -107,8 +105,14 @@ class HidingWatchService : Service() {
                 .onFailure { Diag.warn(TAG, "could not start the hiding watch", it) }
         }
 
-        /** Whether hiding or force dark is armed, which is when a watch should be running. */
-        fun isArmed(): Boolean = Hiding.isActive() || ForceDark.hasWorkToDo()
+        /**
+         * Whether any of the three features the watch holds has something to do: a hiding list,
+         * force dark, or a forced rotation. The one rule for whether a watch should be running,
+         * used by [refresh], by the watch itself, and by the starts at boot and unlock - which
+         * used to leave rotation out, so a rotation-only setup did nothing after a reboot.
+         */
+        fun isArmed(): Boolean =
+            Hiding.hasWorkToDo() || ForceDark.hasWorkToDo() || RotationOverride.hasForceWork()
 
         /**
          * Starts the watch when something is armed, off the calling thread.
@@ -256,9 +260,7 @@ class HidingWatchService : Service() {
         var paused = false
 
         while (scope.isActive) {
-            if (!Hiding.hasWorkToDo() && !ForceDark.hasWorkToDo() &&
-                !RotationOverride.hasForceWork()
-            ) {
+            if (!isArmed()) {
                 holding.set(null)
                 Hiding.restoreAll()
                 ForceDark.restore()
