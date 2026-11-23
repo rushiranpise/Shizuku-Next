@@ -127,11 +127,18 @@ class HidingWatchService : Service() {
          * not merely fail - it writes the toggle back on, undoing the hide it could not use.
          */
         @JvmStatic
-        fun holdingFor(): String? = holding.get()
+        fun holdingFor(): String? = holding.get() ?: Hiding.pendingOpening()
 
-        /** Whether hiding is holding a toggle off, and a restart attempt would therefore fight it. */
+        /**
+         * Whether hiding is holding a toggle off, and a restart attempt would therefore fight it.
+         *
+         * The hold a hide-then-open takes counts too. A restart hides from the launch activity,
+         * not from a pass of this watch, so between that hide and the next pass [holding] is
+         * still empty - and the watchdog, seeing the server die with nothing held, started it
+         * again, writing the debugging toggle back on under the app being hidden from.
+         */
         @JvmStatic
-        fun holding(): Boolean = running.get() && holding.get() != null
+        fun holding(): Boolean = running.get() && holdingFor() != null
 
         private val holding = AtomicReference<String?>(null)
 
@@ -160,7 +167,10 @@ class HidingWatchService : Service() {
      *
      * Not a cooldown: the relaunched app comes straight back to the front without the watch ever
      * seeing it leave, so a timer would only make the second kill later rather than absent. It is
-     * cleared the moment nothing is hidden any more, which is when the user has left the app.
+     * cleared once another app is in front, which is when the user has left the app - and not
+     * when nothing is hidden, because a hide that failed leaves the app open with nothing hidden,
+     * and that cleared it and had the app force-stopped again on every pass.
+     * See [Hiding.restartMarkerAfter].
      */
     private var restartedFor: String? = null
 
@@ -318,7 +328,7 @@ class HidingWatchService : Service() {
                 .getOrNull()
             holding.set(hidingFor)
 
-            if (hidingFor == null) restartedFor = null
+            restartedFor = Hiding.restartMarkerAfter(restartedFor, foreground, packageName)
 
             notify(notification(hidingFor, paused = false, forcingDark = ForceDark.isApplied()))
             logState(hidingFor)
