@@ -76,31 +76,38 @@ class HidingHoldTest {
         assertNull(Hiding.restartMarkerAfter("target", "launcher", "manager"))
     }
 
-    // ---- restarting after the user closed the app -----------------------------------
+    // ---- acting for an app the user closed ------------------------------------------
 
     @Test
     fun `an app nobody closed may be restarted`() {
-        assertTrue(Hiding.restartAllowedAfterClose("target", null, 1_000L))
+        assertTrue(Hiding.openedAgainSinceClose("target", null, 1_000L))
     }
 
     @Test
     fun `a close of another app does not hold this one back`() {
-        assertTrue(Hiding.restartAllowedAfterClose("target", "other" to 5_000L, 1_000L))
+        assertTrue(Hiding.openedAgainSinceClose("target", "other" to 5_000L, 1_000L))
     }
 
     @Test
     fun `a closed app still named in front is not restarted`() {
-        assertFalse(Hiding.restartAllowedAfterClose("target", "target" to 5_000L, 1_000L))
+        assertFalse(Hiding.openedAgainSinceClose("target", "target" to 5_000L, 1_000L))
+    }
+
+    @Test
+    fun `a closed app still named in front after the hide was reset is not acted for`() {
+        // The pass that restored the settings reset the hide's start, so the exit records no
+        // longer say the app was closed; the close itself has to.
+        assertFalse(Hiding.openedAgainSinceClose("target", "target" to 5_000L, 4_000L))
     }
 
     @Test
     fun `a closed app opened again is restarted`() {
-        assertTrue(Hiding.restartAllowedAfterClose("target", "target" to 5_000L, 6_000L))
+        assertTrue(Hiding.openedAgainSinceClose("target", "target" to 5_000L, 6_000L))
     }
 
     @Test
     fun `a live foreground read after a close may restart`() {
-        assertTrue(Hiding.restartAllowedAfterClose("target", "target" to 5_000L, null))
+        assertTrue(Hiding.openedAgainSinceClose("target", "target" to 5_000L, null))
     }
 
     // ---- stops the manager made -----------------------------------------------------

@@ -583,7 +583,20 @@ object Hiding {
         // app to come to the front: a swipe out of recents does not always leave a pause behind
         // it, and the watch would go on hiding for an app that is not there. That is what DUMP
         // is for, and it is the only reason it is asked for.
-        val inFront = opening ?: foreground?.takeIf { !closedByUserSince(it, hiddenSince()) }
+        //
+        // And it stays gone after this hide ends. The pass that put the settings back also reset
+        // the time the exit records are compared against, so on the next pass they no longer say
+        // the app was closed - and the same stale report hid everything again for an app that was
+        // not there. The close is kept until the app is opened again; see [openedAgainSinceClose].
+        val closed = closedApp
+        if (closed != null && foreground == closed.first &&
+            openedAgainSinceClose(closed.first, closed, foregroundResumedAt)
+        ) {
+            closedApp = null
+        }
+        val inFront = opening ?: foreground?.takeIf {
+            !closedByUserSince(it, hiddenSince()) && mayActFor(it)
+        }
 
         Signal.entries.forEach { signal ->
             // A mode somebody switched off is put back and left alone, list and all: turning it
@@ -631,9 +644,13 @@ object Hiding {
         val wasHidingFor = lastHidingFor
         if (wasHidingFor != null && hidingFor == null) {
             val closedAt = userCloseSince(wasHidingFor, hiddenSince())
-            // Handed to the watch: a close is the end of the app's session, so its restart
-            // marker goes, but the app must not be restarted again until it is opened again.
-            if (closedAt != null) userClose = wasHidingFor to closedAt
+            if (closedAt != null) {
+                val close = wasHidingFor to closedAt
+                // Kept here, so the app is neither hidden for nor restarted until it is opened
+                // again, and handed to the watch once, so its restart marker goes.
+                closedApp = close
+                userClose = close
+            }
             Diag.info(
                 TAG,
                 "stopped hiding for $wasHidingFor: foreground=${foreground ?: "nothing"}, " +
@@ -661,20 +678,29 @@ object Hiding {
     fun takeUserClose(): Pair<String, Long>? = userClose.also { userClose = null }
 
     /**
-     * When the app the last foreground read named was resumed, or null for a live read.
-     * See [restartAllowedAfterClose].
+     * The last app the user closed while it was hidden for, and when, kept until it is opened
+     * again. Unlike [userClose] it is not taken: both the hide and the restart consult it.
      */
-    fun foregroundSince(): Long? = foregroundResumedAt
+    @Volatile
+    private var closedApp: Pair<String, Long>? = null
 
     /**
-     * Whether [packageName] in front may be restarted, given the last app the user [closed].
+     * Whether [packageName], named in front by the last foreground read, may be hidden for or
+     * restarted: not while it is the app the user closed and has not opened since.
+     */
+    fun mayActFor(packageName: String): Boolean =
+        openedAgainSinceClose(packageName, closedApp, foregroundResumedAt)
+
+    /**
+     * Whether [packageName] in front is not the app the user [closed], or has been opened again.
      *
      * A swipe out of recents does not always leave a pause behind, so the closed app can go on
-     * being named in front. Restarting it then would reopen an app the user just closed. It
-     * becomes eligible again once it is resumed after the close - opened again - or when the
-     * read is live ([resumedAt] null) and so cannot be naming an app that has gone.
+     * being named in front. Hiding for it then hides the settings for an app that is not there,
+     * and restarting it reopens an app the user just closed. It is acted for again once it is
+     * resumed after the close, or when the read is live ([resumedAt] null) and so cannot be
+     * naming an app that has gone.
      */
-    internal fun restartAllowedAfterClose(
+    internal fun openedAgainSinceClose(
         packageName: String,
         closed: Pair<String, Long>?,
         resumedAt: Long?

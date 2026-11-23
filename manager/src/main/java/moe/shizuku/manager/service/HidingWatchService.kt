@@ -158,9 +158,12 @@ class HidingWatchService : Service() {
          * not from a pass of this watch, so between that hide and the next pass [holding] is
          * still empty - and the watchdog, seeing the server die with nothing held, started it
          * again, writing the debugging toggle back on under the app being hidden from.
+         *
+         * Not tied to the watch running: [holding] is emptied when the watch goes away, and the
+         * opening hold is live only while a hide-then-open is under way, whoever took it.
          */
         @JvmStatic
-        fun holding(): Boolean = running.get() && holdingFor() != null
+        fun holding(): Boolean = holdingFor() != null
 
         private val holding = AtomicReference<String?>(null)
 
@@ -195,12 +198,6 @@ class HidingWatchService : Service() {
      * See [Hiding.restartMarkerAfter].
      */
     private var restartedFor: String? = null
-
-    /**
-     * The last app the user closed while it was hidden for, and when. It is not restarted again
-     * until it is opened again; see [Hiding.restartAllowedAfterClose].
-     */
-    private var closedApp: Pair<String, Long>? = null
 
     override fun onBind(intent: Intent?): IBinder? = null
 
@@ -336,11 +333,11 @@ class HidingWatchService : Service() {
                     Hiding.isRestartOnOpenEnabled() &&
                     !Hiding.isOpening(it) &&
                     Hiding.isListed(it) &&
-                    Hiding.restartAllowedAfterClose(it, closedApp, Hiding.foregroundSince()) &&
+                    // Not the app the user just closed, while the platform still names it.
+                    Hiding.mayActFor(it) &&
                     Hiding.shellAvailable()
             }
             if (restartTarget != null) {
-                if (closedApp?.first == restartTarget) closedApp = null
                 // Taken before the attempt, not only on success: a force-stop that failed would
                 // otherwise be asked for again on the next pass, once a second, over an app the
                 // user is looking at. One attempt per launch, and the way to try again is to
@@ -360,10 +357,9 @@ class HidingWatchService : Service() {
 
             restartedFor = Hiding.restartMarkerAfter(restartedFor, foreground, packageName)
             // A close ends the app's session even while it is still named in front, so the
-            // marker goes; the close itself keeps the app from being restarted until it is
-            // opened again.
+            // marker goes; the close itself, kept by [Hiding.mayActFor], keeps the app from
+            // being restarted until it is opened again.
             Hiding.takeUserClose()?.let { closed ->
-                closedApp = closed
                 if (restartedFor == closed.first) restartedFor = null
             }
 
