@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import moe.shizuku.manager.ShizukuSettings
 import moe.shizuku.manager.ktx.isUserUnlockedCompat
+import moe.shizuku.manager.service.HidingWatchService
 import moe.shizuku.manager.service.WatchdogService
 import moe.shizuku.manager.start.reapplyAdbWithoutDeveloperOptionsIfEnabled
 import moe.shizuku.manager.utils.BootTimeline
@@ -79,6 +80,9 @@ class BootCompleteReceiver : BroadcastReceiver() {
         // so its presence says nothing about this setting; ask the setting itself.
         if (ShizukuSettings.getStartOnBoot(context)) ShizukuReceiverStarter.start(context, reason = "boot")
         if (ShizukuSettings.getWatchdog()) WatchdogService.start(context)
+        // A backstop for the unlock hook: a process woken before the unlock may have missed it.
+        // Starting a watch that is already running only delivers it another start command.
+        HidingWatchService.startIfArmed(context, "boot completed")
         // Alarms do not survive a reboot, so the watchdog's backstop has to be armed again here
         // or the first process death after a restart is the one nothing comes back from. The
         // call checks the setting itself, so it is safe to make either way.

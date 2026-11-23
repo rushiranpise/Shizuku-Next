@@ -23,10 +23,12 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicReference
+import kotlin.concurrent.thread
 import moe.shizuku.manager.AppConstants
 import moe.shizuku.manager.MainActivity
 import moe.shizuku.manager.R
 import moe.shizuku.manager.ShizukuSettings
+import moe.shizuku.manager.ktx.isUserUnlockedCompat
 import moe.shizuku.manager.manage.ForceDark
 import moe.shizuku.manager.manage.Hiding
 import moe.shizuku.manager.manage.HidingGrants
@@ -89,9 +91,7 @@ class HidingWatchService : Service() {
          */
         fun refresh(context: Context) {
             val intent = Intent(context, HidingWatchService::class.java)
-            if (!Hiding.hasWorkToDo() && !ForceDark.hasWorkToDo() &&
-                !RotationOverride.hasForceWork()
-            ) {
+            if (!isArmed()) {
                 // No feature has an app left to act for, so nothing has a reason to stay
                 // hidden, forced dark or rotation-locked - and nothing for a watch to watch.
                 Hiding.restoreAll()
@@ -103,6 +103,32 @@ class HidingWatchService : Service() {
 
             runCatching { ContextCompat.startForegroundService(context, intent) }
                 .onFailure { Diag.warn(TAG, "could not start the hiding watch", it) }
+        }
+
+        /**
+         * Whether any of the three features the watch holds has something to do: a hiding list,
+         * force dark, or a forced rotation. The one rule for whether a watch should be running,
+         * used by [refresh], by the watch itself, and by the starts at boot and unlock - which
+         * used to leave rotation out, so a rotation-only setup did nothing after a reboot.
+         */
+        fun isArmed(): Boolean =
+            Hiding.hasWorkToDo() || ForceDark.hasWorkToDo() || RotationOverride.hasForceWork()
+
+        /**
+         * Starts the watch when something is armed, off the calling thread.
+         *
+         * Not before the first unlock: like the watchdog, this service is not direct-boot aware,
+         * so a process woken by the locked-boot broadcast cannot start it - the platform does not
+         * find it, and nothing came back to try again. Hiding then stayed off after every reboot
+         * until the app was opened. The unlock and BOOT_COMPLETED call this again for that reason.
+         */
+        fun startIfArmed(context: Context, reason: String) {
+            if (!context.isUserUnlockedCompat() || !isArmed()) return
+            val app = context.applicationContext
+            thread(name = "hiding-watch-start") {
+                Diag.info(TAG, "starting the hiding watch: $reason")
+                refresh(app)
+            }
         }
 
         fun stop(context: Context) {
@@ -127,11 +153,21 @@ class HidingWatchService : Service() {
          * not merely fail - it writes the toggle back on, undoing the hide it could not use.
          */
         @JvmStatic
-        fun holdingFor(): String? = holding.get()
+        fun holdingFor(): String? = holding.get() ?: Hiding.pendingOpening()
 
-        /** Whether hiding is holding a toggle off, and a restart attempt would therefore fight it. */
+        /**
+         * Whether hiding is holding a toggle off, and a restart attempt would therefore fight it.
+         *
+         * The hold a hide-then-open takes counts too. A restart hides from the launch activity,
+         * not from a pass of this watch, so between that hide and the next pass [holding] is
+         * still empty - and the watchdog, seeing the server die with nothing held, started it
+         * again, writing the debugging toggle back on under the app being hidden from.
+         *
+         * Not tied to the watch running: [holding] is emptied when the watch goes away, and the
+         * opening hold is live only while a hide-then-open is under way, whoever took it.
+         */
         @JvmStatic
-        fun holding(): Boolean = running.get() && holding.get() != null
+        fun holding(): Boolean = holdingFor() != null
 
         private val holding = AtomicReference<String?>(null)
 
@@ -160,7 +196,10 @@ class HidingWatchService : Service() {
      *
      * Not a cooldown: the relaunched app comes straight back to the front without the watch ever
      * seeing it leave, so a timer would only make the second kill later rather than absent. It is
-     * cleared the moment nothing is hidden any more, which is when the user has left the app.
+     * cleared once another app is in front, which is when the user has left the app - and not
+     * when nothing is hidden, because a hide that failed leaves the app open with nothing hidden,
+     * and that cleared it and had the app force-stopped again on every pass.
+     * See [Hiding.restartMarkerAfter].
      */
     private var restartedFor: String? = null
 
@@ -221,9 +260,7 @@ class HidingWatchService : Service() {
         var paused = false
 
         while (scope.isActive) {
-            if (!Hiding.hasWorkToDo() && !ForceDark.hasWorkToDo() &&
-                !RotationOverride.hasForceWork()
-            ) {
+            if (!isArmed()) {
                 holding.set(null)
                 Hiding.restoreAll()
                 ForceDark.restore()
@@ -279,29 +316,53 @@ class HidingWatchService : Service() {
             }
 
             paused = false
+
+            // A listed app that has just come to the front started before any of this, so it
+            // has read the settings it objects to. Only a new process can read the hidden ones,
+            // which is what the restart is for.
+            //
+            // Asked before this pass hides anything, not after: hiding the transport Shizuku runs
+            // on kills the shell, and a restart asked for after that found no shell and never
+            // happened. The restart hides and reopens on its own (see [Hiding.restartForLaunch]),
+            // so this pass stops there and the next one finds the app held.
+            //
+            // Once per app session: the relaunch is the same app in front again, and restarting
+            // that too would end where it started. Not for an app already held - it was opened
+            // with the settings hidden, or is being restarted now.
+            val restartTarget = foreground?.takeIf {
+                it != restartedFor &&
+                    it != holding.get() &&
+                    Hiding.isRestartOnOpenEnabled() &&
+                    !Hiding.isOpening(it) &&
+                    Hiding.isListed(it) &&
+                    // Not the app the user just closed, while the platform still names it.
+                    Hiding.mayActFor(it) &&
+                    Hiding.shellAvailable()
+            }
+            if (restartTarget != null) {
+                // Taken before the attempt, not only on success: a force-stop that failed would
+                // otherwise be asked for again on the next pass, once a second, over an app the
+                // user is looking at. One attempt per launch, and the way to try again is to
+                // leave the app and come back.
+                restartedFor = restartTarget
+                if (runCatching { Hiding.restartForLaunch(restartTarget) }.getOrDefault(false)) {
+                    Diag.info(TAG, "restarted $restartTarget so it reads the hidden settings")
+                }
+                delay(POLL_MS)
+                continue
+            }
+
             val hidingFor = runCatching { Hiding.reconcile() }
                 .onFailure { Diag.warn(TAG, "the hiding pass failed", it) }
                 .getOrNull()
             holding.set(hidingFor)
 
-            // An app that has just been hidden for started before any of this, so it has read
-            // the settings it objects to. Only a new process can read the hidden ones, which is
-            // what the restart is for. Once per app session: the relaunch is the same app in
-            // front again, and restarting that too would end where it started.
-            if (hidingFor == null) {
-                restartedFor = null
-            } else if (hidingFor != restartedFor &&
-                Hiding.isRestartOnOpenEnabled() &&
-                Hiding.shellAvailable()
-            ) {
-                // Taken before the attempt, not only on success: a force-stop that failed would
-                // otherwise be asked for again on the next pass, once a second, over an app the
-                // user is looking at. One attempt per launch, and the way to try again is to
-                // leave the app and come back.
-                restartedFor = hidingFor
-                if (runCatching { Hiding.restartForLaunch(hidingFor) }.getOrDefault(false)) {
-                    Diag.info(TAG, "restarted $hidingFor so it reads the hidden settings")
-                }
+            restartedFor = Hiding.restartMarkerAfter(restartedFor, foreground, packageName)
+            // A close ends the app's session even while it is still named in front, so the
+            // marker goes; the close itself, kept by [Hiding.mayActFor], keeps the app from
+            // being restarted until it is opened again.
+            Hiding.takeUserClose()?.let { closed ->
+                if (restartedFor == closed.first) restartedFor = null
             }
 
             notify(notification(hidingFor, paused = false, forcingDark = ForceDark.isApplied()))

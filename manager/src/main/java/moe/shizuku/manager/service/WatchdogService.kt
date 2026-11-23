@@ -90,6 +90,15 @@ class WatchdogService : Service() {
                     ShizukuSettings.getManuallyStopped() ->
                         Diag.debug(TAG, "Server was stopped on purpose, nothing to report")
 
+                    // A hiding list took the debugging transport away for an app that is open, and
+                    // the server rode on it. That is the hide working, not a crash: no notice, and
+                    // no start, which would only write the toggle back on. The watch asks for a
+                    // start itself once nothing is hidden; the retry stays armed behind it.
+                    HidingWatchService.holding() -> {
+                        Diag.debug(TAG, "Server went down under a hiding hold, nothing to report")
+                        pendingRestart = true
+                    }
+
                     else -> {
                         Diag.warn(TAG, "Server died: reporting it and starting it again")
                         showCrashNotification()

@@ -196,6 +196,16 @@
         <activity
             android:name=".starter.StarterActivity"
             android:label="@string/starter" />
+        <!-- Started by the shell to hide the settings and reopen an app on a hiding list. DUMP is
+             held by the shell and not by ordinary apps, so nothing else can start it. -->
+        <activity
+            android:name=".manage.HidingLaunchActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:noHistory="true"
+            android:permission="android.permission.DUMP"
+            android:taskAffinity=""
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".settings.BugReportDialogActivity"
             android:theme="@style/Theme.App.DialogHost"
