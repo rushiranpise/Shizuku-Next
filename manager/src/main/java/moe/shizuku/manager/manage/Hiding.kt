@@ -274,7 +274,10 @@ object Hiding {
             manager.getHistoricalProcessExitReasons(packageName, 0, EXIT_RECORDS)
                 .any { info ->
                     info.timestamp >= sinceMillis &&
-                        info.reason == ApplicationExitInfo.REASON_USER_REQUESTED
+                        info.reason == ApplicationExitInfo.REASON_USER_REQUESTED &&
+                        // A force-stop is recorded as the user's request, and the one a restart
+                        // makes is not the user leaving.
+                        !isOurStop(packageName, info.timestamp)
                 }
         }.getOrDefault(false)
     }
@@ -701,28 +704,75 @@ object Hiding {
     }
 
     /**
+     * Whether [packageName] is on a list that is switched on and that the watch will apply.
+     *
+     * What decides whether an app opened from the launcher is worth restarting: an app no list
+     * applies to has nothing to read again.
+     */
+    fun isListed(packageName: String): Boolean = Signal.entries.any { signal ->
+        isSignalEnabled(signal) && packageName in appsFor(signal) && !carriesSession(signal)
+    }
+
+    /** Whether the accessibility list names [packageName] and is hidden now. */
+    fun isAccessibilityHiddenFor(packageName: String): Boolean =
+        isSignalEnabled(Signal.ACCESSIBILITY) &&
+            packageName in appsFor(Signal.ACCESSIBILITY) &&
+            isHidden(Signal.ACCESSIBILITY)
+
+    /** Whether [packageName] is the app a hide-then-open is waiting for. */
+    fun isOpening(packageName: String): Boolean = openingPackage() == packageName
+
+    /**
+     * Hides every signal whose list names [packageName], and takes the hold that keeps them
+     * hidden until the platform names the app in front. The first half of a hide-then-open; the
+     * caller does the opening.
+     */
+    fun hideAllFor(packageName: String): Boolean {
+        var hidden = false
+        Signal.entries.forEach { signal ->
+            if (!isSignalEnabled(signal)) return@forEach
+            if (packageName !in appsFor(signal)) return@forEach
+            if (carriesSession(signal)) return@forEach
+            if (runCatching { hide(signal) }.getOrDefault(false)) hidden = true
+        }
+        opening = packageName to System.currentTimeMillis()
+        return hidden
+    }
+
+    /**
      * Restarts [packageName] so it starts again with the hidden values.
      *
-     * The hide has already been applied by the pass that noticed the app, so the app in front is
-     * one that has already read the visible settings; only a new process can read the hidden
-     * ones. Force-stop and start are both done through the shell for two reasons: a stopped app
-     * cannot be launched by this app under the platform's background-activity rules, and the
-     * shell can start it from outside those rules.
+     * The app in front has already read the visible settings - it read them while starting,
+     * before the watch could see it - and only a new process can read the hidden ones.
+     *
+     * The order is the whole of this. The old order was hide, then restart through the shell,
+     * and it could never work for the transport Shizuku itself runs on: hiding wireless debugging
+     * kills adbd, adbd takes the shell with it, and the restart that followed found no shell and
+     * was skipped without a word - the app went on with the settings it read first. So the shell
+     * does only what must happen while it is alive: it stops the app and opens
+     * [HidingLaunchActivity]. That activity is in the foreground, so it may open another app
+     * under the platform's background-activity rules, and it writes the settings with this app's
+     * own WRITE_SECURE_SETTINGS - no shell needed - before it opens the app again. Whatever
+     * happens to the shell after that no longer matters.
      *
      * The same hold [openWithHiding] uses is taken first, so the pass after the kill keeps
      * hiding instead of putting the settings back in the gap before the app is up again.
      */
     fun restartForLaunch(packageName: String): Boolean {
+        if (!PACKAGE_NAME.matches(packageName)) {
+            Diag.warn(TAG, "not restarting $packageName: not a package name")
+            return false
+        }
         if (!shellAvailable()) {
             Diag.warn(TAG, "not restarting $packageName: there is no shell to do it with")
             return false
         }
 
-        val component = runCatching {
+        val launchable = runCatching {
             ShizukuApplication.appContext.packageManager
-                .getLaunchIntentForPackage(packageName)?.component
-        }.getOrNull()
-        if (component == null) {
+                .getLaunchIntentForPackage(packageName) != null
+        }.getOrDefault(false)
+        if (!launchable) {
             Diag.warn(TAG, "not restarting $packageName: it has nothing to launch")
             return false
         }
@@ -730,15 +780,39 @@ object Hiding {
         opening = packageName to System.currentTimeMillis()
 
         val stopped = PackageTools.forceStop(ShizukuApplication.appContext, packageName)
-        val output = runShellCommand("am start -n ${component.flattenToShortString()}")
-        val started = output != null && !output.contains("Error")
+        // Remembered so the exit this stop leaves behind is not read as the user closing the app.
+        forcedStop = packageName to System.currentTimeMillis()
+
+        val self = ShizukuApplication.appContext.packageName
+        val trampoline = "$self/${HidingLaunchActivity::class.java.name}"
+        val output = runShellCommand(
+            "am start -n $trampoline --es ${HidingLaunchActivity.EXTRA_PACKAGE} $packageName"
+        )
+        // No output is not a failure here: the trampoline may hide the shell's own transport
+        // before `am start` has finished answering.
+        val started = output == null || !output.contains("Error")
 
         if (!started) {
-            Diag.warn(TAG, "restart of $packageName did not take: ${output ?: "no shell"}")
+            Diag.warn(TAG, "restart of $packageName did not take: $output")
             forgetOpening()
         }
         return stopped && started
     }
+
+    /** The last app [restartForLaunch] stopped, and when. */
+    @Volatile
+    private var forcedStop: Pair<String, Long>? = null
+
+    /** How far either side of a stop of ours an exit record is taken to be that stop. */
+    private const val FORCED_STOP_SLACK_MS = 3_000L
+
+    /** Whether an exit of [packageName] at [timestamp] is the stop [restartForLaunch] made. */
+    private fun isOurStop(packageName: String, timestamp: Long): Boolean {
+        val (stopped, at) = forcedStop ?: return false
+        return stopped == packageName && kotlin.math.abs(timestamp - at) <= FORCED_STOP_SLACK_MS
+    }
+
+    private val PACKAGE_NAME = Regex("""[A-Za-z][A-Za-z0-9_]*(\.[A-Za-z0-9_]+)+""")
 
     /** The app a hide-then-open is waiting for, and when it was asked for. */
     @Volatile

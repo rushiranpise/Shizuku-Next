@@ -279,30 +279,46 @@ class HidingWatchService : Service() {
             }
 
             paused = false
+
+            // A listed app that has just come to the front started before any of this, so it
+            // has read the settings it objects to. Only a new process can read the hidden ones,
+            // which is what the restart is for.
+            //
+            // Asked before this pass hides anything, not after: hiding the transport Shizuku runs
+            // on kills the shell, and a restart asked for after that found no shell and never
+            // happened. The restart hides and reopens on its own (see [Hiding.restartForLaunch]),
+            // so this pass stops there and the next one finds the app held.
+            //
+            // Once per app session: the relaunch is the same app in front again, and restarting
+            // that too would end where it started. Not for an app already held - it was opened
+            // with the settings hidden, or is being restarted now.
+            val restartTarget = foreground?.takeIf {
+                it != restartedFor &&
+                    it != holding.get() &&
+                    Hiding.isRestartOnOpenEnabled() &&
+                    !Hiding.isOpening(it) &&
+                    Hiding.isListed(it) &&
+                    Hiding.shellAvailable()
+            }
+            if (restartTarget != null) {
+                // Taken before the attempt, not only on success: a force-stop that failed would
+                // otherwise be asked for again on the next pass, once a second, over an app the
+                // user is looking at. One attempt per launch, and the way to try again is to
+                // leave the app and come back.
+                restartedFor = restartTarget
+                if (runCatching { Hiding.restartForLaunch(restartTarget) }.getOrDefault(false)) {
+                    Diag.info(TAG, "restarted $restartTarget so it reads the hidden settings")
+                }
+                delay(POLL_MS)
+                continue
+            }
+
             val hidingFor = runCatching { Hiding.reconcile() }
                 .onFailure { Diag.warn(TAG, "the hiding pass failed", it) }
                 .getOrNull()
             holding.set(hidingFor)
 
-            // An app that has just been hidden for started before any of this, so it has read
-            // the settings it objects to. Only a new process can read the hidden ones, which is
-            // what the restart is for. Once per app session: the relaunch is the same app in
-            // front again, and restarting that too would end where it started.
-            if (hidingFor == null) {
-                restartedFor = null
-            } else if (hidingFor != restartedFor &&
-                Hiding.isRestartOnOpenEnabled() &&
-                Hiding.shellAvailable()
-            ) {
-                // Taken before the attempt, not only on success: a force-stop that failed would
-                // otherwise be asked for again on the next pass, once a second, over an app the
-                // user is looking at. One attempt per launch, and the way to try again is to
-                // leave the app and come back.
-                restartedFor = hidingFor
-                if (runCatching { Hiding.restartForLaunch(hidingFor) }.getOrDefault(false)) {
-                    Diag.info(TAG, "restarted $hidingFor so it reads the hidden settings")
-                }
-            }
+            if (hidingFor == null) restartedFor = null
 
             notify(notification(hidingFor, paused = false, forcingDark = ForceDark.isApplied()))
             logState(hidingFor)
