@@ -116,8 +116,14 @@ class AdbPairingService : Service() {
         }
         if (notification != null) {
             try {
-                startForeground(NOTIFICATION_ID, notification,
-                    ServiceInfo.FOREGROUND_SERVICE_TYPE_MANIFEST)
+                // The three-argument overload is API 29; below it the service still has to be
+                // promoted, or the platform stops it after the startForegroundService window.
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    startForeground(NOTIFICATION_ID, notification,
+                        ServiceInfo.FOREGROUND_SERVICE_TYPE_MANIFEST)
+                } else {
+                    startForeground(NOTIFICATION_ID, notification)
+                }
             } catch (e: Throwable) {
                 Log.e(tag, "startForeground failed", e)
 
