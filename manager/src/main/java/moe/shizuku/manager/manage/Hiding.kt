@@ -905,9 +905,18 @@ object Hiding {
 
         openingRef.set(packageName to System.currentTimeMillis())
 
-        val stopped = PackageTools.forceStop(ShizukuApplication.appContext, packageName)
         // Remembered so the exit this stop leaves behind is not read as the user closing the app.
+        // Before the call, so the time cannot be later than the exit record: a stop that took
+        // longer than the slack would otherwise have its own exit read as the user's.
         managerStops.record(packageName, System.currentTimeMillis())
+        // No stop, no restart: reopening an app that is still running would only bring the
+        // process that already read the settings back to the front. The pass after this one
+        // hides for it in the ordinary way.
+        if (!PackageTools.forceStop(ShizukuApplication.appContext, packageName)) {
+            Diag.warn(TAG, "not restarting $packageName: the force-stop did not succeed")
+            forgetOpening()
+            return false
+        }
 
         val self = ShizukuApplication.appContext.packageName
         val trampoline = "$self/${HidingLaunchActivity::class.java.name}"
@@ -922,7 +931,7 @@ object Hiding {
             Diag.warn(TAG, "restart of $packageName did not take: $output")
             forgetOpening()
         }
-        return stopped && started
+        return started
     }
 
     /**
