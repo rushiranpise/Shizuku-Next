@@ -413,36 +413,89 @@ object Hiding {
     fun foregroundPackage(): String? =
         if (hasUsageAccess()) foregroundFromUsage() else foregroundFromShell()
 
-    private var lastEventQuery = 0L
+    /**
+     * The activity last resumed and not paused since, as far as the usage events say.
+     *
+     * The activity and not only the package, because an app moving between its own activities
+     * - a splash handing over to its main screen, a translucent security check closing over it -
+     * can have the pause of the one it is leaving recorded after the resume of the one it is
+     * going to. Compared by package alone, that pause reads as the app leaving, and the watch
+     * puts the settings back while the app is still on screen.
+     */
+    internal data class TopActivity(val packageName: String, val className: String?)
+
+    /**
+     * One usage event applied to what is in front.
+     *
+     * A pause clears the top only when it is the pause of the activity on top: a pause of another
+     * activity of the same app is that app changing screens, not leaving. Where either side has no
+     * class name the package is all there is to compare, which is the old behaviour.
+     */
+    internal fun foldForegroundEvent(
+        top: TopActivity?,
+        eventType: Int,
+        packageName: String?,
+        className: String?
+    ): TopActivity? {
+        if (packageName == null) return top
+        return when (eventType) {
+            UsageEvents.Event.ACTIVITY_RESUMED -> TopActivity(packageName, className)
+            // Nothing is in front while an app is on its way out, which is the state a
+            // recents swipe and a return to the home screen both pass through.
+            UsageEvents.Event.ACTIVITY_PAUSED -> when {
+                top == null || top.packageName != packageName -> top
+                top.className == null || className == null -> null
+                top.className == className -> null
+                else -> top
+            }
+
+            else -> top
+        }
+    }
+
+    /**
+     * Where the events have been folded up to for good, and what was in front at that point.
+     *
+     * The platform records usage events on a handler of its own, so an event can become readable
+     * a moment after its timestamp. A query that started each time exactly where the last one
+     * ended would skip an event that arrived late - its timestamp falls before the new start - and
+     * an app whose resume was skipped is an app the watch never sees in front: the hold that
+     * opened it runs out and everything is put back while it is on screen. So the last
+     * [EVENT_SETTLE_MILLIS] are read again on every pass, from the state before them, and only
+     * what is older than that is taken as settled.
+     */
+    private var settledUntil = 0L
+    private var settledTop: TopActivity? = null
     private var cachedForeground: String? = null
+
+    private const val EVENT_SETTLE_MILLIS = 5_000L
 
     private fun foregroundFromUsage(): String? {
         val manager = ShizukuApplication.application
             .getSystemService(UsageStatsManager::class.java) ?: return cachedForeground
 
         val now = System.currentTimeMillis()
-        // Ten minutes back the first time, only the new events after that.
-        val since = if (lastEventQuery == 0L) now - FIRST_LOOK_BACK_MILLIS else lastEventQuery
+        // Ten minutes back the first time, only the unsettled window after that.
+        val since = if (settledUntil == 0L) now - FIRST_LOOK_BACK_MILLIS else settledUntil
         val events = runCatching { manager.queryEvents(since, now) }.getOrNull()
             ?: return cachedForeground
 
+        val settleBefore = now - EVENT_SETTLE_MILLIS
         val event = UsageEvents.Event()
-        var foreground = cachedForeground
+        var top = settledTop
+        var settled = settledTop
         while (events.hasNextEvent()) {
             events.getNextEvent(event)
-            when (event.eventType) {
-                UsageEvents.Event.ACTIVITY_RESUMED -> foreground = event.packageName
-                // Nothing is in front while an app is on its way out, which is the state a
-                // recents swipe and a return to the home screen both pass through.
-                UsageEvents.Event.ACTIVITY_PAUSED -> if (foreground == event.packageName) {
-                    foreground = null
-                }
-            }
+            top = foldForegroundEvent(top, event.eventType, event.packageName, event.className)
+            // Events come in time order, so this is the state at the settle line once the
+            // events before it are through.
+            if (event.timeStamp < settleBefore) settled = top
         }
 
-        lastEventQuery = now
-        cachedForeground = foreground
-        return foreground
+        settledUntil = maxOf(since, settleBefore)
+        settledTop = settled
+        cachedForeground = top?.packageName
+        return cachedForeground
     }
 
     /**
@@ -531,9 +584,26 @@ object Hiding {
             }
         }
 
+        // Why a hide ended, said once. The hidden window is the one stretch nobody can watch over
+        // adb, so when an app complains that the settings came back while it was open, this line
+        // is the only account of what the watch saw at that moment.
+        val wasHidingFor = lastHidingFor
+        if (wasHidingFor != null && hidingFor == null) {
+            Diag.info(
+                TAG,
+                "stopped hiding for $wasHidingFor: foreground=${foreground ?: "nothing"}, " +
+                    "opening=${opening ?: "none"}, " +
+                    "closedByUser=${closedByUserSince(wasHidingFor, hiddenSince())}"
+            )
+        }
+        lastHidingFor = hidingFor
+
         if (hidingFor == null) forgetHiddenSince()
         return hidingFor
     }
+
+    /** The app the last pass hid for, so the pass that lets go can say why. */
+    private var lastHidingFor: String? = null
 
 
     // ---- changing ----------------------------------------------------------------
