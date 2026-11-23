@@ -1119,6 +1119,8 @@
     <string name="manage_clear_selection">Zrušit výběr</string>
     <string name="manage_selection_close">Zavřít výběr</string>
     <string name="manage_selected_count">%1$d vybráno</string>
+    <string name="manage_bulk_action">Nastavit operace aplikací</string>
+    <string name="manage_bulk_title">Nastavit operace aplikací</string>
     <string name="manage_bulk_note">Vyberte jednu aplikaci op a režim. Před podáním žádosti zkontrolujete aplikace.</string>
     <string name="manage_bulk_pinned_note">Připnuté aplikace zůstávají v horní části a jsou přeskočeny výběrem všech zobrazených aplikací.</string>
     <string name="manage_pin_app">Připnout aplikaci</string>

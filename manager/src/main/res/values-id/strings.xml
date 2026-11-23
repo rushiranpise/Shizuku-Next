@@ -80,6 +80,7 @@
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
     <string name="dialog_adb_pairing_accessibility_permission_tv">Android blocks this switch for apps installed outside an app store, and on a TV, App info has no \"Allow restricted settings\" option to unblock it. A computer connected to this TV over ADB is needed once: either grant the permission above, which lets Shizuku turn the service on by itself, or unblock the switch with:\n\n^1</string>
+    <string name="dialog_adb_pairing_accessibility_enable_watch">Penyandingan otomatis membaca kode dari dialog sistem, jadi layanan aksesibilitas Shizuku harus diaktifkan. Aktifkan di layar berikutnya.\n\nJika sakelar berwarna abu-abu, buka Info Aplikasi dan izinkan pembatasan.</string>
     <string name="dialog_adb_pairing_open_app_info">App info</string>
     <string name="dialog_adb_pairing_accessibility_enable">Automatic pairing reads the code out of the system dialog through Shizuku\'s accessibility service, so it has to be enabled, and only for as long as it takes: the service turns itself off once the code is found, or after a minute to save power. Shizuku normally enables it on its own, and that needs the WRITE_SECURE_SETTINGS permission, which a fresh install has not been granted yet.\n\nEnable it on the next screen, type the code yourself under Manual, or grant the permission once:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Silakan mulai pemasangan dengan
@@ -97,6 +98,7 @@
     <string name="adb_pair_required">Harap lakukan penyambungan terlebih dahulu.</string>
     <string name="enable">Memungkinkan</string>
     <string name="auto_pair_instructions">Pair without typing a code:\n\n1. Developer options → Wireless debugging\n2. Pair device with pairing code\n\nShizuku reads the code and port straight from that dialog and starts itself. Keep the dialog open until pairing finishes.</string>
+    <string name="auto_pair_instructions_watch">Shizuku membuka Opsi Pengembang dan Debuging Nirkabel, membaca kode pemasangan, dan memulai. Biarkan dialog sistem tetap terbuka hingga pemasangan selesai.</string>
     <string name="auto_pair_manual">Manual</string>
     <string name="adb_pairing_developer_options">Opsi pengembang</string>
     <string name="development_settings">Pilihan pengembang</string>
@@ -153,6 +155,7 @@
     <string name="apps_needs_shizuku">Start Shizuku to see apps</string>
     <string name="apps_empty">No apps to show</string>
     <string name="apps_filter_empty">No apps in this filter</string>
+    <string name="apps_filter_title">Filter aplikasi</string>
     <string name="apps_filter_all">All</string>
     <string name="apps_filter_granted">Granted</string>
     <string name="apps_filter_revoked">Revoked</string>
@@ -161,6 +164,21 @@
     <string name="app_management_sort_last_added">Recently added</string>
     <string name="app_management_sort_updated">Updated</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_sort_keep_in_place">Biarkan aplikasi tetap terpasang</string>
+    <string name="apps_process_pid">PID %1$d</string>
+    <string name="apps_process_api">API %1$d</string>
+    <string name="apps_process_allowed">Diizinkan</string>
+    <string name="apps_process_not_allowed">Tidak diizinkan</string>
+    <string name="apps_status_one_time">Sekali saja</string>
+    <string name="apps_process_stop">Berhentikan proses</string>
+    <string name="apps_process_stop_title">Hentikan proses?</string>
+    <string name="apps_process_stop_failed">Tidak bisa menghentikan prosesnya.</string>
+    <string name="apps_processes_title">Proses terlampir (%1$d)</string>
+    <plurals name="apps_processes_count">
+        <item quantity="other">proses %1$d</item>
+    </plurals>
+    <string name="apps_processes_hide_short">Sembunyikan</string>
+    <string name="apps_processes_empty">Tidak ada proses terlampir.</string>
     <string name="tab_home">Home</string>
     <string name="tab_apps">Apps</string>
     <string name="tab_shell">Shell</string>
@@ -180,6 +198,7 @@
     <string name="labs_bulk_confirm_title">Perubahan sekaligus</string>
     <string name="labs_bulk_confirm_count">Aplikasi untuk diperbarui: %1$d</string>
     <string name="labs_bulk_confirm_state">Status baru: %1$s</string>
+    <string name="labs_bulk_confirm_pinned">Disematkan dilewati: %1$d</string>
     <string name="labs_bulk_confirm_warning">Hanya aplikasi dalam daftar ini yang diubah. Aplikasi yang disematkan akan dibiarkan.</string>
     <string name="labs_bulk_progress_title">Memperbaharui aplikasi</string>
     <string name="labs_bulk_progress">Mengubah %1$d dari %2$d...</string>
@@ -188,8 +207,28 @@
     <string name="labs_bulk_failed_hint">Beberapa aplikasi tidak menerima perubahan. Status aplikasi tersebut mungkin tidak berubah.</string>
     <string name="labs_bulk_apply">Terapkan</string>
     <string name="labs_bulk_done">Selesai</string>
+    <string name="labs_pinned_note">Aplikasi yang disematkan akan tetap berada di bagian atas dan dilewati oleh perubahan massal.</string>
     <string name="labs_pin_app">Sematan aplikasi</string>
+    <string name="labs_unpin_app">Lepaskan pin aplikasi</string>
+    <string name="labs_clear_pins">Hapus aplikasi yang disematkan</string>
     <!-- Per-app rotation override for apps that force landscape -->
+    <string name="tab_rotation">Rotasi</string>
+    <string name="rotation_count">%1$d dikonfigurasi</string>
+    <string name="rotation_gate_off">Mati, %1$d dikonfigurasi</string>
+    <string name="rotation_gate_disabled">Rotasi dimatikan</string>
+    <string name="rotation_note">Mode Otomatis mengikuti rotasi sistem. Mode Potret dan Lanskap mempertahankan tampilan saat aplikasi terbuka dan mengembalikannya ke posisi semula saat Anda menutupnya.</string>
+    <string name="rotation_filter_configured">Terkonfigurasi</string>
+    <string name="rotation_empty">Tidak ada aplikasi yang memiliki mode rotasi.</string>
+    <string name="rotation_needs_shizuku">Mulai Shizuku untuk mengubah rotasi.</string>
+    <string name="rotation_mode_title">Mode rotasi</string>
+    <string name="rotation_mode_off">Matikan</string>
+    <string name="rotation_mode_off_note">Gunakan orientasi aplikasi itu sendiri.</string>
+    <string name="rotation_mode_auto">Otomatis</string>
+    <string name="rotation_mode_auto_note">Ikuti rotasi sistem. Gunakan mode Potret atau Lanskap jika aplikasi mengabaikan hal ini.</string>
+    <string name="rotation_mode_portrait">Potret</string>
+    <string name="rotation_mode_portrait_note">Paksa masuk dalam mode potret saat aplikasi ini terbuka.</string>
+    <string name="rotation_mode_landscape">Lanskap</string>
+    <string name="rotation_mode_landscape_note">Paksa masuk ke mode lanskap saat aplikasi ini terbuka.</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Tersembunyi</string>
     <string name="tab_hide_developer_options">Sembunyikan opsi pengembang</string>
@@ -219,6 +258,7 @@
     <string name="tab_force_dark">Paksa mode gelap</string>
     <string name="force_dark_gate">Paksa mode gelap</string>
     <string name="force_dark_gate_disabled">Mode gelap paksa dinonaktifkan</string>
+    <string name="force_dark_gate_off">Matikan</string>
     <string name="force_dark_count">Paksa %1$d</string>
     <string name="force_dark_filter_forced">Dipaksa</string>
     <string name="force_dark_filter_not">Tidak dipaksa</string>
@@ -291,8 +331,10 @@
     <string name="activities_copy">Salin</string>
     <string name="activities_edit_as_intent">Sunting sesuai maksud</string>
     <string name="activities_copied">Disalin</string>
+    <string name="activities_saved">Aktivitas tersimpan</string>
     <string name="activities_apps_section">Apps</string>
     <string name="activities_save">Simpan</string>
+    <string name="activities_unsave">Hapus dari yang tersimpan</string>
     <string name="activities_gone">Aktivitas ini tidak lagi terpasang.</string>
     <string name="tab_intent_builder">Pembuat Intent</string>
     <string name="intent_builder_note">Buat dan kirim intent. Anda dapat mengatur action, data, type, component, categories, extras, dan flags-nya. Anda juga dapat memuat intent dari URI, seperti intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end. Ini adalah format yang digunakan oleh Activity Launcher dan sebagian besar alat otomatisasi. Memuat intent dengan cara ini akan mengisi kolom-kolom yang ada, sehingga Anda dapat memeriksa dan menyuntingnya sebelum mengirim.</string>
@@ -444,6 +486,10 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
     <string name="hiding_notification_text">Tap to restore them.</string>
     <string name="hiding_notification_idle_title">Hiding is on</string>
     <string name="hiding_notification_watching">Watching your listed apps.</string>
+    <string name="rotation_notification_title">Rotasi terkunci</string>
+    <string name="rotation_notification_text">Terkunci selama %1$s.</string>
+    <string name="rotation_notification_watching_title">Kontrol rotasi aktif</string>
+    <string name="rotation_notification_watching">Menunggu aplikasi dalam daftar rotasi.</string>
     <string name="hiding_notification_paused_title">Hiding is paused</string>
     <string name="hiding_notification_paused_text">Your settings are restored. Resume hiding them for your listed apps.</string>
     <string name="hiding_resume">Resume</string>
@@ -503,6 +549,7 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
     <string name="catalog_no_release">Tanpa rilisan</string>
     <string name="catalog_no_apk">Tidak ada APK dalam rilis ini</string>
     <string name="catalog_apk_installed">Terinstal %1$s</string>
+    <string name="catalog_install_failed">Menunggu aplikasi dalam daftar rotasi.</string>
     <string name="catalog_view_github">Lihat di GitHub</string>
     <string name="modules_repo_retry">Ulangi</string>
     <string name="modules_repo_error">Tidak bisa memuat repositori.</string>
@@ -515,6 +562,8 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
     <string name="modules_install_from_file">Instal dari file</string>
     <string name="modules_install_title">Instal dari modul</string>
     <string name="modules_settings">Modules</string>
+    <string name="modules_settings_item">Pengaturan modul</string>
+    <string name="modules_settings_summary">Apa yang dapat dilakukan oleh sebuah modul, dan seberapa yakin Anda ingin memastikannya</string>
     <string name="modules_disabled">Disabled</string>
     <string name="modules_sort">Sort</string>
     <string name="modules_action_short">Aksi</string>
@@ -673,10 +722,12 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
     <string name="manage_status_disabled">Disabled</string>
     <string name="manage_status_hidden">Hidden</string>
     <string name="manage_pin_app">Sematan aplikasi</string>
+    <string name="manage_unpin_app">Lepaskan pin aplikasi</string>
     <string name="manage_bulk_apply">Terapkan</string>
     <string name="manage_bulk_progress">Mengubah %1$d dari %2$d...</string>
     <string name="manage_bulk_result_summary">Diubah: %1$d, gagal: %2$d.</string>
     <!-- One app, and what it may do on the device -->
+    <string name="app_section_rotation">Rotasi</string>
     <string name="app_op_mode_default">Default</string>
     <string name="app_op_mode_deny">Tolak</string>
     <string name="app_action_enable">Memungkinkan</string>
