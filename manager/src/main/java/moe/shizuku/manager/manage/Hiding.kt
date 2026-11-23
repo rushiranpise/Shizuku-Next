@@ -277,14 +277,11 @@ object Hiding {
             val manager = ShizukuApplication.application
                 .getSystemService(ActivityManager::class.java) ?: return null
             val exits = manager.getHistoricalProcessExitReasons(packageName, 0, EXIT_RECORDS)
-                .filter { info ->
-                    info.timestamp >= sinceMillis &&
-                        info.reason == ApplicationExitInfo.REASON_USER_REQUESTED
-                }
+                .filter { info -> info.reason == ApplicationExitInfo.REASON_USER_REQUESTED }
                 .map { it.timestamp }
             // A force-stop is recorded as the user's request, and the one a restart makes is not
             // the user leaving - but only that one exit is ours.
-            managerStops.userExits(packageName, exits).maxOrNull()
+            managerStops.latestUserExit(packageName, exits, sinceMillis)
         }.getOrNull()
     }
 
@@ -908,12 +905,15 @@ object Hiding {
         // Remembered so the exit this stop leaves behind is not read as the user closing the app.
         // Before the call, so the time cannot be later than the exit record: a stop that took
         // longer than the slack would otherwise have its own exit read as the user's.
-        managerStops.record(packageName, System.currentTimeMillis())
+        val stopAt = System.currentTimeMillis()
+        managerStops.record(packageName, stopAt)
         // No stop, no restart: reopening an app that is still running would only bring the
         // process that already read the settings back to the front. The pass after this one
-        // hides for it in the ordinary way.
+        // hides for it in the ordinary way. A stop that did not happen leaves no exit, so its
+        // record goes too, or it would take the user's own close a moment later.
         if (!PackageTools.forceStop(ShizukuApplication.appContext, packageName)) {
             Diag.warn(TAG, "not restarting $packageName: the force-stop did not succeed")
+            managerStops.forget(packageName, stopAt)
             forgetOpening()
             return false
         }
@@ -967,6 +967,23 @@ object Hiding {
                     ?.let { unmatched.remove(it) }
             }
             return unmatched
+        }
+
+        /**
+         * The latest user exit of [packageName] at or after [sinceMillis], or null.
+         *
+         * Matched against our stops before the time filter, not after: a restart stops the app
+         * before the trampoline hides anything, so its exit comes before the hide began. Filtered
+         * out first, it was never matched, and the stop left over took the user's own close.
+         */
+        @Synchronized
+        fun latestUserExit(packageName: String, exits: List<Long>, sinceMillis: Long): Long? =
+            userExits(packageName, exits).filter { it >= sinceMillis }.maxOrNull()
+
+        /** Drops a stop recorded at [at] that did not happen, so it cannot take a user's exit. */
+        @Synchronized
+        fun forget(packageName: String, at: Long) {
+            stops[packageName]?.remove(at)
         }
 
         @Synchronized

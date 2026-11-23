@@ -154,6 +154,29 @@ class HidingHoldTest {
     }
 
     @Test
+    fun `the restart's own exit is matched even when it came before the hide began`() {
+        val stops = Hiding.ManagerStops()
+        stops.record("a", 1_000L)
+        // The stop's exit at 1 050 predates the hide (1 500); the user's close at 2 500 does not.
+        // Filtering by the hide's start first left the stop free to take the user's close.
+        assertEquals(2_500L, stops.latestUserExit("a", listOf(1_050L, 2_500L), 1_500L))
+    }
+
+    @Test
+    fun `exits before the hide began are not the user's close`() {
+        val stops = Hiding.ManagerStops()
+        assertEquals(null, stops.latestUserExit("a", listOf(1_000L), 1_500L))
+    }
+
+    @Test
+    fun `a stop that did not happen is forgotten`() {
+        val stops = Hiding.ManagerStops()
+        stops.record("a", 1_000L)
+        stops.forget("a", 1_000L)
+        assertEquals(listOf(1_050L), stops.userExits("a", listOf(1_050L)))
+    }
+
+    @Test
     fun `clearing forgets every stop`() {
         val stops = Hiding.ManagerStops()
         stops.record("a", 1_000L)
