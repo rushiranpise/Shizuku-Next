@@ -34,14 +34,14 @@
     <string name="diagnostics_app">Aplicativo</string>
     <string name="diagnostics_android">Android</string>
     <string name="diagnostics_device">Dispositivo</string>
-    <string name="diagnostics_started_with">Iniciou via</string>
+    <string name="diagnostics_started_with">Iniciado via</string>
     <string name="diagnostics_default">Método padrão</string>
-    <string name="diagnostics_hiding">Ocultando</string>
-    <string name="diagnostics_phantom">Matador de processos</string>
+    <string name="diagnostics_hiding">Ocultação</string>
+    <string name="diagnostics_phantom">Gerenciador de processos</string>
     <string name="diagnostics_root">Root</string>
     <string name="diagnostics_granted">concedido</string>
     <string name="diagnostics_missing">ausente</string>
-    <string name="diagnostics_not_required">não é necessário</string>
+    <string name="diagnostics_not_required">não necessário</string>
     <string name="diagnostics_connected">conectado</string>
     <string name="diagnostics_not_connected">não conectado</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
@@ -87,9 +87,9 @@
     <string name="enable">Ativar</string>
     <string name="auto_pair_instructions">Parear sem digitar um código:\n\n1. Opções de desenvolvedor → Depuração sem fio\n2. Parear dispositivo com o código\n\nShizuku lê o código e porta diretamente dessa caixa de diálogo e começa por si mesmo. Mantenha a caixa de diálogo aberta até o pareamento terminar.</string>
     <string name="auto_pair_instructions_watch">Shizuku abre opções de desenvolvedor e depuração sem fio, lê o código de pareamento e começa. Mantenha a caixa de diálogo do sistema aberta até que o pareamento termine.</string>
-    <string name="auto_pair_manual">Manualmente</string>
+    <string name="auto_pair_manual">Manual</string>
     <string name="adb_pairing_developer_options">Opções do desenvolvedor</string>
-    <string name="development_settings">Opções do desenvolvedor</string>
+    <string name="development_settings">Modo Automático</string>
     <string name="notification_settings">Opções de notificação</string>
     <string name="adb_pairing_tutorial_content_notification">Uma notificação de Shizuku ajudará você
         a concluir o emparelhamento.</string>
@@ -138,8 +138,8 @@
     <string name="apps_filter_title">Filtrar aplicativos</string>
     <string name="apps_filter_all">TODOS</string>
     <string name="apps_filter_granted">Concedido</string>
-    <string name="apps_filter_revoked">Revogado</string>
-    <string name="apps_filter_hidden">Hidden</string>
+    <string name="apps_filter_revoked">Revogados</string>
+    <string name="apps_filter_hidden">Ocultos</string>
     <string name="apps_no_match">Nenhum aplicativo corresponde à sua pesquisa</string>
     <string name="app_management_sort_last_added">Adicionado recentemente</string>
     <string name="app_management_sort_updated">Atualizado</string>
@@ -158,23 +158,23 @@
     <string name="apps_process_stop_failed">Não foi possível parar o processo.</string>
     <string name="apps_processes_title">Processos anexados (%1$d)</string>
     <plurals name="apps_processes_count">
-        <item quantity="one">Processo %1$d</item>
-        <item quantity="other">Processos %1$d</item>
+        <item quantity="one">%1$d processo</item>
+        <item quantity="other">%1$d processos</item>
     </plurals>
-    <string name="apps_processes_hide_short">Esconder</string>
+    <string name="apps_processes_hide_short">Ocultar</string>
     <string name="apps_processes_empty">Nenhum processo associado.</string>
-    <string name="tab_home">Residencial</string>
+    <string name="tab_home">Início</string>
     <string name="tab_apps">Aplicativos</string>
     <string name="tab_shell">Shell</string>
     <string name="tab_labs">Laboratórios</string>
     <string name="lab_more_apps">Mais aplicativos</string>
     <string name="tab_firewall">Firewall</string>
     <string name="tab_autostart">Autostart</string>
-    <string name="labs_filter_allowed">Permitido</string>
-    <string name="labs_filter_blocked">Bloqueado</string>
+    <string name="labs_filter_allowed">Permitidos</string>
+    <string name="labs_filter_blocked">Bloqueados</string>
     <string name="labs_blocked_count">%1$d bloqueado</string>
     <string name="labs_blocked_empty">Nada está bloqueado.</string>
-    <string name="labs_bulk_actions">Ações em massa</string>
+    <string name="labs_bulk_actions">Ações em lote</string>
     <string name="labs_bulk_allow_all">Permitir todos os exibidos</string>
     <string name="labs_bulk_block_all">Bloquear todos os exibidos</string>
     <string name="labs_bulk_show_all">Mostrar todos na lista</string>
@@ -227,7 +227,7 @@
     <string name="hiding_restart_on_open">Fechar e reabrir no lançamento</string>
     <string name="hiding_restart_on_open_summary">Os aplicativos em uma lista são fechados e abertos novamente quando você os inicia, portanto, eles leem as configurações ocultas. Um aplicativo que estava em processo de edição perde o que não havia sido salvo.</string>
     <string name="hiding_gate_kept">Mantida em %1$d</string>
-    <string name="hiding_filter_hidden">Hidden</string>
+    <string name="hiding_filter_hidden">Ocultos</string>
     <string name="hiding_open_with_hiding">Abrir com as configurações ocultas</string>
     <string name="hiding_filter_shown">Visível</string>
     <string name="hiding_filter_empty">Nada oculto.</string>
@@ -1113,7 +1113,7 @@
     <string name="manage_filter_user">Usuário</string>
     <string name="manage_filter_system">SISTEMA</string>
     <string name="manage_filter_disabled">Desabilitado</string>
-    <string name="manage_filter_hidden">Hidden</string>
+    <string name="manage_filter_hidden">Ocultos</string>
     <string name="manage_filter_empty">Nada neste filtro.</string>
     <string name="manage_empty">Nenhum aplicativo encontrado.</string>
     <string name="manage_status_system">SISTEMA</string>
@@ -1126,7 +1126,7 @@
     <string name="manage_status_removed">Removido, dados mantidos</string>
     <string name="manage_status_disabled">Desabilitado</string>
     <string name="manage_status_suspended">Suspenso</string>
-    <string name="manage_status_hidden">Hidden</string>
+    <string name="manage_status_hidden">Ocultos</string>
     <string name="manage_select">Selecione aplicativos</string>
     <string name="manage_select_all">Selecionar todos os exibidos</string>
     <string name="manage_clear_selection">Limpar seleção</string>
