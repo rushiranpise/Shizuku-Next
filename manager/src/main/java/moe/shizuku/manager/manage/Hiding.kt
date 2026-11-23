@@ -23,6 +23,7 @@ import moe.shizuku.manager.utils.runShellCommand
 import rikka.shizuku.Shizuku
 import moe.shizuku.manager.utils.Diag
 import moe.shizuku.manager.utils.EnvironmentUtils
+import java.util.concurrent.atomic.AtomicReference
 
 /**
  * One setting a restrictive app reads, and the value it is unhappy with.
@@ -264,22 +265,27 @@ object Hiding {
      * platform answers only about this app, and the answer here is quietly empty rather than
      * wrong.
      */
-    private fun closedByUserSince(packageName: String, sinceMillis: Long): Boolean {
-        if (sinceMillis == 0L) return false
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) return false
+    private fun closedByUserSince(packageName: String, sinceMillis: Long): Boolean =
+        userCloseSince(packageName, sinceMillis) != null
+
+    /** When the user last closed [packageName] since [sinceMillis], or null. */
+    private fun userCloseSince(packageName: String, sinceMillis: Long): Long? {
+        if (sinceMillis == 0L) return null
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) return null
 
         return runCatching {
             val manager = ShizukuApplication.application
-                .getSystemService(ActivityManager::class.java) ?: return false
+                .getSystemService(ActivityManager::class.java) ?: return null
             manager.getHistoricalProcessExitReasons(packageName, 0, EXIT_RECORDS)
-                .any { info ->
+                .filter { info ->
                     info.timestamp >= sinceMillis &&
                         info.reason == ApplicationExitInfo.REASON_USER_REQUESTED &&
                         // A force-stop is recorded as the user's request, and the one a restart
                         // makes is not the user leaving.
                         !isOurStop(packageName, info.timestamp)
                 }
-        }.getOrDefault(false)
+                .maxOfOrNull { it.timestamp }
+        }.getOrNull()
     }
 
     /** Enough records to see past an app that was killed for memory and restarted. */
@@ -567,7 +573,7 @@ object Hiding {
         // and put everything back while it was still waiting to reopen the app.
         val hold = openingHold()
         if (hold != null && openingSeen(hold.first, hold.second, foreground, foregroundResumedAt)) {
-            forgetOpening()
+            releaseOpening(hold)
         }
         val opening = openingPackage()
 
@@ -624,11 +630,15 @@ object Hiding {
         // is the only account of what the watch saw at that moment.
         val wasHidingFor = lastHidingFor
         if (wasHidingFor != null && hidingFor == null) {
+            val closedAt = userCloseSince(wasHidingFor, hiddenSince())
+            // Handed to the watch: a close is the end of the app's session, so its restart
+            // marker goes, but the app must not be restarted again until it is opened again.
+            if (closedAt != null) userClose = wasHidingFor to closedAt
             Diag.info(
                 TAG,
                 "stopped hiding for $wasHidingFor: foreground=${foreground ?: "nothing"}, " +
                     "opening=${opening ?: "none"}, " +
-                    "closedByUser=${closedByUserSince(wasHidingFor, hiddenSince())}"
+                    "closedByUser=${closedAt != null}"
             )
         }
         lastHidingFor = hidingFor
@@ -642,6 +652,34 @@ object Hiding {
 
     /** The app the last pass hid for, so the pass that lets go can say why. */
     private var lastHidingFor: String? = null
+
+    /** An app the user closed while it was hidden for, and when; taken by the watch. */
+    @Volatile
+    private var userClose: Pair<String, Long>? = null
+
+    /** The last user close [reconcile] saw end a hide, once. */
+    fun takeUserClose(): Pair<String, Long>? = userClose.also { userClose = null }
+
+    /**
+     * When the app the last foreground read named was resumed, or null for a live read.
+     * See [restartAllowedAfterClose].
+     */
+    fun foregroundSince(): Long? = foregroundResumedAt
+
+    /**
+     * Whether [packageName] in front may be restarted, given the last app the user [closed].
+     *
+     * A swipe out of recents does not always leave a pause behind, so the closed app can go on
+     * being named in front. Restarting it then would reopen an app the user just closed. It
+     * becomes eligible again once it is resumed after the close - opened again - or when the
+     * read is live ([resumedAt] null) and so cannot be naming an app that has gone.
+     */
+    internal fun restartAllowedAfterClose(
+        packageName: String,
+        closed: Pair<String, Long>?,
+        resumedAt: Long?
+    ): Boolean = closed == null || closed.first != packageName ||
+        resumedAt == null || resumedAt > closed.second
 
     /**
      * Whether the foreground report shows the app a hold is waiting for, come to the front after
@@ -756,7 +794,7 @@ object Hiding {
             return hidden
         }
 
-        opening = packageName to System.currentTimeMillis()
+        openingRef.set(packageName to System.currentTimeMillis())
         runCatching { ShizukuApplication.appContext.startActivity(intent) }
             .onFailure {
                 Diag.warn(TAG, "could not open $packageName with its settings hidden", it)
@@ -797,7 +835,7 @@ object Hiding {
             if (carriesSession(signal)) return@forEach
             if (runCatching { hide(signal) }.getOrDefault(false)) hidden = true
         }
-        opening = packageName to System.currentTimeMillis()
+        openingRef.set(packageName to System.currentTimeMillis())
         return hidden
     }
 
@@ -839,7 +877,7 @@ object Hiding {
             return false
         }
 
-        opening = packageName to System.currentTimeMillis()
+        openingRef.set(packageName to System.currentTimeMillis())
 
         val stopped = PackageTools.forceStop(ShizukuApplication.appContext, packageName)
         // Remembered so the exit this stop leaves behind is not read as the user closing the app.
@@ -897,21 +935,31 @@ object Hiding {
 
     private val PACKAGE_NAME = Regex("""[A-Za-z][A-Za-z0-9_]*(\.[A-Za-z0-9_]+)+""")
 
-    /** The app a hide-then-open is waiting for, and when it was asked for. */
-    @Volatile
-    private var opening: Pair<String, Long>? = null
+    /**
+     * The app a hide-then-open is waiting for, and when it was asked for.
+     *
+     * Atomic, because it is written from the launch activity's thread and the UI while the watch,
+     * the watchdog and the starter read it: a hold is only ever let go of by comparing it with the
+     * one that was read, so a newer hold written in between is never lost with it.
+     */
+    private val openingRef = AtomicReference<Pair<String, Long>?>(null)
 
     /** How long an app may take to appear before the hold lets go. */
     private const val OPENING_GRACE_MS = 15_000L
 
     /** The live hold - the app and when it was taken - or null once it has run out. */
     private fun openingHold(): Pair<String, Long>? {
-        val hold = opening ?: return null
-        if (System.currentTimeMillis() - hold.second > OPENING_GRACE_MS) {
-            forgetOpening()
-            return null
+        while (true) {
+            val hold = openingRef.get() ?: return null
+            if (System.currentTimeMillis() - hold.second <= OPENING_GRACE_MS) return hold
+            // Only the hold that ran out; a newer one written meanwhile is read again.
+            if (openingRef.compareAndSet(hold, null)) return null
         }
-        return hold
+    }
+
+    /** Lets go of [hold], and only of it. */
+    private fun releaseOpening(hold: Pair<String, Long>) {
+        openingRef.compareAndSet(hold, null)
     }
 
     private fun openingPackage(): String? = openingHold()?.first
@@ -925,7 +973,7 @@ object Hiding {
     fun pendingOpening(): String? = openingPackage()
 
     private fun forgetOpening() {
-        opening = null
+        openingRef.set(null)
     }
 
     fun hide(signal: Signal): Boolean {

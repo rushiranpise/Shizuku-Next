@@ -196,6 +196,12 @@ class HidingWatchService : Service() {
      */
     private var restartedFor: String? = null
 
+    /**
+     * The last app the user closed while it was hidden for, and when. It is not restarted again
+     * until it is opened again; see [Hiding.restartAllowedAfterClose].
+     */
+    private var closedApp: Pair<String, Long>? = null
+
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onCreate() {
@@ -330,9 +336,11 @@ class HidingWatchService : Service() {
                     Hiding.isRestartOnOpenEnabled() &&
                     !Hiding.isOpening(it) &&
                     Hiding.isListed(it) &&
+                    Hiding.restartAllowedAfterClose(it, closedApp, Hiding.foregroundSince()) &&
                     Hiding.shellAvailable()
             }
             if (restartTarget != null) {
+                if (closedApp?.first == restartTarget) closedApp = null
                 // Taken before the attempt, not only on success: a force-stop that failed would
                 // otherwise be asked for again on the next pass, once a second, over an app the
                 // user is looking at. One attempt per launch, and the way to try again is to
@@ -351,6 +359,13 @@ class HidingWatchService : Service() {
             holding.set(hidingFor)
 
             restartedFor = Hiding.restartMarkerAfter(restartedFor, foreground, packageName)
+            // A close ends the app's session even while it is still named in front, so the
+            // marker goes; the close itself keeps the app from being restarted until it is
+            // opened again.
+            Hiding.takeUserClose()?.let { closed ->
+                closedApp = closed
+                if (restartedFor == closed.first) restartedFor = null
+            }
 
             notify(notification(hidingFor, paused = false, forcingDark = ForceDark.isApplied()))
             logState(hidingFor)
