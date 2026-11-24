@@ -13,6 +13,8 @@
     <string name="home_wireless_adb_title"><![CDATA[Indítás vezeték nélküli hibakereséssel]]></string>
     <string name="home_wireless_adb_starting_without_wifi">Hálózat nélküli indítás: a készülék addig kéri a vezeték nélküli hibakeresést újra és újra, amíg az be nem kapcsol. Ez akár két percig is eltarthat mire elindul, vagy feladásra kerül a végrehajtása.</string>
     <string name="home_usb_adb_needs_network">Az USB-s indítás a klasszikus ADB-portot használja, és az újraindításhoz hálózati kapcsolatra van szüksége. Csatlakozzon egyszer a Wi-Fi-hez, vagy válassza az <b>Indítás Wi-Fi nélkül</b> módot, és indítsa el a vezeték nélküli hibakeresést.</string>
+    <string name="home_usb_adb_needs_network_no_option">​Az USB-s indítás a klasszikus ADB-portot használja, az újranyitásához pedig hálózatra van szükség. Csatlakozz egyszer Wi-Fi-hez, vagy indítsd el számítógépről az ADB-paranccsal az Egyéb módszerek menüben.</string>
+    <string name="home_usb_adb_needs_computer">Az USB-s indításhoz a klasszikus ADB-port szükséges. Ezen az Android-verzión csatlakozz egy számítógéphez, és indítsd el a Shizukut az ADB-paranccsal az Egyéb módszerek menüben.</string>
     <string name="home_wireless_adb_summary">Indítás vezeték nélküli hibakeresés használatával.</string>
     <string name="home_usb_adb_title"><![CDATA[Indítás USB hibakereséssel]]></string>
     <string name="home_usb_adb_summary">Indítás USB hibakeresés használatával.</string>
@@ -67,6 +69,7 @@ lehetőségre\n- Írja be az értesítésben megjelenő párosítási kódot</st
     <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
          a translation of dialog_adb_pairing_message would still tell the user to type the code
          into a notification that this flow never shows. Untranslated locales fall back here. -->
+    <string name="dialog_adb_pairing_message_manual">A párosítás megkezdéséhez hajtsd végre a következő lépéseket:\n- Lépj a „Fejlesztői beállítások” menübe\n- Kapcsold be az „USB-hibakeresés” és a „Vezeték nélküli hibakeresés” lehetőséget\n- Koppints a „Vezeték nélküli hibakeresés” bal oldalára\n- Koppints az „Eszköz párosítása párosító kóddal” lehetőségre\n- Írd be az ott látható kódot és portot az alábbi mezőkbe\n\nTartsd nyitva ezt a párbeszédablakot a párosítás befejezéséig. Ha a kód eltűnik a visszaváltáskor, használd az osztott képernyőt, ha az eszközöd támogatja.</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -75,7 +78,10 @@ lehetőségre\n- Írja be az értesítésben megjelenő párosítási kódot</st
     <!-- The TV form of dialog_adb_pairing_accessibility_permission. TV Settings has no menu in
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
+    <string name="dialog_adb_pairing_accessibility_permission_tv">Az Android letiltja ezt a kapcsolót az alkalmazásbolton kívülről telepített appoknál, tévén pedig az Alkalmazásadatok menüben nincs „Korlátozott beállítások engedélyezése” opció a feloldásához. Egyszeri ADB-kapcsolatra van szükség egy számítógépről ehhez a tévéhez: vagy add meg a fenti engedélyt, amivel a Shizuku magától be tudja kapcsolni a szolgáltatást, vagy oldd fel a kapcsolót ezzel:\n\n^1</string>
+    <string name="dialog_adb_pairing_accessibility_enable_watch">Az automatikus párosítás a rendszer párbeszédablakából olvassa ki a kódot, ezért a Shizuku kisegítő szolgáltatásának bekapcsolva kell lennie. Kapcsold be a következő képernyőn.\n\nIf the switch is greyed out, open App info and allow restricted settings.</string>
     <string name="dialog_adb_pairing_open_app_info">Alkalmazás infó</string>
+    <string name="dialog_adb_pairing_accessibility_enable">Az automatikus párosítás a Shizuku kisegítő szolgáltatásán keresztül olvassa ki a kódot a rendszer párbeszédablakából, ezért be kell kapcsolni, de csak a folyamat idejére: a szolgáltatás kikapcsolja magát, amint megtalálta a kódot, vagy egy perc elteltével az energiatakarékosság érdekében. A Shizuku normál esetben magától bekapcsolja, ehhez azonban a WRITE_SECURE_SETTINGS engedélyre van szükség, amelyet egy friss telepítés még nem kapott meg.\n\nKapcsold be a következő képernyőn, írd be magadnak a kódot a Kézi lapon, vagy add meg egyszer az engedélyt:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Kérjük, kezdje el a párosítást a következő lépések végrehajtásával:\n- Navigáljon a \"Fejlesztői beállítások\" menüpontra\n-Engedélyezze az \"USB hibakeresés\"-t és a \"Vezeték nélküli hibakeresés\"-t\n- Koppintson a \"Vezeték nélküli hibakeresés\" bal oldalára\n- Koppintson az \"Eszköz párosítása párosító kóddal\" lehetőségre. A Shizuku automatikusan felismeri a párosító kódot.</string>
     <string name="adb_pairing_requires_multi_window">Kérjük, először lépjen osztott képernyős módba.</string>
     <string name="adb_pairing_requires_multi_window_reason">A rendszer megköveteli, hogy a párosítási párbeszédpanel mindig látható legyen. Az osztott képernyős mód használata az egyetlen módja annak, hogy ez az alkalmazás és a rendszerpárbeszédpanel egyszerre látható legyen.</string>
@@ -85,6 +91,7 @@ lehetőségre\n- Írja be az értesítésben megjelenő párosítási kódot</st
     <string name="enable">Engedélyezés</string>
     <string name="auto_pair_instructions">Párosítás kód beírása nélkül:\n\n1. Fejlesztői beállítások → Vezeték nélküli hibakeresés\n2. Eszköz párosítása párosítási kóddal\n\n
 A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot, és elindítja magát. Nyitva tartja a párbeszédpanelt, amíg a párosítás be nem fejeződik.</string>
+    <string name="auto_pair_instructions_watch">A Shizuku megnyitja a Fejlesztői beállításokat és a Vezeték nélküli hibakeresést, beolvassa a párosító kódot, és elindul. Tartsd nyitva a rendszer párbeszédablakát a párosítás befejezéséig.</string>
     <string name="auto_pair_manual">Manuális</string>
     <string name="adb_pairing_developer_options">Fejlesztői beállítások</string>
     <string name="development_settings">Fejlesztői lehetőségek</string>
@@ -129,6 +136,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="apps_needs_shizuku">Az alkalmazások megtekintéséhez indítsa el a Shizukut</string>
     <string name="apps_empty">Nincs megjeleníthető alkalmazás</string>
     <string name="apps_filter_empty">Nincsenek alkalmazások ezzel a szűréssel</string>
+    <string name="apps_filter_title">Alkalmazások szűrése</string>
     <string name="apps_filter_all">Mind</string>
     <string name="apps_filter_granted">Engedélyezve</string>
     <string name="apps_filter_revoked">Visszavonva</string>
@@ -137,8 +145,26 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="app_management_sort_last_added">Legutóbb hozzáadva</string>
     <string name="app_management_sort_updated">Frissítve</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_sort_keep_in_place">Alkalmazások megtartása a helyükön</string>
+    <string name="apps_processes_show">%1$d folyamat megjelenítése</string>
+    <string name="apps_processes_hide">%1$d folyamat elrejtése</string>
+    <string name="apps_process_pid">PID: %1$d</string>
+    <string name="apps_process_api">API: %1$d</string>
     <string name="apps_process_allowed">Engedélyezve</string>
+    <string name="apps_process_not_allowed">Nem engedélyezett</string>
+    <string name="apps_status_one_time">Egyszeri</string>
+    <string name="apps_process_stop">Folyamat leállítása</string>
+    <string name="apps_process_stop_title">Folyamat leállítása?</string>
+    <string name="apps_process_stop_message">Leállítod a %1$d PID-ű folyamatot ehhez: %2$s? Előfordulhat, hogy az alkalmazás újraindítja.</string>
+    <string name="apps_process_stop_failed">Nem sikerült leállítani a folyamatot.</string>
+    <string name="apps_processes_title">Csatolt folyamatok (%1$d)</string>
+    <plurals name="apps_processes_count">
+        <item quantity="one">%1$d folyamat</item>
+        <item quantity="other">%1$d folyamat
+</item>
+    </plurals>
     <string name="apps_processes_hide_short">Elrejtés</string>
+    <string name="apps_processes_empty">Csatolt folyamatok.</string>
     <string name="tab_home">Kezdőlap</string>
     <string name="tab_apps">Alkalmazások</string>
     <string name="tab_shell">Shell</string>
@@ -150,8 +176,45 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="labs_filter_blocked">Blokkolt</string>
     <string name="labs_blocked_count">%1$d blokkolva</string>
     <string name="labs_blocked_empty">Semmi sincs blokkolva.</string>
+    <string name="labs_bulk_actions">Csoportos műveletek</string>
+    <string name="labs_bulk_allow_all">Összes megjelenített engedélyezése</string>
+    <string name="labs_bulk_block_all">Összes megjelenített tiltása</string>
+    <string name="labs_bulk_show_all">Összes megjelenítése a listában</string>
+    <string name="labs_bulk_hide_all">Összes elrejtése a listában</string>
+    <string name="labs_bulk_confirm_title">Csoportos módosítás</string>
+    <string name="labs_bulk_confirm_count">Frissítendő alkalmazások: %1$d</string>
+    <string name="labs_bulk_confirm_state">Új állapot: %1$s</string>
+    <string name="labs_bulk_confirm_pinned">Kihagyott rögzített elemek: %1$d</string>
+    <string name="labs_bulk_confirm_warning">Csak a listában szereplő alkalmazások módosulnak. A rögzített alkalmazások változatlanok maradnak.</string>
+    <string name="labs_bulk_progress_title">Alkalmazások frissítése</string>
+    <string name="labs_bulk_progress">%1$d / %2$d módosítása...</string>
+    <string name="labs_bulk_result_title">A csoportos frissítés befejeződött</string>
+    <string name="labs_bulk_result_summary">Módosítva: %1$d, sikertelen: %2$d.</string>
+    <string name="labs_bulk_failed_hint">Néhány alkalmazás nem fogadta el a módosítást. Lehet, hogy az állapotuk nem változott meg.</string>
+    <string name="labs_bulk_apply">Alkalmaz</string>
+    <string name="labs_bulk_done">Kész</string>
+    <string name="labs_pinned_note">A rögzített alkalmazások a lista tetején maradnak, és a csoportos módosítások kihagyják őket.</string>
+    <string name="labs_pin_app">Alkalmazás rögzítése</string>
+    <string name="labs_unpin_app">Alkalmazás rögzítésének feloldása</string>
+    <string name="labs_clear_pins">Rögzített alkalmazások törlése</string>
     <!-- Per-app rotation override for apps that force landscape -->
+    <string name="tab_rotation">Tájolás</string>
+    <string name="rotation_count">%1$d beállítva</string>
+    <string name="rotation_gate_off">Ki, %1$d beállítva</string>
+    <string name="rotation_gate_disabled">A tájolás ki van kapcsolva</string>
+    <string name="rotation_note">Az Automatikus követi a rendszer tájolását. Az Álló és a Fekvő mód zárolja a kijelzőt az alkalmazás megnyitásakor, és visszaállítja, amikor kilépsz belőle.</string>
+    <string name="rotation_filter_configured">Beállítva</string>
+    <string name="rotation_empty">Egyetlen alkalmazásnak sincs beállítva tájolási mód.</string>
+    <string name="rotation_needs_shizuku">Indítsd el a Shizukut a tájolás módosításához.</string>
+    <string name="rotation_mode_title">Tájolási mód</string>
     <string name="rotation_mode_off">Ki</string>
+    <string name="rotation_mode_off_note">Az alkalmazás saját tájolásának használata.</string>
+    <string name="rotation_mode_auto">Automatikus</string>
+    <string name="rotation_mode_auto_note">Kövesd a rendszer tájolását. Ha az alkalmazás ezt figyelmen kívül hagyja, használd az Álló vagy a Fekvő módot.</string>
+    <string name="rotation_mode_portrait">Álló</string>
+    <string name="rotation_mode_portrait_note">Álló tájolás kényszerítése, amíg ez az alkalmazás meg van nyitva.</string>
+    <string name="rotation_mode_landscape">Fekvő</string>
+    <string name="rotation_mode_landscape_note">Álló tájolás kényszerítése, amíg ez az alkalmazás meg van nyitva.</string>
     <!-- Hiding: what apps can read about this device -->
     <string name="tab_hiding">Elrejtés</string>
     <string name="tab_hide_developer_options">Fejlesztői beállítások elrejtése</string>
@@ -163,6 +226,8 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="hiding_hidden_count">%1$d elrejtve</string>
     <string name="hiding_gate">Engedélyezve</string>
     <string name="hiding_gate_disabled">Letiltva</string>
+    <string name="hiding_restart_on_open">Bezárás és újranyitás indításkor</string>
+    <string name="hiding_restart_on_open_summary">A listán szereplő alkalmazások indításkor bezáródnak és újranyílnak, így beolvassák a rejtett beállításokat. A félbehagyott szerkesztésben lévő alkalmazásban elveszik mindaz, amit nem mentettél el.</string>
     <string name="hiding_gate_kept">%1$d maradt</string>
     <string name="hiding_filter_hidden">Rejtett</string>
     <string name="hiding_open_with_hiding">Nyissa meg rejtett beállításokkal</string>
@@ -190,6 +255,52 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="force_dark_notification_text">A \"Kényszerített sötét mód\" listán szereplő alkalmazás meg van nyitva</string>
     <string name="force_dark_notification_watching">Várakozás a listán szereplő alkalmazás megnyitására</string>
     <string name="tab_activities">Tevékenységek indítója</string>
+    <string name="tab_power">Energia</string>
+    <string name="power_description">Indítsd újra a készüléket, vagy kapcsold ki a képernyőt a telefon gombjainak használata nélkül.</string>
+    <string name="power_needs_shizuku">Először indítsd el a Shizukut ezen opciók használatához.</string>
+    <string name="power_reboot">Újraindítás</string>
+    <string name="power_reboot_summary">Indítsd újra a telefont.</string>
+    <string name="power_reboot_confirm">A telefon most újraindul. A nem mentett munka elvész.</string>
+    <string name="power_recovery">Újraindítás recovery módba</string>
+    <string name="power_recovery_summary">Indítsd újra a telefont recovery módban.</string>
+    <string name="power_recovery_confirm">A telefon recovery módban fog újraindulni. A navigáláshoz használd a hangerő- és a bekapcsológombot.</string>
+    <string name="power_bootloader">Újraindítás bootloader módba</string>
+    <string name="power_bootloader_summary">Indítsd újra fastboot módban, hogy csatlakoztathasd a számítógéphez.</string>
+    <string name="power_bootloader_confirm">A telefon újraindul a bootloaderben, és ott is marad, amíg újra nem indítod – jellemzően egy számítógépről.</string>
+    <string name="power_off">Kikapcsolás</string>
+    <string name="power_off_summary">Kapcsold ki a telefont.</string>
+    <string name="power_off_confirm">A telefon most kikapcsol. A nem mentett munka elvész.</string>
+    <string name="power_screen_off">Képernyő kikapcsolása</string>
+    <string name="power_screen_off_summary">Kapcsold ki a képernyőt. Ha be van állítva képernyőzár, a telefon is zárolódik.</string>
+    <string name="power_confirm_title">Biztos vagy benne?</string>
+    <string name="power_confirm">Folytatás</string>
+    <string name="power_soft_reboot">Gyors újraindítás</string>
+    <string name="power_soft_reboot_summary">Indítsd újra az Androidot a kernel újraindítása nélkül. Root-hozzáférés szükséges.</string>
+    <string name="power_soft_reboot_confirm">Az Android újraindul. Minden alkalmazás és a rendszerfelület bezárul, majd újraindul, de maga a telefon nem indul újra. Lehet, hogy utána újra kell indítanod a Shizukut.</string>
+    <string name="power_restart_system_ui">Rendszerfelület újraindítása</string>
+    <string name="power_restart_system_ui_summary">Indítsd újra az állapotsort, a navigációs sávot és az értesítési sávot. Root-hozzáférés szükséges.</string>
+    <string name="power_needs_root">Root-hozzáférés szükséges, de ez az eszköz nincs rootolva.</string>
+    <string name="power_needs_shizuku_rooted">A Shizuku nem fut. Csak a gyors újraindítás érhető el.</string>
+    <string name="power_failed">Nem sikerült futtatni a következőt: %1$s</string>
+    <string name="tab_display">Kijelző</string>
+    <string name="display_description">Módosítsd a képernyőfelbontást, a képpontsűrűséget és a képfrissítési gyakoriságot. Ha a képernyő nehezen használhatóvá válik, koppints a beállítás melletti Visszaállítás gombra.</string>
+    <string name="display_needs_shizuku">Indítsd el a Shizukut a beállítások megtekintéséhez vagy módosításához.</string>
+    <string name="display_resolution">Felbontás</string>
+    <string name="display_resolution_summary">Képernyőméret képpontban (szélesség × magasság). Ez azt módosítja, hogy a rendszer mekkora méretben rajzolja ki a képernyőt, nem pedig a fizikai kijelzőt.</string>
+    <string name="display_density">Sűrűség</string>
+    <string name="display_density_summary">Szabályozza a képernyőn lévő elemek méretét. A nagyobb értékek kisebbé, a kisebb értékek nagyobbá teszik őket.</string>
+    <string name="display_min_refresh">Minimális képfrissítési gyakoriság</string>
+    <string name="display_min_refresh_summary">A legalacsonyabb képfrissítési gyakoriság Hz-ben, amelyet a képernyő használni tud. Állítsd a maximális értékre, hogy a képernyő ezen a gyakoriságon maradjon.</string>
+    <string name="display_max_refresh">Maximális képfrissítési gyakoriság</string>
+    <string name="display_max_refresh_summary">A legmagasabb képfrissítési gyakoriság Hz-ben, amelyet a képernyő használni tud.</string>
+    <string name="display_current">Jelenlegi: %1$s</string>
+    <string name="display_apply">Alkalmaz</string>
+    <string name="display_reset">Alaphelyzet</string>
+    <string name="display_invalid">Érvénytelen érték</string>
+    <string name="display_applied">%1$s Alkalmazva</string>
+    <string name="display_failed">Nem sikerült módosítani: %1$s</string>
+    <string name="display_hz">%1$d Hz</string>
+    <string name="display_modes_missing">Nem sikerült felismerni a támogatott képfrissítési gyakoriságokat. Adj meg egy értéket kézzel.</string>
     <string name="activities_apps_count">%1$d alkalmazás</string>
     <string name="activities_count">%1$d tevékenység</string>
     <string name="activities_launcher">Indító</string>
@@ -206,29 +317,86 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="activities_copy">Másolás</string>
     <string name="activities_edit_as_intent">Szerkesztés intent-ként</string>
     <string name="activities_copied">Másolva</string>
+    <string name="activities_saved">Mentett tevékenységek</string>
     <string name="activities_apps_section">Alkalmazások</string>
     <string name="activities_save">Mentés</string>
+    <string name="activities_unsave">Eltávolítás a mentettekből</string>
+    <string name="activities_gone">Ez a tevékenység már nincs telepítve.</string>
     <string name="tab_intent_builder">Intent készítő</string>
+    <string name="intent_builder_note">Intent összeállítása és elküldése. Beállíthatod a műveletet, az adatot, a típust, a komponenst, a kategóriákat, az extra adatokat és a jelzőket. Egy URI-ból is betölthetsz intentet, például így: intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end. Ezt a formátumot használja az Activity Launcher és a legtöbb automatizálási eszköz. A betöltés kitölti a mezőket, így küldés előtt ellenőrizheted és szerkesztheted.</string>
+    <string name="intent_uri">Intent URI</string>
+    <string name="intent_uri_load">Betöltés a mezőkbe</string>
+    <string name="intent_uri_invalid">Ez nem érvényes intent URI.</string>
     <string name="intent_action">Művelet</string>
     <string name="intent_data">Adat</string>
     <string name="intent_type">Típus</string>
     <string name="intent_component">Komponens</string>
     <string name="intent_package">Csomag</string>
     <string name="intent_categories">Kategóriák</string>
+    <string name="intent_operation_activity">Tevékenység indítása</string>
+    <string name="intent_operation_broadcast">Broadcast küldése</string>
+    <string name="intent_choose_activity">Tevékenység kiválasztása</string>
+    <string name="intent_picking">Koppints egy tevékenységre a komponens kitöltéséhez.</string>
+    <string name="intent_targets">Megválaszolta: %1$d %2$s</string>
+    <string name="intent_targets_none">Ezen az eszközön semmi sem válaszol erre az intentre.</string>
+    <string name="intent_send_broadcast">Broadcast küldése</string>
+    <string name="intent_broadcast_refused">A broadcastot nem sikerült elküldeni.</string>
     <string name="intent_extras">Extrák</string>
+    <string name="intent_extra_add">Extra hozzáadása</string>
+    <string name="intent_extra_remove">Extra eltávolítása</string>
     <string name="intent_key">Kulcs</string>
     <string name="intent_value">Érték</string>
     <string name="intent_flags">Flag-ek</string>
     <string name="intent_start">Indítás</string>
+    <string name="intent_nothing">Adj meg az intentnek egy műveletet, valamilyen adatot, egy csomagot vagy egy komponenst.</string>
+    <string name="intent_refused">Az intentet nem sikerült elindítani.</string>
+    <string name="intent_flag_clear_top">Clear top</string>
+    <string name="intent_flag_single_top">Single top</string>
+    <string name="intent_flag_clear_task">Clear task</string>
+    <string name="intent_flag_new_document">Új dokumentum</string>
+    <string name="intent_flag_no_animation">Nincs animáció</string>
+    <string name="intent_flag_exclude_recents">Nincs az előzményekben</string>
+    <string name="intent_flag_grant_read">Olvasási jog adása</string>
+    <string name="intent_flag_grant_write">Írási jog adása</string>
     <string name="tab_device_info">Készülék infó</string>
+    <string name="device_refresh">Frissítés</string>
+    <string name="scroll_to_top">Görgetés a tetejére</string>
+    <string name="device_battery">Akkumulátor</string>
     <string name="device_status">Állapot</string>
     <string name="device_temperature">Hőmérséklet</string>
     <string name="device_voltage">Feszültség</string>
     <string name="device_current">Jelenleg</string>
+    <string name="device_current_average">Jelenlegi, átlagos</string>
+    <string name="device_charge_counter">Töltésszámláló</string>
+    <string name="device_technology">Technológia</string>
+    <string name="device_health">Egészség</string>
+    <string name="device_charging">Töltés</string>
+    <string name="device_charged">Feltöltve</string>
+    <string name="device_health_section">Egészség</string>
+    <string name="device_bsoh">Akkumulátor állapot</string>
+    <string name="device_cycles">Ciklusok</string>
+    <string name="device_asoc">Töltöttségi állapot</string>
     <string name="device_first_use">Első használat</string>
+    <string name="device_max_temp">Rögzített max. hőmérséklet</string>
+    <string name="device_max_current">Legnagyobb áramerősség</string>
+    <string name="device_health_source">A Samsung ezeket az akkumulátorszolgáltatás adataiban tárolja, és kiírja az akkumulátordumpba. Nem részei az Android API-nak, ezért más gyártó készülékein nem lesznek elérhetők.</string>
+    <string name="device_usage">Idő</string>
+    <string name="device_screen_on">Kijelző bekapcsolva</string>
+    <string name="device_time_on_battery">Akkumulátorról</string>
+    <string name="device_screen_off">Képernyő kikapcsolása</string>
+    <string name="device_doze">Doze</string>
+    <string name="device_usage_note">Maga a rendszer vezeti ezeket a számlálókat. Minden alkalommal nullázódnak, amikor az akkumulátor teljesen feltöltődik – ezért mutat itt másodperceket az a telefon, amelyet egy órája töltöttek fel, és órákat az, amelyik egész nap töltő nélkül volt.</string>
+    <string name="device_drain">Mi fogyasztotta az akkumulátort</string>
+    <string name="device_drain_note">Összetevőnként hozzárendelve, ahogy azt a rendszer kiírja. Az alkalmazásonkénti értékeket ébresztési zárolásokként és futási időkként tárolja milliamperóra helyett, így itt nincsenek kitalált alkalmazásonkénti adatok.</string>
+    <string name="device_max_charging_current">Max. töltőáram</string>
+    <string name="device_max_charging_voltage">Max. töltőfeszültség</string>
+    <string name="device_capacity_rated">Névleges</string>
     <string name="device_capacity_typical">Szokásos</string>
     <string name="device_capacity">Kapacitás</string>
     <string name="device_capacity_estimated">Becsült</string>
+    <string name="device_capacity_learned">Legutóbb tanult</string>
+    <string name="device_capacity_range">Betanult tartomány</string>
+    <string name="device_capacity_note">A rendszer nem jelenti a tervezett kapacitást, és ez az eszköz még a shell számára sem engedélyezi az üzemanyagszint-mérőt, így egy teljes akkumulátor százalékos aránya sem számítható ki becsületesen. Amit a rendszer betanult, az fent látható.</string>
     <string name="device_history">Előzmények</string>
     <string name="device_history_level">Szint</string>
     <string name="device_history_temperature">Hőmérséklet</string>
@@ -246,6 +414,13 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="device_start_method">Indítás</string>
     <string name="device_transport">Átvitel</string>
     <string name="device_watchdog">Önvédelem</string>
+    <string name="device_app_in_front">Előtérben lévő app</string>
+    <string name="device_hiding_held">Zárolások elrejtése</string>
+    <string name="device_thermal">Hőmérséklet</string>
+    <string name="device_thermal_note">A kernel által elérhetővé tett összes hőszenzor, a legmelegebbel kezdve. A csatlakoztatás nélküli szenzor a -273-as őrértéket jelenti, és kimarad a listából, akárcsak a tápellátás küszöbértékei, amelyek nem hőmérsékletek. %d zóna lett listázva.</string>
+    <string name="device_cpu">CPU</string>
+    <string name="device_load_average">Átlagos terhelés</string>
+    <string name="device_cpu_note">A kernel elszámolása a kiíratásában megnevezett időablakon át. A terhelés az egy-, öt- és tizenöt perces átlag; minden sor azt a processzoridőt mutatja, amelyet az adott folyamat felhasznált, a kernel-munkaszálak pedig azért jelennek meg, mert ők végzik a munkát, nem csupán az appok.</string>
     <string name="tab_log">Napló</string>
     <string name="log_filter_all">Mind</string>
     <string name="log_filter_problems">Hiba</string>
@@ -512,6 +687,7 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
       The guided first run. Each page is one decision, and the sentences say what happens rather
       than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
     -->
+    <string name="setup_action_continue">Folytatás</string>
     <string name="setup_root_title">Root</string>
     <string name="setup_wireless_title">Vezeték nélküli hibakeresés</string>
     <string name="setup_usb_title">USB hibakeresés</string>
@@ -681,12 +857,18 @@ A Shizuku közvetlenül a párbeszédpanelből olvassa be a kódot és a portot,
     <string name="manage_status_disabled">Letiltva</string>
     <string name="manage_status_suspended">Felfüggesztve</string>
     <string name="manage_status_hidden">Rejtve</string>
+    <string name="manage_pin_app">Alkalmazás rögzítése</string>
+    <string name="manage_unpin_app">Alkalmazás rögzítésének feloldása</string>
+    <string name="manage_bulk_apply">Alkalmaz</string>
+    <string name="manage_bulk_progress">%1$d / %2$d módosítása...</string>
+    <string name="manage_bulk_result_summary">Módosítva: %1$d, sikertelen: %2$d.</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_detail_missing">Ez az alkalmazás már nincs telepítve.</string>
     <string name="app_open_info">Alkalmazás infó</string>
     <string name="app_section_permissions">Rendszer engedélyek</string>
     <string name="app_section_runtime">Futtatási jogosultságok</string>
     <string name="app_section_ops">Alkalmazásműveletek</string>
+    <string name="app_section_rotation">Tájolás</string>
     <string name="app_section_actions">Műveletek</string>
     <string name="app_section_battery">Akkumulátor</string>
     <string name="app_section_info">Infó</string>

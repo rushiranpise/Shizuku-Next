@@ -31,31 +31,31 @@
     <string name="diagnostics_wifi">Wi-Fi</string>
     <string name="diagnostics_local_network">Local network</string>
     <string name="diagnostics_battery">Optimalisasi baterai</string>
-    <string name="diagnostics_app">App</string>
+    <string name="diagnostics_app">Aplikasi</string>
     <string name="diagnostics_android">Android</string>
-    <string name="diagnostics_device">Device</string>
+    <string name="diagnostics_device">Perangkat</string>
     <string name="diagnostics_started_with">Dimulai dengan</string>
     <string name="diagnostics_default">Metode bawaan</string>
-    <string name="diagnostics_hiding">Hiding</string>
+    <string name="diagnostics_hiding">Sembunyikan</string>
     <string name="diagnostics_phantom">Process killer</string>
     <string name="diagnostics_root">Root</string>
     <string name="diagnostics_granted">granted</string>
     <string name="diagnostics_missing">missing</string>
     <string name="diagnostics_not_required">not required</string>
     <string name="diagnostics_connected">connected</string>
-    <string name="diagnostics_not_connected">not connected</string>
+    <string name="diagnostics_not_connected">tidak tersambung</string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
-    <string name="diagnostics_battery_optimized">optimized</string>
-    <string name="diagnostics_battery_unrestricted">unrestricted</string>
-    <string name="diagnostics_available">available</string>
-    <string name="diagnostics_unavailable">unavailable</string>
-    <string name="diagnostics_closed">closed</string>
+    <string name="diagnostics_battery_optimized">optimalkan</string>
+    <string name="diagnostics_battery_unrestricted">tidak dibatasi</string>
+    <string name="diagnostics_available">tersedia</string>
+    <string name="diagnostics_unavailable">tidak tersedia</string>
+    <string name="diagnostics_closed">tertutup</string>
     <!-- Adb -->
     <string name="dialog_adb_port">Pelabuhan</string>
     <string name="dialog_adb_invalid_port">Port adalah integer antara 1 sampai 65535.</string>
-    <string name="adb_pairing">Sambungkan</string>
+    <string name="adb_pairing">Menyambungkan</string>
     <string name="dialog_adb_pairing_title">Sambungkan dengan perangkat</string>
     <string name="dialog_adb_pairing_discovery">Mencari layanan penyambung</string>
     <string name="dialog_adb_pairing_paring_code">Kode penghubung</string>
@@ -564,13 +564,37 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
     <string name="modules_settings">Modules</string>
     <string name="modules_settings_item">Pengaturan modul</string>
     <string name="modules_settings_summary">Apa yang dapat dilakukan oleh sebuah modul, dan seberapa yakin Anda ingin memastikannya</string>
+    <string name="modules_catalog_install">Pasang</string>
+    <string name="modules_catalog_installing">Memasang</string>
+    <string name="modules_catalog_installed">Terpasang</string>
+    <string name="modules_card_line">Versi:%1$s-%2$s</string>
+    <string name="modules_card_version">Versi:%1$s</string>
+    <string name="modules_card_author">Pembuat:%1$s</string>
     <string name="modules_disabled">Disabled</string>
+    <string name="modules_trust">Aman</string>
+    <string name="modules_untrust">Tidak Aman</string>
+    <string name="modules_full_trust">Sangat Aman</string>
+    <string name="module_update_available">Pembaruan Tersedia</string>
+    <string name="modules_update">Pembaruan</string>
     <string name="modules_sort">Sort</string>
+    <string name="modules_sort_a_to_z">Nama (A-Z)</string>
+    <string name="modules_sort_size_low_to_high">Ukuran (kecil duluan)</string>
+    <string name="modules_sort_size_high_to_low">Ukuran (besar duluan)</string>
+    <string name="modules_action_stop">Berhenti</string>
+    <string name="modules_web_ui_short">WebUI</string>
     <string name="modules_action_short">Aksi</string>
     <string name="modules_service_short">Layanan</string>
     <string name="modules_service_running_short">Running</string>
+    <string name="modules_search">Cari modul</string>
+    <string name="modules_no_match">Tidak ada modul yang cocok.</string>
     <string name="modules_install">Instal dari modul</string>
     <string name="modules_installed">Terinstal %1$s</string>
+    <string name="modules_allow_background">Izinkan Aktivitas Latar Belakang</string>
+    <string name="modules_action_run">Jalankan Tindakan</string>
+    <string name="modules_service_start">Mulai Layanan</string>
+    <string name="modules_service_stop">Layanan Berhenti</string>
+    <string name="modules_web_ui">Buka Antarmuka Pengguna Weeb</string>
+    <string name="modules_delete">Hapus</string>
     <string name="settings_backup_restore_action">Memulihkan</string>
     <string name="intents_start">Mulai</string>
     <!-- Terminal -->
@@ -624,7 +648,7 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
       so the singular is read more often than the plural is.
     -->
     <!-- Which part of the project a contributor's commits touched, shown as a badge. -->
-    <string name="contributor_area_app">App</string>
+    <string name="contributor_area_app">Aplikasi</string>
     <string name="contributor_area_server">Server</string>
     <!--
       A contributor's summary is composed from what the credits generator found - the areas they
