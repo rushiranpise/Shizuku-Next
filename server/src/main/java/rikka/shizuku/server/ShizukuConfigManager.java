@@ -365,15 +365,17 @@ public class ShizukuConfigManager extends ConfigManager {
 
     private void updateLocked(int uid, List<String> packages, int mask, int values) {
         ShizukuConfig.PackageEntry entry = findLocked(uid);
+        boolean changed = false;
         if (entry == null) {
             entry = new ShizukuConfig.PackageEntry(uid, mask & values);
             config.packages.add(entry);
+            changed = true;
         } else {
             int newValue = (entry.flags & ~mask) | (mask & values);
-            if (newValue == entry.flags) {
-                return;
+            if (newValue != entry.flags) {
+                entry.flags = newValue;
+                changed = true;
             }
-            entry.flags = newValue;
         }
         if (packages != null) {
             for (String packageName : packages) {
@@ -381,9 +383,12 @@ public class ShizukuConfigManager extends ConfigManager {
                     continue;
                 }
                 entry.packages.add(packageName);
+                changed = true;
             }
         }
-        scheduleWriteLocked();
+        if (changed) {
+            scheduleWriteLocked();
+        }
     }
 
     public void update(int uid, List<String> packages, int mask, int values) {

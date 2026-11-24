@@ -651,6 +651,7 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
         }
 
         int userId = UserHandleCompat.getUserId(uid);
+        List<String> packages = new ArrayList<>();
 
         if ((mask & ConfigManager.MASK_PERMISSION) != 0) {
             boolean allowed = (value & ConfigManager.FLAG_ALLOWED) != 0;
@@ -673,6 +674,11 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
                     continue;
                 }
 
+                // The record has to name the packages it covers: the app list and the start-up
+                // clean-up both read that list, and leaving it empty is what took a granted app
+                // off the list until the next server start.
+                packages.add(packageName);
+
                 // Answered rather than assumed: a grant this could not make leaves the record
                 // saying allowed while the platform never heard about it, which is a permission
                 // that is there until the next restart and gone after it, with nothing said
@@ -689,7 +695,7 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
             }
         }
 
-        configManager.update(uid, null, mask, value);
+        configManager.update(uid, packages, mask, value);
     }
 
     private void onPermissionRevoked(String packageName) {
@@ -714,18 +720,23 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
                 int uid = pi.applicationInfo.uid;
                 int flags = 0;
                 ShizukuConfig.PackageEntry entry = configManager.find(uid);
-                if (entry != null) {
-                    if (entry.packages != null && !entry.packages.contains(pi.packageName))
-                        continue;
+                if (entry != null && (entry.packages == null
+                        || entry.packages.contains(pi.packageName))) {
                     flags = entry.flags & ConfigManager.MASK_PERMISSION;
                 }
 
-                if (flags != 0) {
-                    list.add(pi);
-                } else if (pi.applicationInfo.metaData != null
+                boolean client = pi.applicationInfo.metaData != null
                         && pi.applicationInfo.metaData.getBoolean("moe.shizuku.client.V3_SUPPORT", false)
                         && pi.requestedPermissions != null
-                        && ArraysKt.contains(pi.requestedPermissions, PERMISSION)) {
+                        && ArraysKt.contains(pi.requestedPermissions, PERMISSION);
+
+                // A record that does not name this package says nothing about it rather than
+                // "no": the record written when the manager grants an app is keyed by UID and
+                // names the packages it covers separately, and a record that named none of them
+                // used to drop every app of that UID from this list - including the one that had
+                // just been granted - until the server was restarted. What decides for an
+                // unnamed package is whether it is a client at all.
+                if (flags != 0 || client) {
                     list.add(pi);
                 }
             }
