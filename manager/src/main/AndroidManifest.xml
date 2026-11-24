@@ -461,7 +461,7 @@
             android:name=".service.HideDeveloperOptionsTileService"
             android:enabled="true"
             android:exported="true"
-            android:label="@string/hiding_signal_developer_options"
+            android:label="@string/lab_switch_hide_developer_options"
             android:icon="@drawable/ic_tile_hide_developer_options"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
@@ -473,7 +473,7 @@
             android:name=".service.HideUsbTileService"
             android:enabled="true"
             android:exported="true"
-            android:label="@string/hiding_signal_usb_debugging"
+            android:label="@string/lab_switch_hide_usb_debugging"
             android:icon="@drawable/ic_tile_hide_usb_debugging"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
@@ -485,7 +485,7 @@
             android:name=".service.HideWirelessTileService"
             android:enabled="true"
             android:exported="true"
-            android:label="@string/hiding_signal_wireless_debugging"
+            android:label="@string/lab_switch_hide_wireless_debugging"
             android:icon="@drawable/ic_tile_hide_wireless_debugging"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
