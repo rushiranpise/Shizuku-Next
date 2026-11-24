@@ -31,6 +31,7 @@ import androidx.compose.material.icons.outlined.Extension
 import androidx.compose.material.icons.outlined.FolderOpen
 import androidx.compose.material.icons.outlined.PhoneAndroid
 import androidx.compose.material.icons.outlined.Terminal
+import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material.icons.outlined.Wifi
 import androidx.compose.material.icons.outlined.Widgets
@@ -156,6 +157,7 @@ fun LabsScreen(bottomPadding: Dp, onOpenDetail: (Detail) -> Unit) {
         LabEntry(R.string.tab_force_dark, Icons.Outlined.DarkMode, Detail.FORCE_DARK),
         LabEntry(R.string.tab_accessibility, Icons.Outlined.AccessibilityNew, Detail.ACCESSIBILITY),
         LabEntry(R.string.tab_activities, Icons.Outlined.Widgets, Detail.ACTIVITIES),
+        LabEntry(R.string.labs_quick_tiles, Icons.Outlined.Tune, Detail.QUICK_TILES),
         LabEntry(R.string.tab_power, Icons.Outlined.PowerSettingsNew, Detail.POWER),
         LabEntry(R.string.tab_display, Icons.Outlined.AspectRatio, Detail.DISPLAY),
         // The platform added this change with Android 16. On an older device the command has

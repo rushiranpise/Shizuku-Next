@@ -125,6 +125,7 @@ import moe.shizuku.manager.ui.screen.HomeScreen
 import moe.shizuku.manager.ui.screen.AppToggleFeature
 import moe.shizuku.manager.ui.screen.InstallerScreen
 import moe.shizuku.manager.ui.screen.PowerScreen
+import moe.shizuku.manager.ui.screen.QuickTilesScreen
 import moe.shizuku.manager.ui.screen.RotationScreen
 import moe.shizuku.manager.ui.screen.IntentsScreen
 import moe.shizuku.manager.ui.screen.DeviceInfoScreen
@@ -205,6 +206,9 @@ enum class Detail(
 
     /** Every accessibility service, with the switch the system screen owns and a keep-alive pin. */
     ACCESSIBILITY,
+
+    /** Which of the app's quick settings tiles the system's tile picker offers. */
+    QUICK_TILES,
 
     /** The community's module index, shown here only when there was no browser to open it in. */
     MORE_APPS;
@@ -395,6 +399,11 @@ fun ShizukuApp(onRunSetup: () -> Unit) {
                             )
 
                             Detail.ACTIVITIES -> ActivitiesScreen(
+                                bottomPadding = 0.dp,
+                                onBack = { detail = null }
+                            )
+
+                            Detail.QUICK_TILES -> QuickTilesScreen(
                                 bottomPadding = 0.dp,
                                 onBack = { detail = null }
                             )
