@@ -53,6 +53,11 @@ object SettingsBackup {
      */
     private val EXCLUDED_KEYS = setOf(
         "adbkey",
+        // The software fallback is the other half of "adbkey": exporting it alone would put the
+        // AES key in a plain file, and restoring it alone would point the app at a key that
+        // cannot open the ciphertext this install holds.
+        "adbkey_encryption_mode",
+        "adbkey_software_key",
         "auth_token",
         "boot_count",
         "force_dark_applied",
