@@ -205,13 +205,11 @@ private fun Context.startAutomaticPairing() {
 
     if (ensureAccessibilityService()) {
         SettingsPage.Developer.HighlightWirelessDebugging.launch(this)
-        // A watch may already have the service connected from an earlier attempt, in which
-        // case it is not going to be told to drive by another connection: ask it directly.
-        // If it is not connected yet, it schedules the same drive when the system binds it.
-        // A phone keeps its old flow: the service drives itself once Android binds it.
-        if (EnvironmentUtils.isWatch()) {
-            AdbPairingAccessibilityService.drive()
-        }
+        // The service may already be connected from an earlier attempt, in which case no new
+        // connection comes and nothing would drive Settings: ask it directly. A service that is
+        // not connected yet schedules the same drive when the system binds it, so this is safe
+        // on every device and not only where the connection is known to be reused.
+        AdbPairingAccessibilityService.drive()
     }
 }
 

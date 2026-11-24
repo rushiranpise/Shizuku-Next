@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.Toast
@@ -237,6 +236,12 @@ class AdbPairingAccessibilityService : AccessibilityService() {
 
             if (++driveAttempts < DRIVE_ATTEMPTS) {
                 handler.postDelayed(this, DRIVE_INTERVAL_MS)
+            } else {
+                // Said once, at the end: the pairing screen was open for long enough to be
+                // walked, yet neither row was there. Without this line a report of "nothing
+                // happened" cannot tell a phone whose Settings calls the rows something else
+                // from one where the service never saw Settings at all.
+                Diag.warn(TAG, "No pairing row found in Settings after $DRIVE_ATTEMPTS attempts")
             }
         }
     }
@@ -331,40 +336,55 @@ class AdbPairingAccessibilityService : AccessibilityService() {
     private fun readPairingDialog(): PairingDialog? {
         val windows = runCatching { windows }.getOrNull().orEmpty()
 
-        for (window in windows) {
-            val root = window?.root ?: continue
+        // The same test as the events, now applied to what is about to be read: the walk is
+        // bounded by the app it is willing to look at, and not only by what the text in the
+        // window happens to say. An app open beside the dialog is not read at all.
+        val roots = windows.mapNotNull { window ->
+            val root = window?.root ?: return@mapNotNull null
+            root.takeIf { hostsPairingDialog(it.packageName?.toString()) }
+        }
 
-            // The same test as the events, now applied to what is about to be read: the walk is
-            // bounded by the app it is willing to look at, and not only by what the text in the
-            // window happens to say. An app open beside the dialog is not read at all.
-            if (!hostsPairingDialog(root.packageName?.toString())) continue
-
+        // The usual shape: title, code and address are siblings in one window.
+        for (root in roots) {
             val texts = mutableListOf<String>()
             collectText(root, texts)
+            parsePairingDialog(texts)?.let { return it }
+        }
 
-            // Match the dialog itself, not the wireless-debugging page behind it,
-            // which also mentions pairing but shows a different (connect) port.
-            if (texts.none {
-                    it.contains("pairing code", ignoreCase = true) ||
-                        it.contains("pair with device", ignoreCase = true)
-                }
-            ) continue
-
-            val code = texts.firstOrNull { CODE_REGEX.matches(it) } ?: continue
-
-            // Optional, and not a reason to walk away: see [PairingDialog].
-            val hostPort = texts.asSequence()
-                .mapNotNull { HOST_PORT_REGEX.find(it) }
-                .firstOrNull()
-
-            return PairingDialog(
-                code = code,
-                host = hostPort?.groupValues?.get(1),
-                port = hostPort?.groupValues?.get(2)?.toIntOrNull()
-            )
+        // A skin that draws the code in its own popup: neither window has the marker and the
+        // code together, which is how a dialog that is plainly on screen is never read. Only
+        // tried when a single window did not answer, so the ordinary case stays as strict as it
+        // was about what counts as the dialog.
+        if (roots.size > 1) {
+            val texts = mutableListOf<String>()
+            roots.forEach { collectText(it, texts) }
+            parsePairingDialog(texts)?.let { return it }
         }
 
         return null
+    }
+
+    private fun parsePairingDialog(texts: List<String>): PairingDialog? {
+        // Match the dialog itself, not the wireless-debugging page behind it,
+        // which also mentions pairing but shows a different (connect) port.
+        if (texts.none {
+                it.contains("pairing code", ignoreCase = true) ||
+                    it.contains("pair with device", ignoreCase = true)
+            }
+        ) return null
+
+        val code = texts.firstNotNullOfOrNull { pairingCode(it) } ?: return null
+
+        // Optional, and not a reason to walk away: see [PairingDialog].
+        val hostPort = texts.asSequence()
+            .mapNotNull { HOST_PORT_REGEX.find(it) }
+            .firstOrNull()
+
+        return PairingDialog(
+            code = code,
+            host = hostPort?.groupValues?.get(1),
+            port = hostPort?.groupValues?.get(2)?.toIntOrNull()
+        )
     }
 
     /**
@@ -399,10 +419,25 @@ class AdbPairingAccessibilityService : AccessibilityService() {
 
     private fun collectText(node: AccessibilityNodeInfo, out: MutableList<String>) {
         node.text?.toString()?.takeIf { it.isNotBlank() }?.let { out.add(it) }
+        // Some dialogs draw the code and the address as content descriptions instead of text.
+        node.contentDescription?.toString()?.takeIf { it.isNotBlank() }?.let { out.add(it) }
 
         for (index in 0 until node.childCount) {
             node.getChild(index)?.let { collectText(it, out) }
         }
+    }
+
+    /**
+     * The six digits the dialog shows, however the dialog spaced them.
+     *
+     * The stock dialog prints `123456`; skins that group it as `123 456` or `123-456` to make it
+     * easier to read out were walked past by a bare six-digit match, and the reader then waited
+     * on a dialog that was right in front of it.
+     */
+    private fun pairingCode(text: String): String? {
+        CODE_REGEX.find(text)?.let { return it.value }
+        SPACED_CODE_REGEX.find(text)?.let { return it.groupValues[1] + it.groupValues[2] }
+        return null
     }
 
     private fun pair(dialog: PairingDialog) {
@@ -421,14 +456,18 @@ class AdbPairingAccessibilityService : AccessibilityService() {
             // it does not: the pairing service is on `_adb-tls-pairing._tcp` either way, which
             // is how the notification flow finds it. On Android 17 this is the only way to
             // pair without the user unfolding the dialog's address list first.
+            Diag.info(
+                TAG,
+                "Pairing dialog read: host=${dialog.host}, port=${dialog.port}"
+            )
             val endpoint = if (dialog.host != null && dialog.port != null) {
                 dialog.host to dialog.port
             } else {
-                Log.i(TAG, "Dialog had no address, asking the device where pairing is listening")
+                Diag.info(TAG, "Dialog had no address, asking the device where pairing is listening")
                 discoverPairingEndpoint()
             }
             if (endpoint == null) {
-                Log.w(TAG, "No pairing endpoint found")
+                Diag.warn(TAG, "No pairing endpoint found")
                 finish(getString(R.string.cannot_connect_port))
                 return@launch
             }
@@ -437,7 +476,7 @@ class AdbPairingAccessibilityService : AccessibilityService() {
             val key = try {
                 AdbKey(PreferenceAdbKeyStore(ShizukuSettings.getPreferences()), "shizuku")
             } catch (e: Throwable) {
-                Log.w(TAG, "Failed to load adb key", e)
+                Diag.warn(TAG, "Failed to load adb key", e)
                 finish(getString(R.string.adb_error_key_store))
                 return@launch
             }
@@ -445,7 +484,7 @@ class AdbPairingAccessibilityService : AccessibilityService() {
             AdbPairingClient(host, port, dialog.code, key)
                 .runCatching { start() }
                 .onFailure { e ->
-                    Log.w(TAG, "Pair failed", e)
+                    Diag.warn(TAG, "Pair failed", e)
                     finish(
                         when (e) {
                             is ConnectException -> getString(R.string.cannot_connect_port)
@@ -461,7 +500,7 @@ class AdbPairingAccessibilityService : AccessibilityService() {
                         return@onSuccess
                     }
 
-                    Log.i(TAG, "Paired from the pairing dialog, starting Shizuku")
+                    Diag.info(TAG, "Paired from the pairing dialog, starting Shizuku")
                     onPaired()
                 }
         }
@@ -494,6 +533,7 @@ class AdbPairingAccessibilityService : AccessibilityService() {
 
     private fun finish(message: String) {
         pairing = false
+        Diag.warn(TAG, "Pairing failed: $message")
         StartStatusReporter.failed(message, StartFailureKind.PAIRING)
         toast(message)
     }
@@ -615,7 +655,8 @@ class AdbPairingAccessibilityService : AccessibilityService() {
         private fun hostsPairingDialog(packageName: String?): Boolean =
             packageName?.contains(SETTINGS, ignoreCase = true) == true
 
-        private val CODE_REGEX = Regex("""\d{6}""")
-        private val HOST_PORT_REGEX = Regex("""(\d{1,3}(?:\.\d{1,3}){3}):(\d{2,5})""")
+        private val CODE_REGEX = Regex("""(?<!\d)\d{6}(?!\d)""")
+        private val SPACED_CODE_REGEX = Regex("""(?<!\d)(\d{3})[ -]?(\d{3})(?!\d)""")
+        private val HOST_PORT_REGEX = Regex("""(\d{1,3}(?:\.\d{1,3}){3})\s*:\s*(\d{2,5})""")
     }
 }
