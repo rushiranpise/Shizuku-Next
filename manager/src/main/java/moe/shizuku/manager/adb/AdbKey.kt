@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.edit
 import moe.shizuku.manager.ShizukuApplication
 import moe.shizuku.manager.ktx.isUserUnlockedCompat
+import moe.shizuku.manager.utils.Diag
 import org.bouncycastle.asn1.x500.X500Name
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo
 import org.bouncycastle.cert.X509v3CertificateBuilder
@@ -33,6 +34,7 @@ import java.util.*
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.spec.GCMParameterSpec
+import javax.crypto.spec.SecretKeySpec
 import javax.net.ssl.SSLContext
 import javax.net.ssl.SSLEngine
 import javax.net.ssl.X509ExtendedKeyManager
@@ -47,6 +49,12 @@ class AdbKey(private val adbKeyStore: AdbKeyStore, name: String) {
         private const val ANDROID_KEYSTORE = "AndroidKeyStore"
         private const val ENCRYPTION_KEY_ALIAS = "_adbkey_encryption_key_"
         private const val TRANSFORMATION = "AES/GCM/NoPadding"
+
+        /** Which side made the AES key that wraps the ADB private key. */
+        private const val MODE_KEYSTORE = "keystore"
+        private const val MODE_SOFTWARE = "software"
+        private const val PREF_ENCRYPTION_MODE = "adbkey_encryption_mode"
+        private const val PREF_SOFTWARE_KEY = "adbkey_software_key"
 
         private const val IV_SIZE_IN_BYTES = 12
         private const val TAG_SIZE_IN_BYTES = 16
@@ -80,7 +88,7 @@ class AdbKey(private val adbKeyStore: AdbKeyStore, name: String) {
     private val certificate: X509Certificate
 
     init {
-        this.encryptionKey = getOrCreateEncryptionKey() ?: error("Failed to generate encryption key with AndroidKeyManager.")
+        this.encryptionKey = getOrCreateEncryptionKey()
 
         this.privateKey = getOrCreatePrivateKey()
         this.publicKey = KeyFactory.getInstance("RSA").generatePublic(RSAPublicKeySpec(privateKey.modulus, RSAKeyGenParameterSpec.F4)) as RSAPublicKey
@@ -104,20 +112,100 @@ class AdbKey(private val adbKeyStore: AdbKeyStore, name: String) {
         publicKey.adbEncoded(name)
     }
 
-    private fun getOrCreateEncryptionKey(): Key? {
+    /**
+     * The key that encrypts the stored ADB private key.
+     *
+     * The Android Keystore is the one this app wants: the key never leaves the TEE, and a copy of
+     * the preferences cannot take it to another device. Some devices cannot create that key at
+     * all - a OnePlus Nord CE 5G on Android 13 answers with `ProviderException: Keystore key
+     * generation failed` - and refusing to start there leaves Shizuku permanently broken over a
+     * KeyMint that will not make an AES key. So the failure is answered with a software key kept in
+     * this app's preferences, and the choice is written down so every later run uses the same one:
+     * a run that went back to the keystore would find the ADB key stored under the software key
+     * unreadable and replace it, losing the pairing.
+     */
+    private fun getOrCreateEncryptionKey(): Key {
+        if (adbKeyStore.getString(PREF_ENCRYPTION_MODE) == MODE_SOFTWARE) {
+            return softwareEncryptionKey()
+        }
+
+        val fromKeyStore = runCatching { getOrCreateKeyStoreKey() }
+            .onFailure {
+                Diag.warn(TAG, "AndroidKeyStore cannot make the ADB key encryption key", it)
+            }
+            .getOrNull()
+        if (fromKeyStore != null) {
+            adbKeyStore.putString(PREF_ENCRYPTION_MODE, MODE_KEYSTORE)
+            return fromKeyStore
+        }
+
+        // Written before the key is made: a process killed in between would otherwise come back
+        // to the keystore and generate a new ADB key over the one it left here.
+        adbKeyStore.putString(PREF_ENCRYPTION_MODE, MODE_SOFTWARE)
+        return softwareEncryptionKey()
+    }
+
+    /** The keystore key, made when there is none. */
+    private fun getOrCreateKeyStoreKey(): Key {
         val keyStore = KeyStore.getInstance(ANDROID_KEYSTORE)
         keyStore.load(null)
 
-        return keyStore.getKey(ENCRYPTION_KEY_ALIAS, null) ?: run {
-            val parameterSpec = KeyGenParameterSpec.Builder(ENCRYPTION_KEY_ALIAS, KeyProperties.PURPOSE_DECRYPT or KeyProperties.PURPOSE_ENCRYPT)
+        keyStore.getKey(ENCRYPTION_KEY_ALIAS, null)?.let { return it }
+
+        // Tried more than once because a KeyMint under load reports transient failures as the same
+        // exception, and a phone that answers this way three times is one to fall back on rather
+        // than to keep the user waiting on.
+        var failure: Throwable? = null
+        repeat(3) { attempt ->
+            try {
+                val parameterSpec = KeyGenParameterSpec.Builder(
+                    ENCRYPTION_KEY_ALIAS,
+                    KeyProperties.PURPOSE_DECRYPT or KeyProperties.PURPOSE_ENCRYPT
+                )
                     .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
                     .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
                     .setKeySize(256)
-                    .build()
-            val keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, ANDROID_KEYSTORE)
-            keyGenerator.init(parameterSpec)
-            keyGenerator.generateKey()
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    // Naming the ordinary TEE rather than leaving it to a device that may report a
+                    // StrongBox it cannot reach and fail the generation for that reason.
+                    parameterSpec.setIsStrongBoxBacked(false)
+                }
+                val keyGenerator = KeyGenerator.getInstance(
+                    KeyProperties.KEY_ALGORITHM_AES,
+                    ANDROID_KEYSTORE
+                )
+                keyGenerator.init(parameterSpec.build())
+                return keyGenerator.generateKey()
+            } catch (t: Throwable) {
+                failure = t
+                // An alias that exists but cannot be read looks the same as one that is not there
+                // from the answer above, and generation then fails because the name is taken.
+                // Removing it is safe: a key that could not be read is not one this run can use,
+                // and the ciphertext it would have opened is unreadable either way.
+                runCatching { keyStore.deleteEntry(ENCRYPTION_KEY_ALIAS) }
+                if (attempt < 2) Thread.sleep(100)
+            }
         }
+        throw failure ?: IllegalStateException("AndroidKeyStore generated no key and gave no reason")
+    }
+
+    /**
+     * A key this app can always make.
+     *
+     * It is not hardware-backed and it sits beside the ciphertext, so it is not the protection the
+     * keystore is. It is what keeps a phone whose keystore cannot make an AES key able to start
+     * Shizuku at all: the ADB private key is still not stored as plain text, and both halves stay
+     * inside this app's sandbox.
+     */
+    private fun softwareEncryptionKey(): Key {
+        adbKeyStore.getString(PREF_SOFTWARE_KEY)?.let { stored ->
+            return SecretKeySpec(Base64.decode(stored, Base64.NO_WRAP), "AES")
+        }
+
+        val bytes = ByteArray(32)
+        SecureRandom().nextBytes(bytes)
+        adbKeyStore.putString(PREF_SOFTWARE_KEY, String(Base64.encode(bytes, Base64.NO_WRAP)))
+        return SecretKeySpec(bytes, "AES")
     }
 
     private fun encrypt(plaintext: ByteArray, aad: ByteArray?): ByteArray? {
@@ -276,6 +364,11 @@ interface AdbKeyStore {
     fun put(bytes: ByteArray)
 
     fun get(): ByteArray?
+
+    /** A value kept with the key, for the encryption mode and the software key itself. */
+    fun getString(key: String): String?
+
+    fun putString(key: String, value: String)
 }
 
 class PreferenceAdbKeyStore(private val preference: SharedPreferences) : AdbKeyStore {
@@ -289,6 +382,12 @@ class PreferenceAdbKeyStore(private val preference: SharedPreferences) : AdbKeyS
     override fun get(): ByteArray? {
         if (!preference.contains(preferenceKey)) return null
         return Base64.decode(preference.getString(preferenceKey, null), Base64.NO_WRAP)
+    }
+
+    override fun getString(key: String): String? = preference.getString(key, null)
+
+    override fun putString(key: String, value: String) {
+        preference.edit { putString(key, value) }
     }
 }
 
