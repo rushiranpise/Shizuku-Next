@@ -18,7 +18,7 @@
     <string name="home_wireless_adb_summary">تشغيل باستخدام تصحيح الأخطاء اللاسلكي.</string>
     <string name="home_usb_adb_title"><![CDATA[تشغيل عبر تصحيح أخطاء USB]]></string>
     <string name="home_usb_adb_summary">تشغيل عبر تصحيح أخطاء USB.</string>
-    <string name="home_support_body">\"Shizuku-Next\" مجاني تمامًا وبدون إعلانات. مساهمتك بـ\"شراء فنجان قهوة\" تساعد في تغطية الوقت اللازم لصيانة المشروع وتطويره.</string>
+    <string name="home_support_body">Shizuku-Next is free and has no ads. A coffee goes towards the time it takes to maintain.</string>
     <string name="diagnostics_title">التشخيص</string>
     <string name="diagnostics_copy">انسخ التشخيص</string>
     <string name="diagnostics_copied">تم نسخ التشخيص</string>
@@ -1366,6 +1366,8 @@ intent:#Intent;action=android.intent.action.VIEW;data=https://example.com;end
     <string name="lab_switch_is_off">%1$s معطل</string>
     <string name="lab_switch_could_not_change">%1$s لا يمكن تغييره</string>
     <string name="lab_switch_locked">اتاحة الهاتف لتغيير هذه السلسلة.</string>
+    <!-- The Labs screen that decides which of this app's quick settings tiles the system's tile
+         picker offers. -->
     <string name="app_info_version">الإصدار</string>
     <string name="app_info_uid">معرّف المستخدم (UID)</string>
     <string name="app_info_target_sdk">إصدار SDK المستهدف</string>

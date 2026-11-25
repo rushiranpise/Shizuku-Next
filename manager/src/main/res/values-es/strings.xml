@@ -481,7 +481,7 @@
     <string name="home_status_transport_label">Transporte</string>
     <string name="home_status_started_with">Actual</string>
     <string name="home_status_started_default">Predeterminado</string>
-    <string name="uid_label">Interfaz de Usuario</string>
+    <string name="uid_label">ID de usuario (UID)</string>
     <string name="uid_name_format">(%1$s)</string>
     <string name="uid_name_root">root</string>
     <string name="uid_name_system">sistema</string>
@@ -626,14 +626,14 @@
     <string name="action_pair">Emparejar</string>
     <string name="start_failed_pairing_required">Este dispositivo no está emparejado para la depuración inalámbrica. Vuelva a emparejarlo.</string>
     <string name="start_failed_connection_lost">La conexión ADB se cerró durante el inicio. Inténtelo de nuevo.</string>
-    <string name="start_failed_usb_no_port">No hay ningún puerto ADB local abierto; Android lo cierra en cada reinicio y volver a abrirlo requiere una conexión auxiliar. Conéctate a una red Wi-Fi y Shizuku lo reabrirá mediante depuración inalámbrica, ejecute <b>adb tcpip 5555</b> desde una computadora, o elija <b>Iniciar sin Wi-Fi</b> como método de inicio para hacerlo a través de la depuración inalámbrica.</string>
+    <string name="start_failed_usb_no_port">No hay ningún puerto ADB local abierto; Android lo cierra en cada reinicio y volver a abrirlo requiere una conexión auxiliar. Conéctese a una red Wi-Fi y Shizuku lo reabrirá mediante depuración inalámbrica, ejecute <b>adb tcpip 5555</b> desde una computadora, o elija <b>Iniciar sin Wi-Fi</b> como método de inicio para hacerlo a través de la depuración inalámbrica.</string>
     <string name="start_failed_usb_no_port_no_option">No hay ningún puerto ADB local abierto. Android lo cierra en cada reinicio y volver a abrirlo requiere una conexión de red auxiliar. Conéctese a una red Wi-Fi una vez o ejecute <b>adb tcpip 5555</b> desde una computadora.</string>
     <string name="start_failed_root_unavailable">Root ya no está disponible en este dispositivo, por lo que Shizuku no puede iniciarse mediante root. Elija otro método de inicio.</string>
     <string name="start_failed_adb_root">ADB root no está disponible. Active la depuración por USB en una compilación depurable o elija otro método de inicio.</string>
     <string name="start_failed_system_needs_app">El método de inicio del sistema debe iniciarse desde la aplicación.</string>
     <string name="start_failed_system_no_exploit">Este dispositivo no incluye el agente FOTA de Samsung (com.sdet.fotaagent), que es el único componente que puede usar el método de inicio del sistema, por lo que no hay ningún elemento con el que escalar privilegios aquí. Cambie el método de inicio del sistema a Comando personalizado: la aplicación le mostrará qué ejecutar con una elevación que su dispositivo sí tenga.</string>
     <string name="start_failed_no_binder">El servicio no apareció en el plazo de un minuto. Ambas partes guardan un registro: el iniciador bajo ShizukuServiceStarter y la transferencia bajo BinderSender. Un lector de logcat filtrado por esas dos etiquetas mostrará si el iniciador llegó a bifurcar el servidor y si este llegó a solicitar el binder.</string>
-    <string name="start_system_custom_intro">Eleve privilegios como pueda, con su propio exploit, una automatización o un shell de root, y ejecute este comando; inicie el servicio como el uid del sistema. La aplicación está esperando a que aparezca.</string>
+    <string name="start_system_custom_intro">Eleve privilegios como pueda, con su propio exploit, una automatización o un shell de root, y ejecute este comando; inicie el servicio como el UID del sistema. La aplicación está esperando a que aparezca.</string>
     <string name="start_system_custom_lookup">Ejecute este comando en un entorno donde el shell pueda consultar al gestor de paquetes. Resuelve la ruta del ejecutable en tiempo de ejecución, por lo que una actualización que lo mueva de sitio no invalidará el comando:</string>
     <string name="start_system_custom_plain">Y ejecute este otro donde no pueda hacerlo, el cual utiliza una ruta absoluta tal y como la aplicación la conoce en este momento:</string>
     <string name="start_system_custom_copied">Comando copiado al portapapeles.</string>
@@ -648,7 +648,7 @@
     <string name="settings_backup_export">Hacer copia de seguridad de la configuración</string>
     <string name="settings_backup_export_summary">Guarda los ajustes de la aplicación, las listas de Labs y los marcadores del shell en un archivo JSON.</string>
     <string name="settings_backup_restore">Restaurar configuración</string>
-    <string name="settings_backup_restore_summary">Reemplace la configuración de la aplicación y las listas de Labs desde un archivo de respaldo.</string>
+    <string name="settings_backup_restore_summary">Reemplaza la configuración de la aplicación y las listas de Labs desde un archivo de respaldo.</string>
     <string name="settings_backup_exported">Se han guardado %1$d configuraciones.</string>
     <string name="settings_backup_export_failed">No se pudo guardar la copia de seguridad.</string>
     <string name="settings_backup_unreadable">Ese archivo no es una copia de seguridad de la configuración de Shizuku.</string>
@@ -666,7 +666,7 @@
     <string name="settings_theme_dark">Oscuro</string>
     <string name="intents_description">Las aplicaciones de automatización pueden controlar Shizuku mediante estas difusiones (broadcasts). El token de autenticación debe proporcionarse en el extra \"auth\".</string>
     <string name="intents_require_token">Requiere el token de autenticación</string>
-    <string name="intents_require_token_summary">Las intents de inicio y detención requieren el token indicado a continuación. Desactive esta opción para enviarlas sin token.</string>
+    <string name="intents_require_token_summary">Los intents de inicio y detención requieren el token indicado a continuación. Desactive esta opción para enviarlas sin token.</string>
     <string name="intents_token">Token de autenticación</string>
     <string name="intents_copy">Copiar</string>
     <string name="intents_regenerate">Regenerar</string>
@@ -697,7 +697,7 @@
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Los usuarios han informado de que MIUI provoca fallos en el Storage Access Framework, que es utilizado por la función de exportación.</string>
     <string name="terminal_tutorial_miui_2">Si está usando MIUI, es posible que tenga que extraer el archivo de la carpeta assets del APK de Shizuku.</string>
-    <string name="terminal_tutorial_1">Toca para exportar los archivos a una nueva carpeta.</string>
+    <string name="terminal_tutorial_1">Toque para exportar los archivos a una nueva carpeta.</string>
     <string name="terminal_tutorial_1_description">Se exportarán dos archivos: %1$s y %2$s. Si los archivos ya existen en la carpeta seleccionada, se eliminarán.</string>
     <string name="terminal_tutorial_2">Utilice su aplicación de terminal para copiar los archivos en su directorio de archivos privados.</string>
     <string name="terminal_tutorial_2_description">Consejo: Si el directorio personal (~) de su aplicación de terminal se encuentra en el directorio de archivos privados, colocar allí los archivos le permitirá ejecutar %1$s sin tener que escribir la ruta.\n\nDe lo contrario, puede crear un alias para %2$s en el archivo de configuración %3$s de su aplicación de terminal.</string>
@@ -730,13 +730,13 @@
     <!-- Settings -->
     <string name="settings_start_on_boot">Iniciar al arrancar</string>
     <string name="settings_use_system_color">Usar el color del tema del sistema</string>
-    <string name="settings_use_system_color_summary">Seguir la paleta colores de del sistema</string>
+    <string name="settings_use_system_color_summary">Sigue la paleta del sistema</string>
     <string name="settings_always_show_navigation_bar">Mostrar siempre la barra de navegación</string>
-    <string name="settings_always_show_navigation_bar_summary">Mantenga la barra de pestañas visible cuando se desplaza hacia abajo.</string>
+    <string name="settings_always_show_navigation_bar_summary">Mantiene la barra de pestañas visible cuando se desplaza hacia abajo.</string>
     <string name="settings_show_scroll_to_top">Mostrar botón para desplazarse al inicio</string>
     <string name="settings_show_scroll_to_top_summary">Muestra el botón flotante que devuelve las listas largas al principio.</string>
     <string name="settings_secure_quick_tiles">Ajustes rápidos seguros</string>
-    <string name="settings_secure_quick_tiles_summary">Bloquee los cambios en los ajustes rápidos mientras el teléfono está bloqueado.</string>
+    <string name="settings_secure_quick_tiles_summary">Bloquea los cambios en los ajustes rápidos mientras el teléfono está bloqueado.</string>
     <string name="settings_require_grant_authentication">Confirmar permisos de aplicaciones</string>
     <string name="settings_require_grant_authentication_summary">Solicita datos biométricos o el bloqueo de pantalla antes de dar acceso a Shizuku a una aplicación.</string>
     <string name="settings_watchdog">Perro guardián</string>
@@ -780,8 +780,8 @@
     <string name="settings_system_start_method_exploit">Samsung (Agente FOTA)</string>
     <string name="settings_system_start_method_custom">Comando personalizado</string>
     <string name="home_system_title">Iniciar mediante el UID del sistema</string>
-    <string name="home_system_summary">Ejecutar Shizuku como usuario del sistema (UID 1000) en lugar de como adb: solo en dispositivos Samsung, a través del agente FOTA que incluyen esas compilaciones</string>
-    <string name="home_adb_command_summary">Iniciar Shizuku desde una computadora mediante ADB. Toque para copiar el comando</string>
+    <string name="home_system_summary">Ejecuta Shizuku como usuario del sistema (UID 1000) en lugar de como adb: solo en dispositivos Samsung, a través del agente FOTA que incluyen esas compilaciones</string>
+    <string name="home_adb_command_summary">Inicia Shizuku desde una computadora mediante ADB. Toque para copiar el comando</string>
     <string name="settings_tcp_mode">Modo TCP</string>
     <string name="settings_tcp_mode_summary">"Permite que Shizuku se reinicie sin Wi-Fi. (Shizuku debe haberse iniciado al menos una vez desde el reinicio del dispositivo)"</string>
     <string name="settings_tcp_mode_dialog_close_port">"El puerto TCP se cerrará de inmediato. Necesitará Wi-Fi para volver a activar el modo TCP. ¿Continuar?"</string>
@@ -793,16 +793,16 @@
     <string name="settings_restart_dialog_message_wifi_required"><![CDATA[<br><br><b>Se requiere Wi-Fi. Shizuku seguirá funcionando y esperará a que se conecte Wi-Fi antes de reiniciar en segundo plano.</b>]]></string>
     <string name="settings_tcp_port">Puerto TCP</string>
     <string name="settings_auto_disable_usb_debugging">Desactivar depuración USB</string>
-    <string name="settings_auto_disable_usb_debugging_summary">Desactivar depuración USB al detener Shizuku</string>
+    <string name="settings_auto_disable_usb_debugging_summary">Desactiva la depuración USB al detener Shizuku</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_language_system">Predeterminado del sistema</string>
     <string name="settings_black_night_theme">Negro AMOLED</string>
-    <string name="settings_black_night_theme_summary">Usar un tema negro puro en el modo oscuro</string>
+    <string name="settings_black_night_theme_summary">Usa un tema negro puro en el modo oscuro</string>
     <string name="settings_amoled_background_only">Solo fondo negro</string>
-    <string name="settings_amoled_background_only_summary">Mantener las tarjetas, cuadros de diálogo y menús en los colores oscuros habituales</string>
+    <string name="settings_amoled_background_only_summary">Mantiene las tarjetas, cuadros de diálogo y menús en los colores oscuros habituales</string>
     <string name="settings_accent_color">Color de acento</string>
     <string name="settings_accent_color_summary">Elegir una paleta de colores Material 3 cuando el color del sistema esté desactivado</string>
-    <string name="settings_palette_style">Estilo de la paleta de colores</string>
+    <string name="settings_palette_style">Estilo de la paleta</string>
     <string name="settings_palette_tonal_spot">Punto tonal</string>
     <string name="settings_palette_vibrant">Vibrante</string>
     <string name="settings_palette_expressive">Expresiva</string>
@@ -840,7 +840,7 @@
     <string name="permissions_accessibility_summary">Lee el código de emparejamiento automáticamente.</string>
     <string name="permissions_battery_summary">Previene que Android cierre el proceso de Skizuku en segundo plano.</string>
     <string name="permissions_pairing_service">Servicio de emparejamiento</string>
-    <string name="permissions_pairing_service_reason">Lee el código de emparejamiento.</string>
+    <string name="permissions_pairing_service_reason">Leer el código de emparejamiento.</string>
     <string name="permissions_pairing_service_restricted">Permitir configuraciones restringidas en la información de la aplicación.</string>
     <!--
       The guided first run. Each page is one decision, and the sentences say what happens rather
@@ -865,7 +865,7 @@
     <string name="settings_run_setup">Ejecutar la configuración nuevamente</string>
     <string name="settings_run_setup_summary">Los pasos de bienvenida: cómo se inicia Shizuku y qué necesita</string>
     <string name="settings_help">Ayuda</string>
-    <string name="settings_translate">Participe en la traducción</string>
+    <string name="settings_translate">Participar en la traducción</string>
     <string name="settings_translate_note">Traducir la aplicación en Crowdin.</string>
     <string name="crowdin_url">https://crowdin.com/project/Shizuku-Next</string>
     <string name="settings_report_bug">Informar de un error</string>
@@ -923,7 +923,7 @@
     <string name="snackbar_action_update">Actualizar</string>
     <!-- Updates -->
     <string name="check_for_updates">Comprobar actualizaciones</string>
-    <string name="update_latest_installed">Ya Cuentas Con la última versión</string>
+    <string name="update_latest_installed">Ya tiene la última versión</string>
     <string name="update_check_failed">No se puedieron comprobar las actualizaciones</string>
     <string name="update_check_offline">No se pudo conectar con GitHub. Compruebe su conexión y vuelva a intentarlo.</string>
     <string name="update_check_rate_limited">GitHub está limitando la frecuencia de las comprobaciones de actualizaciones. Inténtelo de nuevo más tarde.</string>
@@ -995,9 +995,9 @@
     <string name="shell_backend_root_status">Root, UID 0</string>
     <string name="shell_backend_offline">No hay ningún ejecutor de comandos activo</string>
     <string name="shell_backend_offline_short">Sin ejecutor</string>
-    <string name="shell_needs_a_backend">Inicia Shizuku o selecciona Root en un dispositivo rooteado: uno de los dos ejecuta los comandos. Root funciona aunque Shizuku esté detenido.</string>
+    <string name="shell_needs_a_backend">Inicie Shizuku o seleccione Root en un dispositivo rooteado: uno de los dos ejecuta los comandos. Root funciona aunque Shizuku esté detenido.</string>
     <string name="shell_intro">Se ejecuta con el mismo UID que Shizuku (2000 por ADB, 0 con root), por lo que accede a todo lo que ese UID permita: /sdcard, /system y los datos de las aplicaciones con root. Se abre en /sdcard y procesa un comando a la vez; al no tener una terminal asociada, los programas interactivos (como nano o una sesión SSH) no funcionarán aquí.</string>
-    <string name="shell_root_granted">Root está disponible: los comandos se ejecutarán como Iterfaz De Usuario 0.</string>
+    <string name="shell_root_granted">Root está disponible: los comandos se ejecutarán como UID 0.</string>
     <string name="shell_root_refused">Se denegó el acceso root, por lo que los comandos usarán Shizuku. Conceda acceso root a esta aplicación para usar Root.</string>
     <string name="shell_search">Buscar</string>
     <string name="shell_search_hint">Buscar</string>
@@ -1032,7 +1032,7 @@
     <string name="shell_bookmark_sort_newest">Más nuevo</string>
     <string name="shell_bookmark_sort_name">Nombre</string>
     <string name="shell_bookmark_empty">Nada guardado todavía. Escriba un comando y presione el botón de marcador para conservarlo.</string>
-    <string name="shell_quick_battery">Bateria</string>
+    <string name="shell_quick_battery">Batería</string>
     <string name="shell_quick_storage">Almacenamiento</string>
     <string name="shell_quick_device">Dispositivo</string>
     <string name="shell_quick_apps">Mis aplicaciones</string>
@@ -1289,6 +1289,10 @@
     <string name="lab_switch_is_off">%1$s está desactivado</string>
     <string name="lab_switch_could_not_change">%1$s no se pudo cambiar</string>
     <string name="lab_switch_locked">Desbloquee el teléfono para cambiar este ajuste rápido.</string>
+    <!-- The Labs screen that decides which of this app's quick settings tiles the system's tile
+         picker offers. -->
+    <string name="labs_quick_tiles">Ajustes rápidos</string>
+    <string name="quick_tiles_summary">Elegir qué mosaicos de Shizuku aparecen en el panel de ajustes rápidos. Al desactivar uno, también se eliminará del panel de notificaciones si ya está añadido.</string>
     <string name="app_info_version">Versión</string>
     <string name="app_info_uid">ID de usuario</string>
     <string name="app_info_target_sdk">SDK de destino</string>

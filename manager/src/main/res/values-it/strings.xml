@@ -1292,6 +1292,10 @@
     <string name="lab_switch_is_off">%1$s disattivato</string>
     <string name="lab_switch_could_not_change">%1$s non può essere modificato</string>
     <string name="lab_switch_locked">Sblocca il telefono per modificare questo riquadro.</string>
+    <!-- The Labs screen that decides which of this app's quick settings tiles the system's tile
+         picker offers. -->
+    <string name="labs_quick_tiles">Riquadri rapidi</string>
+    <string name="quick_tiles_summary">Scegli quali riquadri di Shizuku mostrare nel pannello delle impostazioni rapide. Disattivandone uno, viene rimosso dalla tendina anche se è già presente.</string>
     <string name="app_info_version">Versione</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">SDK target</string>

@@ -642,7 +642,7 @@
     <string name="start_system_custom_plain">A tento, kde to nemusí, což je absolutní cesta, jak to tato aplikace zná právě teď:</string>
     <string name="start_system_custom_copied">Příkaz zkopírován do schránky.</string>
     <string name="start_system_custom_copy_failed">Příkaz je výše, připraven ke kopírování ručně.</string>
-    <string name="settings_section_startup">Při startování</string>
+    <string name="settings_section_startup">Po spuštění</string>
     <string name="settings_section_startup_summary">Boot, hlídací pes a metoda startu</string>
     <string name="settings_section_wireless">Bezdrátové ladění</string>
     <string name="settings_section_wireless_summary">Bezdrátové ladění, TCP režim a ADB port</string>
@@ -1295,6 +1295,10 @@
     <string name="lab_switch_is_off">%1$s je vypnuto</string>
     <string name="lab_switch_could_not_change">%1$s nelze změnit</string>
     <string name="lab_switch_locked">Odemkněte telefon pro změnu této dlaždice.</string>
+    <!-- The Labs screen that decides which of this app's quick settings tiles the system's tile
+         picker offers. -->
+    <string name="labs_quick_tiles">Rychlé dlaždice</string>
+    <string name="quick_tiles_summary">Vyberte, které dlaždice Shizuku se mají zobrazovat v panelu rychlých nastavení. Vypnutím některé z nich se tato dlaždice odstraní i ze stínu, pokud se tam již nachází.</string>
     <string name="app_info_version">Verze</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">Target SDK</string>

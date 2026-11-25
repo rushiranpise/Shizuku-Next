@@ -1304,6 +1304,8 @@
     <string name="lab_switch_is_off">%1$s este oprit</string>
     <string name="lab_switch_could_not_change">%1$s nu a putut fi modificat</string>
     <string name="lab_switch_locked">Deblochează telefonul pentru a schimba această dală.</string>
+    <!-- The Labs screen that decides which of this app's quick settings tiles the system's tile
+         picker offers. -->
     <string name="app_info_version">Versiune</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">Target SDK</string>

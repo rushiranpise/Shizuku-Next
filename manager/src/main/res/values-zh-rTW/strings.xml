@@ -1086,6 +1086,8 @@
     <string name="lab_switch_is_on">%1$s 已開啟</string>
     <string name="lab_switch_is_off">%1$s 已關閉</string>
     <string name="lab_switch_could_not_change">無法變更 %1$s</string>
+    <!-- The Labs screen that decides which of this app's quick settings tiles the system's tile
+         picker offers. -->
     <string name="app_info_version">版本</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">目標 SDK</string>

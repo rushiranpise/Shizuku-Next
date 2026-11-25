@@ -777,6 +777,8 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
     <string name="home_switch_usb">Debugging USB</string>
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
+    <!-- The Labs screen that decides which of this app's quick settings tiles the system's tile
+         picker offers. -->
     <string name="app_info_uid">UID</string>
     <string name="app_info_updated">Updated</string>
     <string name="accessibility_boot">Mulai saat boot</string>

@@ -13,6 +13,7 @@
     <string name="home_wireless_adb_starting_without_wifi"></string>
     <string name="home_usb_adb_needs_network">Buppa255@gmail.com</string>
     <string name="home_usb_adb_needs_network_no_option">A USB start uses the classic ADB port, and reopening it needs a network. Connect to Wi-Fi once, or start from a computer with the ADB command in Other methods.</string>
+    <string name="home_wireless_adb_summary"></string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
@@ -246,6 +247,8 @@
          because three share one row; the tile picker spells them out in full. -->
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
+    <!-- The Labs screen that decides which of this app's quick settings tiles the system's tile
+         picker offers. -->
     <string name="accessibility_boot">เริ่มต้นเมื่อบูตเครื่อง</string>
     <string name="install_location_auto">ตัวเลือกสำหรับนักพัฒนาแอป</string>
 </resources>

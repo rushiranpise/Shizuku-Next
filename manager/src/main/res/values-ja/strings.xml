@@ -1276,6 +1276,8 @@
     <string name="lab_switch_is_off">%1$sはオフです</string>
     <string name="lab_switch_could_not_change">%1$sを変更できませんでした</string>
     <string name="lab_switch_locked">このタイルの設定を変更するには、端末のロックを解除してください。</string>
+    <!-- The Labs screen that decides which of this app's quick settings tiles the system's tile
+         picker offers. -->
     <string name="app_info_version">バージョン</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">ターゲット SDK</string>
