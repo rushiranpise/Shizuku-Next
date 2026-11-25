@@ -13,7 +13,6 @@
     <string name="home_wireless_adb_starting_without_wifi"></string>
     <string name="home_usb_adb_needs_network">Buppa255@gmail.com</string>
     <string name="home_usb_adb_needs_network_no_option">A USB start uses the classic ADB port, and reopening it needs a network. Connect to Wi-Fi once, or start from a computer with the ADB command in Other methods.</string>
-    <string name="home_wireless_adb_summary"></string>
     <!-- The platform says "not optimized" and Samsung says "unrestricted" for the same state,
          and "Battery optimization: not optimized" reads as a fault to anyone holding the phone.
          "unrestricted" says what the app did and what it is: left alone. -->
