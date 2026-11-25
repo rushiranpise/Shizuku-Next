@@ -730,8 +730,8 @@
     <string name="action_undo">Undo</string>
 
     <!-- Terminal -->
-    <string name="terminal_tutorial_miui">Users have reported that MIUI breaks the Storage Access Framework, which is used by the export function.</string>
-    <string name="terminal_tutorial_miui_2">If you are using MIUI, you may have to extract the file from the assets folder in Shizuku\'s APK.</string>
+    <string name="terminal_tutorial_miui">Users have reported that MIUI/HyperOs breaks the Storage Access Framework, which is used by the export function.</string>
+    <string name="terminal_tutorial_miui_2">If you are using MIUI/HyperOS, you may have to extract the file from the assets folder in Shizuku\'s APK.</string>
     <string name="terminal_tutorial_1">Tap to export the files to a new folder.</string>
     <string name="terminal_tutorial_1_description">Two files will be exported: %1$s and %2$s. If the files already exist in the selected folder, they will be deleted.</string>
     <string name="terminal_tutorial_2">Use your terminal app to copy the files to its private files directory.</string>
