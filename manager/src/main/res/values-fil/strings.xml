@@ -447,6 +447,8 @@
     <string name="home_switch_wireless">Awángkáwad na pagdepurá</string>
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
+    <!-- The Labs screen that decides which of this app's quick settings tiles the system's tile
+         picker offers. -->
     <string name="app_info_updated">Naiapdeyt</string>
     <string name="tab_wifi_passwords">Mga yabe ng Wi-Fi</string>
     <string name="accessibility_boot">Magsimula sa boot</string>

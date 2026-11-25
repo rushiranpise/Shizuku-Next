@@ -912,6 +912,8 @@
     <string name="home_switch_wireless">Debugowanie bezprzewodowe</string>
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
+    <!-- The Labs screen that decides which of this app's quick settings tiles the system's tile
+         picker offers. -->
     <string name="app_info_version">Wersja</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">Target SDK</string>

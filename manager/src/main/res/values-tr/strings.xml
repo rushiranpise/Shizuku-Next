@@ -556,6 +556,7 @@
     <string name="modules_install_from_file">Dosyadan yükle</string>
     <string name="modules_install_title">Modül yükle</string>
     <string name="modules_settings">Modüller</string>
+    <string name="modules_settings_item">Modül ayarları</string>
     <string name="modules_settings_summary">Bir modülün ne yapabileceği ve ne kadar emin olmak istediğiniz</string>
     <string name="modules_access_full_summary_short">Hizmetler ve WebUI kabuk köprüsü</string>
     <string name="modules_allow_background_summary_short">Gözetimsiz çalışan bir servis script\'i</string>
@@ -754,6 +755,8 @@
     <string name="settings_use_system_color_summary">Sistem paletini takip et</string>
     <string name="settings_always_show_navigation_bar">Gezinme çubuğunu her zaman göster</string>
     <string name="settings_always_show_navigation_bar_summary">Aşağıya kaydırdığınızda gezinme çubuğunu görünür halde tutun.</string>
+    <string name="settings_show_scroll_to_top">En üste kaydırma düğmesini göster</string>
+    <string name="settings_show_scroll_to_top_summary">Uzun listelerde en üste götüren kayan düğmeyi gösterir.</string>
     <string name="settings_secure_quick_tiles">Güvenli hızlı ayarlar kutuları</string>
     <string name="settings_secure_quick_tiles_summary">Telefon kilitlendiğinde hızlı ayarlar kutularının değiştirilmesini önle.</string>
     <string name="settings_require_grant_authentication">Uygulama izinlerini onayla</string>
@@ -939,6 +942,9 @@
         optimizasyonunu devre dışı bırakın.</string>
     <string name="snackbar_action_fix">Düzeltmek</string>
     <string name="snackbar_update_available">Yeni bir güncelleme mevcut</string>
+    <string name="update_notification_channel">Uygulama güncellemeleri</string>
+    <string name="update_notification_title">Shizuku güncellemesi mevcut</string>
+    <string name="update_notification_text">%1$s sürümü mevcut. Shizuku\'yu açmak için dokunun.</string>
     <string name="snackbar_action_update">Güncelle</string>
     <!-- Updates -->
     <string name="check_for_updates">Güncellemeleri denetle</string>
@@ -1012,6 +1018,7 @@
     <string name="shell_backend_shizuku">Shizuku</string>
     <string name="shell_backend_root">Root</string>
     <string name="shell_backend_shizuku_status">Shizuku, uid %1$d</string>
+    <string name="shell_backend_shizuku_status_short">uid %1$d</string>
     <string name="shell_backend_root_status">Root, uid 0</string>
     <string name="shell_backend_offline">Aktif bir komut çalıştırıcı yok</string>
     <string name="shell_needs_a_backend">Shizuku\'yu başlatın veya root\'lu bir cihazda Root\'u seçin: Komutları bu ikisinden biri çalıştırır. Root, Shizuku durdurulmuş olsa bile çalışır.</string>
@@ -1146,7 +1153,7 @@
     <string name="manage_bulk_confirm_op">Uygulama eylemi: %1$s</string>
     <string name="manage_bulk_confirm_mode">Mod: %1$s</string>
     <string name="manage_bulk_confirm_targets">Uygulamalar: %1$d</string>
-    <string name="manage_bulk_confirm_warning">Bu değişiklikler anında uygulandı. Bazı uygulamalar eylemi reddedebilir.</string>
+    <string name="manage_bulk_confirm_warning">Bu değişiklikler anında uygulanır. Bazı uygulamalar eylemi reddedebilir.</string>
     <string name="manage_bulk_progress_title">Uygulama eylemi uygulanıyor</string>
     <string name="manage_bulk_progress">%1$d/%2$d değiştiriliyor...</string>
     <string name="manage_bulk_result_title">Toplu sonuç</string>
@@ -1288,7 +1295,7 @@
     <!-- The switches in the shade and on the home screen that are not about one app. -->
     <string name="lab_switch_service">Shizuku servisi</string>
     <string name="lab_switch_hiding">Gizleme</string>
-    <string name="lab_switch_watchdog">Bekçi köpeği</string>
+    <string name="lab_switch_watchdog">Watchdog</string>
     <!-- The three platform settings themselves, and the hiding switches that are about the same
          three settings. Named apart so a shade with both in it does not ask which is which. -->
     <string name="lab_switch_developer_options">Geliştirici seçenekleri</string>
@@ -1309,6 +1316,10 @@
     <string name="lab_switch_is_off">%1$s kapalı</string>
     <string name="lab_switch_could_not_change">%1$s değiştirilemez</string>
     <string name="lab_switch_locked">Bu kutuyu değiştirmek için telefonun kilidini açın.</string>
+    <!-- The Labs screen that decides which of this app's quick settings tiles the system's tile
+         picker offers. -->
+    <string name="labs_quick_tiles">Hızlı ayarlar kutuları</string>
+    <string name="quick_tiles_summary">Shizuku kutularının hangilerinin hızlı ayarlar panelinde görüneceğini seçin. Birini kapatmak, eğer zaten oradaysa panelden de kaldırır.</string>
     <string name="app_info_version">Sürüm</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">Hedef SDK</string>

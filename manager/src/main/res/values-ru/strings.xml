@@ -130,6 +130,7 @@
     <string name="apps_needs_shizuku">Запустите Shizuku, чтобы увидеть приложения</string>
     <string name="apps_empty">Нет приложений для отображения</string>
     <string name="apps_filter_empty">В этом фильтре нет приложений</string>
+    <string name="apps_filter_title">Фильтр приложений</string>
     <string name="apps_filter_all">all</string>
     <string name="apps_filter_granted">Предоставлены</string>
     <string name="apps_filter_revoked">Отозваны</string>
@@ -144,6 +145,7 @@
     <string name="apps_process_api">API %1$d</string>
     <string name="apps_process_allowed">Разрешено</string>
     <string name="apps_process_not_allowed">Не разрешено</string>
+    <string name="apps_status_one_time">Один раз</string>
     <string name="apps_process_stop">Остановить процесс</string>
     <string name="apps_process_stop_title">Остановить процесс?</string>
     <string name="apps_process_stop_message">Остановить PID %1$d для %2$s? Приложение может запустить его снова.</string>
@@ -539,6 +541,7 @@
     <string name="modules_install_from_file">Установить из файла</string>
     <string name="modules_install_title">Установить модуль</string>
     <string name="modules_settings">Модули</string>
+    <string name="modules_settings_item">Настройки модулей</string>
     <string name="modules_settings_summary">Что модуль может делать и насколько вы ему доверяете</string>
     <string name="modules_access_full_summary_short">Сервисы и мост WebUI shell</string>
     <string name="modules_allow_background_summary_short">Служебный скрипт, работающий без присмотра</string>
@@ -636,9 +639,21 @@
     <string name="settings_section_startup">Запуск</string>
     <string name="settings_section_wireless">Отладка по Wi-Fi</string>
     <string name="settings_section_tools">Инструменты</string>
+    <string name="settings_backup_section">Сохранение и восстановление</string>
+    <string name="settings_backup_export">Сохранить настройки</string>
+    <string name="settings_backup_export_summary">Сохранить настройки приложения, список лабораторных настроек и Shell закладки в JSON файл.</string>
     <string name="settings_backup_restore">Восстановить настройки</string>
+    <string name="settings_backup_restore_summary">Заменить настройки приложения, лабораторные листы и Shell закладки из файла сохранения.</string>
+    <string name="settings_backup_exported">Сохранено %1$d настроек.</string>
+    <string name="settings_backup_export_failed">Невозможно сохранить файл.</string>
+    <string name="settings_backup_unreadable">Этот файл не Shizuku бэкап.</string>
+    <string name="settings_backup_restore_title">Восстановить настройки?</string>
+    <string name="settings_backup_restore_message">Это изменит %1$d настроек и листов.</string>
     <string name="settings_backup_restore_action">Восстановить</string>
+    <string name="settings_backup_restored">Восстановлено %1$d настроек. Пожалуйста, перезапустите Shizuku, чтобы применить настройки.</string>
+    <string name="settings_backup_restore_failed">Невозможно восстановить бэкап.</string>
     <string name="settings_section_appearance">Внешний вид</string>
+    <string name="settings_section_appearance_summary">Тема, цвета, языки и нижняя панель навигации приложения</string>
     <string name="settings_section_about">О приложении</string>
     <string name="settings_theme">Тема</string>
     <string name="settings_theme_system">Как в системе</string>
@@ -711,6 +726,10 @@
     <string name="settings_start_on_boot">Запуск при загрузке</string>
     <string name="settings_use_system_color">Использовать системный цвет темы</string>
     <string name="settings_use_system_color_summary">Следовать системной палитре</string>
+    <string name="settings_always_show_navigation_bar">Всегда показывать панель навигации приложения</string>
+    <string name="settings_always_show_navigation_bar_summary">Оставляет панель навигации приложения когда вы листаете.</string>
+    <string name="settings_show_scroll_to_top">Показать кнопку наверх</string>
+    <string name="settings_show_scroll_to_top_summary">Показывает плавучую кнопу которая возвращает начало страницы.</string>
     <string name="settings_watchdog">Системный таймер</string>
     <string name="settings_watchdog_summary">Автоматически перезапускать Shizuku после сбоев</string>
     <string name="settings_auto_disable_wireless_debugging">Отключить беспроводную отладку</string>
@@ -767,6 +786,19 @@
     <string name="settings_language_system">Системный по умолчанию</string>
     <string name="settings_black_night_theme">Чёрный AMOLED</string>
     <string name="settings_black_night_theme_summary">Использовать чисто чёрную тему в тёмном режиме</string>
+    <string name="settings_accent_color">Акцентный цвет</string>
+    <string name="settings_palette_monochrome">Монохром</string>
+    <string name="settings_accent_indigo">Индиго</string>
+    <string name="settings_accent_purple">Фиолетовый</string>
+    <string name="settings_accent_blue">Синий</string>
+    <string name="settings_accent_teal">Бирюзовый</string>
+    <string name="settings_accent_green">Зелёный</string>
+    <string name="settings_accent_orange">Оранжевый</string>
+    <string name="settings_accent_pink">Розовый</string>
+    <string name="settings_accent_custom">Цвет HEX...</string>
+    <string name="settings_accent_custom_title">Кастомный акцентный цвет</string>
+    <string name="settings_accent_custom_hint">Введите 6 цифровой HEX код, для примера #3F51B5</string>
+    <string name="settings_high_contrast">Высокая контрастность</string>
     <string name="settings_update_stable">Стабильная</string>
     <string name="settings_update_beta">Для разработчиков</string>
     <string name="settings_permissions">Разрешения</string>
@@ -788,7 +820,11 @@
       The guided first run. Each page is one decision, and the sentences say what happens rather
       than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
     -->
+    <string name="setup_step">Шаг %1$d/%2$d</string>
+    <string name="setup_action_skip">Пропустить</string>
     <string name="setup_action_continue">Продолжить</string>
+    <string name="setup_action_done">Готово</string>
+    <string name="setup_welcome_title">Добро пожаловать в Shizuku-Next</string>
     <string name="setup_wireless_title">Отладка по Wi-Fi</string>
     <string name="setup_usb_title">Отладка по USB</string>
     <string name="settings_help">Справка</string>
@@ -908,7 +944,13 @@
     <string name="wadb_permission_error_notification_content">Для включения беспроводной отладки Shizuku требуется WRITE_SECURE_SETTINGS. Нажмите, чтобы узнать, как выдать это разрешение.</string>
     <!-- Shell -->
     <string name="shell_title">Терминал</string>
+    <string name="shell_backend_shizuku">Shizuku</string>
+    <string name="shell_backend_root">Root</string>
+    <string name="shell_backend_shizuku_status">Shizuku, uid %1$d</string>
+    <string name="shell_backend_shizuku_status_short">uid %1$d</string>
+    <string name="shell_backend_root_status">Root, uid 0</string>
     <string name="shell_backend_offline">Нет активного исполнителя команд</string>
+    <string name="shell_backend_offline_short">Без</string>
     <string name="shell_needs_a_backend">Запустите Shizuku или выберите Root на устройстве с Root-доступом: команды выполняет одно из этих двух. Root работает и при остановленном Shizuku.</string>
     <string name="shell_intro">Команды выполняются от того uid, под которым работает Shizuku (2000 через adb, 0 с root), поэтому доступно всё, что доступно этому uid: /sdcard, /system, а с root — и данные приложений. Стартовый каталог — /sdcard, команды выполняются по одной; позади них нет tty, поэтому программы, которым нужен терминал (nano, сеанс ssh), здесь не запустятся.</string>
     <string name="shell_root_granted">Root доступен: команды выполняются от uid 0.</string>
@@ -970,6 +1012,8 @@
     <string name="shell_stop">Остановить</string>
     <string name="shell_clear">Очистить</string>
     <string name="shell_copy">Копировать</string>
+    <string name="shell_copy_too_large">Лог слишком большой, чтобы скопировать. Используйте вместо этого сохранение.</string>
+    <string name="shell_copy_failed">Невозможно скопировать лог. Используйте сохранение.</string>
     <string name="shell_history_previous">Предыдущая команда</string>
     <string name="shell_history_next">Следующая команда</string>
     <!-- Watchdog -->
@@ -990,6 +1034,7 @@
     <string name="off">Выкл</string>
     <string name="dialog_cannot_open_browser_title">Не удалось открыть браузер</string>
     <string name="toast_copied_to_clipboard">Скопировано в буфер обмена</string>
+    <string name="toast_press_back_again">Нажмите назад снова, чтобы выйти</string>
     <string name="accessibility_service_description">Выполняет сопряжение с беспроводной отладкой без ввода кода.\n\nShizuku считывает код сопряжения и порт с экрана «Сопряжение с устройством», выполняет сопряжение и запускается сам. На телевизорах (например, с Android 14+) он ведёт весь процесс и отключается, когда код найден.</string>
     <!-- Messages for legacy -->
     <string name="dialog_legacy_not_support_title">%1$s не поддерживает современный Shizuku</string>
@@ -1019,12 +1064,21 @@
     <string name="manage_status_disabled">disabled</string>
     <string name="manage_status_suspended">suspend</string>
     <string name="manage_status_hidden">hide</string>
+    <string name="manage_select">Выбранные приложения</string>
+    <string name="manage_select_all">Выберете всё показанное</string>
+    <string name="manage_clear_selection">Снять выбор</string>
+    <string name="manage_selection_close">Закрыть выбор</string>
     <string name="manage_selected_count">Выбрано: %1$d</string>
+    <string name="manage_bulk_action">Установить права приложению</string>
+    <string name="manage_bulk_title">Права приложения</string>
     <string name="manage_pin_app">Закрепить приложение</string>
     <string name="manage_unpin_app">Открепить приложение</string>
+    <string name="manage_bulk_mode">Режим</string>
+    <string name="manage_bulk_review">Осмотр</string>
     <string name="manage_bulk_apply">Применить</string>
     <string name="manage_bulk_progress">Изменение %1$d из %2$d...</string>
     <string name="manage_bulk_result_summary">Изменено: %1$d, не удалось: %2$d.</string>
+    <string name="manage_bulk_done_action">Готово</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_detail_missing">Это приложение больше не установлено.</string>
     <string name="app_open_info">О приложении</string>
@@ -1155,6 +1209,8 @@
     <string name="lab_switch_is_on">%1$s: вкл.</string>
     <string name="lab_switch_is_off">%1$s: выкл.</string>
     <string name="lab_switch_could_not_change">%1$s: изменить не удалось</string>
+    <!-- The Labs screen that decides which of this app's quick settings tiles the system's tile
+         picker offers. -->
     <string name="app_info_version">Версия</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">Целевой SDK</string>
