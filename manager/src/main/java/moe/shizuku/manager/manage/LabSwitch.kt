@@ -154,8 +154,8 @@ enum class LabSwitch(
 
         WATCHDOG -> ShizukuSettings.getWatchdog()
 
-        // The platform's own settings. Read through EnvironmentUtils for the three Android 17
-        // redacts; their raw value would read as off.
+        // The platform's own settings. Android 17 redacts the raw read, so ask the shell for
+        // the value it actually holds; where that cannot answer, the state is unknown.
         DEVELOPER_OPTIONS -> readPlatformSwitch(
             EnvironmentUtils.isDeveloperOptionsSwitchOn()
         )
@@ -229,13 +229,34 @@ enum class LabSwitch(
         }
     }
 
-    /** Uses this process's last redacted write, if there is one, instead of the assumed read. */
-    private fun readPlatformSwitch(read: Boolean): Boolean {
+    /**
+     * The switch's actual state.
+     *
+     * On Android 17 the three settings read as a redacted 0, so [read] is not an answer there.
+     * The shell can still read them, and the server is shell, so ask it; only when that fails is
+     * the state unknown rather than assumed on. A redacted 0 was being reported as on, which is
+     * how a phone with USB debugging off showed it on.
+     */
+    private fun readPlatformSwitch(read: Boolean): Boolean? {
         val key = settingKey
         return if (key != null && EnvironmentUtils.isDebugSwitchReadRedacted(key)) {
-            redactedWrite ?: read
+            redactedWrite ?: readFromShell(key)
         } else {
             read
+        }
+    }
+
+    /** The real value of a redacted setting through the server, or null when it cannot be read. */
+    private fun readFromShell(key: String): Boolean? {
+        // A shell call blocks until the server answers, so the main thread must not wait for it.
+        if (Looper.myLooper() == Looper.getMainLooper()) return null
+        val value = runCatching { runShellCommand("settings get global $key") }
+            .getOrNull()
+            ?.trim()
+        return when (value) {
+            "1" -> true
+            "0" -> false
+            else -> null
         }
     }
 

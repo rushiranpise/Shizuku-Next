@@ -171,9 +171,9 @@ fun HomeScreen(bottomPadding: Dp) {
     val wirelessSupported = remember { StartMethodGuard.supportsWirelessDebugging() }
     var developerOptionsOn by remember { mutableStateOf(context.isDeveloperOptionsEnabled()) }
     // The three platform switches, read through the same objects the tiles and widgets use.
-    // Android 17 redacts them to 0, and those objects treat the redaction as on. Read again
-    // on resume and after every tap, so the buttons show the platform's answer rather than the last
-    // thing this screen asked for.
+    // Android 17 redacts the raw read; those objects ask the shell for the real value, off the
+    // main thread. Read again on resume and after every tap, so the buttons show the phone's
+    // state rather than the last thing this screen asked for.
     var devOptions by remember { mutableStateOf(LabSwitch.DEVELOPER_OPTIONS.isOn() ?: false) }
     var usbDebugging by remember { mutableStateOf(LabSwitch.USB_DEBUGGING.isOn() ?: false) }
     var wirelessDebugging by remember {
@@ -278,9 +278,6 @@ fun HomeScreen(bottomPadding: Dp) {
         running = ShizukuStateMachine.isRunning()
         batteryIgnored = SettingsHelper.isIgnoringBatteryOptimizations(context)
         developerOptionsOn = context.isDeveloperOptionsEnabled()
-        devOptions = LabSwitch.DEVELOPER_OPTIONS.isOn() ?: false
-        usbDebugging = LabSwitch.USB_DEBUGGING.isOn() ?: false
-        wirelessDebugging = LabSwitch.WIRELESS_DEBUGGING.isOn() ?: false
         // Not the watch being up, which is a different question with two other answers: it is up
         // for force dark as well, and up for a list that a mode has been switched off around.
         // Only hiding that is armed and live makes the warning under it true.
@@ -313,6 +310,11 @@ fun HomeScreen(bottomPadding: Dp) {
         }
 
         withContext(Dispatchers.IO) {
+            // The redacted switches ask the shell, so they are read here rather than on the
+            // main thread.
+            devOptions = LabSwitch.DEVELOPER_OPTIONS.isOn() ?: false
+            usbDebugging = LabSwitch.USB_DEBUGGING.isOn() ?: false
+            wirelessDebugging = LabSwitch.WIRELESS_DEBUGGING.isOn() ?: false
             // Reset rather than keep: the card must not show the uid of a server that is
             // gone.
             uid = if (running) runCatching { Shizuku.getUid() }.getOrDefault(-1) else -1
