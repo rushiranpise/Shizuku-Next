@@ -65,6 +65,7 @@
     <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
          a translation of dialog_adb_pairing_message would still tell the user to type the code
          into a notification that this flow never shows. Untranslated locales fall back here. -->
+    <string name="dialog_adb_pairing_message_manual">Lütfen aşağıdaki adımları uygulayarak eşleştirme işlemini başlatın:\n- \"Geliştirici seçenekleri\" bölümüne gidin.\n- \"USB hata ayıklama\" ve \"Kablosuz hata ayıklama\" seçeneklerini etkinleştirin.\n- \"Kablosuz hata ayıklama\" seçeneğinin sol tarafına dokunun.\n- \"Eşleştirme koduyla cihaz eşleştir\" seçeneğine dokunun.\n- Görüntülenen kodu ve bağlantı noktasını aşağıdaki alanlara girin.\n\nEşleştirme işlemi tamamlanana kadar bu pencereyi açık tutun. Geri döndüğünüzde kod kayboluyorsa cihazınız destekliyorsa bölünmüş ekran modunu kullanın.</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -74,6 +75,7 @@
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
     <string name="dialog_adb_pairing_accessibility_permission_tv">Android, uygulama mağazası dışında yüklenen uygulamalar için bu ayarı engeller ve TV\'de Uygulama Bilgileri uygulamasında bunu engellemek için \"Kısıtlı ayarları etkinleştir\" seçeneği bulunmaz. Bu TV\'ye ADB üzerinden bağlı bir bilgisayar gereklidir</string>
+    <string name="dialog_adb_pairing_accessibility_enable_watch">Otomatik eşleştirme sistem dialoğundan kodu okur, bu yüzden shizuku\'nun erişebilirlik servisi açık olmalı. Sonraki ekrandan açın\n\n eğer şalter gri renginde ve çalışmıyorsa, uygulama bilgilerini açın ve kısıtlanmış ayarlar seçeneğini aktif edin.</string>
     <string name="dialog_adb_pairing_open_app_info">Uygulama bilgileri</string>
     <string name="dialog_adb_pairing_accessibility_enable">Otomatik eşleştirme, kodu Shizuku\'nun erişilebilirlik hizmeti aracılığıyla sistem diyalog penceresinden okur; bu nedenle etkinleştirilmesi gerekir ve yalnızca gerektiği süre boyunca çalışır: kod bulunduğunda veya güç tasarrufu için bir dakika sonra hizmet kendiliğinden kapanır. Shizuku bunu normalde kendi kendine etkinleştirir ve bu da temiz bir kurulumda henüz verilmemiş olan WRITE_SECURE_SETTINGS iznini gerektirir.\n\nSonraki ekranda etkinleştirin, Manual altında kodu kendiniz yazın veya izni bir kez verin:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">Lütfen aşağıdaki adımları uygulayarak
@@ -91,6 +93,7 @@
     <string name="adb_pair_required">Lütfen önce eşleştirme adımını uygulayın.</string>
     <string name="enable">Etkinleştir</string>
     <string name="auto_pair_instructions">Kod yazmadan eşleştirin:\n\n1. Geliştirici seçenekleri → Kablosuz hata ayıklama\n2. Cihazı eşleme koduyla eşleştir\n\nShizuku, kodu ve portu doğrudan o pencereden okur ve kendini otomatik başlatır. Eşleşme tamamlanana kadar pencereyi açık tutun.</string>
+    <string name="auto_pair_instructions_watch">Shizuku geliştirici seçeneklerini sonrada kablosuz hata ayıklama\'yı açar, ve başlar. Lütfen sistem diyaloğunu işlem başarılı olana kadar açık tutun.</string>
     <string name="auto_pair_manual">Manuel</string>
     <string name="adb_pairing_developer_options">Geliştirici seçenekleri</string>
     <string name="development_settings">Geliştirici seçenekleri</string>
@@ -148,6 +151,7 @@
     <string name="apps_needs_shizuku">Uygulamaları görmek için Shizuku\'yu başlatın</string>
     <string name="apps_empty">Gösterilecek uygulama yok</string>
     <string name="apps_filter_empty">Bu filtreyle eşleşen uygulama bulunamadı</string>
+    <string name="apps_filter_title">Uygulamaları filtrele</string>
     <string name="apps_filter_all">Tümü</string>
     <string name="apps_filter_granted">İzin verildi</string>
     <string name="apps_filter_revoked">İzin geri alındı</string>
@@ -156,6 +160,7 @@
     <string name="app_management_sort_last_added">Son eklenenler</string>
     <string name="app_management_sort_updated">Güncellenenler</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_sort_keep_in_place">Uygulamaları yerinde tut</string>
     <string name="apps_processes_show">%1$d işlemi göster</string>
     <string name="apps_processes_hide">%1$d işlemi gizle</string>
     <string name="apps_process_pid">PID %1$d</string>
@@ -1082,6 +1087,8 @@
     <string name="shell_stop">Durdur</string>
     <string name="shell_clear">Temizle</string>
     <string name="shell_copy">Kopyala</string>
+    <string name="shell_copy_too_large">Çıkış mesajı kopyalamak için çok zor. Lütfen kaydetin.</string>
+    <string name="shell_copy_failed">Kopyalama başarısız. Lütfen kaydetin.</string>
     <string name="shell_history_previous">Önceki komut</string>
     <string name="shell_history_next">Sonraki komut</string>
     <!-- Watchdog -->

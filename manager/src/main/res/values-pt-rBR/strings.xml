@@ -1360,7 +1360,7 @@
     <string name="wifi_passwords_forget_all">Esquecer todas as redes</string>
     <string name="wifi_passwords_forget_all_message">Todas as redes salvas serão esquecidas, isso não pode ser desfeito.</string>
     <string name="wifi_passwords_forgot_all">%1$d redes esquecidas</string>
-    <string name="wifi_passwords_action_failed">A ação falhou. Consulte o log. para ver detalhes.</string>
+    <string name="wifi_passwords_action_failed">A ação falhou. Consulte o log para mais detalhes.</string>
     <string name="wifi_backup_export">Exportar redes</string>
     <string name="wifi_backup_import">Importar redes</string>
     <string name="wifi_backup_export_message">Salva suas redes e senhas em um arquivo. Você pode proteger o arquivo com uma senha. Sem a senha, o arquivo não pode ser aberto.</string>

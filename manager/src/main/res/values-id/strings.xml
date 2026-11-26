@@ -165,6 +165,8 @@
     <string name="app_management_sort_updated">Updated</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
     <string name="apps_sort_keep_in_place">Biarkan aplikasi tetap terpasang</string>
+    <string name="apps_processes_show">Show %1$d process(es)</string>
+    <string name="apps_processes_hide">Hide %1$d process(es)</string>
     <string name="apps_process_pid">PID %1$d</string>
     <string name="apps_process_api">API %1$d</string>
     <string name="apps_process_allowed">Diizinkan</string>
@@ -172,6 +174,7 @@
     <string name="apps_status_one_time">Sekali saja</string>
     <string name="apps_process_stop">Berhentikan proses</string>
     <string name="apps_process_stop_title">Hentikan proses?</string>
+    <string name="apps_process_stop_message">Stop PID %1$d for %2$s? The app may start it again.</string>
     <string name="apps_process_stop_failed">Tidak bisa menghentikan prosesnya.</string>
     <string name="apps_processes_title">Proses terlampir (%1$d)</string>
     <plurals name="apps_processes_count">
@@ -564,39 +567,88 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
     <string name="modules_settings">Modules</string>
     <string name="modules_settings_item">Pengaturan modul</string>
     <string name="modules_settings_summary">Apa yang dapat dilakukan oleh sebuah modul, dan seberapa yakin Anda ingin memastikannya</string>
+    <string name="modules_access_full_summary_short">Services and the WebUI shell bridge</string>
+    <string name="modules_allow_background_summary_short">A service script running unwatched</string>
     <string name="modules_catalog_install">Pasang</string>
     <string name="modules_catalog_installing">Memasang</string>
+    <string name="modules_catalog_no_releases">This repository has no releases.</string>
     <string name="modules_catalog_installed">Terpasang</string>
     <string name="modules_card_line">Versi:%1$s-%2$s</string>
     <string name="modules_card_version">Versi:%1$s</string>
     <string name="modules_card_author">Pembuat:%1$s</string>
+    <string name="modules_card_id">ID: %1$s</string>
     <string name="modules_disabled">Disabled</string>
+    <string name="modules_error_set_enabled">The module could not be switched on or off: its directory is not writable.</string>
     <string name="modules_trust">Aman</string>
     <string name="modules_untrust">Tidak Aman</string>
     <string name="modules_full_trust">Sangat Aman</string>
+    <string name="modules_trust_confirm">Trust %1$s?</string>
+    <string name="modules_trust_confirm_message">Its commands run without being shown to you first, whether they come from its action, its service or its WebUI. Everything else stays as it is: the module is still switched off with its switch, and its output is still capped and still stops on the clock. Only trust a module you have read and understand.</string>
     <string name="module_update_available">Pembaruan Tersedia</string>
     <string name="modules_update">Pembaruan</string>
     <string name="modules_sort">Sort</string>
     <string name="modules_sort_a_to_z">Nama (A-Z)</string>
+    <string name="modules_sort_z_to_a">Name (Z-A)</string>
     <string name="modules_sort_size_low_to_high">Ukuran (kecil duluan)</string>
     <string name="modules_sort_size_high_to_low">Ukuran (besar duluan)</string>
+    <string name="modules_sort_enabled_first">Enabled first</string>
+    <string name="modules_sort_action_first">With an action first</string>
+    <string name="modules_sort_webui_first">With a WebUI first</string>
     <string name="modules_action_stop">Berhenti</string>
     <string name="modules_web_ui_short">WebUI</string>
     <string name="modules_action_short">Aksi</string>
     <string name="modules_service_short">Layanan</string>
     <string name="modules_service_running_short">Running</string>
+    <string name="modules_summary">Add features to Shizuku with modules from the community</string>
+    <string name="modules_warning">A module is somebody else\'s shell script, and it runs through Shizuku with the same access Shizuku has. Install only what you trust, and read the commands it asks to run.</string>
+    <string name="modules_none">No modules installed yet.</string>
     <string name="modules_search">Cari modul</string>
     <string name="modules_no_match">Tidak ada modul yang cocok.</string>
     <string name="modules_install">Instal dari modul</string>
     <string name="modules_installed">Terinstal %1$s</string>
+    <string name="modules_access_full">Full access</string>
+    <string name="modules_access_full_summary">Lets modules run service scripts and use the WebUI shell bridge. Without it, only actions run.</string>
     <string name="modules_allow_background">Izinkan Aktivitas Latar Belakang</string>
+    <string name="modules_allow_background_summary">Lets a module\'s service script run with nobody watching it.</string>
+    <string name="modules_row_summary">%1$s - %2$s</string>
     <string name="modules_action_run">Jalankan Tindakan</string>
     <string name="modules_service_start">Mulai Layanan</string>
     <string name="modules_service_stop">Layanan Berhenti</string>
     <string name="modules_web_ui">Buka Antarmuka Pengguna Weeb</string>
     <string name="modules_delete">Hapus</string>
+    <string name="modules_delete_confirm">Delete %1$s?</string>
+    <string name="modules_delete_confirm_message">The module and everything in its directory are removed, logs included.</string>
+    <string name="modules_review_title">Run this command?</string>
+    <string name="modules_review_message">%1$s asked Shizuku to run:</string>
+    <string name="modules_review_approve">Run it</string>
+    <string name="modules_review_trust">Trust %1$s, and stop asking</string>
+    <string name="modules_result_title">%1$s</string>
+    <string name="modules_result_exit">Exit code %1$d</string>
+    <string name="modules_error_not_a_module">That file is not a module: its module.prop is missing or unusable.</string>
+    <string name="modules_error_unsafe_path">That module tried to write outside its own directory, so it was refused.</string>
+    <string name="modules_error_too_many_entries">That module has more files than a module may have, so it was refused.</string>
+    <string name="modules_error_too_large">That module unpacks to more than a module may, so it was refused.</string>
+    <string name="modules_error_script_too_large">A script in that module is larger than a script may be, so it was refused.</string>
+    <string name="modules_error_install_failed">The module could not be installed.</string>
+    <string name="tools_terminal">Terminal apps</string>
+    <string name="tools_terminal_summary">Run shell commands in any terminal app, using rish</string>
+    <string name="tools_battery">Battery optimization</string>
+    <string name="intents_title">Intents</string>
+    <string name="about_package">Package</string>
+    <string name="check_for_updates_now">Check now</string>
+    <string name="start_failed">Could not start Shizuku</string>
+    <string name="start_failed_write_secure_settings">Shizuku cannot switch wireless debugging on without the WRITE_SECURE_SETTINGS permission. Turn it on yourself under Developer options &gt; Wireless debugging, or grant the permission with <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. Once Shizuku is running it keeps that permission itself, so this is a one-off.</string>
+    <string name="action_open_wireless_debugging">Wireless debugging</string>
+    <string name="start_failed_unsupported">This device cannot start it in the background</string>
+    <string name="start_failed_wifi_required">Connect to a Wi-Fi network the system turns wireless debugging off without one. Or start from a computer using the ADB command below.</string>
+    <string name="start_failed_binder_went_away">The service was started and then stopped again, so nothing can use it yet. That happens when the server is taken down with the app the start went through, which is what the payload does after it has started it. Try the start again.</string>
+    <string name="start_failed_no_port">No wireless debugging port was found. Make sure wireless debugging is enabled and Wi-Fi is connected.</string>
+    <string name="start_failed_no_port_no_permission">No wireless debugging port was found, and Shizuku can\'t turn wireless debugging on without WRITE_SECURE_SETTINGS: <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. Or start Shizuku over USB debugging once it grants itself afterwards.</string>
+    <string name="start_failed_no_auth">Wireless debugging is not allowed on this network. Pair the device again.</string>
+    <string name="settings_section_wireless">Wireless debugging</string>
     <string name="settings_backup_restore_action">Memulihkan</string>
     <string name="intents_start">Mulai</string>
+    <string name="intents_package">Package</string>
     <!-- Terminal -->
     <string name="terminal_tutorial_miui">Pengguna telah melaporkan bahwa MIUI merusak Storage
         Access Framework yang digunakan oleh fungsi ekspor.</string>
@@ -640,6 +692,7 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
       than what the app is worth: the app is Shizuku-Next, the service it manages is Shizuku.
     -->
     <string name="setup_action_continue">Lanjutkan</string>
+    <string name="setup_wireless_title">Wireless debugging</string>
     <string name="setup_usb_title">Debugging USB</string>
     <string name="settings_help">Membantu</string>
     <string name="settings_report_bug">Laporkan bug</string>
@@ -768,6 +821,7 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
          three settings. Named apart so a shade with both in it does not ask which is which. -->
     <string name="lab_switch_developer_options">Opsi pengembang</string>
     <string name="lab_switch_usb_debugging">Debugging USB</string>
+    <string name="lab_switch_wireless_debugging">Wireless debugging</string>
     <string name="lab_switch_hide_developer_options">Sembunyikan opsi pengembang</string>
     <string name="lab_switch_hide_usb_debugging">Sembunyikan debugging USB</string>
     <string name="lab_switch_hide_wireless_debugging">Sembunyikan debugging nirkabel</string>
@@ -775,6 +829,7 @@ Tetapi ini bukan bagian API Android, jadi membikin yang lain tidak mempunyainya.
          because three share one row; the tile picker spells them out in full. -->
     <string name="home_switch_dev_options">Opsi pengembang</string>
     <string name="home_switch_usb">Debugging USB</string>
+    <string name="home_switch_wireless">Wireless debugging</string>
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
     <!-- The Labs screen that decides which of this app's quick settings tiles the system's tile

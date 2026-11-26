@@ -65,6 +65,7 @@
     <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
          a translation of dialog_adb_pairing_message would still tell the user to type the code
          into a notification that this flow never shows. Untranslated locales fall back here. -->
+    <string name="dialog_adb_pairing_message_manual">次の手順に従ってペアリングを開始してください:\n- 「開発者向けオプション」を開く\n- 「USBデバッグ」と「ワイヤレスデバッグ」を有効にする\n- 「ワイヤレスデバッグ」の左側をタップする\n- 「ペア設定コードによるデバイスのペア設定」をタップする\n- 表示されたコードとポート番号を下の入力欄に入力する\n\nペアリングが完了するまで、そのダイアログを開いたままにしてください。この画面に戻ったときにコードが消える場合は、端末が対応していれば分割画面を使用してください。</string>
     <!-- Goes after dialog_adb_pairing_accessibility_enable in the same dialog: what the greyed-out
          row means, and both ways to open it. The App info menu is the only one available on a
          phone with no computer attached, the app-ops command is the same app-op written from
@@ -74,6 +75,7 @@
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
     <string name="dialog_adb_pairing_accessibility_permission_tv">Androidでは、アプリストア以外からインストールされたアプリに対して、このスイッチが制限されています。また、テレビではアプリ情報に「制限付き設定を許可」という項目がないため、制限を解除できません。一度だけ、このテレビにADB経由でパソコンを接続する必要があります。上記の権限を付与してShizukuがサービスを自動的に有効にできるようにするか、次のコマンドでスイッチの制限を解除してください。\n\n^1</string>
+    <string name="dialog_adb_pairing_accessibility_enable_watch">自動ペアリングでは、システムのダイアログからペアリングコードを読み取るため、Shizukuのユーザー補助サービスを有効にする必要があります。次の画面で有効にしてください。\n\nスイッチがグレー表示になっている場合は、アプリ情報を開き、「制限付き設定を許可」を選択してください。</string>
     <string name="dialog_adb_pairing_open_app_info">アプリ情報</string>
     <string name="dialog_adb_pairing_accessibility_enable">自動ペアリングでは、Shizukuのユーザー補助サービスを使用してシステムのダイアログからペアリングコードを読み取るため、このサービスを有効にする必要があります。ただし、有効になるのは必要な間だけです。コードが見つかるか、1分が経過すると、消費電力を抑えるためにサービスは自動的に無効になります。通常、Shizukuはこのサービスを自動的に有効にしますが、そのためにはWRITE_SECURE_SETTINGS権限が必要です。新規インストール時には、まだこの権限が付与されていません。\n\n次の画面でサービスを有効にするか、「手動」でコードを入力するか、次のコマンドで一度だけ権限を付与してください。\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">以下の手順に従ってペアリングを開始してください。\n・「開発者向けオプション」に移動します。\n・「USBデバッグ」と「ワイヤレスデバッグ」を有効にします。\n・「ワイヤレスデバッグ」の左側をタップします。\n・「ペアリングコードでデバイスをペアリング」をタップします。Shizukuはペアリングコードを自動的に検出します。</string>
@@ -84,6 +86,7 @@
     <string name="adb_pair_required">まずはペアリングの手順を行ってください。</string>
     <string name="enable">有効にする</string>
     <string name="auto_pair_instructions">コードを入力せずにペアリング：\n\n1. 下の「開発者向けオプション」をタップ\n\nShizukuがワイヤレスデバッグとペアリングダイアログを自動的に開き、コードとポート番号を読み取って起動します。ペアリングが完了するまでダイアログを閉じないでください。</string>
+    <string name="auto_pair_instructions_watch">Shizukuが開発者向けオプションとワイヤレスデバッグを開き、ペアリングコードを読み取って起動します。ペアリングが完了するまで、システムのダイアログを開いたままにしてください。</string>
     <string name="auto_pair_manual">マニュアル</string>
     <string name="adb_pairing_developer_options">開発者向けオプション</string>
     <string name="development_settings">開発者向けオプション</string>
@@ -128,6 +131,7 @@
     <string name="apps_needs_shizuku">アプリを表示するには、Shizukuを起動します</string>
     <string name="apps_empty">表示するアプリがありません</string>
     <string name="apps_filter_empty">このフィルターにはアプリがありません</string>
+    <string name="apps_filter_title">アプリを絞り込む</string>
     <string name="apps_filter_all">すべて</string>
     <string name="apps_filter_granted">付与済み</string>
     <string name="apps_filter_revoked">未付与</string>
@@ -136,6 +140,7 @@
     <string name="app_management_sort_last_added">最近追加した項目</string>
     <string name="app_management_sort_updated">更新日時</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_sort_keep_in_place">アプリの表示位置を維持</string>
     <string name="apps_processes_show">%1$d個のプロセスを表示</string>
     <string name="apps_processes_hide">%1$d個のプロセスを非表示</string>
     <string name="apps_process_pid">PID %1$d</string>
@@ -535,6 +540,7 @@
     <string name="modules_install_from_file">ファイルからインストール</string>
     <string name="modules_install_title">モジュールをインストール</string>
     <string name="modules_settings">モジュール</string>
+    <string name="modules_settings_item">モジュール設定</string>
     <string name="modules_settings_summary">モジュールに許可する操作と、確認の厳格さ</string>
     <string name="modules_access_full_summary_short">サービスと WebUI シェルブリッジ</string>
     <string name="modules_allow_background_summary_short">監視されていないサービススクリプト</string>
@@ -726,6 +732,8 @@
     <string name="settings_use_system_color_summary">システムパレットに従う</string>
     <string name="settings_always_show_navigation_bar">常にナビゲーションバーを表示する</string>
     <string name="settings_always_show_navigation_bar_summary">下にスクロールしたときにタブバーを表示したままにします。</string>
+    <string name="settings_show_scroll_to_top">先頭に戻るボタンを表示</string>
+    <string name="settings_show_scroll_to_top_summary">長い一覧の先頭に戻るためのフローティングボタンを表示します。</string>
     <string name="settings_secure_quick_tiles">安全なクイックタイル</string>
     <string name="settings_secure_quick_tiles_summary">端末がロックされている間、クイックタイルの変更をブロックします。</string>
     <string name="settings_require_grant_authentication">権限付与時に認証をする</string>
@@ -907,6 +915,9 @@
     <string name="snackbar_battery_optimization_settings">この機能を使用するには、バッテリーの最適化を無効にしてください。</string>
     <string name="snackbar_action_fix">修理</string>
     <string name="snackbar_update_available">新しいアップデートが利用可能です</string>
+    <string name="update_notification_channel">アプリの更新</string>
+    <string name="update_notification_title">Shizukuの更新が利用可能です</string>
+    <string name="update_notification_text">バージョン%1$sが利用可能です。タップしてShizukuを開いてください。</string>
     <string name="snackbar_action_update">更新</string>
     <!-- Updates -->
     <string name="check_for_updates">アップデートを確認</string>
@@ -979,8 +990,10 @@
     <string name="shell_backend_shizuku">Shizuku</string>
     <string name="shell_backend_root">Root</string>
     <string name="shell_backend_shizuku_status">Shizuku, uid %1$d</string>
+    <string name="shell_backend_shizuku_status_short">uid %1$d</string>
     <string name="shell_backend_root_status">Root, uid 0</string>
     <string name="shell_backend_offline">アクティブなコマンドランナーがありません</string>
+    <string name="shell_backend_offline_short">実行手段なし</string>
     <string name="shell_needs_a_backend">静を起動するか、ルート化されたデバイスでルートを選択します。コマンドを実行する2つのうちの1つです。Shizukuで動作するルートは停止しました。</string>
     <string name="shell_intro">Shizuku が実行されるuid（adbでは2000、rootでは0）で実行されるため、そのuidがアクセスできるものすべて（/sdcard、/system、root権限でアプリデータ）にアクセスできます。/sdcardで開き、一度に1つのコマンドを実行します。背後にttyがないため、ターミナルを必要とするプログラム（nano、sshプロンプトなど）はここでは実行されません。</string>
     <string name="shell_root_granted">root を使用できます: コマンドは uid 0 として実行します。</string>
@@ -1278,6 +1291,8 @@
     <string name="lab_switch_locked">このタイルの設定を変更するには、端末のロックを解除してください。</string>
     <!-- The Labs screen that decides which of this app's quick settings tiles the system's tile
          picker offers. -->
+    <string name="labs_quick_tiles">クイック設定タイル</string>
+    <string name="quick_tiles_summary">クイック設定パネルに表示するShizukuのタイルを選択します。タイルをオフにすると、すでにクイック設定パネルに追加されている場合は削除されます。</string>
     <string name="app_info_version">バージョン</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">ターゲット SDK</string>
