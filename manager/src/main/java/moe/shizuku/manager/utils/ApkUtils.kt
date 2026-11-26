@@ -8,11 +8,11 @@ import android.content.IntentFilter
 import android.content.pm.PackageInstaller
 import android.os.Build
 import android.util.Log
-import androidx.core.content.ContextCompat
 import com.reandroid.apk.ApkModule
 import com.reandroid.archive.FileInputSource
 import moe.shizuku.manager.R
 import moe.shizuku.manager.ShizukuApplication
+import moe.shizuku.manager.ktx.registerNotExportedReceiver
 import moe.shizuku.manager.utils.STUB_DEX_ASSET
 import moe.shizuku.manager.utils.renameHiddenCopy
 import moe.shizuku.manager.utils.renamePackage
@@ -291,15 +291,7 @@ private fun Context.createInstallerPendingIntent(
         IntentFilter().apply {
             addAction(installerAction)
         }
-    // ContextCompat, not the plain call: the three-argument registerReceiver only exists from
-    // Android 8 (API 26) and the NOT_EXPORTED flag from Android 13 (API 33); the compat helper
-    // picks the right form for whichever platform is underneath.
-    ContextCompat.registerReceiver(
-        this,
-        installerReceiver,
-        filter,
-        ContextCompat.RECEIVER_NOT_EXPORTED
-    )
+    registerNotExportedReceiver(installerReceiver, filter)
 
     val callbackIntent =
         Intent(installerAction).apply {

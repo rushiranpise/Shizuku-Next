@@ -5,10 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.SystemClock
-import androidx.core.content.ContextCompat
 import moe.shizuku.manager.ShizukuSettings
 import moe.shizuku.manager.ktx.ensureWorkManager
 import moe.shizuku.manager.ktx.isUserUnlockedCompat
+import moe.shizuku.manager.ktx.registerNotExportedReceiver
 import moe.shizuku.manager.service.HidingWatchService
 import moe.shizuku.manager.service.LockedBootStartService
 import moe.shizuku.manager.service.WatchdogService
@@ -57,13 +57,9 @@ object UserUnlockedStarter {
             }
         }
         registered = receiver
-        ContextCompat.registerReceiver(
-            app,
+        app.registerNotExportedReceiver(
             receiver,
-            IntentFilter(Intent.ACTION_USER_UNLOCKED),
-            // A protected broadcast: only the system can send it, so nothing else needs to reach
-            // this receiver, and the flag is required from Android 14 for a receiver like it.
-            ContextCompat.RECEIVER_NOT_EXPORTED
+            IntentFilter(Intent.ACTION_USER_UNLOCKED)
         )
         Diag.info(TAG, "Waiting for the user to unlock${BootTimeline.suffix()}")
         // Unlocked between the check above and the registration: the broadcast has already gone.

@@ -28,6 +28,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import moe.shizuku.manager.MainActivity
 import moe.shizuku.manager.R
+import moe.shizuku.manager.ktx.registerNotExportedReceiver
 import moe.shizuku.manager.utils.createChannelCompat
 
 /**
@@ -100,14 +101,12 @@ class AccessibilityKeepAliveService : Service() {
             observer!!
         )
 
-        ContextCompat.registerReceiver(
-            this,
+        registerNotExportedReceiver(
             screenOn,
             IntentFilter().apply {
                 addAction(Intent.ACTION_SCREEN_ON)
                 addAction(Intent.ACTION_USER_PRESENT)
-            },
-            ContextCompat.RECEIVER_NOT_EXPORTED
+            }
         )
 
         schedule(0L)
