@@ -47,8 +47,16 @@ fun Context.isUserUnlockedCompat(): Boolean =
 fun Context.registerNotExportedReceiver(
     receiver: BroadcastReceiver,
     filter: IntentFilter,
+    broadcastPermission: String? = null,
 ): Intent? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-    registerReceiver(receiver, filter, Context.RECEIVER_NOT_EXPORTED)
+    if (broadcastPermission != null) {
+        registerReceiver(receiver, filter, broadcastPermission, null, Context.RECEIVER_NOT_EXPORTED)
+    } else {
+        registerReceiver(receiver, filter, Context.RECEIVER_NOT_EXPORTED)
+    }
+} else if (broadcastPermission != null) {
+    @Suppress("UnspecifiedRegisterReceiverFlag")
+    registerReceiver(receiver, filter, broadcastPermission, null)
 } else {
     @Suppress("UnspecifiedRegisterReceiverFlag")
     registerReceiver(receiver, filter)

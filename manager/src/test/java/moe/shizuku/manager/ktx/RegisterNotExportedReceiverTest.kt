@@ -59,4 +59,40 @@ class RegisterNotExportedReceiverTest {
         assertSame(filter, registeredFilter)
         assertEquals(false, usedPermissionOverload)
     }
+
+    @Test
+    fun `pre-API-33 registration forwards explicit broadcastPermission`() {
+        var registeredReceiver: BroadcastReceiver? = null
+        var registeredFilter: IntentFilter? = null
+        var registeredPermission: String? = null
+
+        val context = object : ContextWrapper(null) {
+            override fun registerReceiver(
+                receiver: BroadcastReceiver?,
+                filter: IntentFilter?,
+                broadcastPermission: String?,
+                scheduler: android.os.Handler?,
+            ): Intent? {
+                registeredReceiver = receiver
+                registeredFilter = filter
+                registeredPermission = broadcastPermission
+                return null
+            }
+        }
+
+        val receiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) = Unit
+        }
+        val filter = IntentFilter("moe.shizuku.privileged.api.INSTALLER_RESULT")
+
+        context.registerNotExportedReceiver(
+            receiver,
+            filter,
+            broadcastPermission = "moe.shizuku.manager.permission.MANAGER",
+        )
+
+        assertSame(receiver, registeredReceiver)
+        assertSame(filter, registeredFilter)
+        assertEquals("moe.shizuku.manager.permission.MANAGER", registeredPermission)
+    }
 }

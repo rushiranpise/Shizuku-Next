@@ -291,7 +291,11 @@ private fun Context.createInstallerPendingIntent(
         IntentFilter().apply {
             addAction(installerAction)
         }
-    registerNotExportedReceiver(installerReceiver, filter)
+    registerNotExportedReceiver(
+        installerReceiver,
+        filter,
+        broadcastPermission = "moe.shizuku.manager.permission.MANAGER",
+    )
 
     val callbackIntent =
         Intent(installerAction).apply {
