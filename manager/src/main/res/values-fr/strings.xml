@@ -14,6 +14,7 @@
     <string name="home_wireless_adb_starting_without_wifi">Démarrage sans réseau: il est demandé au périphérique de déboguer sans fil jusqu\'à ce qu\'il reste allumé. Cela peut prendre jusqu\'à deux minutes avant de démarrer ou d\'abandonner.</string>
     <string name="home_usb_adb_needs_network">Un démarrage USB utilise le port ADB classique, et la réouverture a besoin d\'un réseau. Connectez-vous une fois au Wi-Fi, ou choisissez <b>Démarrer sans Wi-Fi</b> comme méthode de démarrage et démarrez le débogage sans fil à la place.</string>
     <string name="home_usb_adb_needs_network_no_option">Un démarrage USB utilise le port ADB classique, et sa réouverture nécessite un réseau. Connectez une fois au Wi-Fi, ou démarrez à partir d\'un ordinateur avec la commande ADB dans Autres méthodes.</string>
+    <string name="home_usb_adb_needs_computer">Un démarrage USB nécessite le port ADB classique. Sur cette version d\'Android, connectez-vous à un ordinateur et démarrez Shizuku avec la commande ADB dans Autres méthodes.</string>
     <string name="home_wireless_adb_summary">Démarrer l\'utilisation du débogage sans fil.</string>
     <string name="home_usb_adb_title"><![CDATA[Démarrer via le débogage USB]]></string>
     <string name="home_usb_adb_summary">Démarrer via le débogage USB.</string>
@@ -95,6 +96,7 @@
     <string name="enable">Activer</string>
     <string name="auto_pair_instructions">Appairez sans taper de code :\n\n1. Options développeur → Débogage sans fil\n2. Associer l\'appareil avec le code d\'appairage\n\nShizuku lit le code et le port directement de cette boîte de dialogue et se démarre. Garder la boîte de dialogue ouverte jusqu\'à la fin de l\'appareillage.</string>
     <string name="auto_pair_manual">Manuel</string>
+    <string name="adb_pairing_developer_options">Options pour les développeurs</string>
     <string name="development_settings">Options pour les développeurs</string>
     <string name="notification_settings">Options des notifications</string>
     <string name="adb_pairing_tutorial_content_notification">Une notification de Shizuku vous aidera
@@ -142,8 +144,37 @@
     <string name="app_management_dialog_adb_is_limited_title">La permission de adb est limitée</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[Il est fortement possible que le fabricant de votre appareil limite la permission de adb.<p>Il pourrait avoir une solution pour votre système dans <b><a href="%1$s">ce document</a></b>.]]></string>
     <string name="app_management_toggle_all">Basculer tout</string>
+    <string name="app_management_search_hint">Recherche applications</string>
+    <string name="app_management_sort">Trier</string>
+    <string name="apps_needs_shizuku">Démarrer Shizuku pour voir les applications</string>
+    <string name="apps_empty">Pas d\'applications à montrer</string>
+    <string name="apps_filter_empty">Pas d\'applications dans ce filtre</string>
+    <string name="apps_filter_title">Filtrer les applications</string>
+    <string name="apps_filter_all">Tous</string>
+    <string name="apps_filter_granted">Validé</string>
+    <string name="apps_filter_revoked">Révoqué</string>
+    <string name="apps_filter_hidden">Caché</string>
+    <string name="apps_no_match">Aucunes applications ne correspond avec votre recherche</string>
+    <string name="app_management_sort_last_added">Ajouter récemment</string>
+    <string name="app_management_sort_updated">Mis à jour</string>
+    <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_sort_keep_in_place">Garder les applications en place</string>
+    <string name="apps_process_allowed">Autorisé</string>
+    <string name="apps_process_not_allowed">Non autorisé</string>
+    <string name="apps_status_one_time">Une fois</string>
+    <string name="apps_process_stop">Arrêté le processus</string>
+    <string name="apps_process_stop_title">Voulez-vous arrêter le processus ?</string>
+    <string name="apps_process_stop_failed">Le processus ne peut pas être arrêté.</string>
+    <string name="apps_processes_hide_short">Caché</string>
+    <string name="tab_apps">Application</string>
+    <string name="lab_more_apps">Plus d\'applications</string>
+    <string name="tab_firewall">Pare-feu</string>
+    <string name="tab_autostart">Démarrage automatique</string>
+    <string name="labs_filter_allowed">Autorisé</string>
+    <string name="labs_filter_blocked">Bloqué</string>
     <!-- Per-app rotation override for apps that force landscape -->
     <!-- Hiding: what apps can read about this device -->
+    <string name="hiding_filter_hidden">Caché</string>
     <string name="hiding_signal_accessibility">Services d\'accessibilité</string>
     <string name="hiding_signal_private_dns">DNS privé</string>
     <string name="hiding_signal_vpn">VPN</string>
@@ -174,11 +205,17 @@
     <string name="display_max_refresh">Le maximal de la dalle de rafraichissement</string>
     <string name="display_max_refresh_summary">Le dalle de rafraichissement la plus élevée que l\'ecran peut utiliser, en Hz.</string>
     <string name="display_invalid">Valeur invalide</string>
+    <string name="activities_apps_section">Application</string>
     <string name="intent_start">Démarrer</string>
     <string name="device_watchdog">Chien de garde</string>
+    <string name="log_filter_all">Tous</string>
     <string name="log_capture_start">Démarrer</string>
+    <string name="log_capture_choose_hint">Recherche applications</string>
     <string name="action_start">Démarrer</string>
+    <string name="catalog_filter_sort">Trier</string>
+    <string name="catalog_filter_updated">Mis à jour</string>
     <string name="modules_repo_retry">Réessayer</string>
+    <string name="modules_sort">Trier</string>
     <string name="modules_service_short">Service</string>
     <string name="intents_start">Démarrer</string>
     <!-- Terminal -->
@@ -319,12 +356,17 @@
     <string name="dialog_requesting_legacy_button_open_shizuku">Ouvrir Shizuku</string>
     <string name="wadb_notification_attempt_now">Réessayer</string>
     <!-- Manage tab -->
+    <string name="manage_search_hint">Recherche applications</string>
+    <string name="manage_filter_all">Tous</string>
+    <string name="manage_filter_hidden">Caché</string>
     <string name="permissions_action_deny">Refuser</string>
+    <string name="manage_status_hidden">Caché</string>
     <!-- One app, and what it may do on the device -->
     <string name="app_op_mode_deny">Refuser</string>
     <string name="app_action_enable">Activer</string>
     <!-- The whole firewall as one switch: the tile in the shade and the widget on the home
          screen. The per-app list is unaffected either way, which is what the off state says. -->
+    <string name="firewall_tile_label">Pare-feu</string>
     <!-- The three answers every switch outside the app can give. Unknown is its own word: a
          state that could not be read is not the same thing as a feature that is off. -->
     <!-- The switches in the shade and on the home screen that are not about one app. -->
@@ -337,8 +379,10 @@
          answer: the state is on the control, but the control is not where the finger is. -->
     <!-- The Labs screen that decides which of this app's quick settings tiles the system's tile
          picker offers. -->
+    <string name="app_info_updated">Mis à jour</string>
     <string name="accessibility_boot">Démarrez au démarrage</string>
     <string name="accessibility_notification_channel">Services d\'accessibilité</string>
+    <string name="files_sort">Trier</string>
     <string name="install_details_same">Même version que l\'application installée.</string>
     <string name="install_option_unsupported">Pas supporté sur cette version d\'android</string>
     <string name="install_failed">Échec: %1$s</string>
