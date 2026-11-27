@@ -18,12 +18,12 @@
     <string name="home_wireless_adb_summary">Iniciar usando depuración inalambrica.</string>
     <string name="home_usb_adb_title"><![CDATA[Iniciar mediante depuración por USB]]></string>
     <string name="home_usb_adb_summary">Iniciar usando depuración por USB.</string>
-    <string name="home_support_body">Shizuku-Next es gratis y no tiene anuncios. Invitarme a un café ayuda a cubrir el tiempo que lleva mantenerlo.</string>
+    <string name="home_support_body">Shizuku-Next es gratis y no tiene anuncios. Invítarme un café ayuda a cubrir el tiempo que lleva mantenerlo.</string>
     <string name="diagnostics_title">Diagnóstico</string>
     <string name="diagnostics_copy">Copiar diagnóstico</string>
     <string name="diagnostics_copied">Diagnóstico copiado</string>
     <string name="diagnostics_service">Servicio</string>
-    <string name="diagnostics_server_uid">UID del servidor</string>
+    <string name="diagnostics_server_uid">Interfaz web del servidor</string>
     <string name="diagnostics_server_api">API del servidor</string>
     <string name="diagnostics_server_context">Contexto del servidor</string>
     <string name="diagnostics_wireless_debugging">Depuración inalámbrica</string>
@@ -869,7 +869,7 @@
     <string name="settings_translate_note">Traducir la aplicación en Crowdin.</string>
     <string name="crowdin_url">https://crowdin.com/project/Shizuku-Next</string>
     <string name="settings_report_bug">Informar de un error</string>
-    <string name="settings_support_coffee">Invíteme a un café</string>
+    <string name="settings_support_coffee">Invíta me un café</string>
     <string name="settings_support_coffee_note">Apoyar el desarrollo de Shizuku-Next</string>
     <string name="settings_contributors">Colaboradores</string>
     <string name="settings_contributors_hint">Arrastre para explorar · Pellizque para acercar · Toque para ver los detalles</string>

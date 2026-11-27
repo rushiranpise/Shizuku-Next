@@ -153,6 +153,7 @@
     <string name="app_management_sort_last_added">Adăugat recent</string>
     <string name="app_management_sort_updated">Actualizat</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_sort_keep_in_place">Păstrează aplicațiile la locul lor</string>
     <string name="apps_processes_show">Arată %1$d proces(e)</string>
     <string name="apps_processes_hide">Ascunde %1$d proces(e)</string>
     <string name="apps_process_pid">PID %1$d</string>
@@ -1306,6 +1307,8 @@
     <string name="lab_switch_locked">Deblochează telefonul pentru a schimba această dală.</string>
     <!-- The Labs screen that decides which of this app's quick settings tiles the system's tile
          picker offers. -->
+    <string name="labs_quick_tiles">Plăci rapide</string>
+    <string name="quick_tiles_summary">Alege ce pictograme Shizuku să apară în panoul de setări rapide. Dacă dezactivezi una dintre ele, aceasta va fi eliminată și din bara de notificări, dacă se află deja acolo.</string>
     <string name="app_info_version">Versiune</string>
     <string name="app_info_uid">UID</string>
     <string name="app_info_target_sdk">Target SDK</string>

@@ -78,6 +78,7 @@
          App info, so there is no "Allow restricted settings" to point at; ^1 is the app-ops
          command. -->
     <string name="dialog_adb_pairing_accessibility_permission_tv">يمنع أندرويد هذا التبديل للتطبيقات المثبتة خارج متجر التطبيقات، وعلى التلفزيون، معلومات التطبيق ليس لديها خيار \"السماح بإعدادات مقيدة\" لإلغاء حظره. يحتاج جهاز كمبيوتر متصل بهذا التلفزيون عبر ADB مرة واحدة: إما منح الإذن أعلاه، الذي يتيح لشيزوكو تشغيل الخدمة بنفسه، أو إلغاء حظر التبديل مع:\n\n^1</string>
+    <string name="dialog_adb_pairing_accessibility_enable_watch">.</string>
     <string name="dialog_adb_pairing_open_app_info"></string>
     <string name="dialog_adb_pairing_accessibility_enable">يقرأ الإقران التلقائي الرمز من نافذة النظام عبر خدمة إمكانية الوصول الخاصة بـ Shizuku، لذا يجب تفعيلها، وستعمل فقط للفترة المطلوبة: تقوم الخدمة بإيقاف نفسها تلقائياً بمجرد العثور على الرمز، أو بعد دقيقة واحدة لتوفير الطاقة. يقوم Shizuku عادةً بتفعيلها بنفسه، وهذا يتطلب صلاحية WRITE_SECURE_SETTINGS، والتي لم يتم منحها بعد I في حال كان التثبيت جديداً.\n\nقم بتفعيلها في الشاشة التالية، أو اكتب الرمز بنفسك ضمن خيار \"يدوي\"، أو امنح الصلاحية لمرة واحدة:\n\nadb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="dialog_adb_pairing_accessibility_navigate">يرجى بدء عملية الاقتران من خلال تنفيذ

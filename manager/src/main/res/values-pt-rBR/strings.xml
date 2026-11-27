@@ -10,12 +10,12 @@
     <string name="home_status_adb_usb">adb</string>
     <!-- Home - Adb -->
     <!-- Home - Wireless Adb -->
-    <string name="home_wireless_adb_title"><![CDATA[Iniciar via depuração sem fio]]></string>
-    <string name="home_wireless_adb_starting_without_wifi">Iniciando sem rede: a depuração sem fio é solicitada repetidamente até permanecer ligada. Isso pode levar até dois minutos antes de iniciar ou desistir.</string>
-    <string name="home_usb_adb_needs_network">A inicialização via USB utiliza a porta ADB clássica, e para reabri-la é necessária uma conexão de rede. Conecte-se ao Wi-Fi uma vez ou escolha <b>Iniciar sem Wi-Fi</b> como método de inicialização e inicie a depuração sem fio.</string>
+    <string name="home_wireless_adb_title"><![CDATA[Iniciar via Depuração por Wi-Fi]]></string>
+    <string name="home_wireless_adb_starting_without_wifi">Iniciando sem rede: a depuração por Wi-Fi é solicitada repetidamente até permanecer ligada. Isso pode levar até dois minutos antes de iniciar ou desistir.</string>
+    <string name="home_usb_adb_needs_network">A inicialização via USB usa a porta ADB clássica, e reabri-la exige uma rede. Conecte-se ao Wi-Fi uma vez ou escolha <b>Iniciar sem Wi-Fi</b> como método de inicialização para iniciar via depuração por Wi-Fi.</string>
     <string name="home_usb_adb_needs_network_no_option">A configuração inicial por USB usa a porta ADB clássica, e para reabri-la é preciso uma rede. Conecte-se ao Wi-Fi uma vez ou inicie pelo computador com o comando ADB em Outros métodos.</string>
     <string name="home_usb_adb_needs_computer">A configuração inicial via USB requer a porta ADB tradicional. Nesta versão do Android, conecte-se a um computador e inicie o Shizuku usando o comando ADB na seção Outros métodos.</string>
-    <string name="home_wireless_adb_summary">Inicia usando a depuração sem fio.</string>
+    <string name="home_wireless_adb_summary">Inicia usando a depuração por Wi-Fi.</string>
     <string name="home_usb_adb_title"><![CDATA[Iniciar via depuração USB]]></string>
     <string name="home_usb_adb_summary">Inicia usando a depuração USB.</string>
     <string name="home_support_body">Shizuku-Next é gratuito e não tem anúncios. O valor do seu café ajuda a cobrir o tempo gasto na manutenção.</string>
@@ -26,7 +26,7 @@
     <string name="diagnostics_server_uid">Uid do servidor</string>
     <string name="diagnostics_server_api">API do servidor</string>
     <string name="diagnostics_server_context">Contexto do servidor</string>
-    <string name="diagnostics_wireless_debugging">Depuração sem fio</string>
+    <string name="diagnostics_wireless_debugging">Depuração por Wi‑Fi</string>
     <string name="diagnostics_adb_port">Porta ADB</string>
     <string name="diagnostics_wifi">Wi-Fi</string>
     <string name="diagnostics_local_network">Rede local</string>
@@ -60,7 +60,7 @@
     <string name="dialog_adb_pairing_discovery">Procurando serviço de pareamento</string>
     <string name="dialog_adb_pairing_paring_code">Código de pareamento</string>
     <string name="paring_code_is_wrong">O código de pareamento está errado.</string>
-    <string name="cannot_connect_port">Não é possível conectar-se ao serviço de depuração sem fio.\n\nVerifique se o Shizuku está na lista de permissões de todos os aplicativos de firewall, bloqueadores de anúncios, VPN ou similares que possam restringir o acesso à rede.</string>
+    <string name="cannot_connect_port">Não foi possível conectar ao serviço de depuração por Wi-Fi.\n\nCertifique-se de que o Shizuku esteja na lista de permissões de todos os apps de firewall, bloqueadores de anúncios, VPN ou similares que possam restringir o acesso à rede.</string>
     <string name="dialog_adb_pairing_message">Para iniciar o pareamento, siga estas etapas:\n- Acesse \"Opções do desenvolvedor\"\n- Ative \"Depuração USB\" e \"Depuração por Wi-Fi\"\n- Toque no lado esquerdo de \"Depuração por Wi-Fi\"\n- Toque em \"Parear o dispositivo com um código de pareamento\"\n- Digite o código de pareamento na notificação</string>
     <!-- The in-app dialog's steps differ from the notification flow's, so they get their own key:
          a translation of dialog_adb_pairing_message would still tell the user to type the code
@@ -81,20 +81,19 @@
     <string name="dialog_adb_pairing_accessibility_navigate">Para iniciar o pareamento, siga estas etapas:\n- Acesse \"Opções do desenvolvedor\"\n- Ative \"Depuração USB\" e \"Depuração por Wi-Fi\"\n- Toque no lado esquerdo de \"Depuração por Wi-Fi\"\n- Toque em \"Parear o dispositivo com um código de pareamento\". O Shizuku detectará o código de pareamento automaticamente.</string>
     <string name="adb_pairing_requires_multi_window">Primeiro, abra o modo de tela dividida.</string>
     <string name="adb_pairing_requires_multi_window_reason">O sistema exige que a janela de pareamento permaneça sempre visível. Usar o modo de tela dividida é a única maneira de manter este aplicativo e a janela do sistema visíveis ao mesmo tempo.</string>
-    <string name="adb_error_key_store">Não é possível gerar a chave para depuração sem fios.\nIsto pode dever-se ao facto de o mecanismo KeyStore deste dispositivo estar avariado.</string>
+    <string name="adb_error_key_store">Não é possível gerar a chave para a depuração por Wi-Fi.\nIsso pode ocorrer porque o mecanismo KeyStore deste dispositivo está corrompido.</string>
     <string name="adb_error_stop_tcp">Falha ao interromper o ADB sobre TCP</string>
     <string name="adb_pair_required">Pareie o dispositivo primeiro.</string>
     <string name="enable">Ativar</string>
-    <string name="auto_pair_instructions">Parear sem digitar um código:\n\n1. Opções de desenvolvedor → Depuração sem fio\n2. Parear dispositivo com o código\n\nShizuku lê o código e porta diretamente dessa caixa de diálogo e começa por si mesmo. Mantenha a caixa de diálogo aberta até o pareamento terminar.</string>
-    <string name="auto_pair_instructions_watch">Shizuku abre opções de desenvolvedor e depuração sem fio, lê o código de pareamento e começa. Mantenha a caixa de diálogo do sistema aberta até que o pareamento termine.</string>
+    <string name="auto_pair_instructions">Parear sem digitar um código:\n\n1. Toque em Opções do desenvolvedor abaixo\n\nO Shizuku abre a Depuração por Wi-Fi e a caixa de diálogo de pareamento por conta própria, lê o código e a porta e inicia. Mantenha a caixa de diálogo aberta até o pareamento terminar.</string>
+    <string name="auto_pair_instructions_watch">O Shizuku abre as Opções do desenvolvedor e a Depuração por Wi-Fi, lê o código de pareamento e inicia. Mantenha a caixa de diálogo do sistema aberta até o pareamento terminar.</string>
     <string name="auto_pair_manual">Manual</string>
     <string name="adb_pairing_developer_options">Opções do desenvolvedor</string>
     <string name="development_settings">Modo Automático</string>
     <string name="notification_settings">Opções de notificação</string>
     <string name="adb_pairing_tutorial_content_notification">Uma notificação do Shizuku te ajudará a concluir o pareamento.</string>
-    <string name="adb_pairing_tutorial_content_steps">Aceda às \"Opções do programador\" e ative a
-        \"Depuração USB\" e a \"Depuração sem fios\".</string>
-    <string name="adb_pairing_tutorial_content_enter_pairing_code">Toque no lado esquerdo de \"Depuração Wi-Fi\" e, em seguida, toque em \"Parear o dispositivo com um código de pareamento.\" Digite o código na notificação para concluir o pareamento.</string>
+    <string name="adb_pairing_tutorial_content_steps">Acesse \"Opções do desenvolvedor\" e ative \"Depuração USB\" e \"Depuração por Wi-Fi\".</string>
+    <string name="adb_pairing_tutorial_content_enter_pairing_code">Toque no lado esquerdo de \"Depuração por Wi-Fi\" e, em seguida, toque em \"Parear o dispositivo com um código de pareamento.\" Digite o código na notificação para concluir o pareamento.</string>
     <string name="adb_pairing_tutorial_content_notification_blocked">O processo de pareamento precisa que você interaja com uma notificação do Shizuku. Permita que o Shizuku envie notificações.</string>
     <string name="adb_pairing_tutorial_content_miui">Os usuários do MIUI talvez precisem alterar o estilo de notificação de “Notificação” para “Android” na opção “Barra de notificações”, nas configurações do sistema.</string>
     <string name="adb_pairing_tutorial_content_miui_2">Caso contrário, talvez você não consiga inserir o código de pareamento pela notificação.</string>
@@ -127,7 +126,7 @@
     <string name="app_management_dialog_adb_is_limited_title">A permissão do adb é limitada</string>
     <string name="app_management_dialog_adb_is_limited_message"><![CDATA[É altamente possível que o fabricante do seu dispositivo limite a permissão do adb.<p>Pode haver uma solução para o seu sistema <b><a href="%1$s">neste documento</a></b>.]]></string>
     <string name="app_management_toggle_all">Alternar tudo</string>
-    <string name="app_management_search_hint">Pesquisar aplicativos</string>
+    <string name="app_management_search_hint">Pesquisar por aplicativos</string>
     <string name="app_management_sort">Ordenar</string>
     <string name="apps_needs_shizuku">Iniciar Shizuku para ver os aplicativos</string>
     <string name="apps_empty">Nenhum app para mostrar</string>
@@ -214,7 +213,7 @@
     <string name="tab_hiding">Ocultando</string>
     <string name="tab_hide_developer_options">Ocultar opções do desenvolvedor</string>
     <string name="tab_hide_usb_debugging">Ocultar depuração USB</string>
-    <string name="tab_hide_wireless_debugging">Ocultar depuração sem fio</string>
+    <string name="tab_hide_wireless_debugging">Ocultar depuração por Wi-Fi</string>
     <string name="tab_hide_accessibility">Ocultar acessibilidade</string>
     <string name="tab_hide_private_dns">Ocultar DNS privado</string>
     <string name="tab_hide_vpn">Ocultar VPN</string>
@@ -231,7 +230,7 @@
     <string name="hiding_restore">RESTAURAR</string>
     <string name="hiding_signal_developer_options">Opções do desenvolvedor</string>
     <string name="hiding_signal_usb_debugging">Depuração USB</string>
-    <string name="hiding_signal_wireless_debugging">Depuração sem fio</string>
+    <string name="hiding_signal_wireless_debugging">Depuração por Wi‑Fi</string>
     <string name="hiding_signal_accessibility">Serviços de acessibilidade</string>
     <string name="hiding_signal_private_dns">DNS particular</string>
     <string name="hiding_signal_vpn">VPN</string>
@@ -249,7 +248,7 @@
     <string name="force_dark_notification_title">Forçar o modo escuro está ativado</string>
     <string name="force_dark_notification_text">Um aplicativo na lista de modos escuros está aberto</string>
     <string name="force_dark_notification_watching">Aguardando a abertura de um aplicativo na lista</string>
-    <string name="tab_activities">Lançador de atividades</string>
+    <string name="tab_activities">Executor de atividades</string>
     <string name="tab_power">Energia</string>
     <string name="power_description">Reinicie ou desligue a tela sem usar os botões do telefone.</string>
     <string name="power_needs_shizuku">Inicie o Shizuku primeiro para usar estas opções.</string>
@@ -290,7 +289,7 @@
     <string name="display_max_refresh_summary">A maior taxa de atualização que a tela pode usar, em Hz.</string>
     <string name="display_current">Atual: %1$s</string>
     <string name="display_apply">Aplicar</string>
-    <string name="display_reset">Redefinir</string>
+    <string name="display_reset">Resetar</string>
     <string name="display_invalid">Valor inválido</string>
     <string name="display_applied">%1$s Aplicado</string>
     <string name="display_failed">Não foi possível alterar %1$s</string>
@@ -350,14 +349,14 @@
     <string name="intent_flag_clear_task">Limpar tarefa</string>
     <string name="intent_flag_new_document">Novo documento</string>
     <string name="intent_flag_no_animation">Sem animação</string>
-    <string name="intent_flag_exclude_recents">No recents</string>
+    <string name="intent_flag_exclude_recents">Sem recentes</string>
     <string name="intent_flag_grant_read">Conceder leitura</string>
     <string name="intent_flag_grant_write">Conceder escrita</string>
     <string name="tab_device_info">Informações do dispositivo</string>
     <string name="device_refresh">atualizar</string>
     <string name="scroll_to_top">Voltar ao topo</string>
     <string name="device_battery">Bateria</string>
-    <string name="device_status">SItuação</string>
+    <string name="device_status">Status</string>
     <string name="device_temperature">Temperatura</string>
     <string name="device_voltage">Tensão</string>
     <string name="device_current">Atual</string>
@@ -372,7 +371,7 @@
     <string name="device_cycles">Ciclos</string>
     <string name="device_asoc">Estado de carga</string>
     <string name="device_first_use">Primeiro uso</string>
-    <string name="device_max_temp">Temp máxima gravada</string>
+    <string name="device_max_temp">Temperatura máxima registrada</string>
     <string name="device_max_current">Maior corrente</string>
     <string name="device_health_source">A Samsung mantém esses dados da bateria e os imprime no dump da bateria. Eles não fazem parte da API do Android, então outra ação não fará com eles.</string>
     <string name="device_usage">Horário</string>
@@ -383,8 +382,8 @@
     <string name="device_usage_note">Contadores mantidos pela própria plataforma. Eles são reiniciados sempre que a bateria estiver cheia, É por isso que um telefone carregado há uma hora lê segundos aqui e um que esteve fora do carregador durante todo o dia lê as horas.</string>
     <string name="device_drain">O que usou a bateria</string>
     <string name="device_drain_note">Atribuído por componente, que é o que esta plataforma mostra. Ele mantém os valores por aplicativo, como wake locks e tempos de execução, em vez de miliampères-hora, então nenhum número por aplicativo foi inventado aqui.</string>
-    <string name="device_max_charging_current">Corrente máxima de carregamento</string>
-    <string name="device_max_charging_voltage">Tensão de carregamento máxima</string>
+    <string name="device_max_charging_current">Corrente máxima de carga</string>
+    <string name="device_max_charging_voltage">Tensão máxima de carga</string>
     <string name="device_capacity_rated">Classificado</string>
     <string name="device_capacity_typical">Típico</string>
     <string name="device_capacity">Capacidade</string>
@@ -412,7 +411,7 @@
     <string name="device_app_in_front">App em primeiro plano</string>
     <string name="device_hiding_held">Escondendo manobras</string>
     <string name="device_thermal">Térmica</string>
-    <string name="device_thermal_note">Todo sensor térmico que o kernel expõe, mais quente primeiro. Um sensor sem nada anexado reporta o sentinela -273 e é deixado de fora, assim como os níveis de descanso de energia, que não são temperaturas. Zonas %d foram listadas.</string>
+    <string name="device_thermal_note">Todo sensor térmico exposto pelo kernel, do mais quente ao mais frio. Um sensor sem nada conectado relata o valor sentinela -273 e é ignorado, assim como os níveis de desarme da fonte de alimentação, que não são temperaturas. Foram listadas %d zonas.</string>
     <string name="device_cpu">CPU</string>
     <string name="device_load_average">Carga média</string>
     <string name="device_cpu_note">A contabilidade do kernel pela janela chamada de seu dump. A carga é a média de uma carga de cinco e quinze minutos; cada linha é o tempo do processador usado e os trabalhadores do kernel aparecem porque eles realizam o trabalho, não apenas aplicativos.</string>
@@ -437,7 +436,7 @@
     <string name="log_capture_stop">Parar</string>
     <string name="log_capture_device">Todo o dispositivo</string>
     <string name="log_capture_choose">Aplicativo para gravar</string>
-    <string name="log_capture_choose_hint">Pesquisar aplicativos</string>
+    <string name="log_capture_choose_hint">Pesquisar por aplicativos</string>
     <string name="log_capture_running">Gravação %1$s · %2$d linhas · %3$s</string>
     <string name="log_capture_idle">Nada está sendo gravado.</string>
     <string name="log_capture_waiting">Gravação. Nada foi logado ainda.</string>
@@ -476,7 +475,7 @@
     <string name="hiding_start_again">Começar novamente</string>
     <string name="hiding_notification_stopped_title">Ocultação interrompida</string>
     <string name="hiding_notification_stopped_text">Shizuku não está em execução, então esconder não pode detectar qual aplicativo está aberto. Todas as configurações ocultas foram restauradas.</string>
-    <string name="hiding_carries_session_wireless">Não aplicado: Shizuku usa depuração sem fio, então escondê-lo iria parar Shizuku.</string>
+    <string name="hiding_carries_session_wireless">Não aplicado: o Shizuku usa a depuração por Wi-Fi, então ocultá-la interromperia o Shizuku.</string>
     <string name="hiding_carries_session_usb">Não aplicado: Shizuku usa depuração USB, então escondê-lo iria parar Shizuku.</string>
     <string name="tab_settings">Configurações</string>
     <string name="home_status_transport_label">Método</string>
@@ -511,7 +510,7 @@
     <string name="tab_modules">Módulos</string>
     <string name="modules_catalog">Encontrar módulos</string>
     <string name="catalog_apps_title">Mais aplicativos</string>
-    <string name="catalog_search">Pesquisar aplicativos, tópicos, idiomas\u2026</string>
+    <string name="catalog_search">Pesquisar por aplicativos, tópicos, idiomas\u2026</string>
     <string name="catalog_filter_sort">Ordenar</string>
     <string name="catalog_filter_category">Categoria</string>
     <string name="catalog_filter_updated">Atualizado</string>
@@ -615,19 +614,19 @@
     <string name="check_for_updates_now">Verificar agora</string>
     <string name="start_failed">Não foi possível iniciar Shizuku</string>
     <string name="start_failed_write_secure_settings">O Shizuku não pode ativar Depuração por Wi-Fi sem a permissão WRITE_SECURE_SETTINGS. Ative-a manualmente em Opções do Desenvolvedor &gt; Depuração por Wi-Fi, ou conceda a permissão com <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. Assim que o Shizuku estiver em execução, ele manterá essa permissão, então isso só precisa ser feito uma vez.</string>
-    <string name="action_open_wireless_debugging">Depuração sem fio</string>
+    <string name="action_open_wireless_debugging">Depuração por Wi‑Fi</string>
     <string name="start_failed_unsupported">Este dispositivo não pode iniciá-lo em segundo plano</string>
     <string name="start_failed_wifi_required">Conecte-se a uma rede Wi-Fi o sistema desativa a depuração sem uma. Ou inicie um computador usando o comando ADB abaixo.</string>
     <string name="start_failed_binder_went_away">O serviço foi iniciado e então foi interrompido novamente, então nada pode ser usado ainda. Isso acontece quando o servidor é reduzido com o aplicativo que o início passou que é o que a carga faz depois de iniciá-la. Tente o início novamente.</string>
-    <string name="start_failed_no_port">Nenhuma porta de depuração sem fio foi encontrada. Certifique-se de que a depuração sem fio está ativada e o Wi-Fi está conectado.</string>
-    <string name="start_failed_no_port_no_permission">Nenhuma porta de depuração wireless foi encontrada, e o Shizuku não consegue ativar a depuração wireless sem WRITE_SECURE_SETTINGS: <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. Ou inicie o Shizuku via depuração USB uma vez; ele concede a permissão a si mesmo depois disso.</string>
+    <string name="start_failed_no_port">Nenhuma porta de depuração por Wi-Fi foi encontrada. Certifique-se de que a depuração por Wi-Fi esteja ativada e o Wi-Fi conectado.</string>
+    <string name="start_failed_no_port_no_permission">Nenhuma porta de depuração por Wi-Fi foi encontrada, e o Shizuku não consegue ativar a depuração por Wi-Fi sem WRITE_SECURE_SETTINGS: <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. Ou inicie o Shizuku via depuração USB uma vez; ele concede a permissão a si mesmo depois disso.</string>
     <string name="start_failed_no_auth">A depuração por Wi-Fi não é permitida nesta rede. Pareie o dispositivo novamente.</string>
     <string name="action_dismiss">Descartar</string>
     <string name="action_connect_wifi">Conectar</string>
     <string name="action_pair">Parear</string>
-    <string name="start_failed_pairing_required">Este dispositivo não está pareado para depuração wireless. Pareie-o novamente.</string>
+    <string name="start_failed_pairing_required">Este dispositivo não está pareado via depuração por Wi-Fi. Pareie-o novamente.</string>
     <string name="start_failed_connection_lost">A conexão ADB foi fechada durante o início. Tente novamente.</string>
-    <string name="start_failed_usb_no_port">Nenhuma porta ADB local está aberta para Android limpá-lo em cada reinicialização e reabri-lo precisa de uma conexão com empréstimo. Conectar-se ao Wi-Fi e Shizuku irá reabri-lo através da depuração sem fio, execute <b>adb tcpip 5555</b> de um computador, ou escolha <b>Iniciar sem o Wi-Fi</b> como método inicial para iniciar a depuração sem fio.</string>
+    <string name="start_failed_usb_no_port">Nenhuma porta ADB local está aberta. O Android a limpa a cada reinicialização, e reabri-la exige uma conexão ativa. Conecte-se ao Wi-Fi para o Shizuku reabri-la via depuração por Wi-Fi, execute <b>adb tcpip 5555</b> pelo computador ou escolha <b>Iniciar sem Wi-Fi</b> como método de inicialização.</string>
     <string name="start_failed_usb_no_port_no_option">Nenhuma porta ADB local está aberta. O Android limpa essa configuração toda vez que o dispositivo é reiniciado. Para reabri-la, é necessário usar uma conexão de rede temporariamente. Conecte-se ao Wi-Fi uma vez ou execute <b>adb tcpip 5555</b> em um computador.</string>
     <string name="start_failed_root_unavailable">O root não está mais disponível neste dispositivo, então o Shizuku não pode iniciar via root. Escolha outro método de início.</string>
     <string name="start_failed_adb_root">O acesso root via ADB não está disponível. Ative a depuração USB em uma build do Android com suporte à depuração ou escolha outro método de inicialização.</string>
@@ -641,8 +640,8 @@
     <string name="start_system_custom_copy_failed">O comando está acima, pronto para copiar à mão.</string>
     <string name="settings_section_startup">Inicialização</string>
     <string name="settings_section_startup_summary">Início automático ao ligar, monitoramento e método de ativação</string>
-    <string name="settings_section_wireless">Depuração sem fio</string>
-    <string name="settings_section_wireless_summary">Depuração sem fio, modo TCP e porta ADB</string>
+    <string name="settings_section_wireless">Depuração por Wi‑Fi</string>
+    <string name="settings_section_wireless_summary">Depuração por Wi-Fi, modo TCP e porta ADB</string>
     <string name="settings_section_tools">Ferramentas</string>
     <string name="settings_section_tools_summary">Permissões, configuração, backup, terminal e intents</string>
     <string name="settings_backup_section">Backup e restauração</string>
@@ -696,18 +695,12 @@
     <string name="app_management_batch_revoked">Acesso revogado de %1$d aplicativos</string>
     <string name="action_undo">Desfazer</string>
     <!-- Terminal -->
-    <string name="terminal_tutorial_miui">Os utilizadores relataram que a MIUI quebra o Storage
-        Access Framework, que é utilizado pela função de exportação.</string>
-    <string name="terminal_tutorial_miui_2">Se estiver a usar MIUI, talvez precise de extrair o
-        ficheiro da pasta \"assets\" no APK da Shizuku.</string>
+    <string name="terminal_tutorial_miui">Usuários relataram que a MIUI quebra o Storage Access Framework, que é usado pela função de exportação.</string>
+    <string name="terminal_tutorial_miui_2">Se você estiver usando a MIUI, talvez seja necessário extrair o arquivo da pasta assets dentro do APK do Shizuku.</string>
     <string name="terminal_tutorial_1">Exporte os ficheiros para uma nova pasta.</string>
-    <string name="terminal_tutorial_1_description">Serão exportados dois ficheiros: %1$s e %2$s. Se
-        os ficheiros já existirem na pasta selecionada, serão eliminados.</string>
+    <string name="terminal_tutorial_1_description">Dois arquivos serão exportados: %1$s e %2$s. Se os arquivos já existirem na pasta selecionada, eles serão excluídos.</string>
     <string name="terminal_tutorial_2">Utilize a aplicação de terminal para copiar os ficheiros para o diretório de ficheiros privados.</string>
-    <string name="terminal_tutorial_2_description">Dica: Se o diretório inicial da sua aplicação de
-        terminal (~) estiver no diretório de ficheiros privados, colocar os ficheiros lá permitirá
-        que execute %1$s sem ter de digitar o caminho.\n\nCaso contrário, pode criar um alias para
-        %2$s no ficheiro de configuração da sua aplicação de terminal. %3$s</string>
+    <string name="terminal_tutorial_2_description">Dica: se o diretório inicial (~) do seu app de terminal estiver dentro do diretório de arquivos privados, basta colocar os arquivos lá para poder executar %1$s sem digitar o caminho.\n\nOutra opção é criar um alias para %2$s no arquivo de configuração %3$s do app de terminal.</string>
     <string name="terminal_tutorial_3">Abra um terminal com o seguinte comando:</string>
     <!-- Stealth -->
     <string name="stealth_description">Ocultar o Shizuku de apps que se recusam a abrir quando ele está instalado. Um clone com um nome de pacote diferente é exportado para você instalar.</string>
@@ -735,7 +728,7 @@
     <string name="stealth_unhide">Reexibir com stub</string>
     <string name="stealth_stub_note">A opção Reexibir cria um pequeno stub com o nome de pacote original do Shizuku para que os apps que o procuram continuem funcionando. Esse stub apenas redireciona as solicitações para o Shizuku oculto (não é uma segunda cópia do app). Já a opção Ocultar remove esse stub.</string>
     <!-- Settings -->
-    <string name="settings_start_on_boot">Iniciar no arranque</string>
+    <string name="settings_start_on_boot">Iniciar ao ligar</string>
     <string name="settings_use_system_color">Usar cor temática do sistema</string>
     <string name="settings_use_system_color_summary">Seguir a paleta do sistema</string>
     <string name="settings_always_show_navigation_bar">Sempre exibir a barra de navegação</string>
@@ -748,10 +741,10 @@
     <string name="settings_require_grant_authentication_summary">Solicitar autenticação biométrica ou bloqueio de tela antes de permitir que um aplicativo acesse o Shizuku.</string>
     <string name="settings_watchdog">Cão de guarda</string>
     <string name="settings_watchdog_summary">Reiniciar o Shizuku automaticamente se ele travar</string>
-    <string name="settings_auto_disable_wireless_debugging">Desativar depuração sem fio</string>
-    <string name="settings_auto_disable_wireless_debugging_summary">Desativar depuração sem fios quando Shizuku parar.</string>
+    <string name="settings_auto_disable_wireless_debugging">Desativar depuração por Wi-Fi</string>
+    <string name="settings_auto_disable_wireless_debugging_summary">Desativar a depuração por Wi-Fi após uma inicialização TCP ou quando o Shizuku parar.</string>
     <string name="settings_start_method">Método de início padrão</string>
-    <string name="settings_start_method_root_unavailable">Este dispositivo não tem root, então começa a cair para a depuração sem fio.</string>
+    <string name="settings_start_method_root_unavailable">Este dispositivo não tem root, então a inicialização recorrerá à depuração por Wi-Fi.</string>
     <string name="settings_start_method_root_unavailable_usb">Este dispositivo não tem acesso root, então a inicialização é feita via USB.</string>
     <string name="start_method_wireless_no_network">Sem Wi-Fi</string>
     <string name="start_method_wireless">Sem fio</string>
@@ -765,14 +758,14 @@
     <string name="action_turn_on_developer_options">Ativar opções de desenvolvedor</string>
     <string name="toast_developer_options_required">Desativar ADB sem as opções do desenvolvedor</string>
     <string name="settings_adb_without_developer_options_confirm_title">Desativar as opções do desenvolvedor?</string>
-    <string name="settings_adb_without_developer_options_confirm_message">O Shizuku continuará funcionando e restaurará suas configurações ADB após uma reinicialização. Você não será capaz de abrir opções de desenvolvedor para alterar configurações de depuração USB ou sem fio ou parear um novo dispositivo. Desativar as opções de desenvolvedor?</string>
+    <string name="settings_adb_without_developer_options_confirm_message">O Shizuku continuará funcionando e restaurará suas configurações de ADB após uma reinicialização. Você não poderá abrir as Opções do desenvolvedor para alterar a depuração USB ou por Wi-Fi, nem parear um novo dispositivo. Desativar as Opções do desenvolvedor?</string>
     <string name="settings_adb_without_developer_options_confirm">Desativar</string>
     <string name="settings_adb_without_developer_options_failed">Shizuku não pôde alterar as configurações. Conceda WRITE_SECURE_SETTINGS na página de permissões primeiro.</string>
     <string name="settings_wait_for_wifi">Aguardar por Wi-Fi</string>
     <string name="settings_wait_for_wifi_summary">Início automático do Shizuku espera por uma conexão Wi-Fi ilimitada.</string>
     <string name="settings_unavailable_while_forcing_wireless">Indisponível enquanto Iniciar sem Wi-Fi está ativado.</string>
     <string name="settings_force_wireless_debugging">Iniciar sem Wi-Fi (experimental)</string>
-    <string name="settings_force_wireless_debugging_summary">Tenta iniciar o Shizuku sem Wi-Fi ou depuração USB. Isso também desativa a espera por Wi-Fi e a depuração automática sem fio.</string>
+    <string name="settings_force_wireless_debugging_summary">Tenta iniciar o Shizuku sem Wi-Fi ou depuração USB. Compatível com Android 11 a 16. Isso também desativa a espera por Wi-Fi e a depuração por Wi-Fi automática.</string>
     <!-- One wording for every switch that is nothing but a settings write, so they all say the
          same thing about the permission the write needs. -->
     <string name="settings_needs_write_secure_settings">É necessária a permissão WRITE_SECURE_SETTINGS. Inicie o Shizuku uma vez para conceder essa permissão e, em seguida, volte aqui.</string>
@@ -794,7 +787,7 @@
         deve ter sido iniciado pelo menos uma vez desde o reinício)"</string>
     <string name="settings_tcp_mode_dialog_close_port">"A porta TCP será fechada imediatamente.
         Precisará de Wi-Fi para ativar novamente o modo TCP. Continuar?"</string>
-    <string name="settings_tcp_mode_close_wireless">Não está fechada: a depuração sem fio está ativada. Fechar a porta interromperia esse processo. A porta será fechada quando o celular for reiniciado.</string>
+    <string name="settings_tcp_mode_close_wireless">Não está fechada: a depuração por Wi-Fi está ativada. Fechar a porta interromperia esse processo. A porta será fechada quando o dispositivo for reiniciado.</string>
     <string name="settings_tcp_mode_close_usb_off">Não está fechada: a depuração via USB está desativada. Ative-a e tente novamente.</string>
     <string name="settings_tcp_mode_close_nothing">Nenhuma porta TCP estava aberta.</string>
     <string name="settings_restart_dialog_title">É necessário reiniciar.</string>
@@ -842,11 +835,11 @@
     <string name="permissions_notifications">Notificações</string>
     <string name="permissions_notifications_summary">Mostra o código de pareamento, o progresso e os erros iniciais.</string>
     <string name="permissions_nearby">Dispositivos próximos</string>
-    <string name="permissions_nearby_summary">Localiza a porta de depuração sem fio na sua rede.</string>
+    <string name="permissions_nearby_summary">Encontra a porta de depuração por Wi-Fi na sua rede.</string>
     <string name="permissions_hotspot">Ponto de acesso local</string>
     <string name="permissions_hotspot_summary">Permite o Shizuku inicializar sem Wi-Fi criando um ponto de acesso local.</string>
     <string name="permissions_write_secure_settings">Gravar configurações seguras</string>
-    <string name="permissions_write_secure_settings_summary">Vamos ativar o Shizuku na depuração sem fios. Apenas o ADB pode conceder esta permissão.</string>
+    <string name="permissions_write_secure_settings_summary">Permite que o Shizuku ative a depuração por Wi-Fi. Apenas o ADB pode conceder esta permissão.</string>
     <string name="permissions_accessibility">Serviço de acessibilidade</string>
     <string name="permissions_accessibility_summary">Lê o código de pareamento automaticamente.</string>
     <string name="permissions_battery_summary">Para o Android de matar Shizuku em segundo plano.</string>
@@ -867,7 +860,7 @@
     <string name="setup_start_body">Isso define de onde o serviço obtém suas permissões. Você pode alterar isso posteriormente em Configurações, em Método de inicialização.</string>
     <string name="setup_root_title">Root</string>
     <string name="setup_root_body">Um toque, sem cabos e sem pareamento. Requer um gerenciador de root para conceder acesso ao Shizuku.</string>
-    <string name="setup_wireless_title">Depuração sem fio</string>
+    <string name="setup_wireless_title">Depuração por Wi-Fi</string>
     <string name="setup_wireless_body">Funciona sem root. Requer Opções do Desenvolvedor e um código de pareamento; depois disso, inicia pelo aplicativo.</string>
     <string name="setup_usb_title">Depuração USB</string>
     <string name="setup_usb_body">Funciona sem root. Requer a porta ADB clássica; se não estiver aberta, conecte-se a um computador uma vez para iniciar o Shizuku.</string>
@@ -994,12 +987,11 @@
     <string name="wadb_notification_retry">Aguarda para tentar novamente.</string>
     <string name="wadb_notification_connecting">Iniciando Shizuku com ADB sem fio</string>
     <string name="wadb_notification_waiting_for_unlock">Desbloqueie o dispositivo para continuar</string>
-    <string name="wadb_notification_forcing_wireless">Mantendo depuração sem fios ligada</string>
+    <string name="wadb_notification_forcing_wireless">Mantendo a depuração por Wi-Fi ligada</string>
     <string name="wadb_error_title">Erro ao iniciar o sistema.</string>
-    <string name="wadb_error_notify_dev">Toque para notificar o programador.</string>
+    <string name="wadb_error_notify_dev">Toque para reportar isto ao desenvolvedor.</string>
     <string name="wadb_permission_error_notification_title">Erro de permissão</string>
-    <string name="wadb_permission_error_notification_content">O Shizuku necessita da permissão
-        WRITE_SECURE_SETTINGS para iniciar no arranque do sistema. Toque para saber como concedê-la.</string>
+    <string name="wadb_permission_error_notification_content">O Shizuku precisa da permissão WRITE_SECURE_SETTINGS para ativar a depuração por Wi-Fi. Toque para saber como concedê-la.</string>
     <!-- Shell -->
     <string name="shell_title">Shell</string>
     <string name="shell_backend_shizuku">Shizuku</string>
@@ -1094,7 +1086,7 @@
     <string name="dialog_cannot_open_browser_title">Não é possível iniciar o navegador</string>
     <string name="toast_copied_to_clipboard">Copiado para a área de transferência</string>
     <string name="toast_press_back_again">Pressione voltar novamente para sair</string>
-    <string name="accessibility_service_description">Pareia a depuração por Wi-Fi sem toques nem digitação.\n\nO Shizuku abre a tela de depuração por Wi-Fi, abre a caixa de diálogo do sistema “Parear com dispositivo”, lê o código e a porta de pareamento, realiza o pareamento e inicia a si mesmo. Em TVs (ex.: Android 14+), ele conduz todo o fluxo e se desativa assim que um código é encontrado.</string>
+    <string name="accessibility_service_description">Pareia a depuração por Wi-Fi sem toques nem digitação.\n\nO Shizuku abre a tela de Depuração por Wi-Fi, abre a caixa de diálogo do sistema “Parear com dispositivo”, lê o código e a porta de pareamento, realiza o pareamento e inicia a si mesmo. Em TVs (ex.: Android 14+), ele conduz todo o fluxo e se desativa assim que um código é encontrado.</string>
     <!-- Messages for legacy -->
     <string name="dialog_legacy_not_support_title">%1$s Não é compatível com Shizuku</string>
     <string name="dialog_legacy_not_support_message"><![CDATA[O Shizuku legado está obsoleto desde março de 2019. Além disso, o Shizuku legado não funciona em sistemas Android mais recentes.<p>Peça ao desenvolvedor de <b>%1$s</b> para atualizar.]]></string>
@@ -1104,7 +1096,7 @@
     <string name="wadb_notification_attempt_now">Repetir</string>
     <!-- Manage tab -->
     <string name="tab_manage">Operações de apps</string>
-    <string name="manage_search_hint">Pesquisar aplicativos</string>
+    <string name="manage_search_hint">Pesquisar por aplicativos</string>
     <string name="manage_filter_all">Todos</string>
     <string name="manage_filter_user">Usuário</string>
     <string name="manage_filter_system">SISTEMA</string>
@@ -1251,7 +1243,7 @@
     <string name="app_bucket_active">Irrestrito</string>
     <string name="app_bucket_active_note">Ele pode correr livremente em segundo plano.</string>
     <string name="app_bucket_default">Padrão</string>
-    <string name="app_bucket_default_note">O Android decide o quanto pode correr.</string>
+    <string name="app_bucket_default_note">O Android decide o quanto o app pode rodar.</string>
     <string name="app_bucket_exempted">Isento</string>
     <string name="app_bucket_exempted_note">O sistema isenta este app de modo de espera, então o balde abaixo não é o em vigor.</string>
     <string name="app_bucket_frequent">Frequente</string>
@@ -1288,15 +1280,15 @@
          three settings. Named apart so a shade with both in it does not ask which is which. -->
     <string name="lab_switch_developer_options">Opções do desenvolvedor</string>
     <string name="lab_switch_usb_debugging">Depuração USB</string>
-    <string name="lab_switch_wireless_debugging">Depuração sem fio</string>
+    <string name="lab_switch_wireless_debugging">Depuração por Wi‑Fi</string>
     <string name="lab_switch_hide_developer_options">Ocultar opções do desenvolvedor</string>
     <string name="lab_switch_hide_usb_debugging">Ocultar depuração USB</string>
-    <string name="lab_switch_hide_wireless_debugging">Ocultar depuração sem fio</string>
+    <string name="lab_switch_hide_wireless_debugging">Ocultar depuração por Wi-Fi</string>
     <!-- The three debugging switches on the home screen, under the server's buttons. Short
          because three share one row; the tile picker spells them out in full. -->
     <string name="home_switch_dev_options">Opções do desenvolvedor</string>
     <string name="home_switch_usb">Depuração USB</string>
-    <string name="home_switch_wireless">Depuração sem fio</string>
+    <string name="home_switch_wireless">Depuração por Wi-Fi</string>
     <string name="lab_widget_description">Ative ou desative está funcionalidade.</string>
     <!-- Said after a switch outside the app is tapped, since a tile or a widget gives no other
          answer: the state is on the control, but the control is not where the finger is. -->
@@ -1325,7 +1317,7 @@
     <string name="app_info_no">Não</string>
     <string name="tab_wifi_passwords">Senhas de Wi-Fi</string>
     <string name="tab_accessibility">Acessibilidade</string>
-    <string name="accessibility_boot">Iniciar no arranque</string>
+    <string name="accessibility_boot">Iniciar ao ligar</string>
     <string name="accessibility_boot_summary">Inicia o keep-alive novamente após reinicialização.</string>
     <string name="accessibility_empty">Nenhum serviço de acessibilidade for encontrado.</string>
     <string name="accessibility_gate_off">Keep-alive desativado</string>
