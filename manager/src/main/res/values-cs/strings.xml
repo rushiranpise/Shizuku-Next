@@ -630,7 +630,7 @@
     <string name="action_pair">Pár</string>
     <string name="start_failed_pairing_required">Toto zařízení není spárováno pro bezdrátové ladění. Znovu ho spárovat.</string>
     <string name="start_failed_connection_lost">ADB připojení bylo při spouštění uzavřeno. Zkuste to znovu.</string>
-    <string name="start_failed_usb_no_port">Žádný lokální ADB port není otevřený Android jej vyčistí při každém restartu a k jeho znovuotevření potřebuje připojení k půjčce. Připojení k Wi-Fi a Shizuku jej znovu otevře přes bezdrátové ladění, spusťte <b>adb tcpip 5555</b> z počítače, nebo zvolte <b>Spustit bez Wi-Fi</b> jako způsob startu pro spuštění přes bezdrátové ladění.</string>
+    <string name="start_failed_usb_no_port">Žádný lokální port ADB není otevřený – systém Android jej při každém restartu uzavře a jeho opětovné otevření vyžaduje připojení k síti. Připojte se k Wi-Fi a Shizuku port znovu otevře prostřednictvím bezdrátového ladění, spusťte na počítači příkaz <b>adb tcpip 5555</b>, nebo jako způsob spuštění vyberte možnost <b>Spustit bez Wi-Fi</b>, aby se spustilo bezdrátové ladění.</string>
     <string name="start_failed_usb_no_port_no_option">Žádný lokální ADB port není otevřen. Android jej vymaže při každém restartu a opětovné otevření vyžaduje připojení k síti. Připojte se k Wi-Fi jednou, nebo spusťte <b>adb tcpip 5555</b> z počítače.</string>
     <string name="start_failed_root_unavailable">Root již není na tomto zařízení k dispozici, takže Shizuku nemůže začínat přes root. Vyberte jinou metodu spuštění.</string>
     <string name="start_failed_adb_root">ADB root není dostupný. Povolte ladění USB na sestavení nebo vyberte jinou metodu spuštění.</string>
@@ -784,7 +784,7 @@
     <string name="settings_system_start_method_exploit">Samsung (FOTA agent)</string>
     <string name="settings_system_start_method_custom">Vlastní příkaz</string>
     <string name="home_system_title">Spustit přes systémové UID</string>
-    <string name="home_system_summary">Spustit Shizuku jako systémový uživatel (UID 1000) místo jako adb: pouze Samsung prostřednictvím FOTA agenta postaví loď</string>
+    <string name="home_system_summary">Spusťte Shizuku jako systémového uživatele (UID 1000) namísto jako adb: platí pouze pro Samsung, tyto verze se dodávají prostřednictvím agenta FOTA</string>
     <string name="home_adb_command_summary">Spustit Shizuku z počítače přes ADB. Klepnutím zkopírujete příkaz</string>
     <string name="settings_tcp_mode">TCP režim</string>
     <string name="settings_tcp_mode_summary">"Umožňuje Shizuku restartovat bez Wi-Fi. (Shizuku musela od restartu začít jednou)"</string>
