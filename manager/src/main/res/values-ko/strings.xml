@@ -132,6 +132,7 @@
     <string name="apps_needs_shizuku">앱을 보려면 Shizuku를 시작하세요</string>
     <string name="apps_empty">표시할 앱이 없습니다</string>
     <string name="apps_filter_empty">이 필터에 해당하는 앱이 없습니다</string>
+    <string name="apps_filter_title">앱 필터</string>
     <string name="apps_filter_all">전체</string>
     <string name="apps_filter_granted">허용됨</string>
     <string name="apps_filter_revoked">거부됨</string>
@@ -140,10 +141,17 @@
     <string name="app_management_sort_last_added">최근 추가순</string>
     <string name="app_management_sort_updated">업데이트순</string>
     <string name="app_management_sort_alphabetical">A-Z</string>
+    <string name="apps_processes_show">프로세스 %1$d개 표시</string>
+    <string name="apps_processes_hide">프로세스 %1$d개 숨김</string>
+    <string name="apps_process_pid">PID %1$d</string>
+    <string name="apps_process_api">API %1$d</string>
     <string name="apps_process_allowed">허용됨</string>
     <string name="apps_process_not_allowed">허용 안 됨</string>
     <string name="apps_process_stop">프로세스 중지</string>
     <string name="apps_process_stop_title">프로세스를 중지하시겠습니까?</string>
+    <plurals name="apps_processes_count">
+        <item quantity="other">프로세스 %1$d개</item>
+    </plurals>
     <string name="apps_processes_hide_short">숨기기</string>
     <string name="tab_home">홈</string>
     <string name="tab_apps">앱</string>

@@ -91,6 +91,7 @@
     <string name="enable">تفعيل</string>
     <string name="auto_pair_instructions">الاقتران دون كتابة رمز:\\n\\n1. خيارات المطوّر ← تصحيح الأخطاء اللاسلكي\\n2. إقران الجهاز باستخدام رمز الاقتران\\n\\nيقرأ Shizuku الرمز والمنفذ مباشرةً من مربع الحوار ويبدأ تشغيل نفسه. اترك مربع الحوار مفتوحًا حتى يكتمل الاقتران.
 </string>
+    <string name="auto_pair_instructions_watch"></string>
     <string name="auto_pair_manual">يدوي
 </string>
     <string name="adb_pairing_developer_options">خيارات المطور</string>
@@ -159,6 +160,7 @@
 </string>
     <string name="apps_filter_empty">لا توجد تطبيقات تطابق عامل التصفية ده
 </string>
+    <string name="apps_filter_title"></string>
     <string name="apps_filter_all">الكل</string>
     <string name="apps_filter_granted">ممنوح</string>
     <string name="apps_filter_revoked">تم إلغاؤه
