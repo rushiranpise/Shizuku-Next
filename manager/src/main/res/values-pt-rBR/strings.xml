@@ -413,8 +413,8 @@
     <string name="device_thermal">Térmica</string>
     <string name="device_thermal_note">Todo sensor térmico exposto pelo kernel, do mais quente ao mais frio. Um sensor sem nada conectado relata o valor sentinela -273 e é ignorado, assim como os níveis de desarme da fonte de alimentação, que não são temperaturas. Foram listadas %d zonas.</string>
     <string name="device_cpu">CPU</string>
-    <string name="device_load_average">Carga média</string>
-    <string name="device_cpu_note">A contabilidade do kernel pela janela chamada de seu dump. A carga é a média de uma carga de cinco e quinze minutos; cada linha é o tempo do processador usado e os trabalhadores do kernel aparecem porque eles realizam o trabalho, não apenas aplicativos.</string>
+    <string name="device_load_average">Média de carga</string>
+    <string name="device_cpu_note">Contabilidade do kernel na janela indicada no dump. A carga representa a média de um, cinco e quinze minutos; cada linha mostra o tempo de processador usado pelo processo, e os processos do kernel aparecem porque também executam tarefas, não apenas os aplicativos.</string>
     <string name="tab_log">Registro</string>
     <string name="log_count">%1$d Linhas das últimas 24 horas</string>
     <string name="log_search_hint">Procurar no log</string>
@@ -617,7 +617,7 @@
     <string name="action_open_wireless_debugging">Depuração por Wi‑Fi</string>
     <string name="start_failed_unsupported">Este dispositivo não pode iniciá-lo em segundo plano</string>
     <string name="start_failed_wifi_required">Conecte-se a uma rede Wi-Fi o sistema desativa a depuração sem uma. Ou inicie um computador usando o comando ADB abaixo.</string>
-    <string name="start_failed_binder_went_away">O serviço foi iniciado e então foi interrompido novamente, então nada pode ser usado ainda. Isso acontece quando o servidor é reduzido com o aplicativo que o início passou que é o que a carga faz depois de iniciá-la. Tente o início novamente.</string>
+    <string name="start_failed_binder_went_away">O serviço foi iniciado, mas parou logo em seguida, então nada pode usá-lo ainda. Isso acontece quando o servidor é derrubado junto com o app usado na inicialização, que é o que o payload faz após iniciar o serviço. Tente iniciar novamente.</string>
     <string name="start_failed_no_port">Nenhuma porta de depuração por Wi-Fi foi encontrada. Certifique-se de que a depuração por Wi-Fi esteja ativada e o Wi-Fi conectado.</string>
     <string name="start_failed_no_port_no_permission">Nenhuma porta de depuração por Wi-Fi foi encontrada, e o Shizuku não consegue ativar a depuração por Wi-Fi sem WRITE_SECURE_SETTINGS: <b>adb shell pm grant %1$s android.permission.WRITE_SECURE_SETTINGS</b>. Ou inicie o Shizuku via depuração USB uma vez; ele concede a permissão a si mesmo depois disso.</string>
     <string name="start_failed_no_auth">A depuração por Wi-Fi não é permitida nesta rede. Pareie o dispositivo novamente.</string>
