@@ -94,20 +94,22 @@ object AdbPortPersistence {
         }
 
         val readBack = read()
-        if (readBack == null) {
-            Log.w(AppConstants.TAG, "Could not confirm $KEY (exit $code): the property is unreadable")
-            return@withContext Outcome.UNKNOWN
+        val outcome = writeOutcome(code, readBack, port)
+        when (outcome) {
+            Outcome.APPLIED ->
+                Log.i(AppConstants.TAG, "$KEY is $port; the port will outlive a reboot")
+
+            Outcome.REFUSED ->
+                Log.w(
+                    AppConstants.TAG,
+                    "$KEY was refused (exit $code, reads back ${readBack ?: "nothing"}): " +
+                        output.toString().trim()
+                )
+
+            else ->
+                Log.w(AppConstants.TAG, "Could not confirm $KEY (exit $code): the property is unreadable")
         }
-        if (readBack == port) {
-            Log.i(AppConstants.TAG, "$KEY is $port; the port will outlive a reboot")
-            return@withContext Outcome.APPLIED
-        }
-        Log.w(
-            AppConstants.TAG,
-            "$KEY was refused (exit $code, reads back $readBack): " +
-                output.toString().trim()
-        )
-        Outcome.REFUSED
+        outcome
     }
 
     /**
@@ -274,6 +276,25 @@ object AdbPortPersistence {
         }
     }
 }
+
+/**
+ * What one write to the persistent port says: written, refused, or still unknown.
+ *
+ * The read-back alone cannot tell a refusal from a property that cannot be read. A refused
+ * `setprop` leaves the property unset, and the `getprop` after it then prints nothing, which is
+ * also what an unreadable property gives - so a read-back-only check calls every refusal on a phone
+ * whose shell may not write adbd's property "unknown", asks again on every start and warns each
+ * time (issue #285). The exit code is what separates the two: it is the one `setprop` returned, or
+ * -1 when the command did not run at all.
+ */
+internal fun writeOutcome(exitCode: Int, readBack: Int?, port: Int): AdbPortPersistence.Outcome =
+    when {
+        readBack == port -> AdbPortPersistence.Outcome.APPLIED
+        // The command ran and failed, or a value it should have written did not take.
+        exitCode > 0 || readBack != null -> AdbPortPersistence.Outcome.REFUSED
+        // Not run, or run and unreadable after it: nothing is known about the platform.
+        else -> AdbPortPersistence.Outcome.UNKNOWN
+    }
 
 /**
  * Whether a device needs the classic port for its start without Wi-Fi (see

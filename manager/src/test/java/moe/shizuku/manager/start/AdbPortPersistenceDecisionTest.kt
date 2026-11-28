@@ -1,5 +1,6 @@
 package moe.shizuku.manager.start
 
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -97,5 +98,47 @@ class AdbPortPersistenceDecisionTest {
     @Test
     fun `a port the user switched on is never the fallback's to take`() {
         assertFalse(shouldClearAutoPort(autoApplied = false, withoutNetwork = false, tcpMode = false))
+    }
+
+    @Test
+    fun `a refused write is a refusal even when the property was never set`() {
+        // Android 11 (issue #285): setprop of adbd's own property is refused, so the property stays
+        // unset and getprop prints nothing. That empty read is not "unknown", it is the refusal.
+        assertEquals(
+            AdbPortPersistence.Outcome.REFUSED,
+            writeOutcome(exitCode = 1, readBack = null, port = 5555)
+        )
+    }
+
+    @Test
+    fun `a write that never ran is unknown`() {
+        assertEquals(
+            AdbPortPersistence.Outcome.UNKNOWN,
+            writeOutcome(exitCode = -1, readBack = null, port = 5555)
+        )
+    }
+
+    @Test
+    fun `a write that ran but cannot be read back is unknown`() {
+        assertEquals(
+            AdbPortPersistence.Outcome.UNKNOWN,
+            writeOutcome(exitCode = 0, readBack = null, port = 5555)
+        )
+    }
+
+    @Test
+    fun `a value that reads back is applied`() {
+        assertEquals(
+            AdbPortPersistence.Outcome.APPLIED,
+            writeOutcome(exitCode = 0, readBack = 5555, port = 5555)
+        )
+    }
+
+    @Test
+    fun `a value that did not take is refused`() {
+        assertEquals(
+            AdbPortPersistence.Outcome.REFUSED,
+            writeOutcome(exitCode = 0, readBack = 0, port = 5555)
+        )
     }
 }
