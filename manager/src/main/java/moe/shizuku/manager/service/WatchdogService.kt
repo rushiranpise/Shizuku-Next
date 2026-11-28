@@ -78,12 +78,15 @@ class WatchdogService : Service() {
         // carries its own deadline, so a stale one drops itself.
         when (state) {
             ShizukuStateMachine.State.CRASHED ->
-                // Three ways for this to be somebody's decision rather than a crash: the
-                // server is being replaced, or it was stopped on purpose, or a start that
-                // asked for it is already on its way. Reporting any of those as a crash and
-                // starting again over the top of it is what made a deliberate restart look
-                // like Shizuku falling over, twice.
+                // Four ways for this to be somebody's decision rather than a crash: the
+                // server is being replaced, the device is shutting down, it was stopped on
+                // purpose, or a start that asked for it is already on its way. Reporting any
+                // of those as a crash and starting again over the top of it is what made a
+                // deliberate restart look like Shizuku falling over, twice.
                 when {
+                    WatchdogGuard.isShuttingDown() ->
+                        Diag.debug(TAG, "Device is shutting down, nothing to report")
+
                     WatchdogGuard.consumeExpectedDeath() ->
                         Diag.debug(TAG, "Server went down as expected, nothing to report")
 
@@ -147,6 +150,24 @@ class WatchdogService : Service() {
                 // never observed (e.g. the manager process was dead at the time).
                 checkServerAndRestartIfDead()
             }
+        }
+    }
+
+    /**
+     * The device restarting or turning off.
+     *
+     * ACTION_SHUTDOWN is a protected broadcast sent before the platform stops processes, so a
+     * receiver registered here sees it while the server is still on its way down with the device.
+     * That death is not a crash: no notice, and no start, which the platform would kill again a
+     * moment later. A manifest entry would be pointless - the receiver would be a fresh process
+     * marking a flag nothing else in it would outlive - and the service that needs to know is
+     * already up.
+     */
+    private val shutdownReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            if (intent.action != Intent.ACTION_SHUTDOWN) return
+            WatchdogGuard.shutdownStarted()
+            Diag.debug(TAG, "Device is shutting down, nothing the watchdog sees is a crash")
         }
     }
 
@@ -228,6 +249,10 @@ class WatchdogService : Service() {
     }
 
     private fun attemptRestart() {
+        if (WatchdogGuard.isShuttingDown()) {
+            Diag.debug(TAG, "Restart attempt skipped: the device is shutting down")
+            return
+        }
         if (WatchdogGuard.isExpectingDeath() || ShizukuSettings.getManuallyStopped()) {
             Diag.debug(TAG, "Restart attempt skipped: one is expected, or the stop was deliberate")
             return
@@ -465,6 +490,7 @@ class WatchdogService : Service() {
             .cancel(NOTIFICATION_ID_NOT_RUNNING)
         ShizukuStateMachine.addListener(stateListener)
         registerReceiver(screenOnReceiver, IntentFilter(Intent.ACTION_USER_PRESENT))
+        registerReceiver(shutdownReceiver, IntentFilter(Intent.ACTION_SHUTDOWN))
         startRecoveryLoop()
     }
 
@@ -519,6 +545,7 @@ class WatchdogService : Service() {
         pendingRestart = false
         ShizukuStateMachine.removeListener(stateListener)
         runCatching { unregisterReceiver(screenOnReceiver) }
+        runCatching { unregisterReceiver(shutdownReceiver) }
         isRunning.set(false)
         sendWatchdogChangedBroadcast(applicationContext, false)
         // Do NOT persist watchdog=false here: onDestroy runs both when the user

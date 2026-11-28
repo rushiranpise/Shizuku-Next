@@ -1,6 +1,7 @@
 package moe.shizuku.manager.service
 
 import android.os.SystemClock
+import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicLong
 
 /**
@@ -21,6 +22,12 @@ object WatchdogGuard {
     private const val WINDOW_MS = 30_000L
 
     private val deadline = AtomicLong(0L)
+
+    /**
+     * Set by ACTION_SHUTDOWN, and never cleared: a shutdown does not call off, and a power-down
+     * that takes its time would outlast any window a mark could carry.
+     */
+    private val shuttingDown = AtomicBoolean(false)
 
     /** Marks the server's death, or its replacement, as expected. */
     fun expectDeath() {
@@ -46,4 +53,16 @@ object WatchdogGuard {
     fun clear() {
         deadline.set(0L)
     }
+
+    /**
+     * The device is restarting or turning off. The server goes down with it, which from the
+     * watchdog's side looks exactly like a crash; nothing that happens after this point in the
+     * process is one.
+     */
+    fun shutdownStarted() {
+        shuttingDown.set(true)
+    }
+
+    /** Whether the device has been on its way down since this process started. */
+    fun isShuttingDown(): Boolean = shuttingDown.get()
 }
