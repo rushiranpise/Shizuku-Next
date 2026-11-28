@@ -1,6 +1,9 @@
 package moe.shizuku.manager.ktx
 
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
 import android.os.UserManager
 import moe.shizuku.manager.ShizukuApplication
@@ -32,3 +35,29 @@ fun Context.createDeviceProtectedStorageContextCompatWhenLocked(): Context {
  */
 fun Context.isUserUnlockedCompat(): Boolean =
     getSystemService(UserManager::class.java)?.isUserUnlocked != false
+
+/**
+ * Registers a dynamic broadcast receiver that does not accept broadcasts from other apps on
+ * Android 13+.
+ *
+ * Uses the platform flag directly instead of `ContextCompat.registerReceiver`, because the manifest
+ * removes `DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` which `ContextCompat` requires on Android 12
+ * and below and throws a [RuntimeException] when absent.
+ */
+fun Context.registerNotExportedReceiver(
+    receiver: BroadcastReceiver,
+    filter: IntentFilter,
+    broadcastPermission: String? = null,
+): Intent? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+    if (broadcastPermission != null) {
+        registerReceiver(receiver, filter, broadcastPermission, null, Context.RECEIVER_NOT_EXPORTED)
+    } else {
+        registerReceiver(receiver, filter, Context.RECEIVER_NOT_EXPORTED)
+    }
+} else if (broadcastPermission != null) {
+    @Suppress("UnspecifiedRegisterReceiverFlag")
+    registerReceiver(receiver, filter, broadcastPermission, null)
+} else {
+    @Suppress("UnspecifiedRegisterReceiverFlag")
+    registerReceiver(receiver, filter)
+}
